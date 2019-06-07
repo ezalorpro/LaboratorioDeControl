@@ -487,7 +487,7 @@
          </widget>
         </item>
         <item row="1" column="0" colspan="2">
-         <widget class="QLabel" name="label_4">
+         <widget class="QLabel" name="coefLabel1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -500,7 +500,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="numLabel1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -513,7 +513,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="numEdit1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -526,14 +526,14 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_2">
+         <widget class="QLabel" name="demLabel1">
           <property name="text">
            <string>Denominador</string>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="lineEdit_2">
+         <widget class="QLineEdit" name="demEdit1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -546,7 +546,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="calcButton1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -559,7 +559,7 @@
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QPlainTextEdit" name="plainTextEdit">
+         <widget class="QPlainTextEdit" name="datosTextEdit1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -584,7 +584,7 @@
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QLabel" name="label_3">
+         <widget class="QLabel" name="datosLabel1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
