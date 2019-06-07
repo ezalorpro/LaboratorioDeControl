@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>786</width>
-    <height>530</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -162,10 +165,13 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Laboratorio de sistemas de control</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
+  </property>
+  <property name="documentMode">
+   <bool>true</bool>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
@@ -365,7 +371,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -410,7 +416,7 @@
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>4</number>
+           <number>0</number>
           </property>
           <property name="documentMode">
            <bool>false</bool>
@@ -533,7 +539,7 @@
          </widget>
         </item>
         <item row="6" column="1">
-         <spacer name="verticalSpacer_2">
+         <spacer name="verticalSpacer1">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -657,7 +663,7 @@
         <item row="4" column="0">
          <widget class="QLabel" name="demLabel2">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -816,6 +822,9 @@
           <property name="text">
            <string>Ki</string>
           </property>
+          <property name="tristate">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
         <item row="7" column="3">
@@ -836,7 +845,7 @@
          </widget>
         </item>
         <item row="6" column="1">
-         <spacer name="verticalSpacer">
+         <spacer name="verticalSpacer2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -866,6 +875,11 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="fuzzyTab">
+       <attribute name="title">
+        <string>Logica difusa</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -875,7 +889,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>786</width>
+     <width>900</width>
      <height>21</height>
     </rect>
    </property>
