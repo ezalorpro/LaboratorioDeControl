@@ -1,7 +1,10 @@
+""" Monkey patch para poder exportar la grafica a matplotlib y activar el grid """
+
 from pyqtgraph.Qt import QtGui, QtCore
 from pyqtgraph.exporters.Exporter import Exporter
 from pyqtgraph import PlotItem
 from pyqtgraph import functions as fn
+
 
 class MatplotlibExporter(Exporter):
     Name = "Matplotlib Window"
@@ -18,7 +21,11 @@ class MatplotlibExporter(Exporter):
         for ax in axl:
             if ax is None:
                 continue
+            
+            # 1ra linea cambiada - cambio de iteritems() por items()
             for loc, spine in ax.spines.items():
+            # -------------------------------------------------
+            
                 if loc in ['left', 'bottom']:
                     pass
                 elif loc in ['right', 'top']:
@@ -79,7 +86,11 @@ class MatplotlibExporter(Exporter):
                 ax.set_ybound(*yr)
             ax.set_xlabel(xlabel)  # place the labels.
             ax.set_ylabel(ylabel)
+            
+            # 2da linea cambiada - activacion del grid()
             ax.grid()
+            # -------------------------------------------------
+
             mpw.draw()
         else:
             raise Exception("Matplotlib export currently only works with plot items")

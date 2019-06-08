@@ -1,3 +1,5 @@
+""" Monkey patch para arreglar un bug que no permitia transformar la señal a frecuencia"""
+
 import numpy as np
 from pyqtgraph.metaarray import MetaArray as metaarray
 from pyqtgraph.Qt import QtCore
@@ -18,7 +20,11 @@ def _fourierTransform(self, x, y):
         y = np.interp(x2, x, y)
         x = x2
     f = np.fft.fft(y) / len(y)
+
+    # linea cambiada - se agrego la funcion int()
     y = abs(f[1:int(len(f)/2)])
+    # -------------------------------------------------
+
     dt = x[-1] - x[0]
     x = np.linspace(0, 0.5*len(x)/dt, len(y))
     return x, y

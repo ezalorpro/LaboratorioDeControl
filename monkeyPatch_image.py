@@ -1,3 +1,5 @@
+""" Monkey patch para arreglar un bug que no permitia exportar la grafica como imagen """
+
 from pyqtgraph.exporters.Exporter import Exporter
 from pyqtgraph.parametertree import Parameter
 from pyqtgraph.Qt import QtGui, QtCore, QtSvg, USE_PYSIDE
@@ -27,7 +29,11 @@ def export(self, fileName=None, toBytes=False, copy=False):
     w, h = self.params['width'], self.params['height']
     if w == 0 or h == 0:
         raise Exception("Cannot export image with size=0 (requested export size is %dx%d)" % (w,h))
+    
+    # linea cambiada - se agregaron las funciones int()
     bg = np.empty((int(self.params['width']), int(self.params['height']), 4), dtype=np.ubyte)
+    # -------------------------------------------------
+    
     color = self.params['background']
     bg[:,:,0] = color.blue()
     bg[:,:,1] = color.green()
@@ -56,4 +62,4 @@ def export(self, fileName=None, toBytes=False, copy=False):
     elif toBytes:
         return self.png
     else:
-        self.png.save(fileName)  
+        self.png.save(fileName)
