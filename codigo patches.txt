@@ -4,9 +4,10 @@ from pyqtgraph.exporters import ImageExporter
 from monkeyPatch_fourier import _fourierTransform
 from pyqtgraph.graphicsItems import PlotDataItem
 
-from monkeyPatch_matplotib import cleanAxes
+from monkeyPatch_matplotib import MatplotlibExporter
 from pyqtgraph.exporters import Matplotlib
 
 ImageExporter.export = export
 PlotDataItem.PlotDataItem._fourierTransform = _fourierTransform
-Matplotlib.MatplotlibExporter.cleanAxes = cleanAxes
+Matplotlib.MatplotlibExporter.cleanAxes = MatplotlibExporter.cleanAxes
+Matplotlib.MatplotlibExporter.export = MatplotlibExporter.export
