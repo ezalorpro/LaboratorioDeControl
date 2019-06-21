@@ -49,13 +49,13 @@
 	\captionsetup[table]{textfont=bf, format=plain, justification=justified, singlelinecheck=false, labelsep=spaced, belowskip=0pt, aboveskip=1pt}
 		
 	% setup de caption y ambiente de figuras
-	\captionsetup[figure]{labelformat=simple,labelsep=period, labelfont=bf, textfont=footnotesize, justification=justified, singlelinecheck=false}
+	\captionsetup[figure]{labelformat=simple,labelsep=period, labelfont=bf, textfont=footnotesize, justification=justified, singlelinecheck=false, belowskip=-10pt}
 	
-	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false}
+	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false, belowskip=0pt}
 	
-	\setlength{\textfloatsep}{10pt plus 1.0pt minus 2.0pt}
-	\setlength{\floatsep}{10pt plus 1.0pt minus 2.0pt}
-	\setlength{\intextsep}{10pt plus 1.0pt minus 2.0pt} 
+	\setlength{\textfloatsep}{15pt plus 1.0pt minus 2.0pt}
+	\setlength{\floatsep}{15pt plus 1.0pt minus 2.0pt}
+	\setlength{\intextsep}{15pt plus 1.0pt minus 2.0pt} 
 	
 	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
 	
@@ -69,8 +69,8 @@
 
 \newcommand{\NumeradoFormat}{
 	
-	\setcounter{tocdepth}{1}
-	\setcounter{secnumdepth}{3}
+	\setcounter{tocdepth}{3}
+	\setcounter{secnumdepth}{4}
 	\renewcommand{\thechapter}{\Roman{chapter}}
 	
 	\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
@@ -82,25 +82,29 @@
 	\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 	\renewcommand{\thelisting}{\arabic{chapter}.\arabic{listing}}
 	
-	\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
-	\titleformat{\subsection}[block]{\large\bfseries}{\thesubsection}{1em}{}
-	\titleformat{\subsubsection}[block]{\large\bfseries\itshape}{\thesubsubsection}{1em}{}
+	\titleformat{\section}[block]{\normalsize\bfseries}{\thesection}{1em}{}
+	\titleformat{\subsection}[block]{\normalsize\bfseries}{\thesubsection}{1em}{}
+	\titleformat{\subsubsection}[block]{\normalsize\bfseries\itshape}{\thesubsubsection}{1em}{}
 	\titleformat{\paragraph}[runin]{\normalsize\bfseries\itshape }{\theparagraph}{1em}{\addperiod}
 	
-	\titlespacing\section{0pt}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
-	\titlespacing\subsection{1.5cm}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
-	\titlespacing\subsubsection{1.5cm}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
-	\titlespacing{\paragraph}{1.5cm}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+	\titlespacing\section{0pt}{20pt plus 4pt minus 4pt}{20pt plus 4pt minus 4pt}
+	\titlespacing\subsection{1.5cm}{10pt plus 4pt minus 4pt}{10pt plus 4pt minus 4pt}
+	\titlespacing\subsubsection{1.5cm}{10pt plus 4pt minus 4pt}{10pt plus 4pt minus 4pt}
+	\titlespacing{\paragraph}{1.5cm}{10pt plus 0pt minus 4pt}{0pt plus 4pt minus 4pt}
 	
 	% setup de caption y ambiente de tablas
-	\captionsetup[table]{textfont=bf, format=plain, justification=centering, singlelinecheck=false, labelsep=period, skip=1pt}
+	\captionsetup[table]{textfont=bf, format=plain, justification=justified, singlelinecheck=false, labelsep=period, skip=1pt}
 	
 	% setup de caption y ambiente de figuras
-	\captionsetup[figure]{labelformat=simple,labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false}
+	\captionsetup[figure]{labelformat=simple,labelsep=period, labelfont=bf, textfont=footnotesize, justification=justified, singlelinecheck=false, belowskip=-10pt}
 	
-	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false}
+	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false, belowskip=0pt}
 	
-	\captionsetup[listing]{format=plain, justification=centering, singlelinecheck=false, labelsep=period}
+	\setlength{\textfloatsep}{15pt plus 1.0pt minus 2.0pt}
+	\setlength{\floatsep}{15pt plus 1.0pt minus 2.0pt}
+	\setlength{\intextsep}{15pt plus 1.0pt minus 2.0pt}
+	
+	\captionsetup[listing]{format=plain, justification=centering, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
 	
 }
 
@@ -113,7 +117,7 @@
 	\titleformat{\chapter}[display]
 	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large\MakeUppercase}
 	\titlespacing{\chapter}
-	{0pt}{20pt}{20pt}
+	{0pt}{0pt}{20pt}
 	
 	\titlecontents{chapter}% <section-type>
 		[3.22cm]% <left>
@@ -174,9 +178,9 @@
 	{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 	
 \titlecontents{subsubsection}% <section-type>
-	[4.5cm]% <left>
+	[6.513cm]% <left>
 	{\addvspace{-2pt}}% <above-code>
-	{\makebox[20pt][l]{\thecontentslabel}\hspace{3.1em}}% <numbered-entry-format>
+	{\hspace{-3.1em}\hspace{-20pt}\makebox[20pt][l]{\thecontentslabel}\hspace{3.1em}}% <numbered-entry-format>
 	{}% <numberless-entry-format>
 	{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 	
@@ -192,11 +196,11 @@
 %\let\svsubsubsection\subsubsection %separacion del bloque de texto por seccion
 %\def\subsubsection{\leftskip 1.25cm\svsubsubsection} 
 
-\BeforeBeginEnvironment{equation}{\vspace{7pt}}
-\AfterEndEnvironment{equation}{\leavevmode}
+%\BeforeBeginEnvironment{equation}{\vspace{7pt}}
+%\AfterEndEnvironment{equation}{\leavevmode}
 
 %\BeforeBeginEnvironment{align}{\vspace{-10pt}}
-\AfterEndEnvironment{align}{\vspace{-27pt}\leavevmode}
+\AfterEndEnvironment{align}{\vspace{-30pt}\leavevmode}
 
 \BeforeBeginEnvironment{minted}{\vspace*{-7pt}}
 \AfterEndEnvironment{minted}{\vspace*{-30pt}\leavevmode}
@@ -252,6 +256,7 @@
 \DeclareCaptionLabelSeparator*{spaced}{.\\}
 \DeclareCaptionLabelFormat{numero}{\textbf{#1 #2}}
 
+% Con encabezado y pie de pagina
 \newcommand{\Addheadfoot}{
 \newgeometry{right=3cm, left=4cm, top=3cm, bottom=3cm, includeheadfoot, headheight=15pt, heightrounded}
 	\newcommand{\MainStyle}{
@@ -288,6 +293,7 @@
 	}
 }
 
+% sin encabezado y sin pie de pagina
 \newcommand{\noAddheadfoot}{
 	
 	\newcommand{\FrontBackStyle}{
@@ -301,6 +307,40 @@
 		\pagestyle{plain}}
 	
 	\newcommand{\MainStyle}{
+		\fancypagestyle{Main}{% for the chapter start pages
+			\fancyhf{}% clear all fields
+			\renewcommand{\headrulewidth}{0pt}%
+			\renewcommand{\footrulewidth}{0pt}
+			\fancyfoot[C]{\thepage}%
+		}
+		
+		\pagestyle{Main}}
+}
+
+% Solo encabezado
+\newcommand{\AddheadOnly}{
+	\newgeometry{right=3cm, left=4cm, top=3cm, bottom=3cm, includeheadfoot, heightrounded}
+	\newcommand{\MainStyle}{
+		\fancypagestyle{Main}{
+			\fancyhf{}% clear all fields
+			\renewcommand{\headrulewidth}{0.4pt}%
+			\renewcommand{\footrulewidth}{0pt}
+			\rhead{}
+			\lhead{\leftmark}
+			\cfoot{\thepage}
+		}
+		
+		\fancypagestyle{plain}{% for the chapter start pages
+			\fancyhf{}% clear all fields
+			\renewcommand{\headrulewidth}{0pt}%
+			\renewcommand{\footrulewidth}{0pt}
+			\cfoot{\thepage}
+		}
+		
+		\pagestyle{Main}
+	}
+	
+	\newcommand{\FrontBackStyle}{
 		\fancypagestyle{plain}{% for the chapter start pages
 			\fancyhf{}% clear all fields
 			\renewcommand{\headrulewidth}{0pt}%
@@ -308,8 +348,10 @@
 			\fancyfoot[C]{\thepage}%
 		}
 		
-		\pagestyle{plain}}
+		\pagestyle{plain}
+	}
 }
+
 \addtocontents{toc}{~\hfill\par}
 \addtocontents{toc}{~\hfill Pág.\par}
 \addtocontents{toc}{~\hfill\par}
@@ -363,4 +405,5 @@
 \makeatother
 
 %\Addheadfoot
+%\AddheadOnly
 \noAddheadfoot

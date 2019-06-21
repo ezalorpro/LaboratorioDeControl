@@ -16,7 +16,7 @@
 	
 	\subsection{Procesos}
 		
-		Es importante partir de la base, es por ellos que empezaremos con los procesos, \textcite{sanchez2003control} define los procesos como \enquote{[...]un bloque que se identifica porque tiene una o más variables de salida de las cuales es importante conocer y mantener sus valores}(p.153). Así, un proceso se caracteriza por tener una entrada y una salida (para procesos SISO), dicha salida deberá mantenerse alrededor de un punto de referencia dado, es decir, se debe controlar su salida.
+		Es importante partir de la base, es por ellos que empezaremos con los procesos, \textcite{sanchez2003control} define los procesos como \enquote{[...]un bloque que se identifica porque tiene una o más variables de salida de las cuales es importante conocer y mantener sus valores}(p.$\,$153). Así, un proceso se caracteriza por tener una entrada y una salida (para procesos SISO), dicha salida deberá mantenerse alrededor de un punto de referencia dado, es decir, se debe controlar su salida.
 	
 	\subsection{Modelado de procesos en tiempo continuo}
 	
@@ -42,11 +42,11 @@
 			 H(s) =	\frac{Y(S)}{X(S)} = \frac{b_{0}}{a_{2}s^{2} + a_{1}s + a_{0}}
 			 \end{equation}
 			 
-			 La demostración completa \Parencite[p.21-22]{smith1985principles} no es de interés para este trabajo, pero si su resultado, la función de transferencia puede ser analizada para determinar las características del proceso, como su ganancia, constante de tiempo, tiempo muerto, entre otras.
+			 La demostración completa \Parencite[pp.$\,$21-22]{smith1985principles} no es de interés para este trabajo, pero si su resultado, la función de transferencia puede ser analizada para determinar las características del proceso, como su ganancia, constante de tiempo, tiempo muerto, entre otras.
 			 
 		 \subsubsection{Ecuaciones de espacio de estado}
 		 
-		 	Las ecuaciones de espacio de estado son un método más moderno para modelar todo tipo de sistemas, no solo físicos, sino también biológicos, económicos, sociales y otros. Así como una ecuación diferencial puede ser representada como una función de transferencia también se puede representar como una ecuación de espacio de estado, por tanto, una función de transferencia también puede ser representada en el espacio de estados y viceversa. Las ecuaciones linealizadas alrededor de un estado de operación \Parencite[p.31]{ogata2003ingenieria} son:
+		 	Las ecuaciones de espacio de estado son un método más moderno para modelar todo tipo de sistemas, no solo físicos, sino también biológicos, económicos, sociales y otros. Así como una ecuación diferencial puede ser representada como una función de transferencia también se puede representar como una ecuación de espacio de estado, por tanto, una función de transferencia también puede ser representada en el espacio de estados y viceversa. Las ecuaciones linealizadas alrededor de un estado de operación \Parencite[p.$\,$31]{ogata2003ingenieria} son:
 		 
 			\begin{align}\label{eq:SSrepresentation}
 				\dot{x}(t) &= A(t)x(t) + B(t)u(t) \\
@@ -56,13 +56,13 @@
 			\begin{spacing}{1.5}
 				con: 
 				
-				$A(t):$como matriz de estado.
+				$A(t)$: como matriz de estado.
 				
-				$B(t):$como matriz de entrada.
+				$B(t)$: como matriz de entrada.
 				
-				$C(t):$como matriz de salida.
+				$C(t)$: como matriz de salida.
 				
-				$D(t):$como matriz de transmisión directa.
+				$D(t)$: como matriz de transmisión directa.
 				
 			\end{spacing}
 			
@@ -83,7 +83,7 @@
 			De este modo aplicando \cref{eq:Ztransform} sobre la entrada y salida de la ecuación en diferencias del proceso se obtiene $H(z)$ y viene dada por:
 			
 			\begin{equation}\label{eq:ZTransfer}
-			H(z) =	\frac{Y(z)}{X(z)} = \frac{\sum\limits_{k=0}^{\infty}y(k)z^{-k}}{\sum\limits_{k=0}^{\infty}x(k)z^{-k}}
+			H(z) =	\frac{Y(z)}{X(z)} = \frac{\displaystyle\sum\limits_{k=0}^{\infty}y(k)z^{-k}}{\displaystyle\sum\limits_{k=0}^{\infty}x(k)z^{-k}}
 			\end{equation}
 		
 		\subsubsection{Ecuaciones de espacio de estado discretas}
@@ -99,24 +99,24 @@
 		
 		\subsubsection{Sistema en lazo abierto}
 		
-			Un sistema en lazo abierto es aquel cuya salida no es medida en ningún momento en orden de ajustar la entrada, esto provoca que \enquote{las perturbaciones que se presentan en el proceso ocasionen que sus efectos se sientan en la salida del proceso, es decir, en el valor de la variable controlada}\Parencite[p.350]{maloney2006electronica}. La mayoría de los sistemas en lazo abierto son estables, pero carecen de utilidad al no poder mantenerlos en un punto de referencia debido a las perturbaciones.
+			Un sistema en lazo abierto es aquel cuya salida no es medida en ningún momento en orden de ajustar la entrada, esto provoca que \enquote{las perturbaciones que se presentan en el proceso ocasionen que sus efectos se sientan en la salida del proceso, es decir, en el valor de la variable controlada}\Parencite[p.$\,$350]{maloney2006electronica}. La mayoría de los sistemas en lazo abierto son estables, pero carecen de utilidad al no poder mantenerlos en un punto de referencia debido a las perturbaciones.
 		
 		\subsubsection{Sistema en lazo cerrado}
 		
 			Los sistemas de lazo cerrado son aquellos cuya salida es realimentada a la entrada del sistema, esta realimentación es de tipo negativa para que sea estable, no obstante, existen sistemas que se vuelven inestables con el simple hecho de cerrar el lazo, un ejemplo de sistema realimentado se puede observar en la \cref{fig:LazoCerrado}.
 			
-			\begin{figure}[t]
+			\begin{figure}[htb]
 				\centering
 				\includegraphics[width=0.66\textwidth]{LazoCerrado.pdf}
-				\caption[Ejemplo de un sistema en lazo cerrado]{\textbf{Sistema en lazo cerrado}. Se observan las principales señales de un sistema en lazo cerrado. Fuente propia.} 
+				\caption[Ejemplo de un sistema en lazo cerrado]{\textbf{Sistema en lazo cerrado}. Se observan las principales señales de un sistema en lazo cerrado. Fuente: Elaboración propia.} 
 				\label{fig:LazoCerrado}
 			\end{figure}
 			
 			En la \cref{fig:LazoCerrado} se denotan algunas de las señales que componen a un sistema de control, SP, que corresponde al set point o valor de referencia, Vm, que corresponde a la variable medida y es la variable a controlar, las perturbaciones, las cuales son magnitudes físicas que pueden afectar al proceso como la temperatura ambiente, presión, vibraciones, entre otras, y finalmente, e(t), que corresponde a la señal de error la cual viene dada por la diferencia entre el valor de referencia y la variable medida \Parencite{maloney2006electronica}.
 			
-			\begin{equation}\label{eq:Serror}
-				e(t) = SP - Vm
-			\end{equation}
+%			\begin{equation}\label{eq:Serror}
+%				e(t) = SP - Vm
+%			\end{equation}
 			
 		\subsubsection{Estabilidad de los sistemas}
 
@@ -128,7 +128,7 @@
 			
 			\paragraph{Criterio de estabilidad de Nyquist}
 				
-				El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto, este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales.
+				El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto, este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales.
 			
 			\paragraph{Análisis de estabilidad con las trazas de Bode}
 
@@ -138,14 +138,14 @@
 
 			El controlador será el elemento dentro del sistema de control que se encargara de llevar al proceso a un valor de referencia deseado, existen varios esquemas de control para el control de procesos, cada uno con sus ventajas y desventajas, el más común es un sistema en lazo cerrado con controlador, este se puede observar en la \cref{fig:ControladorLazoCerrado}.
 
-			\begin{figure}[t]
+			\begin{figure}[htb]
 				\centering
 				\includegraphics[width=0.66\textwidth]{LazoControlador.pdf}
-				\caption[Ejemplo de un sistema en lazo cerrado con controlador]{\textbf{Sistema en lazo cerrado con controlador}. El controlador recibe la señal de error y genera una señal de control. Fuente propia.} 
+				\caption[Ejemplo de un sistema en lazo cerrado con controlador]{\textbf{Sistema en lazo cerrado con controlador}. El controlador recibe la señal de error y genera una señal de control. Fuente: Elaboración propia.} 
 				\label{fig:ControladorLazoCerrado}
 			\end{figure}
 			
-			En este esquema se observa que el controlador recibe la señal de error producto del comparador entre el setpoint y la variable controlada, este error es utilizado por el controlador para generar una señal de control sc(t). El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
+			En este esquema se observa que el controlador recibe la señal de error producto del comparador entre el setpoint y la variable controlada, este error es utilizado por el controlador para generar una señal de control sc(t). El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.$\,$671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
 			
 			\begin{equation}\label{eq:pidtiempo}
 				sc(t) = K_{p}e(t)+  K_{i}\int_{0}^{t} e(\tau) d\tau + K_{d} \frac{d}{dt}e(t)
@@ -159,7 +159,7 @@
 			
 			\paragraph{Componente proporcional}
 
-				La componente proporcional se obtiene de multiplicar la señal de error por la ganancia proporcional, esto provoca que la señal de control sea proporcional a la señal de error con una relación igual a la ganancia proporcional, si el controlador solo constase de componente proporcional el error en estado estable nunca se eliminaría, dicho de otro modo, el error podría ser muy bajo, pero jamás cero. \enquote{Este error se denomina la desviación permanente u \enquote{offset}. El mismo disminuye si se aumenta el valor de K}\Parencite[p.54]{nelson1999fundamentos}.
+				La componente proporcional se obtiene de multiplicar la señal de error por la ganancia proporcional, esto provoca que la señal de control sea proporcional a la señal de error con una relación igual a la ganancia proporcional, si el controlador solo constase de componente proporcional el error en estado estable nunca se eliminaría, dicho de otro modo, el error podría ser muy bajo, pero jamás cero. \enquote{Este error se denomina la desviación permanente u \enquote{offset}. El mismo disminuye si se aumenta el valor de K}\Parencite[p.$\,$54]{nelson1999fundamentos}.
 
 			\paragraph{Componente integral}
 
@@ -181,47 +181,47 @@
 				G(s) = \frac{K}{\tau s + 1} e^{-\alpha s}
 			\end{equation}
 			
-			Los parámetros correspondientes pueden ser obtenidos realizando una prueba al escalón y extrayendo los datos correspondientes de la gráfica de la respuesta, un ejemplo se puede observar en la \cref{fig:ZNtest}. Acá se observa: (a) $t_{0}$ que corresponde al inicio del escalón, (b) $t_{1}$ inicio de la respuesta por parte del proceso al escalón, (c) $t_{2}$ cuando el proceso alcanza el 63\% del cambio total y (d) $\Delta U$ cambio total del proceso ante el escalón. Los parámetros para aproximar el proceso a un modelo de primer orden con tiempo muerto se calculan como sigue:
+			Los parámetros correspondientes pueden ser obtenidos realizando una prueba al escalón y extrayendo los datos correspondientes de la gráfica de la respuesta, un ejemplo se puede observar en la \cref{fig:ZNtest}. Acá se observa: (a) $t_{0}$ que corresponde al inicio del escalón, (b) $t_{1}$ inicio de la respuesta por parte del proceso al escalón, (c) $t_{2}$ cuando el proceso alcanza el 63\% del cambio total, (d) $\Delta y$ cambio total del proceso ante el escalón y (e) $\Delta u$ magnitud de cambio de la entrada. Los parámetros para aproximar el proceso a un modelo de primer orden con tiempo muerto se calculan como sigue:
 			
 			\begin{align}\label{eq:parametros}
-				K &= \frac{\Delta U}{\Delta step}\\
+				K &= \frac{\Delta y}{\Delta u}\\
 				\tau &= t_{2} - t_{1}\\
 				\alpha &= t_{1} - t_{0}
 			\end{align}
 			
-			\begin{figure}[t]
+			\begin{figure}[p]
 				\centering
-				\includegraphics[width=0.76\textwidth]{ZieglerN.pdf}
-				\caption[Modelado por curva de reacción]{\textbf{Modelado por curva de reacción}. Fuente propia.} 
+				\includegraphics[width=0.9\textwidth]{ZieglerN.pdf}
+				\caption[Modelado por curva de reacción]{\textbf{Modelado por curva de reacción.} Para realizar este modelado se estudia la respuesta del sistema ante la entrada de la función de heaviside u(t), también llamada función escalón unitario, el modelo obtenido a través de este método es una aproximación del sistema. Fuente: Elaboración propia.} 
 				\label{fig:ZNtest}
 			\end{figure}
 			
-			Con estos valores se puede obtener la entonación de un controlador P, PI o PID, los valores de $K_{p}$, $K_{i}$ y $K_{d}$ se pueden obtener sustituyendo los valores en la \cref{tab:ZiglerNichols} correspondiente a la regla de entonación de Ziegler-Nichols. \textcite{ogata2003ingenieria} comenta que: \enquote{Las reglas de sintonía de Ziegler-Nichols [...] se han usado ampliamente para sintonizar controladores PID en sistemas de control de procesos en los que no se conoce con precisión la dinámica de la planta}(p.572)
+			Con estos valores se puede obtener la entonación de un controlador P, PI o PID, los valores de $K_{p}$, $K_{i}$ y $K_{d}$ se pueden obtener sustituyendo los valores en la \cref{tab:ZiglerNichols} correspondiente a la regla de entonación de Ziegler-Nichols. \textcite{ogata2003ingenieria} comenta que: \enquote{Las reglas de sintonía de Ziegler-Nichols [...] se han usado ampliamente para sintonizar controladores PID en sistemas de control de procesos en los que no se conoce con precisión la dinámica de la planta}(p.$\,$572).
 			
 			% Plantilla para tabla ajustada al texto
-			\begin{table}[t]
+			\begin{table}[p]
 				\centering
 				\begin{threeparttable}
-					\renewcommand{\arraystretch}{1.5} 	% Separacion de las filas
+					\renewcommand{\arraystretch}{2.5} 	% Separacion de las filas
 					%\setlength{\tabcolsep}{6pt}			% Separacion de columnas
 					\caption[Regla de entonación de Zigler-Nichols]{Regla de entonación de Zigler-Nichols}
-					\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} ccc}
+					\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}ccc}
 						\toprule
-						Tipo de controlador & $K_{p}$                  &       $T_{i}$        &   $T_{d}$   \\ \midrule
-						         P          & $\frac{\tau}{\alpha}$    &       $\infty$       &      0      \\
-						        PI          & $0.9\frac{\tau}{\alpha}$ & $\frac{\alpha}{0.3}$ &      0      \\
-						        PID         & $1.2\frac{\tau}{\alpha}$ &      $2\alpha$       & $0.5\alpha$ \\ \bottomrule
+						Tipo de controlador & $K_{p}$                               &              $T_{i}$              &         $T_{d}$          \\ \midrule
+						         P          & $\displaystyle\frac{\tau}{\alpha}$    &       $\displaystyle\infty$       &            0             \\
+						        PI          & $0.9\displaystyle\frac{\tau}{\alpha}$ & $\displaystyle\frac{\alpha}{0.3}$ &            0             \\
+						        PID         & $1.2\displaystyle\frac{\tau}{\alpha}$ &      $2\displaystyle\alpha$       & $0.5\displaystyle\alpha$ \\ \bottomrule
 					\end{tabular*}
 					\label{tab:ZiglerNichols}
 					\begin{tablenotes}[flushleft]
-						\item {\footnotesize \textbf{Nota.} Los valores de $K_{i}$ y $K_{d}$ se pueden obtener de la siguiente forma: $K_{i} = \frac{K_{p}}{T_{i}}$ ; $K_{d} = K_{p}T_{d}$. Fuente: \textcite{ogata2003ingenieria}.}
+						\item {\footnotesize \textbf{Nota.} Los valores de $K_{i}$ y $K_{d}$ se pueden obtener de la siguiente forma: $K_{i} = K_{p}/T_{i}$ ; $K_{d} = K_{p}T_{d}$. Fuente: \textcite{ogata2003ingenieria}.}
 					\end{tablenotes}
 				\end{threeparttable}
 			\end{table}
 			
 	\subsection{Lógica difusa}
 		
-		La lógica difusa es una extensión matemática de la lógica convencional en donde se asigna un grado de pertenencia a un hecho entre un valor verdadero y uno falso, \enquote{consiste en que los valores verdaderos (en lógica difusa) o valores de pertenencia (en conjuntos difusos) se indican en un número entre [0.0, 1.0], donde 0.0 representa falsedad total y 1.0 significa verdad absoluta}\Parencite[p.4]{cruz2010inteligencia}.
+		La lógica difusa es una extensión matemática de la lógica convencional en donde se asigna un grado de pertenencia a un hecho entre un valor verdadero y uno falso, \enquote{consiste en que los valores verdaderos (en lógica difusa) o valores de pertenencia (en conjuntos difusos) se indican en un número entre [0.0, 1.0], donde 0.0 representa falsedad total y 1.0 significa verdad absoluta}\Parencite[p.$\,$4]{cruz2010inteligencia}.
 		
 		La lógica se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}.
 		
@@ -229,10 +229,10 @@
 			
 			Un conjunto difuso está compuesto de funciones de membresía, dichas funciones de membresía representan valores para asignar el grado de pertenencia de una variable a un estado en particular, estos estados son identificados con etiquetas lingüísticas descriptivas, como alto, caliente, bajo, negativo, entre otras, en la \cref{fig:FuzzySet} se puede observar un ejemplo de conjunto difuso.
 			
-			\begin{figure}[t]
+			\begin{figure}[htb]
 				\centering
-				\includegraphics[width=0.6\textwidth]{FuzzySet.pdf}
-				\caption[Ejemplo de un conjunto difuso]{\textbf{Ejemplo de un conjunto difuso}. Este conjunto difuso corresponde a una variable de temperatura que va desde -10\textdegree C hasta 100\textdegree C. Fuente propia} 
+				\includegraphics[width=0.55\textwidth]{FuzzySet.pdf}
+				\caption[Ejemplo de un conjunto difuso]{\textbf{Ejemplo de un conjunto difuso}. Este conjunto difuso corresponde a una variable de temperatura que va desde -10\textdegree C hasta 100\textdegree C. Fuente: Elaboración propia.} 
 				\label{fig:FuzzySet}
 			\end{figure}
 			
@@ -242,10 +242,10 @@
 			
 			Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y la salida, la salida puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens, modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente. La tautología para modus ponens y modus tollens se puede observar a modo de tablas de la verdad en la \cref{tab:mponens} y \cref{tab:mtollens} respectivamente.
 			
-			\begin{table}[!b]
+			\begin{table}[t]
 				\centering
 				\begin{threeparttable}
-					\renewcommand{\arraystretch}{1.4} 	% Separacion de las filas
+					\renewcommand{\arraystretch}{1.8} 	% Separacion de las filas
 					%\setlength{\tabcolsep}{6pt}			% Separacion de columnas
 					\caption[Tautología para modus ponens]{Tautología para modus ponens}
 					\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} cccc}
@@ -260,10 +260,10 @@
 				\end{threeparttable}
 			\end{table}
 			
-			\begin{table}[tb]
+			\begin{table}[t]
 				\centering
 				\begin{threeparttable}
-					\renewcommand{\arraystretch}{1.4} 	% Separacion de las filas
+					\renewcommand{\arraystretch}{1.8} 	% Separacion de las filas
 					%\setlength{\tabcolsep}{6pt}			% Separacion de columnas
 					\caption[Tautología para modus tollens]{Tautología para modus tollens}
 					\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} cccc}
@@ -276,28 +276,28 @@
 					\end{tabular*}
 					\label{tab:mtollens}
 					\begin{tablenotes}[flushleft]
-						\item {\footnotesize \textbf{Nota.} La tautología para modus ponens y modus tollens es presentada utilizando tablas de la verdad. Fuente: \textcite{cruz2010inteligencia}, p.70}
+						\item {\footnotesize \textbf{Nota.} La tautología para modus ponens y modus tollens es presentada utilizando tablas de la verdad. Fuente: \textcite{cruz2010inteligencia}, p.$\,$70}
 					\end{tablenotes}
 				\end{threeparttable}
 			\end{table}
 			
 		\subsubsection{Defuzzificación}
 
-			En esta última etapa también llamada desdifusificación, se obtienen los valores reales de salida, \textcite{cruz2010inteligencia} lo describe como el \enquote{[...] mapeo a escala que convierte el rango de valores de las variables de salida a sus universos de discurso correspondientes. La desdifusificación es la herramienta para obtener la acción de control nítida a partir de una acción de control difusa} (p.73). Este proceso es matemáticamente costoso y existen distintos métodos para realizarlo, el más común es el método de centro de área.
+			En esta última etapa también llamada desdifusificación, se obtienen los valores reales de salida, \textcite{cruz2010inteligencia} lo describe como el \enquote{[...] mapeo a escala que convierte el rango de valores de las variables de salida a sus universos de discurso correspondientes. La desdifusificación es la herramienta para obtener la acción de control nítida a partir de una acción de control difusa} (p.$\,$73). Este proceso es matemáticamente costoso y existen distintos métodos para realizarlo, el más común es el método de centro de área.
 			
 			\paragraph{Método de centro de área}
 
-				Este método se utiliza para realizar la defuzzificación y obtener las salidas nítidas, consiste en cortar las funciones de membresía $\mu_{n}(x)$ con los valores de entrada $x$ para determinar un área, el área inferior será la que se tome en cuenta para realizar el cálculo, el método de centro de área se puede representar de modo general en su forma continua de la siguiente forma:
-
+				Este método se utiliza para realizar la defuzzificación y obtener las salidas nítidas, consiste en cortar las funciones de membresía $\mu_{n}(x)$ con los valores de entrada $x$ para determinar un área, el área inferior será la que se tome en cuenta para realizar el cálculo, el método de centro de área se puede representar de modo general en su forma discreta de la siguiente forma:
+				
 				\begin{equation}\label{eq:Centroide}
-					Salida = \frac{\int\limits_{a}^{b}\mu_{n}(x)\cdot xdx}{\int\limits_{a}^{b}\mu_{n}(x)\cdot dx}
+				Salida = \frac{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)\cdot x}{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)}
 				\end{equation}
 	
 		\subsubsection{Sistemas de control difusos}
 			
-			Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control mas común es en lazo cerrado tal como se observa en la \cref{fig:fuzzycontrollerclassic}. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso mas común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar estos controladores se suele utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
+			Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control más común es en lazo cerrado tal como se observa en la \cref{fig:fuzzycontrollerclassic}. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso más común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar estos controladores se suele utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
 					
-			\begin{figure}[tb]
+			\begin{figure}[htb]
 				\centering
 				\begin{subfigure}[t]{0.8\textwidth}
 					\centering
@@ -313,7 +313,7 @@
 					\label{fig:fuzzycontrolleradapt}
 				\end{subfigure}
 				
-				\caption[Esquemas de control difuso]{\textbf{Esquemas de control difuso}. (a) Esquema de control difuso clásico, (b) Esquema de control difuso autosintonizable. Fuente: \textcite{cruz2010inteligencia}, p.86 y p.104 respectivamente. \label{fig:FuzzySchems}}
+				\caption[Esquemas de control difuso]{\textbf{Esquemas de control difuso}. (a) Esquema de control difuso clásico, (b) Esquema de control difuso autosintonizable. Fuente: \textcite{cruz2010inteligencia}, p.$\,$86 y p.$\,$104 respectivamente. \label{fig:FuzzySchems}}
 			\end{figure}
 			
 			Adicionalmente existe el esquema de control difuso con PID autosintonizable, el cual consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargara de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, esto permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint, el esquema de control se puede observar en la \cref{fig:fuzzycontrolleradapt}.
@@ -335,11 +335,11 @@
 
 		\subsubsection{Biblioteca SciPy}	
 
-			La biblioteca SciPy es uno de los núcleos del paquete SciPy. Provee varias rutinas eficientes de uso amigable para el usuario de tipo numérica para realizar integración, interpolación, optimización, álgebra lineal, estadísticas, entre otras \Parencite{scipy}, toda la documentación puede ser conseguida en la página oficial de SciPy.
+			El paquete SciPy es un conjunto de bibliotecas matemáticas, científicas y de ingeniería compuestas por: NumPy, SciPy (biblioteca), SymPy, Matplotlib, IPython y Pandas, la biblioteca SciPy es uno de los núcleos del paquete SciPy. Provee varias rutinas eficientes de uso amigable para el usuario de tipo numérica para realizar integración, interpolación, optimización, álgebra lineal, estadísticas, entre otras \Parencite{scipy}, toda la documentación puede ser conseguida en la página oficial de SciPy.
 			
 		\subsubsection{Biblioteca Matplotlib}
 
-			Matplotlib \Parencite{Hunter:2007} es una biblioteca para la graficación 2D que produce figuras con calidad de publicación en varios formatos y a través de múltiples ambientes interactivos. Matplotlib puede ser usado en scripting, consolas de comando, IPython, jupyter notebooks y en aplicaciones web. La sintaxis para usar MAtplotlib es muy similar al sistema de plots de MATLAB, del mismo modo, configurar parámetros de estilos, fuentes, anchos de línea, entre otros, se realiza de manera similar.
+			Matplotlib es una biblioteca para la graficación 2D que produce figuras con calidad de publicación en varios formatos y a través de múltiples ambientes interactivos. Matplotlib puede ser usado en scripting, consolas de comando, IPython, jupyter notebooks y en aplicaciones web \Parencite{Hunter:2007}. La sintaxis para usar Matplotlib es muy similar al sistema de plots de MATLAB, del mismo modo, configurar parámetros de estilos, fuentes, anchos de línea, entre otros, se realiza de manera similar.
 
 		\subsubsection{Biblioteca de control}
 
@@ -348,3 +348,7 @@
 		\subsubsection{Biblioteca Scikit-Fuzzy}
 			
 			Scikit-Fuzzy es una colección de algoritmos de lógica difusa con la intención de pertenecer al paquete de herramientas científicas SciPy, esta biblioteca permite diseñar y simular controladores difusos con estructura tipo Mamdani \Parencite{warner2016fuzzy}, no posee un modo para realizar lazos de control o compatibilidad con la biblioteca de control de forma directa, de modo que se tendrían que codificar aparte las rutinas que conformen el lazo cerrado de control.
+			
+			
+			
+			

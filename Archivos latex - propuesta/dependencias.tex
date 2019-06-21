@@ -2,8 +2,8 @@
 \usepackage[spanish,es-tabla,es-nodecimaldot, es-nosectiondot, es-lcroman, es-noquoting]{babel}
 \let\quoting\relax\let\endquoting\relax
 \usepackage[T1]{fontenc}
-\usepackage{newtxmath}
 \usepackage{newtxtext} % Time new roman
+\usepackage{newtxmath}
 \usepackage[utf8]{inputenc}
 \usepackage[final]{microtype}
 \usepackage{blindtext}
@@ -30,6 +30,7 @@ includefoot, heightrounded]{geometry}
 	
 \usepackage{anyfontsize}
 \usepackage[svgnames]{xcolor}
+	\definecolor{resaltado}{RGB}{204,255,0}
 
 \usepackage[numbib]{tocbibind}
 	% notlof = no lista de figuras en el indice
@@ -60,7 +61,7 @@ includefoot, heightrounded]{geometry}
 
 \usepackage[style=apa, backend=biber]{biblatex}
 	\addbibresource{referencias.bib}
-	\setlength\bibitemsep{5\itemsep}
+	\setlength\bibitemsep{4\itemsep}
 	\DefineBibliographyStrings{spanish}{andothers={et al\adddot}}
 	%\DeclareLanguageMapping{spanish}{american-apa}
 	\DeclareLanguageMapping{spanish}{spanish-apa}
@@ -89,8 +90,8 @@ includefoot, heightrounded]{geometry}
 \usepackage{flafter}
 \usepackage{dblfloatfix}
 
-%\usepackage{draftwatermark}
-\usepackage[nostamp]{draftwatermark}
+\usepackage{draftwatermark}
+%\usepackage[nostamp]{draftwatermark}
 	\SetWatermarkText{NO FINAL}
 	\SetWatermarkScale{0.8}
 	\SetWatermarkLightness{0.96}
@@ -106,3 +107,11 @@ includefoot, heightrounded]{geometry}
 			% pdfpagelayout=SinglePage para landscape vertical
 
 \usepackage[nameinlink, noabbrev, spanish, capitalize]{cleveref}
+
+% Para la separacion de ecuaciones
+\makeatletter
+\g@addto@macro\normalsize{\setlength\abovedisplayshortskip{0pt}}
+\g@addto@macro\normalsize{\setlength\belowdisplayshortskip{0pt}}
+\g@addto@macro\normalsize{\setlength\abovedisplayskip{17pt}}
+\g@addto@macro\normalsize{\setlength\belowdisplayskip{10pt}}
+\makeatother

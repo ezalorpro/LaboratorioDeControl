@@ -168,6 +168,7 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{edition}{8}
       \field{title}{Instrumentación Industrial}
       \field{year}{2010}
     \endentry
@@ -411,6 +412,7 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{edition}{7}
       \field{title}{Sistemas de control automático}
       \field{year}{1996}
     \endentry
@@ -543,6 +545,7 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{edition}{5}
       \field{title}{Ingeniería de control moderna}
       \field{year}{2003}
     \endentry

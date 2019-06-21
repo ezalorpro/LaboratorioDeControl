@@ -58,7 +58,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Sistema en lazo cerrado}{10}{subsubsection*.21}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Estabilidad de los sistemas}{10}{subsubsection*.23}% 
+\contentsline {subsubsection}{Estabilidad de los sistemas}{11}{subsubsection*.23}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{An\IeC {\'a}lisis de estabilidad en el plano complejo}{11}{paragraph*.24}% 
 \defcounter {refsection}{0}\relax 
@@ -68,7 +68,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Controlador PID}{12}{subsubsection*.27}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Componente proporcional}{12}{paragraph*.29}% 
+\contentsline {paragraph}{Componente proporcional}{13}{paragraph*.29}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{Componente integral}{13}{paragraph*.30}% 
 \defcounter {refsection}{0}\relax 
@@ -76,25 +76,25 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Entonaci\IeC {\'o}n por m\IeC {\'e}todo de Ziegler-Nichols en lazo abierto}{14}{subsubsection*.32}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{L\IeC {\'o}gica difusa}{15}{subsection*.36}% 
+\contentsline {subsection}{L\IeC {\'o}gica difusa}{16}{subsection*.36}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Conjuntos difusos}{16}{subsubsection*.37}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Reglas de inferencia}{16}{subsubsection*.39}% 
+\contentsline {subsubsection}{Reglas de inferencia}{17}{subsubsection*.39}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Defuzzificaci\IeC {\'o}n}{17}{subsubsection*.44}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{M\IeC {\'e}todo de centro de \IeC {\'a}rea}{18}{paragraph*.45}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Sistemas de control difusos}{18}{subsubsection*.46}% 
+\contentsline {subsubsection}{Sistemas de control difusos}{19}{subsubsection*.46}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Python}{19}{subsection*.48}% 
+\contentsline {subsection}{Python}{20}{subsection*.48}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Biblioteca NumPy}{20}{subsubsection*.49}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Biblioteca SciPy}{20}{subsubsection*.50}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Biblioteca Matplotlib}{20}{subsubsection*.51}% 
+\contentsline {subsubsection}{Biblioteca Matplotlib}{21}{subsubsection*.51}% 
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Biblioteca de control}{21}{subsubsection*.52}% 
 \defcounter {refsection}{0}\relax 
