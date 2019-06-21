@@ -17,7 +17,7 @@
         "**/*.log": true,
         "**/*.out": true,
         "**/*.synctex.gz": true,
-        
+        "**/tobedeleted": true,
     },
     "python.pythonPath": "C:\\Program Files (x86)\\Python37-32\\python.exe"
 }
