@@ -1,1 +1,10 @@
 .vscode
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.toc
