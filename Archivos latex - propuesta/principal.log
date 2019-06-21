@@ -1,13 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.1)  20 JUN 2019 12:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.6.1)  21 JUN 2019 02:35
 entering extended mode
-**./principal.tex
-(principal.tex
+**"c:/Users/PC/Documents/Descargas chrome/NO TOCAR MALDITO IDIOTA!! ZZZZ/kleiver/Tesis/Nueva tesis/LaboratorioDeControl/Archivos latex - propuesta/principal.tex"
+("c:/Users/PC/Documents/Descargas chrome/NO TOCAR MALDITO IDIOTA!! ZZZZ/kleiver/Tesis/Nueva tesis/LaboratorioDeControl/Archivos latex - propuesta/principal.tex"
 LaTeX2e <2018-12-01>
 \@input{dependencias.aux}
 \openout2 = `dependencias.aux'.
 
-(dependencias.tex
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\book.cls"
+(dependencias.tex ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\book.cls"
 Document Class: book 2018/09/03 v1.4i Standard LaTeX document class
 ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\bk12.clo"
 File: bk12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
@@ -24,31 +23,23 @@ File: bk12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.sty"
 Package: babel 2019/05/04 3.31 The Babel package
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\switch.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\switch.def"
 File: switch.def 2019/05/04 3.31 Babel switching mechanism
 )
 *************************************
 * Local config file bblopts.cfg used
 *
 ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/arabi\bblopts.cfg"
-File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
- babel
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/babel-spanish\spanish
-.ldf"
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/babel-spanish\spanish.ldf"
 Language: spanish.ldf 2016/03/03 v5.0p Spanish support from the babel system
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.def"
 File: babel.def 2019/05/04 3.31 Babel common definitions
 \babel@savecnt=\count89
 \U@D=\dimen103
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\txtbabel.def"
-)
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\txtbabel.def")
 \bbl@dirlevel=\count90
 )
 \es@quottoks=\toks14
@@ -59,14 +50,9 @@ Package: fontenc 2018/08/11 v2.0j Standard LaTeX package
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\t1enc.def"
 File: t1enc.def 2018/08/11 v2.0j Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\newtxtext.sty"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\newtxtext.sty"
 Package: newtxtext 2018/03/27 v1.531
-
-`newtxtext' v1.531, 2018/03/27 Text macros taking advantage of TeX-Gyre Termes 
-fonts (msharpe)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fontaxes\fontaxes.sty
-"
+ `newtxtext' v1.531, 2018/03/27 Text macros taking advantage of TeX-Gyre Termes fonts (msharpe) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fontaxes\fontaxes.sty"
 Package: fontaxes 2014/03/23 v1.0d Font selection axes
 LaTeX Info: Redefining \upshape on input line 29.
 LaTeX Info: Redefining \itshape on input line 31.
@@ -76,31 +62,21 @@ LaTeX Info: Redefining \scshape on input line 37.
 \ntx@fs=\dimen104
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xkeyval\xkeyval.sty"
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkeyval.tex
-"
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkvutils.te
-x"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkeyval.tex" ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\xkvutils.tex"
 \XKV@toks=\toks15
 \XKV@tempa@toks=\toks16
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\keyval.tex"
-))
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xkeyval\keyval.tex"))
 \XKV@depth=\count92
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.sty
-"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.sty"
 Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count93
 ) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\fontenc.sty"
 Package: fontenc 2018/08/11 v2.0j Standard LaTeX package
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\t1enc.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\t1enc.def"
 File: t1enc.def 2018/08/11 v2.0j Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\textcomp.sty"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\textcomp.sty"
 Package: textcomp 2018/08/11 v2.0j Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
@@ -115,13 +91,11 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             See the documentation for details.
 Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
 Package textcomp Info: Changing ? sub-encoding to TS1/0 on input line 80.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1enc.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1enc.def"
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 Now handling font encoding TS1 ...
 ... processing UTF-8 mapping file for font encoding TS1
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1enc.dfu"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1enc.dfu"
 File: ts1enc.dfu 2018/10/05 v1.2f UTF-8 support for inputenc
    defining Unicode char U+00A2 (decimal 162)
    defining Unicode char U+00A3 (decimal 163)
@@ -219,7 +193,6 @@ Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
 Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
 Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
 Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
-
 Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
 Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
 Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
@@ -257,26 +230,20 @@ Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
 Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\newtxmath.sty"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\newtxmath.sty"
 Package: newtxmath 2018/05/15 v1.553
-
-`newtxmath' v1.553, 2018/05/15 Math macros based originally on txfonts (msharpe
-) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsmath.sty
-"
+ `newtxmath' v1.553, 2018/05/15 Math macros based originally on txfonts (msharpe) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsmath.sty"
 Package: amsmath 2018/12/01 v2.17b AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
 ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01 AMS text
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks17
 \ex@=\dimen105
-)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty
-"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen106
 ) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty"
@@ -319,23 +286,16 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \mathdisplay@stack=\toks21
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifluatex.s
-ty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifluatex.sty"
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\centernot.st
-y"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\centernot.sty"
 Package: centernot 2016/05/16 v1.4 Centers the not symbol horizontally (HO)
 )
 \tx@cntz=\count106
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/binhex\binhex.tex")
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/binhex\binhex.tex")
 \tx@Isdigit=\count107
 \tx@IsAlNum=\count108
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 171.
@@ -404,20 +364,17 @@ Now handling font encoding LMX ...
 ... no UTF-8 mapping file for font encoding LMX
 LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 340.
 LaTeX Font Info:    Encoding `OMX' has changed to `LMX' for symbol font
-(Font)              `largesymbols' in the math version `normal' on input line 3
-40.
+(Font)              `largesymbols' in the math version `normal' on input line 340.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/cmex/m/n --> LMX/ntxexx/m/n on input line 340.
 LaTeX Font Info:    Encoding `OMX' has changed to `LMX' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 340
-.
+(Font)              `largesymbols' in the math version `bold' on input line 340.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/cmex/m/n --> LMX/ntxexx/m/n on input line 340.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  LMX/ntxexx/m/n --> LMX/ntxexx/b/n on input line 341.
 \symlargesymbolsTXA=\mathgroup7
 LaTeX Font Info:    Overwriting symbol font `largesymbolsTXA' in version `bold'
-
 (Font)                  U/ntxexa/m/n --> U/ntxexa/b/n on input line 355.
 LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 548.
 LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 549.
@@ -455,9 +412,7 @@ LaTeX Info: Redefining \not on input line 2322.
 Package: inputenc 2018/08/11 v1.3c Input encoding file
 \inpenc@prehook=\toks22
 \inpenc@posthook=\toks23
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microtype.s
-ty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microtype.sty"
 Package: microtype 2019/02/28 v2.7b Micro-typographical refinements (RS)
 \MT@toks=\toks24
 \MT@count=\count115
@@ -465,23 +420,16 @@ LaTeX Info: Redefining \textls on input line 790.
 \MT@outer@kern=\dimen114
 LaTeX Info: Redefining \textmicrotypecontext on input line 1336.
 \MT@listname@count=\count116
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microtype-p
-dftex.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microtype-pdftex.def"
 File: microtype-pdftex.def 2019/02/28 v2.7b Definitions specific to pdftex (RS)
-
 LaTeX Info: Redefining \lsstyle on input line 914.
 LaTeX Info: Redefining \lslig on input line 914.
 \MT@outer@space=\skip46
 )
 Package microtype Info: Loading configuration file microtype.cfg.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microtype.c
-fg"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microtype.cfg"
 File: microtype.cfg 2019/02/28 v2.7b microtype main configuration file (RS)
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/blindtext\blindtext.s
-ty"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/blindtext\blindtext.sty"
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\xspace.sty"
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
@@ -504,23 +452,15 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 \c@blind@randommax=\count132
 \c@blind@pangramcount=\count133
 \c@blind@pangrammax=\count134
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datetime\datetime.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datetime\datetime.sty"
 Package: datetime 2015/03/20 v2.60 Date Time Package
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fmtcount\fmtcount.sty
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fmtcount\fmtcount.sty"
 Package: fmtcount 2017/12/24 v3.05
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ifthen.sty"
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fmtcount\fcprefix.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fmtcount\fcprefix.sty"
 Package: fcprefix 2012/09/28
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fmtcount\fcnumparser.
-sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fmtcount\fcnumparser.sty"
 Package: fcnumparser 2017/06/15
 \fc@digit@counter=\count135
 ))
@@ -533,9 +473,7 @@ Package: fcnumparser 2017/06/15
 \@tmpstrctr=\count142
 \@DT@loopN=\count143
 \@DT@X=\count144
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datetime\datetime-def
-aults.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datetime\datetime-defaults.sty"
 Package: datetime-defaults 2013/09/10
 )
 \@day=\count145
@@ -550,30 +488,22 @@ Package: datetime-defaults 2013/09/10
 \currenthour=\count154
 \currentminute=\count155
 \currentsecond=\count156
-Package datetime Info: No datetime.cfg file found, using default settings on in
-put line 308.
+Package datetime Info: No datetime.cfg file found, using default settings on input line 308.
 \@dtctr=\count157
 \dayofyear=\count158
 \dayofweek=\count159
 LaTeX Info: Redefining \today on input line 736.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datetime\dt-spanish.d
-ef"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datetime\dt-spanish.def"
 File: dt-spanish.def 2013/09/10
 LaTeX Info: Redefining \datespanish on input line 85.
 )
 \dt@a=\toks25
 \dt@b=\toks26
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.sty"
 Package: geometry 2018/04/16 v5.8 Page Geometry
- ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.sty
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.sty"
 Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifvtex.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifvtex.sty"
 Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
@@ -589,47 +519,28 @@ Package ifvtex Info: VTeX not detected.
 \Gm@layouthoffset=\dimen121
 \Gm@layoutvoffset=\dimen122
 \Gm@dimlist=\toks27
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.cfg
-"))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.sty
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.cfg")) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.sty
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graphics
-.cfg"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdftex.d
-ef"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen123
 \Gin@req@width=\dimen124
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\adjustbox.s
-ty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\adjustbox.sty"
 Package: adjustbox 2019/01/04 v1.2 Adjusting TeX boxes (trim, clip, ...)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\adjcalc.sty
-"
-Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
--ends (calc, etex, pgfmath)
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\trimclip.st
-y"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\adjcalc.sty"
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-ends (calc, etex, pgfmath)
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\trimclip.sty"
 Package: trimclip 2018/04/08 v1.1 Trim and clip general TeX material
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/collectbox\collectbox
-.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/collectbox\collectbox.sty"
 Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
 \collectedbox=\box29
 )
@@ -638,9 +549,7 @@ Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
 \tc@urx=\dimen127
 \tc@ury=\dimen128
 Package trimclip Info: Using driver 'tc-pdftex.def'.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\tc-pdftex.d
-ef"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/adjustbox\tc-pdftex.def"
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
 \adjbox@Width=\dimen129
@@ -651,14 +560,10 @@ File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 \adjbox@pheight=\dimen134
 \adjbox@pdepth=\dimen135
 \adjbox@ptotalheight=\dimen136
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ifoddpage\ifoddpage.s
-ty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ifoddpage\ifoddpage.sty"
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
 \c@checkoddpage=\count163
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/varwidth\varwidth.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/varwidth\varwidth.sty"
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box30
 \sift@deathcycles=\count164
@@ -666,32 +571,19 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@roff=\dimen138
 )) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/minted\minted.sty"
 Package: minted 2017/07/19 v2.5 Yet another Pygments shim for LaTeX
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.st
-y"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.st
-y"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.sty"
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvsetkeys.
-sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvsetkeys.sty"
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\infwarerr.
-sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\infwarerr.sty"
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\etexcmds.s
-ty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\etexcmds.sty"
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-)))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fvextra\fvextra.sty"
+))) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fvextra\fvextra.sty"
 Package: fvextra 2019/02/04 v1.4 fvextra - extensions and patches for fancyvrb
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fancyvrb\fancyvrb.sty
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fancyvrb\fancyvrb.sty"
 Package: fancyvrb 2019/01/15
  Style option: `fancyvrb' v3.2a <2019/01/15> (tvz)
 \FV@CodeLineNo=\count165
@@ -700,10 +592,8 @@ Package: fancyvrb 2019/01/15
 \c@FancyVerbLine=\count166
 \FV@StepNumber=\count167
 \FV@OutFile=\write3
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/upquote\upquote.sty"
-Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
-tim
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/upquote\upquote.sty"
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 ) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lineno\lineno.sty"
 Package: lineno 2005/11/02 line numbers on paragraphs v4.41
 \linenopenalty=\count168
@@ -756,31 +646,20 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count188
 \calc@Cskip=\skip50
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\shellesc.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\shellesc.sty"
 Package: shellesc 2016/06/07 v0.02a unified shell escape interface for LaTeX
 Package shellesc Info: Unrestricted shell escape enabled on input line 67.
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ifplatform\ifplatform
-.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ifplatform\ifplatform.sty"
 Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\pdftexcmds
-.sty"
-Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
-)
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO)
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\catchfile.
-sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\catchfile.sty"
 Package: catchfile 2016/05/16 v1.7 Catch the contents of a file (HO)
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xstring\xstring.sty"
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xstring\xstring.tex
-"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xstring\xstring.sty" ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/xstring\xstring.tex"
 \integerpart=\count189
 \decimalpart=\count190
 )
@@ -810,16 +689,11 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 runsystem(if not exist _minted-principal mkdir _minted-principal)...executed.
 
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/anyfontsize\anyfontsi
-ze.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/anyfontsize\anyfontsize.sty"
 Package: anyfontsize 2007/11/22 anyfontsize.sty by pts
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\xcolor.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\xcolor.sty"
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\color.cf
-g"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\color.cfg"
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -834,26 +708,20 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\svgnam.def"
 File: svgnam.def 2016/05/11 v2.12 Predefined colors according to SVG 1.1 (UK)
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tocbibind\tocbibind.s
-ty"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tocbibind\tocbibind.sty"
 Package: tocbibind 2010/10/13 v1.5k extra ToC listings
 Package tocbibind Info: The document has chapter divisions on input line 50.
 
 
 Package tocbibind Note: Using chapter style headings, unless overridden.
 
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/chngcntr\chngcntr.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/chngcntr\chngcntr.sty"
 Package: chngcntr 2018/04/09 v1.1a change counter resetting
 Package chngcntr Info: \counterwithout already defined.
 (chngcntr)             Quitting chngcntr on input line 21.
-) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption.sty"
 Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption3.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption3.sty"
 Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 64.
 \captionmargin=\dimen156
@@ -867,9 +735,7 @@ Package caption3 Info: TeX engine: e-TeX on input line 64.
 \c@caption@flags=\count195
 \c@ContinuedFloat=\count196
 Package caption Info: float package is loaded.
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\subcaption.st
-y"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\subcaption.sty"
 Package: subcaption 2018/05/01 v1.1-162 Sub-captions (AR)
 \c@subfigure=\count197
 \c@subtable=\count198
@@ -882,8 +748,7 @@ Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
 \extratabsurround=\skip52
 \backup@length=\skip53
 \ar@cellbox=\box41
-) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/booktabs\booktabs.s
-ty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/booktabs\booktabs.sty"
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \heavyrulewidth=\dimen165
 \lightrulewidth=\dimen166
@@ -902,29 +767,16 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \@thisruleclass=\count267
 \@lastruleclass=\count268
 \@thisrulewidth=\dimen177
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/threeparttable\threep
-arttable.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/threeparttable\threeparttable.sty"
 Package: threeparttable 2003/06/13  v 3.0
 \@tempboxb=\box42
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrextend
-.sty"
-Package: scrextend 2019/02/01 v3.26b KOMA-Script package (extend other classes 
-with features of KOMA-Script classes)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrkbase.
-sty"
-Package: scrkbase 2019/02/01 v3.26b KOMA-Script package (KOMA-Script-dependent 
-basics and keyval usage)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrbase.s
-ty"
-Package: scrbase 2019/02/01 v3.26b KOMA-Script package (KOMA-Script-independent
- basics and keyval usage)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrlfile.
-sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrextend.sty"
+Package: scrextend 2019/02/01 v3.26b KOMA-Script package (extend other classes with features of KOMA-Script classes)
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrkbase.sty"
+Package: scrkbase 2019/02/01 v3.26b KOMA-Script package (KOMA-Script-dependent basics and keyval usage)
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrbase.sty"
+Package: scrbase 2019/02/01 v3.26b KOMA-Script package (KOMA-Script-independent basics and keyval usage)
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/koma-script\scrlfile.sty"
 Package: scrlfile 2019/02/01 v3.26b KOMA-Script package (loading files)
 )))
 Package scrextend Info: You've used standard option `final'.
@@ -936,13 +788,10 @@ Package scrextend Info: You've used standard option `final'.
 Package scrextend Info: unexpected definition of `\@makefnmark'.
 (scrextend)             Trying to patch it on input line 1575.
 Package scrextend Info: patch seems to be successfull on input line 1575.
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ncctools\nccmath.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ncctools\nccmath.sty"
 Package: nccmath 2006/01/20 v1.3 Additional Math Commands (NCC)
 \NCC@fracrulewidth=\dimen178
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.sty"
 Package: csquotes 2019/05/10 v5.2e context-sensitive quotations (JAW)
 \csq@reset=\count269
 \csq@gtype=\count270
@@ -951,34 +800,27 @@ Package: csquotes 2019/05/10 v5.2e context-sensitive quotations (JAW)
 \csq@maxlvl=\count273
 \csq@tshold=\count274
 \csq@ltx@everypar=\toks33
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.def
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.def"
 File: csquotes.def 2019/05/10 v5.2e csquotes generic definitions (JAW)
 )
 Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
 Package csquotes Info: ... configuration file loaded successfully.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.cfg
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csquotes\csquotes.cfg"
 File: csquotes.cfg 
 )
 Package csquotes Info: Disabling multilingual quotes.
 Package csquotes Info: Redefining alias 'default' -> 'american'.
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/quoting\quoting.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/quoting\quoting.sty"
 Package: quoting 2014/01/28 v0.1c Consolidated environment for displayed text
 \quo@toppartop=\skip54
-) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.s
-ty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.sty"
 Package: biblatex 2018/11/02 v3.12 programmable bibliographies (PK/MW)
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/logreq\logreq.sty"
 Package: logreq 2010/08/04 v1.0 xml request logger
 \lrq@indent=\count275
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/logreq\logreq.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/logreq\logreq.def"
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
@@ -1038,13 +880,12 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \c@mincompwidth=\count319
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\blx-dm.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\blx-dm.def"
 File: blx-dm.def 2018/11/02 v3.12 biblatex localization (PK/MW)
 )
 Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'apa.dbx' found.
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex-apa\apa.dbx"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex-apa\apa.dbx"
 File: apa.dbx 2018/04/02 v7.7 APA biblatex style data model
 )
 Package biblatex Info: Trying to load biblatex custom data model...
@@ -1143,16 +984,12 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \localshorteditorwidth=\skip76
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\blx-compat.d
-ef"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\blx-compat.def"
 File: blx-compat.def 2018/11/02 v3.12 biblatex compatibility (PK/MW)
 )
 Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.def
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.def"
 File: biblatex.def 2018/11/02 v3.12 biblatex compatibility (PK/MW)
 \c@textcitecount=\count398
 \c@textcitetotal=\count399
@@ -1164,29 +1001,22 @@ File: biblatex.def 2018/11/02 v3.12 biblatex compatibility (PK/MW)
 )
 Package biblatex Info: Trying to load bibliography style 'apa'...
 Package biblatex Info: ... file 'apa.bbx' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex-apa\apa.bbx"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex-apa\apa.bbx"
 File: apa.bbx 2018/04/02 v7.7 APA biblatex references style
 Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/bbx\standard
-.bbx"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/bbx\standard.bbx"
 File: standard.bbx 2018/11/02 v3.12 biblatex bibliography style (PK/MW)
 \c@bbx:relatedcount=\count405
 \c@bbx:relatedtotal=\count406
 ))
 Package biblatex Info: Trying to load citation style 'apa'...
 Package biblatex Info: ... file 'apa.cbx' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex-apa\apa.cbx"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex-apa\apa.cbx"
 File: apa.cbx 2018/04/02 v7.7 APA biblatex citation style
-Package biblatex Info: Delimiter 'nameyeardelim' in context '' already defined,
- overwriting.
-Package biblatex Info: Delimiter 'nameyeardelim' in context 'textcite' already 
-defined, overwriting.
-Package biblatex Info: Delimiter 'andothersdelim' in context '' already defined
-, overwriting.
+Package biblatex Info: Delimiter 'nameyeardelim' in context '' already defined, overwriting.
+Package biblatex Info: Delimiter 'nameyeardelim' in context 'textcite' already defined, overwriting.
+Package biblatex Info: Delimiter 'andothersdelim' in context '' already defined, overwriting.
 Package biblatex Info: Redefining '\parencite'.
 Package biblatex Info: Redefining '\fullcite'.
 Package biblatex Info: Redefining '\citeyear'.
@@ -1198,26 +1028,18 @@ Package biblatex Info: Redefining '\citeauthor'.
 )
 Package biblatex Info: Trying to load configuration file...
 Package biblatex Info: ... file 'biblatex.cfg' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.cfg
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex\biblatex.cfg"
 File: biblatex.cfg 
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pdfpages\pdfpages.sty
-"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pdfpages\pdfpages.sty"
 Package: pdfpages 2017/10/31 v0.5l Insert pages of external PDF documents (AM)
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/eso-pic\eso-pic.sty"
 Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\atbegshi.s
-ty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\atbegshi.sty"
 Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 ))
 \AM@pagewidth=\dimen179
 \AM@pageheight=\dimen180
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pdfpages\pppdftex.def
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pdfpages\pppdftex.def"
 File: pppdftex.def 2017/10/31 v0.5l Pdfpages driver for pdfTeX (AM)
 )
 \AM@pagebox=\box43
@@ -1225,12 +1047,9 @@ File: pppdftex.def 2017/10/31 v0.5l Pdfpages driver for pdfTeX (AM)
 \AM@toc@title=\toks35
 \c@AM@survey=\count407
 \AM@templatesizebox=\box44
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/setspace\setspace.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/setspace\setspace.sty"
 Package: setspace 2011/12/19 v6.7a set line spacing
-) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\longtable.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\longtable.sty"
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
 \LTleft=\skip77
 \LTright=\skip78
@@ -1271,43 +1090,22 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 \tabu@hleads=\box51
 \tabu@vleads=\box52
 \tabu@cellskip=\skip81
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csvsimple\csvsimple.s
-ty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/csvsimple\csvsimple.sty"
 Package: csvsimple 2019/04/09 version 1.21 LaTeX CSV file processing
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgfrcs.
-sty"
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfut
-il-common.tex"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgfrcs.sty" ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-common.tex"
 \pgfutil@everybye=\toks39
 \pgfutil@tempdima=\dimen191
 \pgfutil@tempdimb=\dimen192
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfut
-il-common-lists.tex"))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfut
-il-latex.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-common-lists.tex")) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfutil-latex.def"
 \pgfutil@abb=\box53
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ms\everyshi.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ms\everyshi.sty"
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfrc
-s.code.tex"
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf\pgf.revision.te
-x")
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfrcs.code.tex" ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf\pgf.revision.tex")
 Package: pgfrcs 2019/05/09 v3.1.3 (3.1.3)
-))
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgfkeys
-.sty"
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfke
-ys.code.tex"
+)) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/utilities\pgfkeys.sty" ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfkeys.code.tex"
 \pgfkeys@pathtoks=\toks40
 \pgfkeys@temptoks=\toks41
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfke
-ysfiltered.code.tex"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pgf/utilities\pgfkeysfiltered.code.tex"
 \pgfkeys@tmptoks=\toks42
 )))
 \csv@file=\read4
@@ -1315,15 +1113,11 @@ ysfiltered.code.tex"
 \c@csvrow=\count420
 \c@csvcol=\count421
 \csv@out=\write6
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\lscape.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\lscape.sty"
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
-) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/parskip\parskip.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/parskip\parskip.sty"
 Package: parskip 2019-01-16 v2.0c non-zero parskip adjustments
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/footmisc\footmisc.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/footmisc\footmisc.sty"
 Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
 \FN@temptoken=\toks43
 \footnotemargin=\dimen193
@@ -1332,41 +1126,28 @@ Package footmisc Info: Declaring symbol style bringhurst on input line 855.
 Package footmisc Info: Declaring symbol style chicago on input line 863.
 Package footmisc Info: Declaring symbol style wiley on input line 872.
 Package footmisc Info: Declaring symbol style lamport-robust on input line 883.
-
 Package footmisc Info: Declaring symbol style lamport* on input line 903.
-Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
-.
-) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/nowidow\nowidow.sty
-"
+Package footmisc Info: Declaring symbol style lamport*-robust on input line 924.
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/nowidow\nowidow.sty"
 Package: nowidow 2011/09/20 1.0 Easily prevent widows and orphans
 Package: nowidow 
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datatool\datatool.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datatool\datatool.sty"
 Package: datatool 2018/12/07 v2.31 (NLCT)
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xfor\xfor.sty"
 Package: xfor 2009/02/05 v1.05 (NLCT)
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/substr\substr.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/substr\substr.sty"
 Package: substr 2009/10/20 v1.2 Handle substrings
 \c@su@anzahl=\count423
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datatool\datatool-bas
-e.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datatool\datatool-base.sty"
 Package: datatool-base 2018/12/07 v2.31 (NLCT)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datatool\datatool-fp.
-sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/datatool\datatool-fp.sty"
 Package: datatool-fp 2018/12/07 v2.31 (NLCT)
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp.sty"
 Package: fp 1995/04/02
-
-`Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\defpattern.sty"
+ `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\defpattern.sty"
 Package: defpattern 1994/10/12
 \actioncount=\count424
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-basic.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-basic.sty"
 Package: fp-basic 1996/05/13
 \FP@xs=\count425
 \FP@xia=\count426
@@ -1377,33 +1158,24 @@ Package: fp-basic 1996/05/13
 \FP@regb=\count431
 \FP@regs=\count432
 \FP@times=\count433
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-addons.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-addons.sty"
 Package: fp-addons 1995/03/15
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-snap.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-snap.sty"
 Package: fp-snap 1995/04/05
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-exp.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-exp.sty"
 Package: fp-exp 1995/04/03
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-trigo.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-trigo.sty"
 Package: fp-trigo 1995/04/14
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-pas.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-pas.sty"
 Package: fp-pas 1994/08/29
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-random.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-random.sty"
 Package: fp-random 1995/02/23
 \FPseed=\count434
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-eqn.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-eqn.sty"
 Package: fp-eqn 1995/04/03
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-upn.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-upn.sty"
 Package: fp-upn 1996/10/21
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-eval.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fp\fp-eval.sty"
 Package: fp-eval 1995/04/03
 )))
 \@dtl@toks=\toks44
@@ -1451,9 +1223,7 @@ Package: fp-eval 1995/04/03
 \@dtl@read=\read5
 \dtl@entrycr=\count453
 \dtl@omitlines=\count454
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/enumitem\enumitem.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/enumitem\enumitem.sty"
 Package: enumitem 2019/02/04 v3.8 Customized lists
 \enitkv@toks@=\toks65
 \labelindent=\skip83
@@ -1462,9 +1232,7 @@ Package: enumitem 2019/02/04 v3.8 Customized lists
 \enit@inbox=\box54
 \enit@count@id=\count455
 \enitdp@description=\count456
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/titlesec\titlesec.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/titlesec\titlesec.sty"
 Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 \ttl@box=\box55
 \beforetitleunit=\skip84
@@ -1475,16 +1243,11 @@ Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 \titlewidth=\dimen197
 \titlewidthlast=\dimen198
 \titlewidthfirst=\dimen199
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/titlesec\titletoc.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/titlesec\titletoc.sty"
 Package: titletoc 2011/12/15 v1.6 TOC entries
 \ttl@leftsep=\dimen256
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fancyhdr\fancyhdr.sty
-"
-Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
-s
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fancyhdr\fancyhdr.sty"
+Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footers
 \f@nch@headwidth=\skip86
 \f@nch@O@elh=\skip87
 \f@nch@O@erh=\skip88
@@ -1494,12 +1257,9 @@ s
 \f@nch@O@erf=\skip92
 \f@nch@O@olf=\skip93
 \f@nch@O@orf=\skip94
-) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xpatch\xpatch.sty" 
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\expl3.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xpatch\xpatch.sty" ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\expl3.sty"
 Package: expl3 2018-06-01 L3 programming layer (loader) 
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\expl3-code.t
-ex"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\expl3-code.tex"
 Package: expl3 2018-06-01 L3 programming layer (code)
 \c_max_int=\count457
 \l_tmpa_int=\count458
@@ -1645,16 +1405,12 @@ Package: expl3 2018-06-01 L3 programming layer (code)
 \l__coffin_scaled_width_dim=\dimen288
 \l__seq_internal_a_int=\count539
 \l__seq_internal_b_int=\count540
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\l3pdfmode.de
-f"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3kernel\l3pdfmode.def"
 File: l3pdfmode.def 2018-06-01 v L3 Experimental driver: PDF mode
 \l__driver_color_stack_int=\count541
 ))
 Package: xpatch 2012/10/02 v0.3 Extending etoolbox patching commands
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3packages/xparse\xpa
-rse.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3packages/xparse\xparse.sty"
 Package: xparse 2018-05-12 L3 Experimental document command parser
 \l__xparse_current_arg_int=\count542
 \g__xparse_grabber_int=\count543
@@ -1842,8 +1598,7 @@ Package: xparse 2018-05-12 L3 Experimental document command parser
 . 
 . Defining command \xshowbibdriver with sig. 'm' on line 193.
 .................................................
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\afterpage.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\afterpage.sty"
 Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
 \AP@output=\toks68
 \AP@partial=\box71
@@ -1852,12 +1607,9 @@ Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
 Package: flafter 2018/11/28 v1.4d Standard LaTeX floats after reference (FMi)
 Applying: [2015/01/01] float order in 2-column on input line 49.
 Already applied: [0000/00/00] float order in 2-column on input line 151.
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/dblfloatfix\dblfloatf
-ix.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/dblfloatfix\dblfloatfix.sty"
 Package: dblfloatfix 2012/12/31 v1.0a (JAW)
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\fixltx2e.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\fixltx2e.sty"
 Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
 Applying: [2015/01/01] Old fixltx2e package on input line 46.
 
@@ -1870,31 +1622,19 @@ Already applied: [0000/00/00] Old fixltx2e package on input line 53.
 )
 \@dblbotnum=\count547
 \c@dblbotnumber=\count548
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/draftwatermark\draftw
-atermark.sty"
-Package: draftwatermark 2015/02/19 1.2 Put a gray textual watermark on document
- pages
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/everypage\everypage.s
-ty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/draftwatermark\draftwatermark.sty"
+Package: draftwatermark 2015/02/19 1.2 Put a gray textual watermark on document pages
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/everypage\everypage.sty"
 Package: everypage 2007/06/20 1.1 Hooks to run on every page
 )
 \sc@wm@hcenter=\skip101
 \sc@wm@vcenter=\skip102
 \sc@wm@fontsize=\skip103
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hyperref.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hyperref.sty"
 Package: hyperref 2018/11/30 v6.88e Hypertext links for LaTeX
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\hobsub-hyp
-erref.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\hobsub-hyperref.sty"
 Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
-
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\hobsub-gen
-eric.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\hobsub-generic.sty"
 Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -1908,8 +1648,7 @@ Package hobsub Info: Skipping package `kvsetkeys' (already loaded).
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
 Package hobsub Info: Skipping package `pdftexcmds' (already loaded).
 Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
-Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
-)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO)
 Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
 Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
 )
@@ -1921,8 +1660,7 @@ Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
 Package hobsub Info: Skipping package `atbegshi' (already loaded).
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\auxhook.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\auxhook.sty"
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 )
 \@linkdim=\dimen289
@@ -1934,9 +1672,7 @@ Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 \Hy@SavedSpaceFactor=\count551
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/00miktex\hyperref.cfg
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Option `final' set `true' on input line 4393.
@@ -1969,22 +1705,16 @@ LaTeX Info: Redefining \pageref on input line 6454.
 \c@Hfootnote=\count556
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hpdftex.def"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\hpdftex.def"
 File: hpdftex.def 2018/11/30 v6.88e Hyperref driver for pdfTeX
 \Fld@listcount=\count557
 \c@bookmark@seq@number=\count558
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\rerunfileche
-ck.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\rerunfilecheck.sty"
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-82.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 282.
 )
 \Hy@SectionHShift=\skip104
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/cleveref\cleveref.sty
-"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/cleveref\cleveref.sty"
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
 Package cleveref Info: `hyperref' support loaded on input line 2370.
 LaTeX Info: Redefining \cref on input line 2370.
@@ -1997,67 +1727,50 @@ LaTeX Info: Redefining \cpagerefrange on input line 2370.
 LaTeX Info: Redefining \Cpagerefrange on input line 2370.
 LaTeX Info: Redefining \labelcref on input line 2370.
 LaTeX Info: Redefining \labelcpageref on input line 2370.
-Package cleveref Info: always capitalise cross-reference names on input line 78
-30.
-Package cleveref Info: include cross-reference names in hyperlinks on input lin
-e 7836.
-Package cleveref Info: include cross-reference names in hyperlinks on input lin
-e 7852.
+Package cleveref Info: always capitalise cross-reference names on input line 7830.
+Package cleveref Info: include cross-reference names in hyperlinks on input line 7836.
+Package cleveref Info: include cross-reference names in hyperlinks on input line 7852.
 Package cleveref Info: no abbreviation of names on input line 7852.
-Package cleveref Info: always capitalise cross-reference names on input line 78
-52.
+Package cleveref Info: always capitalise cross-reference names on input line 7852.
 ))
 \@input{MacrosTesis.aux}
 \openout2 = `MacrosTesis.aux'.
 
 (MacrosTesis.tex
-Package biblatex Info: Delimiter 'finalnamedelim' in context '' already defined
-, overwriting on input line 238.
+Package biblatex Info: Delimiter 'finalnamedelim' in context '' already defined, overwriting on input line 238.
 )
 LaTeX Font Info:    Try loading font information for T1+ntxtlf on input line 5.
-
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\t1ntxtlf.fd"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\t1ntxtlf.fd"
 File: t1ntxtlf.fd 2015/01/17 v1.0 font definition file for T1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 12.0pt on input line 5.
-runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > pr
-incipal.aex <nul: /p x=^%~$PATH:i>> principal.aex)...executed.
+runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > principal.aex <nul: /p x=^%~$PATH:i>> principal.aex)...executed.
 
 runsystem(del principal.aex)...executed.
 
 Package biblatex Info: Trying to load language 'spanish' -> 'spanish-apa'...
 Package biblatex Info: ... file 'spanish-apa.lbx' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex-apa\spanish-
-apa.lbx"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex-apa\spanish-apa.lbx"
 File: spanish-apa.lbx 2018/04/02 v7.7 APA biblatex localisation
 Package biblatex Info: Trying to load language 'spanish'...
 Package biblatex Info: ... file 'spanish.lbx' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\spanish.
-lbx"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\spanish.lbx"
 File: spanish.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
 )
 Package biblatex Info: Trying to load language 'spanish'...
 Package biblatex Info: ... file 'spanish.lbx' found.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\spanish.
-lbx"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/biblatex/lbx\spanish.lbx"
 File: spanish.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
 )) (principal.aux (portada.aux)
 LaTeX Info: Redefining \sptext on input line 26.
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
- (carta_presentacion.aux)
-(carta_aceptacion.aux) (carta_vistobueno.aux) (Preambulo.aux) (FrontContent.aux
-))
+ (carta_presentacion.aux) (carta_aceptacion.aux) (carta_vistobueno.aux) (Preambulo.aux) (FrontContent.aux))
 \openout1 = `principal.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 5.
 LaTeX Font Info:    Try loading font information for OML+ntxmi on input line 5.
-
  ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\omlntxmi.fd"
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
@@ -2078,24 +1791,19 @@ File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 LaTeX Font Info:    ... okay on input line 5.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 5.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 5.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 5.
 LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 5.
 LaTeX Font Info:    Try loading font information for LMS+ntxsy on input line 5.
-
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\lmsntxsy.fd"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\lmsntxsy.fd"
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
 LaTeX Font Info:    ... okay on input line 5.
 LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 5.
-LaTeX Font Info:    Try loading font information for LMX+ntxexx on input line 5
-.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\lmxntxexx.fd"
+LaTeX Font Info:    Try loading font information for LMX+ntxexx on input line 5.
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\lmxntxexx.fd"
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
 LaTeX Font Info:    ... okay on input line 5.
@@ -2116,8 +1824,7 @@ Package microtype Info: Using default expansion set `basictext'.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\mt-ptm.cfg"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\mt-ptm.cfg"
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 *geometry* driver: auto-detecting
@@ -2154,9 +1861,7 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.
-mkii"
+("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count561
 \scratchdimen=\dimen293
@@ -2169,27 +1874,20 @@ mkii"
 \MPnumerator=\count565
 \makeMPintoPDFobject=\count566
 \everyMPtoPDFconversion=\toks70
-)
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-bas
-e.sty"
+) ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\grfext.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\grfext.sty"
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 )
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-38.
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 438.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\ltcaption.sty
-"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\ltcaption.sty"
 Package: ltcaption 2018/08/26 v1.4-95 longtable captions (AR)
 )
 Package caption Info: threeparttable package is loaded.
@@ -2205,19 +1903,14 @@ Package biblatex Info: ... file 'principal.bbl' found.
 Package biblatex Info: Reference section=0 on input line 5.
 Package biblatex Info: Reference segment=0 on input line 5.
 \AtBeginShipoutBox=\box74
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\pdflscape.st
-y"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\pdflscape.sty"
 Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ) ABD: EveryShipout initializing macros
 Package hyperref Info: Link coloring ON on input line 5.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\gettitlest
-ring.sty"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count567
@@ -2256,12 +1949,10 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 
 
 
-{C:/Users/PC/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./imagenes/une
-t.jpg>])
+{C:/Users/PC/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./imagenes/unet.jpg>])
 \openout2 = `carta_presentacion.aux'.
 
-
-(carta_presentacion.tex [2
+ (carta_presentacion.tex [2
 
 
 
@@ -2282,8 +1973,7 @@ File: imagenes/unet.jpg Graphic file (type jpg)
 <use imagenes/unet.jpg>
 Package pdftex.def Info: imagenes/unet.jpg  used on input line 9.
 (pdftex.def)             Requested size: 56.9055pt x 56.98976pt.
-
-[4
+ [4
 
 
 
@@ -2291,8 +1981,7 @@ Package pdftex.def Info: imagenes/unet.jpg  used on input line 9.
 ])
 \openout2 = `Preambulo.aux'.
 
- (Preambulo.tex
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/titlesec\block.tss"
+ (Preambulo.tex ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/titlesec\block.tss"
 File: block.tss 2016/03/15
 )
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
@@ -2301,8 +1990,7 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ntxtlf/b/n' tried instead on input line 13.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 14.4pt on input line 13.
-
-(principal.toc
+ (principal.toc
 LaTeX Info: Redefining \sptext on input line 5.
 LaTeX Info: Redefining \. on input line 5.
 LaTeX Info: Redefining \% on input line 5.
@@ -2323,10 +2011,8 @@ LaTeX Info: Redefining \sptext on input line 6.
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 Package cleveref Info: loaded `spanish' language definitions on input line 6.
-LaTeX Font Info:    Try loading font information for OT1+ntxtlf on input line 1
-2.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\ot1ntxtlf.fd"
+LaTeX Font Info:    Try loading font information for OT1+ntxtlf on input line 12.
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\ot1ntxtlf.fd"
 File: ot1ntxtlf.fd 2015/01/17 v1.0 font definition file for OT1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
@@ -2336,28 +2022,21 @@ LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
 (Font)              scaled to size 6.6pt on input line 12.
 LaTeX Font Info:    Try loading font information for U+ntxmia on input line 12.
-
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\untxmia.fd"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\untxmia.fd"
 File: untxmia.fd 2018/04/14 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Try loading font information for U+ntxsym on input line 12.
-
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\untxsym.fd"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\untxsym.fd"
 File: untxsym.fd 2015/03/20 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Try loading font information for U+ntxsyc on input line 12.
-
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\untxsyc.fd"
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\untxsyc.fd"
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 ))
 \tf@lof=\write10
 \openout10 = `principal.lof'.
 
-
-[6
+ [6
 
 ] (principal.lot
 LaTeX Info: Redefining \sptext on input line 6.
@@ -2385,7 +2064,6 @@ Cap\'{\i }tulo I.
 ]
 LaTeX Font Info:    Font shape `T1/ntxtlf/bx/it' in size <12> not available
 (Font)              Font shape `T1/ntxtlf/b/it' tried instead on input line 18.
-
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/it' will be
 (Font)              scaled to size 12.0pt on input line 18.
  [2] [3]) [4]
@@ -2402,21 +2080,17 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 10.95pt on input line 111.
 LaTeX Font Info:    Font shape `T1/ntxtlf/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ntxtlf/b/n' tried instead on input line 111.
-
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 10.95pt on input line 111.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 10.0pt on input line 111.
 LaTeX Font Info:    Font shape `T1/ntxtlf/bx/n' in size <10> not available
 (Font)              Font shape `T1/ntxtlf/b/n' tried instead on input line 111.
-
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 10.0pt on input line 111.
  [10 <./imagenes/LazoCerrado.pdf
 
-pdfTeX warning: pdflatex.exe (file ./imagenes/LazoCerrado.pdf): PDF inclusion: 
-invalid other resource which is no dict (key 'ProcSets', type <array>); ignored
-.
+pdfTeX warning: pdflatex (file ./imagenes/LazoCerrado.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >] [11]
 <imagenes/LazoControlador.pdf, id=322, 496.9767pt x 159.71669pt>
 File: imagenes/LazoControlador.pdf Graphic file (type pdf)
@@ -2425,9 +2099,7 @@ Package pdftex.def Info: imagenes/LazoControlador.pdf  used on input line 143.
 (pdftex.def)             Requested size: 273.98448pt x 88.05159pt.
  [12 <./imagenes/LazoControlador.pdf
 
-pdfTeX warning: pdflatex.exe (file ./imagenes/LazoControlador.pdf): PDF inclusi
-on: invalid other resource which is no dict (key 'ProcSets', type <array>); ign
-ored.
+pdfTeX warning: pdflatex (file ./imagenes/LazoControlador.pdf): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 >] [13]
 <imagenes/ZieglerN.pdf, id=357, 650.41199pt x 475.60829pt>
 File: imagenes/ZieglerN.pdf Graphic file (type pdf)
@@ -2448,31 +2120,24 @@ File: imagenes/FuzzySet.pdf Graphic file (type pdf)
 <use imagenes/FuzzySet.pdf>
 Package pdftex.def Info: imagenes/FuzzySet.pdf  used on input line 234.
 (pdftex.def)             Requested size: 228.3204pt x 167.19936pt.
-LaTeX Font Info:    Try loading font information for TS1+ntxtlf on input line 2
-35.
-
-("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\ts1ntxtlf.fd"
+LaTeX Font Info:    Try loading font information for TS1+ntxtlf on input line 235.
+ ("C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex/latex/newtx\ts1ntxtlf.fd"
 File: ts1ntxtlf.fd 2015/01/18 v1.0 fd file for TS1/ntxtlf
 )
 LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
 (Font)              scaled to size 10.0pt on input line 235.
-
-[16] [17 <./imagenes/FuzzySet.pdf>] [18]
+ [16] [17 <./imagenes/FuzzySet.pdf>] [18]
 <imagenes/FuzzyControllerClassic.png, id=459, 567.62062pt x 103.13531pt>
 File: imagenes/FuzzyControllerClassic.png Graphic file (type png)
 <use imagenes/FuzzyControllerClassic.png>
-Package pdftex.def Info: imagenes/FuzzyControllerClassic.png  used on input lin
-e 304.
+Package pdftex.def Info: imagenes/FuzzyControllerClassic.png  used on input line 304.
 (pdftex.def)             Requested size: 332.10184pt x 60.34413pt.
 <imagenes/FuzzyControllerAdapt.png, id=460, 682.04813pt x 209.28188pt>
 File: imagenes/FuzzyControllerAdapt.png Graphic file (type png)
 <use imagenes/FuzzyControllerAdapt.png>
-Package pdftex.def Info: imagenes/FuzzyControllerAdapt.png  used on input line 
-311.
+Package pdftex.def Info: imagenes/FuzzyControllerAdapt.png  used on input line 311.
 (pdftex.def)             Requested size: 332.10184pt x 101.90393pt.
- [19 <./imagenes/FuzzyControllerClassic.png (PNG copy)> <./imagenes/FuzzyContro
-llerAdapt.png (PNG copy)>] [20])
-[21]
+ [19 <./imagenes/FuzzyControllerClassic.png (PNG copy)> <./imagenes/FuzzyControllerAdapt.png (PNG copy)>] [20]) [21]
 Cap\'{\i }tulo III.
 (capitulo3.tex [22
 
@@ -2494,9 +2159,7 @@ LaTeX Info: Redefining \sptext on input line 26.
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
 Package cleveref Info: loaded `spanish' language definitions on input line 26.
- (carta_presentacion.aux)
-(carta_aceptacion.aux) (carta_vistobueno.aux) (Preambulo.aux) (FrontContent.aux
-))
+ (carta_presentacion.aux) (carta_aceptacion.aux) (carta_vistobueno.aux) (Preambulo.aux) (FrontContent.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 43.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 43.
 Package rerunfilecheck Info: File `principal.out' has not changed.
@@ -2511,33 +2174,15 @@ Package logreq Info: Writing requests to 'principal.run.xml'.
 ### semi simple group (level 1) entered at line 10 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 42024 strings out of 492895
- 761577 string characters out of 3125137
+ 42026 strings out of 492895
+ 762706 string characters out of 3125137
  1386680 words of memory out of 3000000
  44933 multiletter control sequences out of 15000+200000
  619555 words of font info for 204 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,12n,94p,1200b,2733s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/
-newtx/ntx-ec-tlf.enc}{C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/d
-vips/tex-gyre/q-ts1.enc}{C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/en
-c/dvips/newtx/ntx-ot1-tlf.enc}{C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/enc/dvips/base/8r.enc}<C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/
-type1/public/tex-gyre/qtmb.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/tex-gyre/qtmbi.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/tex-gyre/qtmr.pfb><C:/Users/PC/AppData/Local/Programs/M
-iKTeX 2.9/fonts/type1/public/tex-gyre/qtmri.pfb><C:/Users/PC/AppData/Local/Prog
-rams/MiKTeX 2.9/fonts/type1/public/newtx/rntxmi.pfb><C:/Users/PC/AppData/Local/
-Programs/MiKTeX 2.9/fonts/type1/public/newtx/rntxmi7.pfb><C:/Users/PC/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxmi.pfb><C:/Users/PC/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxr.pfb><C:/Users/PC/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/newtx/txexs.pfb><C:/Users/
-PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/txmia.pfb><C:/U
-sers/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/newtx/txsys.pfb><C
-:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><
-C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb
->
-Output written on principal.pdf (33 pages, 701989 bytes).
+ 60i,12n,94p,1344b,2733s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}{C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/tex-gyre/q-ts1.enc}{C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}{C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qtmb.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qtmbi.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qtmr.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/tex-gyre/qtmri.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/newtx/rntxmi.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/newtx/rntxmi7.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxmi.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/rtxr.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/newtx/txexs.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts/txmia.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/newtx/txsys.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on principal.pdf (33 pages, 701987 bytes).
 PDF statistics:
  616 PDF objects out of 1000 (max. 8388607)
  141 named destinations out of 1000 (max. 500000)
