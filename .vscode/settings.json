@@ -1,0 +1,23 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.aux": true,
+        "**/*.blg": true,
+        "**/*.bcf": true,
+        "**/*.run.xml": true,
+        "**/*.toc": true,
+        "**/_minted-principal": true,
+        "**/*.bbl": true,
+        "**/*.lof": true,
+        "**/*.lot": true,
+        "**/*.log": true,
+        "**/*.out": true,
+        "**/*.synctex.gz": true,
+        
+    },
+    "python.pythonPath": "C:\\Program Files (x86)\\Python37-32\\python.exe"
+}
