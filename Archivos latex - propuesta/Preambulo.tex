@@ -1,0 +1,23 @@
+% Habilitar un solo Formato, ambos estan definidos en MacrosTesis.tex
+
+%\NumeradoFormat 	% Formato de titulos numerado con capitulos en romano
+\UnetFormat		% Formato de titulo basado en instructivo TAP ( aproximadamente )
+
+\frontmatter
+\FrontBackStyle
+\CenterformatFront
+%\renewcommand{\chaptername}{Etapa}				% para cambiar de nombre
+\spacing{1.5} 									% interlineado del documento
+\clearpage
+\setcounter{page}{5}
+\tableofcontents								% indice
+%\newpage 										% habilitar para article
+	\listoffigures								% Indice de tablas
+	\listoftables
+
+\renewcommand{\thefootnote}{(\arabic{footnote})}
+\renewcommand{\labelitemi}{$\bullet$}
+\setlength{\parindent}{1.5cm}					% Sangria
+% \setlength{\parskip}{0pt}						% Espaciado
+\parskip=0pt
+\quotingsetup{leftmargin=\parindent, rightmargin=\parindent}

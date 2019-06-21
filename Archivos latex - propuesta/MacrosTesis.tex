@@ -1,0 +1,366 @@
+% Formato tesis unet
+
+\addto\captionsspanish{\renewcommand{\contentsname}%
+	{ÍNDICE}%
+}
+
+\addto\captionsspanish{\renewcommand{\listtablename}%
+	{ÍNDICE DE TABLAS}%
+}
+
+\addto\captionsspanish{\renewcommand{\listfigurename}%
+	{ÍNDICE DE FIGURAS}%
+}
+
+\addto\captionsspanish{\renewcommand{\listoflistingscaption}
+	{ÍNDICE DE CODIGOS}%
+}
+
+
+\crefname{equation}{}{}
+\crefname{listing}{Código}{Códigos}
+\crefname{table}{\spanishtablename}{\spanishtablename}
+\newcommand{\addperiod}[1]{#1.$\enspace$}
+
+% --------------------------------------------
+% FORMATO UNET -------------------------------
+
+\newcommand{\UnetFormat}{
+	
+	\counterwithout{figure}{chapter}
+	\counterwithout{table}{chapter}
+	\counterwithout{equation}{chapter}
+	\counterwithout{listing}{chapter}
+	\setcounter{tocdepth}{2}
+	\setcounter{secnumdepth}{0}
+	
+	\renewcommand{\thechapter}{\Roman{chapter}}
+	\titleformat{\section}[block]{\centering\normalsize\bfseries}{\thesection}{1em}{}
+	\titleformat{\subsection}[block]{\centering\normalsize\bfseries\itshape}{\thesubsection}{1em}{}
+	\titleformat{\subsubsection}[block]{\normalsize\bfseries\itshape}{\thesubsubsection}{1em}{}
+	\titleformat{\paragraph}[runin]{\normalsize\bfseries\itshape }{\theparagraph}{1em}{\addperiod}
+	
+	\titlespacing\section{0pt}{20pt plus 4pt minus 4pt}{20pt plus 4pt minus 4pt}
+	\titlespacing\subsection{0pt}{10pt plus 4pt minus 4pt}{10pt plus 4pt minus 4pt}
+	\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 4pt}{10pt plus 4pt minus 4pt}
+	\titlespacing{\paragraph}{1.5cm}{10pt plus 0pt minus 4pt}{0pt plus 0pt minus 0pt}
+	
+	% setup de caption y ambiente de tablas
+	\captionsetup[table]{textfont=bf, format=plain, justification=justified, singlelinecheck=false, labelsep=spaced, belowskip=0pt, aboveskip=1pt}
+		
+	% setup de caption y ambiente de figuras
+	\captionsetup[figure]{labelformat=simple,labelsep=period, labelfont=bf, textfont=footnotesize, justification=justified, singlelinecheck=false}
+	
+	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false}
+	
+	\setlength{\textfloatsep}{10pt plus 1.0pt minus 2.0pt}
+	\setlength{\floatsep}{10pt plus 1.0pt minus 2.0pt}
+	\setlength{\intextsep}{10pt plus 1.0pt minus 2.0pt} 
+	
+	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
+	
+}
+
+% FORMATO UNET FIN ---------------------------
+% --------------------------------------------
+
+% --------------------------------------------
+% FORMATO NUMERADO ---------------------------
+
+\newcommand{\NumeradoFormat}{
+	
+	\setcounter{tocdepth}{1}
+	\setcounter{secnumdepth}{3}
+	\renewcommand{\thechapter}{\Roman{chapter}}
+	
+	\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+	\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
+	\renewcommand{\thesubsubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+	\renewcommand{\theparagraph}{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
+	\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
+	\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
+	\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
+	\renewcommand{\thelisting}{\arabic{chapter}.\arabic{listing}}
+	
+	\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
+	\titleformat{\subsection}[block]{\large\bfseries}{\thesubsection}{1em}{}
+	\titleformat{\subsubsection}[block]{\large\bfseries\itshape}{\thesubsubsection}{1em}{}
+	\titleformat{\paragraph}[runin]{\normalsize\bfseries\itshape }{\theparagraph}{1em}{\addperiod}
+	
+	\titlespacing\section{0pt}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+	\titlespacing\subsection{1.5cm}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+	\titlespacing\subsubsection{1.5cm}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+	\titlespacing{\paragraph}{1.5cm}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+	
+	% setup de caption y ambiente de tablas
+	\captionsetup[table]{textfont=bf, format=plain, justification=centering, singlelinecheck=false, labelsep=period, skip=1pt}
+	
+	% setup de caption y ambiente de figuras
+	\captionsetup[figure]{labelformat=simple,labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false}
+	
+	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false}
+	
+	\captionsetup[listing]{format=plain, justification=centering, singlelinecheck=false, labelsep=period}
+	
+}
+
+% FORMATO NUMERADO FIN -----------------------
+% --------------------------------------------
+
+
+% incio de macro para cambiar chapter al centro
+\newcommand{\Centerformat}{
+	\titleformat{\chapter}[display]
+	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large\MakeUppercase}
+	\titlespacing{\chapter}
+	{0pt}{20pt}{20pt}
+	
+	\titlecontents{chapter}% <section-type>
+		[3.22cm]% <left>
+		{\addvspace{7pt}}% <above-code>
+		{\hspace{-3.22cm}\MakeUppercase{\bfseries\chaptername}\hspace{0.1em}
+		\makebox[10pt][l]{\bfseries\thecontentslabel}\bfseries\quad\uppercase}% <numbered-entry-format>
+		{\hspace{-3.22cm}\bfseries\uppercase}% <numberless-entry-format>
+		{\hfill\contentspage}[\addvspace{7pt}]
+}
+
+% --------------------------------------------------------------------------
+
+% incio de macro para cambiar chapter a la izquierda
+\newcommand{\CenterformatBack}{
+	\titleformat{\chapter}[display]
+	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large}
+	\titlespacing{\chapter}
+	{0pt}{-20pt}{30pt}
+	
+	\titlecontents{chapter}% <section-type>
+		[0pt]% <left>
+		{\addvspace{0pt}}% <above-code>
+		{}% <numbered-entry-format>
+		{\bfseries\normalsize\uppercase}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
+}
+
+% incio de macro para cambiar chapter frente
+\newcommand{\CenterformatFront}{
+	\titleformat{\chapter}[display]
+	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large}
+	\titlespacing{\chapter}
+	{0pt}{-10pt}{0pt}
+	
+	\titlecontents{chapter}% <section-type>
+		[0pt]% <left>
+		{\addvspace{0pt}}% <above-code>
+		{}% <numbered-entry-format>
+		{\bfseries\normalsize\uppercase}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
+}
+
+
+% --------------------------------------------------------------------------
+	
+\titlecontents{section}% <section-type>
+	[1.5cm]% <left>
+	{\addvspace{-2pt}}% <above-code>
+	{\makebox[0.78cm][l]{\thecontentslabel}\hspace{1.7em}}% <numbered-entry-format>
+	{}% <numberless-entry-format>
+	{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+	
+\titlecontents{subsection}% <section-type>
+	[3cm]% <left>
+	{\addvspace{-2pt}}% <above-code>
+	{\makebox[0.63cm][l]{\thecontentslabel}\hspace{2.1em}}% <numbered-entry-format>
+	{}% <numberless-entry-format>
+	{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+	
+\titlecontents{subsubsection}% <section-type>
+	[4.5cm]% <left>
+	{\addvspace{-2pt}}% <above-code>
+	{\makebox[20pt][l]{\thecontentslabel}\hspace{3.1em}}% <numbered-entry-format>
+	{}% <numberless-entry-format>
+	{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+	
+\titlecontents{paragraph}% <section-type>
+	[6.52cm]% <left>
+	{\addvspace{0pt}}% <above-code>
+	{\makebox[20pt][l]{\thecontentslabel}\qquad\qquad}% <numbered-entry-format>
+	{}% <numberless-entry-format>
+	{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
+	
+
+
+%\let\svsubsubsection\subsubsection %separacion del bloque de texto por seccion
+%\def\subsubsection{\leftskip 1.25cm\svsubsubsection} 
+
+\BeforeBeginEnvironment{equation}{\vspace{7pt}}
+\AfterEndEnvironment{equation}{\leavevmode}
+
+%\BeforeBeginEnvironment{align}{\vspace{-10pt}}
+\AfterEndEnvironment{align}{\vspace{-27pt}\leavevmode}
+
+\BeforeBeginEnvironment{minted}{\vspace*{-7pt}}
+\AfterEndEnvironment{minted}{\vspace*{-30pt}\leavevmode}
+
+% --------------------------------------------------------------------------
+
+\setlist[itemize]{leftmargin=1.25cm}
+
+%Inicio del macro para el sortdlist ( ordenar un itemize ) -----------------
+\newcommand{\sortitem}[2][\relax]{%
+	\DTLnewrow{list}% Create a new entry
+	\ifx#1\relax
+	\DTLnewdbentry{list}{sortlabel}{#2}% Add entry sortlabel (no optional argument)
+	\else
+	\DTLnewdbentry{list}{sortlabel}{#1}% Add entry sortlabel (optional argument)
+	\fi%
+	\DTLnewdbentry{list}{description}{#2}% Add entry description
+}
+\newenvironment{sortedlist}{%
+	\DTLifdbexists{list}{\DTLcleardb{list}}{\DTLnewdb{list}}% Create new/discard old list
+}{%
+	\DTLsort{sortlabel}{list}% Sort list
+	\begin{itemize}%
+		\DTLforeach*{list}{\theDesc=description}{%
+			\item \theDesc}% Print each item
+	\end{itemize}%
+}
+% --------------------------------------------------------------------------
+
+% para modificar el ambiente " qoute "
+%\AtBeginEnvironment{quote}{\addtolength\leftmargini{1.25cm}}
+
+% Para modificar el Y en las referencias y bibliografia
+\DeclareDelimFormat*{finalnamedelim}
+{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace y \space}
+
+% the bibliography also needs another conditional, so we can't wrap
+% everything up with just the two lines above
+\DeclareDelimFormat[bib,biblist]{finalnamedelim}{%
+	\ifthenelse{\value{listcount}>\maxprtauth}
+	{}
+	{\ifthenelse{\value{liststop}>2}
+		{\finalandcomma\addspace y \space}
+		{\addspace y \space}}}
+
+% this is a special delimiter to solve the bugs reported in
+% https://tex.stackexchange.com/q/417648/35864
+\DeclareDelimFormat*{finalnamedelim:apa:family-given}{%
+	\ifthenelse{\value{listcount}>\maxprtauth}
+	{}
+	{\finalandcomma\addspace y\space}}
+
+\DeclareCaptionLabelSeparator*{spaced}{.\\}
+\DeclareCaptionLabelFormat{numero}{\textbf{#1 #2}}
+
+\newcommand{\Addheadfoot}{
+\newgeometry{right=3cm, left=4cm, top=3cm, bottom=3cm, includeheadfoot, headheight=15pt, heightrounded}
+	\newcommand{\MainStyle}{
+		\fancypagestyle{Main}{
+			\fancyhf{}% clear all fields
+			\renewcommand{\headrulewidth}{0.4pt}%
+			\renewcommand{\footrulewidth}{0.4pt}
+			\rhead{\rightmark}
+			\lhead{\leftmark}
+			\rfoot{Autor: Kleiver Carrasco}%
+			\cfoot{\thepage}
+		}
+	
+		\fancypagestyle{plain}{% for the chapter start pages
+			\fancyhf{}% clear all fields
+			\renewcommand{\headrulewidth}{0pt}%
+			\renewcommand{\footrulewidth}{0.4pt}
+			\rfoot{Autor: Kleiver Carrasco}%
+			\cfoot{\thepage}
+		}
+	
+		\pagestyle{Main}
+	}
+	
+	\newcommand{\FrontBackStyle}{
+		\fancypagestyle{plain}{% for the chapter start pages
+			\fancyhf{}% clear all fields
+			\renewcommand{\headrulewidth}{0pt}%
+			\renewcommand{\footrulewidth}{0pt}
+			\fancyfoot[C]{\thepage}%
+		}
+	
+		\pagestyle{plain}
+	}
+}
+
+\newcommand{\noAddheadfoot}{
+	
+	\newcommand{\FrontBackStyle}{
+		\fancypagestyle{plain}{% for the chapter start pages
+			\fancyhf{}% clear all fields
+			\renewcommand{\headrulewidth}{0pt}%
+			\renewcommand{\footrulewidth}{0pt}
+			\fancyfoot[C]{\thepage}%
+		}
+		
+		\pagestyle{plain}}
+	
+	\newcommand{\MainStyle}{
+		\fancypagestyle{plain}{% for the chapter start pages
+			\fancyhf{}% clear all fields
+			\renewcommand{\headrulewidth}{0pt}%
+			\renewcommand{\footrulewidth}{0pt}
+			\fancyfoot[C]{\thepage}%
+		}
+		
+		\pagestyle{plain}}
+}
+\addtocontents{toc}{~\hfill\par}
+\addtocontents{toc}{~\hfill Pág.\par}
+\addtocontents{toc}{~\hfill\par}
+%\addtocontents{toc}{\protect\afterpage{~\hfill Pág.\par\medskip}}
+
+\addtocontents{lof}{~\hfill\par}
+\addtocontents{lof}{FIGURA~\hfill Pág.\par}
+\addtocontents{lof}{~\hfill\par}
+%\addtocontents{lof}{\protect\afterpage{~\hfill Pag.\par\medskip}}
+
+\addtocontents{lot}{~\hfill\par}
+\addtocontents{lot}{TABLA~\hfill Pág.\par}
+\addtocontents{lot}{~\hfill\par}
+%\addtocontents{lot}{\protect\afterpage{~\hfill Pag.\par\medskip}}
+
+\addtocontents{lol}{~\hfill\par}
+\addtocontents{lol}{CÓDIGO~\hfill Pág.\par}
+\addtocontents{lol}{~\hfill\par}
+%\addtocontents{lol}{\protect\afterpage{~\hfill Pag.\par\medskip}}
+
+\renewcommand{\listoflistings}{%
+	\cleardoublepage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\protect\listoflistingscaption}%
+	\listof{listing}{\listoflistingscaption}%
+	\newpage
+	
+}
+
+\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
+\addtocontents{lof}{\protect\noaddvspace}
+\addtocontents{lot}{\protect\noaddvspace}
+\let\Chapter\chapter
+\def\chapter{\addtocontents{lol}{\protect\addvspace{0pt}}\Chapter}
+
+
+% Para arreglar el spacing en el ambiente quoting
+\makeatletter
+
+\renewcommand*\singlespacing{%
+	\par    % ensure vertical mode
+	\null   % add fake line with previous leading still in force
+	\setstretch {\setspace@singlespace}% change leading
+	\nobreak
+	\vskip -\baselineskip   % compensate for the fake line we added, but with 
+	% the new leading
+	\vskip \z@skip  % tell "\addvspace" and "\addpenalty" _not_ to remove the 
+	% above correction
+}
+
+\makeatother
+
+%\Addheadfoot
+\noAddheadfoot

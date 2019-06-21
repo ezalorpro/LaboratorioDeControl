@@ -1,0 +1,108 @@
+\documentclass[12pt, letterpaper, oneside, openany, final]{book} 
+\usepackage[spanish,es-tabla,es-nodecimaldot, es-nosectiondot, es-lcroman, es-noquoting]{babel}
+\let\quoting\relax\let\endquoting\relax
+\usepackage[T1]{fontenc}
+\usepackage{newtxmath}
+\usepackage{newtxtext} % Time new roman
+\usepackage[utf8]{inputenc}
+\usepackage[final]{microtype}
+\usepackage{blindtext}
+
+\usepackage{datetime}
+	\newdateformat{monthyeardate}{%
+		\monthname[\THEMONTH] de \THEYEAR}
+
+\usepackage{datetime}
+	\newdateformat{daymonthyeardate}{%
+		\THEDAY de \monthname[\THEMONTH] de \THEYEAR}
+
+\usepackage[right=3cm, left=4cm, top=3cm, bottom=3cm, nohead=true, foot=20pt,
+includefoot, heightrounded]{geometry}
+
+\usepackage{graphicx}
+	\graphicspath{ {imagenes/} }
+
+\usepackage[export]{adjustbox}
+	\setcounter{section}{0}
+
+\usepackage[chapter]{minted}
+	\renewcommand\listingscaption{Codigo}
+	
+\usepackage{anyfontsize}
+\usepackage[svgnames]{xcolor}
+
+\usepackage[numbib]{tocbibind}
+	% notlof = no lista de figuras en el indice
+	% numbib = Number the Bibliography heading
+	% notlot = Disables the inclusion of the List of Tables
+
+\usepackage{chngcntr}
+	
+\usepackage[font=small,labelfont=bf,hypcap=true]{caption}
+\usepackage{subcaption}
+
+\usepackage{array}
+\usepackage{booktabs}
+	\setlength\heavyrulewidth{0.9pt}
+
+\usepackage{threeparttable}
+
+\usepackage{scrextend}
+\usepackage{amsmath}
+\usepackage{nccmath}
+
+\usepackage[style=american,thresholdtype=words, parthreshold=true]{csquotes}
+	\SetBlockThreshold{40}
+
+\usepackage[vskip=10pt, leftmargin=\parindent, rightmargin=\parindent, 	indentfirst=false]{quoting}
+	\AtBeginEnvironment{quoting}{\singlespacing}
+	\SetBlockEnvironment{quoting}
+
+\usepackage[style=apa, backend=biber]{biblatex}
+	\addbibresource{referencias.bib}
+	\setlength\bibitemsep{5\itemsep}
+	\DefineBibliographyStrings{spanish}{andothers={et al\adddot}}
+	%\DeclareLanguageMapping{spanish}{american-apa}
+	\DeclareLanguageMapping{spanish}{spanish-apa}
+
+\usepackage{pdfpages}
+\usepackage{setspace} 	% Interlineado
+\usepackage{longtable, tabu}
+\usepackage{csvsimple}
+\usepackage{lscape}
+\usepackage{parskip}
+
+\usepackage[bottom]{footmisc}
+\usepackage[all]{nowidow}		% para evitar lineas huerfanas y viudas
+	%\widowpenalty = 10000
+	%\clubpenalty = 10000
+	%\postdisplaypenalty = 10000
+\usepackage{datatool} 	% para el sortedlist en el glosario
+\usepackage{etoolbox}
+\usepackage{enumitem}
+	\setlist{nolistsep}
+\usepackage{titlesec}
+\usepackage{titletoc}% http://ctan.org/pkg/titletoc
+\usepackage{fancyhdr}
+\usepackage{xpatch}
+\usepackage{afterpage}
+\usepackage{flafter}
+\usepackage{dblfloatfix}
+
+%\usepackage{draftwatermark}
+\usepackage[nostamp]{draftwatermark}
+	\SetWatermarkText{NO FINAL}
+	\SetWatermarkScale{0.8}
+	\SetWatermarkLightness{0.96}
+
+\usepackage[colorlinks = true,
+			linkcolor = black,
+			urlcolor = blue,
+			citecolor = black,
+			hyperfootnotes = true,
+			pdfstartview=XYZ]{hyperref}
+			
+			% pdfstartview=XYZ para ajustar la pagina
+			% pdfpagelayout=SinglePage para landscape vertical
+
+\usepackage[nameinlink, noabbrev, spanish, capitalize]{cleveref}

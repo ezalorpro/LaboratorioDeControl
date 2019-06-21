@@ -1,0 +1,124 @@
+\unhbox \voidb@x \penalty \@M \ \hfill \par 
+\unhbox \voidb@x \penalty \@M \ \hfill P\IeC {\'a}g.\par 
+\unhbox \voidb@x \penalty \@M \ \hfill \par 
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {spanish}{}
+\defcounter {refsection}{0}\relax 
+\ttl@change@i {\@ne }{chapter}{0pt}{\addvspace {0pt}}{}{\bfseries \normalsize \uppercase }{\titlerule *[8pt]{.}\contentspage }\relax 
+\defcounter {refsection}{0}\relax 
+\ttl@change@v {chapter}{}{}{\addvspace {0pt}}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\IeC {\'I}NDICE}{v}{chapter*.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\IeC {\'I}NDICE DE FIGURAS}{vi}{chapter*.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\IeC {\'I}NDICE DE TABLAS}{vii}{chapter*.3}% 
+\defcounter {refsection}{0}\relax 
+\ttl@change@i {\@ne }{chapter}{3.22cm}{\addvspace {7pt}}{\hspace {-3.22cm}\MakeUppercase {\bfseries \chaptername }\hspace {0.1em} \makebox [10pt][l]{\bfseries \thecontentslabel }\bfseries \quad \uppercase }{\hspace {-3.22cm}\bfseries \uppercase }{\hfill \contentspage }\relax 
+\defcounter {refsection}{0}\relax 
+\ttl@change@v {chapter}{}{}{\addvspace {7pt}}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {I}El problema}{1}{chapter.1}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Planteamiento del problema}{1}{section*.4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Objetivos de la investigaci\IeC {\'o}n}{3}{section*.5}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Objetivo general}{3}{subsection*.6}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Objetivos espec\IeC {\'\i }ficos}{3}{subsection*.7}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Justificaci\IeC {\'o}n e importancia}{3}{section*.8}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Alcance y limitaciones}{4}{section*.9}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {II}Marco Te\IeC {\'o}rico}{5}{chapter.2}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Antecedentes}{5}{section*.10}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Bases te\IeC {\'o}ricas}{6}{section*.11}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Procesos}{7}{subsection*.12}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Modelado de procesos en tiempo continuo}{7}{subsection*.13}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Transformada de Laplace}{7}{subsubsection*.14}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Ecuaciones de espacio de estado}{8}{subsubsection*.15}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Modelado de procesos en tiempo discreto}{9}{subsection*.16}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Transformada z}{9}{subsubsection*.17}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Ecuaciones de espacio de estado discretas}{9}{subsubsection*.18}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Sistemas de control}{10}{subsection*.19}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Sistema en lazo abierto}{10}{subsubsection*.20}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Sistema en lazo cerrado}{10}{subsubsection*.21}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Estabilidad de los sistemas}{10}{subsubsection*.23}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{An\IeC {\'a}lisis de estabilidad en el plano complejo}{11}{paragraph*.24}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Criterio de estabilidad de Nyquist}{11}{paragraph*.25}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{An\IeC {\'a}lisis de estabilidad con las trazas de Bode}{11}{paragraph*.26}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Controlador PID}{12}{subsubsection*.27}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Componente proporcional}{12}{paragraph*.29}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Componente integral}{13}{paragraph*.30}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Componente derivativa}{13}{paragraph*.31}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Entonaci\IeC {\'o}n por m\IeC {\'e}todo de Ziegler-Nichols en lazo abierto}{14}{subsubsection*.32}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{L\IeC {\'o}gica difusa}{15}{subsection*.36}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Conjuntos difusos}{16}{subsubsection*.37}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Reglas de inferencia}{16}{subsubsection*.39}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Defuzzificaci\IeC {\'o}n}{17}{subsubsection*.44}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{M\IeC {\'e}todo de centro de \IeC {\'a}rea}{18}{paragraph*.45}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Sistemas de control difusos}{18}{subsubsection*.46}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Python}{19}{subsection*.48}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Biblioteca NumPy}{20}{subsubsection*.49}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Biblioteca SciPy}{20}{subsubsection*.50}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Biblioteca Matplotlib}{20}{subsubsection*.51}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Biblioteca de control}{21}{subsubsection*.52}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Biblioteca Scikit-Fuzzy}{21}{subsubsection*.53}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {III}Marco metodol\IeC {\'o}gico}{22}{chapter.3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Tipo de investigaci\IeC {\'o}n}{22}{section*.54}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Fases de la investigaci\IeC {\'o}n}{23}{section*.55}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Fase 1: Estudio de los sistemas de control cl\IeC {\'a}sicos y difusos}{23}{paragraph*.56}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Fase 2: Codificaci\IeC {\'o}n de rutinas}{23}{paragraph*.57}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Fase 3: Interfaz gr\IeC {\'a}fica y enlace con rutinas}{23}{paragraph*.58}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Fase 4: Comparaci\IeC {\'o}n de resultados}{23}{paragraph*.59}% 
+\defcounter {refsection}{0}\relax 
+\ttl@change@i {\@ne }{chapter}{0pt}{\addvspace {0pt}}{}{\bfseries \normalsize \uppercase }{\titlerule *[8pt]{.}\contentspage }\relax 
+\defcounter {refsection}{0}\relax 
+\ttl@change@v {chapter}{}{}{\addvspace {0pt}}\relax 
+\defcounter {refsection}{0}\relax 
+\vspace {0.6\normalbaselineskip }
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{REFERENCIAS}{24}{chapter*.60}% 
+\contentsfinish 

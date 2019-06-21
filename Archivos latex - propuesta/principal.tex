@@ -1,0 +1,43 @@
+% Dependencias ---------------------------------------------------------
+\include{dependencias}
+\include{MacrosTesis}
+
+\begin{document}
+%Portada ---------------------------------------------------------------
+\include{portada}
+\include{carta_presentacion}
+\include{carta_aceptacion}
+\include{carta_vistobueno}
+\include{Preambulo}
+\include{FrontContent}
+\mainmatter
+\setcounter{page}{1} % la cantidad necesaria en funcion de las paginas previas
+\Centerformat									% Capitulos al centro
+% ----------------------------- inicio ---------------------------------
+
+\chapter{El problema}
+	\input{capitulo1}
+
+\chapter{Marco Teórico}
+	\input{capitulo2}
+
+\chapter{Marco metodológico}
+	\input{capitulo3}
+
+
+% ------------------------------ fin -----------------------------------
+
+%\backmatter
+\FrontBackStyle
+\CenterformatBack
+\addtocontents{toc}{\vspace{0.6\normalbaselineskip}}
+
+%\newpage
+%\CenterformatFront
+\singlespacing
+\printbibliography[title={REFERENCIAS},heading=bibintoc]	% referencias , heading=bibnumbered para numeracion
+
+%\spacing{1.5}
+%\chapter{ANEXOS}
+
+\end{document}

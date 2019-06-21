@@ -1,0 +1,116 @@
+% Formato general
+\crefname{equation}{}{}
+\crefname{table}{\spanishtablename}{\spanishtablename}
+
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+\newcommand\punto[1]{#1.$\;$}
+\titleformat{\section}[block]{\LARGE\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\hspace{0.9cm}\large\bfseries}{\thesubsection}{1em}{\punto}
+\titleformat{\subsubsection}[block]{\hspace{1.92cm}\large\itshape\bfseries}{\thesubsubsection}{1em}{\punto}
+
+\titlespacing\section{0pt}{10pt plus 4pt minus 4pt}{10pt plus 4pt minus 4pt}
+\titlespacing\subsection{0pt}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+\titlespacing\subsubsection{0pt}{0pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+
+\titleformat*{\paragraph}{\large\bfseries}
+\titleformat*{\subparagraph}{\large\bfseries}
+
+
+\titlecontents{chapter}% <section-type>
+	[0pt]% <left>
+	{\addvspace{1em}}% <above-code>
+	{\bfseries\thecontentslabel\quad}% <numbered-entry-format>
+	{\bfseries}% <numberless-entry-format>
+	{\bfseries\hfill\contentspage}
+	
+%\let\svsubsubsection\subsubsection %separacion del bloque de texto por seccion
+%\def\subsubsection{\leftskip 1.25cm\svsubsubsection} 
+
+\setlength{\textfloatsep}{20pt plus 4.0pt minus 4.0pt}
+\setlength{\floatsep}{20pt plus 4.0pt minus 4.0pt}
+\setlength{\intextsep}{20pt plus 4.0pt minus 4.0pt}
+
+% Ecuaciones 
+\setlength{\abovedisplayskip}{0pt plus 4pt minus 4pt}
+\setlength{\belowdisplayskip}{0pt plus 4pt minus 4pt}
+\setlength{\abovedisplayshortskip}{8pt plus 4pt minus 4pt}
+\setlength{\belowdisplayshortskip}{20pt plus 4pt minus 4pt}
+
+% incio de macro para cambiar chapter al centro
+\newcommand{\Centerformat}{
+	\titleformat{\chapter}[display]
+	{\normalfont\Large\bfseries\filcenter}{\chaptertitlename\ \thechapter}{5pt}{\LARGE}[\vspace{-5pt}\leavevmode]
+	\titlespacing{\chapter}
+	{0pt}{30pt}{20pt}
+}
+% --------------------------------------------------------------------------
+
+% incio de macro para cambiar chapter a la izquierda
+\newcommand{\CenterformatBack}{
+	\titleformat{\chapter}[display]
+	{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}[\vspace{-30pt}\leavevmode]
+	\titlespacing{\chapter}
+	{0pt}{30pt}{20pt}
+}
+% --------------------------------------------------------------------------
+
+\setlist[itemize]{leftmargin=1.25cm}
+
+%Inicio del macro para el sortdlist ( ordenar un itemize ) -----------------
+\newcommand{\sortitem}[2][\relax]{%
+	\DTLnewrow{list}% Create a new entry
+	\ifx#1\relax
+	\DTLnewdbentry{list}{sortlabel}{#2}% Add entry sortlabel (no optional argument)
+	\else
+	\DTLnewdbentry{list}{sortlabel}{#1}% Add entry sortlabel (optional argument)
+	\fi%
+	\DTLnewdbentry{list}{description}{#2}% Add entry description
+}
+\newenvironment{sortedlist}{%
+	\DTLifdbexists{list}{\DTLcleardb{list}}{\DTLnewdb{list}}% Create new/discard old list
+}{%
+	\DTLsort{sortlabel}{list}% Sort list
+	\begin{itemize}%
+		\DTLforeach*{list}{\theDesc=description}{%
+			\item \theDesc}% Print each item
+	\end{itemize}%
+}
+% --------------------------------------------------------------------------
+
+% para modificar el ambiente " qoute "
+\AtBeginEnvironment{quote}{\addtolength\leftmargini{1.25cm}}
+
+% Para modificar el Y en las referencias y bibliografia
+\DeclareDelimFormat*{finalnamedelim}
+{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace y \space}
+
+% the bibliography also needs another conditional, so we can't wrap
+% everything up with just the two lines above
+\DeclareDelimFormat[bib,biblist]{finalnamedelim}{%
+	\ifthenelse{\value{listcount}>\maxprtauth}
+	{}
+	{\ifthenelse{\value{liststop}>2}
+		{\finalandcomma\addspace y \space}
+		{\addspace y \space}}}
+
+% this is a special delimiter to solve the bugs reported in
+% https://tex.stackexchange.com/q/417648/35864
+\DeclareDelimFormat*{finalnamedelim:apa:family-given}{%
+	\ifthenelse{\value{listcount}>\maxprtauth}
+	{}
+	{\finalandcomma\addspace y\space}}
+
+\pagestyle{plain}
+\newcommand{\MainStyle}{}
+\newcommand{\FrontBackStyle}{}
+\newcommand{\CenterformatFront}{}
+
+% para modificar caption
+
+%\DeclareCaptionLabelSeparator*{spaced}{.\\}
+%\DeclareCaptionLabelFormat{numero}{\textbf{#1 #2}}
+
+%\captionsetup[table]{textfont=it, format=plain, justification=justified, singlelinecheck=false, labelsep=newline, skip=0pt}
+%\captionsetup[figure]{labelformat=numero,labelsep=period, labelfont=bf, textfont=bf, justification=centering, singlelinecheck=false}
