@@ -39,7 +39,7 @@
 			Aplicando \cref{eq:Laplace} a \cref{eq:Diffeq}  y despejando la relación $\frac{Y(S)}{X(S)}$ para el proceso con condiciones iniciales igual a cero (debido a que el proceso debe ser lineal) se obtiene la correspondiente función de transferencia del proceso $H(S)$:
 			
 			 \begin{equation}\label{eq:TransferFunction}
-			 H(s) =	\frac{Y(S)}{X(S)} = \frac{b_{0}}{a_{2}s^{2} + a_{1}s + a_{0}}
+			 	H(s) =	\frac{Y(S)}{X(S)} = \frac{b_{0}}{a_{2}s^{2} + a_{1}s + a_{0}}
 			 \end{equation}
 			 
 			 La demostración completa \Parencite[pp.$\,$21-22]{smith1985principles} no es de interés para este trabajo, pero si su resultado, la función de transferencia puede ser analizada para determinar las características del proceso, como su ganancia, constante de tiempo, tiempo muerto, entre otras.
@@ -83,7 +83,7 @@
 			De este modo aplicando \cref{eq:Ztransform} sobre la entrada y salida de la ecuación en diferencias del proceso se obtiene $H(z)$ y viene dada por:
 			
 			\begin{equation}\label{eq:ZTransfer}
-			H(z) =	\frac{Y(z)}{X(z)} = \frac{\displaystyle\sum\limits_{k=0}^{\infty}y(k)z^{-k}}{\displaystyle\sum\limits_{k=0}^{\infty}x(k)z^{-k}}
+				H(z) =	\frac{Y(z)}{X(z)} = \frac{\displaystyle\sum\limits_{k=0}^{\infty}y(k)z^{-k}}{\displaystyle\sum\limits_{k=0}^{\infty}x(k)z^{-k}}
 			\end{equation}
 		
 		\subsubsection{Ecuaciones de espacio de estado discretas}
@@ -290,7 +290,7 @@
 				Este método se utiliza para realizar la defuzzificación y obtener las salidas nítidas, consiste en cortar las funciones de membresía $\mu_{n}(x)$ con los valores de entrada $x$ para determinar un área, el área inferior será la que se tome en cuenta para realizar el cálculo, el método de centro de área se puede representar de modo general en su forma discreta de la siguiente forma:
 				
 				\begin{equation}\label{eq:Centroide}
-				Salida = \frac{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)\cdot x}{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)}
+					Salida = \frac{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)\cdot x}{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)}
 				\end{equation}
 	
 		\subsubsection{Sistemas de control difusos}
