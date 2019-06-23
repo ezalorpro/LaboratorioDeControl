@@ -99,7 +99,7 @@
 
 \newcommand{\NumeradoFormat}{
 	
-	\setcounter{tocdepth}{3}
+	\setcounter{tocdepth}{4}
 	\setcounter{secnumdepth}{4}
 	\renewcommand{\thechapter}{\Roman{chapter}}
 	
@@ -123,7 +123,7 @@
 	\titlespacing{\paragraph}{1.5cm}{10pt plus 0pt minus 4pt}{0pt plus 4pt minus 4pt}
 	
 	% setup de caption y ambiente de tablas
-	\captionsetup[table]{textfont=bf, format=plain, justification=justified, singlelinecheck=false, labelsep=period, skip=1pt}
+	\captionsetup[table]{textfont=bf, format=plain, justification=justified, singlelinecheck=false, labelsep=spaced, belowskip=0pt, aboveskip=1pt}
 	
 	% setup de caption y ambiente de figuras
 	\captionsetup[figure]{labelformat=simple,labelsep=period, labelfont=bf, textfont=footnotesize, justification=justified, singlelinecheck=false, belowskip=-10pt}
@@ -146,31 +146,34 @@
 	\newlength\subsubsectionlenght
 	\setlength{\subsubsectionlenght}{-0.5cm - \widthof{\thesubsubsection}}
 
+	\newlength\paragraphlenght
+	\setlength{\paragraphlenght}{-0.5cm - \widthof{\theparagraph}}
+
 	\titlecontents{section}% <section-type>
-		[1cm + 0.5cm + \widthof{\thesection}]% <left>
+		[0.5cm + \widthof{\thesection}]% <left>
 		{\addvspace{-2pt}}% <above-code>
 		{\hspace{\sectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 	
 	\titlecontents{subsection}% <section-type>
-		[1.5cm + \widthof{\thesection} + 0.5cm + \widthof{\thesubsection}]% <left>
+		[0.5cm + \widthof{\thesection} + 0.5cm + \widthof{\thesubsection}]% <left>
 		{\addvspace{-2pt}}% <above-code>
 		{\hspace{\subsectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 		
 	\titlecontents{subsubsection}% <section-type>
-		[2cm + \widthof{\thesection} + \widthof{\thesubsection} + 0.5cm + \widthof{\thesubsubsection}]% <left>
+		[1cm + \widthof{\thesection} + \widthof{\thesubsection} + 0.5cm + \widthof{\thesubsubsection}]% <left>
 		{\addvspace{-2pt}}% <above-code>
 		{\hspace{\subsubsectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 		
 	\titlecontents{paragraph}% <section-type>
-		[6.52cm]% <left>
+		[1.5cm + \widthof{\thesection} + \widthof{\thesubsection} + \widthof{\thesubsubsection} + 0.5cm + \widthof{\theparagraph}]% <left>
 		{\addvspace{0pt}}% <above-code>
-		{\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{\hspace{\paragraphlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
 }
