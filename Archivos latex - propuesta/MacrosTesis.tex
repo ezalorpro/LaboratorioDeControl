@@ -31,7 +31,7 @@
 	\counterwithout{table}{chapter}
 	\counterwithout{equation}{chapter}
 	\counterwithout{listing}{chapter}
-	\setcounter{tocdepth}{2}
+	\setcounter{tocdepth}{3}
 	\setcounter{secnumdepth}{0}
 	
 	\renewcommand{\thechapter}{\Roman{chapter}}
@@ -59,6 +59,36 @@
 	
 	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
 	
+
+	% Configuracion del TOC	
+	\titlecontents{section}% <section-type>
+		[1.5cm]% <left>
+		{\addvspace{-2pt}}% <above-code>
+		{\makebox[0.78cm][l]{\thecontentslabel}\hspace{1.7em}}% <numbered-entry-format>
+		{}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+
+	\titlecontents{subsection}% <section-type>
+		[3cm]% <left>
+		{\addvspace{-2pt}}% <above-code>
+		{\makebox[0.63cm][l]{\thecontentslabel}\hspace{2.1em}}% <numbered-entry-format>
+		{}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+
+	\titlecontents{subsubsection}% <section-type>
+		[4.5cm]% <left>
+		{\addvspace{-2pt}}% <above-code>
+		{\makebox[20pt][l]{\thecontentslabel}\hspace{3.1em}}% <numbered-entry-format>
+		{}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+
+	\titlecontents{paragraph}% <section-type>
+		[6.52cm]% <left>
+		{\addvspace{0pt}}% <above-code>
+		{\makebox[20pt][l]{\thecontentslabel}\qquad\qquad}% <numbered-entry-format>
+		{}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
+
 }
 
 % FORMATO UNET FIN ---------------------------
@@ -106,6 +136,43 @@
 	
 	\captionsetup[listing]{format=plain, justification=centering, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
 	
+	% Configuracion del TOC
+	\newlength\sectionlenght
+	\setlength{\sectionlenght}{-0.5cm - \widthof{\thesection}}
+
+	\newlength\subsectionlenght
+	\setlength{\subsectionlenght}{-0.5cm - \widthof{\thesubsection}}
+
+	\newlength\subsubsectionlenght
+	\setlength{\subsubsectionlenght}{-0.5cm - \widthof{\thesubsubsection}}
+
+	\titlecontents{section}% <section-type>
+		[1cm + 0.5cm + \widthof{\thesection}]% <left>
+		{\addvspace{-2pt}}% <above-code>
+		{\hspace{\sectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+	
+	\titlecontents{subsection}% <section-type>
+		[1.5cm + \widthof{\thesection} + 0.5cm + \widthof{\thesubsection}]% <left>
+		{\addvspace{-2pt}}% <above-code>
+		{\hspace{\subsectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+		
+	\titlecontents{subsubsection}% <section-type>
+		[2cm + \widthof{\thesection} + \widthof{\thesubsection} + 0.5cm + \widthof{\thesubsubsection}]% <left>
+		{\addvspace{-2pt}}% <above-code>
+		{\hspace{\subsubsectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
+		
+	\titlecontents{paragraph}% <section-type>
+		[6.52cm]% <left>
+		{\addvspace{0pt}}% <above-code>
+		{\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{}% <numberless-entry-format>
+		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
 }
 
 % FORMATO NUMERADO FIN -----------------------
@@ -160,38 +227,7 @@
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
 }
 
-
 % --------------------------------------------------------------------------
-	
-\titlecontents{section}% <section-type>
-	[1.5cm]% <left>
-	{\addvspace{-2pt}}% <above-code>
-	{\makebox[0.78cm][l]{\thecontentslabel}\hspace{1.7em}}% <numbered-entry-format>
-	{}% <numberless-entry-format>
-	{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
-	
-\titlecontents{subsection}% <section-type>
-	[3cm]% <left>
-	{\addvspace{-2pt}}% <above-code>
-	{\makebox[0.63cm][l]{\thecontentslabel}\hspace{2.1em}}% <numbered-entry-format>
-	{}% <numberless-entry-format>
-	{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
-	
-\titlecontents{subsubsection}% <section-type>
-	[6.513cm]% <left>
-	{\addvspace{-2pt}}% <above-code>
-	{\hspace{-3.1em}\hspace{-20pt}\makebox[20pt][l]{\thecontentslabel}\hspace{3.1em}}% <numbered-entry-format>
-	{}% <numberless-entry-format>
-	{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
-	
-\titlecontents{paragraph}% <section-type>
-	[6.52cm]% <left>
-	{\addvspace{0pt}}% <above-code>
-	{\makebox[20pt][l]{\thecontentslabel}\qquad\qquad}% <numbered-entry-format>
-	{}% <numberless-entry-format>
-	{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
-	
-
 
 %\let\svsubsubsection\subsubsection %separacion del bloque de texto por seccion
 %\def\subsubsection{\leftskip 1.25cm\svsubsubsection} 
