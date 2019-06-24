@@ -112,11 +112,11 @@
 	\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 	\renewcommand{\thelisting}{\arabic{chapter}.\arabic{listing}}
 	
-	\titleformat{\section}[block]{\normalsize\bfseries}{\thesection}{1em}{}
-	\titleformat{\subsection}[block]{\normalsize\bfseries}{\thesubsection}{1em}{}
-	\titleformat{\subsubsection}[block]{\normalsize\bfseries\itshape}{\thesubsubsection}{1em}{}
-	\titleformat{\paragraph}[runin]{\normalsize\bfseries\itshape}{\theparagraph}{1em}{\addperiod}
-	\titleformat{name=\paragraph, numberless}[runin]{\normalsize\bfseries}{}{1em}{\addperiod}
+	\titleformat{\section}[block]{\normalsize\bfseries}{\thesection}{0.5em}{}
+	\titleformat{\subsection}[block]{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+	\titleformat{\subsubsection}[block]{\normalsize\bfseries\itshape}{\thesubsubsection}{0.5em}{}
+	\titleformat{\paragraph}[runin]{\normalsize\bfseries\itshape}{\theparagraph}{0.5em}{\addperiod}
+	\titleformat{name=\paragraph, numberless}[runin]{\normalsize\bfseries}{}{}{\addperiod}
 	
 	\titlespacing\section{0pt}{10pt plus 4pt minus 4pt}{10pt plus 4pt minus 4pt}
 	\titlespacing\subsection{1.5cm}{10pt plus 4pt minus 4pt}{10pt plus 4pt minus 4pt}
@@ -139,42 +139,42 @@
 	
 	% Configuracion del TOC
 	\newlength\sectionlenght
-	\setlength{\sectionlenght}{-0.5cm - \widthof{\thesection}}
+	\setlength{\sectionlenght}{-0.4cm - \widthof{\thesection}}
 
 	\newlength\subsectionlenght
-	\setlength{\subsectionlenght}{-0.5cm - \widthof{\thesubsection}}
+	\setlength{\subsectionlenght}{-0.4cm - \widthof{\thesubsection}}
 
 	\newlength\subsubsectionlenght
-	\setlength{\subsubsectionlenght}{-0.5cm - \widthof{\thesubsubsection}}
+	\setlength{\subsubsectionlenght}{-0.4cm - \widthof{\thesubsubsection}}
 
 	\newlength\paragraphlenght
-	\setlength{\paragraphlenght}{-0.5cm - \widthof{\theparagraph}}
+	\setlength{\paragraphlenght}{-0.4cm - \widthof{\theparagraph}}
 
 	\titlecontents{section}% <section-type>
-		[0.5cm + \widthof{\thesection}]% <left>
+		[0.4cm + \widthof{\thesection}]% <left>
 		{\addvspace{-2pt}}% <above-code>
-		{\hspace{\sectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{\hspace{\sectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.4cm}}% <numbered-entry-format>
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 	
 	\titlecontents{subsection}% <section-type>
-		[0.5cm + \widthof{\thesection} + 0.5cm + \widthof{\thesubsection}]% <left>
+		[0.4cm + \widthof{\thesection} + 0.4cm + \widthof{\thesubsection}]% <left>
 		{\addvspace{-2pt}}% <above-code>
-		{\hspace{\subsectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{\hspace{\subsectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.4cm}}% <numbered-entry-format>
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 		
 	\titlecontents{subsubsection}% <section-type>
-		[1cm + \widthof{\thesection} + \widthof{\thesubsection} + 0.5cm + \widthof{\thesubsubsection}]% <left>
+		[0.8cm + \widthof{\thesection} + \widthof{\thesubsection} + 0.4cm + \widthof{\thesubsubsection}]% <left>
 		{\addvspace{-2pt}}% <above-code>
-		{\hspace{\subsubsectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{\hspace{\subsubsectionlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.4cm}}% <numbered-entry-format>
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 		
 	\titlecontents{paragraph}% <section-type>
-		[1.5cm + \widthof{\thesection} + \widthof{\thesubsection} + \widthof{\thesubsubsection} + 0.5cm + \widthof{\theparagraph}]% <left>
+		[1.2cm + \widthof{\thesection} + \widthof{\thesubsection} + \widthof{\thesubsubsection} + 0.4cm + \widthof{\theparagraph}]% <left>
 		{\addvspace{-2pt}}% <above-code>
-		{\hspace{\paragraphlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.5cm}}% <numbered-entry-format>
+		{\hspace{\paragraphlenght}\makebox[\widthof{\thecontentslabel}][l]{\thecontentslabel}\hspace{0.4cm}}% <numbered-entry-format>
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{-2pt}]
 }
