@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -473,3 +473,12 @@ class Ui_MainWindow(object):
         self.actionpelado.setText(_translate("MainWindow", "pelado"))
         self.actionAbout.setText(_translate("MainWindow", "About"))
 
+if __name__ == "__main__":
+    import sys
+
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ventana = Ui_MainWindow()
+    ventana.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
