@@ -31,7 +31,7 @@
 	\counterwithout{table}{chapter}
 	\counterwithout{equation}{chapter}
 	\counterwithout{listing}{chapter}
-	\setcounter{tocdepth}{2}
+	\setcounter{tocdepth}{1}
 	\setcounter{secnumdepth}{0}
 	
 	\renewcommand{\thechapter}{\Roman{chapter}}
@@ -198,7 +198,7 @@
 		{\hfill\contentspage}[\addvspace{7pt}]
 }
 
-% --------------------------------------------------------------------------
+% ---------------------------------------------------------------------
 
 % incio de macro para cambiar chapter a la izquierda
 \newcommand{\CenterformatBack}{
@@ -230,7 +230,7 @@
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
 }
 
-% --------------------------------------------------------------------------
+% ---------------------------------------------------------------------
 
 %\let\svsubsubsection\subsubsection %separacion del bloque de texto por seccion
 %\def\subsubsection{\leftskip 1.25cm\svsubsubsection} 
@@ -238,17 +238,17 @@
 %\BeforeBeginEnvironment{equation}{\vspace{7pt}}
 %\AfterEndEnvironment{equation}{\leavevmode}
 
-%\BeforeBeginEnvironment{align}{\vspace{-10pt}}
+\BeforeBeginEnvironment{align}{\vspace{-10pt}}
 \AfterEndEnvironment{align}{\vspace{-30pt}\leavevmode}
 
 \BeforeBeginEnvironment{minted}{\vspace*{-7pt}}
 \AfterEndEnvironment{minted}{\vspace*{-30pt}\leavevmode}
 
-% --------------------------------------------------------------------------
+% ---------------------------------------------------------------------
 
 \setlist[itemize]{leftmargin=1.25cm}
 
-%Inicio del macro para el sortdlist ( ordenar un itemize ) -----------------
+%Inicio del macro para el sortdlist ( ordenar un itemize ) ------------
 \newcommand{\sortitem}[2][\relax]{%
 	\DTLnewrow{list}% Create a new entry
 	\ifx#1\relax
@@ -267,7 +267,7 @@
 			\item \theDesc}% Print each item
 	\end{itemize}%
 }
-% --------------------------------------------------------------------------
+% ---------------------------------------------------------------------
 
 % para modificar el ambiente " qoute "
 %\AtBeginEnvironment{quote}{\addtolength\leftmargini{1.25cm}}
