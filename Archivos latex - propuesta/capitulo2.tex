@@ -168,7 +168,8 @@
 				Debido a que la componente integral depende del tiempo, es posible corregir desviaciones de la variable controlada generadas por perturbaciones externas, por otro lado, debido a que eventualmente se conseguirá que el error sea igual a cero la componente proporcional no hará ningún aporte al sistema, y la señal de control pasara a ser totalmente generada por la componente integral hasta que exista un cambio en el setpoint o una alteración en la variable medida.
 
 			\paragraph{Componente derivativa}
-			
+
+				\looseness=-1
 				La componente derivativa viene dada por el ritmo de cambio de la señal de error multiplicado por la ganancia derivativa, por tanto, cuando el error permanece constante la componente derivativa es igual a cero, la componente derivativa será tan grande como la velocidad con la que cambie el error, esto ayuda a evitar que se generen sobre pasos en la variable medida respecto a la variable de referencia.
 				
 				La componente derivativa es muy sensible al ruido, es por esto que se debe utilizar solo cuando se requiera un cierto grado de anticipación y no exista ruido \Parencite{smith1985principles}. Es recomendable utilizar filtros en orden de disminuir el posible ruido, a su vez, cuando el proceso a controlar es de respuesta rápida se recomienda no agregar componente derivativa o que su ganancia sea muy pequeña.
