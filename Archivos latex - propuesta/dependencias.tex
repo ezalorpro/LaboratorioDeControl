@@ -91,6 +91,7 @@ includefoot, heightrounded]{geometry}
 \usepackage{flafter}
 \usepackage{dblfloatfix}
 \usepackage{calc}
+\usepackage{pdflscape}
 
 \usepackage{draftwatermark}
 %\usepackage[nostamp]{draftwatermark}
@@ -116,4 +117,16 @@ includefoot, heightrounded]{geometry}
 \g@addto@macro\normalsize{\setlength\belowdisplayshortskip{0pt}}
 \g@addto@macro\normalsize{\setlength\abovedisplayskip{17pt}}
 \g@addto@macro\normalsize{\setlength\belowdisplayskip{12pt}}
+\makeatother
+
+\makeatletter
+\newcommand*{\gmshow@textheight}{\textheight}
+\newdimen\gmshow@@textheight
+\g@addto@macro\landscape{%
+  \gmshow@@textheight=\hsize
+  \renewcommand*{\gmshow@textheight}{\gmshow@@textheight}%
+}
+\def\Gm@vrule{%
+  \vrule width 0.2pt height\gmshow@textheight depth\z@
+}%
 \makeatother
