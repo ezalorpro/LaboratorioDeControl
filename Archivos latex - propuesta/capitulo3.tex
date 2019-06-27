@@ -46,30 +46,162 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 
 	Las actividades a realizar fueron determinadas en función de las fases, los requerimientos y objetivos de esta investigación, en la \cref{tab:Cronograma} se puede observar el cronograma de ejecución, en donde se denotan las fases y actividades de la misma junto con el numero de semanas que se estima emplear en cada una de las actividades. La estimación de semanas para cada una de las actividades se tomo considerando la complejidad del tema, a su vez, la complejidad fue evaluada tomando en cuenta los antecedentes expuestos en esta propuesta y teniendo en consideración las experiencias similares previas en cada uno de los temas a abarcar.
 
-\vspace{0.5cm}
+% \vspace{0.5cm}
 
-\begin{table}[h]
-	\caption{Cronograma de ejecución}
-	\label{tab:Cronograma}
-	\resizebox{\textwidth}{!}{
-	\begin{tabular}{llc}
-	\toprule
-	\multicolumn{1}{c}{Fases} & \multicolumn{1}{c}{Actividades} & \multicolumn{1}{l}{Semanas} \\ \midrule
-	\multirow{3}{*}{Fase 1: Estudio de los sistemas de control clásicos y difusos} & Estudio de los métodos de análisis de sistemas de control & 1 \\
-		& Estudio de controladores PID & 1 \\
-		& Estudio de controladores difusos tipo Mamdani & 1 \\
-		&  & \multicolumn{1}{l}{} \\
-	\multirow{4}{*}{Fase 2: Codificación de rutinas} & Codificar las rutinas de análisis de sistemas de control & 2 \\
-		& Codificar las rutinas para la entonación de controladores PID & 2 \\
-		& Codificar rutinas para la creación de controladores difusos & 3 \\
-		& Codificar rutinas para la simulación de sistemas de control & 2 \\
-		&  & \multicolumn{1}{l}{} \\
-	\multirow{2}{*}{Fase 3: Interfaz gráfica y enlace con rutinas} & Crear la interfaz gráfica para el laboratorio virtual & 1 \\
-		& Acoplar las rutinas con la interfaz gráfica & 2 \\
-		&  & \multicolumn{1}{l}{} \\
-	\multirow{2}{*}{Fase 4: Comparación de resultados} & Análisis de resultados obtenidos & 1 \\
-		& Comparación con otras herramientas & 1 \\ \midrule
-		& \multicolumn{1}{r}{Total semanas:} & 17 \\ \bottomrule
-	\end{tabular}%
-	}
+% \begin{table}[h]
+% 	\caption{Cronograma de ejecución}
+% 	\label{tab:Cronograma}
+% 	\resizebox{\textwidth}{!}{
+% 	\begin{tabular}{llc}
+% 	\toprule
+% 	\multicolumn{1}{c}{Fases} & \multicolumn{1}{c}{Actividades} & \multicolumn{1}{l}{Semanas} \\ \midrule
+% 	\multirow{3}{*}{Fase 1: Estudio de los sistemas de control clásicos y difusos} & Estudio de los métodos de análisis de sistemas de control & 1 \\
+% 		& Estudio de controladores PID & 1 \\
+% 		& Estudio de controladores difusos tipo Mamdani & 1 \\
+% 		&  & \multicolumn{1}{l}{} \\
+% 	\multirow{4}{*}{Fase 2: Codificación de rutinas} & Codificar las rutinas de análisis de sistemas de control & 2 \\
+% 		& Codificar las rutinas para la entonación de controladores PID & 2 \\
+% 		& Codificar rutinas para la creación de controladores difusos & 3 \\
+% 		& Codificar rutinas para la simulación de sistemas de control & 2 \\
+% 		&  & \multicolumn{1}{l}{} \\
+% 	\multirow{2}{*}{Fase 3: Interfaz gráfica y enlace con rutinas} & Crear la interfaz gráfica para el laboratorio virtual & 1 \\
+% 		& Acoplar las rutinas con la interfaz gráfica & 2 \\
+% 		&  & \multicolumn{1}{l}{} \\
+% 	\multirow{2}{*}{Fase 4: Comparación de resultados} & Análisis de resultados obtenidos & 1 \\
+% 		& Comparación con otras herramientas & 1 \\ \midrule
+% 		& \multicolumn{1}{r}{Total semanas:} & 17 \\ \bottomrule
+% 	\end{tabular}%
+% 	}
+% \end{table}
+
+	Adicionalmente se realizo un diagrama de Gantt para tener una mejor representación de los tiempos a utilizar en cada actividad durante el desarrollo de la investigación. El diagrama se puede observar en la \cref{fig:gantt}, a continuación se listan las actividades a realizar:
+
+\vspace{10pt}
+
+\begin{enumerate}[label=\bfseries Actividad \arabic*:, wide=0pt, leftmargin=*]
+	\item Estudio de los métodos de análisis de sistemas de control. 
+	\item Estudio de controladores PID.
+	\item Estudio de controladores difusos tipo Mamdani.
+	\item Codificar las rutinas de análisis de sistemas de control.
+	\item Codificar las rutinas para la entonación de controladores PID.
+	\item Codificar rutinas para la creación de controladores difusos.
+	\item Codificar rutinas para la simulación de sistemas de control.
+	\item Crear la interfaz gráfica para el laboratorio virtual.
+	\item Acoplar las rutinas con la interfaz gráfica.
+	\item Análisis de resultados obtenidos.
+	\item Comparación con otras herramientas.
+\end{enumerate}
+
+\afterpage{
+\begin{landscape}
+\begin{table}
+    \caption{Cronograma de ejecución}
+    \label{tab:Cronograma}
+    \small
+    \begin{tabular}{@{\extracolsep{\fill}}llc}
+    \toprule
+    \multicolumn{1}{c}{Fases} & \multicolumn{1}{c}{Actividades} & \multicolumn{1}{l}{Semanas} \\ \midrule
+    \multirow{3}{*}{Fase 1: Estudio de los sistemas de control clásicos y difusos} & Estudio de los métodos de análisis de sistemas de control & 1 \\
+     & Estudio de controladores PID & 1 \\
+     & Estudio de controladores difusos tipo Mamdani & 1 \\
+     &  & \multicolumn{1}{l}{} \\
+    \multirow{4}{*}{Fase 2: Codificación de rutinas} & Codificar las rutinas de análisis de sistemas de control & 2 \\
+     & Codificar las rutinas para la entonación de controladores PID & 2 \\
+     & Codificar rutinas para la creación de controladores difusos & 3 \\
+     & Codificar rutinas para la simulación de sistemas de control & 2 \\
+     &  & \multicolumn{1}{l}{} \\
+    \multirow{2}{*}{Fase 3: Interfaz gráfica y enlace con rutinas} & Crear la interfaz gráfica para el laboratorio virtual & 1 \\
+     & Acoplar las rutinas con la interfaz gráfica & 2 \\
+     &  & \multicolumn{1}{l}{} \\
+    \multirow{2}{*}{Fase 4: Comparación de resultados} & Análisis de resultados obtenidos & 1 \\
+     & Comparación con otras herramientas & 1 \\ \midrule
+     & \multicolumn{1}{r}{Total semanas:} & 17 \\ \bottomrule
+    \end{tabular}%
 \end{table}
+\end{landscape}
+}
+
+\afterpage{
+\begin{landscape}
+	\begin{figure}
+	\begin{ganttchart}[vgrid={draw=none,draw=none},%
+				%today=15,%
+				%today offset=.5,%
+				%today label=Heute,%
+				%progress=today,%
+				x unit=4.2pt,
+				y unit chart=0.6cm,
+				newline shortcut=true,
+				bar/.append style={gray!33},
+				canvas/.append style={fill=none},
+				group/.style={fill=gray}
+				]{0}{120}
+	
+	\gantttitle{2019}{121} \\
+	\gantttitle{julio}{31}
+	\gantttitle{agosto}{31}
+	\gantttitle{septiembre}{30}
+	\gantttitle{octubre}{29}\\
+	\gantttitle{}{1}
+	\gantttitle{W1}{7}
+	\gantttitle{W2}{7}
+	\gantttitle{W3}{7}
+	\gantttitle{W4}{7}
+	\gantttitle{W5}{7}
+	\gantttitle{W6}{7}
+	\gantttitle{W7}{7} 
+	\gantttitle{W8}{7}
+	\gantttitle{W9}{7}
+	\gantttitle{W10}{7}
+	\gantttitle{W11}{7}
+	\gantttitle{W12}{7}
+	\gantttitle{W13}{7}
+	\gantttitle{W14}{7}
+	\gantttitle{W15}{7}
+	\gantttitle{W16}{7}
+	\gantttitle{W17}{7}
+	\gantttitle{}{1} \\
+
+	\ganttgroup{Duracion Total}{1}{119} \\
+	
+	\ganttgroup{Fase 1}{1}{21} \\
+	\ganttbar{Actividad 1}{1}{7} \\
+	\ganttbar{Actividad 2}{7}{14} \\
+	\ganttbar{Actividad 3}{14}{21} \\
+	
+	\ganttgroup{Fase 2}{21}{84}\\
+	\ganttbar{Actividad 4}{21}{35} \\
+	\ganttbar{Actividad 5}{35}{49} \\
+	\ganttbar{Actividad 6}{49}{70} \\
+	\ganttbar{Actividad 7}{70}{84} \\
+	
+	\ganttgroup{Fase 3}{84}{105} \\
+	\ganttbar{Actividad 8}{84}{91} \\
+	\ganttlinkedbar[link bulge=3]{Actividad 9}{91}{105} \\
+
+	\ganttgroup{Fase 4}{105}{119} \\
+	\ganttbar{Actividad 10}{105}{112} \\
+	\ganttlinkedbar[link bulge=3]{Actividad 11}{112}{119} \\
+	
+	\begin{scope}[on background layer]
+	\ganttlink[link bulge=3]{elem2}{elem6}
+	\ganttlink[link bulge=3]{elem3}{elem7}
+	\ganttlink[link bulge=3]{elem4}{elem8}
+	
+	\ganttlink[link bulge=3]{elem2}{elem9}
+	\ganttlink[link bulge=3]{elem3}{elem9}
+	\ganttlink[link bulge=3]{elem4}{elem9}
+
+	\ganttlink[link bulge=3]{elem6}{elem12}
+	\ganttlink[link bulge=3]{elem7}{elem12}
+	\ganttlink[link bulge=3]{elem8}{elem12}
+	\ganttlink[link bulge=3]{elem9}{elem12}
+	\ganttlink[link bulge=3]{elem12}{elem14}
+	\end{scope}
+	\end{ganttchart}
+	\caption{\textbf{Diagrama de Gantt}. Fuente: Elaboración propia}
+	\label{fig:gantt}
+	\end{figure}
+	\end{landscape}
+}
+
