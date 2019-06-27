@@ -12,7 +12,9 @@
 \setcounter{page}{5}
 \tableofcontents								% indice
 %\newpage 										% habilitar para article
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 	\listoffigures								% Indice de tablas
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}	
 	\listoftables
 
 \renewcommand{\thefootnote}{(\arabic{footnote})}

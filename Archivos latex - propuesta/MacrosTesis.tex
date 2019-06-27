@@ -429,7 +429,6 @@
 
 % Para arreglar el spacing en el ambiente quoting
 \makeatletter
-
 \renewcommand*\singlespacing{%
 	\par    % ensure vertical mode
 	\null   % add fake line with previous leading still in force
@@ -440,8 +439,12 @@
 	\vskip \z@skip  % tell "\addvspace" and "\addpenalty" _not_ to remove the 
 	% above correction
 }
-
 \makeatother
+
+\addto\captionsspanish{%
+  \renewcommand\appendixname{Anexo}
+  \renewcommand\appendixpagename{Anexos}
+}
 
 %\Addheadfoot
 %\AddheadOnly
