@@ -89,7 +89,24 @@
 		{}% <numberless-entry-format>
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
 
+	% Comando para agregar anexos en formato UNET
+	\newcounter{LAnexos} % contador
+	\setcounter{LAnexos}{1} % contador en 1
+	\def\thecontaAnexos{\Alph{LAnexos}}%
+
+	\newcommand{\AgregarAnexo}[1]{%
+		\clearpage%
+		\newpage%
+		\begin{center}%
+		[Anexo~\thecontaAnexos]\par%
+		[##1]%
+		\stepcounter{LAnexos}
+		\vspace{10pt}%
+	\end{center}%
+	}%
 }
+
+
 
 % FORMATO UNET FIN ---------------------------
 % --------------------------------------------
@@ -441,10 +458,10 @@
 }
 \makeatother
 
-\addto\captionsspanish{%
-  \renewcommand\appendixname{Anexo}
-  \renewcommand\appendixpagename{Anexos}
-}
+% \addto\captionsspanish{%
+%   \renewcommand\appendixname{Anexo}
+%   \renewcommand\appendixpagename{Anexos}
+% }
 
 %\Addheadfoot
 %\AddheadOnly
