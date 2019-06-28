@@ -74,7 +74,7 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 % 	}
 % \end{table}
 
-	Adicionalmente se realizo un diagrama de Gantt para tener una mejor representación de los tiempos a utilizar en cada actividad durante el desarrollo de la investigación. El diagrama se puede observar en la \cref{fig:gantt}, a continuación se listan las actividades a realizar:
+	Adicionalmente, se realizo un diagrama de Gantt para tener una mejor representación de la dependencia entre actividades asi como de los tiempos a utilizar en cada actividad durante el desarrollo de la investigación. El diagrama se puede observar en la \cref{fig:gantt}, a continuación se listan las actividades a realizar:
 
 \vspace{10pt}
 
@@ -106,12 +106,12 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
      & Estudio de controladores difusos tipo Mamdani & 1 \\
      &  & \multicolumn{1}{l}{} \\
     \multirow{4}{*}{Fase 2: Codificación de rutinas} & Codificar las rutinas de análisis de sistemas de control & 2 \\
-     & Codificar las rutinas para la entonación de controladores PID & 2 \\
-     & Codificar rutinas para la creación de controladores difusos & 3 \\
+     & Codificar las rutinas para la entonación de controladores PID & 1 \\
+     & Codificar rutinas para la creación de controladores difusos & 2 \\
      & Codificar rutinas para la simulación de sistemas de control & 2 \\
      &  & \multicolumn{1}{l}{} \\
     \multirow{2}{*}{Fase 3: Interfaz gráfica y enlace con rutinas} & Crear la interfaz gráfica para el laboratorio virtual & 1 \\
-     & Acoplar las rutinas con la interfaz gráfica & 2 \\
+     & Acoplar las rutinas con la interfaz gráfica & 4 \\
      &  & \multicolumn{1}{l}{} \\
     \multirow{2}{*}{Fase 4: Comparación de resultados} & Análisis de resultados obtenidos & 1 \\
      & Comparación con otras herramientas & 1 \\ \midrule
@@ -171,13 +171,13 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 	
 	\ganttgroup{Fase 2}{22}{84}\\
 	\ganttbar{Actividad 4}{22}{35} \\
-	\ganttbar{Actividad 5}{36}{49} \\
-	\ganttbar{Actividad 6}{50}{70} \\
-	\ganttbar{Actividad 7}{71}{84} \\
+	\ganttbar{Actividad 5}{36}{42} \\
+	\ganttbar{Actividad 6}{43}{56} \\
+	\ganttbar{Actividad 7}{57}{70} \\
 	
-	\ganttgroup{Fase 3}{85}{105} \\
-	\ganttbar{Actividad 8}{85}{91} \\
-	\ganttlinkedbar[link bulge=3]{Actividad 9}{92}{105} \\
+	\ganttgroup{Fase 3}{71}{105} \\
+	\ganttbar{Actividad 8}{71}{77} \\
+	\ganttlinkedbar[link bulge=3]{Actividad 9}{78}{105} \\
 
 	\ganttgroup{Fase 4}{106}{119} \\
 	\ganttbar{Actividad 10}{106}{112} \\
