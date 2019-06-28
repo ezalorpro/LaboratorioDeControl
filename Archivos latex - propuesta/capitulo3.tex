@@ -124,7 +124,9 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 \afterpage{
 \begin{landscape}
 	\begin{figure}
-	\begin{ganttchart}[vgrid={draw=none,draw=none},%
+	\begin{ganttchart}[
+				hgrid,
+				vgrid={*{6}{draw=none},dotted},
 				%today=15,%
 				%today offset=.5,%
 				%today label=Heute,%
@@ -135,14 +137,13 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 				bar/.append style={gray!33},
 				canvas/.append style={fill=none},
 				group/.style={fill=gray}
-				]{0}{120}
+				]{1}{119}
 	
-	\gantttitle{2019}{121} \\
+	\gantttitle{2019}{119} \\
 	\gantttitle{julio}{31}
 	\gantttitle{agosto}{31}
 	\gantttitle{septiembre}{30}
-	\gantttitle{octubre}{29}\\
-	\gantttitle{}{1}
+	\gantttitle{octubre}{27}\\
 	\gantttitle{W1}{7}
 	\gantttitle{W2}{7}
 	\gantttitle{W3}{7}
@@ -159,29 +160,28 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 	\gantttitle{W14}{7}
 	\gantttitle{W15}{7}
 	\gantttitle{W16}{7}
-	\gantttitle{W17}{7}
-	\gantttitle{}{1} \\
+	\gantttitle{W17}{7}\\
 
 	\ganttgroup{Duracion Total}{1}{119} \\
 	
 	\ganttgroup{Fase 1}{1}{21} \\
 	\ganttbar{Actividad 1}{1}{7} \\
-	\ganttbar{Actividad 2}{7}{14} \\
-	\ganttbar{Actividad 3}{14}{21} \\
+	\ganttbar{Actividad 2}{8}{14} \\
+	\ganttbar{Actividad 3}{15}{21} \\
 	
-	\ganttgroup{Fase 2}{21}{84}\\
-	\ganttbar{Actividad 4}{21}{35} \\
-	\ganttbar{Actividad 5}{35}{49} \\
-	\ganttbar{Actividad 6}{49}{70} \\
-	\ganttbar{Actividad 7}{70}{84} \\
+	\ganttgroup{Fase 2}{22}{84}\\
+	\ganttbar{Actividad 4}{22}{35} \\
+	\ganttbar{Actividad 5}{36}{49} \\
+	\ganttbar{Actividad 6}{50}{70} \\
+	\ganttbar{Actividad 7}{71}{84} \\
 	
-	\ganttgroup{Fase 3}{84}{105} \\
-	\ganttbar{Actividad 8}{84}{91} \\
-	\ganttlinkedbar[link bulge=3]{Actividad 9}{91}{105} \\
+	\ganttgroup{Fase 3}{85}{105} \\
+	\ganttbar{Actividad 8}{85}{91} \\
+	\ganttlinkedbar[link bulge=3]{Actividad 9}{92}{105} \\
 
-	\ganttgroup{Fase 4}{105}{119} \\
-	\ganttbar{Actividad 10}{105}{112} \\
-	\ganttlinkedbar[link bulge=3]{Actividad 11}{112}{119} \\
+	\ganttgroup{Fase 4}{106}{119} \\
+	\ganttbar{Actividad 10}{106}{112} \\
+	\ganttlinkedbar[link bulge=3]{Actividad 11}{113}{119} \\
 	
 	\begin{scope}[on background layer]
 	\ganttlink[link bulge=3]{elem2}{elem6}
