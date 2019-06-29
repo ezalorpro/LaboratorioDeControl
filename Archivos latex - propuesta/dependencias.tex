@@ -92,6 +92,9 @@ includefoot, heightrounded]{geometry}
 \usepackage{dblfloatfix}
 \usepackage{calc}
 \usepackage{pdflscape}
+\usepackage[titletoc]{appendix}
+\usepackage{pgfgantt}
+\usetikzlibrary{backgrounds}
 
 \usepackage{draftwatermark}
 %\usepackage[nostamp]{draftwatermark}
@@ -119,6 +122,7 @@ includefoot, heightrounded]{geometry}
 \g@addto@macro\normalsize{\setlength\belowdisplayskip{12pt}}
 \makeatother
 
+% Para mostrar correctamente el showframe con landscape
 \makeatletter
 \newcommand*{\gmshow@textheight}{\textheight}
 \newdimen\gmshow@@textheight
