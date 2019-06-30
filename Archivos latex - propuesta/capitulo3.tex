@@ -121,6 +121,9 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 \end{landscape}
 }
 
+\newganttlinktypealias{straight}{f-s}
+\setganttlinklabel{straight}{}
+
 \afterpage{
 \begin{landscape}
 	\begin{figure}
@@ -136,14 +139,17 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 				newline shortcut=true,
 				bar/.append style={gray!33},
 				canvas/.append style={fill=none},
-				group/.style={fill=gray}
+				group/.style={fill=gray},
+				link bulge = 1.3,
+        		link/.style={-to, rounded corners = 3pt, thick},
 				]{1}{119}
 	
 	\gantttitle{2019}{119} \\
-	\gantttitle{julio}{31}
-	\gantttitle{agosto}{31}
-	\gantttitle{septiembre}{30}
-	\gantttitle{octubre}{27}\\
+	\gantttitle{Julio}{21}
+	\gantttitle{Agosto}{31}
+	\gantttitle{Septiembre}{30}
+	\gantttitle{Octubre}{31}
+	\gantttitle{Nov}{6}\\
 	\gantttitle{W1}{7}
 	\gantttitle{W2}{7}
 	\gantttitle{W3}{7}
@@ -177,11 +183,11 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 	
 	\ganttgroup{Fase 3}{71}{105} \\
 	\ganttbar{Actividad 8}{71}{77} \\
-	\ganttlinkedbar[link bulge=3]{Actividad 9}{78}{105} \\
+	\ganttlinkedbar[link bulge=3, link type=straight]{Actividad 9}{78}{105} \\
 
 	\ganttgroup{Fase 4}{106}{119} \\
 	\ganttbar{Actividad 10}{106}{112} \\
-	\ganttlinkedbar[link bulge=3]{Actividad 11}{113}{119} \\
+	\ganttlinkedbar[link bulge=3, link type=straight]{Actividad 11}{113}{119} \\
 	
 	\begin{scope}[on background layer]
 	\ganttlink[link bulge=3]{elem2}{elem6}
@@ -196,10 +202,10 @@ En este capítulo se abarcará la metodología a emplear en el desarrollo de est
 	\ganttlink[link bulge=3]{elem7}{elem12}
 	\ganttlink[link bulge=3]{elem8}{elem12}
 	\ganttlink[link bulge=3]{elem9}{elem12}
-	\ganttlink[link bulge=3]{elem12}{elem14}
+	\ganttlink[link bulge=3, link type=straight]{elem12}{elem14}
 	\end{scope}
 	\end{ganttchart}
-	\caption[Diagrama de Gantt]{\textbf{Diagrama de Gantt}. Donde \enquote{W} es igual a semana. Fuente: Elaboración propia}
+	\caption[Diagrama de Gantt]{\textbf{Diagrama de Gantt}. Donde \enquote{W} denota las semanas, con un total de 17 semanas y tomando la fecha de inicio como el 10-07-2019, la fecha de finalización seria el 06-11-2019. Fuente: Elaboración propia}
 	\label{fig:gantt}
 	\end{figure}
 	\end{landscape}
