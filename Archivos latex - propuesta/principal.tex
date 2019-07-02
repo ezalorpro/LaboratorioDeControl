@@ -5,9 +5,19 @@
 \begin{document}
 %Portada ---------------------------------------------------------------
 \include{portada}
-\include{carta_presentacion}
-\include{carta_aceptacion}
-\include{carta_vistobueno}
+
+\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
+			pagecommand={\thispagestyle{empty}\setcounter{page}{2}}
+			]{carta_presentacion}
+
+\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
+			pagecommand={\thispagestyle{empty}\setcounter{page}{3}}
+			]{carta_aceptacion}
+
+\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
+			pagecommand={\thispagestyle{empty}\setcounter{page}{4}}
+			]{carta_vistobueno}
+
 \include{Preambulo}
 \include{FrontContent}
 \mainmatter
