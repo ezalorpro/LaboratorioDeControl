@@ -1,6 +1,29 @@
+% Habilitar un solo Formato, ambos están definidos en configurationFile.tex
 
-%\Leftformat									% Capitulos a la izquierda
-\spacing{1.5} 									% interlineado del documento
+%\NumeradoFormat 	% Formato de títulos numerado con capítulos en romano
+\UnetFormat			% Formato de titulo basado en instructivo TAP de la UNET
+% ------------------------------------------------------------------------
+
+\frontmatter
+\FrontBackStyle
+\CenterformatFront
+
+
+\clearpage
+\spacing{1.7} 									% interlineado de los indices
+\pagenumbering{roman}
+\setcounter{page}{5}							% Numero basado en paginas previas
+\tableofcontents								% indice
+	\listoffigures								% Indice de figuras
+	\listoftables								% Indice de tablas
+	% \listoflistings								% Indice de códigos
+
+
+% Contenido despues de los indices ---------------------------------------
+\clearpage
+\spacing{1.5}
 \MainStyle
 \pagenumbering{arabic}
 
+% Introduccion
+% \chapter{Introducción}

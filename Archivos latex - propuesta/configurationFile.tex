@@ -1,4 +1,4 @@
-% Formato tesis unet
+% Formato tesis unet y numerado
 
 \addto\captionsspanish{\renewcommand{\contentsname}%
 	{ÍNDICE}%
@@ -17,10 +17,20 @@
 }
 
 
+% Algunas configuraciones generales --------------------------------------
+%\renewcommand{\chaptername}{Etapa}		% para cambiar de nombre los capítulos
+\renewcommand{\thefootnote}{(\arabic{footnote})}
+\renewcommand{\labelitemi}{$\bullet$}
+\setlength{\parindent}{1.5cm}
+\parskip=0pt plus 1pt
+\quotingsetup{leftmargin=\parindent, rightmargin=\parindent}
+
 \crefname{equation}{}{}
 \crefname{listing}{Código}{Códigos}
 \crefname{table}{\spanishtablename}{\spanishtablename}
 \newcommand{\addperiod}[1]{#1.$\enspace$}
+% ------------------------------------------------------------------------
+
 
 % --------------------------------------------
 % FORMATO UNET -------------------------------
@@ -414,17 +424,17 @@
 %\addtocontents{toc}{\protect\afterpage{~\hfill Pág.\par\medskip}}
 
 \addtocontents{lof}{~\hfill\par}
-\addtocontents{lof}{FIGURA~\hfill Pág.\par}
+\addtocontents{lof}{\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
 \addtocontents{lof}{~\hfill\par}
 %\addtocontents{lof}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
 \addtocontents{lot}{~\hfill\par}
-\addtocontents{lot}{TABLA~\hfill Pág.\par}
+\addtocontents{lot}{\hspace{-1.5cm}TABLA~\hfill Pág.\par}
 \addtocontents{lot}{~\hfill\par}
 %\addtocontents{lot}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
 \addtocontents{lol}{~\hfill\par}
-\addtocontents{lol}{CÓDIGO~\hfill Pág.\par}
+\addtocontents{lol}{\hspace{-1.5cm}CÓDIGO~\hfill Pág.\par}
 \addtocontents{lol}{~\hfill\par}
 %\addtocontents{lol}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
@@ -458,11 +468,28 @@
 }
 \makeatother
 
-% \addto\captionsspanish{%
-%   \renewcommand\appendixname{Anexo}
-%   \renewcommand\appendixpagename{Anexos}
-% }
+% Para la separacion de ecuaciones
+\makeatletter
+\g@addto@macro\normalsize{\setlength\abovedisplayshortskip{0pt}}
+\g@addto@macro\normalsize{\setlength\belowdisplayshortskip{0pt}}
+\g@addto@macro\normalsize{\setlength\abovedisplayskip{17pt}}
+\g@addto@macro\normalsize{\setlength\belowdisplayskip{12pt}}
+\makeatother
 
+% Para mostrar correctamente el showframe con landscape
+\makeatletter
+\newcommand*{\gmshow@textheight}{\textheight}
+\newdimen\gmshow@@textheight
+\g@addto@macro\landscape{%
+  \gmshow@@textheight=\hsize
+  \renewcommand*{\gmshow@textheight}{\gmshow@@textheight}%
+}
+\def\Gm@vrule{%
+  \vrule width 0.2pt height\gmshow@textheight depth\z@
+}%
+\makeatother
+
+% ACTIVACION DEL HEADER O FOTTER ---------------------------------------------
 %\Addheadfoot
 %\AddheadOnly
 \noAddheadfoot

@@ -64,28 +64,27 @@ includefoot, heightrounded]{geometry}
 	\addbibresource{referencias.bib}
 	\setlength\bibitemsep{4\itemsep}
 	\DefineBibliographyStrings{spanish}{andothers={et al\adddot}}
-	%\DeclareLanguageMapping{spanish}{american-apa}
 	\DeclareLanguageMapping{spanish}{spanish-apa}
 
 \usepackage{pdfpages}
-\usepackage{setspace} 	% Interlineado
+\usepackage{setspace}
 \usepackage{longtable, tabu}
 \usepackage{csvsimple}
 \usepackage{lscape}
 \usepackage{parskip}
 
 \usepackage[bottom]{footmisc}
-\usepackage[all]{nowidow}		% para evitar lineas huerfanas y viudas
-	%\widowpenalty = 10000
-	%\clubpenalty = 10000
-	%\postdisplaypenalty = 10000
-\usepackage{datatool} 	% para el sortedlist en el glosario
+\usepackage[all]{nowidow}
+
+\usepackage{datatool}
 \usepackage{etoolbox}
 \usepackage{enumitem}
 	\setlist{nolistsep}
+
 \usepackage{titlesec}
-\usepackage{titletoc}% http://ctan.org/pkg/titletoc
+\usepackage{titletoc}
 \usepackage{fancyhdr}
+
 \usepackage{xpatch}
 \usepackage{afterpage}
 \usepackage{flafter}
@@ -93,11 +92,11 @@ includefoot, heightrounded]{geometry}
 \usepackage{calc}
 \usepackage{pdflscape}
 \usepackage[titletoc]{appendix}
+
 \usepackage{pgfgantt}
 \usetikzlibrary{backgrounds}
 
 \usepackage{draftwatermark}
-%\usepackage[nostamp]{draftwatermark}
 	\SetWatermarkText{NO FINAL}
 	\SetWatermarkScale{0.8}
 	\SetWatermarkLightness{0.96}
@@ -113,24 +112,3 @@ includefoot, heightrounded]{geometry}
 			% pdfpagelayout=SinglePage para landscape vertical
 
 \usepackage[nameinlink, noabbrev, spanish, capitalize]{cleveref}
-
-% Para la separacion de ecuaciones
-\makeatletter
-\g@addto@macro\normalsize{\setlength\abovedisplayshortskip{0pt}}
-\g@addto@macro\normalsize{\setlength\belowdisplayshortskip{0pt}}
-\g@addto@macro\normalsize{\setlength\abovedisplayskip{17pt}}
-\g@addto@macro\normalsize{\setlength\belowdisplayskip{12pt}}
-\makeatother
-
-% Para mostrar correctamente el showframe con landscape
-\makeatletter
-\newcommand*{\gmshow@textheight}{\textheight}
-\newdimen\gmshow@@textheight
-\g@addto@macro\landscape{%
-  \gmshow@@textheight=\hsize
-  \renewcommand*{\gmshow@textheight}{\gmshow@@textheight}%
-}
-\def\Gm@vrule{%
-  \vrule width 0.2pt height\gmshow@textheight depth\z@
-}%
-\makeatother
