@@ -1,19 +1,19 @@
 % Formato tesis unet y numerado
 
 \addto\captionsspanish{\renewcommand{\contentsname}%
-	{ÍNDICE}%
+	{Índice}%
 }
 
 \addto\captionsspanish{\renewcommand{\listtablename}%
-	{ÍNDICE DE TABLAS}%
+	{Índice de tablas}%
 }
 
 \addto\captionsspanish{\renewcommand{\listfigurename}%
-	{ÍNDICE DE FIGURAS}%
+	{Índice de figuras}%
 }
 
 \addto\captionsspanish{\renewcommand{\listoflistingscaption}
-	{ÍNDICE DE CODIGOS}%
+	{Índice de códigos}%
 }
 
 
@@ -209,7 +209,7 @@
 % --------------------------------------------
 
 
-% incio de macro para cambiar chapter al centro
+% Configuracion de capitulos -----------------
 \newcommand{\Centerformat}{
 	\titleformat{\chapter}[display]
 	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large\MakeUppercase}
@@ -225,12 +225,9 @@
 		{\hfill\contentspage}[\addvspace{7pt}]
 }
 
-% ---------------------------------------------------------------------
-
-% incio de macro para cambiar chapter a la izquierda
 \newcommand{\CenterformatBack}{
 	\titleformat{\chapter}[display]
-	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large}
+	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large\MakeUppercase}
 	\titlespacing{\chapter}
 	{0pt}{-20pt}{30pt}
 	
@@ -242,12 +239,11 @@
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
 }
 
-% incio de macro para cambiar chapter frente
 \newcommand{\CenterformatFront}{
 	\titleformat{\chapter}[display]
-	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large}
+	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large\MakeUppercase}
 	\titlespacing{\chapter}
-	{0pt}{-10pt}{0pt}
+	{0pt}{-25pt}{10pt}
 	
 	\titlecontents{chapter}% <section-type>
 		[0pt]% <left>
@@ -418,22 +414,22 @@
 	}
 }
 
-\addtocontents{toc}{~\hfill\par}
+% \addtocontents{toc}{~\hfill\par}
 \addtocontents{toc}{~\hfill Pág.\par}
 \addtocontents{toc}{~\hfill\par}
 %\addtocontents{toc}{\protect\afterpage{~\hfill Pág.\par\medskip}}
 
-\addtocontents{lof}{~\hfill\par}
+% \addtocontents{lof}{~\hfill\par}
 \addtocontents{lof}{\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
 \addtocontents{lof}{~\hfill\par}
 %\addtocontents{lof}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
-\addtocontents{lot}{~\hfill\par}
+% \addtocontents{lot}{~\hfill\par}
 \addtocontents{lot}{\hspace{-1.5cm}TABLA~\hfill Pág.\par}
 \addtocontents{lot}{~\hfill\par}
 %\addtocontents{lot}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
-\addtocontents{lol}{~\hfill\par}
+% \addtocontents{lol}{~\hfill\par}
 \addtocontents{lol}{\hspace{-1.5cm}CÓDIGO~\hfill Pág.\par}
 \addtocontents{lol}{~\hfill\par}
 %\addtocontents{lol}{\protect\afterpage{~\hfill Pag.\par\medskip}}
@@ -489,7 +485,45 @@
 }%
 \makeatother
 
-% ACTIVACION DEL HEADER O FOTTER ---------------------------------------------
+% Ambiente para el resumen (abstract)
+\newcommand\abstractname{Abstract}  %%% here
+\makeatletter
+% \if@titlepage
+%   \newenvironment{abstract}{%
+%       \titlepage
+%       \null\vfil
+%       \@beginparpenalty\@lowpenalty
+%       \begin{center}%
+%         \bfseries \abstractname
+%         \@endparpenalty\@M
+%       \end{center}}%
+%      {\par\vfil\null\endtitlepage}
+% \else
+  \newenvironment{abstract}{%
+      \if@twocolumn
+        \section*{\abstractname}%
+      \else
+        \small
+        \begin{center}%
+          {\bfseries {\large RESUMEN}\vspace{10pt}}%
+        \end{center}%
+		\begin{spacing}{1}
+			\parskip=0pt plus 1pt
+      \fi}
+		{\if@twocolumn\else\end{spacing}\fi}
+% \fi
+\makeatother
+
+% Keywords command
+\providecommand{\keywords}[1]
+{	
+	\vspace{10pt}
+  	{\small	
+  	\textbf{\textit{Descriptores: }} #1
+  	}
+}
+
+% ACTIVACION DEL HEADER O FOTTER -----------------------------------------
 %\Addheadfoot
 %\AddheadOnly
 \noAddheadfoot

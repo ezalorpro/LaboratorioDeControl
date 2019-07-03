@@ -4,26 +4,31 @@
 \UnetFormat			% Formato de titulo basado en instructivo TAP de la UNET
 % ------------------------------------------------------------------------
 
-\frontmatter
+%\frontmatter
+\setcounter{secnumdepth}{-1}
+\pagenumbering{roman}
+
 \FrontBackStyle
 \CenterformatFront
 
+\setcounter{page}{5}					% Numero basado en paginas previas
+\input{FrontContent/Resumen}
 
 \clearpage
-\spacing{1.7} 									% interlineado de los indices
-\pagenumbering{roman}
-\setcounter{page}{5}							% Numero basado en paginas previas
-\tableofcontents								% indice
-	\listoffigures								% Indice de figuras
-	\listoftables								% Indice de tablas
-	% \listoflistings								% Indice de códigos
+\spacing{1.5} 							% interlineado de los indices
+\tableofcontents						% indice
+	\listoffigures						% Indice de figuras
+	\listoftables						% Indice de tablas
+	% \listoflistings							% Indice de códigos
 
 
-% Contenido despues de los indices ---------------------------------------
+% Contenido después de los indices ---------------------------------------
 \clearpage
 \spacing{1.5}
 \MainStyle
 \pagenumbering{arabic}
+\setcounter{page}{1} 					% Numero basado en paginas previas
 
-% Introduccion
-% \chapter{Introducción}
+% Introducción
+\chapter{Introducción}
+	\input{FrontContent/Introduccion}
