@@ -8,21 +8,15 @@
 \clearpage
 \spacing{1.5} 
 \setcounter{secnumdepth}{-1}
-\setcounter{page}{3}
-\FrontBackStyle
-\CenterformatFront
+\FrontBackStyle							% Estilo frontal y final
+\CenterformatFront						% Formato frontal
 
 \newpage
 \phantomsection
 \addcontentsline{toc}{chapter}{Carta de aprobación para presentación}
 	\input{FrontContent/cartaAprobacion}
 
-% Para cuando se tenga la carta firmada, scaneada y en formato PDF
-% \includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
-% 			pagecommand={\thispagestyle{empty}},
-% 			addtotoc={1, chapter, 0, \bfseries\uppercase{Carta de aprobación para presentación},
-% 			pdf:cartaAprobacion}]{FrontContent/carta_presentacion}
-
+\setcounter{page}{4}
 \chapter{Dedicatoria}
 	\input{FrontContent/Dedicatoria}
 
@@ -45,7 +39,7 @@
 % Contenido después de los indices ---------------------------------------
 \clearpage
 \spacing{1.5}
-\MainStyle
+\MainStyle								% Estilo principal
 \pagenumbering{arabic}
 \setcounter{page}{1}
 

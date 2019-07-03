@@ -9,7 +9,7 @@
 \include{FrontContent}
 
 \setcounter{secnumdepth}{0}
-\Centerformat									% Capítulos al centro
+\Centerformat									% Formato principal
 % ---------------------------- inicio --------------------------------
 
 \chapter{El problema}
@@ -29,15 +29,17 @@
 
 % ----------------------------- fin ----------------------------------
 
-\FrontBackStyle
-\CenterformatBack
+\FrontBackStyle									% Estilo frontal y final
+\CenterformatBack								% Formato final
+
+% Ajustar para espaciado simétricos en el TOC
 \addtocontents{toc}{\vspace{0.4\normalbaselineskip}}
 
-%\newpage
-%\CenterformatFront
-\singlespacing
-% referencias , heading=bibnumbered para numeración
-\printbibliography[title={Referencias},heading=bibintoc]	
+\begingroup
+	\setstretch{1}
+	% referencias , heading=bibnumbered para numeración
+	\printbibliography[title={Referencias},heading=bibintoc]
+\endgroup
 
 \input{anexos}
 
