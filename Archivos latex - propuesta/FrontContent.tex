@@ -5,13 +5,23 @@
 % ------------------------------------------------------------------------
 
 %\frontmatter
+\clearpage
+\spacing{1.5} 
 \setcounter{secnumdepth}{-1}
-\pagenumbering{roman}
-
+\setcounter{page}{3}
 \FrontBackStyle
 \CenterformatFront
 
-\setcounter{page}{4}					% Numero basado en paginas previas
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Carta de aprobación para presentación}
+	\input{FrontContent/cartaAprobacion}
+
+% Para cuando se tenga la carta firmada, scaneada y en formato PDF
+% \includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
+% 			pagecommand={\thispagestyle{empty}},
+% 			addtotoc={1, chapter, 0, \bfseries\uppercase{Carta de aprobación para presentación},
+% 			pdf:cartaAprobacion}]{FrontContent/carta_presentacion}
 
 \chapter{Dedicatoria}
 	\input{FrontContent/Dedicatoria}
@@ -19,7 +29,9 @@
 \chapter{Agradecimiento}
 	\input{FrontContent/Agradecimiento}
 
-\chapter{Resumen}
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Resumen}
 	\input{FrontContent/Resumen}
 
 \clearpage

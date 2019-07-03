@@ -5,19 +5,7 @@
 \begin{document}
 %Portada ---------------------------------------------------------------
 \include{portada}
-
-\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
-			pagecommand={\thispagestyle{empty}\setcounter{page}{2}}
-			]{FrontContent/carta_presentacion}
-
-\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
-			pagecommand={\thispagestyle{empty}\setcounter{page}{3}}
-			]{FrontContent/carta_aceptacion}
-
-\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
-			pagecommand={\thispagestyle{empty}\setcounter{page}{4}}
-			]{FrontContent/carta_vistobueno}
-
+\include{contraPortada}
 \include{FrontContent}
 
 \setcounter{secnumdepth}{0}
@@ -32,6 +20,12 @@
 
 \chapter{Marco metodológico}
 	\input{capitulo3}
+
+\chapter{Resultados}
+	\input{capitulo4}
+
+\chapter{Conclusiones y recomendaciones}
+	\input{capitulo5}
 
 % ----------------------------- fin ----------------------------------
 
