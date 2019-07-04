@@ -1,4 +1,5 @@
 *.*
+!*.gitignore
 !*.py
 !*.pdf
 !*.txt
@@ -9,3 +10,4 @@
 !*.png
 !*.vscode
 !*.json
+!*.fls
