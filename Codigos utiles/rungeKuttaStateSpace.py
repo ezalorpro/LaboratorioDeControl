@@ -2,23 +2,20 @@ from matplotlib import pyplot as plt
 import control as ctrl
 import numpy as np 
 import sympy
+from tqdm import tqdm
 
-tf = ctrl.tf([1],[1, 1])
+tf = ctrl.tf([3],[1, 5, 3])
 t, y = ctrl.step_response(tf)
 plt.plot(t, y)
-
-print(tf)
-
 ss = ctrl.tf2ss(tf)
-print(ss)
 
 x = np.zeros_like(ss.B)
 h = 0.01
-total_t = 10
+total_t = 50
 t = np.linspace(0, total_t, int(total_t/h))
-u = np.ones_like(t)
+
 result = []
-for i, _ in enumerate(t):
+for i, _ in tqdm(enumerate(t)):
     k1 = h * (ss.A * x + ss.B * 1)
     k2 = h * (ss.A * (x+k1/2) + ss.B * 1)
     k3 = h * (ss.A * (x+k2/2) + ss.B * 1)
