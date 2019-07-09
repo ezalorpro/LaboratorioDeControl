@@ -63,11 +63,11 @@
 	
 	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false, belowskip=0pt}
 	
+	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, textfont=footnotesize}
+
 	\setlength{\textfloatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\floatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\intextsep}{15pt plus 1.0pt minus 2.0pt} 
-	
-	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
 	
 
 	% Configuracion del TOC	
@@ -159,11 +159,11 @@
 	
 	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false, belowskip=0pt}
 	
+	\captionsetup[listing]{format=plain, justification=centering, singlelinecheck=false, labelsep=period}
+
 	\setlength{\textfloatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\floatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\intextsep}{15pt plus 1.0pt minus 2.0pt}
-	
-	\captionsetup[listing]{format=plain, justification=centering, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
 	
 	% Configuracion del TOC
 	\newlength\sectionlenght
@@ -266,8 +266,11 @@
 \BeforeBeginEnvironment{align}{\vspace{-10pt}}
 \AfterEndEnvironment{align}{\vspace{-30pt}\leavevmode}
 
-\BeforeBeginEnvironment{minted}{\vspace*{-7pt}}
-\AfterEndEnvironment{minted}{\vspace*{-30pt}\leavevmode}
+\BeforeBeginEnvironment{minted}{\begin{tcolorbox}[colback=colorcodes]}
+\AfterEndEnvironment{minted}{\end{tcolorbox}}
+
+\BeforeBeginEnvironment{listing}{\vspace*{-2pt}}
+\AfterEndEnvironment{listing}{\vspace*{-15pt}}
 
 % ---------------------------------------------------------------------
 
@@ -437,12 +440,10 @@
 %\addtocontents{lol}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
 \renewcommand{\listoflistings}{%
-	\cleardoublepage
 	\phantomsection
-	\addcontentsline{toc}{chapter}{\protect\listoflistingscaption}%
+	\addcontentsline{toc}{chapter}{\protect{\uppercase{\listoflistingscaption}}}%
 	\listof{listing}{\listoflistingscaption}%
 	\newpage
-	
 }
 
 \newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}

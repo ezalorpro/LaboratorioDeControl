@@ -25,12 +25,13 @@ includefoot, heightrounded]{geometry}
 \usepackage[export]{adjustbox}
 	\setcounter{section}{0}
 
-\usepackage[chapter]{minted}
+\usepackage[chapter, outputdir=tobedeleted]{minted}
 	\renewcommand\listingscaption{Codigo}
 	
 \usepackage{anyfontsize}
 \usepackage[svgnames]{xcolor}
 	\definecolor{resaltado}{RGB}{204,255,0}
+	\definecolor{colorcodes}{HTML}{f5f5f5}
 
 \usepackage[numbib]{tocbibind}
 	% notlof = no lista de figuras en el indice
@@ -42,6 +43,7 @@ includefoot, heightrounded]{geometry}
 \usepackage[font=small,labelfont=bf,hypcap=true]{caption}
 \usepackage{subcaption}
 
+\usepackage{tcolorbox}
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{booktabs}

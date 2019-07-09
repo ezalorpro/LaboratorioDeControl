@@ -124,23 +124,33 @@
 				fontsize=\tiny,]{python}{Ganancias_fuzzy.py}
 
 
-\begin{listing}[H]
-	\captionof{listing}{Follow behavior}
-	\label{code:1}				
-	\begin{minted}[escapeinside=||,mathescape=true, autogobble=true]{python}
-	Codigo.... 
+% Con caption
+\begin{listing}[h]				
+	\begin{minted}[escapeinside=||,
+		mathescape=true,
+		autogobble=true,
+		fontsize=\footnotesize,
+		obeytabs=true,
+		tabsize=4,
+		baselinestretch=1]{python}
+		Código....
 	\end{minted}
+	\captionof{listing}{Titulo del código \vspace{5pt}}
+	\label{code:1}
 \end{listing}
 
-\begin{minted}[xleftmargin=0.5cm, escapeinside=||,mathescape=true, 						autogobble=true,
-obeytabs=true,
-tabsize=4,
-framesep=5mm,
-bgcolor=Snow1,
-baselinestretch=1.5,
-fontsize=\footnotesize]{python}
-	Codigo.... 
-\end{minted}
+% Sin caption
+\begin{listing}[h]			
+	\begin{minted}[escapeinside=||,
+		mathescape=true,
+		autogobble=true,
+		fontsize=\footnotesize,
+		obeytabs=true,
+		tabsize=4,
+		baselinestretch=1]{python}
+		Código....
+	\end{minted}
+\end{listing}
 
 \blockquote[{\cite[p.150]{lara2013herramientas}}]{Texto}
 % --------------------------------------------------------------------------------------------------
