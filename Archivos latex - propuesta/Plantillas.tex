@@ -125,7 +125,9 @@
 
 
 % Con caption
-\begin{listing}[h]				
+\begin{longlisting}
+	\caption{Follow behavior}
+	\label{code:1}				
 	\begin{minted}[escapeinside=||,
 		mathescape=true,
 		autogobble=true,
@@ -133,14 +135,12 @@
 		obeytabs=true,
 		tabsize=4,
 		baselinestretch=1]{python}
-		Código....
+		Código...
 	\end{minted}
-	\captionof{listing}{Titulo del código \vspace{5pt}}
-	\label{code:1}
-\end{listing}
+\end{longlisting}
 
 % Sin caption
-\begin{listing}[h]			
+\begin{longlisting}			
 	\begin{minted}[escapeinside=||,
 		mathescape=true,
 		autogobble=true,
@@ -148,9 +148,9 @@
 		obeytabs=true,
 		tabsize=4,
 		baselinestretch=1]{python}
-		Código....
+		Código...
 	\end{minted}
-\end{listing}
+\end{longlisting}
 
 \blockquote[{\cite[p.150]{lara2013herramientas}}]{Texto}
 % --------------------------------------------------------------------------------------------------

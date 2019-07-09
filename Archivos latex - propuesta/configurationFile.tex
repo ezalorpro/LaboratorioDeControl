@@ -12,7 +12,7 @@
 	{Índice de figuras}%
 }
 
-\addto\captionsspanish{\renewcommand{\listoflistingscaption}
+\addto\captionsspanish{\renewcommand{\listlistingname}
 	{Índice de códigos}%
 }
 
@@ -27,6 +27,7 @@
 
 \crefname{equation}{}{}
 \crefname{listing}{Código}{Códigos}
+\SetupFloatingEnvironment{listing}{name=Código}
 \crefname{table}{\spanishtablename}{\spanishtablename}
 \newcommand{\addperiod}[1]{#1.$\enspace$}
 % ------------------------------------------------------------------------
@@ -159,7 +160,7 @@
 	
 	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false, belowskip=0pt}
 	
-	\captionsetup[listing]{format=plain, justification=centering, singlelinecheck=false, labelsep=period}
+	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, textfont=footnotesize}
 
 	\setlength{\textfloatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\floatsep}{15pt plus 1.0pt minus 2.0pt}
@@ -266,11 +267,13 @@
 \BeforeBeginEnvironment{align}{\vspace{-10pt}}
 \AfterEndEnvironment{align}{\vspace{-30pt}\leavevmode}
 
-\BeforeBeginEnvironment{minted}{\begin{tcolorbox}[colback=colorcodes]}
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
+\tcbuselibrary{breakable}
+\BeforeBeginEnvironment{minted}{\begin{tcolorbox}[colback=colorcodes,breakable]}
 \AfterEndEnvironment{minted}{\end{tcolorbox}}
 
-\BeforeBeginEnvironment{listing}{\vspace*{-2pt}}
-\AfterEndEnvironment{listing}{\vspace*{-15pt}}
+\BeforeBeginEnvironment{longlisting}{\vspace*{9pt}}
+\AfterEndEnvironment{longlisting}{\vspace*{-3pt}}
 
 % ---------------------------------------------------------------------
 
@@ -439,18 +442,13 @@
 \addtocontents{lol}{~\hfill\par}
 %\addtocontents{lol}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
-\renewcommand{\listoflistings}{%
-	\phantomsection
-	\addcontentsline{toc}{chapter}{\protect{\uppercase{\listoflistingscaption}}}%
-	\listof{listing}{\listoflistingscaption}%
-	\newpage
-}
 
 \newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
 \addtocontents{lof}{\protect\noaddvspace}
 \addtocontents{lot}{\protect\noaddvspace}
-\let\Chapter\chapter
-\def\chapter{\addtocontents{lol}{\protect\addvspace{0pt}}\Chapter}
+\addtocontents{lol}{\protect\noaddvspace}
+% \let\Chapter\chapter
+% \def\chapter{\addtocontents{lol}{\protect\addvspace{0pt}}\Chapter}
 
 
 % Para arreglar el spacing en el ambiente quoting
