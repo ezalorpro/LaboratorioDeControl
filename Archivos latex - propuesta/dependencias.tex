@@ -1,3 +1,7 @@
+% Formato tesis UNET y numerado
+% Autor: Kleiver Carrasco
+% Correo: kleiver615@gmail.com
+
 \documentclass[12pt, letterpaper, oneside, openany, final]{book} 
 \usepackage[spanish,es-tabla,es-nodecimaldot, es-nosectiondot, es-lcroman, es-noquoting]{babel}
 \let\quoting\relax\let\endquoting\relax
@@ -24,7 +28,6 @@ includefoot, heightrounded]{geometry}
 
 \usepackage[export]{adjustbox}
 	\setcounter{section}{0}
-
 
 \usepackage[chapter, outputdir=tobedeleted, newfloat=true]{minted}
 	
@@ -93,11 +96,11 @@ includefoot, heightrounded]{geometry}
 \usepackage{dblfloatfix}
 \usepackage{calc}
 \usepackage{pdflscape}
-\usepackage[titletoc]{appendix}
 
 \usepackage{pgfgantt}
 \usetikzlibrary{backgrounds}
 
+% Para agregar una marca de agua, quitar "final" del documentclass
 \usepackage{draftwatermark}
 	\SetWatermarkText{NO FINAL}
 	\SetWatermarkScale{0.8}
