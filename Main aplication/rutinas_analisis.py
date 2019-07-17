@@ -1,45 +1,73 @@
 import control as ctrl 
 import numpy as np
 from scipy import real, imag
+from matplotlib import pyplot as plt
 
 
-def system_creator(numerador, denominador, dt=None):
-    systema = ctrl.tf(numerador, denominador)
-    return systema
+def system_creator(self, numerador, denominador):
+    system = ctrl.tf(numerador, denominador)
+    
+    t, y = ctrl.impulse_response(system)
+    
+    if self.main.tfdiscretocheckBox1.isChecked():
+            system = ctrl.sample_system(system, self.dt)
+    
+    try:
+        if ctrl.isdtime(system, strict=True):
+            T = np.arange(0, 2*np.max(t), self.dt)
+        else:
+            T = np.arange(0, 2*np.max(t), 0.01)      
+    except ValueError:
+        T = np.arange(0, 100, 0.1)
+        
+    return system, T
 
 
-def rutina_step_plot(self, systema, T):
+def rutina_step_plot(self, system, T):
     U = np.ones_like(T)
-    t, y, _ = ctrl.forced_response(systema, T, U)
+    t, y, _ = ctrl.forced_response(system, T, U)
+            
     self.main.stepGraphicsView1.canvas.axes.clear()
-    self.main.stepGraphicsView1.canvas.axes.plot(t, y)
+    if ctrl.isdtime(system, strict=True):
+        y = y[0]
+        self.main.stepGraphicsView1.canvas.axes.step(t, y)
+    else:
+        self.main.stepGraphicsView1.canvas.axes.plot(t, y)
+        
     self.main.stepGraphicsView1.canvas.axes.grid(color="lightgray")
     self.main.stepGraphicsView1.canvas.draw()
     self.main.stepGraphicsView1.toolbar.update()
     return t, y
 
 
-def rutina_impulse_plot(self, systema):
-    t, y = ctrl.impulse_response(systema)
-    try:
-        T = np.arange(0, 2*np.max(t), 0.1)
-    except ValueError:
-        T = np.arange(0, 100, 0.1)
+def rutina_impulse_plot(self, system, T):
     
     U = np.zeros_like(T)
     U[0] = 1
-    t, y, _ = ctrl.forced_response(systema, T, U)
+    t, y, _ = ctrl.forced_response(system, T, U)
+            
     self.main.impulseGraphicsView1.canvas.axes.clear()
-    self.main.impulseGraphicsView1.canvas.axes.plot(t, y)
+    
+    if ctrl.isdtime(system, strict=True):
+        y = y[0]
+        self.main.impulseGraphicsView1.canvas.axes.step(t, y)
+    else:
+        self.main.impulseGraphicsView1.canvas.axes.plot(t, y)
+        
     self.main.impulseGraphicsView1.canvas.axes.grid(color="lightgray")
     self.main.impulseGraphicsView1.canvas.draw()
     self.main.impulseGraphicsView1.toolbar.update()
-    return t, y, T
+    return t, y
 
 
-def rutina_bode_plot(self, systema):
-    w = np.logspace(-3,3,5000)
-    mag, phase, omega = ctrl.bode(systema, w)
+def rutina_bode_plot(self, system):
+    
+    if ctrl.isdtime(system, strict=True):
+        w = np.logspace(-np.pi, 2*np.pi, 5000)
+        mag, phase, omega = ctrl.bode(system, w)
+    else:
+        w = np.logspace(-np.pi, 2*np.pi, 5000)
+        mag, phase, omega = ctrl.bode(system, w)
     
     self.main.BodeGraphicsView1.canvas.axes1.clear()
     self.main.BodeGraphicsView1.canvas.axes1.semilogx(omega, 20 * np.log10(mag))
@@ -54,9 +82,15 @@ def rutina_bode_plot(self, systema):
     return mag, phase, omega
 
 
-def rutina_nyquist_plot(self, systema):
-    w = np.logspace(-3,3,5000)
-    real, imag, freq = ctrl.nyquist_plot(systema, w)
+def rutina_nyquist_plot(self, system):
+        
+    if ctrl.isdtime(system, strict=True):
+        w = np.linspace(-np.pi, 2*np.pi, 5000)
+        real, imag, freq = ctrl.nyquist_plot(system, w)
+    else:
+        w = np.linspace(-np.pi, 2*np.pi, 5000)
+        print('hola')
+        real, imag, freq = ctrl.nyquist_plot(system, w)
     
     self.main.NyquistGraphicsView1.canvas.axes.cla()
     self.main.NyquistGraphicsView1.canvas.axes.plot([-1], [0], 'r+')
@@ -92,11 +126,11 @@ def rutina_nyquist_plot(self, systema):
     return real, imag, freq
 
 
-def rutina_root_locus_plot(self, systema):
-    w = np.logspace(-3,3,5000)
-    t, y = ctrl.root_locus(systema, w)
-    zeros = ctrl.zero(systema)
-    polos = ctrl.pole(systema)
+def rutina_root_locus_plot(self, system):
+    t, y = ctrl.root_locus(system)
+    
+    zeros = ctrl.zero(system)
+    polos = ctrl.pole(system)
     
     self.main.rlocusGraphicsView1.canvas.axes.cla()
     self.main.rlocusGraphicsView1.canvas.axes.plot(real(t), imag(t), 'b')
