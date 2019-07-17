@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file '.\VentanaPrincipal.ui',
 # licensing of '.\VentanaPrincipal.ui' applies.
 #
-# Created: Thu Jul  4 23:25:24 2019
+# Created: Wed Jul 17 11:20:36 2019
 #      by: pyside2-uic  running on PySide2 5.12.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,7 +14,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.NonModal)
-        MainWindow.resize(900, 600)
+        MainWindow.resize(900, 638)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -98,6 +98,9 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Shadow, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
@@ -116,6 +119,9 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Shadow, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
@@ -134,6 +140,9 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Shadow, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         self.principalTab.setPalette(palette)
         self.principalTab.setTabPosition(QtWidgets.QTabWidget.North)
         self.principalTab.setTabShape(QtWidgets.QTabWidget.Rounded)
@@ -379,7 +388,7 @@ class Ui_MainWindow(object):
         self.stepTab.setObjectName("stepTab")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.stepTab)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.stepGraphicsView1 = QtWidgets.QGraphicsView(self.stepTab)
+        self.stepGraphicsView1 = MlpWidget(self.stepTab)
         self.stepGraphicsView1.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.stepGraphicsView1.setInteractive(True)
         self.stepGraphicsView1.setObjectName("stepGraphicsView1")
@@ -389,7 +398,7 @@ class Ui_MainWindow(object):
         self.impulseTab.setObjectName("impulseTab")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.impulseTab)
         self.gridLayout_4.setObjectName("gridLayout_4")
-        self.impulseGraphicsView = QtWidgets.QGraphicsView(self.impulseTab)
+        self.impulseGraphicsView = MlpWidget(self.impulseTab)
         self.impulseGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.impulseGraphicsView.setObjectName("impulseGraphicsView")
         self.gridLayout_4.addWidget(self.impulseGraphicsView, 0, 0, 1, 1)
@@ -398,20 +407,16 @@ class Ui_MainWindow(object):
         self.bodeTab.setObjectName("bodeTab")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.bodeTab)
         self.gridLayout_5.setObjectName("gridLayout_5")
-        self.magBodeGraphicsView = QtWidgets.QGraphicsView(self.bodeTab)
-        self.magBodeGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.magBodeGraphicsView.setObjectName("magBodeGraphicsView")
-        self.gridLayout_5.addWidget(self.magBodeGraphicsView, 0, 0, 1, 1)
-        self.phaBodeGraphicsView = QtWidgets.QGraphicsView(self.bodeTab)
-        self.phaBodeGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.phaBodeGraphicsView.setObjectName("phaBodeGraphicsView")
-        self.gridLayout_5.addWidget(self.phaBodeGraphicsView, 1, 0, 1, 1)
+        self.BodeGraphicsView = MlpWidgetSubplot(self.bodeTab)
+        self.BodeGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.BodeGraphicsView.setObjectName("BodeGraphicsView")
+        self.gridLayout_5.addWidget(self.BodeGraphicsView, 0, 0, 1, 1)
         self.analisisGraficaTab.addTab(self.bodeTab, "")
         self.nyquistTab = QtWidgets.QWidget()
         self.nyquistTab.setObjectName("nyquistTab")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.nyquistTab)
         self.gridLayout_6.setObjectName("gridLayout_6")
-        self.NyquistGraphicsView = QtWidgets.QGraphicsView(self.nyquistTab)
+        self.NyquistGraphicsView = MlpWidget(self.nyquistTab)
         self.NyquistGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.NyquistGraphicsView.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.NyquistGraphicsView.setObjectName("NyquistGraphicsView")
@@ -421,7 +426,7 @@ class Ui_MainWindow(object):
         self.rlocusTab.setObjectName("rlocusTab")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.rlocusTab)
         self.gridLayout_7.setObjectName("gridLayout_7")
-        self.rlocusGraphicsView = QtWidgets.QGraphicsView(self.rlocusTab)
+        self.rlocusGraphicsView = MlpWidget(self.rlocusTab)
         self.rlocusGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.rlocusGraphicsView.setObjectName("rlocusGraphicsView")
         self.gridLayout_7.addWidget(self.rlocusGraphicsView, 0, 0, 1, 1)
@@ -758,7 +763,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.principalTab.setCurrentIndex(0)
         self.AnalisisstackedWidget.setCurrentIndex(0)
-        self.analisisGraficaTab.setCurrentIndex(4)
+        self.analisisGraficaTab.setCurrentIndex(0)
         self.PIDstackedWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.kiCheckBox2, QtCore.SIGNAL("clicked(bool)"), self.kiHSlider2.setEnabled)
         QtCore.QObject.connect(self.kpCheckBox2, QtCore.SIGNAL("clicked(bool)"), self.kpHSlider2.setEnabled)
@@ -771,9 +776,8 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.principalTab, self.analisisGraficaTab)
         MainWindow.setTabOrder(self.analisisGraficaTab, self.stepGraphicsView1)
         MainWindow.setTabOrder(self.stepGraphicsView1, self.impulseGraphicsView)
-        MainWindow.setTabOrder(self.impulseGraphicsView, self.magBodeGraphicsView)
-        MainWindow.setTabOrder(self.magBodeGraphicsView, self.phaBodeGraphicsView)
-        MainWindow.setTabOrder(self.phaBodeGraphicsView, self.NyquistGraphicsView)
+        MainWindow.setTabOrder(self.impulseGraphicsView, self.BodeGraphicsView)
+        MainWindow.setTabOrder(self.BodeGraphicsView, self.NyquistGraphicsView)
         MainWindow.setTabOrder(self.NyquistGraphicsView, self.rlocusGraphicsView)
         MainWindow.setTabOrder(self.rlocusGraphicsView, self.stepGraphicsView2)
         MainWindow.setTabOrder(self.stepGraphicsView2, self.kpHSlider2)
@@ -844,6 +848,7 @@ class Ui_MainWindow(object):
         self.actionpelado.setText(QtWidgets.QApplication.translate("MainWindow", "pelado", None, -1))
         self.actionAbout.setText(QtWidgets.QApplication.translate("MainWindow", "About", None, -1))
 
+from mlpwidget import MlpWidget, MlpWidgetSubplot
 
 if __name__ == "__main__":
     import sys
