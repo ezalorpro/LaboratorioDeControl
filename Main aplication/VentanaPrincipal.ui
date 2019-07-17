@@ -876,7 +876,7 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_4">
             <item row="0" column="0">
-             <widget class="MlpWidget" name="impulseGraphicsView">
+             <widget class="MlpWidget" name="impulseGraphicsView1">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -890,7 +890,7 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_5">
             <item row="0" column="0">
-             <widget class="MlpWidgetSubplot" name="BodeGraphicsView">
+             <widget class="MlpWidgetSubplot" name="BodeGraphicsView1">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -904,7 +904,7 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_6">
             <item row="0" column="0">
-             <widget class="MlpWidget" name="NyquistGraphicsView">
+             <widget class="MlpWidget" name="NyquistGraphicsView1">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -921,7 +921,7 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_7">
             <item row="0" column="0">
-             <widget class="MlpWidget" name="rlocusGraphicsView">
+             <widget class="MlpWidget" name="rlocusGraphicsView1">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -1573,10 +1573,10 @@
   <tabstop>principalTab</tabstop>
   <tabstop>analisisGraficaTab</tabstop>
   <tabstop>stepGraphicsView1</tabstop>
-  <tabstop>impulseGraphicsView</tabstop>
-  <tabstop>BodeGraphicsView</tabstop>
-  <tabstop>NyquistGraphicsView</tabstop>
-  <tabstop>rlocusGraphicsView</tabstop>
+  <tabstop>impulseGraphicsView1</tabstop>
+  <tabstop>BodeGraphicsView1</tabstop>
+  <tabstop>NyquistGraphicsView1</tabstop>
+  <tabstop>rlocusGraphicsView1</tabstop>
   <tabstop>stepGraphicsView2</tabstop>
   <tabstop>kpHSlider2</tabstop>
   <tabstop>kpCheckBox2</tabstop>

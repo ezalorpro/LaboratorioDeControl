@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file '.\VentanaPrincipal.ui',
 # licensing of '.\VentanaPrincipal.ui' applies.
 #
-# Created: Wed Jul 17 11:20:36 2019
+# Created: Wed Jul 17 13:35:04 2019
 #      by: pyside2-uic  running on PySide2 5.12.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -398,38 +398,38 @@ class Ui_MainWindow(object):
         self.impulseTab.setObjectName("impulseTab")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.impulseTab)
         self.gridLayout_4.setObjectName("gridLayout_4")
-        self.impulseGraphicsView = MlpWidget(self.impulseTab)
-        self.impulseGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.impulseGraphicsView.setObjectName("impulseGraphicsView")
-        self.gridLayout_4.addWidget(self.impulseGraphicsView, 0, 0, 1, 1)
+        self.impulseGraphicsView1 = MlpWidget(self.impulseTab)
+        self.impulseGraphicsView1.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.impulseGraphicsView1.setObjectName("impulseGraphicsView1")
+        self.gridLayout_4.addWidget(self.impulseGraphicsView1, 0, 0, 1, 1)
         self.analisisGraficaTab.addTab(self.impulseTab, "")
         self.bodeTab = QtWidgets.QWidget()
         self.bodeTab.setObjectName("bodeTab")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.bodeTab)
         self.gridLayout_5.setObjectName("gridLayout_5")
-        self.BodeGraphicsView = MlpWidgetSubplot(self.bodeTab)
-        self.BodeGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.BodeGraphicsView.setObjectName("BodeGraphicsView")
-        self.gridLayout_5.addWidget(self.BodeGraphicsView, 0, 0, 1, 1)
+        self.BodeGraphicsView1 = MlpWidgetSubplot(self.bodeTab)
+        self.BodeGraphicsView1.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.BodeGraphicsView1.setObjectName("BodeGraphicsView1")
+        self.gridLayout_5.addWidget(self.BodeGraphicsView1, 0, 0, 1, 1)
         self.analisisGraficaTab.addTab(self.bodeTab, "")
         self.nyquistTab = QtWidgets.QWidget()
         self.nyquistTab.setObjectName("nyquistTab")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.nyquistTab)
         self.gridLayout_6.setObjectName("gridLayout_6")
-        self.NyquistGraphicsView = MlpWidget(self.nyquistTab)
-        self.NyquistGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.NyquistGraphicsView.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.NyquistGraphicsView.setObjectName("NyquistGraphicsView")
-        self.gridLayout_6.addWidget(self.NyquistGraphicsView, 0, 0, 1, 1)
+        self.NyquistGraphicsView1 = MlpWidget(self.nyquistTab)
+        self.NyquistGraphicsView1.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.NyquistGraphicsView1.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.NyquistGraphicsView1.setObjectName("NyquistGraphicsView1")
+        self.gridLayout_6.addWidget(self.NyquistGraphicsView1, 0, 0, 1, 1)
         self.analisisGraficaTab.addTab(self.nyquistTab, "")
         self.rlocusTab = QtWidgets.QWidget()
         self.rlocusTab.setObjectName("rlocusTab")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.rlocusTab)
         self.gridLayout_7.setObjectName("gridLayout_7")
-        self.rlocusGraphicsView = MlpWidget(self.rlocusTab)
-        self.rlocusGraphicsView.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.rlocusGraphicsView.setObjectName("rlocusGraphicsView")
-        self.gridLayout_7.addWidget(self.rlocusGraphicsView, 0, 0, 1, 1)
+        self.rlocusGraphicsView1 = MlpWidget(self.rlocusTab)
+        self.rlocusGraphicsView1.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.rlocusGraphicsView1.setObjectName("rlocusGraphicsView1")
+        self.gridLayout_7.addWidget(self.rlocusGraphicsView1, 0, 0, 1, 1)
         self.analisisGraficaTab.addTab(self.rlocusTab, "")
         self.gridLayout_3.addWidget(self.analisisGraficaTab, 0, 3, 8, 1)
         self.groupBox1 = QtWidgets.QGroupBox(self.analisisTab)
@@ -775,11 +775,11 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.principalTab, self.analisisGraficaTab)
         MainWindow.setTabOrder(self.analisisGraficaTab, self.stepGraphicsView1)
-        MainWindow.setTabOrder(self.stepGraphicsView1, self.impulseGraphicsView)
-        MainWindow.setTabOrder(self.impulseGraphicsView, self.BodeGraphicsView)
-        MainWindow.setTabOrder(self.BodeGraphicsView, self.NyquistGraphicsView)
-        MainWindow.setTabOrder(self.NyquistGraphicsView, self.rlocusGraphicsView)
-        MainWindow.setTabOrder(self.rlocusGraphicsView, self.stepGraphicsView2)
+        MainWindow.setTabOrder(self.stepGraphicsView1, self.impulseGraphicsView1)
+        MainWindow.setTabOrder(self.impulseGraphicsView1, self.BodeGraphicsView1)
+        MainWindow.setTabOrder(self.BodeGraphicsView1, self.NyquistGraphicsView1)
+        MainWindow.setTabOrder(self.NyquistGraphicsView1, self.rlocusGraphicsView1)
+        MainWindow.setTabOrder(self.rlocusGraphicsView1, self.stepGraphicsView2)
         MainWindow.setTabOrder(self.stepGraphicsView2, self.kpHSlider2)
         MainWindow.setTabOrder(self.kpHSlider2, self.kpCheckBox2)
         MainWindow.setTabOrder(self.kpCheckBox2, self.kiHSlider2)
@@ -848,7 +848,7 @@ class Ui_MainWindow(object):
         self.actionpelado.setText(QtWidgets.QApplication.translate("MainWindow", "pelado", None, -1))
         self.actionAbout.setText(QtWidgets.QApplication.translate("MainWindow", "About", None, -1))
 
-from mlpwidget import MlpWidget, MlpWidgetSubplot
+from mlpwidget import MlpWidgetSubplot, MlpWidget
 
 if __name__ == "__main__":
     import sys

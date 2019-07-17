@@ -18,7 +18,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         dem = json.loads(self.main.tfdemEdit1.text())
         systema = system_creator(num, dem)
         
-        t, y = rutina_step_plot(self, systema)
+        t, y, T = rutina_impulse_plot(self, systema)
+        t, y = rutina_step_plot(self, systema, T)
+        mag, phase, omega = rutina_bode_plot(self, systema)
+        real, imag, freq = rutina_nyquist_plot(self, systema)
 
 
 if __name__ == "__main__":
