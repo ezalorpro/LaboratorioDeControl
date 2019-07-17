@@ -14,7 +14,8 @@ class MlpWidget(QGraphicsView):
 
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)
-        vertical_layout.addWidget(NavigationToolbar(self.canvas, self))
+        self.toolbar = NavigationToolbar(self.canvas, self)
+        vertical_layout.addWidget(self.toolbar)
 
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         self.canvas.axes.grid()
@@ -28,7 +29,8 @@ class MlpWidgetSubplot(QGraphicsView):
 
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)
-        vertical_layout.addWidget(NavigationToolbar(self.canvas, self))
+        self.toolbar = NavigationToolbar(self.canvas, self)
+        vertical_layout.addWidget(self.toolbar)
 
         self.canvas.axes1 = self.canvas.figure.add_subplot(211)
         self.canvas.axes1.grid()
