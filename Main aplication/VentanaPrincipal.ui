@@ -1093,7 +1093,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tf">
            <layout class="QGridLayout" name="gridLayout_10">
