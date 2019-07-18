@@ -1,7 +1,9 @@
 import control as ctrl
 import numpy as np
+from basic_units import radians, degrees
 from scipy import real, imag
 from matplotlib import pyplot as plt
+import matplotlib.ticker as mticker
 
 from MonkeyPatch_stepinfo import step_info
 
@@ -13,7 +15,7 @@ def system_creator_tf(self, numerador, denominador):
     t, y = ctrl.impulse_response(system)
 
     if self.main.tfdiscretocheckBox1.isChecked():
-        system = ctrl.sample_system(system, self.dt)
+        system = ctrl.sample_system(system, self.dt, self.main.tfcomboBox1.currentText())
 
     try:
         if ctrl.isdtime(system, strict=True):
@@ -32,7 +34,7 @@ def system_creator_ss(self, A, B, C, D):
     t, y = ctrl.impulse_response(system)
 
     if self.main.ssdiscretocheckBox1.isChecked():
-        system = ctrl.sample_system(system, self.dt)
+        system = ctrl.sample_system(system, self.dt, self.main.tfcomboBox1.currentText())
 
     try:
         if ctrl.isdtime(system, strict=True):
@@ -52,14 +54,17 @@ def rutina_step_plot(self, system, T):
     self.main.stepGraphicsView1.canvas.axes.clear()
     if ctrl.isdtime(system, strict=True):
         y = y[0]
-        self.main.stepGraphicsView1.canvas.axes.step(t, y)
+        self.main.stepGraphicsView1.canvas.axes.step(t, y, where='mid')
     else:
         self.main.stepGraphicsView1.canvas.axes.plot(t, y)
 
     self.main.stepGraphicsView1.canvas.axes.grid(color="lightgray")
+    self.main.stepGraphicsView1.canvas.axes.set_title('Respuesta escalon')
+    self.main.stepGraphicsView1.canvas.axes.xaxis.set_major_formatter(mticker.FormatStrFormatter('%d s'))
+    self.main.stepGraphicsView1.canvas.axes.set_xlabel('Tiempo')
+    self.main.stepGraphicsView1.canvas.axes.set_ylabel('Respuesta')
     self.main.stepGraphicsView1.canvas.draw()
     self.main.stepGraphicsView1.toolbar.update()
-    self.main.stepGraphicsView1.canvas.figure.tight_layout()
     return t, y
 
 
@@ -73,14 +78,17 @@ def rutina_impulse_plot(self, system, T):
 
     if ctrl.isdtime(system, strict=True):
         y = y[0]
-        self.main.impulseGraphicsView1.canvas.axes.step(t, y)
+        self.main.impulseGraphicsView1.canvas.axes.step(t, y, where='mid')
     else:
         self.main.impulseGraphicsView1.canvas.axes.plot(t, y)
 
     self.main.impulseGraphicsView1.canvas.axes.grid(color="lightgray")
+    self.main.impulseGraphicsView1.canvas.axes.set_title('Respuesta impulso')
+    self.main.impulseGraphicsView1.canvas.axes.xaxis.set_major_formatter(mticker.FormatStrFormatter('%d s'))
+    self.main.impulseGraphicsView1.canvas.axes.set_xlabel('Tiempo')
+    self.main.impulseGraphicsView1.canvas.axes.set_ylabel('Respuesta')
     self.main.impulseGraphicsView1.canvas.draw()
     self.main.impulseGraphicsView1.toolbar.update()
-    self.main.impulseGraphicsView1.canvas.figure.tight_layout()
     return t, y
 
 
@@ -96,14 +104,18 @@ def rutina_bode_plot(self, system):
     self.main.BodeGraphicsView1.canvas.axes1.clear()
     self.main.BodeGraphicsView1.canvas.axes1.semilogx(omega, 20 * np.log10(mag))
     self.main.BodeGraphicsView1.canvas.axes1.grid(True, which="both", color="lightgray")
+    self.main.BodeGraphicsView1.canvas.axes1.set_title('Magnitud')
+    self.main.BodeGraphicsView1.canvas.axes1.yaxis.set_major_formatter(mticker.FormatStrFormatter('%.0f dB'))
 
     self.main.BodeGraphicsView1.canvas.axes2.clear()
     self.main.BodeGraphicsView1.canvas.axes2.semilogx(omega, phase * 180.0 / np.pi)
     self.main.BodeGraphicsView1.canvas.axes2.grid(True, which="both", color="lightgray")
+    self.main.BodeGraphicsView1.canvas.axes2.set_title('Fase')
+    self.main.BodeGraphicsView1.canvas.axes2.yaxis.set_major_formatter(mticker.FormatStrFormatter(u"%.0f °"))
+    self.main.BodeGraphicsView1.canvas.axes2.set_xlabel('rad/s')
 
     self.main.BodeGraphicsView1.canvas.draw()
     self.main.BodeGraphicsView1.toolbar.update()
-    self.main.BodeGraphicsView1.canvas.figure.tight_layout()
     return mag, phase, omega
 
 
@@ -156,9 +168,9 @@ def rutina_nyquist_plot(self, system):
     self.main.NyquistGraphicsView1.canvas.axes.plot(real, imag, "tab:blue")
     self.main.NyquistGraphicsView1.canvas.axes.plot(real, -imag, "tab:blue")
     self.main.NyquistGraphicsView1.canvas.axes.grid(color="lightgray")
+    self.main.NyquistGraphicsView1.canvas.axes.set_title('Diagrama de Nyquist')
     self.main.NyquistGraphicsView1.canvas.draw()
     self.main.NyquistGraphicsView1.toolbar.update()
-    self.main.NyquistGraphicsView1.canvas.figure.tight_layout()
 
     return real, imag, freq
 
@@ -182,15 +194,15 @@ def rutina_root_locus_plot(self, system):
     )
 
     self.main.rlocusGraphicsView1.canvas.axes.grid(color="lightgray")
+    self.main.rlocusGraphicsView1.canvas.axes.set_title('Lugar de las raicez')
     self.main.rlocusGraphicsView1.canvas.draw()
     self.main.rlocusGraphicsView1.toolbar.update()
-    self.main.rlocusGraphicsView1.canvas.figure.tight_layout()
     
 
 def rutina_system_info(self, system, T, mag, phase, omega):
     info = ctrl.step_info(system, T)
     self.main.tfdatosTextEdit1.clear()
-    
+    Datos = ''
     for k, v in info.items():
         self.main.tfdatosTextEdit1.insertPlainText(f"{k} : {v:.3f}\n")
         
@@ -199,7 +211,7 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     
     gm, pm, wg, wp = ctrl.margin(system)
     
-    self.main.tfdatosTextEdit1.insertPlainText(f"Margen de ganancia: {20 * np.log10(gm)}\n")
-    self.main.tfdatosTextEdit1.insertPlainText(f"Frecuencia de ganancia: {wg}\n")
-    self.main.tfdatosTextEdit1.insertPlainText(f"Margen de fase: {pm}\n")
-    self.main.tfdatosTextEdit1.insertPlainText(f"Frecuencia de fase: {wp}\n")
+    self.main.tfdatosTextEdit1.insertPlainText(f"Margen de ganancia: {20 * np.log10(gm):.3f}\n")
+    self.main.tfdatosTextEdit1.insertPlainText(f"Frecuencia de ganancia: {wg:.3f}\n")
+    self.main.tfdatosTextEdit1.insertPlainText(f"Margen de fase: {pm:.3f}\n")
+    self.main.tfdatosTextEdit1.insertPlainText(f"Frecuencia de fase: {wp:.3f}\n")

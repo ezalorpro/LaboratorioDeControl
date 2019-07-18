@@ -3,6 +3,7 @@ import json
 
 
 def AnalisisHandler(self):
+    
     self.main.tfcalcButton1.clicked.connect(lambda: calcular_analisis(self))
     self.main.sscalcButton1.clicked.connect(lambda: calcular_analisis(self))
 

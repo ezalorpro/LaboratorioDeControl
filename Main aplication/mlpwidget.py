@@ -10,7 +10,7 @@ from PySide2.QtWidgets import QVBoxLayout
 class MlpWidget(QGraphicsView):
     def __init__(self, parent=None):
         super(MlpWidget, self).__init__(parent)
-        self.canvas = FigureCanvas(Figure())
+        self.canvas = FigureCanvas(Figure(tight_layout=True))
 
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)
@@ -26,7 +26,7 @@ class MlpWidget(QGraphicsView):
 class MlpWidgetSubplot(QGraphicsView):
     def __init__(self, parent=None):
         super(MlpWidgetSubplot, self).__init__(parent)
-        self.canvas = FigureCanvas(Figure())
+        self.canvas = FigureCanvas(Figure(tight_layout=True))
 
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)
@@ -39,4 +39,5 @@ class MlpWidgetSubplot(QGraphicsView):
             212, sharex=self.canvas.axes1
         )
         self.canvas.axes2.grid()
+        self.canvas.figure.tight_layout()
         self.setLayout(vertical_layout)
