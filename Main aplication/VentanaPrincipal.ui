@@ -638,7 +638,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>[1]</string>
+               <string>[ [-1, -1], [1,  0] ]</string>
               </property>
              </widget>
             </item>
@@ -661,7 +661,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>[1, 1, 1]</string>
+               <string>[ [1], [0] ]</string>
               </property>
              </widget>
             </item>
@@ -800,6 +800,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="text">
+               <string>[ [0, 1] ]</string>
+              </property>
              </widget>
             </item>
             <item row="4" column="1">
@@ -809,6 +812,9 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="text">
+               <string>[ [0] ]</string>
               </property>
              </widget>
             </item>
@@ -1087,7 +1093,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tf">
            <layout class="QGridLayout" name="gridLayout_10">
@@ -1285,7 +1291,7 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="ssALabel1_2">
+             <widget class="QLabel" name="ssALabel2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -1301,7 +1307,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="ssAEdit1_2">
+             <widget class="QLineEdit" name="ssAEdit2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -1314,7 +1320,7 @@
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="ssBLabel1_2">
+             <widget class="QLabel" name="ssBLabel2">
               <property name="text">
                <string>B</string>
               </property>
@@ -1324,7 +1330,7 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLineEdit" name="ssBEdit1_2">
+             <widget class="QLineEdit" name="ssBEdit2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -1337,7 +1343,7 @@
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QLabel" name="ssCLabel1_2">
+             <widget class="QLabel" name="ssCLabel2">
               <property name="text">
                <string>C</string>
               </property>
@@ -1347,7 +1353,7 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QLineEdit" name="ssCEdit1_2">
+             <widget class="QLineEdit" name="ssCEdit2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -1357,7 +1363,7 @@
              </widget>
             </item>
             <item row="4" column="0">
-             <widget class="QLabel" name="ssDLabel1_2">
+             <widget class="QLabel" name="ssDLabel2">
               <property name="text">
                <string>D</string>
               </property>
@@ -1367,7 +1373,7 @@
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QLineEdit" name="ssDEdit1_2">
+             <widget class="QLineEdit" name="ssDEdit2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>

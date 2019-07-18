@@ -4,13 +4,31 @@ from scipy import real, imag
 from matplotlib import pyplot as plt
 
 
-def system_creator(self, numerador, denominador):
+def system_creator_tf(self, numerador, denominador):
     system = ctrl.tf(numerador, denominador)
-    
     t, y = ctrl.impulse_response(system)
     
     if self.main.tfdiscretocheckBox1.isChecked():
-            system = ctrl.sample_system(system, self.dt)
+        system = ctrl.sample_system(system, self.dt)
+    
+    try:
+        if ctrl.isdtime(system, strict=True):
+            T = np.arange(0, 2*np.max(t), self.dt)
+        else:
+            T = np.arange(0, 2*np.max(t), 0.01)      
+    except ValueError:
+        T = np.arange(0, 100, 0.1)
+        
+    return system, T
+
+
+def system_creator_ss(self, A, B, C, D):
+    system = ctrl.ss(A, B, C, D)
+    
+    t, y = ctrl.impulse_response(system)
+    
+    if self.main.ssdiscretocheckBox1.isChecked():
+        system = ctrl.sample_system(system, self.dt)
     
     try:
         if ctrl.isdtime(system, strict=True):
@@ -89,7 +107,6 @@ def rutina_nyquist_plot(self, system):
         real, imag, freq = ctrl.nyquist_plot(system, w)
     else:
         w = np.linspace(-np.pi, 2*np.pi, 5000)
-        print('hola')
         real, imag, freq = ctrl.nyquist_plot(system, w)
     
     self.main.NyquistGraphicsView1.canvas.axes.cla()
