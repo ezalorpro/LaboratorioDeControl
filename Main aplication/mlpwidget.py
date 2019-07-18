@@ -34,6 +34,8 @@ class MlpWidgetSubplot(QGraphicsView):
 
         self.canvas.axes1 = self.canvas.figure.add_subplot(211)
         self.canvas.axes1.grid()
-        self.canvas.axes2 = self.canvas.figure.add_subplot(212, sharex=self.canvas.axes1)
+        self.canvas.axes2 = self.canvas.figure.add_subplot(
+            212, sharex=self.canvas.axes1
+        )
         self.canvas.axes2.grid()
         self.setLayout(vertical_layout)
