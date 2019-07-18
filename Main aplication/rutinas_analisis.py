@@ -3,6 +3,10 @@ import numpy as np
 from scipy import real, imag
 from matplotlib import pyplot as plt
 
+from MonkeyPatch_stepinfo import step_info
+
+ctrl.step_info = step_info
+
 
 def system_creator_tf(self, numerador, denominador):
     system = ctrl.tf(numerador, denominador)
@@ -55,6 +59,7 @@ def rutina_step_plot(self, system, T):
     self.main.stepGraphicsView1.canvas.axes.grid(color="lightgray")
     self.main.stepGraphicsView1.canvas.draw()
     self.main.stepGraphicsView1.toolbar.update()
+    self.main.stepGraphicsView1.canvas.figure.tight_layout()
     return t, y
 
 
@@ -75,6 +80,7 @@ def rutina_impulse_plot(self, system, T):
     self.main.impulseGraphicsView1.canvas.axes.grid(color="lightgray")
     self.main.impulseGraphicsView1.canvas.draw()
     self.main.impulseGraphicsView1.toolbar.update()
+    self.main.impulseGraphicsView1.canvas.figure.tight_layout()
     return t, y
 
 
@@ -97,6 +103,7 @@ def rutina_bode_plot(self, system):
 
     self.main.BodeGraphicsView1.canvas.draw()
     self.main.BodeGraphicsView1.toolbar.update()
+    self.main.BodeGraphicsView1.canvas.figure.tight_layout()
     return mag, phase, omega
 
 
@@ -151,6 +158,7 @@ def rutina_nyquist_plot(self, system):
     self.main.NyquistGraphicsView1.canvas.axes.grid(color="lightgray")
     self.main.NyquistGraphicsView1.canvas.draw()
     self.main.NyquistGraphicsView1.toolbar.update()
+    self.main.NyquistGraphicsView1.canvas.figure.tight_layout()
 
     return real, imag, freq
 
@@ -176,3 +184,22 @@ def rutina_root_locus_plot(self, system):
     self.main.rlocusGraphicsView1.canvas.axes.grid(color="lightgray")
     self.main.rlocusGraphicsView1.canvas.draw()
     self.main.rlocusGraphicsView1.toolbar.update()
+    self.main.rlocusGraphicsView1.canvas.figure.tight_layout()
+    
+
+def rutina_system_info(self, system, T, mag, phase, omega):
+    info = ctrl.step_info(system, T)
+    self.main.tfdatosTextEdit1.clear()
+    
+    for k, v in info.items():
+        self.main.tfdatosTextEdit1.insertPlainText(f"{k} : {v:.3f}\n")
+        
+    dcgain = ctrl.dcgain(system)
+    self.main.tfdatosTextEdit1.insertPlainText(f"Ganancia DC: {dcgain:.3f}\n")
+    
+    gm, pm, wg, wp = ctrl.margin(system)
+    
+    self.main.tfdatosTextEdit1.insertPlainText(f"Margen de ganancia: {20 * np.log10(gm)}\n")
+    self.main.tfdatosTextEdit1.insertPlainText(f"Frecuencia de ganancia: {wg}\n")
+    self.main.tfdatosTextEdit1.insertPlainText(f"Margen de fase: {pm}\n")
+    self.main.tfdatosTextEdit1.insertPlainText(f"Frecuencia de fase: {wp}\n")

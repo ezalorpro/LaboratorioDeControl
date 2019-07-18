@@ -18,6 +18,7 @@ class MlpWidget(QGraphicsView):
         vertical_layout.addWidget(self.toolbar)
 
         self.canvas.axes = self.canvas.figure.add_subplot(111)
+        self.canvas.figure.tight_layout()
         self.canvas.axes.grid()
         self.setLayout(vertical_layout)
 

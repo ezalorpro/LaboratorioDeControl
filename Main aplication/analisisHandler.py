@@ -42,6 +42,7 @@ def calcular_analisis(self):
     mag, phase, omega = rutina_bode_plot(self, system)
     real, imag, freq = rutina_nyquist_plot(self, system)
     rutina_root_locus_plot(self, system)
+    rutina_system_info(self, system, T, mag, phase, omega)
 
 
 def bool_discreto(self):
