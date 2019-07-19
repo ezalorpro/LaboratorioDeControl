@@ -4,6 +4,8 @@ import numpy as np
 from control.statesp import _convertToStateSpace, _mimo2simo, _mimo2siso
 from control.lti import isctime, isdtime
 import control
+from rutinas.MokeyPatch_forceresponse import forced_response
+control.forced_response = forced_response
 
 def _get_ss_simo(sys, input=None, output=None):
     """Return a SISO or SIMO state-space version of sys
@@ -89,9 +91,9 @@ def step_info(sys, T=None, SettlingTimeThreshold=0.02, RiseTimeLimits=(0.1,0.9))
     sup_margin = (1. + SettlingTimeThreshold) * InfValue
     inf_margin = (1. - SettlingTimeThreshold) * InfValue
     # find Steady State looking for the first point out of specified limits
-    for i in reversed(range(T.size)):
+    for i in reversed(range(T.size-1)):
         if((yout[i] <= inf_margin) | (yout[i] >= sup_margin)):
-            SettlingTime = T[i + 1]
+            SettlingTime = T[i+1]
             break
 
     # Peak

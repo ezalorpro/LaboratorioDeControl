@@ -14,20 +14,16 @@ def AnalisisHandler(self):
 
 
 def calcular_analisis(self):
-    if (
-        self.main.tfdiscretocheckBox1.isChecked()
-        and self.main.AnalisisstackedWidget.currentIndex() == 0
-    ):
+    if (self.main.tfdiscretocheckBox1.isChecked()
+        and self.main.AnalisisstackedWidget.currentIndex() == 0):
         try:
             self.dt = json.loads(self.main.tfperiodoEdit1.text())
         except ValueError:
             self.error_dialog.setInformativeText("Periodo de muestreo no valido")
             self.error_dialog.exec_()
             return
-    elif (
-        self.main.ssdiscretocheckBox1.isChecked()
-        and self.main.AnalisisstackedWidget.currentIndex() == 1
-    ):
+    elif (self.main.ssdiscretocheckBox1.isChecked() 
+          and self.main.AnalisisstackedWidget.currentIndex() == 1):
         try:
             self.dt = json.loads(self.main.ssperiodoEdit1.text())
         except ValueError:
