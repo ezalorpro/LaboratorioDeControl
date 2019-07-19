@@ -232,14 +232,14 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     Datos += f"Frecuencia de fase: {wp:5.3f}\n"
 
     Datos += "----------------------------------------------\n"
-    Datos += f"  {'Valores eigen':<18}  {'Damping':<17}  Wn\n"
+    Datos += f"  {'Valores eigen':<18}  {'Damping':<16}  Wn\n"
     wn, damping, eigen = ctrl.damp(system, doprint=False)
     for wni, dampingi, eigeni in zip(wn, damping, eigen):
 
         if imag(eigeni) >= 0:
-            Datos += f"{real(eigeni):5.3f} {imag(eigeni):+5.3f}j {dampingi:12.3f} {wni:16.3f} \n"
+            Datos += f"{real(eigeni):5.3f} {imag(eigeni):+5.3f}j {dampingi:11.3f} {wni:15.3f} \n"
         else:
-            Datos += f"{real(eigeni):5.3f} {imag(eigeni):7.3f}j {dampingi:12.3f} {wni:16.3f} \n"
+            Datos += f"{real(eigeni):5.3f} {imag(eigeni):7.3f}j {dampingi:11.3f} {wni:15.3f} \n"
 
     if self.main.AnalisisstackedWidget.currentIndex() == 0:
         self.main.tfdatosTextEdit1.setPlainText(Datos)
