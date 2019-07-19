@@ -18,12 +18,22 @@ def calcular_analisis(self):
         self.main.tfdiscretocheckBox1.isChecked()
         and self.main.AnalisisstackedWidget.currentIndex() == 0
     ):
-        self.dt = json.loads(self.main.tfperiodoEdit1.text())
+        try:
+            self.dt = json.loads(self.main.tfperiodoEdit1.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
+            self.error_dialog.exec_()
+            return
     elif (
         self.main.ssdiscretocheckBox1.isChecked()
         and self.main.AnalisisstackedWidget.currentIndex() == 1
     ):
-        self.dt = json.loads(self.main.ssperiodoEdit1.text())
+        try:
+            self.dt = json.loads(self.main.ssperiodoEdit1.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
+            self.error_dialog.exec_()
+            return
     else:
         self.dt = None
 

@@ -221,7 +221,7 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     Datos += "---------------------------------------------------\n"
     
     dcgain = ctrl.dcgain(system)
-    Datos += f"Ganancia DC: {dcgain:5.3f}\n"
+    Datos += f"Ganancia DC: {real(dcgain):5.3f}\n"
 
     gm, pm, wg, wp = ctrl.margin(system)
 
