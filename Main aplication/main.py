@@ -11,7 +11,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.main = Ui_MainWindow()
         self.main.setupUi(self)
-        
+
         AnalisisHandler(self)
 
 
