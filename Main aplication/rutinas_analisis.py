@@ -4,7 +4,6 @@ from basic_units import radians, degrees
 from scipy import real, imag
 from matplotlib import pyplot as plt
 import matplotlib.ticker as mticker
-
 from MonkeyPatch_stepinfo import step_info
 
 ctrl.step_info = step_info

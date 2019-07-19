@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>638</height>
+    <height>711</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -623,12 +623,32 @@
               </item>
               <item>
                <property name="text">
+                <string notr="true">foh</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">backward_diff</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">euler</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string notr="true">tustin</string>
                </property>
               </item>
               <item>
                <property name="text">
                 <string notr="true">matched</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">impulse</string>
                </property>
               </item>
              </widget>
@@ -873,12 +893,27 @@
               </item>
               <item>
                <property name="text">
+                <string>foh</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>backward_diff</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>euler</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string notr="true">tustin</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string notr="true">matched</string>
+                <string notr="true">impulse</string>
                </property>
               </item>
              </widget>
@@ -1349,12 +1384,32 @@
               </item>
               <item>
                <property name="text">
+                <string notr="true">foh</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">backward_diff</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">euler</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string notr="true">tustin</string>
                </property>
               </item>
               <item>
                <property name="text">
                 <string notr="true">matched</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">impulse</string>
                </property>
               </item>
              </widget>
@@ -1596,12 +1651,27 @@
               </item>
               <item>
                <property name="text">
+                <string>foh</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>backward_diff</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>euler</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string notr="true">tustin</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string notr="true">matched</string>
+                <string notr="true">impulse</string>
                </property>
               </item>
              </widget>
