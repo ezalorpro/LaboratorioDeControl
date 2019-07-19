@@ -7,10 +7,10 @@ def AnalisisHandler(self):
     self.main.tfcalcButton1.clicked.connect(lambda: calcular_analisis(self))
     self.main.sscalcButton1.clicked.connect(lambda: calcular_analisis(self))
 
-    self.main.tfdiscretocheckBox1.stateChanged.connect(lambda: bool_discreto(self))
+    self.main.tfdiscretocheckBox1.stateChanged.connect(lambda: analisis_bool_discreto(self))
 
-    self.main.tfradioButton1.toggled.connect(lambda: stacked_to_tf(self))
-    self.main.ssradioButton1.toggled.connect(lambda: stacked_to_ss(self))
+    self.main.tfradioButton1.toggled.connect(lambda: analisis_stacked_to_tf(self))
+    self.main.ssradioButton1.toggled.connect(lambda: analisis_stacked_to_ss(self))
 
 
 def calcular_analisis(self):
@@ -52,16 +52,16 @@ def calcular_analisis(self):
     rutina_system_info(self, system, T, mag, phase, omega)
 
 
-def bool_discreto(self):
+def analisis_bool_discreto(self):
     if self.main.tfdiscretocheckBox1.isChecked():
         self.main.tfperiodoEdit1.setEnabled(True)
     else:
         self.main.tfperiodoEdit1.setDisabled(True)
 
 
-def stacked_to_tf(self):
+def analisis_stacked_to_tf(self):
     self.main.AnalisisstackedWidget.setCurrentIndex(0)
 
 
-def stacked_to_ss(self):
+def analisis_stacked_to_ss(self):
     self.main.AnalisisstackedWidget.setCurrentIndex(1)

@@ -1,6 +1,7 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from Ui_VentanaPrincipal import Ui_MainWindow
 from handlers.analisisHandler import AnalisisHandler
+from handlers.PIDHandler import PIDHandler
 import json
 
 
@@ -19,11 +20,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.error_dialog.setWindowTitle("Error")
 
         AnalisisHandler(self)
+        PIDHandler(self)
 
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     frame = MainWindow()
     frame.show()
