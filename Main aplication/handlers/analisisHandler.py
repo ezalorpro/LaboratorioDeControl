@@ -1,4 +1,4 @@
-from rutinas_analisis import *
+from rutinas.rutinas_analisis import *
 import json
 
 

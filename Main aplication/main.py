@@ -1,6 +1,6 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from Ui_VentanaPrincipal import Ui_MainWindow
-from analisisHandler import AnalisisHandler
+from handlers.analisisHandler import AnalisisHandler
 import json
 
 

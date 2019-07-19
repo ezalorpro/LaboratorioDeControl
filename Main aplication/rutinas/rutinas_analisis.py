@@ -1,10 +1,10 @@
 import control as ctrl
 import numpy as np
-from basic_units import radians, degrees
 from scipy import real, imag
 from matplotlib import pyplot as plt
 import matplotlib.ticker as mticker
-from MonkeyPatch_stepinfo import step_info
+
+from rutinas.MonkeyPatch_stepinfo import step_info
 
 ctrl.step_info = step_info
 
@@ -217,9 +217,9 @@ def rutina_system_info(self, system, T, mag, phase, omega):
 
     for k, v in info.items():
         Datos += f"{k} : {v:5.3f}\n"
-    
+
     Datos += "---------------------------------------------------\n"
-    
+
     dcgain = ctrl.dcgain(system)
     Datos += f"Ganancia DC: {real(dcgain):5.3f}\n"
 
@@ -229,17 +229,17 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     Datos += f"Frecuencia de ganancia: {wg:5.3f}\n"
     Datos += f"Margen de fase: {pm:5.3f}\n"
     Datos += f"Frecuencia de fase: {wp:5.3f}\n"
-    
+
     Datos += "---------------------------------------------------\n"
     Datos += f"  {'Valores eigen':<18}  {'Damping':<18}  Wn\n"
     wn, damping, eigen = ctrl.damp(system, doprint=False)
     for wni, dampingi, eigeni in zip(wn, damping, eigen):
-        
+
         if imag(eigeni) >= 0:
             Datos += f"{real(eigeni):5.3f} {imag(eigeni):+5.3f}j {dampingi:12.3f} {wni:15.3f} \n"
         else:
             Datos += f"{real(eigeni):5.3f} {imag(eigeni):7.3f}j {dampingi:12.3f} {wni:15.3f} \n"
-            
+
     if self.main.AnalisisstackedWidget.currentIndex() == 0:
         self.main.tfdatosTextEdit1.setPlainText(Datos)
     else:
