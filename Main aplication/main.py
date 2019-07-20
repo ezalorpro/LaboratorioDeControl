@@ -12,7 +12,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.main = Ui_MainWindow()
         self.main.setupUi(self)
-        
+        self.main.ssAutoTuningcheckBox2.isChecked()
         self.error_dialog = QtWidgets.QMessageBox()
         self.error_dialog.setIcon(QtWidgets.QMessageBox.Critical)
         self.error_dialog.setText("Error")

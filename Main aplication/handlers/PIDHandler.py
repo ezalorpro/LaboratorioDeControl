@@ -2,7 +2,6 @@ from rutinas.rutinas_PID import *
 import json
 
 def PIDHandler(self):
-    
     self.main.tfcalcButton2.clicked.connect(lambda: calcular_PID(self))
     self.main.sscalcButton2.clicked.connect(lambda: calcular_PID(self))
     
@@ -19,6 +18,8 @@ def PIDHandler(self):
     self.main.tfradioButton2.toggled.connect(lambda: PID_stacked_to_tf(self))
     self.main.ssradioButton2.toggled.connect(lambda: PID_stacked_to_ss(self))
     
+    self.main.tfAutoTuningcheckBox2.clicked['bool'].connect(lambda: tf_habilitar_sliders_checkbox(self))
+    self.main.ssAutoTuningcheckBox2.clicked['bool'].connect(lambda: ss_habilitar_sliders_checkbox(self))
 
 
 def calcular_PID(self):
@@ -66,7 +67,65 @@ def PID_bool_discreto(self):
 
 def PID_stacked_to_tf(self):
     self.main.PIDstackedWidget.setCurrentIndex(0)
+    tf_habilitar_sliders_checkbox(self)
+
+
+def tf_habilitar_sliders_checkbox(self):
+    if self.main.tfAutoTuningcheckBox2.isChecked():
+        self.main.kpCheckBox2.setDisabled(True)
+        self.main.kiCheckBox2.setDisabled(True)
+        self.main.kdCheckBox2.setDisabled(True)
+        self.main.kpHSlider2.setDisabled(True)
+        self.main.kiHSlider2.setDisabled(True)
+        self.main.kdHSlider2.setDisabled(True)
+    else:
+        self.main.kpCheckBox2.setEnabled(True)
+        self.main.kiCheckBox2.setEnabled(True)
+        self.main.kdCheckBox2.setEnabled(True)
+        if self.main.kpCheckBox2.isChecked():
+            self.main.kpHSlider2.setEnabled(True)
+        else:
+            self.main.kpHSlider2.setDisabled(True)
+            
+        if self.main.kiCheckBox2.isChecked():
+            self.main.kiHSlider2.setEnabled(True)
+        else:
+            self.main.kiHSlider2.setDisabled(True)
+            
+        if self.main.kdCheckBox2.isChecked():
+            self.main.kdHSlider2.setEnabled(True)
+        else:
+            self.main.kdHSlider2.setDisabled(True) 
 
 
 def PID_stacked_to_ss(self):
     self.main.PIDstackedWidget.setCurrentIndex(1)
+    ss_habilitar_sliders_checkbox(self)        
+
+
+def ss_habilitar_sliders_checkbox(self):
+    if self.main.ssAutoTuningcheckBox2.isChecked():
+        self.main.kpCheckBox2.setDisabled(True)
+        self.main.kiCheckBox2.setDisabled(True)
+        self.main.kdCheckBox2.setDisabled(True)
+        self.main.kpHSlider2.setDisabled(True)
+        self.main.kiHSlider2.setDisabled(True)
+        self.main.kdHSlider2.setDisabled(True)
+    else:
+        self.main.kpCheckBox2.setEnabled(True)
+        self.main.kiCheckBox2.setEnabled(True)
+        self.main.kdCheckBox2.setEnabled(True)
+        if self.main.kpCheckBox2.isChecked():
+            self.main.kpHSlider2.setEnabled(True)
+        else:
+            self.main.kpHSlider2.setDisabled(True)
+            
+        if self.main.kiCheckBox2.isChecked():
+            self.main.kiHSlider2.setEnabled(True)
+        else:
+            self.main.kiHSlider2.setDisabled(True)
+            
+        if self.main.kdCheckBox2.isChecked():
+            self.main.kdHSlider2.setEnabled(True)
+        else:
+            self.main.kdHSlider2.setDisabled(True)
