@@ -3,9 +3,9 @@ import scipy as sp              # SciPy library (used all over)
 import numpy as np              # NumPy library
 from scipy.signal.ltisys import _default_response_times
 import warnings
-from control.lti import LTI     # base class of StateSpace, TransferFunction
-from control.statesp import _convertToStateSpace, _mimo2simo, _mimo2siso
-from control.lti import isdtime, isctime
+from controlmdf.lti import LTI     # base class of StateSpace, TransferFunction
+from controlmdf.statesp import _convertToStateSpace, _mimo2simo, _mimo2siso
+from controlmdf.lti import isdtime, isctime
 
 # Helper function for checking array-like parameters
 def _check_convert_array(in_obj, legal_shapes, err_msg_start, squeeze=False,

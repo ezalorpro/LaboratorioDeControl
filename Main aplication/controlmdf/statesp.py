@@ -910,7 +910,7 @@ cannot take keywords.")
                 D = empty((sys.outputs, sys.inputs), dtype=float)
                 for i, j in itertools.product(range(sys.outputs), range(sys.inputs)):
                     D[i, j] = sys.num[i][j][0] / sys.den[i][j][0]
-                return StateSpace([], [], [], D, sys.dt)
+                return StateSpace([], [], [], D, sys.dt, delay=sys.delay)
             else:
                 if sys.inputs != 1 or sys.outputs != 1:
                     raise TypeError("No support for MIMO without slycot")
@@ -919,7 +919,7 @@ cannot take keywords.")
                 # I think this will fail if num and den aren't 1-D after
                 # the squeeze
                 A, B, C, D = sp.signal.tf2ss(squeeze(sys.num), squeeze(sys.den))
-                return StateSpace(A, B, C, D, sys.dt)
+                return StateSpace(A, B, C, D, sys.dt, delay=sys.delay)
 
     elif isinstance(sys, (int, float, complex, np.number)):
         if "inputs" in kw:

@@ -2,7 +2,9 @@ import controlmdf as ctrl
 import numpy as np
 from scipy import real, imag
 from matplotlib import pyplot as plt
+from collections import deque
 import matplotlib.ticker as mticker
+import json
 
 from rutinas.MonkeyPatch_stepinfo import step_info
 
@@ -10,14 +12,29 @@ ctrl.step_info = step_info
 
 
 def system_creator_tf(self, numerador, denominador):
-    system = ctrl.tf(numerador, denominador)
+    if not self.main.tfdiscretocheckBox1.isChecked() and self.main.tfdelaycheckBox1.isChecked():
+        delay = json.loads(self.main.tfdelayEdit1.text())
+    else:
+        delay = 0
+        
+    system = ctrl.TransferFunction(numerador, denominador, delay=delay)
     t, y = ctrl.impulse_response(system)
 
     if self.main.tfdiscretocheckBox1.isChecked():
+        
         system = ctrl.sample_system(
             system, self.dt, self.main.tfcomboBox1.currentText()
         )
-
+        
+        if self.main.tfdelaycheckBox1.isChecked():
+            delay = [0]*(int(json.loads(self.main.tfdelayEdit1.text())/self.dt) + 1)
+            delay[0] = 1
+            system_delay = system * ctrl.TransferFunction([1], delay, self.dt)
+        else:
+            system_delay = None
+    else:
+        system_delay = system
+    
     try:
         if ctrl.isdtime(system, strict=True):
             T = np.arange(0, 2 * np.max(t), self.dt)
@@ -26,17 +43,36 @@ def system_creator_tf(self, numerador, denominador):
     except ValueError:
         T = np.arange(0, 100, 0.1)
 
-    return system, T
+    return system, T, system_delay
 
 
 def system_creator_ss(self, A, B, C, D):
-    system = ctrl.ss(A, B, C, D)
+    if not self.main.ssdiscretocheckBox1.isChecked() and self.main.ssdelaycheckBox1.isChecked():
+        delay = json.loads(self.main.ssdelayEdit1.text())
+    else:
+        delay = 0
+        
+    system = ctrl.StateSpace(A, B, C, D, delay=delay)
     t, y = ctrl.impulse_response(system)
 
     if self.main.ssdiscretocheckBox1.isChecked():
         system = ctrl.sample_system(
             system, self.dt, self.main.sscomboBox1.currentText()
         )
+        
+        system_ss = system
+        system = ctrl.ss2tf(system)
+        
+        if self.main.ssdelaycheckBox1.isChecked():
+            delay = [0]*(int(json.loads(self.main.ssdelayEdit1.text())/self.dt) + 1)
+            delay[0] = 1
+            system_delay = system * ctrl.TransferFunction([1], delay, self.dt)
+        else:
+            system_delay = None
+    else:
+        system_ss = system
+        system = ctrl.ss2tf(system)
+        system_delay = None
 
     try:
         if ctrl.isdtime(system, strict=True):
@@ -45,15 +81,20 @@ def system_creator_ss(self, A, B, C, D):
             T = np.arange(0, 2 * np.max(t), 0.01)
     except ValueError:
         T = np.arange(0, 100, 0.1)
-
-    return system, T
+        
+    return system, T, system_delay, system_ss
 
 
 def rutina_step_plot(self, system, T):
     U = np.ones_like(T)
-    t, y, _ = ctrl.forced_response(system, T, U)
-
+    
+    if not system.delay or ctrl.isdtime(system, strict=True):
+        t, y, _ = ctrl.forced_response(system, T, U)
+    else:
+        t, y = runge_kutta(self, system, T, U)
+    
     self.main.stepGraphicsView1.canvas.axes.clear()
+    
     if ctrl.isdtime(system, strict=True):
         y = y[0]
         self.main.stepGraphicsView1.canvas.axes.step(t, y, where="mid")
@@ -72,11 +113,35 @@ def rutina_step_plot(self, system, T):
     return t, y
 
 
+def runge_kutta(self, system, T, u):
+    ss = ctrl.tf2ss(system)
+    x = np.zeros_like(ss.B)
+    buffer = deque([0]*int(system.delay/0.01))
+    h = 0.01
+    salida = []
+    for i, _ in enumerate(T):
+        buffer.appendleft(u[i])
+        inputValue = buffer.pop()
+        k1 = h * (ss.A * x + ss.B * inputValue)
+        k2 = h * (ss.A * (x+k1/2) + ss.B * inputValue)
+        k3 = h * (ss.A * (x+k2/2) + ss.B * inputValue)
+        k4 = h * (ss.A * (x+k3) + ss.B * inputValue)
+        
+        x = x + (1/6)*(k1 + 2*k2 + 2*k3 + k4)
+        y = ss.C * x + ss.D * inputValue
+        salida.append(np.asscalar(y[0]))
+        
+    return T, salida
+
 def rutina_impulse_plot(self, system, T):
 
     U = np.zeros_like(T)
     U[0] = 1
-    t, y, _ = ctrl.forced_response(system, T, U)
+    
+    if not system.delay or ctrl.isdtime(system, strict=True):
+        t, y, _ = ctrl.forced_response(system, T, U)
+    else:
+        t, y = runge_kutta(self, system, T, U)
 
     self.main.impulseGraphicsView1.canvas.axes.clear()
 
@@ -101,10 +166,10 @@ def rutina_impulse_plot(self, system, T):
 def rutina_bode_plot(self, system):
 
     if ctrl.isdtime(system, strict=True):
-        w = np.logspace(-np.pi, 2 * np.pi, 5000)
+        w = np.linspace(0, 100 * np.pi, 10000)
         mag, phase, omega = ctrl.bode(system, w)
     else:
-        w = np.logspace(-np.pi, 2 * np.pi, 5000)
+        w = np.linspace(0, 100 * np.pi, 5000)
         mag, phase, omega = ctrl.bode(system, w)
 
     self.main.BodeGraphicsView1.canvas.axes1.clear()

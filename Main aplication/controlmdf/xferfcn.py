@@ -1158,7 +1158,7 @@ def _convert_to_transfer_function(sys, **kw):
                 num = squeeze(num)  # Convert to 1D array
                 den = squeeze(den)  # Probably not needed
 
-        return TransferFunction(num, den, sys.dt)
+        return TransferFunction(num, den, sys.dt, delay=sys.delay)
 
     elif isinstance(sys, (int, float, complex, np.number)):
         if "inputs" in kw:
