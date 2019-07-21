@@ -2,16 +2,19 @@ from rutinas.rutinas_PID import *
 import json
 
 def PIDHandler(self):
-    self.main.tfcalcButton2.clicked.connect(lambda: calcular_PID(self))
-    self.main.sscalcButton2.clicked.connect(lambda: calcular_PID(self))
+    self.main.tfprogressBar2.hide()
+    self.main.ssprogressBar2.hide()
     
-    self.main.kpHSlider2.valueChanged.connect(lambda: calcular_PID(self))
-    self.main.kiHSlider2.valueChanged.connect(lambda: calcular_PID(self))
-    self.main.kdHSlider2.valueChanged.connect(lambda: calcular_PID(self))
+    self.main.tfcalcButton2.clicked.connect(lambda: chequeo_de_accion(self))
+    self.main.sscalcButton2.clicked.connect(lambda: chequeo_de_accion(self))
     
-    self.main.kpCheckBox2.stateChanged.connect(lambda: calcular_PID(self))
-    self.main.kiCheckBox2.stateChanged.connect(lambda: calcular_PID(self))
-    self.main.kdCheckBox2.stateChanged.connect(lambda: calcular_PID(self))
+    self.main.kpHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
+    self.main.kiHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
+    self.main.kdHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
+    
+    self.main.kpCheckBox2.stateChanged.connect(lambda: chequeo_de_accion(self))
+    self.main.kiCheckBox2.stateChanged.connect(lambda: chequeo_de_accion(self))
+    self.main.kdCheckBox2.stateChanged.connect(lambda: chequeo_de_accion(self))
 
     self.main.tfdiscretocheckBox2.stateChanged.connect(lambda: PID_bool_discreto(self))
 
@@ -20,6 +23,17 @@ def PIDHandler(self):
     
     self.main.tfAutoTuningcheckBox2.clicked['bool'].connect(lambda: tf_habilitar_sliders_checkbox(self))
     self.main.ssAutoTuningcheckBox2.clicked['bool'].connect(lambda: ss_habilitar_sliders_checkbox(self))
+
+
+def chequeo_de_accion(self):
+    if not self.main.tfAutoTuningcheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 0:
+        calcular_PID(self)
+    elif not self.main.ssAutoTuningcheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 1:
+        calcular_PID(self)
+    elif self.main.tfAutoTuningcheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 0:
+        calcular_autotuning(self)
+    else:
+        calcular_autotuning(self)
 
 
 def calcular_PID(self):
@@ -56,6 +70,42 @@ def calcular_PID(self):
     t1, y1 = rutina_step_plot(self, system_pid, T)
     update_gain_labels(self)
     rutina_system_info(self, system_pid, T)
+
+
+def calcular_autotuning(self):
+    if (self.main.tfdiscretocheckBox2.isChecked()
+        and self.main.PIDstackedWidget.currentIndex() == 0):
+        try:
+            self.dt = json.loads(self.main.tfperiodoEdit2.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
+            self.error_dialog.exec_()
+            return
+    elif (self.main.ssdiscretocheckBox2.isChecked() 
+          and self.main.PIDstackedWidget.currentIndex() == 1):
+        try:
+            self.dt = json.loads(self.main.ssperiodoEdit2.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
+            self.error_dialog.exec_()
+            return
+    else:
+        self.dt = None
+
+    if self.main.PIDstackedWidget.currentIndex() == 0:
+        num = json.loads(self.main.tfnumEdit2.text())
+        dem = json.loads(self.main.tfdemEdit2.text())
+        system_pid, T, kp, ki, kd = system_creator_tf_tuning(self, num, dem)
+    else:
+        A = json.loads(self.main.ssAEdit2.text())
+        B = json.loads(self.main.ssBEdit2.text())
+        C = json.loads(self.main.ssCEdit2.text())
+        D = json.loads(self.main.ssDEdit2.text())
+        system_pid, T = system_creator_ss_tuning(self, A, B, C, D)
+    
+    t1, y1 = rutina_step_plot(self, system_pid, T)
+    update_gain_labels(self, kp, ki, kd, autotuning=True)
+    rutina_system_info(self, system_pid, T, kp, ki, kd, autotuning=True)
 
 
 def PID_bool_discreto(self):
