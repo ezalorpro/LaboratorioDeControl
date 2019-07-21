@@ -82,6 +82,7 @@ def tf_habilitar_sliders_checkbox(self):
         self.main.kpCheckBox2.setEnabled(True)
         self.main.kiCheckBox2.setEnabled(True)
         self.main.kdCheckBox2.setEnabled(True)
+        
         if self.main.kpCheckBox2.isChecked():
             self.main.kpHSlider2.setEnabled(True)
         else:
@@ -115,6 +116,7 @@ def ss_habilitar_sliders_checkbox(self):
         self.main.kpCheckBox2.setEnabled(True)
         self.main.kiCheckBox2.setEnabled(True)
         self.main.kdCheckBox2.setEnabled(True)
+        
         if self.main.kpCheckBox2.isChecked():
             self.main.kpHSlider2.setEnabled(True)
         else:
