@@ -1,4 +1,4 @@
-import control as ctrl
+import controlmdf as ctrl
 import numpy as np
 from scipy import real, imag
 from matplotlib import pyplot as plt
@@ -29,7 +29,7 @@ def system_creator_tf(self, numerador, denominador):
     pid = ctrl.tf([kd, kp, ki],[1, 0])
     
     if self.main.tfdelaycheckBox2.isChecked():
-        Delay = ctrl.tf(*ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 5))
+        Delay = ctrl.tf(*ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 2))
     else:
         Delay = 1
     
@@ -71,7 +71,7 @@ def system_creator_ss(self, A, B, C, D):
     pid = ctrl.tf([kd, kp, ki],[1, 0])
     
     if self.main.ssdelaycheckBox2.isChecked():
-        Delay = ctrl.tf(*ctrl.pade(json.loads(self.main.ssdelayEdit2.text()), 5))
+        Delay = ctrl.tf(*ctrl.pade(json.loads(self.main.ssdelayEdit2.text()), 2))
     else:
         Delay = 1
         
@@ -100,7 +100,7 @@ def system_creator_tf_tuning(self, numerador, denominador):
     t, y = ctrl.impulse_response(system_op)
     
     if self.main.tfdelaycheckBox2.isChecked():
-        Delay = ctrl.tf(*ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 5))
+        Delay = ctrl.tf(*ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 2))
     else:
         Delay = 1
     

@@ -1,4 +1,4 @@
-import control as ctrl
+import controlmdf as ctrl
 import numpy as np
 from scipy import real, imag
 from matplotlib import pyplot as plt
