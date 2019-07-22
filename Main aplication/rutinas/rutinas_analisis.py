@@ -280,14 +280,19 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     Datos = ""
     
     Datos += str(system) + "\n"
-    Datos += "----------------------------------------------\n"
     
     if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
         delay = json.loads(self.main.tfdelayEdit1.text())
+        Datos += f"Delay: {delay}\n"
     elif self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
         delay = json.loads(self.main.ssdelayEdit1.text())
+        Datos += f"Delay: {delay}\n"
     else:
         delay = 0
+    
+    Datos += "----------------------------------------------\n"
+    
+    
     
     for k, v in info.items():
         if 'PeakTime' in k or 'SettlingTime' in k:

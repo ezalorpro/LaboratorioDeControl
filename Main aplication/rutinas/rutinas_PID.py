@@ -35,9 +35,11 @@ def system_creator_tf(self, numerador, denominador):
     t, y = ctrl.impulse_response(system)
 
     if self.main.tfdiscretocheckBox2.isChecked():
-        pid = ctrl.tf([kd + self.dt*kp + ki*self.dt**2,
+        pid = ctrl.TransferFunction([kd + self.dt*kp + ki*self.dt**2,
                        -self.dt*kp - 2*kd,
-                       kd],[self.dt, -self.dt, 0], self.dt)
+                       kd],
+                      [self.dt, -self.dt, 0],
+                       self.dt)
         
         system = ctrl.sample_system(
             system, self.dt, self.main.tfcomboBox2.currentText()
@@ -49,7 +51,6 @@ def system_creator_tf(self, numerador, denominador):
             system_delay = system * ctrl.TransferFunction([1], delay, self.dt)
             system_delay = ctrl.feedback(pid*system_delay)
         else:
-            
             system_delay = None
         
         system = ctrl.feedback(pid*system)
@@ -91,6 +92,12 @@ def system_creator_ss(self, A, B, C, D):
     t, y = ctrl.impulse_response(system)
 
     if self.main.ssdiscretocheckBox2.isChecked():
+        pid = ctrl.TransferFunction([kd + self.dt*kp + ki*self.dt**2,
+                       -self.dt*kp - 2*kd,
+                       kd],
+                      [self.dt, -self.dt, 0],
+                       self.dt)
+        
         system = ctrl.sample_system(
             system, self.dt, self.main.sscomboBox2.currentText()
         )
@@ -102,8 +109,11 @@ def system_creator_ss(self, A, B, C, D):
             delay = [0]*(int(json.loads(self.main.ssdelayEdit2.text())/self.dt) + 1)
             delay[0] = 1
             system_delay = system * ctrl.TransferFunction([1], delay, self.dt)
+            system_delay = ctrl.feedback(pid*system_delay)
         else:
             system_delay = None
+        
+        system = ctrl.feedback(pid*system)
     else:
         system_ss = system
         system = ctrl.ss2tf(system)
@@ -288,12 +298,22 @@ def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False):
     
     
 
-def rutina_system_info(self, system, T, kp=0, ki=0, kd=0, autotuning=False):
-    info = ctrl.step_info(system, T)
+def rutina_system_info(self, system, T, t, y, kp=0, ki=0, kd=0, autotuning=False):
+    info = ctrl.step_info(system, T=T, yout=y)
 
     Datos = ""
     
     Datos += str(system) + "\n"
+    
+    if self.main.tfdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 0:
+        delay = json.loads(self.main.tfdelayEdit2.text())
+        Datos += f"Delay: {delay}\n"
+    elif self.main.ssdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 1:
+        delay = json.loads(self.main.ssdelayEdit2.text())
+        Datos += f"Delay: {delay}\n"
+    else:
+        delay = 0
+    
     Datos += "----------------------------------------------\n"
     
     for k, v in info.items():

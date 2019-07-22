@@ -74,9 +74,9 @@ def calcular_PID(self):
         t2, y2 = rutina_step_plot(self, system_delay, T, kp, ki, kd)
     
     if not system_ss:
-        rutina_system_info(self, system_pid, T)
+        rutina_system_info(self, system_pid, T, t2, y2)
     else:
-        rutina_system_info(self, system_ss, T)
+        rutina_system_info(self, system_ss, T, t2, y2)
     
     update_gain_labels(self)
 
