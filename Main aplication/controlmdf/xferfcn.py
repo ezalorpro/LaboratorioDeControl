@@ -694,7 +694,7 @@ class TransferFunction(LTI):
         num = polymul(num1, den2)
         den = polyadd(polymul(den2, den1), -sign * polymul(num2, num1))
 
-        return TransferFunction(num, den, dt)
+        return TransferFunction(num, den, dt, delay=self.delay)
 
         # For MIMO or SISO systems, the analytic expression is
         #     self / (1 - sign * other * self)

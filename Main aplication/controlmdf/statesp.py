@@ -600,7 +600,7 @@ but B has %i row(s)\n(output(s))." % (self.inputs, other.outputs))
         C = concatenate((T1 * C1, sign * D1 * E_C2), axis=1)
         D = D1 * T2
 
-        return StateSpace(A, B, C, D, dt)
+        return StateSpace(A, B, C, D, dt, delay=self.delay)
 
     def lft(self, other, nu=-1, ny=-1):
         """Return the Linear Fractional Transformation.

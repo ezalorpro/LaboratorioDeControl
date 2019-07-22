@@ -37,6 +37,7 @@ def chequeo_de_accion(self):
 
 
 def calcular_PID(self):
+    system_ss = 0
     if (self.main.tfdiscretocheckBox2.isChecked()
         and self.main.PIDstackedWidget.currentIndex() == 0):
         try:
@@ -59,17 +60,25 @@ def calcular_PID(self):
     if self.main.PIDstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit2.text())
         dem = json.loads(self.main.tfdemEdit2.text())
-        system_pid, T = system_creator_tf(self, num, dem)
+        system_pid, T, system_delay, kp, ki, kd = system_creator_tf(self, num, dem)
     else:
         A = json.loads(self.main.ssAEdit2.text())
         B = json.loads(self.main.ssBEdit2.text())
         C = json.loads(self.main.ssCEdit2.text())
         D = json.loads(self.main.ssDEdit2.text())
-        system_pid, T = system_creator_ss(self, A, B, C, D)
+        system_pid, T, system_delay, system_ss, kp, ki, kd = system_creator_ss(self, A, B, C, D)
     
-    t1, y1 = rutina_step_plot(self, system_pid, T)
+    if system_delay is None:
+        t2, y2 = rutina_step_plot(self, system_pid, T, kp, ki, kd)
+    else:
+        t2, y2 = rutina_step_plot(self, system_delay, T, kp, ki, kd)
+    
+    if not system_ss:
+        rutina_system_info(self, system_pid, T)
+    else:
+        rutina_system_info(self, system_ss, T)
+    
     update_gain_labels(self)
-    rutina_system_info(self, system_pid, T)
 
 
 def calcular_autotuning(self):

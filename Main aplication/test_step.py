@@ -7,13 +7,18 @@ B = [ [1], [0] ]
 C = [ [0, 1] ]
 D = [ [0] ]
 
+kp = 0
+ki = 0.16
+kd = 0
+pid = ctrl.tf([kd+ki+kp, (-2*kd-kp), kd],[1, -1, 0], 0.1)
+pid2 = ctrl.tf([kd, kp, ki], [1,0])
+print(pid)
 ss = ctrl.StateSpace(A, B, C, D, delay=3)
 tf = ctrl.TransferFunction([1, 2], [1, 2, 1], delay=3)
-# tf = ctrl.sample_system(tf, 0.1)
+tf = ctrl.sample_system(tf, 0.1)
 # delay = [0]*(int(3/0.1) + 1)
 # delay[0] = 1
 # tf = tf * ctrl.tf([1], delay, 0.1)
-print(tf)
 
 w = np.linspace(0, 100 * np.pi, 10000)
 mag, phase, omega = ctrl.bode(tf, w, margins=True, Plot=False)
@@ -30,7 +35,7 @@ ax2.semilogx(omega, phase * 180.0 / np.pi)
 ax2.grid(True, which="both")
 plt.show()
 
-T = np.arange(0, 10, 0.1)
-t, y = ctrl.step_response(tf, T)
-plt.step(t, y)
+T = np.arange(0, 100, 0.1)
+t, y = ctrl.step_response(ctrl.feedback(pid*tf), T)
+plt.step(t, y[0])
 plt.show()
