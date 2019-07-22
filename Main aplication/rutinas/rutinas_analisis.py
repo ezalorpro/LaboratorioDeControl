@@ -282,9 +282,19 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     Datos += str(system) + "\n"
     Datos += "----------------------------------------------\n"
     
+    if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+        delay = json.loads(self.main.tfdelayEdit1.text())
+    elif self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+        delay = json.loads(self.main.ssdelayEdit1.text())
+    else:
+        delay = 0
+    
     for k, v in info.items():
-        Datos += f"{k} : {v:5.3f}\n"
-
+        if 'PeakTime' in k or 'SettlingTime' in k:
+            Datos += f"{k} : {v+delay:5.3f}\n"
+        else:
+            Datos += f"{k} : {v:5.3f}\n"
+                
     Datos += "----------------------------------------------\n"
     dcgain = ctrl.dcgain(system)
     Datos += f"Ganancia DC: {real(dcgain):5.3f}\n"
