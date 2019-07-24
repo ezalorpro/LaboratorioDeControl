@@ -82,6 +82,7 @@ def calcular_PID(self):
 
 
 def calcular_autotuning(self):
+    system_ss = 0
     if (self.main.tfdiscretocheckBox2.isChecked()
         and self.main.PIDstackedWidget.currentIndex() == 0):
         try:
@@ -95,7 +96,7 @@ def calcular_autotuning(self):
         try:
             self.dt = json.loads(self.main.ssperiodoEdit2.text())
         except ValueError:
-            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
+            self.error_dialog.setInformativeText("El alfa calculado es igual o menor a 0, lo cual es invalido para auto-tuning, se recomienda agregar un Delay mayor a 0.3")
             self.error_dialog.exec_()
             return
     else:
@@ -104,17 +105,35 @@ def calcular_autotuning(self):
     if self.main.PIDstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit2.text())
         dem = json.loads(self.main.tfdemEdit2.text())
-        system_pid, T, kp, ki, kd = system_creator_tf_tuning(self, num, dem)
+        try:
+            system_pid, T, system_delay, kp, ki, kd = system_creator_tf_tuning(self, num, dem)
+        except TypeError:
+            self.error_dialog.setInformativeText("El alfa calculado es igual o menor a 0.05, lo cual es invalido para auto-tuning, se recomienda agregar un Delay mayor a 0.3")
+            self.error_dialog.exec_()
+            return
     else:
         A = json.loads(self.main.ssAEdit2.text())
         B = json.loads(self.main.ssBEdit2.text())
         C = json.loads(self.main.ssCEdit2.text())
         D = json.loads(self.main.ssDEdit2.text())
-        system_pid, T = system_creator_ss_tuning(self, A, B, C, D)
+        try:
+            system_pid, T, system_delay, system_ss, kp, ki, kd = system_creator_ss_tuning(self, A, B, C, D)
+        except TypeError:
+            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
+            self.error_dialog.exec_()
+            return
     
-    t1, y1 = rutina_step_plot(self, system_pid, T)
+    if system_delay is None:
+        t2, y2 = rutina_step_plot(self, system_pid, T, kp, ki, kd)
+    else:
+        t2, y2 = rutina_step_plot(self, system_delay, T, kp, ki, kd)
+    
+    if not system_ss:
+        rutina_system_info(self, system_pid, T, t2, y2, kp, ki, kd, autotuning=True)
+    else:
+        rutina_system_info(self, system_ss, T, t2, y2, kp, ki, kd, autotuning=True)
+    
     update_gain_labels(self, kp, ki, kd, autotuning=True)
-    rutina_system_info(self, system_pid, T, kp, ki, kd, autotuning=True)
 
 
 def PID_bool_discreto(self):

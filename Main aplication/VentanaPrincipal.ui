@@ -1323,12 +1323,37 @@
                   </property>
                   <item>
                    <property name="text">
-                    <string notr="true">Ziegler-Nichols</string>
+                    <string notr="true">ZN P-- 1er orden</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string notr="true">Cohen-Coon</string>
+                    <string notr="true">ZN PI- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">ZN PID 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">CC P--  1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">CC PI- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC PD- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">CC PID 1er orden</string>
                    </property>
                   </item>
                  </widget>
@@ -1508,12 +1533,37 @@
                   </property>
                   <item>
                    <property name="text">
-                    <string notr="true">Ziegler-Nichols</string>
+                    <string>ZN P-- 1er orden</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string notr="true">Cohen-Coon</string>
+                    <string>ZN PI- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>ZN PID 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC P-- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC PI- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC PD- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC PID 1er orden</string>
                    </property>
                   </item>
                  </widget>

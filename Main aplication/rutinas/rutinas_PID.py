@@ -33,7 +33,7 @@ def system_creator_tf(self, numerador, denominador):
         kd = 0
     
     t, y = ctrl.impulse_response(system)
-
+    
     if self.main.tfdiscretocheckBox2.isChecked():
         pid = ctrl.TransferFunction([kd + self.dt*kp + ki*self.dt**2,
                        -self.dt*kp - 2*kd,
@@ -46,9 +46,9 @@ def system_creator_tf(self, numerador, denominador):
         )
         
         if self.main.tfdelaycheckBox2.isChecked():
-            delay = [0]*(int(json.loads(self.main.tfdelayEdit2.text())/self.dt) + 1)
-            delay[0] = 1
-            system_delay = system * ctrl.TransferFunction([1], delay, self.dt)
+            delayV = [0]*(int(json.loads(self.main.tfdelayEdit2.text())/self.dt) + 1)
+            delayV[0] = 1
+            system_delay = system * ctrl.TransferFunction([1], delayV, self.dt)
             system_delay = ctrl.feedback(pid*system_delay)
         else:
             system_delay = None
@@ -58,12 +58,19 @@ def system_creator_tf(self, numerador, denominador):
         system_delay = system
     
     try:
-        if ctrl.isdtime(system, strict=True):
-            T = np.arange(0, 2 * np.max(t), self.dt)
+        if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
+            T = np.arange(0, 2 * (np.max(t)+delay), self.dt)
+        elif np.max(t) < 100:
+            T = np.arange(0, 2 * (np.max(t)+delay), 0.1)
         else:
-            T = np.arange(0, 2 * np.max(t), 0.1)
+            if ctrl.isdtime(system, strict=True):
+                T = np.arange(0, 100, self.dt)
+            else:
+                T = np.arange(0, 100, 0.1)
+                    
     except ValueError:
         T = np.arange(0, 100, 0.1)
+                    
 
     return system, T, system_delay, kp, ki, kd
 
@@ -106,9 +113,9 @@ def system_creator_ss(self, A, B, C, D):
         system = ctrl.ss2tf(system)
         
         if self.main.ssdelaycheckBox2.isChecked():
-            delay = [0]*(int(json.loads(self.main.ssdelayEdit2.text())/self.dt) + 1)
-            delay[0] = 1
-            system_delay = system * ctrl.TransferFunction([1], delay, self.dt)
+            delayV = [0]*(int(json.loads(self.main.ssdelayEdit2.text())/self.dt) + 1)
+            delayV[0] = 1
+            system_delay = system * ctrl.TransferFunction([1], delayV, self.dt)
             system_delay = ctrl.feedback(pid*system_delay)
         else:
             system_delay = None
@@ -120,10 +127,16 @@ def system_creator_ss(self, A, B, C, D):
         system_delay = None
 
     try:
-        if ctrl.isdtime(system, strict=True):
-            T = np.arange(0, 2 * np.max(t), self.dt)
+        if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
+            T = np.arange(0, 2 * (np.max(t)+delay), self.dt)
+        elif np.max(t) < 100:
+            T = np.arange(0, 2 * (np.max(t)+delay), 0.1)
         else:
-            T = np.arange(0, 2 * np.max(t), 0.1)
+            if ctrl.isdtime(system, strict=True):
+                T = np.arange(0, 100, self.dt)
+            else:
+                T = np.arange(0, 100, 0.1)
+                    
     except ValueError:
         T = np.arange(0, 100, 0.1)
         
@@ -131,88 +144,235 @@ def system_creator_ss(self, A, B, C, D):
 
 
 def system_creator_tf_tuning(self, numerador, denominador):
-    system_op = ctrl.tf(numerador, denominador)
-    t, y = ctrl.impulse_response(system_op)
-    
-    if self.main.tfdelaycheckBox2.isChecked():
-        Delay = ctrl.tf(*ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 2))
+    if not self.main.tfdiscretocheckBox2.isChecked() and self.main.tfdelaycheckBox2.isChecked():
+        delay = json.loads(self.main.tfdelayEdit2.text())
     else:
-        Delay = 1
+        delay = 0
+        
+    system = ctrl.TransferFunction(numerador, denominador, delay=delay)
     
-    system_op = Delay*system_op
-    
-    if self.main.tfdiscretocheckBox2.isChecked():
-        system_op = ctrl.sample_system(
-            system_op, self.dt, self.main.tfcomboBox2.currentText()
-        )
-
-    try:
-        if ctrl.isdtime(system_op, strict=True):
-            T = np.arange(0, 2 * np.max(t), self.dt)
-        else:
-            T = np.arange(0, 2 * np.max(t), 0.01)
-    except ValueError:
-        T = np.arange(0, 100, 0.1)
-    
+    t, y = ctrl.impulse_response(system)
+    T = np.arange(0, 2 * np.max(t), 0.1)
     U = np.ones_like(T)
     
-    t, y, _ = ctrl.forced_response(system_op, T, U)
+    t, y, _ = ctrl.forced_response(system, T, U)
     
-    i_max = np.argmax(np.abs(np.gradient(y)))
-
-    for index, i in enumerate(y):
-        if i >= 0.63:
-            indexv = index
-            break
-   
-    slop = (y[i_max] - y[i_max - 1]) / (t[i_max] - t[i_max - 1])
-    x1 = (0 - y[i_max]) / (slop) + t[i_max]
-    x2 = t[indexv]
-    y2 = slop * (x2 - t[i_max]) + y[i_max]
+    K_proceso, tau, alpha = model_method(self, t, y, self.main.tfAutoTuningcomboBox2.currentText())
     
-    tau = x2 - x1
-    alpha = x1
-    print(alpha)
-    K_proceso = 1/y[-1]
-
-    if alpha != 0:
-        kp = ((1 / K_proceso) * (tau / alpha) * ((4 / 3) + (1 / 4) * (alpha / tau)))
-        ti = alpha * ((32 + 6 * (alpha / tau)) / (13 + 8 * (alpha / tau)))
-        td = alpha * (4 / (11 + 2 * (alpha / tau)))
-    else:
-        kp = 1/K_proceso
-        ti = 100000
-        td = 0
-    
-    kp = kp/2
-    ki = kp/ti
-    kd = kp*td
-    
-    system = ctrl.tf(numerador, denominador)
-        
-    pid = ctrl.tf([kd, kp, ki],[1, 0])
-    
-    system = ctrl.feedback(pid*Delay*system)
-    t, y = ctrl.impulse_response(system)
+    try:
+        kp, ki, kd = auto_tuning_method(self, K_proceso, tau, alpha, self.main.tfAutoTuningcomboBox2.currentText())
+    except TypeError:
+        raise TypeError('Alfa es muy pequeño')
 
     if self.main.tfdiscretocheckBox2.isChecked():
+        pid = ctrl.TransferFunction([kd + self.dt*kp + ki*self.dt**2,
+                       -self.dt*kp - 2*kd,
+                       kd],
+                      [self.dt, -self.dt, 0],
+                       self.dt)
+        
         system = ctrl.sample_system(
             system, self.dt, self.main.tfcomboBox2.currentText()
         )
-
-    try:
-        if ctrl.isdtime(system, strict=True):
-            T = np.arange(0, 2 * np.max(t), self.dt)
+        
+        if self.main.tfdelaycheckBox2.isChecked():
+            delayV = [0]*(int(json.loads(self.main.tfdelayEdit2.text())/self.dt) + 1)
+            delayV[0] = 1
+            system_delay = system * ctrl.TransferFunction([1], delayV, self.dt)
+            system_delay = ctrl.feedback(pid*system_delay)
         else:
-            T = np.arange(0, 2 * np.max(t), 0.01)
+            system_delay = None
+        
+        system = ctrl.feedback(pid*system)
+    else:
+        system_delay = system
+    
+    try:
+        if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
+            T = np.arange(0, 2 * (np.max(t)+delay), self.dt)
+        elif np.max(t) < 100:
+            T = np.arange(0, 2 * (np.max(t)+delay), 0.1)
+        else:
+            if ctrl.isdtime(system, strict=True):
+                T = np.arange(0, 100, self.dt)
+            else:
+                T = np.arange(0, 100, 0.1)
+                    
     except ValueError:
         T = np.arange(0, 100, 0.1)
 
-    return system, T, kp, ki, kd
+    return system, T, system_delay, kp, ki, kd
 
 
 def system_creator_ss_tuning(self, A, B, C, D):
-    pass
+    if not self.main.ssdiscretocheckBox2.isChecked() and self.main.ssdelaycheckBox2.isChecked():
+        delay = json.loads(self.main.ssdelayEdit2.text())
+    else:
+        delay = 0
+        
+    system = ctrl.StateSpace(A, B, C, D, delay=delay)
+    
+    t, y = ctrl.impulse_response(system)
+    T = np.arange(0, 2 * np.max(t), 0.1)
+    U = np.ones_like(T)
+    
+    t, y, _ = ctrl.forced_response(system, T, U)
+    
+    K_proceso, tau, alpha = model_method(self, t, y, self.main.ssAutoTuningcomboBox2.currentText())
+    
+    try:
+        kp, ki, kd = auto_tuning_method(self, K_proceso, tau, alpha, self.main.ssAutoTuningcomboBox2.currentText())
+    except TypeError:
+        raise TypeError('Alfa es muy pequeño')
+
+    if self.main.ssdiscretocheckBox2.isChecked():
+        pid = ctrl.TransferFunction([kd + self.dt*kp + ki*self.dt**2,
+                       -self.dt*kp - 2*kd,
+                       kd],
+                      [self.dt, -self.dt, 0],
+                       self.dt)
+        
+        system = ctrl.sample_system(
+            system, self.dt, self.main.sscomboBox2.currentText()
+        )
+        
+        if self.main.ssdelaycheckBox2.isChecked():
+            delayV = [0]*(int(json.loads(self.main.ssdelayEdit2.text())/self.dt) + 1)
+            delayV[0] = 1
+            system_delay = system * ctrl.TransferFunction([1], delayV, self.dt)
+            system_delay = ctrl.feedback(pid*system_delay)
+        else:
+            system_delay = None
+        
+        system_ss = system
+        system = ctrl.feedback(pid*system)
+    else:
+        system_ss = system
+        system_delay = system
+    
+    try:
+        if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
+            T = np.arange(0, 2 * (np.max(t)+delay), self.dt)
+        elif np.max(t) < 100:
+            T = np.arange(0, 2 * (np.max(t)+delay), 0.1)
+        else:
+            if ctrl.isdtime(system, strict=True):
+                T = np.arange(0, 100, self.dt)
+            else:
+                T = np.arange(0, 100, 0.1)
+                    
+    except ValueError:
+        T = np.arange(0, 100, 0.1)
+
+    return system, T, system_delay, system_ss, kp, ki, kd
+
+
+def model_method(self, t, y, metodo):
+    if '1er orden' in metodo:
+        i_max = np.argmax(np.abs(np.gradient(y)))
+
+        for index, i in enumerate(y):
+            if i >= 0.63:
+                indexv = index
+                break
+    
+        slop = (y[i_max] - y[i_max - 1]) / (t[i_max] - t[i_max - 1])
+        x1 = (0 - y[i_max]) / (slop) + t[i_max]
+        x2 = t[indexv]
+        y2 = slop * (x2 - t[i_max]) + y[i_max]
+        
+        tau = x2 - x1
+        
+        if self.main.tfdelaycheckBox2.isChecked():
+            alpha = x1 + json.loads(self.main.tfdelayEdit2.text())
+        else:
+            alpha = x1
+            
+        K_proceso = y[-1]/1
+        
+        return K_proceso, tau, alpha
+
+
+def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
+    
+    if alpha <= 0.05:
+        print('Alfa es demasiado pequeño')
+        raise TypeError(' Alfa es demasiado pequeño')
+    
+    if 'ZN' in metodo:
+        if 'P--' in metodo:
+            kp = (1 / k_proceso) * (tau / alpha)
+            ti = np.infty
+            td = 0
+            
+            self.main.kpCheckBox2.setChecked(True)
+            self.main.kiCheckBox2.setChecked(False)
+            self.main.kdCheckBox2.setChecked(False)
+            
+        if 'PI-' in metodo:
+            kp = (0.9 / k_proceso) * (tau / alpha)
+            ti = alpha * 3.33
+            td = 0
+            
+            self.main.kpCheckBox2.setChecked(True)
+            self.main.kiCheckBox2.setChecked(True)
+            self.main.kdCheckBox2.setChecked(False)
+            
+        if 'PID' in metodo:
+            kp = (1.2 / k_proceso) * (tau / alpha)
+            ti = alpha * 2
+            td = alpha * 0.5
+            
+            self.main.kpCheckBox2.setChecked(True)
+            self.main.kiCheckBox2.setChecked(True)
+            self.main.kdCheckBox2.setChecked(True)
+            
+        kp = kp
+        ki = kp/ti
+        kd = kp*td
+    
+    if 'CC' in metodo:
+        if 'P--' in metodo:
+            kp = (1 / k_proceso) * (tau / alpha) * (1 + (1 / 3) * (alpha / tau))
+            ti = np.infty
+            td = 0
+            
+            self.main.kpCheckBox2.setChecked(True)
+            self.main.kiCheckBox2.setChecked(False)
+            self.main.kdCheckBox2.setChecked(False)
+            
+        if 'PI-' in metodo:
+            kp = (1 / k_proceso) * (tau / alpha) * (0.9 + (1 / 12) * (alpha / tau))
+            ti = alpha * ((30 + 3 * (alpha / tau)) / (9 + 20 * (alpha / tau)))
+            td = 0
+            
+            self.main.kpCheckBox2.setChecked(True)
+            self.main.kiCheckBox2.setChecked(True)
+            self.main.kdCheckBox2.setChecked(False)
+            
+        if 'PD-' in metodo:
+            kp = ((1 / k_proceso) * (tau / alpha) * ((5 / 4) + (1 / 6) * (alpha / tau)))
+            ti = np.infty
+            td = alpha * ((6 - 2*(alpha/tau)) / (22 + 3 * (alpha / tau)))
+            
+            self.main.kpCheckBox2.setChecked(True)
+            self.main.kiCheckBox2.setChecked(False)
+            self.main.kdCheckBox2.setChecked(True)
+            
+        if 'PID' in metodo:
+            kp = ((1 / k_proceso) * (tau / alpha) * ((4 / 3) + (1 / 4) * (alpha / tau)))
+            ti = alpha * ((32 + 6 * (alpha / tau)) / (13 + 8 * (alpha / tau)))
+            td = alpha * (4 / (11 + 2 * (alpha / tau)))
+            
+            self.main.kpCheckBox2.setChecked(True)
+            self.main.kiCheckBox2.setChecked(True)
+            self.main.kdCheckBox2.setChecked(True)
+        
+        kp = kp/2
+        ki = kp/ti
+        kd = kp*td
+   
+    return kp, ki ,kd
 
 
 def rutina_step_plot(self, system, T, kp, ki, kd):
@@ -242,8 +402,13 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
     self.main.stepGraphicsView2.toolbar.update()
     return t, y
 
+
 def runge_kutta(self, system, T, u, kp, ki, kd):
-    ss = ctrl.tf2ss(system)
+    if isinstance(system, ctrl.TransferFunction):
+        ss = ctrl.tf2ss(system)
+    else:
+        ss =system
+        
     x = np.zeros_like(ss.B)
     buffer = deque([0]*int(system.delay/0.1))
     h = 0.1
@@ -295,7 +460,6 @@ def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False):
     self.main.kpValueLabel2.setText(str(self.main.kpHSlider2.value()/50))
     self.main.kiValueLabel2.setText(str(self.main.kiHSlider2.value()/50))
     self.main.kdValueLabel2.setText(str(self.main.kdHSlider2.value()/50))
-    
     
 
 def rutina_system_info(self, system, T, t, y, kp=0, ki=0, kd=0, autotuning=False):
