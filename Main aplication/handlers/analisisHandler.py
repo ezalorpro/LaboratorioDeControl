@@ -14,6 +14,7 @@ def AnalisisHandler(self):
 
 
 def calcular_analisis(self):
+    system_ss = 0
     if (self.main.tfdiscretocheckBox1.isChecked()
         and self.main.AnalisisstackedWidget.currentIndex() == 0):
         try:
@@ -36,21 +37,31 @@ def calcular_analisis(self):
     if self.main.AnalisisstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit1.text())
         dem = json.loads(self.main.tfdemEdit1.text())
-        system, T = system_creator_tf(self, num, dem)
+        system, T, system_delay = system_creator_tf(self, num, dem)
     else:
         A = json.loads(self.main.ssAEdit1.text())
         B = json.loads(self.main.ssBEdit1.text())
         C = json.loads(self.main.ssCEdit1.text())
         D = json.loads(self.main.ssDEdit1.text())
-        system, T = system_creator_ss(self, A, B, C, D)
+        system, T, system_delay, system_ss = system_creator_ss(self, A, B, C, D)
 
-    t1, y1 = rutina_impulse_plot(self, system, T)
-    t2, y2 = rutina_step_plot(self, system, T)
-    mag, phase, omega = rutina_bode_plot(self, system)
-    real, imag, freq = rutina_nyquist_plot(self, system)
-    rutina_root_locus_plot(self, system)
-    rutina_system_info(self, system, T, mag, phase, omega)
-
+    if system_delay is None:
+        t1, y1 = rutina_impulse_plot(self, system, T)
+        t2, y2 = rutina_step_plot(self, system, T)
+        mag, phase, omega = rutina_bode_plot(self, system)
+        real, imag, freq = rutina_nyquist_plot(self, system)
+    else:
+        t1, y1 = rutina_impulse_plot(self, system_delay, T)
+        t2, y2 = rutina_step_plot(self, system_delay, T)
+        mag, phase, omega = rutina_bode_plot(self, system_delay)
+        real, imag, freq = rutina_nyquist_plot(self, system_delay)
+    
+    if not system_ss:
+        rutina_root_locus_plot(self, system)
+        rutina_system_info(self, system, T, mag, phase, omega)
+    else:
+        rutina_root_locus_plot(self, system_ss)
+        rutina_system_info(self, system_ss, T, mag, phase, omega)
 
 def analisis_bool_discreto(self):
     if self.main.tfdiscretocheckBox1.isChecked():

@@ -1,11 +1,11 @@
 """ Funcion para obtener la informacion step de un sistema discreto """
 import scipy as sp              # SciPy library (used all over)
 import numpy as np
-from control.statesp import _convertToStateSpace, _mimo2simo, _mimo2siso
-from control.lti import isctime, isdtime
-import control
+from controlmdf.statesp import _convertToStateSpace, _mimo2simo, _mimo2siso
+from controlmdf.lti import isctime, isdtime
+import controlmdf
 from rutinas.MokeyPatch_forceresponse import forced_response
-control.forced_response = forced_response
+controlmdf.forced_response = forced_response
 
 def _get_ss_simo(sys, input=None, output=None):
     """Return a SISO or SIMO state-space version of sys
@@ -25,7 +25,7 @@ def _get_ss_simo(sys, input=None, output=None):
     else:
         return _mimo2siso(sys_ss, input, output, warn_conversion=warn)
 
-def step_info(sys, T=None, SettlingTimeThreshold=0.02, RiseTimeLimits=(0.1,0.9)):
+def step_info(sys, T=None, yout=None, SettlingTimeThreshold=0.02, RiseTimeLimits=(0.1,0.9)):
     '''
     Step response characteristics (Rise time, Settling Time, Peak and others).
 
@@ -74,10 +74,15 @@ def step_info(sys, T=None, SettlingTimeThreshold=0.02, RiseTimeLimits=(0.1,0.9))
             tvec = _default_response_times(sys.A, 1000)
             T = range(int(np.ceil(max(tvec))))
 
-    T, yout = control.step_response(sys, T)
+    if yout is None:
+        T, yout = controlmdf.step_response(sys, T)
+        if isdtime(sys, strict=True):
+            yout = yout[0]
+    else:
+        T = np.array(T)
+        yout = np.array(yout)
+            
     
-    if isdtime(sys, strict=True):
-        yout = yout[0]
     
     # Steady state value
     InfValue = yout[-1]

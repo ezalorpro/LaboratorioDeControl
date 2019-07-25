@@ -26,7 +26,7 @@ for i, _ in tqdm(enumerate(t)):
     
     x = x + (1/6)*(k1 + 2*k2 + 2*k3 + k4)
     y = ss.C * x + ss.D * u[i]
-    result.append(y[0])
+    result.append(np.asscalar(y[0]))
 
 plt.plot(t, np.reshape(result, [len(t)]))
 plt.show()

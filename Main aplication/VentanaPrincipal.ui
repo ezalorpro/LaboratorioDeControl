@@ -475,164 +475,7 @@
               </property>
               <widget class="QWidget" name="tf">
                <layout class="QGridLayout" name="gridLayout_9">
-                <item row="3" column="1">
-                 <widget class="QLineEdit" name="tfdemEdit1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>[1, 1, 1]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0" colspan="2">
-                 <widget class="QLabel" name="tfLabel1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Coeficientes de la funcion de transferencia</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="tfnumEdit1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>[1]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="9" column="0">
-                 <widget class="QPushButton" name="tfcalcButton1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Calcular</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0" colspan="2">
-                 <widget class="QLabel" name="tfdatosLabel1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::LeftToRight</enum>
-                  </property>
-                  <property name="text">
-                   <string>Datos</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>false</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="tfperiodoEdit1">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="inputMask">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Periodo de muestreo</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="8" column="0" colspan="2">
-                 <widget class="QPlainTextEdit" name="tfdatosTextEdit1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="sizeAdjustPolicy">
-                   <enum>QAbstractScrollArea::AdjustIgnored</enum>
-                  </property>
-                  <property name="readOnly">
-                   <bool>true</bool>
-                  </property>
-                  <property name="plainText">
-                   <string/>
-                  </property>
-                  <property name="backgroundVisible">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="demLabel1">
-                  <property name="text">
-                   <string>Denominador</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="numLabel1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Numerador</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QCheckBox" name="tfdiscretocheckBox1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Discreto</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
+                <item row="6" column="1">
                  <widget class="QComboBox" name="tfcomboBox1">
                   <property name="enabled">
                    <bool>false</bool>
@@ -689,29 +532,92 @@
                   </item>
                  </widget>
                 </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="tfMetodoLabel1">
+                <item row="2" column="0">
+                 <widget class="QLabel" name="numLabel1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Numerador</string>
                   </property>
                  </widget>
                 </item>
-               </layout>
-              </widget>
-              <widget class="QWidget" name="ss">
-               <layout class="QGridLayout" name="gridLayout_11">
-                <item row="3" column="0">
-                 <widget class="QLabel" name="ssCLabel1">
-                  <property name="text">
-                   <string>C</string>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="tfdemEdit1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                  <property name="text">
+                   <string>[1, 1, 1]</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="0" colspan="2">
+                 <widget class="QPlainTextEdit" name="tfdatosTextEdit1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="sizeAdjustPolicy">
+                   <enum>QAbstractScrollArea::AdjustIgnored</enum>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="plainText">
+                   <string/>
+                  </property>
+                  <property name="backgroundVisible">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="demLabel1">
+                  <property name="text">
+                   <string>Denominador</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0" colspan="2">
+                 <widget class="QLabel" name="tfLabel1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Coeficientes de la funcion de transferencia</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="tfnumEdit1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[1]</string>
                   </property>
                  </widget>
                 </item>
                 <item row="5" column="1">
-                 <widget class="QLineEdit" name="ssperiodoEdit1">
+                 <widget class="QLineEdit" name="tfperiodoEdit1">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -732,8 +638,21 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="ssBEdit1">
+                <item row="5" column="0">
+                 <widget class="QCheckBox" name="tfdiscretocheckBox1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Discreto</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="0">
+                 <widget class="QPushButton" name="tfcalcButton1">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -741,37 +660,14 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>[ [1], [0] ]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QLineEdit" name="ssCEdit1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>[ [0, 1] ]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="ssBLabel1">
-                  <property name="text">
-                   <string>B</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <string>Calcular</string>
                   </property>
                  </widget>
                 </item>
                 <item row="7" column="0" colspan="2">
-                 <widget class="QLabel" name="ssdatosLabel1">
+                 <widget class="QLabel" name="tfdatosLabel1">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -793,44 +689,42 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="ssAEdit1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="tfMetodoLabel1">
                   <property name="text">
-                   <string>[ [-1, -1], [1,  0] ]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="ssDEdit1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>[ [0] ]</string>
+                   <string>Metodo</string>
                   </property>
                  </widget>
                 </item>
                 <item row="4" column="0">
-                 <widget class="QLabel" name="ssDLabel1">
+                 <widget class="QCheckBox" name="tfdelaycheckBox1">
                   <property name="text">
-                   <string>D</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <string>Delay</string>
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="0">
-                 <widget class="QPushButton" name="sscalcButton1">
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="tfdelayEdit1">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Delay en segundos</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="ss">
+               <layout class="QGridLayout" name="gridLayout_11">
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="ssCEdit1">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -838,30 +732,39 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Calcular</string>
+                   <string>[ [0, 1] ]</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="ssALabel1">
+                <item row="6" column="0">
+                 <widget class="QCheckBox" name="ssdiscretocheckBox1">
+                  <property name="text">
+                   <string>Discreto</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="0" colspan="2">
+                 <widget class="QPlainTextEdit" name="ssdatosTextEdit1">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="text">
-                   <string>A</string>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
                   </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                  <property name="sizeAdjustPolicy">
+                   <enum>QAbstractScrollArea::AdjustIgnored</enum>
                   </property>
-                 </widget>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QCheckBox" name="ssdiscretocheckBox1">
-                  <property name="text">
-                   <string>Discreto</string>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="plainText">
+                   <string/>
+                  </property>
+                  <property name="backgroundVisible">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -887,32 +790,30 @@
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="0" colspan="2">
-                 <widget class="QPlainTextEdit" name="ssdatosTextEdit1">
+                <item row="3" column="0">
+                 <widget class="QLabel" name="ssCLabel1">
+                  <property name="text">
+                   <string>C</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="ssBEdit1">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="sizeAdjustPolicy">
-                   <enum>QAbstractScrollArea::AdjustIgnored</enum>
-                  </property>
-                  <property name="readOnly">
-                   <bool>true</bool>
-                  </property>
-                  <property name="plainText">
-                   <string/>
-                  </property>
-                  <property name="backgroundVisible">
-                   <bool>true</bool>
+                  <property name="text">
+                   <string>[ [1], [0] ]</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="7" column="1">
                  <widget class="QComboBox" name="sscomboBox1">
                   <property name="enabled">
                    <bool>false</bool>
@@ -961,10 +862,149 @@
                   </item>
                  </widget>
                 </item>
-                <item row="6" column="0">
+                <item row="7" column="0">
                  <widget class="QLabel" name="ssMetodoLabel1">
                   <property name="text">
                    <string>Metodo</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="ssDLabel1">
+                  <property name="text">
+                   <string>D</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="0">
+                 <widget class="QPushButton" name="sscalcButton1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Calcular</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QLineEdit" name="ssperiodoEdit1">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="inputMask">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Periodo de muestreo</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="ssAEdit1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[ [-1, -1], [1,  0] ]</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="0" colspan="2">
+                 <widget class="QLabel" name="ssdatosLabel1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="text">
+                   <string>Datos</string>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>false</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="ssALabel1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>A</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="ssDEdit1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[ [0] ]</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="ssBLabel1">
+                  <property name="text">
+                   <string>B</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QLineEdit" name="ssdelayEdit1">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Delay en segundos</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QCheckBox" name="ssdelaycheckBox1">
+                  <property name="text">
+                   <string>Delay</string>
                   </property>
                  </widget>
                 </item>
@@ -1124,104 +1164,58 @@
               </property>
               <widget class="QWidget" name="tf">
                <layout class="QGridLayout" name="gridLayout_10">
-                <item row="3" column="1">
-                 <widget class="QLineEdit" name="tfperiodoEdit2">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Periodo de muestreo</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QCheckBox" name="tfdiscretocheckBox2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Discreto</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="tfnumEdit2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>[1]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0" colspan="2">
-                 <widget class="QLabel" name="coefLabel2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Coeficientes de la funcion de transferencia</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0" colspan="2">
-                 <widget class="QLabel" name="tfdatosLabel2">
+                <item row="1" column="0">
+                 <widget class="QLabel" name="numLabel2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::LeftToRight</enum>
-                  </property>
                   <property name="text">
-                   <string>Datos</string>
+                   <string>Numerador</string>
                   </property>
-                  <property name="scaledContents">
-                   <bool>false</bool>
+                 </widget>
+                </item>
+                <item row="9" column="1">
+                 <widget class="QProgressBar" name="tfprogressBar2">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                   <set>Qt::AlignCenter</set>
                   </property>
-                  <property name="wordWrap">
+                  <property name="textVisible">
+                   <bool>true</bool>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="invertedAppearance">
                    <bool>false</bool>
+                  </property>
+                  <property name="textDirection">
+                   <enum>QProgressBar::TopToBottom</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="tfdemEdit2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[1, 1, 1]</string>
                   </property>
                  </widget>
                 </item>
                 <item row="5" column="1">
-                 <widget class="QComboBox" name="tfAutoTuningcomboBox2">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string notr="true">Ziegler-Nichols</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string notr="true">Cohen-Coon</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="4" column="1">
                  <widget class="QComboBox" name="tfcomboBox2">
                   <property name="enabled">
                    <bool>false</bool>
@@ -1272,56 +1266,7 @@
                   </item>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="numLabel2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Numerador</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="tfMetodoLabel2">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="text">
-                   <string>Metodo</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="8" column="0">
-                 <widget class="QPushButton" name="tfcalcButton2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Calcular</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="tfdemEdit2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>[1, 1, 1]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="0" colspan="2">
+                <item row="8" column="0" colspan="2">
                  <widget class="QPlainTextEdit" name="tfdatosTextEdit2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
@@ -1346,6 +1291,163 @@
                   </property>
                  </widget>
                 </item>
+                <item row="6" column="0">
+                 <widget class="QCheckBox" name="tfAutoTuningcheckBox2">
+                  <property name="font">
+                   <font>
+                    <pointsize>7</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Auto-Tuning</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="0">
+                 <widget class="QPushButton" name="tfcalcButton2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Calcular</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QComboBox" name="tfAutoTuningcomboBox2">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string notr="true">ZN P-- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">ZN PI- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">ZN PID 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">CC P--  1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">CC PI- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC PD- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string notr="true">CC PID 1er orden</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="tfMetodoLabel2">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="text">
+                   <string>Metodo</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QCheckBox" name="tfdiscretocheckBox2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Discreto</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="tfperiodoEdit2">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Periodo de muestreo</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0" colspan="2">
+                 <widget class="QLabel" name="coefLabel2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Coeficientes de la funcion de transferencia</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0" colspan="2">
+                 <widget class="QLabel" name="tfdatosLabel2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="text">
+                   <string>Datos</string>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>false</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="tfnumEdit2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[1]</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="demLabel2">
                   <property name="sizePolicy">
@@ -1359,15 +1461,26 @@
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
-                 <widget class="QCheckBox" name="tfAutoTuningcheckBox2">
-                  <property name="font">
-                   <font>
-                    <pointsize>7</pointsize>
-                   </font>
-                  </property>
+                <item row="3" column="0">
+                 <widget class="QCheckBox" name="tfdelaycheckBox2">
                   <property name="text">
-                   <string>Auto-Tuning</string>
+                   <string>Delay</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="tfdelayEdit2">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Delay en segundos</string>
                   </property>
                  </widget>
                 </item>
@@ -1375,58 +1488,6 @@
               </widget>
               <widget class="QWidget" name="page_4">
                <layout class="QGridLayout" name="gridLayout_12">
-                <item row="0" column="0" colspan="2">
-                 <widget class="QLabel" name="ssLabel1_2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::LeftToRight</enum>
-                  </property>
-                  <property name="text">
-                   <string>Matrices de estado</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="ssDEdit2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>[ [0] ]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="ssMetodoLabel2">
-                  <property name="text">
-                   <string>Metodo</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="ssCLabel2">
-                  <property name="text">
-                   <string>C</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="ssALabel2">
                   <property name="sizePolicy">
@@ -1443,51 +1504,77 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="ssAEdit2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="ssCLabel2">
                   <property name="text">
-                   <string>[ [-1, -1], [1,  0] ]</string>
+                   <string>C</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
-                 <widget class="QLineEdit" name="ssCEdit2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                <item row="8" column="0">
+                 <widget class="QCheckBox" name="ssAutoTuningcheckBox2">
+                  <property name="font">
+                   <font>
+                    <pointsize>7</pointsize>
+                   </font>
                   </property>
                   <property name="text">
-                   <string>[ [0, 1] ]</string>
+                   <string>Auto-Tuning</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
-                 <widget class="QLineEdit" name="ssperiodoEdit2">
+                <item row="8" column="1">
+                 <widget class="QComboBox" name="ssAutoTuningcomboBox2">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="inputMask">
-                   <string/>
-                  </property>
+                  <item>
+                   <property name="text">
+                    <string>ZN P-- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>ZN PI- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>ZN PID 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC P-- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC PI- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC PD- 1er orden</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>CC PID 1er orden</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="ssBLabel2">
                   <property name="text">
-                   <string/>
+                   <string>B</string>
                   </property>
-                  <property name="placeholderText">
-                   <string>Periodo de muestreo</string>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -1501,43 +1588,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="0">
-                 <widget class="QPushButton" name="sscalcButton2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Calcular</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="ssBLabel2">
-                  <property name="text">
-                   <string>B</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="ssBEdit2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>[ [1], [0] ]</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="9" column="0" colspan="2">
+                <item row="10" column="0" colspan="2">
                  <widget class="QPlainTextEdit" name="ssdatosTextEdit2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
@@ -1562,14 +1613,139 @@
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
+                <item row="7" column="0">
+                 <widget class="QLabel" name="ssMetodoLabel2">
+                  <property name="text">
+                   <string>Metodo</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="ssDEdit2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[ [0] ]</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="1">
+                 <widget class="QProgressBar" name="ssprogressBar2">
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="0" colspan="2">
+                 <widget class="QLabel" name="ssdatosLabel2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="text">
+                   <string>Datos</string>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>false</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
                  <widget class="QCheckBox" name="ssdiscretocheckBox2">
                   <property name="text">
                    <string>Discreto</string>
                   </property>
                  </widget>
                 </item>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="ssCEdit2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[ [0, 1] ]</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="6" column="1">
+                 <widget class="QLineEdit" name="ssperiodoEdit2">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="inputMask">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Periodo de muestreo</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="0">
+                 <widget class="QPushButton" name="sscalcButton2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Calcular</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0" colspan="2">
+                 <widget class="QLabel" name="ssLabel1_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="text">
+                   <string>Matrices de estado</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="1">
                  <widget class="QComboBox" name="sscomboBox2">
                   <property name="enabled">
                    <bool>false</bool>
@@ -1615,57 +1791,52 @@
                   </item>
                  </widget>
                 </item>
-                <item row="8" column="0" colspan="2">
-                 <widget class="QLabel" name="ssdatosLabel2">
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="ssAEdit2">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::LeftToRight</enum>
-                  </property>
                   <property name="text">
-                   <string>Datos</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>false</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>false</bool>
+                   <string>[ [-1, -1], [1,  0] ]</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
-                 <widget class="QComboBox" name="ssAutoTuningcomboBox2">
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="ssBEdit2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[ [1], [0] ]</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QLineEdit" name="ssdelayEdit2">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string notr="true">Ziegler-Nichols</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string notr="true">Cohen-Coon</string>
-                   </property>
-                  </item>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Delay en segundos</string>
+                  </property>
                  </widget>
                 </item>
-                <item row="7" column="0">
-                 <widget class="QCheckBox" name="ssAutoTuningcheckBox2">
-                  <property name="font">
-                   <font>
-                    <pointsize>7</pointsize>
-                   </font>
-                  </property>
+                <item row="5" column="0">
+                 <widget class="QCheckBox" name="ssdelaycheckBox2">
                   <property name="text">
-                   <string>Auto-Tuning</string>
+                   <string>Delay</string>
                   </property>
                  </widget>
                 </item>
@@ -1814,7 +1985,7 @@
                    <number>1</number>
                   </property>
                   <property name="value">
-                   <number>20</number>
+                   <number>50</number>
                   </property>
                   <property name="tracking">
                    <bool>true</bool>
@@ -1845,7 +2016,7 @@
                    <number>1000</number>
                   </property>
                   <property name="value">
-                   <number>20</number>
+                   <number>50</number>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
@@ -2049,12 +2220,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>35</x>
-     <y>192</y>
+     <x>46</x>
+     <y>230</y>
     </hint>
     <hint type="destinationlabel">
-     <x>149</x>
-     <y>202</y>
+     <x>197</x>
+     <y>230</y>
     </hint>
    </hints>
   </connection>
@@ -2065,12 +2236,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
-     <y>202</y>
+     <x>70</x>
+     <y>230</y>
     </hint>
     <hint type="destinationlabel">
-     <x>172</x>
-     <y>202</y>
+     <x>220</x>
+     <y>230</y>
     </hint>
    </hints>
   </connection>
@@ -2081,12 +2252,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>246</y>
+     <x>71</x>
+     <y>280</y>
     </hint>
     <hint type="destinationlabel">
-     <x>209</x>
-     <y>256</y>
+     <x>220</x>
+     <y>282</y>
     </hint>
    </hints>
   </connection>
@@ -2097,12 +2268,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>252</y>
+     <x>78</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>208</x>
-     <y>254</y>
+     <x>119</x>
+     <y>134</y>
     </hint>
    </hints>
   </connection>
@@ -2113,12 +2284,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>51</x>
-     <y>188</y>
+     <x>62</x>
+     <y>230</y>
     </hint>
     <hint type="destinationlabel">
-     <x>118</x>
-     <y>224</y>
+     <x>166</x>
+     <y>256</y>
     </hint>
    </hints>
   </connection>
@@ -2129,12 +2300,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>32</x>
-     <y>245</y>
+     <x>63</x>
+     <y>280</y>
     </hint>
     <hint type="destinationlabel">
-     <x>125</x>
-     <y>270</y>
+     <x>220</x>
+     <y>308</y>
     </hint>
    </hints>
   </connection>
@@ -2145,12 +2316,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>34</x>
-     <y>241</y>
+     <x>45</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>115</x>
-     <y>275</y>
+     <x>119</x>
+     <y>134</y>
     </hint>
    </hints>
   </connection>
@@ -2161,12 +2332,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>48</x>
-     <y>195</y>
+     <x>59</x>
+     <y>230</y>
     </hint>
     <hint type="destinationlabel">
-     <x>120</x>
-     <y>222</y>
+     <x>168</x>
+     <y>256</y>
     </hint>
    </hints>
   </connection>
@@ -2177,12 +2348,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>45</x>
-     <y>245</y>
+     <x>56</x>
+     <y>279</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>248</y>
+     <x>171</x>
+     <y>282</y>
     </hint>
    </hints>
   </connection>
@@ -2193,12 +2364,76 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>301</y>
+     <x>51</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>120</x>
-     <y>302</y>
+     <x>119</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tfdelaycheckBox2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>tfdelayEdit2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>71</x>
+     <y>197</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>132</x>
+     <y>195</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ssdelaycheckBox2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>ssdelayEdit2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>134</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>119</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tfdelaycheckBox1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>tfdelayEdit1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>115</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ssdelaycheckBox1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>ssdelayEdit1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>46</x>
+     <y>245</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>121</x>
+     <y>247</y>
     </hint>
    </hints>
   </connection>
