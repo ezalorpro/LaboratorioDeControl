@@ -3,6 +3,7 @@ import numpy as np
 from scipy import real, imag
 from matplotlib import pyplot as plt
 from collections import deque
+from functools import partial
 import matplotlib.ticker as mticker
 import json
 
@@ -39,7 +40,7 @@ def system_creator_tf(self, numerador, denominador):
         if ctrl.isdtime(system, strict=True):
             T = np.arange(0, 2 * np.max(t), self.dt)
         else:
-            T = np.arange(0, 2 * np.max(t), 0.01)
+            T = np.arange(0, 2 * np.max(t), 0.05)
     except ValueError:
         T = np.arange(0, 100, 0.1)
 
@@ -78,7 +79,7 @@ def system_creator_ss(self, A, B, C, D):
         if ctrl.isdtime(system, strict=True):
             T = np.arange(0, 2 * np.max(t), self.dt)
         else:
-            T = np.arange(0, 2 * np.max(t), 0.01)
+            T = np.arange(0, 2 * np.max(t), 0.05)
     except ValueError:
         T = np.arange(0, 100, 0.1)
         
@@ -116,8 +117,8 @@ def rutina_step_plot(self, system, T):
 def runge_kutta(self, system, T, u):
     ss = ctrl.tf2ss(system)
     x = np.zeros_like(ss.B)
-    buffer = deque([0]*int(system.delay/0.01))
-    h = 0.01
+    buffer = deque([0]*int(system.delay/0.05))
+    h = 0.05
     salida = []
     for i, _ in enumerate(T):
         buffer.appendleft(u[i])
@@ -166,18 +167,19 @@ def rutina_impulse_plot(self, system, T):
 def rutina_bode_plot(self, system):
 
     if ctrl.isdtime(system, strict=True):
-        w = np.linspace(0, 100 * np.pi, 10000)
+        w = np.linspace(0, 4 * np.pi/self.dt, 50000)
         mag, phase, omega = ctrl.bode(system, w)
     else:
-        w = np.linspace(0, 100 * np.pi, 5000)
+        w = np.linspace(0, 100 * np.pi, 50000)
         mag, phase, omega = ctrl.bode(system, w)
 
+    bodeDb = 20 * np.log10(mag)
     self.main.BodeGraphicsView1.canvas.axes1.clear()
-    self.main.BodeGraphicsView1.canvas.axes1.semilogx(omega, 20 * np.log10(mag))
+    self.main.BodeGraphicsView1.canvas.axes1.semilogx(omega, bodeDb)
     self.main.BodeGraphicsView1.canvas.axes1.grid(True, which="both", color="lightgray")
     self.main.BodeGraphicsView1.canvas.axes1.set_title("Magnitud")
     self.main.BodeGraphicsView1.canvas.axes1.yaxis.set_major_formatter(
-        mticker.FormatStrFormatter("%.0f dB")
+        mticker.FormatStrFormatter("%.1f dB")
     )
 
     self.main.BodeGraphicsView1.canvas.axes2.clear()
@@ -185,10 +187,23 @@ def rutina_bode_plot(self, system):
     self.main.BodeGraphicsView1.canvas.axes2.grid(True, which="both", color="lightgray")
     self.main.BodeGraphicsView1.canvas.axes2.set_title("Fase")
     self.main.BodeGraphicsView1.canvas.axes2.yaxis.set_major_formatter(
-        mticker.FormatStrFormatter("%.0f °")
+        mticker.FormatStrFormatter("%.1f °")
     )
     self.main.BodeGraphicsView1.canvas.axes2.set_xlabel("rad/s")
 
+    gm, pm, wg, wp = margenes_ganancias(self, mag, phase, omega)
+    
+    self.main.BodeGraphicsView1.canvas.axes1.axhline(y=0, color='k', linestyle=':', zorder=-20)
+    self.main.BodeGraphicsView1.canvas.axes2.axhline(y=-180, color='k', linestyle=':', zorder=-20)
+    
+    if not gm == np.infty:
+        self.main.BodeGraphicsView1.canvas.axes1.axvline(x=wg, color='k', linestyle=':', zorder=-20)
+        self.main.BodeGraphicsView1.canvas.axes2.semilogx([wg, wg], [-180, 0], color='k', linestyle=':', zorder=-20)
+        self.main.BodeGraphicsView1.canvas.axes1.semilogx([wg, wg], [-gm, 0], color='k', linewidth=3)
+    if not pm == np.infty:
+        self.main.BodeGraphicsView1.canvas.axes2.axvline(x=wp, color='k', linestyle=':', zorder=-20)
+        self.main.BodeGraphicsView1.canvas.axes1.semilogx([wp, wp], [np.min(bodeDb), 0], color='k', linestyle=':', zorder=-20)
+        self.main.BodeGraphicsView1.canvas.axes2.semilogx([wp, wp], [-180, pm-180], color='k', linewidth=3)
     self.main.BodeGraphicsView1.canvas.draw()
     self.main.BodeGraphicsView1.toolbar.update()
     return mag, phase, omega
@@ -197,7 +212,7 @@ def rutina_bode_plot(self, system):
 def rutina_nyquist_plot(self, system):
 
     if ctrl.isdtime(system, strict=True):
-        w = np.linspace(-np.pi, 10 * np.pi, 5000)
+        w = np.linspace(0, 10 * np.pi, 5000)
         real, imag, freq = ctrl.nyquist_plot(system, w)
     else:
         w = np.logspace(-np.pi, 2 * np.pi, 5000)
@@ -251,23 +266,23 @@ def rutina_nyquist_plot(self, system):
 
 
 def rutina_root_locus_plot(self, system):
-    t, y = ctrl.root_locus(system)
-
-    zeros = ctrl.zero(system)
-    polos = ctrl.pole(system)
-
+    
     self.main.rlocusGraphicsView1.canvas.axes.cla()
-    self.main.rlocusGraphicsView1.canvas.axes.plot(real(t), imag(t), "b")
-    self.main.rlocusGraphicsView1.canvas.axes.plot(
-        [0, 0], [np.amin(imag(t)), np.amax(imag(t))], "g"
-    )
-    self.main.rlocusGraphicsView1.canvas.axes.scatter(
-        real(polos), imag(polos), marker="x"
-    )
-    self.main.rlocusGraphicsView1.canvas.axes.scatter(
-        real(zeros), imag(zeros), marker="o"
-    )
-
+    
+    if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+        pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.tfdelayEdit1.text()), 4))
+        t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
+        
+    if self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+        pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.ssdelayEdit1.text()), 4))
+        t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
+    
+    if not self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+        t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
+        
+    if not self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+        t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
+    
     self.main.rlocusGraphicsView1.canvas.axes.grid(color="lightgray")
     self.main.rlocusGraphicsView1.canvas.axes.set_title("Lugar de las raicez")
     self.main.rlocusGraphicsView1.canvas.draw()
@@ -304,12 +319,22 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     dcgain = ctrl.dcgain(system)
     Datos += f"Ganancia DC: {real(dcgain):5.3f}\n"
 
-    gm, pm, wg, wp = ctrl.margin(system)
+    # gm, pm, wg, wp = ctrl.margin(system)
+    gm, pm, wg, wp = margenes_ganancias(self, mag, phase, omega)
 
-    Datos += f"Margen de ganancia: {20 * np.log10(gm):5.3f}\n"
-    Datos += f"Frecuencia de ganancia: {wg:5.3f}\n"
-    Datos += f"Margen de fase: {pm:5.3f}\n"
-    Datos += f"Frecuencia de fase: {wp:5.3f}\n"
+    if not gm == np.infty:
+        Datos += f"Margen de ganancia: {gm:5.3f} dB\n"
+        Datos += f"Frecuencia de ganancia: {wg:5.3f} rad/sec\n"
+    else:
+        Datos += f"Margen de ganancia: {gm:5.3f}\n"
+        Datos += f"Frecuencia de ganancia: {wg:5.3f}\n"
+    
+    if not pm == np.infty:    
+        Datos += f"Margen de fase: {pm:5.3f} °\n"
+        Datos += f"Frecuencia de fase: {wp:5.3f} rad/sec\n"
+    else:
+        Datos += f"Margen de fase: {pm:5.3f}\n"
+        Datos += f"Frecuencia de fase: {wp:5.3f}\n"
 
     Datos += "----------------------------------------------\n"
     Datos += f"  {'Valores eigen':<18}  {'Damping':<16}  Wn\n"
@@ -325,3 +350,29 @@ def rutina_system_info(self, system, T, mag, phase, omega):
         self.main.tfdatosTextEdit1.setPlainText(Datos)
     else:
         self.main.ssdatosTextEdit1.setPlainText(Datos)
+
+
+def margenes_ganancias(self, mag, phase, omega):
+    
+    gainDb = 20 * np.log10(mag)
+    degPhase = phase * 180.0 / np.pi
+    
+    indPhase = np.where(gainDb <= 0)[0]
+    indGain = np.where(degPhase <= -180)[0]
+    
+    if not indGain.size == 0:
+        omegaGain = omega[indGain[0]]
+        GainMargin = -gainDb[indGain[0]]
+    else:
+        omegaGain = np.nan
+        GainMargin = np.infty
+    
+    if not indPhase.size == 0:
+        omegaPhase = omega[indPhase[1]]
+        PhaseMargin = 180 + degPhase[indPhase[1]]
+    else:
+        omegaPhase = np.nan
+        PhaseMargin = np.infty
+        
+    return GainMargin, PhaseMargin, omegaGain, omegaPhase
+    

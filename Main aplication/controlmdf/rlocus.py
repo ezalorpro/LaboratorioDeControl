@@ -113,31 +113,13 @@ def root_locus(sys, kvect=None, xlim=None, ylim=None, plotstr='b' if int(matplot
 
     # Create the Plot
     if Plot:
-        if sisotool:
-            f = kwargs['fig']
-            ax = f.axes[1]
-
-        else:
-            figure_number = pylab.get_fignums()
-            figure_title = [pylab.figure(numb).canvas.get_window_title() for numb in figure_number]
-            new_figure_name = "Root Locus"
-            rloc_num = 1
-            while new_figure_name in figure_title:
-                new_figure_name = "Root Locus " + str(rloc_num)
-                rloc_num += 1
-            f = pylab.figure(new_figure_name)
-            ax = pylab.axes()
-
+        
+        f = kwargs['figure']
+        ax = kwargs['ax']
         if PrintGain and sisotool == False:
             f.canvas.mpl_connect(
-                'button_release_event', partial(_RLClickDispatcher,sys=sys, fig=f,ax_rlocus=f.axes[0],plotstr=plotstr))
-
-        elif sisotool == True:
-            f.axes[1].plot([root.real for root in start_mat], [root.imag for root in start_mat], 'm.', marker='s', markersize=8,zorder=20,label='gain_point')
-            f.suptitle("Clicked at: %10.4g%+10.4gj  gain: %10.4g  damp: %10.4g" % (start_mat[0][0].real, start_mat[0][0].imag, 1, -1 * start_mat[0][0].real / abs(start_mat[0][0])),fontsize = 12 if int(matplotlib.__version__[0]) == 1 else 10)
-            f.canvas.mpl_connect(
-                'button_release_event',partial(_RLClickDispatcher,sys=sys, fig=f,ax_rlocus=f.axes[1],plotstr=plotstr, sisotool=sisotool, bode_plot_params=kwargs['bode_plot_params'],tvect=kwargs['tvect']))
-
+                'button_release_event', partial(_RLClickDispatcher,sys=sys, fig=f,ax_rlocus=ax,plotstr=plotstr))
+        
         # plot open loop poles
         poles = array(denp.r)
         ax.plot(real(poles), imag(poles), 'x')
@@ -161,10 +143,17 @@ def root_locus(sys, kvect=None, xlim=None, ylim=None, plotstr='b' if int(matplot
         if grid and sisotool:
             _sgrid_func(f)
         elif grid:
-            _sgrid_func()
+            _sgrid_func(f, ax)
         else:
             ax.axhline(0., linestyle=':', color='k',zorder=-20)
             ax.axvline(0., linestyle=':', color='k')
+        
+        if isdtime(sys, strict=True):
+            x = np.linspace(-1.0, 1.0, 100)
+            y = np.linspace(-1.0, 1.0, 100)
+            X, Y = np.meshgrid(x,y)
+            F = X**2 + Y**2 - 1
+            ax.contour(X,Y,F,[0], linestyles='dashed')
 
     return mymat, kvect
 
@@ -411,9 +400,10 @@ def _RLSortRoots(mymat):
         prevrow = sorted[n, :]
     return sorted
 
+    
 def _RLClickDispatcher(event,sys,fig,ax_rlocus,plotstr,sisotool=False,bode_plot_params=None,tvect=None):
     """Rootlocus plot click dispatcher"""
-
+    
     # If zoom is used on the rootlocus plot smooth and update it
     if plt.get_current_fig_manager().toolbar.mode in ['zoom rect','pan/zoom'] and event.inaxes == ax_rlocus.axes:
         (nump, denp) = _systopoly1d(sys)
@@ -444,7 +434,6 @@ def _RLFeedbackClicksPoint(event,sys,fig,ax_rlocus,sisotool=False):
     try:
         s = complex(event.xdata, event.ydata)
         K = -1. / sys.horner(s)
-
     except TypeError:
         K = float('inf')
 
@@ -454,13 +443,13 @@ def _RLFeedbackClicksPoint(event,sys,fig,ax_rlocus,sisotool=False):
     y_tolerance = 0.05 * (ylim[1] - ylim[0])
     gain_tolerance = np.min([x_tolerance, y_tolerance])*1e-1
 
-    if abs(K.real) > 1e-8 and abs(K.imag / K.real) < gain_tolerance and event.inaxes == ax_rlocus.axes:
-
-        # Display the parameters in the output window and figure
-        print("Clicked at %10.4g%+10.4gj gain %10.4g damp %10.4g" %
-              (s.real, s.imag, K.real, -1 * s.real / abs(s)))
-        fig.suptitle("Clicked at: %10.4g%+10.4gj  gain: %10.4g  damp: %10.4g" %
-                     (s.real, s.imag, K.real, -1 * s.real / abs(s)),fontsize = 12 if int(matplotlib.__version__[0]) == 1 else 10)
+    if  event.inaxes == ax_rlocus.axes:
+        # abs(K.real) > 1e-8 and abs(K.imag / K.real) < gain_tolerance and
+        # # Display the parameters in the output window and figure
+        # print("Clicked at %10.4g%+10.4gj gain %10.4g damp %10.4g" %
+        #       (s.real, s.imag, K.real, -1 * s.real / abs(s)))
+        ax_rlocus.set_title("Clicked at: %10.4g%+10.4gj  gain: %10.4g  damp: %10.4g" %
+                     (s.real, s.imag, K.real, -1 * s.real / abs(s)), fontsize = 12)
 
         # Remove the previous line
         _removeLine(label='gain_point',ax=ax_rlocus)
@@ -483,12 +472,8 @@ def _removeLine(label,ax):
             line.remove()
             del line
 
-def _sgrid_func(fig=None, zeta=None, wn=None):
-    if fig is None:
-        fig = pylab.gcf()
-        ax = fig.gca()
-    else:
-        ax = fig.axes[1]
+def _sgrid_func(fig=None, ax=None, zeta=None, wn=None):
+    
     xlocator = ax.get_xaxis().get_major_locator()
 
     ylim = ax.get_ylim()
