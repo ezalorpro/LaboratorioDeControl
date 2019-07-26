@@ -67,19 +67,19 @@ def calcular_analisis(self):
         t2, y2 = rutina_step_plot(self, system, T)
         mag, phase, omega = rutina_bode_plot(self, system)
         real, imag, freq = rutina_nyquist_plot(self, system)
+        rutina_root_locus_plot(self, system)
         rutina_nichols_plot(self, system)
     else:
         t1, y1 = rutina_impulse_plot(self, system_delay, T)
         t2, y2 = rutina_step_plot(self, system_delay, T)
         mag, phase, omega = rutina_bode_plot(self, system_delay)
         real, imag, freq = rutina_nyquist_plot(self, system_delay)
+        rutina_root_locus_plot(self, system_delay)
         rutina_nichols_plot(self, system_delay)
     
     if not system_ss:
-        rutina_root_locus_plot(self, system)
         rutina_system_info(self, system, T, mag, phase, omega)
     else:
-        rutina_root_locus_plot(self, system_ss)
         rutina_system_info(self, system_ss, T, mag, phase, omega)
 
 def analisis_bool_discreto(self):

@@ -269,18 +269,21 @@ def rutina_root_locus_plot(self, system):
     
     self.main.rlocusGraphicsView1.canvas.axes.cla()
     
-    if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
-        pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.tfdelayEdit1.text()), 4))
-        t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
+    if not ctrl.isdtime(system, strict=True): 
+        if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+            pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.tfdelayEdit1.text()), 4))
+            t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
+            
+        if self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+            pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.ssdelayEdit1.text()), 4))
+            t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
         
-    if self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
-        pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.ssdelayEdit1.text()), 4))
-        t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
-    
-    if not self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
-        t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
-        
-    if not self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+        if not self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+            t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
+            
+        if not self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+            t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
+    else:
         t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
     
     self.main.rlocusGraphicsView1.canvas.axes.grid(color="lightgray")
