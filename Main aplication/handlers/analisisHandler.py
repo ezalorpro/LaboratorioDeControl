@@ -14,7 +14,24 @@ def AnalisisHandler(self):
 
 
 def calcular_analisis(self):
+    if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+        try:
+            _ = json.loads(self.main.tfdelayEdit1.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Delay no valido")
+            self.error_dialog.exec_()
+            return
+    
+    if self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+        try:
+            _ = json.loads(self.main.ssdelayEdit1.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Delay no valido")
+            self.error_dialog.exec_()
+            return
+    
     system_ss = 0
+    
     if (self.main.tfdiscretocheckBox1.isChecked()
         and self.main.AnalisisstackedWidget.currentIndex() == 0):
         try:

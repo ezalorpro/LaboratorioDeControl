@@ -37,7 +37,25 @@ def chequeo_de_accion(self):
 
 
 def calcular_PID(self):
+    
+    if self.main.tfdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 0:
+        try:
+            _ = json.loads(self.main.tfdelayEdit2.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Delay no valido")
+            self.error_dialog.exec_()
+            return
+    
+    if self.main.ssdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 1:
+        try:
+            _ = json.loads(self.main.ssdelayEdit2.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Delay no valido")
+            self.error_dialog.exec_()
+            return
+
     system_ss = 0
+    
     if (self.main.tfdiscretocheckBox2.isChecked()
         and self.main.PIDstackedWidget.currentIndex() == 0):
         try:
@@ -82,7 +100,25 @@ def calcular_PID(self):
 
 
 def calcular_autotuning(self):
+    
+    if self.main.tfdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 0:
+        try:
+            _ = json.loads(self.main.tfdelayEdit2.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Delay no valido")
+            self.error_dialog.exec_()
+            return
+    
+    if self.main.ssdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 1:
+        try:
+            _ = json.loads(self.main.ssdelayEdit2.text())
+        except ValueError:
+            self.error_dialog.setInformativeText("Delay no valido")
+            self.error_dialog.exec_()
+            return
+    
     system_ss = 0
+    
     if (self.main.tfdiscretocheckBox2.isChecked()
         and self.main.PIDstackedWidget.currentIndex() == 0):
         try:
