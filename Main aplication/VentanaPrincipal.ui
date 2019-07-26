@@ -1095,11 +1095,25 @@
             </widget>
             <widget class="QWidget" name="rlocusTab">
              <attribute name="title">
-              <string>root locus</string>
+              <string>Root locus</string>
              </attribute>
              <layout class="QGridLayout" name="gridLayout_7">
               <item row="0" column="0">
                <widget class="MlpWidget" name="rlocusGraphicsView1">
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="nicholsTab">
+             <attribute name="title">
+              <string>Nichols</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_15">
+              <item row="0" column="0">
+               <widget class="MlpWidget" name="nicholsGraphicsView1">
                 <property name="frameShape">
                  <enum>QFrame::NoFrame</enum>
                 </property>

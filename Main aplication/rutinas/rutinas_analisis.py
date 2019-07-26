@@ -289,6 +289,29 @@ def rutina_root_locus_plot(self, system):
     self.main.rlocusGraphicsView1.toolbar.update()
 
 
+def rutina_nichols_plot(self, system):
+    
+    self.main.nicholsGraphicsView1.canvas.axes.cla()
+    
+    if ctrl.isdtime(system, strict=True):
+        w = np.linspace(0, 4 * np.pi/self.dt, 5000)
+        if (self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0) or (self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1):
+            
+            ctrl.nichols_plot(system, w, figure=self.main.nicholsGraphicsView1, ax=self.main.nicholsGraphicsView1.canvas.axes, delay=True)
+        else:
+            ctrl.nichols_plot(system, w, figure=self.main.nicholsGraphicsView1, ax=self.main.nicholsGraphicsView1.canvas.axes)
+    else:
+        w = np.linspace(0, 100 * np.pi, 5000)
+        if (self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0) or (self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1):
+            
+            ctrl.nichols_plot(system, w, figure=self.main.nicholsGraphicsView1, ax=self.main.nicholsGraphicsView1.canvas.axes, delay=True)
+        else:
+            ctrl.nichols_plot(system, w, figure=self.main.nicholsGraphicsView1, ax=self.main.nicholsGraphicsView1.canvas.axes)
+        
+    self.main.nicholsGraphicsView1.canvas.draw()
+    self.main.nicholsGraphicsView1.toolbar.update()
+    
+
 def rutina_system_info(self, system, T, mag, phase, omega):
     info = ctrl.step_info(system, T)
 
