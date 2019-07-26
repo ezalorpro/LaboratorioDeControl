@@ -3,6 +3,7 @@ from Ui_VentanaPrincipal import Ui_MainWindow
 from handlers.analisisHandler import AnalisisHandler
 from handlers.PIDHandler import PIDHandler
 import json
+import os
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -13,6 +14,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.main = Ui_MainWindow()
         self.main.setupUi(self)
         
+        icon = QtGui.QIcon()
+        image_path = self.resource_path("icono.ico")
+        icon.addPixmap(QtGui.QPixmap(image_path), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+  
         self.error_dialog = QtWidgets.QMessageBox()
         self.error_dialog.setIcon(QtWidgets.QMessageBox.Critical)
         self.error_dialog.setText("Error")
@@ -22,6 +28,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         AnalisisHandler(self)
         PIDHandler(self)
 
+    def resource_path(self, relative_path):
+            base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+            return os.path.join(base_path, relative_path)
 
 if __name__ == "__main__":
     import sys
