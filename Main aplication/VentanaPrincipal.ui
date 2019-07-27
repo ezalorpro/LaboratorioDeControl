@@ -401,7 +401,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -2115,7 +2115,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_17">
         <item row="0" column="0">
-         <widget class="QTabWidget" name="tabWidget">
+         <widget class="QTabWidget" name="fuzzyTabWidget">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -2123,7 +2123,7 @@
            <enum>QTabWidget::North</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <property name="elideMode">
            <enum>Qt::ElideNone</enum>
@@ -2164,7 +2164,7 @@
                   </widget>
                  </item>
                  <item row="1" column="1" colspan="2">
-                  <widget class="QComboBox" name="comboBox_2">
+                  <widget class="QComboBox" name="estrucNumberOutputs">
                    <item>
                     <property name="text">
                      <string>1</string>
@@ -2203,7 +2203,7 @@
                   </widget>
                  </item>
                  <item row="2" column="0">
-                  <widget class="QCheckBox" name="checkBox">
+                  <widget class="QCheckBox" name="fuzzyEsquemasCheck">
                    <property name="text">
                     <string>Esquemas</string>
                    </property>
@@ -2217,7 +2217,7 @@
                   </widget>
                  </item>
                  <item row="2" column="2">
-                  <widget class="QComboBox" name="comboBox_3">
+                  <widget class="QComboBox" name="fuzzyEsquemas">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
@@ -2239,7 +2239,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1" colspan="2">
-                  <widget class="QComboBox" name="comboBox">
+                  <widget class="QComboBox" name="estrucNumberInputs">
                    <property name="currentIndex">
                     <number>1</number>
                    </property>
@@ -2281,7 +2281,7 @@
                   </widget>
                  </item>
                  <item row="3" column="2">
-                  <widget class="QPushButton" name="pushButton">
+                  <widget class="QPushButton" name="crearFuzzyButton">
                    <property name="text">
                     <string>Crear</string>
                    </property>
@@ -2407,7 +2407,7 @@
                  <enum>QLayout::SetFixedSize</enum>
                 </property>
                 <item>
-                 <widget class="QComboBox" name="comboBox_4">
+                 <widget class="QComboBox" name="inputNumber">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2425,7 +2425,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit">
+                 <widget class="QLineEdit" name="inputNombre">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2444,7 +2444,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_2">
+                 <widget class="QLineEdit" name="inputEtiquetasNum">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2463,7 +2463,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_3">
+                 <widget class="QLineEdit" name="inputRange">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2592,7 +2592,7 @@
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_8">
                   <item>
-                   <widget class="QComboBox" name="comboBox_5">
+                   <widget class="QComboBox" name="etiquetaNum">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -2616,7 +2616,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="lineEdit_4">
+                   <widget class="QLineEdit" name="etiquetaNombre">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -2635,7 +2635,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="comboBox_6">
+                   <widget class="QComboBox" name="etiquetaMf">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -2666,7 +2666,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="lineEdit_5">
+                   <widget class="QLineEdit" name="etiquetaDefinicion">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3150,12 +3150,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>934</x>
-     <y>569</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
-     <x>891</x>
-     <y>575</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -3166,12 +3166,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>934</x>
-     <y>539</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
-     <x>891</x>
-     <y>542</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -3182,12 +3182,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>934</x>
-     <y>599</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
-     <x>891</x>
-     <y>608</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -3214,12 +3214,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
-     <y>230</y>
+     <x>64</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
-     <x>220</x>
-     <y>230</y>
+     <x>108</x>
+     <y>77</y>
     </hint>
    </hints>
   </connection>
@@ -3230,12 +3230,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>280</y>
+     <x>97</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>211</x>
-     <y>282</y>
+     <x>119</x>
+     <y>134</y>
     </hint>
    </hints>
   </connection>
@@ -3246,12 +3246,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>280</y>
+     <x>95</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
-     <x>211</x>
-     <y>282</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -3278,12 +3278,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>280</y>
+     <x>97</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>211</x>
-     <y>308</y>
+     <x>119</x>
+     <y>134</y>
     </hint>
    </hints>
   </connection>
@@ -3294,12 +3294,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>85</x>
-     <y>280</y>
+     <x>94</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
-     <x>211</x>
-     <y>308</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -3310,12 +3310,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
-     <y>230</y>
+     <x>64</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
-     <x>168</x>
-     <y>256</y>
+     <x>108</x>
+     <y>79</y>
     </hint>
    </hints>
   </connection>
@@ -3326,12 +3326,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>56</x>
-     <y>279</y>
+     <x>64</x>
+     <y>82</y>
     </hint>
     <hint type="destinationlabel">
-     <x>171</x>
-     <y>282</y>
+     <x>108</x>
+     <y>82</y>
     </hint>
    </hints>
   </connection>
@@ -3342,12 +3342,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>331</y>
+     <x>95</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
-     <x>211</x>
-     <y>334</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -3358,12 +3358,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>197</y>
+     <x>64</x>
+     <y>75</y>
     </hint>
     <hint type="destinationlabel">
-     <x>132</x>
-     <y>195</y>
+     <x>108</x>
+     <y>75</y>
     </hint>
    </hints>
   </connection>
@@ -3374,12 +3374,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>254</y>
+     <x>95</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
-     <x>211</x>
-     <y>256</y>
+     <x>117</x>
+     <y>89</y>
     </hint>
    </hints>
   </connection>
@@ -3406,19 +3406,19 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>254</y>
+     <x>97</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>211</x>
-     <y>256</y>
+     <x>119</x>
+     <y>134</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox</sender>
+   <sender>fuzzyEsquemasCheck</sender>
    <signal>clicked(bool)</signal>
-   <receiver>comboBox_3</receiver>
+   <receiver>fuzzyEsquemas</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -3432,9 +3432,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox</sender>
+   <sender>fuzzyEsquemasCheck</sender>
    <signal>clicked(bool)</signal>
-   <receiver>comboBox</receiver>
+   <receiver>estrucNumberInputs</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -3448,9 +3448,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox</sender>
+   <sender>fuzzyEsquemasCheck</sender>
    <signal>clicked(bool)</signal>
-   <receiver>comboBox_2</receiver>
+   <receiver>estrucNumberOutputs</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">

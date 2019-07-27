@@ -4,3 +4,6 @@ from collections import deque
 from matplotlib import pyplot as plt
 import matplotlib.ticker as mticker
 import json
+
+def show_tabs(self):
+    pass

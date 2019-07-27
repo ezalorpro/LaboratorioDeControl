@@ -25,9 +25,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.error_dialog.setText("Error")
         self.error_dialog.setInformativeText('404')
         self.error_dialog.setWindowTitle("Error")
-    
+
         AnalisisHandler(self)
         PIDHandler(self)
+        
+        self.EntradasTab = self.main.fuzzyTabWidget.widget(1)
+        self.SalidasTab = self.main.fuzzyTabWidget.widget(2)
+        self.ReglasTab = self.main.fuzzyTabWidget.widget(3)
+        self.PruebaTab = self.main.fuzzyTabWidget.widget(4)
+        
+        self.InputList = []
+        self.OutputList = []
+        self.RuleList = []
+        
         FuzzyHandler(self)
 
     def resource_path(self, relative_path):
