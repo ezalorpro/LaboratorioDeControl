@@ -2,6 +2,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 from Ui_VentanaPrincipal import Ui_MainWindow
 from handlers.analisisHandler import AnalisisHandler
 from handlers.PIDHandler import PIDHandler
+from handlers.FuzzyHandler import FuzzyHandler
 import json
 import os
 
@@ -27,6 +28,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     
         AnalisisHandler(self)
         PIDHandler(self)
+        FuzzyHandler(self)
 
     def resource_path(self, relative_path):
             base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
