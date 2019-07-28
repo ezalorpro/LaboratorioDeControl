@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import matplotlib.ticker as mticker
 import json
 
+
 class FuzzyController():
     
     def __init__(self, inputlist, outputlist, rulelist=None):
@@ -15,9 +16,9 @@ class FuzzyController():
         self.fuzz_outputs = self.crear_input_output(outputlist)
         self.crear_etiquetas(inputlist, outputlist)
         
-        for inp in self.fuzz_inputs:
-            fig, ax = FuzzyVariableVisualizer(inp).view()
-            plt.show()
+        # for inp in self.fuzz_inputs:
+        #     fig, ax = FuzzyVariableVisualizer(inp).view()
+        #     plt.show()
             
         
     def crear_input_output(self, inputlist):

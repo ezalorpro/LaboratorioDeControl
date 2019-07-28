@@ -52,7 +52,7 @@ __all__.extend(_defuzz.__all__)
 
 # Image processing subpackage
 import skfuzzymdf.image as _image
-from skfuzzymdf.image import *s
+from skfuzzymdf.image import *
 __all__.extend(_image.__all__)
 
 # Fuzzy control system subpackage
