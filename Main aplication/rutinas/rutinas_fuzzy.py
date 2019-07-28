@@ -1,7 +1,7 @@
 import numpy as np
-from skfuzzy import control as fuzz
-from skfuzzy.membership import generatemf
-from skfuzzy.control.visualization import FuzzyVariableVisualizer
+from skfuzzymdf import control as fuzz
+from skfuzzymdf.membership import generatemf
+from skfuzzymdf.control.visualization import FuzzyVariableVisualizer
 from collections import deque
 from matplotlib import pyplot as plt
 import matplotlib.ticker as mticker
@@ -17,7 +17,8 @@ class FuzzyController():
         
         for inp in self.fuzz_inputs:
             fig, ax = FuzzyVariableVisualizer(inp).view()
-            plt.show(fig)
+            plt.show()
+            
         
     def crear_input_output(self, inputlist):
         vector = []
