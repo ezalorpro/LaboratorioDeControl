@@ -2343,7 +2343,7 @@
                  <enum>QTabWidget::North</enum>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <property name="elideMode">
                  <enum>Qt::ElideNone</enum>
@@ -2667,17 +2667,62 @@
                         </property>
                         <item>
                          <property name="text">
-                          <string>Triangular</string>
+                          <string>trimf</string>
                          </property>
                         </item>
                         <item>
                          <property name="text">
-                          <string>Gausiana</string>
+                          <string>trapmf</string>
                          </property>
                         </item>
                         <item>
                          <property name="text">
-                          <string>Trapezoidal</string>
+                          <string>gaussmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>gauss2mf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>smf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>zmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>sigmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>psigmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>dsigmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>pimf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>piecemf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>gbellmf</string>
                          </property>
                         </item>
                        </widget>
@@ -2859,17 +2904,62 @@
                         </property>
                         <item>
                          <property name="text">
-                          <string>Triangular</string>
+                          <string>trimf</string>
                          </property>
                         </item>
                         <item>
                          <property name="text">
-                          <string>Gausiana</string>
+                          <string>trapmf</string>
                          </property>
                         </item>
                         <item>
                          <property name="text">
-                          <string>Trapezoidal</string>
+                          <string>gaussmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>gauss2mf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>smf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>zmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>sigmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>psigmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>dsigmf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>pimf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>piecemf</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>gbellmf</string>
                          </property>
                         </item>
                        </widget>

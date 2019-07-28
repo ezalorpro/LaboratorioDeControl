@@ -3,6 +3,7 @@ from Ui_VentanaPrincipal import Ui_MainWindow
 from handlers.analisisHandler import AnalisisHandler
 from handlers.PIDHandler import PIDHandler
 from handlers.FuzzyHandler import FuzzyHandler
+from rutinas.rutinas_fuzzy import FuzzyController
 import json
 import os
 
@@ -37,6 +38,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.InputList = []
         self.OutputList = []
         self.RuleList = []
+        self.fuzzInitController = FuzzyController
         
         FuzzyHandler(self)
 

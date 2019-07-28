@@ -25,7 +25,7 @@ class FuzzyVariableVisualizer(object):
         Figure object containing the visualization.
     """
 
-    def __init__(self, fuzzy_var):
+    def __init__(self, fuzzy_var, figure, ax):
         """
         Initialize the fuzzy variable plot.
 
@@ -46,7 +46,8 @@ class FuzzyVariableVisualizer(object):
             raise ValueError("`FuzzyVariableVisualizer` can only be called "
                              "with a `FuzzyVariable` or a `Term`.")
 
-        self.fig, self.ax = plt.subplots()
+        self.fig = figure
+        self.ax = ax
         self.plots = {}
 
     def view(self, sim=None, *args, **kwargs):

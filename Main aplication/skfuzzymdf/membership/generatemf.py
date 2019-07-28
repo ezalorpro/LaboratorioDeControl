@@ -149,7 +149,7 @@ def gbellmf(x, a, b, c):
     return 1. / (1. + np.abs((x - c) / a) ** (2 * b))
 
 
-def piecemf(x, abc):
+def piecemf(x, a, b, c):
     """
     Piecewise linear membership function (particularly used in FIRE filters).
 
@@ -173,7 +173,6 @@ def piecemf(x, abc):
                 y = b(x - a)/c(b - a),    a <= x <= b
                 y = x/c,                  b <= x <= c
     """
-    a, b, c = abc
     if c != x.max():
         c = x.max()
 
@@ -376,7 +375,7 @@ def smf(x, a, b):
     return y
 
 
-def trapmf(x, abcd):
+def trapmf(x, a, b, c, d):
     """
     Trapezoidal membership function generator.
 
@@ -392,17 +391,16 @@ def trapmf(x, abcd):
     y : 1d array
         Trapezoidal membership function.
     """
-    assert len(abcd) == 4, 'abcd parameter must have exactly four elements.'
-    a, b, c, d = np.r_[abcd]
+    
     assert a <= b and b <= c and c <= d, 'abcd requires the four elements \
                                           a <= b <= c <= d.'
     y = np.ones(len(x))
 
     idx = np.nonzero(x <= b)[0]
-    y[idx] = trimf(x[idx], np.r_[a, b, b])
+    y[idx] = trimf(x[idx], a, b, b)
 
     idx = np.nonzero(x >= c)[0]
-    y[idx] = trimf(x[idx], np.r_[c, c, d])
+    y[idx] = trimf(x[idx], c, c, d)
 
     idx = np.nonzero(x < a)[0]
     y[idx] = np.zeros(len(idx))
@@ -413,7 +411,7 @@ def trapmf(x, abcd):
     return y
 
 
-def trimf(x, abc):
+def trimf(x, a, b, c):
     """
     Triangular membership function generator.
 
@@ -430,8 +428,6 @@ def trimf(x, abc):
     y : 1d array
         Triangular membership function.
     """
-    assert len(abc) == 3, 'abc parameter must have exactly three elements.'
-    a, b, c = np.r_[abc]     # Zero-indexing in Python
     assert a <= b and b <= c, 'abc requires the three elements a <= b <= c.'
 
     y = np.zeros(len(x))
