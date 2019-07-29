@@ -327,3 +327,34 @@ def definicion_out(self):
     
 def round_list(lista):
     return list(np.around(np.array(lista),2))
+
+
+# Codigo para las reglas ------------------------------------------------------------------------------------
+
+def rule_list_agregacion(self):
+    self.listNegarVL1 = QtWidgets.QVBoxLayout()
+    self.listNegarVL1.setObjectName("listNegarVL1")
+    
+    self.label_20 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+    self.label_20.setObjectName("label_20")
+    self.listNegarVL1.addWidget(self.label_20)
+    
+    self.etiquetalistWidget1 = QtWidgets.QListWidget(self.scrollAreaWidgetContents)
+    sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+    sizePolicy.setHorizontalStretch(0)
+    sizePolicy.setVerticalStretch(0)
+    sizePolicy.setHeightForWidth(self.etiquetalistWidget1.sizePolicy().hasHeightForWidth())
+    self.etiquetalistWidget1.setSizePolicy(sizePolicy)
+    self.etiquetalistWidget1.setObjectName("etiquetalistWidget1")
+    self.listNegarVL1.addWidget(self.etiquetalistWidget1)
+    
+    self.negarcheckBox1 = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
+    sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+    sizePolicy.setHorizontalStretch(0)
+    sizePolicy.setVerticalStretch(0)
+    sizePolicy.setHeightForWidth(self.negarcheckBox1.sizePolicy().hasHeightForWidth())
+    self.negarcheckBox1.setSizePolicy(sizePolicy)
+    self.negarcheckBox1.setObjectName("negarcheckBox1")
+    self.listNegarVL1.addWidget(self.negarcheckBox1)
+    
+    self.etiquetasHL.addLayout(self.listNegarVL1)   
