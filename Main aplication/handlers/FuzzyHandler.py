@@ -14,14 +14,14 @@ def FuzzyHandler(self):
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     
     self.main.inputNumber.currentIndexChanged.connect(lambda: seleccion_entrada(self))
-    self.main.inputNombre.editingFinished.connect(lambda: nombre_entrada(self))
-    self.main.inputEtiquetasNum.editingFinished.connect(lambda: numero_de_etiquetas_in(self))
-    self.main.inputRange.editingFinished.connect(lambda: rango_in(self))
+    self.main.inputNombre.returnPressed.connect(lambda: nombre_entrada(self))
+    self.main.inputEtiquetasNum.returnPressed.connect(lambda: numero_de_etiquetas_in(self))
+    self.main.inputRange.returnPressed.connect(lambda: rango_in(self))
     
     self.main.etiquetaNumIn.currentIndexChanged.connect(lambda: seleccion_etiqueta_in(self))
-    self.main.etiquetaNombreIn.editingFinished.connect(lambda: nombre_etiqueta_in(self))
+    self.main.etiquetaNombreIn.returnPressed.connect(lambda: nombre_etiqueta_in(self))
     self.main.etiquetaMfIn.currentIndexChanged.connect(lambda: seleccion_mf_in(self))
-    self.main.etiquetaDefinicionIn.editingFinished.connect(lambda: definicion_in(self))
+    self.main.etiquetaDefinicionIn.returnPressed.connect(lambda: definicion_in(self))
 
 
 def crear_tabs(self):
@@ -140,8 +140,19 @@ def nombre_etiqueta_in(self):
     ni = self.main.inputNumber.currentIndex()
     ne = self.main.etiquetaNumIn.currentIndex()
     old_name = self.InputList[ni]['etiquetas'][ne]['nombre']
-    self.InputList[ni]['etiquetas'][ne]['nombre'] = self.main.etiquetaNombreIn.text()
     
+    flag = 0
+    
+    for i in self.InputList[ni]['etiquetas']:
+        if i['nombre'] == self.main.etiquetaNombreIn.text() and old_name != self.main.etiquetaNombreIn.text() :
+            flag = 1
+    
+    if not flag:
+        self.InputList[ni]['etiquetas'][ne]['nombre'] = self.main.etiquetaNombreIn.text()
+    else:
+        self.InputList[ni]['etiquetas'][ne]['nombre'] = self.main.etiquetaNombreIn.text() + '1'
+        self.main.etiquetaNombreIn.setText(self.InputList[ni]['etiquetas'][ne]['nombre'])
+        
     self.fuzzController.cambio_etinombre_input(self, self.InputList, ni, ne, old_name)
 
 

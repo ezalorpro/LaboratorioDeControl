@@ -1,4 +1,5 @@
-# 100 condiciones if para ayudar al usuario con las formas generales de las funciones de membresia
+""" 100 condiciones if para transformar funciones de membresia a otras formas aproximadas """ 
+
 def update_definicionmf_input(self, old_mf, definicion, new_mf):
     
     if old_mf == 'trimf':
