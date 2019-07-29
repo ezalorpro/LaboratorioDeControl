@@ -2113,1157 +2113,1136 @@
        <attribute name="title">
         <string>Logica difusa</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_22">
+       <layout class="QGridLayout" name="gridLayout_16">
         <item row="0" column="0">
-         <widget class="QToolBox" name="toolBox">
-          <property name="font">
-           <font>
-            <italic>false</italic>
-            <underline>false</underline>
-           </font>
-          </property>
-          <property name="acceptDrops">
-           <bool>false</bool>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
-          </property>
-          <property name="lineWidth">
-           <number>2</number>
-          </property>
-          <property name="midLineWidth">
-           <number>2</number>
-          </property>
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
-          <property name="tabSpacing">
-           <number>1</number>
-          </property>
-          <widget class="QWidget" name="designPage">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>1075</width>
-             <height>522</height>
-            </rect>
-           </property>
-           <attribute name="icon">
-            <iconset>
-             <normaloff>ui_button_default.ico</normaloff>ui_button_default.ico</iconset>
-           </attribute>
-           <attribute name="label">
-            <string>Diseño</string>
-           </attribute>
-           <layout class="QGridLayout" name="gridLayout_24">
-            <item row="0" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <layout class="QGridLayout" name="gridLayout_17">
+            <item row="1" column="1">
+             <widget class="QComboBox" name="estrucNumberOutputs">
               <item>
-               <layout class="QGridLayout" name="gridLayout_17">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Entradas</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QComboBox" name="estrucNumberInputs">
-                  <property name="currentIndex">
-                   <number>1</number>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>1</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>2</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>3</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>4</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>5</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>6</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>7</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QComboBox" name="estrucNumberOutputs">
-                  <item>
-                   <property name="text">
-                    <string>1</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>2</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>3</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>4</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>5</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>6</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>7</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QComboBox" name="fuzzyEsquemas">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>PID difuso</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Gain scheduling</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Adaptativo</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Salidas</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QCheckBox" name="fuzzyEsquemasCheck">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Esquemas</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QPushButton" name="generarFuzzyButton">
-                  <property name="text">
-                   <string>Generar</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
+               <property name="text">
+                <string>1</string>
+               </property>
               </item>
               <item>
-               <widget class="QTabWidget" name="fuzzyTabWidget">
-                <property name="enabled">
-                 <bool>true</bool>
+               <property name="text">
+                <string>2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>7</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="fuzzyEsquemas">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <item>
+               <property name="text">
+                <string>PID difuso</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Gain scheduling</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Adaptativo</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QPushButton" name="generarFuzzyButton">
+              <property name="text">
+               <string>Generar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="estrucNumberInputs">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>7</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Salidas</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_17">
+              <item>
+               <spacer name="verticalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
                 </property>
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
                 </property>
-                <property name="tabPosition">
-                 <enum>QTabWidget::North</enum>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
                 </property>
-                <property name="currentIndex">
-                 <number>0</number>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_2">
+                <property name="text">
+                 <string>Cargar</string>
                 </property>
-                <property name="elideMode">
-                 <enum>Qt::ElideNone</enum>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="text">
+                 <string>Salvar</string>
                 </property>
-                <property name="movable">
-                 <bool>false</bool>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_4">
+                <property name="text">
+                 <string>Salvar como...</string>
                 </property>
-                <property name="tabBarAutoHide">
-                 <bool>false</bool>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
                 </property>
-                <widget class="QWidget" name="estructuraTab">
-                 <attribute name="title">
-                  <string>Estructura</string>
-                 </attribute>
-                 <layout class="QGridLayout" name="gridLayout_18">
-                  <item row="0" column="1">
-                   <widget class="QGraphicsView" name="graphicsView_2"/>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item row="5" column="1">
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Entradas</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="fuzzyEsquemasCheck">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Esquemas</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTabWidget" name="fuzzyTabWidget">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="tabPosition">
+             <enum>QTabWidget::North</enum>
+            </property>
+            <property name="currentIndex">
+             <number>2</number>
+            </property>
+            <property name="elideMode">
+             <enum>Qt::ElideNone</enum>
+            </property>
+            <property name="movable">
+             <bool>false</bool>
+            </property>
+            <property name="tabBarAutoHide">
+             <bool>false</bool>
+            </property>
+            <widget class="QWidget" name="estructuraTab">
+             <attribute name="title">
+              <string>Estructura</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_18">
+              <item row="0" column="1">
+               <widget class="QGraphicsView" name="graphicsView_2"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QGraphicsView" name="graphicsView">
+                <property name="dragMode">
+                 <enum>QGraphicsView::NoDrag</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="entradasTab">
+             <attribute name="title">
+              <string>Entradas</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_19">
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetFixedSize</enum>
+                </property>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetDefaultConstraint</enum>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="label_7">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Entrada</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
                   </item>
-                  <item row="0" column="0">
-                   <widget class="QGraphicsView" name="graphicsView">
-                    <property name="dragMode">
-                     <enum>QGraphicsView::NoDrag</enum>
+                  <item>
+                   <widget class="QLabel" name="label_6">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Titulo de la entrada</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_5">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Numero de etiquetas</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_4">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Rango</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
                  </layout>
-                </widget>
-                <widget class="QWidget" name="entradasTab">
-                 <attribute name="title">
-                  <string>Entradas</string>
-                 </attribute>
-                 <layout class="QGridLayout" name="gridLayout_19">
-                  <item row="0" column="0">
-                   <layout class="QHBoxLayout" name="horizontalLayout_8">
-                    <property name="sizeConstraint">
-                     <enum>QLayout::SetFixedSize</enum>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_9">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetFixedSize</enum>
+                  </property>
+                  <item>
+                   <widget class="QComboBox" name="inputNumber">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maxVisibleItems">
+                     <number>20</number>
                     </property>
                     <item>
-                     <layout class="QVBoxLayout" name="verticalLayout">
-                      <property name="sizeConstraint">
-                       <enum>QLayout::SetDefaultConstraint</enum>
-                      </property>
-                      <item>
-                       <widget class="QLabel" name="label_7">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Entrada</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_6">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Titulo de la entrada</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_5">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Numero de etiquetas</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_4">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Rango</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
+                     <property name="text">
+                      <string>1</string>
+                     </property>
                     </item>
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_9">
-                      <property name="sizeConstraint">
-                       <enum>QLayout::SetFixedSize</enum>
-                      </property>
-                      <item>
-                       <widget class="QComboBox" name="inputNumber">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="maxVisibleItems">
-                         <number>20</number>
-                        </property>
-                        <item>
-                         <property name="text">
-                          <string>1</string>
-                         </property>
-                        </item>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="inputNombre">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>entrada1</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>Titulo de la entrada</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="inputEtiquetasNum">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>Numero de etiquetas</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="inputRange">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>[-10, 10]</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>rango entre corchetes</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
+                   </widget>
                   </item>
-                  <item row="1" column="0">
-                   <layout class="QHBoxLayout" name="horizontalLayout_9">
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_10">
-                      <item>
-                       <widget class="QLabel" name="label_3">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Nº de etiqueta</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_8">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Nombre de eitqueta</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_9">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Funcion de membresia</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_10">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Definicion</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_8">
-                      <item>
-                       <widget class="QComboBox" name="etiquetaNumIn">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="currentText">
-                         <string notr="true">1</string>
-                        </property>
-                        <property name="currentIndex">
-                         <number>0</number>
-                        </property>
-                        <property name="frame">
-                         <bool>true</bool>
-                        </property>
-                        <item>
-                         <property name="text">
-                          <string>1</string>
-                         </property>
-                        </item>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="etiquetaNombreIn">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Etiqueta1</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>Nombre de la etiqueta</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QComboBox" name="etiquetaMfIn">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="sizeAdjustPolicy">
-                         <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-                        </property>
-                        <property name="frame">
-                         <bool>true</bool>
-                        </property>
-                        <item>
-                         <property name="text">
-                          <string>trimf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>trapmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>gaussmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>gauss2mf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>smf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>zmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>sigmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>psigmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>pimf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>gbellmf</string>
-                         </property>
-                        </item>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="etiquetaDefinicionIn">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>[-3, 0, 3]</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>vector de la mf</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item row="2" column="0">
-                   <spacer name="verticalSpacer_3">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
+                  <item>
+                   <widget class="QLineEdit" name="inputNombre">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
                     </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
+                    <property name="text">
+                     <string>entrada1</string>
                     </property>
-                   </spacer>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Titulo de la entrada</string>
+                    </property>
+                   </widget>
                   </item>
-                  <item row="0" column="1" rowspan="3">
-                   <widget class="MlpWidget" name="inputgraphicsView"/>
+                  <item>
+                   <widget class="QLineEdit" name="inputEtiquetasNum">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>3</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Numero de etiquetas</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="inputRange">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>[-10, 10]</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>rango entre corchetes</string>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
-                </widget>
-                <widget class="QWidget" name="salidasTab">
-                 <attribute name="title">
-                  <string>Salidas</string>
-                 </attribute>
-                 <layout class="QGridLayout" name="gridLayout_20">
-                  <item row="1" column="0">
-                   <layout class="QHBoxLayout" name="horizontalLayout_11">
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_14">
-                      <item>
-                       <widget class="QLabel" name="label_15">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Nº de etiqueta</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_16">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Nombre de eitqueta</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_17">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Funcion de membresia</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_18">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Definicion</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_15">
-                      <item>
-                       <widget class="QComboBox" name="comboBox_8">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="currentText">
-                         <string notr="true">1</string>
-                        </property>
-                        <property name="currentIndex">
-                         <number>0</number>
-                        </property>
-                        <property name="frame">
-                         <bool>true</bool>
-                        </property>
-                        <item>
-                         <property name="text">
-                          <string>1</string>
-                         </property>
-                        </item>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_9">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Etiqueta1</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>Nombre de la etiqueta</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QComboBox" name="comboBox_9">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="sizeAdjustPolicy">
-                         <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-                        </property>
-                        <property name="frame">
-                         <bool>true</bool>
-                        </property>
-                        <item>
-                         <property name="text">
-                          <string>trimf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>trapmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>gaussmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>gauss2mf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>smf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>zmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>sigmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>psigmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>pimf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>gbellmf</string>
-                         </property>
-                        </item>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_10">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>[-3, 0, 3]</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>vector de la mf</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item row="0" column="0">
-                   <layout class="QHBoxLayout" name="horizontalLayout_10">
-                    <property name="sizeConstraint">
-                     <enum>QLayout::SetFixedSize</enum>
-                    </property>
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_12">
-                      <property name="sizeConstraint">
-                       <enum>QLayout::SetDefaultConstraint</enum>
-                      </property>
-                      <item>
-                       <widget class="QLabel" name="label_11">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Salida</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_12">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Titulo de la salida</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_13">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Numero de etiquetas</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_14">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Rango</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_13">
-                      <property name="sizeConstraint">
-                       <enum>QLayout::SetFixedSize</enum>
-                      </property>
-                      <item>
-                       <widget class="QComboBox" name="comboBox_7">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="maxVisibleItems">
-                         <number>20</number>
-                        </property>
-                        <item>
-                         <property name="text">
-                          <string>1</string>
-                         </property>
-                        </item>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_6">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>salida1</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>Titulo de la entrada</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_7">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>Numero de etiquetas</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_8">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>[-10, 10]</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="placeholderText">
-                         <string>rango entre corchetes</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item row="2" column="0">
-                   <spacer name="verticalSpacer_4">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="0" column="1" rowspan="3">
-                   <widget class="QGraphicsView" name="outputgraphicsView"/>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="reglasTab">
-                 <attribute name="title">
-                  <string>Reglas</string>
-                 </attribute>
-                </widget>
-                <widget class="QWidget" name="pruebaTab">
-                 <attribute name="title">
-                  <string>Prueba</string>
-                 </attribute>
-                </widget>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="makeAndUsePage">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>355</width>
-             <height>138</height>
-            </rect>
-           </property>
-           <attribute name="icon">
-            <iconset>
-             <normaloff>ui_button_default.ico</normaloff>ui_button_default.ico</iconset>
-           </attribute>
-           <attribute name="label">
-            <string>Creacion y Uso</string>
-           </attribute>
-           <layout class="QGridLayout" name="gridLayout_21">
-            <item row="0" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_13">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_17">
-                <item>
-                 <widget class="QPushButton" name="pushButton">
-                  <property name="text">
-                   <string>Crear</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="text">
-                   <string>Cargar</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_3">
-                  <property name="text">
-                   <string>Salvar</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_4">
-                  <property name="text">
-                   <string>Salvar como...</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
                 </item>
                </layout>
               </item>
-              <item>
-               <widget class="QTabWidget" name="tabWidget">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="currentIndex">
-                 <number>0</number>
-                </property>
-                <widget class="QWidget" name="tab_4">
-                 <attribute name="title">
-                  <string>Tab 2</string>
-                 </attribute>
-                </widget>
-                <widget class="QWidget" name="tab_3">
-                 <attribute name="title">
-                  <string>Tab 1</string>
-                 </attribute>
-                 <layout class="QGridLayout" name="gridLayout_16">
-                  <item row="0" column="2">
-                   <widget class="QGraphicsView" name="graphicsView_6"/>
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_10">
+                  <item>
+                   <widget class="QLabel" name="label_3">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Nº de etiqueta</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
                   </item>
-                  <item row="0" column="0">
-                   <widget class="QGraphicsView" name="graphicsView_5"/>
+                  <item>
+                   <widget class="QLabel" name="label_8">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Nombre de eitqueta</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
                   </item>
-                  <item row="0" column="1">
-                   <widget class="QGraphicsView" name="graphicsView_7"/>
+                  <item>
+                   <widget class="QLabel" name="label_9">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Funcion de membresia</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_10">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Definicion</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
-                </widget>
-               </widget>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <item>
+                   <widget class="QComboBox" name="etiquetaNumIn">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="currentText">
+                     <string notr="true">1</string>
+                    </property>
+                    <property name="currentIndex">
+                     <number>0</number>
+                    </property>
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>1</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="etiquetaNombreIn">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Etiqueta1</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Nombre de la etiqueta</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="etiquetaMfIn">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="sizeAdjustPolicy">
+                     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                    </property>
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>trimf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>trapmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>gaussmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>gauss2mf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>smf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>zmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>sigmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>psigmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>pimf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>gbellmf</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="etiquetaDefinicionIn">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>[-3, 0, 3]</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>vector de la mf</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item row="3" column="0">
+               <spacer name="verticalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="1" rowspan="4">
+               <widget class="MlpWidget" name="inputgraphicsView"/>
+              </item>
+              <item row="1" column="0">
+               <spacer name="verticalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>66</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
-            </item>
-           </layout>
-          </widget>
-         </widget>
+            </widget>
+            <widget class="QWidget" name="salidasTab">
+             <attribute name="title">
+              <string>Salidas</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_20">
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_14">
+                  <item>
+                   <widget class="QLabel" name="label_15">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Nº de etiqueta</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_16">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Nombre de eitqueta</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_17">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Funcion de membresia</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_18">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Definicion</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_15">
+                  <item>
+                   <widget class="QComboBox" name="etiquetaNumOut">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="currentText">
+                     <string notr="true">1</string>
+                    </property>
+                    <property name="currentIndex">
+                     <number>0</number>
+                    </property>
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>1</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="etiquetaNombreOut">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Etiqueta1</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Nombre de la etiqueta</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="etiquetaMfOut">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="sizeAdjustPolicy">
+                     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                    </property>
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>trimf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>trapmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>gaussmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>gauss2mf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>smf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>zmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>sigmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>psigmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>pimf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>gbellmf</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="etiquetaDefinicionOut">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>[-3, 0, 3]</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>vector de la mf</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_10">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetFixedSize</enum>
+                </property>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_12">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetDefaultConstraint</enum>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="label_11">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Salida</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_12">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Titulo de la salida</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_13">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Numero de etiquetas</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_14">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Rango</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_19">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Defuzzificacion</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_13">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetFixedSize</enum>
+                  </property>
+                  <item>
+                   <widget class="QComboBox" name="outputNumber">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maxVisibleItems">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>1</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="outputNombre">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>salida1</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Titulo de la entrada</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="outputEtiquetasNum">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>3</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Numero de etiquetas</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="outputRange">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>[-10, 10]</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>rango entre corchetes</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="defuzzMethodOut">
+                    <item>
+                     <property name="text">
+                      <string>centroid</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>bisector</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>mom</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>som</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>lom</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item row="3" column="0">
+               <spacer name="verticalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="1" rowspan="4">
+               <widget class="MlpWidget" name="outputgraphicsView"/>
+              </item>
+              <item row="1" column="0">
+               <spacer name="verticalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="reglasTab">
+             <attribute name="title">
+              <string>Reglas</string>
+             </attribute>
+            </widget>
+            <widget class="QWidget" name="pruebaTab">
+             <attribute name="title">
+              <string>Prueba</string>
+             </attribute>
+            </widget>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>

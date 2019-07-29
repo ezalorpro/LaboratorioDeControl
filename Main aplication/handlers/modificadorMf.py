@@ -1,6 +1,6 @@
 """ 100 condiciones if para transformar funciones de membresia a otras formas aproximadas """ 
 
-def update_definicionmf_input(self, old_mf, definicion, new_mf):
+def update_definicionmf(self, old_mf, definicion, new_mf):
     
     if old_mf == 'trimf':
         a, b, c = definicion
