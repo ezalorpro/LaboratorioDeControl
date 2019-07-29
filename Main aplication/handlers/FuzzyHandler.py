@@ -1,5 +1,6 @@
 from rutinas.rutinas_fuzzy import *
 from handlers.modificadorMf import update_definicionmf
+from PySide2 import QtCore, QtGui, QtWidgets
 import json
 import pprint
 
@@ -10,6 +11,38 @@ def FuzzyHandler(self):
     self.main.fuzzyTabWidget.removeTab(2)
     self.main.fuzzyTabWidget.removeTab(1)
     
+    self.inframes = [
+        self.main.inframe1,
+        self.main.inframe2,
+        self.main.inframe3,
+        self.main.inframe4,
+        self.main.inframe5,
+        self.main.inframe6,
+        self.main.inframe7,
+        self.main.inframe8,
+        self.main.inframe9,
+        self.main.inframe10,
+    ]
+    
+    self.outframes = [
+        self.main.outframe1,
+        self.main.outframe2,
+        self.main.outframe3,
+        self.main.outframe4,
+        self.main.outframe5,
+        self.main.outframe6,
+        self.main.outframe7,
+        self.main.outframe8,
+        self.main.outframe9,
+        self.main.outframe10,
+    ]
+    
+    for i in self.inframes:
+        i.hide()
+        
+    for i in self.outframes:
+        i.hide()
+        
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     
     self.main.inputNumber.currentIndexChanged.connect(lambda: seleccion_entrada(self))
@@ -33,6 +66,8 @@ def FuzzyHandler(self):
     self.main.etiquetaNombreOut.returnPressed.connect(lambda: nombre_etiqueta_out(self))
     self.main.etiquetaMfOut.currentIndexChanged.connect(lambda: seleccion_mf_out(self))
     self.main.etiquetaDefinicionOut.returnPressed.connect(lambda: definicion_out(self))
+    
+    self.main.fuzzyTabWidget.currentChanged.connect(lambda: rule_list_agregacion(self))
 
 
 def crear_tabs(self):
@@ -332,29 +367,29 @@ def round_list(lista):
 # Codigo para las reglas ------------------------------------------------------------------------------------
 
 def rule_list_agregacion(self):
-    self.listNegarVL1 = QtWidgets.QVBoxLayout()
-    self.listNegarVL1.setObjectName("listNegarVL1")
+    if self.main.fuzzyTabWidget.currentIndex() == 3:
+        self.inframes[0].show()
+        self.inframes[1].show()
+        self.outframes[0].show()
+        self.outframes[1].show()
+        
+    # self.etiquetalistWidget1 = QtWidgets.QListWidget(self.scrollAreaWidgetContents)
+    # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+    # sizePolicy.setHorizontalStretch(0)
+    # sizePolicy.setVerticalStretch(0)
+    # sizePolicy.setHeightForWidth(self.etiquetalistWidget1.sizePolicy().hasHeightForWidth())
+    # self.etiquetalistWidget1.setSizePolicy(sizePolicy)
+    # self.etiquetalistWidget1.setObjectName("etiquetalistWidget1")
+    # self.listNegarVL1.addWidget(self.etiquetalistWidget1)
     
-    self.label_20 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
-    self.label_20.setObjectName("label_20")
-    self.listNegarVL1.addWidget(self.label_20)
+    # self.negarcheckBox1 = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
+    # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+    # sizePolicy.setHorizontalStretch(0)
+    # sizePolicy.setVerticalStretch(0)
+    # sizePolicy.setHeightForWidth(self.negarcheckBox1.sizePolicy().hasHeightForWidth())
+    # self.negarcheckBox1.setSizePolicy(sizePolicy)
+    # self.negarcheckBox1.setObjectName("negarcheckBox1")
+    # self.listNegarVL1.addWidget(self.negarcheckBox1)
     
-    self.etiquetalistWidget1 = QtWidgets.QListWidget(self.scrollAreaWidgetContents)
-    sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
-    sizePolicy.setHorizontalStretch(0)
-    sizePolicy.setVerticalStretch(0)
-    sizePolicy.setHeightForWidth(self.etiquetalistWidget1.sizePolicy().hasHeightForWidth())
-    self.etiquetalistWidget1.setSizePolicy(sizePolicy)
-    self.etiquetalistWidget1.setObjectName("etiquetalistWidget1")
-    self.listNegarVL1.addWidget(self.etiquetalistWidget1)
+    # self.etiquetasHL.addLayout(self.listNegarVL1)
     
-    self.negarcheckBox1 = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
-    sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-    sizePolicy.setHorizontalStretch(0)
-    sizePolicy.setVerticalStretch(0)
-    sizePolicy.setHeightForWidth(self.negarcheckBox1.sizePolicy().hasHeightForWidth())
-    self.negarcheckBox1.setSizePolicy(sizePolicy)
-    self.negarcheckBox1.setObjectName("negarcheckBox1")
-    self.listNegarVL1.addWidget(self.negarcheckBox1)
-    
-    self.etiquetasHL.addLayout(self.listNegarVL1)   

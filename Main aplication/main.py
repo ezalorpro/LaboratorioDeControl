@@ -12,7 +12,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
 
         super(MainWindow, self).__init__(parent)
-
         self.main = Ui_MainWindow()
         self.main.setupUi(self)
         
@@ -45,6 +44,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def resource_path(self, relative_path):
             base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
             return os.path.join(base_path, relative_path)
+
 
 if __name__ == "__main__":
     import sys
