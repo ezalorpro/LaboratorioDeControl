@@ -2343,7 +2343,7 @@
                  <enum>QTabWidget::North</enum>
                 </property>
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <property name="elideMode">
                  <enum>Qt::ElideNone</enum>
@@ -2707,17 +2707,7 @@
                         </item>
                         <item>
                          <property name="text">
-                          <string>dsigmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
                           <string>pimf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>piecemf</string>
                          </property>
                         </item>
                         <item>
@@ -2944,17 +2934,7 @@
                         </item>
                         <item>
                          <property name="text">
-                          <string>dsigmf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
                           <string>pimf</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>piecemf</string>
                          </property>
                         </item>
                         <item>

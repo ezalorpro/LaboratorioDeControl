@@ -56,6 +56,10 @@ class FuzzyController():
         self.crear_etiquetas_input(inputlist)
         self.graficar_mf_in(window, i)
     
+    def update_rango_input(self, window, inputlist, i):
+        self.fuzz_inputs[i].universe = np.asarray(np.linspace(*inputlist[i]['rango'], 100))
+        self.graficar_mf_in(window, i)
+        
     def cambio_etinombre_input( self, window, inputlist, i, n, old_name):
         eti = inputlist[i]['etiquetas'][n]
         self.fuzz_inputs[i].terms.pop(old_name)    
