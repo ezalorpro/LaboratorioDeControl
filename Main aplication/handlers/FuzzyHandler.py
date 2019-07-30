@@ -56,6 +56,8 @@ def FuzzyHandler(self):
     
     self.main.fuzzyTabWidget.currentChanged.connect(lambda: rule_list_visualizacion(self))
     self.main.ruleAgregarButton.clicked.connect(lambda: rule_list_agregar(self))
+    self.main.ruleEliminarButton.clicked.connect(lambda: rule_list_eliminar(self))
+    self.main.ruleCambiarButton.clicked.connect(lambda: rule_list_cambiar(self))
 
 
 def crear_tabs(self):
@@ -382,6 +384,11 @@ def round_list(lista):
 def rule_list_visualizacion(self):
     if self.main.fuzzyTabWidget.currentIndex() == 3:
         
+        self.main.rulelistWidget.clear()
+        
+        for regla in self.RuleList:
+            self.main.rulelistWidget.addItem(str(regla))
+            
         for i, o in zip(self.inframes, self.outframes):
             i.hide()
             o.hide()
@@ -422,7 +429,37 @@ def rule_list_agregar(self):
     
     self.RuleList.append(self.fuzzController.agregar_regla(self, ni, no, Etiquetasin, Etiquetasout))
     self.main.rulelistWidget.addItem(str(self.RuleList[-1]))
+
+
+def rule_list_eliminar(self):
+    index_rule = self.main.rulelistWidget.currentRow()
+    self.fuzzController.eliminar_regla(index_rule)
+    self.main.rulelistWidget.takeItem(self.main.rulelistWidget.currentRow())
+    del self.RuleList[index_rule]
     
+
+def rule_list_cambiar(self):
+    index_rule = self.main.rulelistWidget.currentRow()
+    
+    ni = len(self.InputList)
+    no = len(self.OutputList)
+    
+    Etiquetasin = deque([])
+    Etiquetasout = deque([])
+    
+    for i, entrada in enumerate(self.InputList):
+        Etiquetasin.append(self.inlists[i].currentItem().text())
+    
+    for o, salida in enumerate(self.OutputList):
+        Etiquetasout.append(self.outlists[o].currentItem().text())
+    
+    regla = self.fuzzController.cambiar_regla(self, ni, no, Etiquetasin, Etiquetasout, index_rule)
+    self.main.rulelistWidget.takeItem(index_rule)
+    self.main.rulelistWidget.insertItem(index_rule, str(regla))
+    self.main.rulelistWidget.setCurrentRow(index_rule)
+    self.RuleList.insert(index_rule, regla)
+    
+
 
 def crear_vectores_de_widgets(self):
     

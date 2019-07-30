@@ -104,12 +104,8 @@ class Rule(object):
         else:
             cons = self.consequent
 
-        return ("IF {0} THEN {1}"
-                "\n\tAND aggregation function : {2}"
-                "\n\tOR aggregation function  : {3}").format(
-                    self.antecedent, cons,
-                    self.and_func.__name__,
-                    self.or_func.__name__)
+        return ("IF {0} THEN {1}").format(
+                    self.antecedent, cons)
 
     @property
     def and_func(self):

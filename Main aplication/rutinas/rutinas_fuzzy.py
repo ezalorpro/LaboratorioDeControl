@@ -143,7 +143,6 @@ class FuzzyController():
         
         for i, etiqueta in enumerate(Etiquetasin):
             if etiqueta != 'None':
-                print(etiqueta)
                 if window.main.andradioButton.isChecked():
                     self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & Entradas[i][etiqueta]
                 else:
@@ -154,6 +153,50 @@ class FuzzyController():
                 self.rulelist[-1].consequent.append(Salidas[o][etiqueta]%peso)
 
         return self.rulelist[-1]
+    
+    def eliminar_regla(self, index_rule):
+        del self.rulelist[index_rule]
+    
+    def cambiar_regla(self, window, ni, no, Etiquetasin, Etiquetasout, index_rule):
+        
+        Entradas = deque(self.fuzz_inputs)
+        Salidas = deque(self.fuzz_outputs)
+        del self.rulelist[index_rule]
+        self.rulelist.insert(index_rule, fuzz.Rule())
+        
+        for i, etiqueta in enumerate(copy.copy(Etiquetasin)):
+            Etiquetasin.popleft()
+            if etiqueta != 'None':
+                self.rulelist[index_rule].antecedent = Entradas[0][etiqueta]
+                Entradas.popleft()
+                break
+            Entradas.popleft()
+        else:
+            raise TypeError('Regla no valida')
+        
+        for i, etiqueta in enumerate(copy.copy(Etiquetasout)):
+            Etiquetasout.popleft()
+            if etiqueta != 'None':
+                self.rulelist[index_rule].consequent = Salidas[0][etiqueta]
+                Salidas.popleft()
+                break
+            Salidas.popleft()
+        else:
+            raise TypeError('Regla no valida')
+        
+        for i, etiqueta in enumerate(Etiquetasin):
+            if etiqueta != 'None':
+                if window.main.andradioButton.isChecked():
+                    self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent & Entradas[i][etiqueta]
+                else:
+                    self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent | Entradas[i][etiqueta]
+
+        for o, etiqueta in enumerate(Etiquetasout):
+            if etiqueta != 'None':
+                self.rulelist[index_rule].consequent.append(Salidas[o][etiqueta]%peso)
+
+        return self.rulelist[index_rule]
+    
 if __name__ == "__main__":
     
     entradas = [
