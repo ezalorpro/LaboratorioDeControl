@@ -1,21 +1,33 @@
 from rutinas.rutinas_fuzzy import *
 from handlers.modificadorMf import update_definicionmf
+from rutinas.rutinas_fuzzy import FuzzyController
 from PySide2 import QtCore, QtGui, QtWidgets
 import json
 import pprint
 
 
 def FuzzyHandler(self):
+    self.EntradasTab = self.main.fuzzyTabWidget.widget(1)
+    self.SalidasTab = self.main.fuzzyTabWidget.widget(2)
+    self.ReglasTab = self.main.fuzzyTabWidget.widget(3)
+    self.PruebaTab = self.main.fuzzyTabWidget.widget(4)
+    
     self.main.fuzzyTabWidget.removeTab(4)
     self.main.fuzzyTabWidget.removeTab(3)
     self.main.fuzzyTabWidget.removeTab(2)
     self.main.fuzzyTabWidget.removeTab(1)
     
+    self.InputList = []
+    self.OutputList = []
+    self.RuleList = []
+    
+    self.fuzzInitController = FuzzyController
+    
     crear_vectores_de_widgets(self)
         
     for i, o in zip(self.inframes, self.outframes):
-            i.hide()
-            o.hide()
+        i.hide()
+        o.hide()
         
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     
@@ -49,6 +61,7 @@ def crear_tabs(self):
     self.main.outputNumber.blockSignals(True)
     self.InputList = []
     self.OutputList = []
+    self.RuleList = []
 
     self.main.fuzzyTabWidget.addTab(self.EntradasTab, 'Entradas')
     self.main.fuzzyTabWidget.addTab(self.SalidasTab, 'Salidas')

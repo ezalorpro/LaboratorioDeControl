@@ -3,7 +3,6 @@ from Ui_VentanaPrincipal import Ui_MainWindow
 from handlers.analisisHandler import AnalisisHandler
 from handlers.PIDHandler import PIDHandler
 from handlers.FuzzyHandler import FuzzyHandler
-from rutinas.rutinas_fuzzy import FuzzyController
 import json
 import os
 
@@ -27,18 +26,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.error_dialog.setWindowTitle("Error")
 
         AnalisisHandler(self)
-        PIDHandler(self)
-        
-        self.EntradasTab = self.main.fuzzyTabWidget.widget(1)
-        self.SalidasTab = self.main.fuzzyTabWidget.widget(2)
-        self.ReglasTab = self.main.fuzzyTabWidget.widget(3)
-        self.PruebaTab = self.main.fuzzyTabWidget.widget(4)
-        
-        self.InputList = []
-        self.OutputList = []
-        self.RuleList = []
-        self.fuzzInitController = FuzzyController
-        
+        PIDHandler(self)        
         FuzzyHandler(self)
 
     def resource_path(self, relative_path):
