@@ -14,7 +14,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.main = Ui_MainWindow()
         self.main.setupUi(self)
-        
+        self.main.inlist1.clear
         icon = QtGui.QIcon()
         image_path = self.resource_path("icono.ico")
         icon.addPixmap(QtGui.QPixmap(image_path), QtGui.QIcon.Normal, QtGui.QIcon.Off)

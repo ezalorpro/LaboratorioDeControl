@@ -11,32 +11,8 @@ def FuzzyHandler(self):
     self.main.fuzzyTabWidget.removeTab(2)
     self.main.fuzzyTabWidget.removeTab(1)
     
-    self.inframes = [
-        self.main.inframe1,
-        self.main.inframe2,
-        self.main.inframe3,
-        self.main.inframe4,
-        self.main.inframe5,
-        self.main.inframe6,
-        self.main.inframe7,
-        self.main.inframe8,
-        self.main.inframe9,
-        self.main.inframe10,
-    ]
-    
-    self.outframes = [
-        self.main.outframe1,
-        self.main.outframe2,
-        self.main.outframe3,
-        self.main.outframe4,
-        self.main.outframe5,
-        self.main.outframe6,
-        self.main.outframe7,
-        self.main.outframe8,
-        self.main.outframe9,
-        self.main.outframe10,
-    ]
-    
+    crear_vectores_de_widgets(self)
+        
     for i in self.inframes:
         i.hide()
         
@@ -115,7 +91,7 @@ def crear_tabs(self):
     seleccion_salida(self)
     
     self.fuzzController.graficar_mf_in(self, 0)
-    # self.fuzzController.graficar_mf_out(self, 0)
+    self.fuzzController.graficar_mf_out(self, 0)
 
 
 def inputDic_creator(self, NumeroEntradas, i):
@@ -187,13 +163,37 @@ def seleccion_salida(self):
 
 def nombre_entrada(self):
     ni = self.main.inputNumber.currentIndex()
-    self.InputList[ni]['nombre'] = self.main.inputNombre.text()
+    old_name = self.InputList[ni]['nombre']
+    flag = 0
+    
+    for i in self.InputList:
+        if i['nombre'] == self.main.inputNombre.text() and old_name != self.main.inputNombre.text() :
+            flag = 1
+    
+    if not flag:
+        self.InputList[ni]['nombre'] = self.main.inputNombre.text()
+    else:
+        self.InputList[ni]['nombre'] = self.main.inputNombre.text() + '1'
+        self.main.inputNombre.setText(self.InputList[ni]['nombre'])
+    
     self.fuzzController.cambiar_nombre_input(self, ni, self.InputList[ni]['nombre'])
 
 
 def nombre_salida(self):
     no = self.main.outputNumber.currentIndex()
-    self.OutputList[no]['nombre'] = self.main.outputNombre.text()
+    old_name = self.OutputList[no]['nombre']
+    flag = 0
+    
+    for o in self.OutputList:
+        if o['nombre'] == self.main.outputNombre.text() and old_name != self.main.outputNombre.text() :
+            flag = 1
+    
+    if not flag:
+        self.OutputList[no]['nombre'] = self.main.outputNombre.text()
+    else:
+        self.OutputList[no]['nombre'] = self.main.outputNombre.text() + '1'
+        self.main.outputNombre.setText(self.OutputList[no]['nombre'])
+        
     self.fuzzController.cambiar_nombre_output(self, no, self.OutputList[no]['nombre'] )
     
 
@@ -368,28 +368,120 @@ def round_list(lista):
 
 def rule_list_agregacion(self):
     if self.main.fuzzyTabWidget.currentIndex() == 3:
-        self.inframes[0].show()
-        self.inframes[1].show()
-        self.outframes[0].show()
-        self.outframes[1].show()
         
-    # self.etiquetalistWidget1 = QtWidgets.QListWidget(self.scrollAreaWidgetContents)
-    # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
-    # sizePolicy.setHorizontalStretch(0)
-    # sizePolicy.setVerticalStretch(0)
-    # sizePolicy.setHeightForWidth(self.etiquetalistWidget1.sizePolicy().hasHeightForWidth())
-    # self.etiquetalistWidget1.setSizePolicy(sizePolicy)
-    # self.etiquetalistWidget1.setObjectName("etiquetalistWidget1")
-    # self.listNegarVL1.addWidget(self.etiquetalistWidget1)
+        for i in self.inlists:
+            i.clear()
+        
+        for i in self.outlists:
+            i.clear()
+        
+        for i, entrada in enumerate(self.InputList):
+            self.inframes[i].show()
+            self.inlabels[i].setText(entrada['nombre'])
+            for etiqueta in entrada['etiquetas']:
+                self.inlists[i].addItem(etiqueta['nombre'])
+                
+        for o, salida in enumerate(self.OutputList):
+            self.outframes[o].show()
+            self.outlabels[o].setText(salida['nombre'])
+            for etiqueta in salida['etiquetas']:
+                self.outlists[o].addItem(etiqueta['nombre'])
     
-    # self.negarcheckBox1 = QtWidgets.QCheckBox(self.scrollAreaWidgetContents)
-    # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-    # sizePolicy.setHorizontalStretch(0)
-    # sizePolicy.setVerticalStretch(0)
-    # sizePolicy.setHeightForWidth(self.negarcheckBox1.sizePolicy().hasHeightForWidth())
-    # self.negarcheckBox1.setSizePolicy(sizePolicy)
-    # self.negarcheckBox1.setObjectName("negarcheckBox1")
-    # self.listNegarVL1.addWidget(self.negarcheckBox1)
     
-    # self.etiquetasHL.addLayout(self.listNegarVL1)
+def crear_vectores_de_widgets(self):
     
+    self.inframes = [
+        self.main.inframe1,
+        self.main.inframe2,
+        self.main.inframe3,
+        self.main.inframe4,
+        self.main.inframe5,
+        self.main.inframe6,
+        self.main.inframe7,
+        self.main.inframe8,
+        self.main.inframe9,
+        self.main.inframe10,
+    ]
+    
+    self.outframes = [
+        self.main.outframe1,
+        self.main.outframe2,
+        self.main.outframe3,
+        self.main.outframe4,
+        self.main.outframe5,
+        self.main.outframe6,
+        self.main.outframe7,
+        self.main.outframe8,
+        self.main.outframe9,
+        self.main.outframe10,
+    ]
+    
+    self.inlists = [
+        
+        self.main.inlist1,
+        self.main.inlist2,
+        self.main.inlist3,
+        self.main.inlist4,
+        self.main.inlist5,
+        self.main.inlist6,
+        self.main.inlist7,
+        self.main.inlist8,
+        self.main.inlist9,
+        self.main.inlist10,
+    ]
+    
+    self.outlists = [
+        
+        self.main.outlist1,
+        self.main.outlist2,
+        self.main.outlist3,
+        self.main.outlist4,
+        self.main.outlist5,
+        self.main.outlist6,
+        self.main.outlist7,
+        self.main.outlist8,
+        self.main.outlist9,
+        self.main.outlist10,
+    ]
+    
+    self.inlabels = [
+        
+        self.main.inlabel1,
+        self.main.inlabel2,
+        self.main.inlabel3,
+        self.main.inlabel4,
+        self.main.inlabel5,
+        self.main.inlabel6,
+        self.main.inlabel7,
+        self.main.inlabel8,
+        self.main.inlabel9,
+        self.main.inlabel10,
+    ]
+    
+    self.outlabels = [
+        
+        self.main.outlabel1,
+        self.main.outlabel2,
+        self.main.outlabel3,
+        self.main.outlabel4,
+        self.main.outlabel5,
+        self.main.outlabel6,
+        self.main.outlabel7,
+        self.main.outlabel8,
+        self.main.outlabel9,
+        self.main.outlabel10,
+    ]
+    
+    self.innots = [
+        
+        self.main.innot1,
+        self.main.innot2,
+        self.main.innot3,
+        self.main.innot4,
+        self.main.innot5,
+        self.main.innot6,
+        self.main.innot7,
+        self.main.innot8,
+        self.main.innot9,
+        self.main.innot10,
+    ]

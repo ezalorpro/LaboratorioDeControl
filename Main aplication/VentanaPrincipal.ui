@@ -3367,7 +3367,7 @@
                 <widget class="QWidget" name="scrollAreaWidgetContents">
                  <property name="geometry">
                   <rect>
-                   <x>0</x>
+                   <x>-1330</x>
                    <y>0</y>
                    <width>2034</width>
                    <height>241</height>
@@ -4539,7 +4539,7 @@
                           </widget>
                          </item>
                          <item>
-                          <widget class="QListView" name="outlist10">
+                          <widget class="QListWidget" name="outlist10">
                            <property name="sizePolicy">
                             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                              <horstretch>0</horstretch>
