@@ -13,11 +13,9 @@ def FuzzyHandler(self):
     
     crear_vectores_de_widgets(self)
         
-    for i in self.inframes:
-        i.hide()
-        
-    for i in self.outframes:
-        i.hide()
+    for i, o in zip(self.inframes, self.outframes):
+            i.hide()
+            o.hide()
         
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     
@@ -369,11 +367,13 @@ def round_list(lista):
 def rule_list_agregacion(self):
     if self.main.fuzzyTabWidget.currentIndex() == 3:
         
-        for i in self.inlists:
-            i.clear()
+        for i, o in zip(self.inframes, self.outframes):
+            i.hide()
+            o.hide()
         
-        for i in self.outlists:
+        for i, o in zip(self.inlists, self.outlists):
             i.clear()
+            o.clear()
         
         for i, entrada in enumerate(self.InputList):
             self.inframes[i].show()
