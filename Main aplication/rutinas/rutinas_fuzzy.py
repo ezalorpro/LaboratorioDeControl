@@ -44,14 +44,18 @@ class FuzzyController():
 
     def graficar_mf_in(self, window, i):
         window.main.inputgraphicsView.canvas.axes.clear()
-        FuzzyVariableVisualizer(self.fuzz_inputs[i], window.main.inputgraphicsView, window.main.inputgraphicsView.canvas.axes).view()
+        FuzzyVariableVisualizer(self.fuzz_inputs[i], 
+                                window.main.inputgraphicsView, 
+                                window.main.inputgraphicsView.canvas.axes).view()
         window.main.inputgraphicsView.canvas.axes.grid(color="lightgray")
         window.main.inputgraphicsView.canvas.draw()
         window.main.inputgraphicsView.toolbar.update()
     
     def graficar_mf_out(self, window, o):
         window.main.outputgraphicsView.canvas.axes.clear()
-        FuzzyVariableVisualizer(self.fuzz_outputs[o], window.main.outputgraphicsView, window.main.outputgraphicsView.canvas.axes).view()
+        FuzzyVariableVisualizer(self.fuzz_outputs[o], 
+                                window.main.outputgraphicsView, 
+                                window.main.outputgraphicsView.canvas.axes).view()
         window.main.outputgraphicsView.canvas.axes.grid(color="lightgray")
         window.main.outputgraphicsView.canvas.draw()
         window.main.outputgraphicsView.toolbar.update()
