@@ -41,7 +41,7 @@ def FuzzyHandler(self):
     self.main.etiquetaMfOut.currentIndexChanged.connect(lambda: seleccion_mf_out(self))
     self.main.etiquetaDefinicionOut.returnPressed.connect(lambda: definicion_out(self))
     
-    self.main.fuzzyTabWidget.currentChanged.connect(lambda: rule_list_agregacion(self))
+    self.main.fuzzyTabWidget.currentChanged.connect(lambda: rule_list_visualizacion(self))
 
 
 def crear_tabs(self):
@@ -364,7 +364,7 @@ def round_list(lista):
 
 # Codigo para las reglas ------------------------------------------------------------------------------------
 
-def rule_list_agregacion(self):
+def rule_list_visualizacion(self):
     if self.main.fuzzyTabWidget.currentIndex() == 3:
         
         for i, o in zip(self.inframes, self.outframes):
