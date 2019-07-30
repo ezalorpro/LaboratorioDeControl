@@ -1,4 +1,4 @@
-""" 100 condiciones if para transformar funciones de membresia a otras formas aproximadas """ 
+""" 90 condiciones if para transformar funciones de membresia a otras formas aproximadas """ 
 
 def update_definicionmf(self, old_mf, definicion, new_mf):
     
