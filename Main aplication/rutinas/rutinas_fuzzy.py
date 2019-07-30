@@ -5,15 +5,18 @@ from skfuzzymdf.control.visualization import FuzzyVariableVisualizer
 from collections import deque
 from collections import OrderedDict
 from matplotlib import pyplot as plt
+import copy
 import matplotlib.ticker as mticker
 import json
 
 
 class FuzzyController():
     
-    def __init__(self, inputlist, outputlist, rulelist=None): 
+    def __init__(self, inputlist, outputlist, rulelist=[]):
+
         self.fuzz_inputs = self.crear_input(inputlist)
         self.fuzz_outputs = self.crear_output(outputlist)
+        self.rulelist = rulelist
         self.crear_etiquetas_input(inputlist)
         self.crear_etiquetas_output(outputlist)           
         
@@ -111,7 +114,46 @@ class FuzzyController():
         self.fuzz_outputs[o][eti['nombre']] = getattr(generatemf, eti['mf'])(self.fuzz_outputs[o].universe, *eti['definicion'])
         self.graficar_mf_out(window, o)
 
+    def agregar_regla(self, window, ni, no, Etiquetasin, Etiquetasout):
+        
+        Entradas = deque(self.fuzz_inputs)
+        Salidas = deque(self.fuzz_outputs)
+        
+        self.rulelist.append(fuzz.Rule())
+        
+        for i, etiqueta in enumerate(copy.copy(Etiquetasin)):
+            Etiquetasin.popleft()
+            if etiqueta != 'None':
+                self.rulelist[-1].antecedent = Entradas[0][etiqueta]
+                Entradas.popleft()
+                break
+            Entradas.popleft()
+        else:
+            raise TypeError('Regla no valida')
+        
+        for i, etiqueta in enumerate(copy.copy(Etiquetasout)):
+            Etiquetasout.popleft()
+            if etiqueta != 'None':
+                self.rulelist[-1].consequent = Salidas[0][etiqueta]
+                Salidas.popleft()
+                break
+            Salidas.popleft()
+        else:
+            raise TypeError('Regla no valida')
+        
+        for i, etiqueta in enumerate(Etiquetasin):
+            if etiqueta != 'None':
+                print(etiqueta)
+                if window.main.andradioButton.isChecked():
+                    self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & Entradas[i][etiqueta]
+                else:
+                    self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | Entradas[i][etiqueta]
 
+        for o, etiqueta in enumerate(Etiquetasout):
+            if etiqueta != 'None':
+                self.rulelist[-1].consequent.append(Salidas[o][etiqueta]%peso)
+
+        return self.rulelist[-1]
 if __name__ == "__main__":
     
     entradas = [

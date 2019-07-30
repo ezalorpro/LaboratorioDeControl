@@ -2,6 +2,7 @@ from rutinas.rutinas_fuzzy import *
 from handlers.modificadorMf import update_definicionmf
 from rutinas.rutinas_fuzzy import FuzzyController
 from PySide2 import QtCore, QtGui, QtWidgets
+from collections import deque
 import json
 import pprint
 
@@ -54,6 +55,7 @@ def FuzzyHandler(self):
     self.main.etiquetaDefinicionOut.returnPressed.connect(lambda: definicion_out(self))
     
     self.main.fuzzyTabWidget.currentChanged.connect(lambda: rule_list_visualizacion(self))
+    self.main.ruleAgregarButton.clicked.connect(lambda: rule_list_agregar(self))
 
 
 def crear_tabs(self):
@@ -393,14 +395,35 @@ def rule_list_visualizacion(self):
             self.inlabels[i].setText(entrada['nombre'])
             for etiqueta in entrada['etiquetas']:
                 self.inlists[i].addItem(etiqueta['nombre'])
+            self.inlists[i].addItem('None')
+            self.inlists[i].setCurrentRow(0)
                 
         for o, salida in enumerate(self.OutputList):
             self.outframes[o].show()
             self.outlabels[o].setText(salida['nombre'])
             for etiqueta in salida['etiquetas']:
                 self.outlists[o].addItem(etiqueta['nombre'])
+            self.outlists[o].addItem('None')
+            self.outlists[o].setCurrentRow(0)
+
+
+def rule_list_agregar(self):
+    ni = len(self.InputList)
+    no = len(self.OutputList)
     
+    Etiquetasin = deque([])
+    Etiquetasout = deque([])
     
+    for i, entrada in enumerate(self.InputList):
+        Etiquetasin.append(self.inlists[i].currentItem().text())
+    
+    for o, salida in enumerate(self.OutputList):
+        Etiquetasout.append(self.outlists[o].currentItem().text())
+    
+    self.RuleList.append(self.fuzzController.agregar_regla(self, ni, no, Etiquetasin, Etiquetasout))
+    self.main.rulelistWidget.addItem(str(self.RuleList[-1]))
+    
+
 def crear_vectores_de_widgets(self):
     
     self.inframes = [

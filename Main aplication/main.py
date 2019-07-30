@@ -18,13 +18,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         image_path = self.resource_path("icono.ico")
         icon.addPixmap(QtGui.QPixmap(image_path), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.setWindowIcon(icon)
-
+        
         self.error_dialog = QtWidgets.QMessageBox()
         self.error_dialog.setIcon(QtWidgets.QMessageBox.Critical)
         self.error_dialog.setText("Error")
         self.error_dialog.setInformativeText('404')
         self.error_dialog.setWindowTitle("Error")
-
+        
         AnalisisHandler(self)
         PIDHandler(self)        
         FuzzyHandler(self)
