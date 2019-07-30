@@ -13,12 +13,15 @@ import json
 class FuzzyController():
     
     def __init__(self, inputlist, outputlist, rulelist=[]):
-
+        print('hola')
         self.fuzz_inputs = self.crear_input(inputlist)
         self.fuzz_outputs = self.crear_output(outputlist)
         self.rulelist = rulelist
         self.crear_etiquetas_input(inputlist)
-        self.crear_etiquetas_output(outputlist)           
+        self.crear_etiquetas_output(outputlist)
+        
+        if len(self.rulelist) > 0:
+            self.crear_controlador()           
         
     def crear_input(self, inputlist):
         vector = []
@@ -150,7 +153,7 @@ class FuzzyController():
 
         for o, etiqueta in enumerate(Etiquetasout):
             if etiqueta != 'None':
-                self.rulelist[-1].consequent.append(Salidas[o][etiqueta]%peso)
+                self.rulelist[-1].consequent.append(Salidas[o][etiqueta])
 
         return self.rulelist[-1]
     
@@ -193,10 +196,40 @@ class FuzzyController():
 
         for o, etiqueta in enumerate(Etiquetasout):
             if etiqueta != 'None':
-                self.rulelist[index_rule].consequent.append(Salidas[o][etiqueta]%peso)
+                self.rulelist[index_rule].consequent.append(Salidas[o][etiqueta])
 
         return self.rulelist[index_rule]
     
+    def crear_controlador(self):
+        temp = fuzz.ControlSystem(self.rulelist)
+        self.Controlador = fuzz.ControlSystemSimulation(temp, flush_after_run=20000)
+        
+    def prueba_de_controlador(self, window, values, ni, no):
+        for i in range(ni):
+            self.Controlador.input[self.fuzz_inputs[i].label] = values[i]
+            
+        self.Controlador.compute()
+        self.graficar_prueba(window, ni, no)
+    
+    def graficar_prueba(self, window, ni, no):
+        
+        for i, grafica in enumerate(window.ingraphs[:ni]):
+            grafica.canvas.axes.clear()
+            FuzzyVariableVisualizer(self.fuzz_inputs[i], 
+                                    grafica, 
+                                    grafica.canvas.axes).view(self.Controlador, legend=False)
+            grafica.canvas.axes.grid(color="lightgray")
+            grafica.canvas.draw()
+            
+        for o, grafica in enumerate(window.outgraphs[:no]):
+            grafica.canvas.axes.clear()
+            FuzzyVariableVisualizer(self.fuzz_outputs[o], 
+                                    grafica, 
+                                    grafica.canvas.axes).view(self.Controlador, legend=False)
+            grafica.canvas.axes.grid(color="lightgray")
+            grafica.canvas.draw()
+            
+             
 if __name__ == "__main__":
     
     entradas = [

@@ -50,7 +50,7 @@ class FuzzyVariableVisualizer(object):
         self.ax = ax
         self.plots = {}
 
-    def view(self, sim=None, *args, **kwargs):
+    def view(self, sim=None, legend=True, *args, **kwargs):
         """
         Visualize this variable and its membership functions with Matplotlib.
 
@@ -76,7 +76,7 @@ class FuzzyVariableVisualizer(object):
             # Create an empty simulation so we can view with default values
             sim = ControlSystemSimulation(ControlSystem())
 
-        self._init_plot()
+        self._init_plot(legend)
 
         crispy = CrispValueCalculator(self.fuzzy_var, sim)
         ups_universe, output_mf, cut_mfs = crispy.find_memberships()
@@ -119,7 +119,7 @@ class FuzzyVariableVisualizer(object):
 
         return self.fig, self.ax
 
-    def _init_plot(self):
+    def _init_plot(self, legend):
         # Formatting: limits
         self.ax.set_ylim([0, 1.01])
         self.ax.set_xlim([self.fuzzy_var.universe.min(),
@@ -138,7 +138,8 @@ class FuzzyVariableVisualizer(object):
                                            linewidth=lw)
 
         # Place legend in upper left
-        self.ax.legend(framealpha=0.5)
+        if legend:
+            self.ax.legend(framealpha=0.5)
 
         # Turn off top/right axes
         self.ax.spines['top'].set_visible(False)

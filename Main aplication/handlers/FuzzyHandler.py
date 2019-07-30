@@ -26,9 +26,11 @@ def FuzzyHandler(self):
     
     crear_vectores_de_widgets(self)
         
-    for i, o in zip(self.inframes, self.outframes):
-        i.hide()
-        o.hide()
+    for i_f, o_f, it_f, ot_f in zip(self.inframes, self.outframes, self.intestframes, self.outtestframes):
+        i_f.hide()
+        o_f.hide()
+        it_f.hide()
+        ot_f.hide()
         
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     
@@ -58,19 +60,29 @@ def FuzzyHandler(self):
     self.main.ruleAgregarButton.clicked.connect(lambda: rule_list_agregar(self))
     self.main.ruleEliminarButton.clicked.connect(lambda: rule_list_eliminar(self))
     self.main.ruleCambiarButton.clicked.connect(lambda: rule_list_cambiar(self))
+    self.main.ruleFinalizarButton.clicked.connect(lambda: finalizar_controlador(self))
+    
+    for slider in self.intestsliders:
+        slider.valueChanged.connect(lambda: prueba_input(self))
 
 
 def crear_tabs(self):
     self.main.inputNumber.blockSignals(True)
     self.main.outputNumber.blockSignals(True)
+    
     self.InputList = []
     self.OutputList = []
     self.RuleList = []
 
+    self.main.fuzzyTabWidget.removeTab(4)
+    self.main.fuzzyTabWidget.removeTab(3)
+    self.main.fuzzyTabWidget.removeTab(2)
+    self.main.fuzzyTabWidget.removeTab(1)
+    
     self.main.fuzzyTabWidget.addTab(self.EntradasTab, 'Entradas')
     self.main.fuzzyTabWidget.addTab(self.SalidasTab, 'Salidas')
     self.main.fuzzyTabWidget.addTab(self.ReglasTab, 'Reglas')
-    self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
+    
     NumeroEntradas = int(self.main.estrucNumberInputs.currentText())
     NumeroSalidas = int(self.main.estrucNumberOutputs.currentText())
     
@@ -457,9 +469,37 @@ def rule_list_cambiar(self):
     self.main.rulelistWidget.takeItem(index_rule)
     self.main.rulelistWidget.insertItem(index_rule, str(regla))
     self.main.rulelistWidget.setCurrentRow(index_rule)
+    del self.RuleList[index_rule]
     self.RuleList.insert(index_rule, regla)
     
 
+def finalizar_controlador(self):
+    self.fuzzController.crear_controlador()
+    self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
+    
+    for it_f, ot_f in zip(self.intestframes, self.outtestframes):
+        it_f.hide()
+        ot_f.hide()
+    
+    for i, salida in enumerate(self.InputList):
+        self.intestframes[i].show()
+        
+    for o, salida in enumerate(self.OutputList):
+        self.outtestframes[o].show()
+            
+    prueba_input(self)
+
+def prueba_input(self):
+    ni = len(self.InputList)
+    no = len(self.OutputList)
+        
+    values = [i.value() for i in self.intestsliders[:ni]]
+    
+    for i, entrada in  enumerate(self.InputList[:ni]):
+        rmin, rmax = entrada['rango']
+        values[i] = values[i]*(rmax - rmin)/1000 + rmin
+    
+    self.fuzzController.prueba_de_controlador(self, values, ni, no)
 
 def crear_vectores_de_widgets(self):
     
@@ -558,3 +598,74 @@ def crear_vectores_de_widgets(self):
         self.main.innot9,
         self.main.innot10,
     ]
+    
+    self.intestframes = [
+        
+        self.main.intestframe1,
+        self.main.intestframe2,
+        self.main.intestframe3,
+        self.main.intestframe4,
+        self.main.intestframe5,
+        self.main.intestframe6,
+        self.main.intestframe7,
+        self.main.intestframe8,
+        self.main.intestframe9,
+        self.main.intestframe10,
+    ]
+    
+    self.outtestframes = [
+        
+        self.main.outtestframe1,
+        self.main.outtestframe2,
+        self.main.outtestframe3,
+        self.main.outtestframe4,
+        self.main.outtestframe5,
+        self.main.outtestframe6,
+        self.main.outtestframe7,
+        self.main.outtestframe8,
+        self.main.outtestframe9,
+        self.main.outtestframe10,
+    ]
+    
+    self.intestsliders = [
+        
+        self.main.intestslider1,
+        self.main.intestslider2,
+        self.main.intestslider3,
+        self.main.intestslider4,
+        self.main.intestslider5,
+        self.main.intestslider6,
+        self.main.intestslider7,
+        self.main.intestslider8,
+        self.main.intestslider9,
+        self.main.intestslider10,
+    ]
+    
+    self.ingraphs = [
+        
+        self.main.ingraph1,
+        self.main.ingraph2,
+        self.main.ingraph3,
+        self.main.ingraph4,
+        self.main.ingraph5,
+        self.main.ingraph6,
+        self.main.ingraph7,
+        self.main.ingraph8,
+        self.main.ingraph9,
+        self.main.ingraph10,
+    ]
+    
+    self.outgraphs = [
+        
+        self.main.outgraph1,
+        self.main.outgraph2,
+        self.main.outgraph3,
+        self.main.outgraph4,
+        self.main.outgraph5,
+        self.main.outgraph6,
+        self.main.outgraph7,
+        self.main.outgraph8,
+        self.main.outgraph9,
+        self.main.outgraph10,
+    ]
+    
