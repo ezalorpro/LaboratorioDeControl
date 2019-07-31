@@ -393,8 +393,6 @@ def round_list(lista):
     return list(np.around(np.array(lista),2))
 
 
-# Codigo para las reglas ------------------------------------------------------------------------------------
-
 def rule_list_visualizacion(self):
     if self.main.fuzzyTabWidget.currentIndex() == 3:
         
@@ -495,6 +493,7 @@ def finalizar_controlador(self):
             
     prueba_input(self)
 
+
 def prueba_input(self):
     ni = len(self.InputList)
     no = len(self.OutputList)
@@ -510,6 +509,7 @@ def prueba_input(self):
         self.outtestlabels[o].setText(salida['nombre'])
     
     self.fuzzController.prueba_de_controlador(self, values, ni, no)
+    
 
 def crear_vectores_de_widgets(self):
     
