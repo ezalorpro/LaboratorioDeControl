@@ -1,17 +1,57 @@
-import controlmdf as ctrl
-from matplotlib import pyplot as plt 
-import numpy as np 
+import json
+from collections import deque
+import pickle
 
-tf = ctrl.tf([1], [1, 1, 1])
-tf = ctrl.sample_system(tf, 0.1)
-w = np.linspace(0, 4 * np.pi/0.1, 5000)
-mag, phase, omega = ctrl.bode(tf,w, dB=True, margins=True)
-plt.show()
+salidas = [
+        {
+            'nombre': 'salida1',
+            'numeroE': 3,
+            'etiquetas': [
+                {
+                    'nombre': 'bajo',
+                    'mf': 'trimf',
+                    'definicion': [-11, -10, 0],
+                },
+                {
+                    'nombre': 'medio',
+                    'mf': 'trimf',
+                    'definicion': [-10, 0, 10],
+                },
+                {
+                    'nombre': 'alto',
+                    'mf': 'trimf',
+                    'definicion': [0, 10, 11],
+                },
+                ],
+            'rango': [-10, 10],
+            'metodo': True
+        }
+    ]
 
-gainDb = 20 * np.log10(mag)
-degPhase = phase * 180.0 / np.pi
-    
-indGain = np.where(gainDb <= 0)
-indPhase = np.where(degPhase <= -180)
-print(gainDb[indGain[0][1]])
-print(degPhase[indPhase[0][0]])
+
+def guardar_archivo(lista):
+    with open('probando.pkl', 'wb', ) as f:
+        pickle.dump([salidas, lista], f)
+        
+def cargar_archivo():
+    with open('probando.pkl', 'rb') as f:
+        data1, data2 = pickle.load(f)
+    return data1, data2
+
+a = deque(['hola', 'andate', True])
+b = deque(['hola', 'andate', True])
+c = deque(['hola', 'andate', True])
+reglas = [a, b, c]
+
+guardar_archivo(reglas)
+nueva_data1, nueva_data2 = cargar_archivo()
+
+print(reglas)
+print(nueva_data2)
+
+print(salidas)
+print(nueva_data1)
+
+# json.dump(reglas, open("probando.json", 'w'))
+# nueva_data2 = json.load(open("probando.json"))
+# print(nueva_data2)

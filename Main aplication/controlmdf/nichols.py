@@ -52,13 +52,14 @@ nichols.nichols_grid
 import scipy as sp
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
 from .ctrlutil import unwrap
 from .freqplot import default_frequency_range
 
 __all__ = ['nichols_plot', 'nichols', 'nichols_grid']
 
 
-def nichols_plot(sys_list, omega=None, grid=True):
+def nichols_plot(sys_list, omega=None, grid=True, figure=None, ax=None, delay=False):
     """Nichols plot for a system
 
     Plots a Nichols plot for the system over a (optional) frequency range.
@@ -81,11 +82,12 @@ def nichols_plot(sys_list, omega=None, grid=True):
     if not getattr(sys_list, '__iter__', False):
         sys_list = (sys_list,)
 
-    # Select a default range if none is provided
-    if omega is None:
-        omega = default_frequency_range(sys_list)
-
     for sys in sys_list:
+        omega = np.array(omega)
+        if sys.isdtime(True):
+            nyquistfrq = 2. * np.pi * 1. / sys.dt / 2.
+            omega = omega[omega < nyquistfrq]
+        
         # Get the magnitude and phase of the system
         mag_tmp, phase_tmp, omega = sys.freqresp(omega)
         mag = np.squeeze(mag_tmp)
@@ -97,21 +99,24 @@ def nichols_plot(sys_list, omega=None, grid=True):
         y = 20*sp.log10(mag)
 
         # Generate the plot
-        plt.plot(x, y)
+        ax.plot(x, y)
+        
+        ax.xaxis.set_major_formatter(mticker.FormatStrFormatter("%.1f °"))
+        ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%.1f dB"))
 
-    plt.xlabel('Phase (deg)')
-    plt.ylabel('Magnitude (dB)')
-    plt.title('Nichols Plot')
+    ax.set_xlabel('Fase (deg)')
+    ax.set_ylabel('Magnitud (dB)')
+    ax.set_title('Nichols Plot')
 
     # Mark the -180 point
-    plt.plot([-180], [0], 'r+')
+    ax.plot([-180], [0], 'r+')
 
     # Add grid
     if grid:
-        nichols_grid()
+        nichols_grid(figure=figure, ax=ax, delay=delay)
 
 
-def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted'):
+def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None, ax=None, delay=False):
     """Nichols chart grid
 
     Plots a Nichols chart grid on the current axis, or creates a new chart
@@ -139,8 +144,11 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted'):
     ol_mag_max = default_ol_mag_max = 50.0
 
     # Find bounds of the current dataset, if there is one.
-    if plt.gcf().gca().has_data():
-        ol_phase_min, ol_phase_max, ol_mag_min, ol_mag_max = plt.axis()
+    if ax.has_data():
+        ol_phase_min, ol_phase_max, ol_mag_min, ol_mag_max = ax.axis()
+        if delay:
+            ol_phase_min = -360
+            ol_phase_max = 180
 
     # M-circle magnitudes.
     if cl_mags is None:
@@ -188,23 +196,23 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted'):
     # the base chart is computed over, the phase offset should be 0
     # for -360 < ol_phase_min < 0.
     phase_offset_min = 360.0*np.ceil(ol_phase_min/360.0)
-    phase_offset_max = 360.0*np.ceil(ol_phase_max/360.0) + 360.0
+    phase_offset_max = 360.0*np.ceil(ol_phase_max/360.0)
     phase_offsets = np.arange(phase_offset_min, phase_offset_max, 360.0)
 
     for phase_offset in phase_offsets:
         # Draw M and N contours
-        plt.plot(m_phase + phase_offset, m_mag, color='lightgray',
+        ax.plot(m_phase + phase_offset, m_mag, color='lightgray',
                  linestyle=line_style, zorder=0)
-        plt.plot(n_phase + phase_offset, n_mag, color='lightgray',
+        ax.plot(n_phase + phase_offset, n_mag, color='lightgray',
                  linestyle=line_style, zorder=0)
 
         # Add magnitude labels
         for x, y, m in zip(m_phase[:][-1] + phase_offset, m_mag[:][-1], cl_mags):
             align = 'right' if m < 0.0 else 'left'
-            plt.text(x, y, str(m) + ' dB', size='small', ha=align, color='gray')
+            ax.text(x, y, str(m) + ' dB', size='small', ha=align, color='gray')
 
     # Fit axes to generated chart
-    plt.axis([phase_offset_min - 360.0, phase_offset_max - 360.0,
+    ax.axis([phase_offset_min - 360.0, phase_offset_max - 360.0,
               np.min(cl_mags), np.max([ol_mag_max, default_ol_mag_max])])
 
 #

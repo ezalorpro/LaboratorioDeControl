@@ -156,8 +156,9 @@ def system_creator_tf_tuning(self, numerador, denominador):
     U = np.ones_like(T)
     
     t, y, _ = ctrl.forced_response(system, T, U)
+    dc_gain = ctrl.dcgain(system)
     
-    K_proceso, tau, alpha = model_method(self, t, y, self.main.tfAutoTuningcomboBox2.currentText())
+    K_proceso, tau, alpha = model_method(self, t, y, self.main.tfAutoTuningcomboBox2.currentText(), dc_gain)
     
     try:
         kp, ki, kd = auto_tuning_method(self, K_proceso, tau, alpha, self.main.tfAutoTuningcomboBox2.currentText())
@@ -217,8 +218,9 @@ def system_creator_ss_tuning(self, A, B, C, D):
     U = np.ones_like(T)
     
     t, y, _ = ctrl.forced_response(system, T, U)
+    dc_gain = ctrl.dcgain(system)
     
-    K_proceso, tau, alpha = model_method(self, t, y, self.main.ssAutoTuningcomboBox2.currentText())
+    K_proceso, tau, alpha = model_method(self, t, y, self.main.ssAutoTuningcomboBox2.currentText(), dc_gain)
     
     try:
         kp, ki, kd = auto_tuning_method(self, K_proceso, tau, alpha, self.main.ssAutoTuningcomboBox2.currentText())
@@ -267,12 +269,12 @@ def system_creator_ss_tuning(self, A, B, C, D):
     return system, T, system_delay, system_ss, kp, ki, kd
 
 
-def model_method(self, t, y, metodo):
+def model_method(self, t, y, metodo, dc_gain):
     if '1er orden' in metodo:
         i_max = np.argmax(np.abs(np.gradient(y)))
 
         for index, i in enumerate(y):
-            if i >= 0.63:
+            if i >= 0.63*dc_gain:
                 indexv = index
                 break
     
