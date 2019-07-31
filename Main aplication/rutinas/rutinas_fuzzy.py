@@ -5,6 +5,7 @@ from skfuzzymdf.control.visualization import FuzzyVariableVisualizer
 from collections import deque
 from collections import OrderedDict
 from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import copy
 import matplotlib.ticker as mticker
 import json
@@ -268,8 +269,68 @@ class FuzzyController():
                                     grafica.canvas.axes).view(self.Controlador, legend=False)
             grafica.canvas.axes.grid(color="lightgray")
             grafica.canvas.draw()
+    
+    def graficar_respuesta_2d(self, window, inrange, no):
+        entrada = np.linspace(*inrange, 500)
+        
+        entradas = []
+        salidas = [[] for i in range(no)]
+        
+        for value in entrada :
+            self.Controlador.input[self.fuzz_inputs[0].label] = value
+            try:
+                self.Controlador.compute()
+                entradas.append(value)
+                for i in range(no):
+                    salidas[i].append(self.Controlador.output[self.fuzz_outputs[i].label])
+            except:
+                pass
+        
+        for i in range(no):
+            window.respuesta2ds[i].canvas.axes.clear()
+            window.respuesta2ds[i].canvas.axes.plot(entradas, salidas[i])
+            window.respuesta2ds[i].canvas.axes.grid(color="lightgray")
+            window.respuesta2ds[i].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
+            window.respuesta2ds[i].canvas.axes.set_ylabel(self.fuzz_outputs[i].label)
+            window.respuesta2ds[i].canvas.draw()
+            window.respuesta2ds[i].toolbar.update()
             
-             
+    def graficar_respuesta_3d(self, window, inrange1, inrange2, no):
+        n_puntos = 30
+        entrada1 = np.linspace(*inrange1, n_puntos)
+        entrada2 = np.linspace(*inrange2, n_puntos)
+        entrada1, entrada2 = np.meshgrid(entrada1, entrada2)
+        
+        entrada11 = [np.zeros_like(entrada1) for i in range(no)]
+        entrada22 = [np.zeros_like(entrada1) for i in range(no)]
+        
+        salidas = [np.zeros_like(entrada1) for i in range(no)]
+        
+        for i in range(n_puntos) :
+            for j in range(n_puntos):
+                self.Controlador.input[self.fuzz_inputs[0].label] = entrada1[i, j]
+                self.Controlador.input[self.fuzz_inputs[1].label] = entrada2[i, j]
+                try:
+                    self.Controlador.compute()
+                    for o in range(no):
+                        entrada11[o][i, j] =  entrada1[i, j]
+                        entrada22[o][i, j] = entrada2[i, j]
+                        salidas[o][i, j] = self.Controlador.output[self.fuzz_outputs[o].label]
+                except:
+                    pass
+                
+        for o in range(no):
+            window.respuesta3ds[o].canvas.axes.clear()
+            window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
+                                                            rstride=1, cstride=1, cmap='viridis', linewidth=0.4, antialiased=True)
+            
+            window.respuesta3ds[o].canvas.axes.view_init(30, 200)
+            window.respuesta3ds[o].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
+            window.respuesta3ds[o].canvas.axes.set_ylabel(self.fuzz_inputs[1].label)
+            window.respuesta3ds[o].canvas.axes.set_zlabel(self.fuzz_outputs[o].label)
+            window.respuesta3ds[o].canvas.draw()
+
+
 if __name__ == "__main__":
     
     entradas = [

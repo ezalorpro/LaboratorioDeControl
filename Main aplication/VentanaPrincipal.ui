@@ -2237,21 +2237,21 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_2">
+               <widget class="QPushButton" name="cargarFuzzButton">
                 <property name="text">
                  <string>Cargar</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="guardarFuzzButton">
                 <property name="text">
                  <string>Salvar</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_4">
+               <widget class="QPushButton" name="guardarComoFuzzButton">
                 <property name="text">
                  <string>Salvar como...</string>
                 </property>
@@ -3338,9 +3338,9 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="ruleFinalizarButton">
+                 <widget class="QPushButton" name="ruleCrearButton">
                   <property name="text">
-                   <string>Finalizar</string>
+                   <string>Crear</string>
                   </property>
                  </widget>
                 </item>

@@ -3,6 +3,7 @@ from handlers.modificadorMf import update_definicionmf
 from rutinas.rutinas_fuzzy import FuzzyController
 from PySide2 import QtCore, QtGui, QtWidgets
 from collections import deque
+import pickle
 import json
 import pprint
 
@@ -13,6 +14,9 @@ def FuzzyHandler(self):
     self.ReglasTab = self.main.fuzzyTabWidget.widget(3)
     self.PruebaTab = self.main.fuzzyTabWidget.widget(4)
     self.RespuestaTab = self.main.fuzzyTabWidget.widget(5)
+    
+    self.main.guardarFuzzButton.setDisabled(True)
+    self.main.guardarComoFuzzButton.setDisabled(True)
     
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
@@ -39,6 +43,9 @@ def FuzzyHandler(self):
         f3d.hide()
         
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
+    self.main.guardarFuzzButton.clicked.connect(lambda: guardar_controlador(self))
+    self.main.cargarFuzzButton.clicked.connect(lambda: cargar_controlador(self))
+    self.main.guardarComoFuzzButton.clicked.connect(lambda: guardarcomo_controlador(self))
     
     self.main.inputNumber.currentIndexChanged.connect(lambda: seleccion_entrada(self))
     self.main.inputNombre.returnPressed.connect(lambda: nombre_entrada(self))
@@ -66,7 +73,7 @@ def FuzzyHandler(self):
     self.main.ruleAgregarButton.clicked.connect(lambda: rule_list_agregar(self))
     self.main.ruleEliminarButton.clicked.connect(lambda: rule_list_eliminar(self))
     self.main.ruleCambiarButton.clicked.connect(lambda: rule_list_cambiar(self))
-    self.main.ruleFinalizarButton.clicked.connect(lambda: finalizar_controlador(self))
+    self.main.ruleCrearButton.clicked.connect(lambda: crear_controlador(self))
     
     for slider in self.intestsliders:
         slider.valueChanged.connect(lambda: prueba_input(self))
@@ -76,10 +83,14 @@ def crear_tabs(self):
     self.main.inputNumber.blockSignals(True)
     self.main.outputNumber.blockSignals(True)
     
+    self.current_file = ''
     self.InputList = []
     self.OutputList = []
     self.RuleList = []
     self.RuleEtiquetas = []
+    
+    self.main.guardarFuzzButton.setEnabled(True)
+    self.main.guardarComoFuzzButton.setEnabled(True)
     
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
@@ -160,6 +171,67 @@ def EtiquetasDic_creator(self, j, erange):
     }
     return etiquetaDic
 
+
+def guardar_controlador(self):
+    
+    if len(self.current_file) > 0:
+        with open(self.current_file, 'wb', ) as f:
+            pickle.dump([self.InputList, self.OutputList, self.RuleList, self.RuleEtiquetas], f)
+    else:
+        guardarcomo_controlador(self)
+
+def guardarcomo_controlador(self):
+    path_guardar = QtWidgets.QFileDialog.getSaveFileName(selectedFilter='*.pkl')
+    if len(path_guardar[0]) > 1:
+        self.current_file = path_guardar[0]
+        with open(path_guardar[0], 'wb', ) as f:
+            pickle.dump([self.InputList, self.OutputList, self.RuleList, self.RuleEtiquetas], f)
+                       
+
+def cargar_controlador(self):
+    self.path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter='*.pkl')
+    if len(self.path_cargar[0]) > 1:
+        with open(self.path_cargar[0], 'rb', ) as f:
+            self.InputList, self.OutputList, self.RuleList, self.RuleEtiquetas = pickle.load(f) 
+        
+        self.main.guardarFuzzButton.setEnabled(True)
+        self.main.guardarComoFuzzButton.setEnabled(True)
+    
+        self.current_file = copy.deepcopy(self.path_cargar[0])
+        
+        self.main.inputNumber.blockSignals(True)
+        self.main.outputNumber.blockSignals(True)
+    
+        self.main.fuzzyTabWidget.removeTab(5)
+        self.main.fuzzyTabWidget.removeTab(4)
+        self.main.fuzzyTabWidget.removeTab(3)
+        self.main.fuzzyTabWidget.removeTab(2)
+        self.main.fuzzyTabWidget.removeTab(1)
+        
+        self.main.fuzzyTabWidget.addTab(self.EntradasTab, 'Entradas')
+        self.main.fuzzyTabWidget.addTab(self.SalidasTab, 'Salidas')
+        self.main.fuzzyTabWidget.addTab(self.ReglasTab, 'Reglas')
+
+        self.main.inputNumber.clear()
+        self.main.outputNumber.clear()
+        
+        for i in range(len(self.InputList)):
+            self.main.inputNumber.insertItem(i, str(i+1))
+        
+        for i in range(len(self.OutputList)):
+            self.main.outputNumber.insertItem(i, str(i+1))
+        
+        self.main.inputNumber.blockSignals(False)
+        self.main.outputNumber.blockSignals(False)
+    
+        self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
+        
+        seleccion_entrada(self)
+        seleccion_salida(self)
+        
+        self.fuzzController.graficar_mf_in(self, 0)
+        self.fuzzController.graficar_mf_out(self, 0)
+    
     
 def seleccion_entrada(self):
     ni = self.main.inputNumber.currentIndex()
@@ -415,6 +487,8 @@ def rule_list_visualizacion(self):
             i.clear()
             o.clear()
         
+        self.main.rulelistWidget.setCurrentRow(0)
+        
         for i, entrada in enumerate(self.InputList):
             self.inframes[i].show()
             self.inlabels[i].setText(entrada['nombre'])
@@ -448,14 +522,16 @@ def rule_list_agregar(self):
     self.RuleEtiquetas.append(copy.deepcopy([Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]))
     self.RuleList.append(self.fuzzController.agregar_regla(self, ni, no, Etiquetasin, Etiquetasout))
     self.main.rulelistWidget.addItem(str(self.RuleList[-1]))
+    self.main.rulelistWidget.setCurrentRow(len(self.RuleList) - 1)
 
 
 def rule_list_eliminar(self):
-    index_rule = self.main.rulelistWidget.currentRow()
-    self.fuzzController.eliminar_regla(index_rule)
-    self.main.rulelistWidget.takeItem(self.main.rulelistWidget.currentRow())
-    del self.RuleList[index_rule]
-    del self.RuleEtiquetas[index_rule]
+    if self.main.rulelistWidget.count():
+        index_rule = self.main.rulelistWidget.currentRow()
+        self.fuzzController.eliminar_regla(index_rule)
+        self.main.rulelistWidget.takeItem(self.main.rulelistWidget.currentRow())
+        del self.RuleList[index_rule]
+        del self.RuleEtiquetas[index_rule]
     
 
 def rule_list_cambiar(self):
@@ -483,39 +559,45 @@ def rule_list_cambiar(self):
     self.RuleList.insert(index_rule, regla)
     
 
-def finalizar_controlador(self):
-    self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
-    self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
-    
-    ni = len(self.InputList)
-    
-    for it_f, ot_f, f2d, f3d in zip(self.intestframes, self.outtestframes, self.respuesta2dframes, self.respuesta3dframes):
-        it_f.hide()
-        ot_f.hide()
-        f2d.hide()
-        f3d.hide()
-    
-    for i, salida in enumerate(self.InputList):
-        self.intestframes[i].show()
+def crear_controlador(self):
+    if self.main.rulelistWidget.count():
+        self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
+        self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
         
-    for o, salida in enumerate(self.OutputList):
-        self.outtestframes[o].show()
+        ni = len(self.InputList)
+        no = len(self.OutputList)
         
+        for it_f, ot_f, f2d, f3d in zip(self.intestframes, self.outtestframes, self.respuesta2dframes, self.respuesta3dframes):
+            it_f.hide()
+            ot_f.hide()
+            f2d.hide()
+            f3d.hide()
+        
+        for i, salida in enumerate(self.InputList):
+            self.intestframes[i].show()
             
-    prueba_input(self)
-    
-    if ni == 1:
-        self.main.fuzzyTabWidget.addTab(self.RespuestaTab, 'Respuesta')
-        self.main.respuestastackedWidget.setCurrentIndex(0)
         for o, salida in enumerate(self.OutputList):
-            self.respuesta2dframes[o].show()
-           
-    if ni == 2:
-        self.main.fuzzyTabWidget.addTab(self.RespuestaTab, 'Respuesta')
-        self.main.respuestastackedWidget.setCurrentIndex(1)
-        for o, salida in enumerate(self.OutputList):
-            self.respuesta3dframes[o].show()
-
+            self.outtestframes[o].show()
+            
+                
+        prueba_input(self)
+        
+        if ni == 1:
+            self.main.fuzzyTabWidget.addTab(self.RespuestaTab, 'Respuesta')
+            self.main.respuestastackedWidget.setCurrentIndex(0)
+            for o, salida in enumerate(self.OutputList):
+                self.respuesta2dframes[o].show()      
+            rimin, rimax = self.InputList[0]['rango']
+            self.fuzzController.graficar_respuesta_2d(self, [rimin, rimax], no)
+        
+        if ni == 2:
+            self.main.fuzzyTabWidget.addTab(self.RespuestaTab, 'Respuesta')
+            self.main.respuestastackedWidget.setCurrentIndex(1)
+            for o, salida in enumerate(self.OutputList):
+                self.respuesta3dframes[o].show()     
+            rimin1, rimax1 = self.InputList[0]['rango']
+            rimin2, rimax2 = self.InputList[1]['rango']
+            self.fuzzController.graficar_respuesta_3d(self, [rimin1, rimax1], [rimin2, rimax2], no)
 
 def prueba_input(self):
     ni = len(self.InputList)
