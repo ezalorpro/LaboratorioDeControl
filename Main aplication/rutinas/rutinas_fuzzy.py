@@ -139,7 +139,7 @@ class FuzzyController():
             for i, etiqueta in enumerate(copy.copy(Etiquetasout)):
                 Etiquetasout.popleft()
                 if etiqueta != 'None':
-                    self.rulelist[-1].consequent = Salidas[0][etiqueta]
+                    self.rulelist[-1].consequent = Salidas[0][etiqueta]%1.0
                     Salidas.popleft()
                     break
                 Salidas.popleft()
@@ -155,7 +155,7 @@ class FuzzyController():
 
             for o, etiqueta in enumerate(Etiquetasout):
                 if etiqueta != 'None':
-                    self.rulelist[-1].consequent.append(Salidas[o][etiqueta])
+                    self.rulelist[-1].consequent.append(Salidas[o][etiqueta]%1.0)
     
     def agregar_regla(self, window, ni, no, Etiquetasin, Etiquetasout):
         

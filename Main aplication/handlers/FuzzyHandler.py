@@ -481,7 +481,6 @@ def rule_list_cambiar(self):
 
 def finalizar_controlador(self):
     self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
-    # self.fuzzController.crear_controlador()
     self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
     
     for it_f, ot_f in zip(self.intestframes, self.outtestframes):
@@ -505,6 +504,10 @@ def prueba_input(self):
     for i, entrada in  enumerate(self.InputList[:ni]):
         rmin, rmax = entrada['rango']
         values[i] = values[i]*(rmax - rmin)/1000 + rmin
+        self.intestlabels[i].setText(entrada['nombre'] + f': {np.around(values[i], 3)}')
+    
+    for o, salida in  enumerate(self.OutputList[:no]):
+        self.outtestlabels[o].setText(salida['nombre'])
     
     self.fuzzController.prueba_de_controlador(self, values, ni, no)
 
@@ -674,5 +677,33 @@ def crear_vectores_de_widgets(self):
         self.main.outgraph8,
         self.main.outgraph9,
         self.main.outgraph10,
+    ]
+    
+    self.intestlabels = [
+        
+        self.main.intestlabel1,
+        self.main.intestlabel2,
+        self.main.intestlabel3,
+        self.main.intestlabel4,
+        self.main.intestlabel5,
+        self.main.intestlabel6,
+        self.main.intestlabel7,
+        self.main.intestlabel8,
+        self.main.intestlabel9,
+        self.main.intestlabel10,
+    ]
+    
+    self.outtestlabels = [
+        
+        self.main.outtestlabel1,
+        self.main.outtestlabel2,
+        self.main.outtestlabel3,
+        self.main.outtestlabel4,
+        self.main.outtestlabel5,
+        self.main.outtestlabel6,
+        self.main.outtestlabel7,
+        self.main.outtestlabel8,
+        self.main.outtestlabel9,
+        self.main.outtestlabel10,
     ]
     
