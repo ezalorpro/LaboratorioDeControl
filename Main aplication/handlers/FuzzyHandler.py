@@ -12,7 +12,9 @@ def FuzzyHandler(self):
     self.SalidasTab = self.main.fuzzyTabWidget.widget(2)
     self.ReglasTab = self.main.fuzzyTabWidget.widget(3)
     self.PruebaTab = self.main.fuzzyTabWidget.widget(4)
+    self.RespuestaTab = self.main.fuzzyTabWidget.widget(5)
     
+    self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
     self.main.fuzzyTabWidget.removeTab(3)
     self.main.fuzzyTabWidget.removeTab(2)
@@ -27,11 +29,14 @@ def FuzzyHandler(self):
     
     crear_vectores_de_widgets(self)
         
-    for i_f, o_f, it_f, ot_f in zip(self.inframes, self.outframes, self.intestframes, self.outtestframes):
+    for i_f, o_f, it_f, ot_f, f2d, f3d in zip(self.inframes, self.outframes, self.intestframes, 
+                                              self.outtestframes, self.respuesta2dframes, self.respuesta3dframes):
         i_f.hide()
         o_f.hide()
         it_f.hide()
         ot_f.hide()
+        f2d.hide()
+        f3d.hide()
         
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     
@@ -76,6 +81,7 @@ def crear_tabs(self):
     self.RuleList = []
     self.RuleEtiquetas = []
     
+    self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
     self.main.fuzzyTabWidget.removeTab(3)
     self.main.fuzzyTabWidget.removeTab(2)
@@ -481,17 +487,34 @@ def finalizar_controlador(self):
     self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
     self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
     
-    for it_f, ot_f in zip(self.intestframes, self.outtestframes):
+    ni = len(self.InputList)
+    
+    for it_f, ot_f, f2d, f3d in zip(self.intestframes, self.outtestframes, self.respuesta2dframes, self.respuesta3dframes):
         it_f.hide()
         ot_f.hide()
+        f2d.hide()
+        f3d.hide()
     
     for i, salida in enumerate(self.InputList):
         self.intestframes[i].show()
         
     for o, salida in enumerate(self.OutputList):
         self.outtestframes[o].show()
+        
             
     prueba_input(self)
+    
+    if ni == 1:
+        self.main.fuzzyTabWidget.addTab(self.RespuestaTab, 'Respuesta')
+        self.main.respuestastackedWidget.setCurrentIndex(0)
+        for o, salida in enumerate(self.OutputList):
+            self.respuesta2dframes[o].show()
+           
+    if ni == 2:
+        self.main.fuzzyTabWidget.addTab(self.RespuestaTab, 'Respuesta')
+        self.main.respuestastackedWidget.setCurrentIndex(1)
+        for o, salida in enumerate(self.OutputList):
+            self.respuesta3dframes[o].show()
 
 
 def prueba_input(self):
@@ -706,4 +729,61 @@ def crear_vectores_de_widgets(self):
         self.main.outtestlabel9,
         self.main.outtestlabel10,
     ]
+    
+    self.respuesta3dframes = [
+        
+        self.main.respuesta3dframe1,
+        self.main.respuesta3dframe2,
+        self.main.respuesta3dframe3,
+        self.main.respuesta3dframe4,
+        self.main.respuesta3dframe5,
+        self.main.respuesta3dframe6,
+        self.main.respuesta3dframe7,
+        self.main.respuesta3dframe8,
+        self.main.respuesta3dframe9,
+        self.main.respuesta3dframe10,
+    ]
+    
+    self.respuesta2dframes = [
+        
+        self.main.respuesta2dframe1,
+        self.main.respuesta2dframe2,
+        self.main.respuesta2dframe3,
+        self.main.respuesta2dframe4,
+        self.main.respuesta2dframe5,
+        self.main.respuesta2dframe6,
+        self.main.respuesta2dframe7,
+        self.main.respuesta2dframe8,
+        self.main.respuesta2dframe9,
+        self.main.respuesta2dframe10,
+    ]
+    
+    self.respuesta3ds = [
+        
+        self.main.respuesta3d1,
+        self.main.respuesta3d2,
+        self.main.respuesta3d3,
+        self.main.respuesta3d4,
+        self.main.respuesta3d5,
+        self.main.respuesta3d6,
+        self.main.respuesta3d7,
+        self.main.respuesta3d8,
+        self.main.respuesta3d9,
+        self.main.respuesta3d10,
+    ]
+    
+    self.respuesta2ds = [
+        
+        self.main.respuesta2d1,
+        self.main.respuesta2d2,
+        self.main.respuesta2d3,
+        self.main.respuesta2d4,
+        self.main.respuesta2d5,
+        self.main.respuesta2d6,
+        self.main.respuesta2d7,
+        self.main.respuesta2d8,
+        self.main.respuesta2d9,
+        self.main.respuesta2d10,
+    ]
+    
     

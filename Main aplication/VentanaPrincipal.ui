@@ -5844,6 +5844,643 @@
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="surfaceTab">
+             <attribute name="title">
+              <string>Respuesta</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_90">
+              <item row="0" column="0">
+               <widget class="QStackedWidget" name="respuestastackedWidget">
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
+                </property>
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <widget class="QWidget" name="page">
+                 <layout class="QGridLayout" name="gridLayout_92">
+                  <item row="0" column="0">
+                   <widget class="QScrollArea" name="scrollArea_3">
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="widgetResizable">
+                     <bool>true</bool>
+                    </property>
+                    <widget class="QWidget" name="scrollAreaWidgetContents_4">
+                     <property name="geometry">
+                      <rect>
+                       <x>-3721</x>
+                       <y>0</y>
+                       <width>5254</width>
+                       <height>491</height>
+                      </rect>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_89">
+                      <item row="0" column="0">
+                       <layout class="QHBoxLayout" name="horizontalLayout_13">
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe1">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_68">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d1">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe2">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_72">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d2">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe3">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_69">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d3">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe4">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_73">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d4">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe5">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_76">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d5">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe6">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_70">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d6">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe7">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_74">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d7">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe8">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_77">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d8">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe9">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_71">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d9">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta2dframe10">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_75">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget" name="respuesta2d10">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_2">
+                 <layout class="QGridLayout" name="gridLayout_88">
+                  <item row="0" column="0">
+                   <widget class="QScrollArea" name="scrollArea_4">
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="widgetResizable">
+                     <bool>true</bool>
+                    </property>
+                    <widget class="QWidget" name="scrollAreaWidgetContents_5">
+                     <property name="geometry">
+                      <rect>
+                       <x>-3826</x>
+                       <y>0</y>
+                       <width>5254</width>
+                       <height>491</height>
+                      </rect>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_91">
+                      <item row="0" column="0">
+                       <layout class="QHBoxLayout" name="horizontalLayout_14">
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe1">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_78">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d1">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe2">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_79">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d2">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe3">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_80">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d3">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe4">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_81">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d4">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe5">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_82">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d5">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe6">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_83">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d6">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe7">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_84">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d7">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe8">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_85">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d8">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe9">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_86">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d9">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="respuesta3dframe10">
+                          <property name="frameShape">
+                           <enum>QFrame::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_87">
+                           <item row="0" column="0">
+                            <widget class="MlpWidget3D" name="respuesta3d10">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="minimumSize">
+                              <size>
+                               <width>500</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -5900,6 +6537,11 @@
   </customwidget>
   <customwidget>
    <class>MlpWidgetNoToolbar</class>
+   <extends>QGraphicsView</extends>
+   <header>mlpwidget</header>
+  </customwidget>
+  <customwidget>
+   <class>MlpWidget3D</class>
    <extends>QGraphicsView</extends>
    <header>mlpwidget</header>
   </customwidget>

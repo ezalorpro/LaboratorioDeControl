@@ -4,8 +4,8 @@ from handlers.analisisHandler import AnalisisHandler
 from handlers.PIDHandler import PIDHandler
 from handlers.FuzzyHandler import FuzzyHandler
 import json
+from pyvista import QtInteractor
 import os
-
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
