@@ -21,6 +21,7 @@ def FuzzyHandler(self):
     self.InputList = []
     self.OutputList = []
     self.RuleList = []
+    self.RuleEtiquetas = []
     
     self.fuzzInitController = FuzzyController
     
@@ -73,7 +74,8 @@ def crear_tabs(self):
     self.InputList = []
     self.OutputList = []
     self.RuleList = []
-
+    self.RuleEtiquetas = []
+    
     self.main.fuzzyTabWidget.removeTab(4)
     self.main.fuzzyTabWidget.removeTab(3)
     self.main.fuzzyTabWidget.removeTab(2)
@@ -439,6 +441,7 @@ def rule_list_agregar(self):
     for o, salida in enumerate(self.OutputList):
         Etiquetasout.append(self.outlists[o].currentItem().text())
     
+    self.RuleEtiquetas.append(copy.deepcopy([Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]))
     self.RuleList.append(self.fuzzController.agregar_regla(self, ni, no, Etiquetasin, Etiquetasout))
     self.main.rulelistWidget.addItem(str(self.RuleList[-1]))
 
@@ -448,6 +451,7 @@ def rule_list_eliminar(self):
     self.fuzzController.eliminar_regla(index_rule)
     self.main.rulelistWidget.takeItem(self.main.rulelistWidget.currentRow())
     del self.RuleList[index_rule]
+    del self.RuleEtiquetas[index_rule]
     
 
 def rule_list_cambiar(self):
@@ -465,6 +469,8 @@ def rule_list_cambiar(self):
     for o, salida in enumerate(self.OutputList):
         Etiquetasout.append(self.outlists[o].currentItem().text())
     
+    del self.RuleEtiquetas[index_rule]
+    self.RuleEtiquetas.insert(index_rule, copy.deepcopy([Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]))
     regla = self.fuzzController.cambiar_regla(self, ni, no, Etiquetasin, Etiquetasout, index_rule)
     self.main.rulelistWidget.takeItem(index_rule)
     self.main.rulelistWidget.insertItem(index_rule, str(regla))
@@ -474,7 +480,8 @@ def rule_list_cambiar(self):
     
 
 def finalizar_controlador(self):
-    self.fuzzController.crear_controlador()
+    self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
+    # self.fuzzController.crear_controlador()
     self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
     
     for it_f, ot_f in zip(self.intestframes, self.outtestframes):

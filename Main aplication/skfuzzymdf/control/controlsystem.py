@@ -648,9 +648,8 @@ class CrispValueCalculator(object):
 
             upsampled_mf = interp_membership(
                 self.var.universe, term.mf, new_universe)
-
             term_mfs[label] = np.minimum(term._cut, upsampled_mf)
-            np.maximum(output_mf, term_mfs[label], output_mf)
+            np.maximum(output_mf, term_mfs[label], out=output_mf)
 
         return new_universe, output_mf, term_mfs
 

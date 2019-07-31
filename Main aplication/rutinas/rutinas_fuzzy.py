@@ -13,14 +13,14 @@ import json
 class FuzzyController():
     
     def __init__(self, inputlist, outputlist, rulelist=[]):
-        print('hola')
         self.fuzz_inputs = self.crear_input(inputlist)
         self.fuzz_outputs = self.crear_output(outputlist)
-        self.rulelist = rulelist
+        self.rulelist = []
         self.crear_etiquetas_input(inputlist)
         self.crear_etiquetas_output(outputlist)
         
-        if len(self.rulelist) > 0:
+        if len(rulelist) > 0:
+            self.crear_reglas(rulelist)
             self.crear_controlador()           
         
     def crear_input(self, inputlist):
@@ -117,6 +117,46 @@ class FuzzyController():
         self.fuzz_outputs[o][eti['nombre']] = getattr(generatemf, eti['mf'])(self.fuzz_outputs[o].universe, *eti['definicion'])
         self.graficar_mf_out(window, o)
 
+    def crear_reglas(self, rulelistC):
+        for sets in rulelistC:
+            Etiquetasin, Etiquetasout, logica = copy.deepcopy(sets)
+            
+            Entradas = deque(self.fuzz_inputs)
+            Salidas = deque(self.fuzz_outputs)
+            
+            self.rulelist.append(fuzz.Rule())
+            
+            for i, etiqueta in enumerate(copy.copy(Etiquetasin)):
+                Etiquetasin.popleft()
+                if etiqueta != 'None':
+                    self.rulelist[-1].antecedent = Entradas[0][etiqueta]
+                    Entradas.popleft()
+                    break
+                Entradas.popleft()
+            else:
+                raise TypeError('Regla no valida')
+            
+            for i, etiqueta in enumerate(copy.copy(Etiquetasout)):
+                Etiquetasout.popleft()
+                if etiqueta != 'None':
+                    self.rulelist[-1].consequent = Salidas[0][etiqueta]
+                    Salidas.popleft()
+                    break
+                Salidas.popleft()
+            else:
+                raise TypeError('Regla no valida')
+            
+            for i, etiqueta in enumerate(Etiquetasin):
+                if etiqueta != 'None':
+                    if logica:
+                        self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & Entradas[i][etiqueta]
+                    else:
+                        self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | Entradas[i][etiqueta]
+
+            for o, etiqueta in enumerate(Etiquetasout):
+                if etiqueta != 'None':
+                    self.rulelist[-1].consequent.append(Salidas[o][etiqueta])
+    
     def agregar_regla(self, window, ni, no, Etiquetasin, Etiquetasout):
         
         Entradas = deque(self.fuzz_inputs)
@@ -253,37 +293,13 @@ if __name__ == "__main__":
                     'definicion': [0, 10, 11],
                 },
                 ],
-            'rango': [-10, 10],
-            'metadata': None
-        },
-        {
-            'nombre': 'd_error',
-            'numeroE': 3,
-            'etiquetas': [
-                {
-                    'nombre': 'bajo',
-                    'mf': 'trimf',
-                    'definicion': [-11, -10, 0],
-                },
-                {
-                    'nombre': 'medio',
-                    'mf': 'trimf',
-                    'definicion': [-10, 0, 10],
-                },
-                {
-                    'nombre': 'alto',
-                    'mf': 'trimf',
-                    'definicion': [0, 10, 11],
-                },
-                ],
-            'rango': [-10, 10],
-            'metadata': None
+            'rango': [-10, 10]
         }
     ]
     
     salidas = [
         {
-            'nombre': 'error',
+            'nombre': 'salida1',
             'numeroE': 3,
             'etiquetas': [
                 {
@@ -303,31 +319,21 @@ if __name__ == "__main__":
                 },
                 ],
             'rango': [-10, 10],
-            'metadata': None
-        },
-        {
-            'nombre': 'd_error',
-            'numeroE': 3,
-            'etiquetas': [
-                {
-                    'nombre': 'bajo',
-                    'mf': 'trimf',
-                    'definicion': [-11, -10, 0],
-                },
-                {
-                    'nombre': 'medio',
-                    'mf': 'trimf',
-                    'definicion': [-10, 0, 10],
-                },
-                {
-                    'nombre': 'alto',
-                    'mf': 'trimf',
-                    'definicion': [0, 10, 11],
-                },
-                ],
-            'rango': [-10, 10],
-            'metadata': None
+            'metodo': 'centroid'
         }
     ]
     
-    FuzzyController(entradas, salidas)
+    rulelist = []
+    Etiquetasin = [['bajo'], ['medio'], ['alto']]
+    Etiquetasout = [['alto'], ['bajo'], ['bajo']]
+    controlador = FuzzyController(entradas, salidas)
+    for i in range(3):
+        rulelist.append(controlador.agregar_regla(None, 1, 1, Etiquetasin[i], Etiquetasout[i]))
+        
+    controlador.rulelist = rulelist
+    controlador.crear_controlador()
+    
+    fig, ax = plt.subplots()
+    FuzzyVariableVisualizer(controlador.fuzz_inputs[0], 
+                                    fig, 
+                                    ax).view(controlador.Controlador, legend=False)
