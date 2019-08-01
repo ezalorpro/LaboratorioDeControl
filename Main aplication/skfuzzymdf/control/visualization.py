@@ -116,8 +116,11 @@ class FuzzyVariableVisualizer(object):
 
                 self.ax.plot([crisp_value] * 2, [0, y],
                              color='k', lw=3, label='crisp value')
-
-        return self.fig, self.ax
+            else:
+                crisp_value= 0
+        else:
+            crisp_value = 0
+        return crisp_value
 
     def _init_plot(self, legend):
         # Formatting: limits

@@ -264,11 +264,13 @@ class FuzzyController():
             
         for o, grafica in enumerate(window.outgraphs[:no]):
             grafica.canvas.axes.clear()
-            FuzzyVariableVisualizer(self.fuzz_outputs[o], 
+            value = FuzzyVariableVisualizer(self.fuzz_outputs[o], 
                                     grafica, 
                                     grafica.canvas.axes).view(self.Controlador, legend=False)
             grafica.canvas.axes.grid(color="lightgray")
             grafica.canvas.draw()
+            
+            window.outtestlabels[o].setText(window.OutputList[o]['nombre'] + f': {np.around(value, 3)}')
     
     def graficar_respuesta_2d(self, window, inrange, no):
         entrada = np.linspace(*inrange, 500)

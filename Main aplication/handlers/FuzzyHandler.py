@@ -468,7 +468,7 @@ def definicion_out(self):
     
     
 def round_list(lista):
-    return list(np.around(np.array(lista),2))
+    return list(np.around(np.array(lista),3))
 
 
 def rule_list_visualizacion(self):
@@ -609,10 +609,7 @@ def prueba_input(self):
         rmin, rmax = entrada['rango']
         values[i] = values[i]*(rmax - rmin)/1000 + rmin
         self.intestlabels[i].setText(entrada['nombre'] + f': {np.around(values[i], 3)}')
-    
-    for o, salida in  enumerate(self.OutputList[:no]):
-        self.outtestlabels[o].setText(salida['nombre'])
-    
+        
     self.fuzzController.prueba_de_controlador(self, values, ni, no)
     
 

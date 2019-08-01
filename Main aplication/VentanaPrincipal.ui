@@ -401,7 +401,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -3373,7 +3373,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>259</height>
+                   <height>157</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -4601,7 +4601,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>412</width>
+                   <width>111</width>
                    <height>2962</height>
                   </rect>
                  </property>
@@ -5353,7 +5353,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>412</width>
+                   <width>111</width>
                    <height>2632</height>
                   </rect>
                  </property>
@@ -5870,10 +5870,10 @@
                     <widget class="QWidget" name="scrollAreaWidgetContents_4">
                      <property name="geometry">
                       <rect>
-                       <x>-3721</x>
+                       <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>491</height>
+                       <height>109</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -6180,10 +6180,10 @@
                     <widget class="QWidget" name="scrollAreaWidgetContents_5">
                      <property name="geometry">
                       <rect>
-                       <x>-3826</x>
+                       <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>491</height>
+                       <height>109</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
