@@ -79,6 +79,7 @@ def FuzzyHandler(self):
 
 
 def crear_tabs(self):
+    
     self.main.inputNumber.blockSignals(True)
     self.main.outputNumber.blockSignals(True)
     
@@ -575,6 +576,7 @@ def rule_list_cambiar(self):
 def crear_controlador(self):
     if self.main.rulelistWidget.count():
         self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
+        self.RuleList = self.fuzzController.rulelist
         self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
         
         ni = len(self.InputList)

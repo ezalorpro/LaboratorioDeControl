@@ -9,7 +9,7 @@
                     "mf": "trimf",
                     "definicion": [
                         -10.0,
-                        -5.0,
+                        -10.0,
                         0.0
                     ]
                 },
@@ -17,9 +17,9 @@
                     "nombre": "etiqueta2",
                     "mf": "trimf",
                     "definicion": [
-                        -5.0,
+                        -10.0,
                         0.0,
-                        5.0
+                        10.0
                     ]
                 },
                 {
@@ -27,7 +27,7 @@
                     "mf": "trimf",
                     "definicion": [
                         0.0,
-                        5.0,
+                        10.0,
                         10.0
                     ]
                 }
@@ -46,7 +46,7 @@
                     "mf": "trimf",
                     "definicion": [
                         -10.0,
-                        -5.0,
+                        -10.0,
                         0.0
                     ]
                 },
@@ -54,9 +54,9 @@
                     "nombre": "etiqueta2",
                     "mf": "trimf",
                     "definicion": [
-                        -5.0,
+                        -10.0,
                         0.0,
-                        5.0
+                        10.0
                     ]
                 },
                 {
@@ -64,7 +64,7 @@
                     "mf": "trimf",
                     "definicion": [
                         0.0,
-                        5.0,
+                        10.0,
                         10.0
                     ]
                 }
@@ -85,7 +85,7 @@
                     "mf": "trimf",
                     "definicion": [
                         -10.0,
-                        -5.0,
+                        -10.0,
                         0.0
                     ]
                 },
@@ -93,9 +93,9 @@
                     "nombre": "etiqueta2",
                     "mf": "trimf",
                     "definicion": [
-                        -5.0,
+                        -10.0,
                         0.0,
-                        5.0
+                        10.0
                     ]
                 },
                 {
@@ -103,7 +103,7 @@
                     "mf": "trimf",
                     "definicion": [
                         0.0,
-                        5.0,
+                        10.0,
                         10.0
                     ]
                 }
@@ -112,7 +112,45 @@
                 -10,
                 10
             ],
-            "metodo": "centroid"
+            "metodo": "mom"
+        },
+        {
+            "nombre": "salida2",
+            "numeroE": 3,
+            "etiquetas": [
+                {
+                    "nombre": "etiqueta1",
+                    "mf": "trimf",
+                    "definicion": [
+                        -10.0,
+                        -10.0,
+                        0.0
+                    ]
+                },
+                {
+                    "nombre": "etiqueta2",
+                    "mf": "trimf",
+                    "definicion": [
+                        -10.0,
+                        0.0,
+                        10.0
+                    ]
+                },
+                {
+                    "nombre": "etiqueta3",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.0,
+                        10.0,
+                        10.0
+                    ]
+                }
+            ],
+            "rango": [
+                -10,
+                10
+            ],
+            "metodo": "mom"
         }
     ],
     [
@@ -134,45 +172,11 @@
                     "etiqueta1",
                     0,
                     1.0
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "etiqueta2",
-                    0,
-                    false
                 ],
                 [
-                    "etiqueta2",
+                    "etiqueta1",
                     1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "etiqueta3",
-                    0,
-                    0.5
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "etiqueta2",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "etiqueta2",
-                    0,
-                    0.25
+                    1.0
                 ]
             ],
             true
@@ -186,28 +190,6 @@
                 ],
                 [
                     "etiqueta2",
-                    1,
-                    true
-                ]
-            ],
-            [
-                [
-                    "etiqueta1",
-                    0,
-                    0.75
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "etiqueta3",
-                    0,
-                    true
-                ],
-                [
-                    "etiqueta3",
                     1,
                     false
                 ]
@@ -217,6 +199,146 @@
                     "etiqueta2",
                     0,
                     1.0
+                ],
+                [
+                    "etiqueta2",
+                    1,
+                    1.0
+                ]
+            ],
+            false
+        ],
+        [
+            [
+                [
+                    "etiqueta1",
+                    0,
+                    false
+                ],
+                [
+                    "etiqueta3",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "etiqueta3",
+                    0,
+                    0.5
+                ],
+                [
+                    "etiqueta3",
+                    1,
+                    0.5
+                ]
+            ],
+            false
+        ],
+        [
+            [
+                [
+                    "etiqueta2",
+                    0,
+                    false
+                ],
+                [
+                    "etiqueta1",
+                    1,
+                    true
+                ]
+            ],
+            [
+                [
+                    "etiqueta3",
+                    0,
+                    0.5
+                ],
+                [
+                    "etiqueta1",
+                    1,
+                    0.5
+                ]
+            ],
+            false
+        ],
+        [
+            [
+                [
+                    "etiqueta2",
+                    0,
+                    false
+                ],
+                [
+                    "etiqueta2",
+                    1,
+                    true
+                ]
+            ],
+            [
+                [
+                    "etiqueta2",
+                    0,
+                    0.5
+                ],
+                [
+                    "etiqueta2",
+                    1,
+                    0.5
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "etiqueta2",
+                    0,
+                    true
+                ],
+                [
+                    "etiqueta3",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "etiqueta1",
+                    0,
+                    0.5
+                ],
+                [
+                    "etiqueta3",
+                    1,
+                    0.5
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "etiqueta3",
+                    0,
+                    false
+                ],
+                [
+                    "etiqueta1",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "etiqueta1",
+                    0,
+                    0.25
+                ],
+                [
+                    "etiqueta3",
+                    1,
+                    0.25
                 ]
             ],
             true
@@ -227,13 +349,45 @@
                     "etiqueta3",
                     0,
                     true
+                ],
+                [
+                    "etiqueta2",
+                    1,
+                    true
                 ]
             ],
             [
                 [
-                    "etiqueta2",
+                    "etiqueta1",
                     0,
-                    0.2
+                    0.25
+                ],
+                [
+                    "etiqueta3",
+                    1,
+                    0.25
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "etiqueta3",
+                    0,
+                    false
+                ],
+                [
+                    "etiqueta3",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "etiqueta3",
+                    1,
+                    0.25
                 ]
             ],
             true

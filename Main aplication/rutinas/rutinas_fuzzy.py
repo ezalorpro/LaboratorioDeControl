@@ -148,7 +148,7 @@ class FuzzyController():
                         self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
             
             for o in Etiquetasout[1:len(Etiquetasout)]:
-                self.rulelist[-1].consequent(self.fuzz_inputs[o[1]][o[0]]%o[2])
+                self.rulelist[-1].consequent.append(self.fuzz_outputs[o[1]][o[0]]%o[2])
     
     def agregar_regla(self, window, ni, no, Etiquetasin, Etiquetasout):
         
@@ -178,7 +178,7 @@ class FuzzyController():
                     self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
         
         for o in Etiquetasout[1:len(Etiquetasout)]:
-            self.rulelist[-1].consequent(self.fuzz_inputs[o[1]][o[0]]%o[2])
+            self.rulelist[-1].consequent.append(self.fuzz_outputs[o[1]][o[0]]%o[2])
 
         return self.rulelist[-1]
     
@@ -213,7 +213,7 @@ class FuzzyController():
                     self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
         
         for o in Etiquetasout[1:len(Etiquetasout)]:
-            self.rulelist[index_rule].consequent(self.fuzz_inputs[o[1]][o[0]]%o[2])
+            self.rulelist[index_rule].consequent.append(self.fuzz_outputs[o[1]][o[0]]%o[2])
 
         return self.rulelist[index_rule]
     
