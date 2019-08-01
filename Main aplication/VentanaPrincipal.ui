@@ -401,7 +401,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -3370,10 +3370,10 @@
                 <widget class="QWidget" name="scrollAreaWidgetContents">
                  <property name="geometry">
                   <rect>
-                   <x>0</x>
+                   <x>-842</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>157</height>
+                   <height>259</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -4006,20 +4006,38 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight1">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="wrapping">
+                            <bool>false</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                          </spacer>
+                           <property name="prefix">
+                            <string/>
+                           </property>
+                           <property name="decimals">
+                            <number>2</number>
+                           </property>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
+                           </property>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="stepType">
+                            <enum>QAbstractSpinBox::DefaultStepType</enum>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4067,20 +4085,26 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_2">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight2">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4128,20 +4152,23 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_3">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight3">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4189,20 +4216,26 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_4">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight4">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4250,20 +4283,26 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_5">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight5">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4311,20 +4350,26 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_6">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight6">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4372,20 +4417,26 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_7">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight7">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4433,20 +4484,26 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_8">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight8">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4494,20 +4551,26 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_9">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight9">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4555,20 +4618,26 @@
                           </widget>
                          </item>
                          <item>
-                          <spacer name="horizontalSpacer_10">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
+                          <widget class="QDoubleSpinBox" name="outweight10">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
                            </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Fixed</enum>
+                           <property name="accelerated">
+                            <bool>true</bool>
                            </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>17</height>
-                            </size>
+                           <property name="maximum">
+                            <double>1.000000000000000</double>
                            </property>
-                          </spacer>
+                           <property name="singleStep">
+                            <double>0.010000000000000</double>
+                           </property>
+                           <property name="value">
+                            <double>1.000000000000000</double>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -4601,7 +4670,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>412</width>
                    <height>2962</height>
                   </rect>
                  </property>
@@ -5353,7 +5422,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>412</width>
                    <height>2632</height>
                   </rect>
                  </property>

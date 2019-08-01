@@ -57,7 +57,6 @@ def FuzzyHandler(self):
     self.main.etiquetaMfIn.currentIndexChanged.connect(lambda: seleccion_mf_in(self))
     self.main.etiquetaDefinicionIn.returnPressed.connect(lambda: definicion_in(self))
     
-    
     self.main.outputNumber.currentIndexChanged.connect(lambda: seleccion_salida(self))
     self.main.outputNombre.returnPressed.connect(lambda: nombre_salida(self))
     self.main.outputEtiquetasNum.returnPressed.connect(lambda: numero_de_etiquetas_out(self))
@@ -175,24 +174,24 @@ def EtiquetasDic_creator(self, j, erange):
 def guardar_controlador(self):
     
     if len(self.current_file) > 0:
-        with open(self.current_file, 'wb', ) as f:
-            pickle.dump([self.InputList, self.OutputList, self.RuleList, self.RuleEtiquetas], f)
+        with open(self.current_file, 'w', ) as f:
+            json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f)
     else:
         guardarcomo_controlador(self)
 
 def guardarcomo_controlador(self):
-    path_guardar = QtWidgets.QFileDialog.getSaveFileName(selectedFilter='*.pkl')
+    path_guardar = QtWidgets.QFileDialog.getSaveFileName(selectedFilter='*.json')
     if len(path_guardar[0]) > 1:
         self.current_file = path_guardar[0]
-        with open(path_guardar[0], 'wb', ) as f:
-            pickle.dump([self.InputList, self.OutputList, self.RuleList, self.RuleEtiquetas], f)
+        with open(path_guardar[0], 'w', ) as f:
+            json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f)
                        
 
 def cargar_controlador(self):
-    self.path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter='*.pkl')
+    self.path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter='*.json')
     if len(self.path_cargar[0]) > 1:
-        with open(self.path_cargar[0], 'rb', ) as f:
-            self.InputList, self.OutputList, self.RuleList, self.RuleEtiquetas = pickle.load(f) 
+        with open(self.path_cargar[0], 'r', ) as f:
+            self.InputList, self.OutputList, self.RuleEtiquetas = json.load(f) 
         
         self.main.guardarFuzzButton.setEnabled(True)
         self.main.guardarComoFuzzButton.setEnabled(True)
@@ -225,12 +224,14 @@ def cargar_controlador(self):
         self.main.outputNumber.blockSignals(False)
     
         self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
+        self.RuleList = self.fuzzController.rulelist
         
         seleccion_entrada(self)
         seleccion_salida(self)
         
         self.fuzzController.graficar_mf_in(self, 0)
         self.fuzzController.graficar_mf_out(self, 0)
+        
     
     
 def seleccion_entrada(self):
@@ -510,19 +511,25 @@ def rule_list_agregar(self):
     ni = len(self.InputList)
     no = len(self.OutputList)
     
-    Etiquetasin = deque([])
-    Etiquetasout = deque([])
+    Etiquetasin = []
+    Etiquetasout = []
     
     for i, entrada in enumerate(self.InputList):
-        Etiquetasin.append(self.inlists[i].currentItem().text())
+        if self.inlists[i].currentItem().text() != 'None':
+            Etiquetasin.append([self.inlists[i].currentItem().text(), i, self.innots[i].isChecked()])
     
     for o, salida in enumerate(self.OutputList):
-        Etiquetasout.append(self.outlists[o].currentItem().text())
+        if self.outlists[o].currentItem().text() != 'None':
+            Etiquetasout.append([self.outlists[o].currentItem().text(), o, self.outweights[o].value()])
     
-    self.RuleEtiquetas.append(copy.deepcopy([Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]))
-    self.RuleList.append(self.fuzzController.agregar_regla(self, ni, no, Etiquetasin, Etiquetasout))
-    self.main.rulelistWidget.addItem(str(self.RuleList[-1]))
-    self.main.rulelistWidget.setCurrentRow(len(self.RuleList) - 1)
+    if len(Etiquetasin) > 0 and len(Etiquetasout) > 0:
+        self.RuleEtiquetas.append(copy.deepcopy([Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]))
+        self.RuleList.append(self.fuzzController.agregar_regla(self, ni, no, Etiquetasin, Etiquetasout))
+        self.main.rulelistWidget.addItem(str(self.RuleList[-1]))
+        self.main.rulelistWidget.setCurrentRow(len(self.RuleList) - 1)
+    else:
+        self.error_dialog.setInformativeText("Regla no valida, debe contener al menos una entrada y una salida")
+        self.error_dialog.exec_()
 
 
 def rule_list_eliminar(self):
@@ -540,23 +547,29 @@ def rule_list_cambiar(self):
     ni = len(self.InputList)
     no = len(self.OutputList)
     
-    Etiquetasin = deque([])
-    Etiquetasout = deque([])
+    Etiquetasin = []
+    Etiquetasout = []
     
     for i, entrada in enumerate(self.InputList):
-        Etiquetasin.append(self.inlists[i].currentItem().text())
+        if self.inlists[i].currentItem().text() != 'None':
+            Etiquetasin.append([self.inlists[i].currentItem().text(), i, self.innots[i].isChecked()])
     
     for o, salida in enumerate(self.OutputList):
-        Etiquetasout.append(self.outlists[o].currentItem().text())
+        if self.outlists[o].currentItem().text() != 'None':
+            Etiquetasout.append([self.outlists[o].currentItem().text(), o, self.outweights[o].value()])
     
-    del self.RuleEtiquetas[index_rule]
-    self.RuleEtiquetas.insert(index_rule, copy.deepcopy([Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]))
-    regla = self.fuzzController.cambiar_regla(self, ni, no, Etiquetasin, Etiquetasout, index_rule)
-    self.main.rulelistWidget.takeItem(index_rule)
-    self.main.rulelistWidget.insertItem(index_rule, str(regla))
-    self.main.rulelistWidget.setCurrentRow(index_rule)
-    del self.RuleList[index_rule]
-    self.RuleList.insert(index_rule, regla)
+    if len(Etiquetasin) > 0 and len(Etiquetasout) > 0:
+        del self.RuleEtiquetas[index_rule]
+        self.RuleEtiquetas.insert(index_rule, copy.deepcopy([Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]))
+        regla = self.fuzzController.cambiar_regla(self, ni, no, Etiquetasin, Etiquetasout, index_rule)
+        self.main.rulelistWidget.takeItem(index_rule)
+        self.main.rulelistWidget.insertItem(index_rule, str(regla))
+        self.main.rulelistWidget.setCurrentRow(index_rule)
+        del self.RuleList[index_rule]
+        self.RuleList.insert(index_rule, regla)
+    else:
+        self.error_dialog.setInformativeText("Regla no valida, debe contener al menos una entrada y una salida")
+        self.error_dialog.exec_()
     
 
 def crear_controlador(self):
@@ -863,6 +876,20 @@ def crear_vectores_de_widgets(self):
         self.main.respuesta2d8,
         self.main.respuesta2d9,
         self.main.respuesta2d10,
+    ]
+    
+    self.outweights = [
+        
+        self.main.outweight1,
+        self.main.outweight2,
+        self.main.outweight3,
+        self.main.outweight4,
+        self.main.outweight5,
+        self.main.outweight6,
+        self.main.outweight7,
+        self.main.outweight8,
+        self.main.outweight9,
+        self.main.outweight10,
     ]
     
     

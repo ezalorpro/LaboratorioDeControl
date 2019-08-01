@@ -122,79 +122,63 @@ class FuzzyController():
         for sets in rulelistC:
             Etiquetasin, Etiquetasout, logica = copy.deepcopy(sets)
             
-            Entradas = deque(self.fuzz_inputs)
-            Salidas = deque(self.fuzz_outputs)
-            
             self.rulelist.append(fuzz.Rule())
+         
+            inetiqueta_ini, ni_ini, negacion_ini = Etiquetasin[0]
             
-            for i, etiqueta in enumerate(copy.copy(Etiquetasin)):
-                Etiquetasin.popleft()
-                if etiqueta != 'None':
-                    self.rulelist[-1].antecedent = Entradas[0][etiqueta]
-                    Entradas.popleft()
-                    break
-                Entradas.popleft()
+            if not negacion_ini:
+                self.rulelist[-1].antecedent = self.fuzz_inputs[ni_ini][inetiqueta_ini]
             else:
-                raise TypeError('Regla no valida')
+                self.rulelist[-1].antecedent = ~self.fuzz_inputs[ni_ini][inetiqueta_ini]
+                
+            outetiqueta_oni, no_ini, weight_ini = Etiquetasout[0]
             
-            for i, etiqueta in enumerate(copy.copy(Etiquetasout)):
-                Etiquetasout.popleft()
-                if etiqueta != 'None':
-                    self.rulelist[-1].consequent = Salidas[0][etiqueta]%1.0
-                    Salidas.popleft()
-                    break
-                Salidas.popleft()
-            else:
-                raise TypeError('Regla no valida')
+            self.rulelist[-1].consequent = self.fuzz_outputs[no_ini][outetiqueta_oni]%weight_ini
             
-            for i, etiqueta in enumerate(Etiquetasin):
-                if etiqueta != 'None':
-                    if logica:
-                        self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & Entradas[i][etiqueta]
+            for i in Etiquetasin[1:len(Etiquetasin)]:
+                if logica:
+                    if not i[2]:
+                        self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & self.fuzz_inputs[i[1]][i[0]]
                     else:
-                        self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | Entradas[i][etiqueta]
-
-            for o, etiqueta in enumerate(Etiquetasout):
-                if etiqueta != 'None':
-                    self.rulelist[-1].consequent.append(Salidas[o][etiqueta]%1.0)
+                        self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & ~self.fuzz_inputs[i[1]][i[0]]
+                else:
+                    if not i[2]:
+                        self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | self.fuzz_inputs[i[1]][i[0]]
+                    else:
+                        self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
+            
+            for o in Etiquetasout[1:len(Etiquetasout)]:
+                self.rulelist[-1].consequent(self.fuzz_inputs[o[1]][o[0]]%o[2])
     
     def agregar_regla(self, window, ni, no, Etiquetasin, Etiquetasout):
         
-        Entradas = deque(self.fuzz_inputs)
-        Salidas = deque(self.fuzz_outputs)
-        
         self.rulelist.append(fuzz.Rule())
+         
+        inetiqueta_ini, ni_ini, negacion_ini = Etiquetasin[0]
         
-        for i, etiqueta in enumerate(copy.copy(Etiquetasin)):
-            Etiquetasin.popleft()
-            if etiqueta != 'None':
-                self.rulelist[-1].antecedent = Entradas[0][etiqueta]
-                Entradas.popleft()
-                break
-            Entradas.popleft()
+        if not negacion_ini:
+            self.rulelist[-1].antecedent = self.fuzz_inputs[ni_ini][inetiqueta_ini]
         else:
-            raise TypeError('Regla no valida')
+            self.rulelist[-1].antecedent = ~self.fuzz_inputs[ni_ini][inetiqueta_ini]
+            
+        outetiqueta_oni, no_ini, weight_ini = Etiquetasout[0]
         
-        for i, etiqueta in enumerate(copy.copy(Etiquetasout)):
-            Etiquetasout.popleft()
-            if etiqueta != 'None':
-                self.rulelist[-1].consequent = Salidas[0][etiqueta]
-                Salidas.popleft()
-                break
-            Salidas.popleft()
-        else:
-            raise TypeError('Regla no valida')
+        self.rulelist[-1].consequent = self.fuzz_outputs[no_ini][outetiqueta_oni]%weight_ini
         
-        for i, etiqueta in enumerate(Etiquetasin):
-            if etiqueta != 'None':
-                if window.main.andradioButton.isChecked():
-                    self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & Entradas[i][etiqueta]
+        for i in Etiquetasin[1:len(Etiquetasin)]:
+            if window.main.andradioButton.isChecked():
+                if not i[2]:
+                    self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & self.fuzz_inputs[i[1]][i[0]]
                 else:
-                    self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | Entradas[i][etiqueta]
-
-        for o, etiqueta in enumerate(Etiquetasout):
-            if etiqueta != 'None':
-                self.rulelist[-1].consequent.append(Salidas[o][etiqueta])
+                    self.rulelist[-1].antecedent = self.rulelist[-1].antecedent & ~self.fuzz_inputs[i[1]][i[0]]
+            else:
+                if not i[2]:
+                    self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | self.fuzz_inputs[i[1]][i[0]]
+                else:
+                    self.rulelist[-1].antecedent = self.rulelist[-1].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
+        
+        for o in Etiquetasout[1:len(Etiquetasout)]:
+            self.rulelist[-1].consequent(self.fuzz_inputs[o[1]][o[0]]%o[2])
 
         return self.rulelist[-1]
     
@@ -202,42 +186,34 @@ class FuzzyController():
         del self.rulelist[index_rule]
     
     def cambiar_regla(self, window, ni, no, Etiquetasin, Etiquetasout, index_rule):
-        
-        Entradas = deque(self.fuzz_inputs)
-        Salidas = deque(self.fuzz_outputs)
         del self.rulelist[index_rule]
         self.rulelist.insert(index_rule, fuzz.Rule())
         
-        for i, etiqueta in enumerate(copy.copy(Etiquetasin)):
-            Etiquetasin.popleft()
-            if etiqueta != 'None':
-                self.rulelist[index_rule].antecedent = Entradas[0][etiqueta]
-                Entradas.popleft()
-                break
-            Entradas.popleft()
-        else:
-            raise TypeError('Regla no valida')
+        inetiqueta_ini, ni_ini, negacion_ini = Etiquetasin[0]
         
-        for i, etiqueta in enumerate(copy.copy(Etiquetasout)):
-            Etiquetasout.popleft()
-            if etiqueta != 'None':
-                self.rulelist[index_rule].consequent = Salidas[0][etiqueta]
-                Salidas.popleft()
-                break
-            Salidas.popleft()
+        if not negacion_ini:
+            self.rulelist[index_rule].antecedent = self.fuzz_inputs[ni_ini][inetiqueta_ini]
         else:
-            raise TypeError('Regla no valida')
+            self.rulelist[index_rule].antecedent = ~self.fuzz_inputs[ni_ini][inetiqueta_ini]
+            
+        outetiqueta_oni, no_ini, weight_ini = Etiquetasout[0]
         
-        for i, etiqueta in enumerate(Etiquetasin):
-            if etiqueta != 'None':
-                if window.main.andradioButton.isChecked():
-                    self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent & Entradas[i][etiqueta]
+        self.rulelist[index_rule].consequent = self.fuzz_outputs[no_ini][outetiqueta_oni]%weight_ini
+        
+        for i in Etiquetasin[1:len(Etiquetasin)]:
+            if window.main.andradioButton.isChecked():
+                if not i[2]:
+                    self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent & self.fuzz_inputs[i[1]][i[0]]
                 else:
-                    self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent | Entradas[i][etiqueta]
-
-        for o, etiqueta in enumerate(Etiquetasout):
-            if etiqueta != 'None':
-                self.rulelist[index_rule].consequent.append(Salidas[o][etiqueta])
+                    self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent & ~self.fuzz_inputs[i[1]][i[0]]
+            else:
+                if not i[2]:
+                    self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent | self.fuzz_inputs[i[1]][i[0]]
+                else:
+                    self.rulelist[index_rule].antecedent = self.rulelist[index_rule].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
+        
+        for o in Etiquetasout[1:len(Etiquetasout)]:
+            self.rulelist[index_rule].consequent(self.fuzz_inputs[o[1]][o[0]]%o[2])
 
         return self.rulelist[index_rule]
     
