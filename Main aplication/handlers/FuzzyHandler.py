@@ -78,6 +78,8 @@ def FuzzyHandler(self):
 
 def crear_tabs(self):
     
+    self.setWindowTitle('Laboratorio de sistemas de control - Nuevo controlador sin guardar*')
+    
     self.main.inputNumber.blockSignals(True)
     self.main.outputNumber.blockSignals(True)
     
@@ -184,6 +186,7 @@ def guardarcomo_controlador(self):
         self.current_file = path_guardar[0]
         with open(path_guardar[0], 'w', ) as f:
             json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f)
+            self.setWindowTitle("Laboratorio de sistemas de control - " + path_guardar[0].split('/')[-1])
                        
 
 def cargar_controlador(self):
@@ -230,6 +233,8 @@ def cargar_controlador(self):
         
         self.fuzzController.graficar_mf_in(self, 0)
         self.fuzzController.graficar_mf_out(self, 0)
+        
+        self.setWindowTitle("Laboratorio de sistemas de control - " + self.path_cargar[0].split('/')[-1])
         
 
 def seleccion_entrada(self):
