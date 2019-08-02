@@ -6,6 +6,7 @@ from handlers.FuzzyHandler import FuzzyHandler
 import json
 import os
 
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
 
