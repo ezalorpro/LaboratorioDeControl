@@ -22,7 +22,7 @@ class FuzzyController():
         
         if len(rulelist) > 0:
             self.crear_reglas(rulelist)
-            self.crear_controlador()           
+            self.crear_controlador()     
         
     def crear_input(self, inputlist):
         vector = []
@@ -274,7 +274,7 @@ class FuzzyController():
             window.respuesta2ds[i].toolbar.update()
             
     def graficar_respuesta_3d(self, window, inrange1, inrange2, no):
-        n_puntos = 30
+        n_puntos = 20
         entrada1 = np.linspace(*inrange1, n_puntos)
         entrada2 = np.linspace(*inrange2, n_puntos)
         entrada1, entrada2 = np.meshgrid(entrada1, entrada2)

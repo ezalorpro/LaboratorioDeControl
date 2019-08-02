@@ -222,4 +222,4 @@ class FuzzyVariable(object):
 
         # Repopulate
         for name, abc in zip(names, abcs):
-            self[name] = trimf(self.universe, abc)
+            self[name] = trimf(self.universe, *abc)

@@ -2,10 +2,7 @@ from rutinas.rutinas_fuzzy import *
 from handlers.modificadorMf import update_definicionmf
 from rutinas.rutinas_fuzzy import FuzzyController
 from PySide2 import QtCore, QtGui, QtWidgets
-from collections import deque
-import pickle
 import json
-import pprint
 
 
 def FuzzyHandler(self):
@@ -69,6 +66,7 @@ def FuzzyHandler(self):
     self.main.etiquetaDefinicionOut.returnPressed.connect(lambda: definicion_out(self))
     
     self.main.fuzzyTabWidget.currentChanged.connect(lambda: rule_list_visualizacion(self))
+    self.main.rulelistWidget.currentRowChanged.connect(lambda: seleccionar_etiquetas(self))
     self.main.ruleAgregarButton.clicked.connect(lambda: rule_list_agregar(self))
     self.main.ruleEliminarButton.clicked.connect(lambda: rule_list_eliminar(self))
     self.main.ruleCambiarButton.clicked.connect(lambda: rule_list_cambiar(self))
@@ -225,7 +223,7 @@ def cargar_controlador(self):
         self.main.outputNumber.blockSignals(False)
     
         self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
-        self.RuleList = self.fuzzController.rulelist
+        self.RuleList = copy.deepcopy(self.fuzzController.rulelist)
         
         seleccion_entrada(self)
         seleccion_salida(self)
@@ -233,8 +231,7 @@ def cargar_controlador(self):
         self.fuzzController.graficar_mf_in(self, 0)
         self.fuzzController.graficar_mf_out(self, 0)
         
-    
-    
+
 def seleccion_entrada(self):
     ni = self.main.inputNumber.currentIndex()
     self.main.inputNombre.setText(self.InputList[ni]['nombre'])
@@ -476,6 +473,8 @@ def round_list(lista):
 def rule_list_visualizacion(self):
     if self.main.fuzzyTabWidget.currentIndex() == 3:
         
+        self.main.rulelistWidget.blockSignals(True)
+        
         self.main.rulelistWidget.clear()
         
         for regla in self.RuleList:
@@ -506,7 +505,50 @@ def rule_list_visualizacion(self):
                 self.outlists[o].addItem(etiqueta['nombre'])
             self.outlists[o].addItem('None')
             self.outlists[o].setCurrentRow(0)
+        
+        self.main.rulelistWidget.blockSignals(False)
+        seleccionar_etiquetas(self)
 
+
+def seleccionar_etiquetas(self):
+    if len(self.RuleEtiquetas) > 0:
+        ni = len(self.InputList)
+        no = len(self.OutputList)
+        
+        ruleindex = self.main.rulelistWidget.currentRow()
+        Etiquetasin, Etiquetasout, logica = self.RuleEtiquetas[ruleindex]
+        
+        if logica:
+            self.main.andradioButton.setChecked(True)
+        else:
+            self.main.orradioButton.setChecked(True)
+            
+        for index in range(ni):
+            for Etiquetasin2 in Etiquetasin:
+                if Etiquetasin2[1] == index:
+                    item = self.inlists[index].findItems(Etiquetasin2[0], QtCore.Qt.MatchExactly)
+                    self.inlists[index].setCurrentItem(item[-1])
+                    if Etiquetasin2[2]:
+                        self.innots[index].setChecked(True)
+                    else:
+                        self.innots[index].setChecked(False)
+                    break
+            else:
+                item = self.inlists[index].findItems('None', QtCore.Qt.MatchExactly)
+                self.inlists[index].setCurrentItem(item[-1])
+                self.innots[index].setChecked(False)
+                
+        for index in range(no):
+            for Etiquetasout2 in Etiquetasout:
+                if Etiquetasout2[1] == index:
+                    item = self.outlists[index].findItems(Etiquetasout2[0], QtCore.Qt.MatchExactly)
+                    self.outlists[index].setCurrentItem(item[-1])
+                    self.outweights[index].setValue(Etiquetasout2[2])
+                    break
+            else:
+                item = self.outlists[index].findItems('None', QtCore.Qt.MatchExactly)
+                self.outlists[index].setCurrentItem(item[-1])
+                
 
 def rule_list_agregar(self):
     ni = len(self.InputList)
@@ -576,7 +618,7 @@ def rule_list_cambiar(self):
 def crear_controlador(self):
     if self.main.rulelistWidget.count():
         self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
-        self.RuleList = self.fuzzController.rulelist
+        self.RuleList = copy.deepcopy(self.fuzzController.rulelist)
         self.main.fuzzyTabWidget.addTab(self.PruebaTab, 'Prueba')
         
         ni = len(self.InputList)

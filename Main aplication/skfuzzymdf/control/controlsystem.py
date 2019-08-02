@@ -7,8 +7,8 @@ import numpy as np
 import networkx as nx
 from warnings import warn
 
-from ..fuzzymath.fuzzy_ops import _interp_universe_fast
-from skfuzzy import interp_membership, defuzz
+from ..fuzzymath.fuzzy_ops import _interp_universe_fast, interp_membership
+from ..defuzzify import defuzz
 from .fuzzyvariable import FuzzyVariable
 from .antecedent_consequent import Antecedent, Consequent
 from .term import Term, WeightedTerm, TermAggregate

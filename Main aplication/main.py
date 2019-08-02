@@ -4,7 +4,6 @@ from handlers.analisisHandler import AnalisisHandler
 from handlers.PIDHandler import PIDHandler
 from handlers.FuzzyHandler import FuzzyHandler
 import json
-from pyvista import QtInteractor
 import os
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -28,7 +27,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         AnalisisHandler(self)
         PIDHandler(self)        
         FuzzyHandler(self)
-
+        
     def resource_path(self, relative_path):
             base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
             return os.path.join(base_path, relative_path)
