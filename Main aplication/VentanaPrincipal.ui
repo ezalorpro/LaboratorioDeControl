@@ -167,6 +167,12 @@
   <property name="windowTitle">
    <string>Laboratorio de sistemas de control</string>
   </property>
+  <property name="accessibleName">
+   <string comment="asdads" extracomment="adsadsds"/>
+  </property>
+  <property name="accessibleDescription">
+   <string comment="asd" extracomment="asd"/>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>
@@ -1020,7 +1026,7 @@
              <bool>true</bool>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <property name="documentMode">
              <bool>false</bool>
@@ -2381,7 +2387,7 @@
              <enum>QTabWidget::North</enum>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>0</number>
             </property>
             <property name="elideMode">
              <enum>Qt::ElideNone</enum>
@@ -2397,15 +2403,15 @@
               <string>Estructura</string>
              </attribute>
              <layout class="QGridLayout" name="gridLayout_18">
-              <item row="0" column="1">
-               <widget class="QGraphicsView" name="graphicsView_2"/>
-              </item>
               <item row="0" column="0">
                <widget class="QGraphicsView" name="graphicsView">
                 <property name="dragMode">
                  <enum>QGraphicsView::NoDrag</enum>
                 </property>
                </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QGraphicsView" name="graphicsView_2"/>
               </item>
              </layout>
             </widget>
@@ -2521,6 +2527,30 @@
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="focusPolicy">
+                     <enum>Qt::StrongFocus</enum>
+                    </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::DefaultContextMenu</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string/>
+                    </property>
+                    <property name="toolTipDuration">
+                     <number>-1</number>
+                    </property>
+                    <property name="statusTip">
+                     <string/>
+                    </property>
+                    <property name="whatsThis">
+                     <string/>
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhNone</set>
+                    </property>
+                    <property name="inputMask">
+                     <string/>
+                    </property>
                     <property name="text">
                      <string>entrada1</string>
                     </property>
@@ -2529,6 +2559,9 @@
                     </property>
                     <property name="placeholderText">
                      <string>Titulo de la entrada</string>
+                    </property>
+                    <property name="clearButtonEnabled">
+                     <bool>false</bool>
                     </property>
                    </widget>
                   </item>
@@ -3370,10 +3403,10 @@
                 <widget class="QWidget" name="scrollAreaWidgetContents">
                  <property name="geometry">
                   <rect>
-                   <x>-757</x>
+                   <x>0</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>259</height>
+                   <height>262</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -3402,7 +3435,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel1">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3466,7 +3499,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel2">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3527,7 +3560,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel3">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3571,7 +3604,7 @@
                     <item>
                      <widget class="QFrame" name="inframe4">
                       <property name="sizePolicy">
-                       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                         <horstretch>0</horstretch>
                         <verstretch>0</verstretch>
                        </sizepolicy>
@@ -3588,7 +3621,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel4">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3649,7 +3682,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel5">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3693,7 +3726,7 @@
                     <item>
                      <widget class="QFrame" name="inframe6">
                       <property name="sizePolicy">
-                       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                         <horstretch>0</horstretch>
                         <verstretch>0</verstretch>
                        </sizepolicy>
@@ -3710,7 +3743,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel6">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3771,7 +3804,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel7">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3832,7 +3865,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel8">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3893,7 +3926,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel9">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -3957,7 +3990,7 @@
                          <item>
                           <widget class="QLabel" name="inlabel10">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4018,7 +4051,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel1">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4100,7 +4133,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel2">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4170,7 +4203,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel3">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4237,7 +4270,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel4">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4307,7 +4340,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel5">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4377,7 +4410,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel6">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4447,7 +4480,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel7">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4517,7 +4550,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel8">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4587,7 +4620,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel9">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4657,7 +4690,7 @@
                          <item>
                           <widget class="QLabel" name="outlabel10">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -4733,7 +4766,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>412</width>
+                   <width>111</width>
                    <height>2962</height>
                   </rect>
                  </property>
@@ -5485,7 +5518,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>412</width>
+                   <width>111</width>
                    <height>2632</height>
                   </rect>
                  </property>
@@ -6702,8 +6735,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>934</x>
-     <y>569</y>
+     <x>1088</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
      <x>421</x>
@@ -6718,8 +6751,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>934</x>
-     <y>539</y>
+     <x>1088</x>
+     <y>558</y>
     </hint>
     <hint type="destinationlabel">
      <x>421</x>
@@ -6734,8 +6767,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>934</x>
-     <y>599</y>
+     <x>1088</x>
+     <y>618</y>
     </hint>
     <hint type="destinationlabel">
      <x>421</x>
@@ -6782,12 +6815,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>134</y>
+     <x>66</x>
+     <y>127</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>134</y>
+     <x>110</x>
+     <y>127</y>
     </hint>
    </hints>
   </connection>
@@ -6798,12 +6831,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>134</y>
+     <x>66</x>
+     <y>125</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>134</y>
+     <x>110</x>
+     <y>125</y>
     </hint>
    </hints>
   </connection>
@@ -6830,12 +6863,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>134</y>
+     <x>66</x>
+     <y>127</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>134</y>
+     <x>110</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -6846,12 +6879,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>134</y>
+     <x>66</x>
+     <y>125</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>134</y>
+     <x>110</x>
+     <y>126</y>
     </hint>
    </hints>
   </connection>
@@ -6894,12 +6927,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>134</y>
+     <x>66</x>
+     <y>128</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>134</y>
+     <x>110</x>
+     <y>128</y>
     </hint>
    </hints>
   </connection>
@@ -6926,12 +6959,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>134</y>
+     <x>66</x>
+     <y>123</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>134</y>
+     <x>110</x>
+     <y>123</y>
     </hint>
    </hints>
   </connection>
@@ -6958,12 +6991,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>134</y>
+     <x>66</x>
+     <y>125</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>134</y>
+     <x>110</x>
+     <y>125</y>
     </hint>
    </hints>
   </connection>
@@ -6974,12 +7007,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>541</y>
+     <x>51</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
-     <x>117</x>
-     <y>488</y>
+     <x>196</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -6990,12 +7023,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>541</y>
+     <x>51</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>540</y>
+     <x>196</x>
+     <y>133</y>
     </hint>
    </hints>
   </connection>
@@ -7006,12 +7039,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>541</y>
+     <x>51</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
-     <x>117</x>
-     <y>514</y>
+     <x>196</x>
+     <y>107</y>
     </hint>
    </hints>
   </connection>

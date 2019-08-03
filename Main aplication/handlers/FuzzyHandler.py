@@ -77,68 +77,72 @@ def FuzzyHandler(self):
 
 
 def crear_tabs(self):
-    
-    self.setWindowTitle('Laboratorio de sistemas de control - Nuevo controlador sin guardar*')
-    
-    self.main.inputNumber.blockSignals(True)
-    self.main.outputNumber.blockSignals(True)
-    
-    self.current_file = ''
-    self.InputList = []
-    self.OutputList = []
-    self.RuleList = []
-    self.RuleEtiquetas = []
-    
-    self.main.guardarFuzzButton.setEnabled(True)
-    self.main.guardarComoFuzzButton.setEnabled(True)
-    
-    self.main.fuzzyTabWidget.removeTab(5)
-    self.main.fuzzyTabWidget.removeTab(4)
-    self.main.fuzzyTabWidget.removeTab(3)
-    self.main.fuzzyTabWidget.removeTab(2)
-    self.main.fuzzyTabWidget.removeTab(1)
-    
-    self.main.fuzzyTabWidget.addTab(self.EntradasTab, 'Entradas')
-    self.main.fuzzyTabWidget.addTab(self.SalidasTab, 'Salidas')
-    self.main.fuzzyTabWidget.addTab(self.ReglasTab, 'Reglas')
-    
-    NumeroEntradas = int(self.main.estrucNumberInputs.currentText())
-    NumeroSalidas = int(self.main.estrucNumberOutputs.currentText())
-    
-    self.main.inputNumber.clear()
-    self.main.outputNumber.clear()
+    if not self.main.fuzzyEsquemasCheck.isChecked():
+        self.setWindowTitle('Laboratorio de sistemas de control - Nuevo controlador sin guardar*')
+        
+        self.main.inputNumber.blockSignals(True)
+        self.main.outputNumber.blockSignals(True)
+        self.main.inputNombre.setReadOnly(False)
+        self.main.outputNombre.setReadOnly(False)
+        
+        self.current_file = ''
+        self.InputList = []
+        self.OutputList = []
+        self.RuleList = []
+        self.RuleEtiquetas = []
+        
+        self.main.guardarFuzzButton.setEnabled(True)
+        self.main.guardarComoFuzzButton.setEnabled(True)
+        
+        self.main.fuzzyTabWidget.removeTab(5)
+        self.main.fuzzyTabWidget.removeTab(4)
+        self.main.fuzzyTabWidget.removeTab(3)
+        self.main.fuzzyTabWidget.removeTab(2)
+        self.main.fuzzyTabWidget.removeTab(1)
+        
+        self.main.fuzzyTabWidget.addTab(self.EntradasTab, 'Entradas')
+        self.main.fuzzyTabWidget.addTab(self.SalidasTab, 'Salidas')
+        self.main.fuzzyTabWidget.addTab(self.ReglasTab, 'Reglas')
+        
+        NumeroEntradas = int(self.main.estrucNumberInputs.currentText())
+        NumeroSalidas = int(self.main.estrucNumberOutputs.currentText())
+        
+        self.main.inputNumber.clear()
+        self.main.outputNumber.clear()
 
-    for i in range(NumeroEntradas):
-        self.main.inputNumber.insertItem(i, str(i+1))
-        temp_dic = inputDic_creator(self, NumeroEntradas, i)
-        self.InputList.append(temp_dic)
-        ini_range_etiquetas = np.arange(-10, 11, 20/4).tolist()
-        window = 0
-        for j in range(self.InputList[i]['numeroE']):
-            self.InputList[i]['etiquetas'][j] = EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window+3])
-            window += 1
-    
-    for i in range(NumeroSalidas):
-        self.main.outputNumber.insertItem(i, str(i+1))
-        temp_dic = outputDic_creator(self, NumeroSalidas, i)
-        self.OutputList.append(temp_dic)
-        ini_range_etiquetas = np.arange(-10, 11, 20/4).tolist()
-        window = 0
-        for j in range(self.OutputList[i]['numeroE']):
-            self.OutputList[i]['etiquetas'][j] = EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window+3])
-            window += 1
-                    
-    self.main.inputNumber.blockSignals(False)
-    self.main.outputNumber.blockSignals(False)
-    
-    self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList)
-    
-    seleccion_entrada(self)
-    seleccion_salida(self)
-    
-    self.fuzzController.graficar_mf_in(self, 0)
-    self.fuzzController.graficar_mf_out(self, 0)
-
+        for i in range(NumeroEntradas):
+            self.main.inputNumber.insertItem(i, str(i+1))
+            temp_dic = inputDic_creator(self, NumeroEntradas, i)
+            self.InputList.append(temp_dic)
+            ini_range_etiquetas = np.arange(-10, 11, 20/4).tolist()
+            window = 0
+            for j in range(self.InputList[i]['numeroE']):
+                self.InputList[i]['etiquetas'][j] = EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window+3])
+                window += 1
+        
+        for i in range(NumeroSalidas):
+            self.main.outputNumber.insertItem(i, str(i+1))
+            temp_dic = outputDic_creator(self, NumeroSalidas, i)
+            self.OutputList.append(temp_dic)
+            ini_range_etiquetas = np.arange(-10, 11, 20/4).tolist()
+            window = 0
+            for j in range(self.OutputList[i]['numeroE']):
+                self.OutputList[i]['etiquetas'][j] = EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window+3])
+                window += 1
+                        
+        self.main.inputNumber.blockSignals(False)
+        self.main.outputNumber.blockSignals(False)
+        
+        self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList)
+        
+        seleccion_entrada(self)
+        seleccion_salida(self)
+        
+        self.fuzzController.graficar_mf_in(self, 0)
+        self.fuzzController.graficar_mf_out(self, 0)
+    else:
+        cargar_esquema(self)
+        
 
 def inputDic_creator(self, NumeroEntradas, i):
     inputDic = {
@@ -171,6 +175,54 @@ def EtiquetasDic_creator(self, j, erange):
     }
     return etiquetaDic
 
+def cargar_esquema(self):
+    path = self.resource_path('Esquemas/' + self.main.fuzzyEsquemas.currentText() + '.json')
+    with open(path, 'r', ) as f:
+        self.InputList, self.OutputList, self.RuleEtiquetas = json.load(f) 
+    
+    self.main.inputNombre.setReadOnly(True)
+    self.main.outputNombre.setReadOnly(True)
+
+    self.main.guardarFuzzButton.setEnabled(True)
+    self.main.guardarComoFuzzButton.setEnabled(True)
+
+    self.current_file = ''
+    
+    self.main.inputNumber.blockSignals(True)
+    self.main.outputNumber.blockSignals(True)
+
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
+    self.main.fuzzyTabWidget.removeTab(3)
+    self.main.fuzzyTabWidget.removeTab(2)
+    self.main.fuzzyTabWidget.removeTab(1)
+    
+    self.main.fuzzyTabWidget.addTab(self.EntradasTab, 'Entradas')
+    self.main.fuzzyTabWidget.addTab(self.SalidasTab, 'Salidas')
+    self.main.fuzzyTabWidget.addTab(self.ReglasTab, 'Reglas')
+
+    self.main.inputNumber.clear()
+    self.main.outputNumber.clear()
+    
+    for i in range(len(self.InputList)):
+        self.main.inputNumber.insertItem(i, str(i+1))
+    
+    for i in range(len(self.OutputList)):
+        self.main.outputNumber.insertItem(i, str(i+1))
+    
+    self.main.inputNumber.blockSignals(False)
+    self.main.outputNumber.blockSignals(False)
+
+    self.fuzzController = self.fuzzInitController(self.InputList, self.OutputList, self.RuleEtiquetas)
+    self.RuleList = copy.deepcopy(self.fuzzController.rulelist)
+    
+    seleccion_entrada(self)
+    seleccion_salida(self)
+    
+    self.fuzzController.graficar_mf_in(self, 0)
+    self.fuzzController.graficar_mf_out(self, 0)
+    
+    self.setWindowTitle('Laboratorio de sistemas de control - Nuevo controlador sin guardar*')
 
 def guardar_controlador(self):
     
@@ -197,6 +249,8 @@ def cargar_controlador(self):
         
         self.main.guardarFuzzButton.setEnabled(True)
         self.main.guardarComoFuzzButton.setEnabled(True)
+        self.main.inputNombre.setReadOnly(False)
+        self.main.outputNombre.setReadOnly(False)
     
         self.current_file = copy.deepcopy(self.path_cargar[0])
         
