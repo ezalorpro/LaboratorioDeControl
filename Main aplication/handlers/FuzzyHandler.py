@@ -492,9 +492,10 @@ def seleccion_mf_in(self):
     definicion = self.InputList[ni]['etiquetas'][ne]['definicion']
     self.InputList[ni]['etiquetas'][ne]['mf'] = self.main.etiquetaMfIn.currentText()
     new_mf = self.InputList[ni]['etiquetas'][ne]['mf']
-    new_definicion = update_definicionmf(self, old_mf, definicion, new_mf)
+    new_definicion, tooltip = update_definicionmf(self, old_mf, definicion, new_mf)
     new_definicion = round_list(new_definicion)
     self.main.etiquetaDefinicionIn.setText(str(new_definicion))
+    self.main.etiquetaDefinicionIn.setToolTip(tooltip)
     definicion_in(self)
  
     
@@ -512,9 +513,10 @@ def seleccion_mf_out(self):
     definicion = self.OutputList[no]['etiquetas'][ne]['definicion']
     self.OutputList[no]['etiquetas'][ne]['mf'] = self.main.etiquetaMfOut.currentText()
     new_mf = self.OutputList[no]['etiquetas'][ne]['mf']
-    new_definicion = update_definicionmf(self, old_mf, definicion, new_mf)
+    new_definicion, tooltip = update_definicionmf(self, old_mf, definicion, new_mf)
     new_definicion = round_list(new_definicion)
     self.main.etiquetaDefinicionOut.setText(str(new_definicion))
+    self.main.etiquetaDefinicionOut.setToolTip(tooltip)
     definicion_out(self)
 
 
