@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtGui, QtCore
+import time 
 
 a, b, c = json.load(open("datosFill"))
 
@@ -30,14 +31,29 @@ mw.show()
 
 c1 = pw.plot(np.asarray([0, 5, 10]),np.asarray([0, 1, 0]), pen=0)
 c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen=1)
+c3 = pw.plot(np.asarray([1.2, 1.2]), [0, 0.235], pen={'width': 6, 'color':'k'})
+top1 = pw.plot(np.array(a), np.array(b))
+top2 = pw.plot(np.array(a), np.array(c))
+
+fill = pg.FillBetweenItem(top1, top2, brush=(60, 10, 80, 102))
+pw.addItem(fill)
+pw.enableMouse(False)
+
+pw = pg.PlotWidget(name='Plot1')  ## giving the plots names allows us to link their axes together
+
+
+c1 = pw.plot(np.asarray([-2, 5, 10]),np.asarray([0, 1, 0]), pen=0)
+c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen=1)
 
 top1 = pw.plot(np.array(a), np.array(b))
 top2 = pw.plot(np.array(a), np.array(c))
 
-fill = pg.FillBetweenItem(top1, top2, 0)
+fill = pg.FillBetweenItem(top1, top2, (200, 100, 100, 100))
 pw.addItem(fill)
+pw.enableMouse(False)
 
 QtGui.QApplication.instance().exec_()
+
 # path = "c:\\Users\\PC\\Documents\\Descargas chrome\\NO TOCAR MALDITO IDIOTA!! ZZZZ\\kleiver\\Tesis\\Nueva tesis\\LaboratorioDeControl\\Main aplication\\main.py"
 # print(path)
 # file = path.split('\\')[-1]
