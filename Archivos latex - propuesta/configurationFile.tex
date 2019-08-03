@@ -306,22 +306,10 @@
 %\AtBeginEnvironment{quote}{\addtolength\leftmargini{1.25cm}}
 
 % Para modificar el Y en las referencias y bibliografia y agregar ., antes del Y
-\DeclareDelimFormat*{finalnamedelim}
-{\ifnum\value{liststop}>2 ,\fi\addspace y \addspace}
-
-\DeclareDelimFormat[bib,biblist]{finalnamedelim}{%
-	\ifthenelse{\value{listcount}>\maxprtauth}
-	{}
-	{\ifthenelse{\value{liststop}>2}
-		{,\addspace y \addspace}
-		{\addspace y \addspace}}}
-
 \DeclareDelimFormat*{finalnamedelim:apa:family-given}{%
 	\ifthenelse{\value{listcount}>\maxprtauth}
 	{}
-	{\ifthenelse{\value{liststop}>2}
-		{,\addspace y \addspace}
-		{\addspace y \addspace}}}
+	{,\addspace y \addspace}}
 	
 \DeclareCaptionLabelSeparator*{spaced}{.\\}
 \DeclareCaptionLabelFormat{numero}{\textbf{#1 #2}}
