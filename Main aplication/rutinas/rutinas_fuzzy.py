@@ -2,10 +2,12 @@ import numpy as np
 from skfuzzymdf import control as fuzz
 from skfuzzymdf.membership import generatemf
 from skfuzzymdf.control.visualization import FuzzyVariableVisualizer
+from skfuzzymdf.control.controlsystem import CrispValueCalculator
 from collections import deque
 from collections import OrderedDict
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import pyqtgraph as pg
 import copy
 
 
@@ -14,7 +16,17 @@ class FuzzyController():
     def __init__(self, inputlist, outputlist, rulelist=[]):
         self.fuzz_inputs = self.crear_input(inputlist)
         self.fuzz_outputs = self.crear_output(outputlist)
+        
+        self.inlabelsplot = []
+        self.inareas = []
+        self.invalues = []
+        self.flagpyqt = 1
+        self.outlabelsplot = []
+        self.outareas = []
+        self.outvalues = []
+        
         self.rulelist = []
+        
         self.crear_etiquetas_input(inputlist)
         self.crear_etiquetas_output(outputlist)
         
@@ -219,12 +231,18 @@ class FuzzyController():
         temp = fuzz.ControlSystem(self.rulelist)
         self.Controlador = fuzz.ControlSystemSimulation(temp, flush_after_run=20000)
         
-    def prueba_de_controlador(self, window, values, ni, no):
+    def prueba_de_controlador(self, window, values, ni, no, pyqtgraph=False):
         for i in range(ni):
             self.Controlador.input[self.fuzz_inputs[i].label] = values[i]
             
         self.Controlador.compute()
-        self.graficar_prueba(window, ni, no)
+        if not pyqtgraph:
+            self.graficar_prueba(window, ni, no)
+        else:
+            if self.flagpyqt:
+                self.crear_plots(window, values, ni, no)
+                self.flagpyqt = 0
+            self.graficar_prueba_pyqtgraph(window, ni, no)
     
     def graficar_prueba(self, window, ni, no):
         for i, grafica in enumerate(window.ingraphs[:ni]):
@@ -244,6 +262,22 @@ class FuzzyController():
             grafica.canvas.draw()
             
             window.outtestlabels[o].setText(window.OutputList[o]['nombre'] + f': {np.around(value, 3)}')
+    
+    def crear_plots(self, window, values, ni, no):
+        for i in range(ni):
+            entradas = []
+            areas = []
+            crispy = CrispValueCalculator(self.fuzz_inputs[i], self.Controlador)
+            ups_universe, output_mf, cut_mfs = crispy.find_memberships()
+            zeros = np.zeros_like(ups_universe, dtype=np.float64)
+            
+            for key, term in self.fuzz_inputs[i].terms.items():
+                entradas.append(window.ingraphs[i].plotwidget.plot(self.fuzz_inputs[i].universe, term.mf, pen={'width': 2, 'color':pg.intColor(i, hues=window.InputList[i]['numeroE'])}))
+                under_plot = window.ingraphs[i].plotwidget.plot(ups_universe, zeros, pen={'width': 5, 'color':pg.intColor(i, hues=window.InputList[i]['numeroE'])})
+                over_plot = window.ingraphs[i].plotwidget.plot(ups_universe, cut_mfs[key], pen={'width': 5, 'color':pg.intColor(i, hues=window.InputList[i]['numeroE'])})
+                window.ingraphs[i].plotwidget.addItem()
+                
+            self.inlabelsplot.append(copy.deepcopy(entradas))
     
     def graficar_respuesta_2d(self, window, inrange, no):
         entrada = np.linspace(*inrange, 500)

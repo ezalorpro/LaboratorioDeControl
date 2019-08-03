@@ -3406,7 +3406,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>262</height>
+                   <height>160</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -4766,7 +4766,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>412</width>
                    <height>2962</height>
                   </rect>
                  </property>
@@ -5008,7 +5008,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_53">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph2">
+                        <widget class="PgraphWidget" name="ingraph2">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5227,7 +5227,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_57">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph1">
+                        <widget class="PgraphWidget" name="ingraph1">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5518,7 +5518,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>412</width>
                    <height>2632</height>
                   </rect>
                  </property>
@@ -5541,7 +5541,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_39">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph1">
+                        <widget class="PgraphWidget" name="outgraph1">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5589,7 +5589,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_46">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph2">
+                        <widget class="PgraphWidget" name="outgraph2">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -6709,6 +6709,11 @@
    <class>MlpWidget3D</class>
    <extends>QGraphicsView</extends>
    <header>mlpwidget</header>
+  </customwidget>
+  <customwidget>
+   <class>PgraphWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraphWidget</header>
   </customwidget>
  </customwidgets>
  <tabstops>

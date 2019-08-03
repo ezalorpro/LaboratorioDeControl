@@ -29,14 +29,16 @@ l.addWidget(pw)
 
 mw.show()
 
-c1 = pw.plot(np.asarray([0, 5, 10]),np.asarray([0, 1, 0]), pen=0)
-c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen=1)
+c1 = pw.plot(np.asarray([0, 5, 10]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.intColor(0, hues=2)})
+c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.intColor(1, hues=2)})
 c3 = pw.plot(np.asarray([1.2, 1.2]), [0, 0.235], pen={'width': 6, 'color':'k'})
-top1 = pw.plot(np.array(a), np.array(b))
-top2 = pw.plot(np.array(a), np.array(c))
+top1 = pw.plot(np.array(a), np.array(b), pen={'width': 5, 'color':pg.intColor(0, hues=2, alpha=104)})
+top2 = pw.plot(np.array(a), np.array(c), pen={'width': 5, 'color':pg.intColor(0, hues=2, alpha=104)})
 
-fill = pg.FillBetweenItem(top1, top2, brush=(60, 10, 80, 102))
+fill = pg.FillBetweenItem(top1, top2, brush=pg.intColor(0, alpha=104, hues=2))
+
 pw.addItem(fill)
+
 pw.enableMouse(False)
 
 pw = pg.PlotWidget(name='Plot1')  ## giving the plots names allows us to link their axes together
@@ -118,8 +120,8 @@ QtGui.QApplication.instance().exec_()
 
 # input1 = fuzz.Antecedent(np.linspace(-10, 10 + 20/500, 500), 'input1')
 # input2 = fuzz.Antecedent(np.linspace(-10, 10 + 20/500, 500), 'input2')
-# output1 = fuzz.Consequent(np.linspace(-10, 10 + 20/500, 500), 'output1', defuzzify_method='som')
-# output2 = fuzz.Consequent(np.linspace(-10, 10 + 20/500, 500), 'output2', defuzzify_method='som')
+# output1 = fuzz.Consequent(np.linspace(-10, 10 + 20/500, 500), 'output1', defuzzify_method='centroid')
+# output2 = fuzz.Consequent(np.linspace(-10, 10 + 20/500, 500), 'output2', defuzzify_method='centroid')
 
 # input1.automf(3, names=['label1', 'label2', 'label3'])
 # input2.automf(3, names=['label1', 'label2', 'label3'])
