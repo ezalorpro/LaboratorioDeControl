@@ -7,8 +7,6 @@ from collections import OrderedDict
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import copy
-import matplotlib.ticker as mticker
-import json
 
 
 class FuzzyController():
@@ -229,7 +227,6 @@ class FuzzyController():
         self.graficar_prueba(window, ni, no)
     
     def graficar_prueba(self, window, ni, no):
-        
         for i, grafica in enumerate(window.ingraphs[:ni]):
             grafica.canvas.axes.clear()
             FuzzyVariableVisualizer(self.fuzz_inputs[i], 
@@ -283,7 +280,7 @@ class FuzzyController():
         entrada22 = [np.zeros_like(entrada1) for i in range(no)]
         
         salidas = [np.zeros_like(entrada1) for i in range(no)]
-        
+		
         for i in range(n_puntos) :
             for j in range(n_puntos):
                 self.Controlador.input[self.fuzz_inputs[0].label] = entrada1[i, j]
@@ -296,18 +293,19 @@ class FuzzyController():
                         salidas[o][i, j] = self.Controlador.output[self.fuzz_outputs[o].label]
                 except:
                     pass
-                
+                     
         for o in range(no):
             window.respuesta3ds[o].canvas.axes.clear()
-            window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
+            surface = window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
                                                             rstride=1, cstride=1, cmap='viridis', linewidth=0.4, antialiased=True)
+           
+            window.respuesta3ds[o].canvas.figure.colorbar(surface)
             
             window.respuesta3ds[o].canvas.axes.view_init(30, 200)
             window.respuesta3ds[o].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
             window.respuesta3ds[o].canvas.axes.set_ylabel(self.fuzz_inputs[1].label)
             window.respuesta3ds[o].canvas.axes.set_zlabel(self.fuzz_outputs[o].label)
-            window.respuesta3ds[o].canvas.draw()
-
+            window.respuesta3ds[o].canvas.draw() 
 
 if __name__ == "__main__":
     
