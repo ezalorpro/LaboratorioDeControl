@@ -9,7 +9,10 @@ import pyqtgraph as pg
 from pyqtgraph.Qt import QtGui, QtCore
 
 a, b, c = json.load(open("datosFill"))
- 
+
+pg.setConfigOption('background', 'w')
+pg.setConfigOption('foreground', 'k')
+
 #QtGui.QApplication.setGraphicsSystem('raster')
 app = QtGui.QApplication([])
 mw = QtGui.QMainWindow()
