@@ -305,26 +305,24 @@
 % para modificar el ambiente " qoute "
 %\AtBeginEnvironment{quote}{\addtolength\leftmargini{1.25cm}}
 
-% Para modificar el Y en las referencias y bibliografia
+% Para modificar el Y en las referencias y bibliografia y agregar ., antes del Y
 \DeclareDelimFormat*{finalnamedelim}
-{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace y \space}
+{\ifnum\value{liststop}>2 ,\fi\addspace y \space}
 
-% the bibliography also needs another conditional, so we can't wrap
-% everything up with just the two lines above
 \DeclareDelimFormat[bib,biblist]{finalnamedelim}{%
 	\ifthenelse{\value{listcount}>\maxprtauth}
 	{}
 	{\ifthenelse{\value{liststop}>2}
-		{\finalandcomma\addspace y \space}
+		{,\addspace y \space}
 		{\addspace y \space}}}
 
-% this is a special delimiter to solve the bugs reported in
-% https://tex.stackexchange.com/q/417648/35864
 \DeclareDelimFormat*{finalnamedelim:apa:family-given}{%
 	\ifthenelse{\value{listcount}>\maxprtauth}
 	{}
-	{\finalandcomma\addspace y\space}}
-
+	{\ifthenelse{\value{liststop}>2}
+		{,\addspace y \space}
+		{\addspace y \space}}}
+	
 \DeclareCaptionLabelSeparator*{spaced}{.\\}
 \DeclareCaptionLabelFormat{numero}{\textbf{#1 #2}}
 
