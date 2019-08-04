@@ -890,7 +890,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addLayout(self.verticalLayout_5)
         self.verticalLayout_6 = QtWidgets.QVBoxLayout()
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.stepGraphicsView2 = MlpWidget(self.PIDTab)
+        self.stepGraphicsView2 = PgraphWidgetpid(self.PIDTab)
         self.stepGraphicsView2.setObjectName("stepGraphicsView2")
         self.verticalLayout_6.addWidget(self.stepGraphicsView2)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
@@ -1580,7 +1580,7 @@ class Ui_MainWindow(object):
         self.etiquetasscrollArea.setWidgetResizable(True)
         self.etiquetasscrollArea.setObjectName("etiquetasscrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 2034, 262))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 2034, 160))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.gridLayout_47 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_47.setObjectName("gridLayout_47")
@@ -2443,7 +2443,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 412, 2962))
+        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 111, 2962))
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
         self.gridLayout_55 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
         self.gridLayout_55.setObjectName("gridLayout_55")
@@ -2864,7 +2864,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 412, 2632))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 111, 2632))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.gridLayout_54 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
         self.gridLayout_54.setObjectName("gridLayout_54")
@@ -3852,7 +3852,7 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(_translate("MainWindow", "About"))
 
 from mlpwidget import MlpWidget, MlpWidget3D, MlpWidgetSubplot
-from pyqtgraphWidget import PgraphWidget
+from pyqtgraphWidget import PgraphWidget, PgraphWidgetpid
 
 if __name__ == "__main__":
     import sys

@@ -1869,7 +1869,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <widget class="MlpWidget" name="stepGraphicsView2"/>
+             <widget class="PgraphWidgetpid" name="stepGraphicsView2"/>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -3406,7 +3406,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>262</height>
+                   <height>160</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -4766,7 +4766,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>412</width>
+                   <width>111</width>
                    <height>2962</height>
                   </rect>
                  </property>
@@ -5518,7 +5518,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>412</width>
+                   <width>111</width>
                    <height>2632</height>
                   </rect>
                  </property>
@@ -6707,6 +6707,11 @@
   </customwidget>
   <customwidget>
    <class>PgraphWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraphWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>PgraphWidgetpid</class>
    <extends>QGraphicsView</extends>
    <header>pyqtgraphWidget</header>
   </customwidget>
