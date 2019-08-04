@@ -4,7 +4,6 @@ from skfuzzymdf.membership import generatemf
 from skfuzzymdf.control.visualization import FuzzyVariableVisualizer
 from skfuzzymdf.control.controlsystem import CrispValueCalculator
 from skfuzzymdf.fuzzymath.fuzzy_ops import interp_membership
-from collections import deque
 from collections import OrderedDict
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -509,71 +508,3 @@ class FuzzyController():
             window.respuesta3ds[o].canvas.axes.set_ylabel(self.fuzz_inputs[1].label)
             window.respuesta3ds[o].canvas.axes.set_zlabel(self.fuzz_outputs[o].label)
             window.respuesta3ds[o].canvas.draw() 
-
-if __name__ == "__main__":
-    
-    entradas = [
-        {
-            'nombre': 'error',
-            'numeroE': 3,
-            'etiquetas': [
-                {
-                    'nombre': 'bajo',
-                    'mf': 'trimf',
-                    'definicion': [-11, -10, 0],
-                },
-                {
-                    'nombre': 'medio',
-                    'mf': 'trimf',
-                    'definicion': [-10, 0, 10],
-                },
-                {
-                    'nombre': 'alto',
-                    'mf': 'trimf',
-                    'definicion': [0, 10, 11],
-                },
-                ],
-            'rango': [-10, 10]
-        }
-    ]
-    
-    salidas = [
-        {
-            'nombre': 'salida1',
-            'numeroE': 3,
-            'etiquetas': [
-                {
-                    'nombre': 'bajo',
-                    'mf': 'trimf',
-                    'definicion': [-11, -10, 0],
-                },
-                {
-                    'nombre': 'medio',
-                    'mf': 'trimf',
-                    'definicion': [-10, 0, 10],
-                },
-                {
-                    'nombre': 'alto',
-                    'mf': 'trimf',
-                    'definicion': [0, 10, 11],
-                },
-                ],
-            'rango': [-10, 10],
-            'metodo': 'centroid'
-        }
-    ]
-    
-    rulelist = []
-    Etiquetasin = [['bajo'], ['medio'], ['alto']]
-    Etiquetasout = [['alto'], ['bajo'], ['bajo']]
-    controlador = FuzzyController(entradas, salidas)
-    for i in range(3):
-        rulelist.append(controlador.agregar_regla(None, 1, 1, Etiquetasin[i], Etiquetasout[i]))
-        
-    controlador.rulelist = rulelist
-    controlador.crear_controlador()
-    
-    fig, ax = plt.subplots()
-    FuzzyVariableVisualizer(controlador.fuzz_inputs[0], 
-                                    fig, 
-                                    ax).view(controlador.Controlador, legend=False)

@@ -344,6 +344,7 @@ def nombre_entrada(self):
         self.main.inputNombre.setText(self.InputList[ni]['nombre'])
     
     self.fuzzController.cambiar_nombre_input(self, ni, self.InputList[ni]['nombre'])
+    self.fuzzController.rulelist = []
     self.RuleList = self.fuzzController.crear_reglas(self.RuleEtiquetas)
 
 
