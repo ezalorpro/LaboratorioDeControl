@@ -281,7 +281,7 @@ class FuzzyController():
     def crear_plots_in(self, window, values, ni, no):
         for i in range(ni):
             window.ingraphs[i].plotwidget.clear()
-            window.ingraphs[i].plotwidget.setXRange(*window.InputList[i]['rango'])
+            window.ingraphs[i].plotwidget.setXRange(*window.InputList[i]['rango'], 0.02)
             
             entradas = []
             areas = []
@@ -333,7 +333,7 @@ class FuzzyController():
     def crear_plots_out(self, window, values, ni, no):
         for i in range(no):
             window.outgraphs[i].plotwidget.clear()
-            window.outgraphs[i].plotwidget.setXRange(*window.OutputList[i]['rango'])
+            window.outgraphs[i].plotwidget.setXRange(*window.OutputList[i]['rango'], 0.02)
             
             salidas = []
             areas = []
