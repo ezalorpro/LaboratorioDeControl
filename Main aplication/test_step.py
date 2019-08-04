@@ -2,62 +2,69 @@ import json
 from collections import deque
 import pickle
 import numpy as np
-from skfuzzy import control as fuzz
+# from skfuzzy import control as fuzz
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtGui, QtCore
 import time 
 
-colors = [
-    '#1f77b4',
-    '#ff7f0e',
-    '#2ca02c',
-    '#d62728',
-    '#9467bd',
-    '#8c564b',
-    '#e377c2',
-    '#7f7f7f',
-    '#bcbd22',
-    '#17becf'
-]
-a, b, c = json.load(open("datosFill"))
-print(int('6A', 16))
-pg.setConfigOption('background', 'w')
-pg.setConfigOption('foreground', 'k')
+fig = plt.figure()
+ax = fig.add_subplot(projection='3d')
+x, y = np.meshgrid(np.linspace(-10, 10, 10), np.linspace(-10, 10, 10))
+surface = ax.plot_surface(x, y, x)
+fig.colorbar(surface)
+fig.delaxes(fig.axes[1])
+plt.show()
+# colors = [
+#     '#1f77b4',
+#     '#ff7f0e',
+#     '#2ca02c',
+#     '#d62728',
+#     '#9467bd',
+#     '#8c564b',
+#     '#e377c2',
+#     '#7f7f7f',
+#     '#bcbd22',
+#     '#17becf'
+# ]
+# a, b, c = json.load(open("datosFill"))
+# print(int('6A', 16))
+# pg.setConfigOption('background', 'w')
+# pg.setConfigOption('foreground', 'k')
 
-#QtGui.QApplication.setGraphicsSystem('raster')
-app = QtGui.QApplication([])
-mw = QtGui.QMainWindow()
-mw.setWindowTitle('pyqtgraph example: PlotWidget')
-mw.resize(800,800)
-cw = QtGui.QWidget()
-mw.setCentralWidget(cw)
-l = QtGui.QVBoxLayout()
-cw.setLayout(l)
+# #QtGui.QApplication.setGraphicsSystem('raster')
+# app = QtGui.QApplication([])
+# mw = QtGui.QMainWindow()
+# mw.setWindowTitle('pyqtgraph example: PlotWidget')
+# mw.resize(800,800)
+# cw = QtGui.QWidget()
+# mw.setCentralWidget(cw)
+# l = QtGui.QVBoxLayout()
+# cw.setLayout(l)
 
-pw = pg.PlotWidget(name='Plot1')  ## giving the plots names allows us to link their axes together
-l.addWidget(pw)
+# pw = pg.PlotWidget(name='Plot1')  ## giving the plots names allows us to link their axes together
+# l.addWidget(pw)
 
-mw.show()
+# mw.show()
 
-c1 = pw.plot(np.asarray([0, 5, 10]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.mkColor(colors[0])})
-c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.mkColor(colors[1])})
-c3 = pw.plot(np.asarray([1.2, 1.2]), [0, 0.235], pen={'width': 6, 'color':'k'})
-top1 = pw.plot(np.array(a), np.array(b), pen={'width': 5, 'color':pg.mkColor(colors[0]+'6A')})
-top2 = pw.plot(np.array(a), np.array(c), pen={'width': 5, 'color':pg.mkColor(colors[0]+'6A')})
+# c1 = pw.plot(np.asarray([0, 5, 10]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.mkColor(colors[0])})
+# c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.mkColor(colors[1])})
+# c3 = pw.plot(np.asarray([1.2, 1.2]), [0, 0.235], pen={'width': 6, 'color':'k'})
+# top1 = pw.plot(np.array(a), np.array(b), pen={'width': 5, 'color':pg.mkColor(colors[0]+'6A')})
+# top2 = pw.plot(np.array(a), np.array(c), pen={'width': 5, 'color':pg.mkColor(colors[0]+'6A')})
 
-fill = pg.FillBetweenItem(top1, top2, brush=pg.mkColor(colors[0]+'6A'))
+# fill = pg.FillBetweenItem(top1, top2, brush=pg.mkColor(colors[0]+'6A'))
 
-pw.addItem(fill)
+# pw.addItem(fill)
 
-pw.enableMouse(False)
+# pw.enableMouse(False)
 
 
-c1.setData(np.asarray([-1, 5, 10]),np.asarray([0, 1, 0]))
-c2.setData(np.asarray([-6, 0, 5]),np.asarray([0, 1, 0]))
+# c1.setData(np.asarray([-1, 5, 10]),np.asarray([0, 1, 0]))
+# c2.setData(np.asarray([-6, 0, 5]),np.asarray([0, 1, 0]))
 
-QtGui.QApplication.instance().exec_()
+# QtGui.QApplication.instance().exec_()
 
 # path = "c:\\Users\\PC\\Documents\\Descargas chrome\\NO TOCAR MALDITO IDIOTA!! ZZZZ\\kleiver\\Tesis\\Nueva tesis\\LaboratorioDeControl\\Main aplication\\main.py"
 # print(path)

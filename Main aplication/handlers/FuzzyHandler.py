@@ -328,6 +328,8 @@ def seleccion_salida(self):
 
 def nombre_entrada(self):
     ni = self.main.inputNumber.currentIndex()
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     old_name = self.InputList[ni]['nombre']
     flag = 0
     
@@ -342,10 +344,13 @@ def nombre_entrada(self):
         self.main.inputNombre.setText(self.InputList[ni]['nombre'])
     
     self.fuzzController.cambiar_nombre_input(self, ni, self.InputList[ni]['nombre'])
+    self.RuleList = self.fuzzController.crear_reglas(self.RuleEtiquetas)
 
 
 def nombre_salida(self):
     no = self.main.outputNumber.currentIndex()
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     old_name = self.OutputList[no]['nombre']
     flag = 0
     
@@ -359,10 +364,16 @@ def nombre_salida(self):
         self.OutputList[no]['nombre'] = self.main.outputNombre.text() + '1'
         self.main.outputNombre.setText(self.OutputList[no]['nombre'])
         
-    self.fuzzController.cambiar_nombre_output(self, no, self.OutputList[no]['nombre'] )
+    self.fuzzController.cambiar_nombre_output(self, no, self.OutputList[no]['nombre'])
+    self.fuzzController.rulelist = []
+    self.RuleList = self.fuzzController.crear_reglas(self.RuleEtiquetas)
     
 
 def numero_de_etiquetas_in(self):
+    self.RuleList = []
+    self.RuleEtiquetas = []
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     ni = self.main.inputNumber.currentIndex()
     ne = int(self.main.inputEtiquetasNum.text())
     self.InputList[ni]['etiquetas'] = [0]*ne
@@ -371,6 +382,7 @@ def numero_de_etiquetas_in(self):
     self.main.etiquetaNumIn.clear()
     rmin, rmax = self.InputList[ni]['rango']
     ini_range_etiquetas = np.arange(rmin, rmax+1, (rmax-rmin)/(ne+1)).tolist()
+    
     window = 0
     for j in range(self.InputList[ni]['numeroE']):
         self.main.etiquetaNumIn.insertItem(j, str(j+1))
@@ -381,10 +393,15 @@ def numero_de_etiquetas_in(self):
     self.main.etiquetaDefinicionIn.setText(str(self.InputList[ni]['etiquetas'][0]['definicion']))
     self.main.etiquetaMfIn.setCurrentText('trimf')
     self.fuzzController.cambio_etiquetas_input(self, self.InputList, ni)
+    self.fuzzController.rulelist = []
     self.main.etiquetaNumIn.blockSignals(False)
 
 
 def numero_de_etiquetas_out(self):
+    self.RuleList = []
+    self.RuleEtiquetas = []
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     no = self.main.outputNumber.currentIndex()
     ne = int(self.main.outputEtiquetasNum.text())
     self.OutputList[no]['etiquetas'] = [0]*ne
@@ -393,6 +410,7 @@ def numero_de_etiquetas_out(self):
     self.main.etiquetaNumOut.clear()
     rmin, rmax = self.OutputList[no]['rango']
     ini_range_etiquetas = np.arange(rmin, rmax+1, (rmax-rmin)/(ne+1)).tolist()
+    
     window = 0
     for j in range(self.OutputList[no]['numeroE']):
         self.main.etiquetaNumOut.insertItem(j, str(j+1))
@@ -407,6 +425,8 @@ def numero_de_etiquetas_out(self):
     
 
 def rango_in(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     ni = self.main.inputNumber.currentIndex()
     self.InputList[ni]['rango'] = json.loads(self.main.inputRange.text())
     self.fuzzController.update_rango_input(self, self.InputList, ni)
@@ -414,6 +434,8 @@ def rango_in(self):
 
 
 def rango_out(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     no = self.main.outputNumber.currentIndex()
     self.OutputList[no]['rango'] = json.loads(self.main.outputRange.text())
     self.fuzzController.update_rango_output(self, self.OutputList, no)
@@ -421,6 +443,8 @@ def rango_out(self):
 
 
 def defuzz_metodo(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     no = self.main.outputNumber.currentIndex()
     self.OutputList[no]['metodo'] = self.main.defuzzMethodOut.currentText()
     metodo = self.OutputList[no]['metodo']
@@ -448,6 +472,8 @@ def seleccion_etiqueta_out(self):
 def nombre_etiqueta_in(self):
     ni = self.main.inputNumber.currentIndex()
     ne = self.main.etiquetaNumIn.currentIndex()
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     old_name = self.InputList[ni]['etiquetas'][ne]['nombre']
     
     flag = 0
@@ -461,13 +487,27 @@ def nombre_etiqueta_in(self):
     else:
         self.InputList[ni]['etiquetas'][ne]['nombre'] = self.main.etiquetaNombreIn.text() + '1'
         self.main.etiquetaNombreIn.setText(self.InputList[ni]['etiquetas'][ne]['nombre'])
-        
+       
     self.fuzzController.cambio_etinombre_input(self, self.InputList, ni, ne, old_name)
+    if len(self.RuleList) > 0:
+        actualizar_RulesEtiquetas_in(self, ni, self.main.etiquetaNombreIn.text(), old_name)
 
 
+def actualizar_RulesEtiquetas_in(self, ni, new_name, old_name):
+    for sets in self.RuleEtiquetas:
+        for rule in sets[0]:
+            if rule[0] == old_name and rule[1] == ni:
+                rule[0] = new_name
+    
+    self.fuzzController.rulelist = []
+    self.RuleList = self.fuzzController.crear_reglas(self.RuleEtiquetas)
+
+  
 def nombre_etiqueta_out(self):
     no = self.main.outputNumber.currentIndex()
     ne = self.main.etiquetaNumOut.currentIndex()
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     old_name = self.OutputList[no]['etiquetas'][ne]['nombre']
     
     flag = 0
@@ -483,9 +523,23 @@ def nombre_etiqueta_out(self):
         self.main.etiquetaNombreOut.setText(self.OutputList[no]['etiquetas'][ne]['nombre'])
         
     self.fuzzController.cambio_etinombre_output(self, self.OutputList, no, ne, old_name)
+    if len(self.RuleList) > 0:
+        actualizar_RulesEtiquetas_out(self, no, self.main.etiquetaNombreOut.text(), old_name)
+
+
+def actualizar_RulesEtiquetas_out(self, no, new_name, old_name):
+    for sets in self.RuleEtiquetas:
+        for rule in sets[1]:
+            if rule[0] == old_name and rule[1] == no:
+                rule[0] = new_name
     
+    self.fuzzController.rulelist = []
+    self.RuleList = self.fuzzController.crear_reglas(self.RuleEtiquetas)
+        
 
 def seleccion_mf_in(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     ni = self.main.inputNumber.currentIndex()
     ne = self.main.etiquetaNumIn.currentIndex()
     old_mf = self.InputList[ni]['etiquetas'][ne]['mf']
@@ -500,6 +554,8 @@ def seleccion_mf_in(self):
  
     
 def definicion_in(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     ni = self.main.inputNumber.currentIndex()
     ne = self.main.etiquetaNumIn.currentIndex()
     self.InputList[ni]['etiquetas'][ne]['definicion'] = json.loads(self.main.etiquetaDefinicionIn.text())
@@ -507,6 +563,8 @@ def definicion_in(self):
 
 
 def seleccion_mf_out(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     no = self.main.outputNumber.currentIndex()
     ne = self.main.etiquetaNumOut.currentIndex()
     old_mf = self.OutputList[no]['etiquetas'][ne]['mf']
@@ -521,6 +579,8 @@ def seleccion_mf_out(self):
 
 
 def definicion_out(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     no = self.main.outputNumber.currentIndex()
     ne = self.main.etiquetaNumOut.currentIndex()
     self.OutputList[no]['etiquetas'][ne]['definicion'] = json.loads(self.main.etiquetaDefinicionOut.text())
@@ -612,6 +672,8 @@ def seleccionar_etiquetas(self):
                 
 
 def rule_list_agregar(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     ni = len(self.InputList)
     no = len(self.OutputList)
     
@@ -637,6 +699,8 @@ def rule_list_agregar(self):
 
 
 def rule_list_eliminar(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     if self.main.rulelistWidget.count():
         index_rule = self.main.rulelistWidget.currentRow()
         self.fuzzController.eliminar_regla(index_rule)
@@ -646,6 +710,8 @@ def rule_list_eliminar(self):
     
 
 def rule_list_cambiar(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
     index_rule = self.main.rulelistWidget.currentRow()
     
     ni = len(self.InputList)
@@ -996,5 +1062,3 @@ def crear_vectores_de_widgets(self):
         self.main.outweight9,
         self.main.outweight10,
     ]
-    
-    

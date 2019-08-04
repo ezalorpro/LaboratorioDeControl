@@ -173,6 +173,8 @@ class FuzzyController():
             
             for o in Etiquetasout[1:len(Etiquetasout)]:
                 self.rulelist[-1].consequent.append(self.fuzz_outputs[o[1]][o[0]]%o[2])
+        
+        return self.rulelist
     
     def agregar_regla(self, window, ni, no, Etiquetasin, Etiquetasout):
         
@@ -499,8 +501,8 @@ class FuzzyController():
             window.respuesta3ds[o].canvas.axes.clear()
             surface = window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
                                                             rstride=1, cstride=1, cmap='viridis', linewidth=0.4, antialiased=True)
-           
-            window.respuesta3ds[o].canvas.figure.colorbar(surface)
+            
+            # window.respuesta3ds[o].canvas.figure.colorbar(surface)
             
             window.respuesta3ds[o].canvas.axes.view_init(30, 200)
             window.respuesta3ds[o].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
