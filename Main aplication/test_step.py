@@ -9,8 +9,20 @@ import pyqtgraph as pg
 from pyqtgraph.Qt import QtGui, QtCore
 import time 
 
+colors = [
+    '#1f77b4',
+    '#ff7f0e',
+    '#2ca02c',
+    '#d62728',
+    '#9467bd',
+    '#8c564b',
+    '#e377c2',
+    '#7f7f7f',
+    '#bcbd22',
+    '#17becf'
+]
 a, b, c = json.load(open("datosFill"))
-
+print(int('6A', 16))
 pg.setConfigOption('background', 'w')
 pg.setConfigOption('foreground', 'k')
 
@@ -29,13 +41,13 @@ l.addWidget(pw)
 
 mw.show()
 
-c1 = pw.plot(np.asarray([0, 5, 10]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.intColor(0, hues=2)})
-c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.intColor(1, hues=2)})
+c1 = pw.plot(np.asarray([0, 5, 10]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.mkColor(colors[0])})
+c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen={'width': 2, 'color':pg.mkColor(colors[1])})
 c3 = pw.plot(np.asarray([1.2, 1.2]), [0, 0.235], pen={'width': 6, 'color':'k'})
-top1 = pw.plot(np.array(a), np.array(b), pen={'width': 5, 'color':pg.intColor(0, hues=2, alpha=104)})
-top2 = pw.plot(np.array(a), np.array(c), pen={'width': 5, 'color':pg.intColor(0, hues=2, alpha=104)})
+top1 = pw.plot(np.array(a), np.array(b), pen={'width': 5, 'color':pg.mkColor(colors[0]+'6A')})
+top2 = pw.plot(np.array(a), np.array(c), pen={'width': 5, 'color':pg.mkColor(colors[0]+'6A')})
 
-fill = pg.FillBetweenItem(top1, top2, brush=pg.intColor(0, alpha=104, hues=2))
+fill = pg.FillBetweenItem(top1, top2, brush=pg.mkColor(colors[0]+'6A'))
 
 pw.addItem(fill)
 
@@ -45,7 +57,6 @@ pw.enableMouse(False)
 c1.setData(np.asarray([-1, 5, 10]),np.asarray([0, 1, 0]))
 c2.setData(np.asarray([-6, 0, 5]),np.asarray([0, 1, 0]))
 
-pw.clear()
 QtGui.QApplication.instance().exec_()
 
 # path = "c:\\Users\\PC\\Documents\\Descargas chrome\\NO TOCAR MALDITO IDIOTA!! ZZZZ\\kleiver\\Tesis\\Nueva tesis\\LaboratorioDeControl\\Main aplication\\main.py"

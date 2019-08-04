@@ -19,6 +19,18 @@ class FuzzyController():
         self.fuzz_outputs = self.crear_output(outputlist)
         self.flagpyqt = 1
         
+        self.colors = [
+            '#1f77b4',
+            '#ff7f0e',
+            '#2ca02c',
+            '#d62728',
+            '#9467bd',
+            '#8c564b',
+            '#e377c2',
+            '#7f7f7f',
+            '#bcbd22',
+            '#17becf'
+        ]
         self.inlabelsplot = []
         self.inareas = []
         self.invalues = []
@@ -280,13 +292,13 @@ class FuzzyController():
             
             color = 0
             for key, term in self.fuzz_inputs[i].terms.items():
-                entradas.append(window.ingraphs[i].plotwidget.plot(self.fuzz_inputs[i].universe, term.mf, pen={'width': 2, 'color':pg.intColor(color, hues=window.InputList[i]['numeroE'])}))
+                entradas.append(window.ingraphs[i].plotwidget.plot(self.fuzz_inputs[i].universe, term.mf, pen={'width': 2, 'color':pg.mkColor(self.colors[color])}))
                 
-                under_plot = window.ingraphs[i].plotwidget.plot(ups_universe, zeros, pen={'width': 0.1, 'color':pg.intColor(color, hues=window.InputList[i]['numeroE'])})
+                under_plot = window.ingraphs[i].plotwidget.plot(ups_universe, zeros, pen={'width': 0.1, 'color':pg.mkColor(self.colors[color] + '6A')})
                 
-                over_plot = window.ingraphs[i].plotwidget.plot(ups_universe, cut_mfs[key], pen={'width': 0.1, 'color':pg.intColor(color, hues=window.InputList[i]['numeroE'])})
+                over_plot = window.ingraphs[i].plotwidget.plot(ups_universe, cut_mfs[key], pen={'width': 0.1, 'color':pg.mkColor(self.colors[color] + '6A')})
                 
-                fillItem = pg.FillBetweenItem(under_plot, over_plot, brush=pg.intColor(color, alpha=104, hues=window.InputList[i]['numeroE']))
+                fillItem = pg.FillBetweenItem(under_plot, over_plot, brush=pg.mkColor(self.colors[color] + '6A'))
                 
                 window.ingraphs[i].plotwidget.addItem(fillItem)
                 areas.append(copy.copy([under_plot, over_plot]))
@@ -332,13 +344,13 @@ class FuzzyController():
             
             color = 0
             for key, term in self.fuzz_outputs[i].terms.items():
-                salidas.append(window.outgraphs[i].plotwidget.plot(self.fuzz_outputs[i].universe, term.mf, pen={'width': 2, 'color':pg.intColor(color, hues=window.OutputList[i]['numeroE'])}))
+                salidas.append(window.outgraphs[i].plotwidget.plot(self.fuzz_outputs[i].universe, term.mf, pen={'width': 2, 'color':pg.mkColor(self.colors[color])}))
                 
-                under_plot = window.outgraphs[i].plotwidget.plot(ups_universe, zeros, pen={'width': 0.1, 'color':pg.intColor(color, hues=window.OutputList[i]['numeroE'])})
+                under_plot = window.outgraphs[i].plotwidget.plot(ups_universe, zeros, pen={'width': 0.1, 'color':pg.mkColor(self.colors[color] + '6A')})
                 
-                over_plot = window.outgraphs[i].plotwidget.plot(ups_universe, cut_mfs[key], pen={'width': 0.1, 'color':pg.intColor(color, hues=window.OutputList[i]['numeroE'])})
+                over_plot = window.outgraphs[i].plotwidget.plot(ups_universe, cut_mfs[key], pen={'width': 0.1, 'color':pg.mkColor(self.colors[color] + '6A')})
                 
-                fillItem = pg.FillBetweenItem(under_plot, over_plot, brush=pg.intColor(color, alpha=104, hues=window.OutputList[i]['numeroE']))
+                fillItem = pg.FillBetweenItem(under_plot, over_plot, brush=pg.mkColor(self.colors[color] + '6A'))
                 
                 window.outgraphs[i].plotwidget.addItem(fillItem)
                 areas.append(copy.copy([under_plot, over_plot]))
