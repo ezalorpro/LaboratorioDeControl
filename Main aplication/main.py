@@ -3,7 +3,6 @@ from Ui_VentanaPrincipal import Ui_MainWindow
 from handlers.analisisHandler import AnalisisHandler
 from handlers.PIDHandler import PIDHandler
 from handlers.FuzzyHandler import FuzzyHandler
-import json
 import os
 
 
