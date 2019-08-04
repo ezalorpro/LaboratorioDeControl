@@ -501,6 +501,7 @@ class FuzzyController():
             surface = window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
                                                             rstride=1, cstride=1, cmap='viridis', linewidth=0.4, antialiased=True)
             
+            #TODO tratar de agregar sin que interfiera con el espaciado
             # window.respuesta3ds[o].canvas.figure.colorbar(surface)
             
             window.respuesta3ds[o].canvas.axes.view_init(30, 200)
