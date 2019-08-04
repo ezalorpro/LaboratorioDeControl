@@ -1,5 +1,7 @@
 *.*
+build
 virtualenv
+!main.spec
 !*.gitignore
 !*.py
 !*.pdf
