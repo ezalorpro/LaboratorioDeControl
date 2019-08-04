@@ -1026,7 +1026,7 @@
              <bool>true</bool>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <property name="documentMode">
              <bool>false</bool>
@@ -3406,7 +3406,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>160</height>
+                   <height>262</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -4789,7 +4789,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_48">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph8">
+                        <widget class="PgraphWidget" name="ingraph8">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -4862,7 +4862,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_54">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph9">
+                        <widget class="PgraphWidget" name="ingraph9">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -4935,7 +4935,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_52">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph4">
+                        <widget class="PgraphWidget" name="ingraph4">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5081,7 +5081,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_47">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph6">
+                        <widget class="PgraphWidget" name="ingraph6">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5154,7 +5154,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_49">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph10">
+                        <widget class="PgraphWidget" name="ingraph10">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5300,7 +5300,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_50">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph7">
+                        <widget class="PgraphWidget" name="ingraph7">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5373,7 +5373,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_51">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph5">
+                        <widget class="PgraphWidget" name="ingraph5">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5446,7 +5446,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_56">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="ingraph3">
+                        <widget class="PgraphWidget" name="ingraph3">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5637,7 +5637,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_42">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph3">
+                        <widget class="PgraphWidget" name="outgraph3">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5685,7 +5685,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_43">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph4">
+                        <widget class="PgraphWidget" name="outgraph4">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5733,7 +5733,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_44">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph5">
+                        <widget class="PgraphWidget" name="outgraph5">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5781,7 +5781,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_55">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph6">
+                        <widget class="PgraphWidget" name="outgraph6">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5829,7 +5829,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_40">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph7">
+                        <widget class="PgraphWidget" name="outgraph7">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5877,7 +5877,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_38">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph8">
+                        <widget class="PgraphWidget" name="outgraph8">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5925,7 +5925,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_41">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph9">
+                        <widget class="PgraphWidget" name="outgraph9">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -5973,7 +5973,7 @@
                      <item row="0" column="0">
                       <layout class="QVBoxLayout" name="verticalLayout_45">
                        <item>
-                        <widget class="MlpWidgetNoToolbar" name="outgraph10">
+                        <widget class="PgraphWidget" name="outgraph10">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
@@ -6697,11 +6697,6 @@
   </customwidget>
   <customwidget>
    <class>MlpWidgetSubplot</class>
-   <extends>QGraphicsView</extends>
-   <header>mlpwidget</header>
-  </customwidget>
-  <customwidget>
-   <class>MlpWidgetNoToolbar</class>
    <extends>QGraphicsView</extends>
    <header>mlpwidget</header>
   </customwidget>

@@ -3,6 +3,7 @@ from skfuzzymdf import control as fuzz
 from skfuzzymdf.membership import generatemf
 from skfuzzymdf.control.visualization import FuzzyVariableVisualizer
 from skfuzzymdf.control.controlsystem import CrispValueCalculator
+from skfuzzymdf.fuzzymath.fuzzy_ops import interp_membership
 from collections import deque
 from collections import OrderedDict
 from matplotlib import pyplot as plt
@@ -16,11 +17,12 @@ class FuzzyController():
     def __init__(self, inputlist, outputlist, rulelist=[]):
         self.fuzz_inputs = self.crear_input(inputlist)
         self.fuzz_outputs = self.crear_output(outputlist)
+        self.flagpyqt = 1
         
         self.inlabelsplot = []
         self.inareas = []
         self.invalues = []
-        self.flagpyqt = 1
+        
         self.outlabelsplot = []
         self.outareas = []
         self.outvalues = []
@@ -240,7 +242,8 @@ class FuzzyController():
             self.graficar_prueba(window, ni, no)
         else:
             if self.flagpyqt:
-                self.crear_plots(window, values, ni, no)
+                self.crear_plots_in(window, values, ni, no)
+                self.crear_plots_out(window, values, ni, no)
                 self.flagpyqt = 0
             self.graficar_prueba_pyqtgraph(window, ni, no)
     
@@ -263,22 +266,174 @@ class FuzzyController():
             
             window.outtestlabels[o].setText(window.OutputList[o]['nombre'] + f': {np.around(value, 3)}')
     
-    def crear_plots(self, window, values, ni, no):
+    def crear_plots_in(self, window, values, ni, no):
         for i in range(ni):
+            window.ingraphs[i].plotwidget.clear()
+            window.ingraphs[i].plotwidget.setXRange(*window.InputList[i]['rango'])
+            
             entradas = []
             areas = []
+            
             crispy = CrispValueCalculator(self.fuzz_inputs[i], self.Controlador)
             ups_universe, output_mf, cut_mfs = crispy.find_memberships()
             zeros = np.zeros_like(ups_universe, dtype=np.float64)
             
+            color = 0
             for key, term in self.fuzz_inputs[i].terms.items():
-                entradas.append(window.ingraphs[i].plotwidget.plot(self.fuzz_inputs[i].universe, term.mf, pen={'width': 2, 'color':pg.intColor(i, hues=window.InputList[i]['numeroE'])}))
-                under_plot = window.ingraphs[i].plotwidget.plot(ups_universe, zeros, pen={'width': 5, 'color':pg.intColor(i, hues=window.InputList[i]['numeroE'])})
-                over_plot = window.ingraphs[i].plotwidget.plot(ups_universe, cut_mfs[key], pen={'width': 5, 'color':pg.intColor(i, hues=window.InputList[i]['numeroE'])})
-                window.ingraphs[i].plotwidget.addItem()
+                entradas.append(window.ingraphs[i].plotwidget.plot(self.fuzz_inputs[i].universe, term.mf, pen={'width': 2, 'color':pg.intColor(color, hues=window.InputList[i]['numeroE'])}))
                 
-            self.inlabelsplot.append(copy.deepcopy(entradas))
+                under_plot = window.ingraphs[i].plotwidget.plot(ups_universe, zeros, pen={'width': 0.1, 'color':pg.intColor(color, hues=window.InputList[i]['numeroE'])})
+                
+                over_plot = window.ingraphs[i].plotwidget.plot(ups_universe, cut_mfs[key], pen={'width': 0.1, 'color':pg.intColor(color, hues=window.InputList[i]['numeroE'])})
+                
+                fillItem = pg.FillBetweenItem(under_plot, over_plot, brush=pg.intColor(color, alpha=104, hues=window.InputList[i]['numeroE']))
+                
+                window.ingraphs[i].plotwidget.addItem(fillItem)
+                areas.append(copy.copy([under_plot, over_plot]))
+                color += 1
+            
+            if len(cut_mfs) > 0 and not all(output_mf == 0):
+                crisp_value = self.fuzz_inputs[i].input[self.Controlador]
+
+                # Draw the crisp value at the actual cut height
+                if crisp_value is not None:
+                    y = 0.
+                    for key, term in self.fuzz_inputs[i].terms.items():
+                        if key in cut_mfs:
+                            y = max(y, interp_membership(self.fuzz_inputs[i].universe,
+                                                        term.mf, crisp_value))
+
+                    # Small cut values are hard to see, so simply set them to 1
+                    if y < 0.1:
+                        y = 1.
+
+                    crispPlot = window.ingraphs[i].plotwidget.plot([crisp_value] * 2, np.asarray([0, y]), pen={'width': 6, 'color':'k'})
+                    
+                else:
+                    crisp_value= 0
+            else:
+                crisp_value = 0
+            
+            self.invalues.append(crispPlot)        
+            self.inlabelsplot.append(copy.copy(entradas))
+            self.inareas.append(copy.copy(areas))
     
+    def crear_plots_out(self, window, values, ni, no):
+        for i in range(no):
+            window.outgraphs[i].plotwidget.clear()
+            window.outgraphs[i].plotwidget.setXRange(*window.OutputList[i]['rango'])
+            
+            salidas = []
+            areas = []
+            
+            crispy = CrispValueCalculator(self.fuzz_outputs[i], self.Controlador)
+            ups_universe, output_mf, cut_mfs = crispy.find_memberships()
+            zeros = np.zeros_like(ups_universe, dtype=np.float64)
+            
+            color = 0
+            for key, term in self.fuzz_outputs[i].terms.items():
+                salidas.append(window.outgraphs[i].plotwidget.plot(self.fuzz_outputs[i].universe, term.mf, pen={'width': 2, 'color':pg.intColor(color, hues=window.OutputList[i]['numeroE'])}))
+                
+                under_plot = window.outgraphs[i].plotwidget.plot(ups_universe, zeros, pen={'width': 0.1, 'color':pg.intColor(color, hues=window.OutputList[i]['numeroE'])})
+                
+                over_plot = window.outgraphs[i].plotwidget.plot(ups_universe, cut_mfs[key], pen={'width': 0.1, 'color':pg.intColor(color, hues=window.OutputList[i]['numeroE'])})
+                
+                fillItem = pg.FillBetweenItem(under_plot, over_plot, brush=pg.intColor(color, alpha=104, hues=window.OutputList[i]['numeroE']))
+                
+                window.outgraphs[i].plotwidget.addItem(fillItem)
+                areas.append(copy.copy([under_plot, over_plot]))
+                color += 1
+            
+            if len(cut_mfs) > 0 and not all(output_mf == 0):
+                crisp_value = self.fuzz_outputs[i].output[self.Controlador]
+
+                # Draw the crisp value at the actual cut height
+                if crisp_value is not None:
+                    y = 0.
+                    for key, term in self.fuzz_outputs[i].terms.items():
+                        if key in cut_mfs:
+                            y = max(y, interp_membership(self.fuzz_outputs[i].universe,
+                                                        term.mf, crisp_value))
+
+                    # Small cut values are hard to see, so simply set them to 1
+                    if y < 0.1:
+                        y = 1.
+
+                    crispPlot = window.outgraphs[i].plotwidget.plot([crisp_value] * 2, np.asarray([0, y]), pen={'width': 6, 'color':'k'})
+                    
+                else:
+                    crisp_value= 0
+            else:
+                crisp_value = 0
+            
+            self.outvalues.append(crispPlot)         
+            self.outlabelsplot.append(copy.copy(salidas))
+            self.outareas.append(copy.copy(areas))
+    
+    def graficar_prueba_pyqtgraph(self, window, ni, no):
+        for i in range(ni):
+            crispy = CrispValueCalculator(self.fuzz_inputs[i], self.Controlador)
+            ups_universe, output_mf, cut_mfs = crispy.find_memberships()
+            zeros = np.zeros_like(ups_universe, dtype=np.float64)
+            
+            for etiq, label in enumerate(window.InputList[i]['etiquetas']):
+                self.inlabelsplot[i][etiq].setData(self.fuzz_inputs[i].universe, self.fuzz_inputs[i].terms[label['nombre']].mf)
+                under_plot, over_plot = self.inareas[i][etiq]
+                under_plot.setData(ups_universe, zeros)
+                over_plot.setData(ups_universe, cut_mfs[label['nombre']])
+            
+            if len(cut_mfs) > 0 and not all(output_mf == 0):
+                crisp_value = self.fuzz_inputs[i].input[self.Controlador]
+                if crisp_value is not None:
+                    y = 0.
+                    for key, term in self.fuzz_inputs[i].terms.items():
+                        if key in cut_mfs:
+                            y = max(y, interp_membership(self.fuzz_inputs[i].universe,
+                                                        term.mf, crisp_value))
+                    if y < 0.1:
+                        y = 1.
+
+                    self.invalues[i].setData([crisp_value] * 2, np.asarray([0, y]))
+                else:
+                    crisp_value= 0
+            else:
+                crisp_value = 0
+        
+        for i in range(no):
+            crispy = CrispValueCalculator(self.fuzz_outputs[i], self.Controlador)
+            ups_universe, output_mf, cut_mfs = crispy.find_memberships()
+            zeros = np.zeros_like(ups_universe, dtype=np.float64)
+            
+            for etiq, label in enumerate(window.OutputList[i]['etiquetas']):
+                self.outlabelsplot[i][etiq].setData(self.fuzz_outputs[i].universe, self.fuzz_outputs[i].terms[label['nombre']].mf)
+                under_plot, over_plot = self.outareas[i][etiq]
+                under_plot.setData(ups_universe, zeros)
+                over_plot.setData(ups_universe, cut_mfs[label['nombre']])
+            
+            if len(cut_mfs) > 0 and not all(output_mf == 0):
+                crisp_value = self.fuzz_outputs[i].output[self.Controlador]
+
+                # Draw the crisp value at the actual cut height
+                if crisp_value is not None:
+                    y = 0.
+                    for key, term in self.fuzz_outputs[i].terms.items():
+                        if key in cut_mfs:
+                            y = max(y, interp_membership(self.fuzz_outputs[i].universe,
+                                                        term.mf, crisp_value))
+
+                    # Small cut values are hard to see, so simply set them to 1
+                    if y < 0.1:
+                        y = 1.
+
+                    self.outvalues[i].setData([crisp_value] * 2, np.asarray([0, y]))
+                    
+                else:
+                    crisp_value= 0
+            else:
+                crisp_value = 0
+
+            window.outtestlabels[i].setText(window.OutputList[i]['nombre'] + f': {np.around(crisp_value, 3)}')
+            
     def graficar_respuesta_2d(self, window, inrange, no):
         entrada = np.linspace(*inrange, 500)
         

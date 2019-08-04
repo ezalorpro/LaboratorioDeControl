@@ -11,8 +11,9 @@ class PgraphWidget(QGraphicsView):
         pg.setConfigOption('foreground', 'k')
                 
         self.plotwidget = PlotWidget()
+        self.plotwidget.setYRange(0, 1)
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.plotwidget)
-        self.plotwidget.showGrid(x=True, y=True)
+        # self.plotwidget.showGrid(x=True, y=True)
         self.setLayout(vertical_layout)
         

@@ -728,7 +728,7 @@ def prueba_input(self):
         values[i] = values[i]*(rmax - rmin)/1000 + rmin
         self.intestlabels[i].setText(entrada['nombre'] + f': {np.around(values[i], 3)}')
         
-    self.fuzzController.prueba_de_controlador(self, values, ni, no)
+    self.fuzzController.prueba_de_controlador(self, values, ni, no, pyqtgraph=True)
     
 
 def crear_vectores_de_widgets(self):

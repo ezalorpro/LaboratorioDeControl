@@ -41,19 +41,11 @@ pw.addItem(fill)
 
 pw.enableMouse(False)
 
-pw = pg.PlotWidget(name='Plot1')  ## giving the plots names allows us to link their axes together
 
+c1.setData(np.asarray([-1, 5, 10]),np.asarray([0, 1, 0]))
+c2.setData(np.asarray([-6, 0, 5]),np.asarray([0, 1, 0]))
 
-c1 = pw.plot(np.asarray([-2, 5, 10]),np.asarray([0, 1, 0]), pen=0)
-c2 = pw.plot(np.asarray([-5, 0, 5]),np.asarray([0, 1, 0]), pen=1)
-
-top1 = pw.plot(np.array(a), np.array(b))
-top2 = pw.plot(np.array(a), np.array(c))
-
-fill = pg.FillBetweenItem(top1, top2, (200, 100, 100, 100))
-pw.addItem(fill)
-pw.enableMouse(False)
-
+pw.clear()
 QtGui.QApplication.instance().exec_()
 
 # path = "c:\\Users\\PC\\Documents\\Descargas chrome\\NO TOCAR MALDITO IDIOTA!! ZZZZ\\kleiver\\Tesis\\Nueva tesis\\LaboratorioDeControl\\Main aplication\\main.py"
