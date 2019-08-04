@@ -12,7 +12,6 @@ import copy
 
 
 class FuzzyController():
-    
     def __init__(self, inputlist, outputlist, rulelist=[]):
         self.fuzz_inputs = self.crear_input(inputlist)
         self.fuzz_outputs = self.crear_output(outputlist)
