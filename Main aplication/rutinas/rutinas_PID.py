@@ -385,23 +385,14 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
     else:
         t, y = runge_kutta(self, system, T, U, kp, ki, kd)
 
-    self.main.stepGraphicsView2.canvas.axes.clear()
     
     if ctrl.isdtime(system, strict=True):
         y = y[0]
-        self.main.stepGraphicsView2.canvas.axes.step(t, y, where="mid")
+        #TODO graficar en escalera
+        self.main.stepGraphicsView2.curva.setData(t, y)
     else:
-        self.main.stepGraphicsView2.canvas.axes.plot(t, y)
+        self.main.stepGraphicsView2.curva.setData(t, y)
 
-    self.main.stepGraphicsView2.canvas.axes.grid(color="lightgray")
-    self.main.stepGraphicsView2.canvas.axes.set_title("Respuesta escalon")
-    self.main.stepGraphicsView2.canvas.axes.xaxis.set_major_formatter(
-        mticker.FormatStrFormatter("%.2f s")
-    )
-    self.main.stepGraphicsView2.canvas.axes.set_xlabel("Tiempo")
-    self.main.stepGraphicsView2.canvas.axes.set_ylabel("Respuesta")
-    self.main.stepGraphicsView2.canvas.draw()
-    self.main.stepGraphicsView2.toolbar.update()
     return t, y
 
 
