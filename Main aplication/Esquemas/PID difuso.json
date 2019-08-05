@@ -1,1 +1,158 @@
-[[{"nombre": "error", "numeroE": 5, "etiquetas": [{"nombre": "negativo alto", "mf": "gaussmf", "definicion": [-100, 20]}, {"nombre": "negativo bajo", "mf": "gaussmf", "definicion": [-50, 20]}, {"nombre": "cero", "mf": "gaussmf", "definicion": [0.0, 20]}, {"nombre": "positivo bajo", "mf": "gaussmf", "definicion": [50, 20]}, {"nombre": "positivo alto", "mf": "gaussmf", "definicion": [100, 20]}], "rango": [-100, 100]}, {"nombre": "derivada del error", "numeroE": 5, "etiquetas": [{"nombre": "negativo alto", "mf": "gaussmf", "definicion": [-100, 20]}, {"nombre": "negativo bajo", "mf": "gaussmf", "definicion": [-50, 20]}, {"nombre": "cero", "mf": "gaussmf", "definicion": [0, 20]}, {"nombre": "positivo bajo", "mf": "gaussmf", "definicion": [50, 20]}, {"nombre": "positivo alto", "mf": "gaussmf", "definicion": [100, 20]}], "rango": [-100, 100]}], [{"nombre": "se\u00f1al de control", "numeroE": 5, "etiquetas": [{"nombre": "negativo alto", "mf": "gaussmf", "definicion": [-1, 0.2]}, {"nombre": "negativo bajo", "mf": "gaussmf", "definicion": [-0.5, 0.2]}, {"nombre": "cero", "mf": "gaussmf", "definicion": [0, 0.2]}, {"nombre": "positivo bajo", "mf": "gaussmf", "definicion": [0.5, 0.2]}, {"nombre": "positivo alto", "mf": "gaussmf", "definicion": [1, 0.2]}], "rango": [-1, 1], "metodo": "centroid"}], []]
+[
+    [
+        {
+            "nombre": "error",
+            "numeroE": 5,
+            "etiquetas": [
+                {
+                    "nombre": "negativo alto",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        -100,
+                        20
+                    ]
+                },
+                {
+                    "nombre": "negativo bajo",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        -50,
+                        20
+                    ]
+                },
+                {
+                    "nombre": "cero",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        0.0,
+                        20
+                    ]
+                },
+                {
+                    "nombre": "positivo bajo",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        50,
+                        20
+                    ]
+                },
+                {
+                    "nombre": "positivo alto",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        100,
+                        20
+                    ]
+                }
+            ],
+            "rango": [
+                -100,
+                100
+            ]
+        },
+        {
+            "nombre": "derivada del error",
+            "numeroE": 5,
+            "etiquetas": [
+                {
+                    "nombre": "negativo alto",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        -100,
+                        20
+                    ]
+                },
+                {
+                    "nombre": "negativo bajo",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        -50,
+                        20
+                    ]
+                },
+                {
+                    "nombre": "cero",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        0,
+                        20
+                    ]
+                },
+                {
+                    "nombre": "positivo bajo",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        50,
+                        20
+                    ]
+                },
+                {
+                    "nombre": "positivo alto",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        100,
+                        20
+                    ]
+                }
+            ],
+            "rango": [
+                -100,
+                100
+            ]
+        }
+    ],
+    [
+        {
+            "nombre": "se\u00f1al de control",
+            "numeroE": 5,
+            "etiquetas": [
+                {
+                    "nombre": "cero",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        0,
+                        0.1
+                    ]
+                },
+                {
+                    "nombre": "bajo",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        0.25,
+                        0.1
+                    ]
+                },
+                {
+                    "nombre": "medio",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        0.5,
+                        0.1
+                    ]
+                },
+                {
+                    "nombre": "alto",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        0.75,
+                        0.1
+                    ]
+                },
+                {
+                    "nombre": "muy alto",
+                    "mf": "gaussmf",
+                    "definicion": [
+                        1.0,
+                        0.1
+                    ]
+                }
+            ],
+            "rango": [
+                0,
+                1
+            ],
+            "metodo": "centroid"
+        }
+    ],
+    []
+]
