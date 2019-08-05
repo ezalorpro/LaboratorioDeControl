@@ -75,7 +75,7 @@ class FuzzyController():
         window.main.inputgraphicsView.canvas.axes.clear()
         FuzzyVariableVisualizer(self.fuzz_inputs[i], 
                                 window.main.inputgraphicsView, 
-                                window.main.inputgraphicsView.canvas.axes).view()
+                                window.main.inputgraphicsView.canvas.axes).view_gui()
         window.main.inputgraphicsView.canvas.axes.grid(color="lightgray")
         window.main.inputgraphicsView.canvas.draw()
         window.main.inputgraphicsView.toolbar.update()
@@ -84,7 +84,7 @@ class FuzzyController():
         window.main.outputgraphicsView.canvas.axes.clear()
         FuzzyVariableVisualizer(self.fuzz_outputs[o], 
                                 window.main.outputgraphicsView, 
-                                window.main.outputgraphicsView.canvas.axes).view()
+                                window.main.outputgraphicsView.canvas.axes).view_gui()
         window.main.outputgraphicsView.canvas.axes.grid(color="lightgray")
         window.main.outputgraphicsView.canvas.draw()
         window.main.outputgraphicsView.toolbar.update()
@@ -264,7 +264,7 @@ class FuzzyController():
             grafica.canvas.axes.clear()
             FuzzyVariableVisualizer(self.fuzz_inputs[i], 
                                     grafica, 
-                                    grafica.canvas.axes).view(self.Controlador, legend=False)
+                                    grafica.canvas.axes).view_gui(self.Controlador, legend=False)
             grafica.canvas.axes.grid(color="lightgray")
             grafica.canvas.draw()
             
@@ -272,7 +272,7 @@ class FuzzyController():
             grafica.canvas.axes.clear()
             value = FuzzyVariableVisualizer(self.fuzz_outputs[o], 
                                     grafica, 
-                                    grafica.canvas.axes).view(self.Controlador, legend=False)
+                                    grafica.canvas.axes).view_gui(self.Controlador, legend=False)
             grafica.canvas.axes.grid(color="lightgray")
             grafica.canvas.draw()
             
@@ -497,11 +497,14 @@ class FuzzyController():
                      
         for o in range(no):
             window.respuesta3ds[o].canvas.axes.clear()
+            
+            if window.respuesta3ds[o].colorbar != 0:
+                window.respuesta3ds[o].colorbar.remove()
+                
             surface = window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
                                                             rstride=1, cstride=1, cmap='viridis', linewidth=0.4, antialiased=True)
             
-            #TODO tratar de agregar sin que interfiera con el espaciado
-            # window.respuesta3ds[o].canvas.figure.colorbar(surface)
+            window.respuesta3ds[o].colorbar = window.respuesta3ds[o].canvas.figure.colorbar(surface)
             
             window.respuesta3ds[o].canvas.axes.view_init(30, 200)
             window.respuesta3ds[o].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)

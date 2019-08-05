@@ -25,7 +25,7 @@ class FuzzyVariableVisualizer(object):
         Figure object containing the visualization.
     """
 
-    def __init__(self, fuzzy_var, figure, ax):
+    def __init__(self, fuzzy_var, figure=None, ax=None):
         """
         Initialize the fuzzy variable plot.
 
@@ -46,11 +46,82 @@ class FuzzyVariableVisualizer(object):
             raise ValueError("`FuzzyVariableVisualizer` can only be called "
                              "with a `FuzzyVariable` or a `Term`.")
 
-        self.fig = figure
-        self.ax = ax
+        if figure is not None:
+            self.fig = figure
+            self.ax = ax
+        else:
+            self.fig, self.ax = plt.subplots()
         self.plots = {}
+    def view(self, sim=None, *args, **kwargs):
+        """
+        Visualize this variable and its membership functions with Matplotlib.
 
-    def view(self, sim=None, legend=True, *args, **kwargs):
+        The current output membership function will be shown in bold.
+
+        Returns
+        -------
+        fig : matplotlib Figure
+            The hosting Figure object.
+        ax : matplotlib Axis
+            The Axis upon which the plot is drawn.
+
+        Notes
+        -----
+        Matplotlib is used, but ``plt.show()`` is not called. Instead, the
+        Figure and Axis are returned, allowing further user customization if
+        desired.  In a Jupyter notebook, ``.view()`` will be displayed inline.
+        """
+        from .controlsystem import (CrispValueCalculator, ControlSystem,
+                                    ControlSystemSimulation)
+
+        if sim is None:
+            # Create an empty simulation so we can view with default values
+            sim = ControlSystemSimulation(ControlSystem())
+
+        self._init_plot()
+
+        crispy = CrispValueCalculator(self.fuzzy_var, sim)
+        ups_universe, output_mf, cut_mfs = crispy.find_memberships()
+
+        # Plot the output membership functions
+        cut_plots = {}
+        zeros = np.zeros_like(ups_universe, dtype=np.float64)
+
+        for label, mf_plot in self.plots.items():
+            # Only attempt to plot those with cuts
+            if label in cut_mfs:
+                # Harmonize color between mf plots and filled overlays
+                color = mf_plot[0].get_color()
+                cut_plots[label] = self.ax.fill_between(
+                    ups_universe, zeros, cut_mfs[label],
+                    facecolor=color, alpha=0.4)
+
+        # Plot crisp value if available
+        if len(cut_mfs) > 0 and not all(output_mf == 0):
+            crisp_value = None
+            if hasattr(self.fuzzy_var, 'input'):
+                crisp_value = self.fuzzy_var.input[sim]
+            elif hasattr(self.fuzzy_var, 'output'):
+                crisp_value = self.fuzzy_var.output[sim]
+
+            # Draw the crisp value at the actual cut height
+            if crisp_value is not None:
+                y = 0.
+                for key, term in self.fuzzy_var.terms.items():
+                    if key in cut_mfs:
+                        y = max(y, interp_membership(self.fuzzy_var.universe,
+                                                     term.mf, crisp_value))
+
+                # Small cut values are hard to see, so simply set them to 1
+                if y < 0.1:
+                    y = 1.
+
+                self.ax.plot([crisp_value] * 2, [0, y],
+                             color='k', lw=3, label='crisp value')
+
+        return self.fig, self.ax
+    
+    def view_gui(self, sim=None, legend=True, *args, **kwargs):
         """
         Visualize this variable and its membership functions with Matplotlib.
 
@@ -122,7 +193,7 @@ class FuzzyVariableVisualizer(object):
             crisp_value = 0
         return crisp_value
 
-    def _init_plot(self, legend):
+    def _init_plot(self, legend=True):
         # Formatting: limits
         self.ax.set_ylim([0, 1.01])
         self.ax.set_xlim([self.fuzzy_var.universe.min(),

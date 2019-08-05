@@ -67,4 +67,5 @@ class MlpWidget3D(QGraphicsView):
         self.canvas.axes = self.canvas.figure.add_subplot(111, projection='3d')
         self.canvas.figure.tight_layout()
         self.canvas.axes.grid()
+        self.colorbar = 0
         self.setLayout(vertical_layout)
