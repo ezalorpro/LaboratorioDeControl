@@ -52,6 +52,7 @@ class FuzzyVariableVisualizer(object):
         else:
             self.fig, self.ax = plt.subplots()
         self.plots = {}
+    
     def view(self, sim=None, *args, **kwargs):
         """
         Visualize this variable and its membership functions with Matplotlib.

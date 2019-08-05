@@ -2,8 +2,8 @@ from rutinas.rutinas_PID import *
 import json
 
 def PIDHandler(self):
-    self.main.tfprogressBar2.hide()
-    self.main.ssprogressBar2.hide()
+    self.tfSliderValue = self.main.tfreolutionSpin2.value()
+    self.ssSliderValue = self.main.ssreolutionSpin2.value()
     
     self.main.tfcalcButton2.clicked.connect(lambda: chequeo_de_accion(self))
     self.main.sscalcButton2.clicked.connect(lambda: chequeo_de_accion(self))
@@ -23,6 +23,9 @@ def PIDHandler(self):
     
     self.main.tfAutoTuningcheckBox2.clicked['bool'].connect(lambda: tf_habilitar_sliders_checkbox(self))
     self.main.ssAutoTuningcheckBox2.clicked['bool'].connect(lambda: ss_habilitar_sliders_checkbox(self))
+    
+    self.main.tfreolutionSpin2.valueChanged.connect(lambda: actualizar_sliders_tf(self))
+    self.main.ssreolutionSpin2.valueChanged.connect(lambda: actualizar_sliders_ss(self))
 
 
 def chequeo_de_accion(self):
@@ -93,10 +96,10 @@ def calcular_PID(self):
     
     if not system_ss:
         rutina_system_info(self, system_pid, T, t2, y2)
+        update_gain_labels(self, resolution=self.tfSliderValue)
     else:
         rutina_system_info(self, system_ss, T, t2, y2)
-    
-    update_gain_labels(self)
+        update_gain_labels(self, resolution=self.ssSliderValue)
 
 
 def calcular_autotuning(self):
@@ -166,11 +169,11 @@ def calcular_autotuning(self):
     
     if not system_ss:
         rutina_system_info(self, system_pid, T, t2, y2, kp, ki, kd, autotuning=True)
+        update_gain_labels(self, kp, ki, kd, autotuning=True, resolution=self.tfSliderValue)
     else:
         rutina_system_info(self, system_ss, T, t2, y2, kp, ki, kd, autotuning=True)
+        update_gain_labels(self, kp, ki, kd, autotuning=True, resolution=self.ssSliderValue)
     
-    update_gain_labels(self, kp, ki, kd, autotuning=True)
-
 
 def PID_bool_discreto(self):
     if self.main.tfdiscretocheckBox2.isChecked():
@@ -182,6 +185,7 @@ def PID_bool_discreto(self):
 def PID_stacked_to_tf(self):
     self.main.PIDstackedWidget.setCurrentIndex(0)
     tf_habilitar_sliders_checkbox(self)
+    update_gain_labels(self, resolution=self.tfSliderValue)
 
 
 def tf_habilitar_sliders_checkbox(self):
@@ -215,7 +219,8 @@ def tf_habilitar_sliders_checkbox(self):
 
 def PID_stacked_to_ss(self):
     self.main.PIDstackedWidget.setCurrentIndex(1)
-    ss_habilitar_sliders_checkbox(self)        
+    ss_habilitar_sliders_checkbox(self)     
+    update_gain_labels(self, resolution=self.ssSliderValue)   
 
 
 def ss_habilitar_sliders_checkbox(self):
@@ -245,3 +250,11 @@ def ss_habilitar_sliders_checkbox(self):
             self.main.kdHSlider2.setEnabled(True)
         else:
             self.main.kdHSlider2.setDisabled(True)
+
+def actualizar_sliders_tf(self):
+    self.tfSliderValue = self.main.tfreolutionSpin2.value()
+    update_gain_labels(self, resolution=self.tfSliderValue)
+    
+def actualizar_sliders_ss(self):
+    self.ssSliderValue = self.main.ssreolutionSpin2.value()
+    update_gain_labels(self, resolution=self.ssSliderValue)

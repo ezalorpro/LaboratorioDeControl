@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 from collections import deque
 from functools import partial
 import matplotlib.ticker as mticker
+import copy
 import json
 
 from rutinas.MonkeyPatch_stepinfo import step_info
@@ -42,7 +43,7 @@ def system_creator_tf(self, numerador, denominador):
         else:
             T = np.arange(0, 2 * np.max(t), 0.05)
     except ValueError:
-        T = np.arange(0, 100, 0.1)
+        T = np.arange(0, 100, 0.05)
 
     return system, T, system_delay
 
@@ -87,12 +88,17 @@ def system_creator_ss(self, A, B, C, D):
 
 
 def rutina_step_plot(self, system, T):
-    U = np.ones_like(T)
     
-    if not system.delay or ctrl.isdtime(system, strict=True):
-        t, y, _ = ctrl.forced_response(system, T, U)
-    else:
-        t, y = runge_kutta(self, system, T, U)
+    U = np.ones_like(T)
+    if system.delay:
+        U[:int(system.delay/0.05)+1] = 0
+    
+    t, y, _ = ctrl.forced_response(system, T, U)
+    
+    # if not system.delay or ctrl.isdtime(system, strict=True):
+    #     t, y, _ = ctrl.forced_response(system, T, U)
+    # else:
+    #     t, y = runge_kutta(self, system, T, U)
     
     self.main.stepGraphicsView1.canvas.axes.clear()
     
@@ -135,14 +141,18 @@ def runge_kutta(self, system, T, u):
     return T, salida
 
 def rutina_impulse_plot(self, system, T):
-
     U = np.zeros_like(T)
-    U[0] = 1
-    
-    if not system.delay or ctrl.isdtime(system, strict=True):
-        t, y, _ = ctrl.forced_response(system, T, U)
+    if system.delay:
+        U[:int(system.delay/0.05)+1] = 0
+        U[int(system.delay/0.05)+1] = 1
     else:
-        t, y = runge_kutta(self, system, T, U)
+        U[0] = 1
+    
+    t, y, _ = ctrl.forced_response(system, T, U)
+    # if not system.delay or ctrl.isdtime(system, strict=True):
+    #     t, y, _ = ctrl.forced_response(system, T, U)
+    # else:
+    #     t, y = runge_kutta(self, system, T, U)
 
     self.main.impulseGraphicsView1.canvas.axes.clear()
 
@@ -271,7 +281,7 @@ def rutina_root_locus_plot(self, system):
     
     if not ctrl.isdtime(system, strict=True): 
         if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
-            pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.tfdelayEdit1.text()), 4))
+            pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.tfdelayEdit1.text()), 10))
             t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
             
         if self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:

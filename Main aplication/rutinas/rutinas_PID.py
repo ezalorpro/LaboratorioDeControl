@@ -19,16 +19,18 @@ def system_creator_tf(self, numerador, denominador):
         
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
     
+    #TODO Adaptacion de escalas de forma automatica
+    
     if self.main.kpCheckBox2.isChecked():
-        kp = self.main.kpHSlider2.value()/50
+        kp = self.main.kpHSlider2.value()/self.tfSliderValue
     else:
         kp = 0
     if self.main.kiCheckBox2.isChecked():
-        ki = self.main.kiHSlider2.value()/50
+        ki = self.main.kiHSlider2.value()/self.tfSliderValue
     else:
         ki = 0
     if self.main.kdCheckBox2.isChecked():
-        kd = self.main.kdHSlider2.value()/50
+        kd = self.main.kdHSlider2.value()/self.tfSliderValue
     else:
         kd = 0
     
@@ -83,16 +85,17 @@ def system_creator_ss(self, A, B, C, D):
         
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
     
+    #TODO Adaptacion de escalas de forma automatica
     if self.main.kpCheckBox2.isChecked():
-        kp = self.main.kpHSlider2.value()/50
+        kp = self.main.kpHSlider2.value()/self.ssSliderValue
     else:
         kp = 0
     if self.main.kiCheckBox2.isChecked():
-        ki = self.main.kiHSlider2.value()/50
+        ki = self.main.kiHSlider2.value()/self.ssSliderValue
     else:
         ki = 0
     if self.main.kdCheckBox2.isChecked():
-        kd = self.main.kdHSlider2.value()/50
+        kd = self.main.kdHSlider2.value()/self.ssSliderValue
     else:
         kd = 0
     
@@ -382,10 +385,19 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
     
     if ctrl.isdtime(system, strict=True):
         t, y, _ = ctrl.forced_response(system, T, U)
+    elif (not self.main.tfdelaycheckBox2.isChecked()
+        and self.main.PIDstackedWidget.currentIndex() == 0) or (not self.main.ssdelaycheckBox2.isChecked()
+        and self.main.PIDstackedWidget.currentIndex() == 1):
+        pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
+        system = ctrl.feedback(pid*system)
+        t, y, _ = ctrl.forced_response(system, T, U)
     else:
-        t, y = runge_kutta(self, system, T, U, kp, ki, kd)
+        pade = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 10))
+        pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
+        system = ctrl.feedback(pid*system*pade)
+        t, y, _ = ctrl.forced_response(system, T, U)
+        # t, y = runge_kutta(self, system, T, U, kp, ki, kd)
 
-    
     if ctrl.isdtime(system, strict=True):
         y = y[0]
         self.main.stepGraphicsView2.curva.setData(t, y[:-1], stepMode=True)
@@ -435,23 +447,26 @@ def PID(vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
     return s_control, s_integral, error_anterior
 
 
-def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False):
+def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False, resolution=50):
     if autotuning:
         self.main.kpHSlider2.blockSignals(True)
         self.main.kiHSlider2.blockSignals(True)
         self.main.kdHSlider2.blockSignals(True)
         
-        self.main.kpHSlider2.setValue(kp*50)
-        self.main.kiHSlider2.setValue(ki*50)
-        self.main.kdHSlider2.setValue(kd*50)
+        #TODO Adaptacion de escalas de forma automatica
+        
+        self.main.kpHSlider2.setValue(kp*resolution)
+        self.main.kiHSlider2.setValue(ki*resolution)
+        self.main.kdHSlider2.setValue(kd*resolution)            
         
         self.main.kpHSlider2.blockSignals(False)
         self.main.kiHSlider2.blockSignals(False)
         self.main.kdHSlider2.blockSignals(False)
     
-    self.main.kpValueLabel2.setText(str(self.main.kpHSlider2.value()/50))
-    self.main.kiValueLabel2.setText(str(self.main.kiHSlider2.value()/50))
-    self.main.kdValueLabel2.setText(str(self.main.kdHSlider2.value()/50))
+    #TODO Adaptacion de escalas de forma automatica
+    self.main.kpValueLabel2.setText(str(self.main.kpHSlider2.value()/resolution))
+    self.main.kiValueLabel2.setText(str(self.main.kiHSlider2.value()/resolution))
+    self.main.kdValueLabel2.setText(str(self.main.kdHSlider2.value()/resolution))
     
 
 def rutina_system_info(self, system, T, t, y, kp=0, ki=0, kd=0, autotuning=False):
