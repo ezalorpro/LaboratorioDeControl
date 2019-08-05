@@ -114,7 +114,7 @@ def crear_tabs(self):
             self.main.inputNumber.insertItem(i, str(i+1))
             temp_dic = inputDic_creator(self, NumeroEntradas, i)
             self.InputList.append(temp_dic)
-            ini_range_etiquetas = np.arange(-10, 11, 20/4).tolist()
+            ini_range_etiquetas = np.arange(-20, 21, 20/2).tolist()
             window = 0
             for j in range(self.InputList[i]['numeroE']):
                 self.InputList[i]['etiquetas'][j] = EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window+3])
@@ -124,7 +124,7 @@ def crear_tabs(self):
             self.main.outputNumber.insertItem(i, str(i+1))
             temp_dic = outputDic_creator(self, NumeroSalidas, i)
             self.OutputList.append(temp_dic)
-            ini_range_etiquetas = np.arange(-10, 11, 20/4).tolist()
+            ini_range_etiquetas = np.arange(-20, 21, 20/2).tolist()
             window = 0
             for j in range(self.OutputList[i]['numeroE']):
                 self.OutputList[i]['etiquetas'][j] = EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window+3])
@@ -382,7 +382,8 @@ def numero_de_etiquetas_in(self):
     self.main.etiquetaNumIn.blockSignals(True)
     self.main.etiquetaNumIn.clear()
     rmin, rmax = self.InputList[ni]['rango']
-    ini_range_etiquetas = np.arange(rmin, rmax+1, (rmax-rmin)/(ne+1)).tolist()
+    step = (rmax-rmin)/(ne-1)
+    ini_range_etiquetas = np.arange(rmin-step, rmax+step+1, step).tolist()
     
     window = 0
     for j in range(self.InputList[ni]['numeroE']):
@@ -410,7 +411,8 @@ def numero_de_etiquetas_out(self):
     self.main.etiquetaNumOut.blockSignals(True)
     self.main.etiquetaNumOut.clear()
     rmin, rmax = self.OutputList[no]['rango']
-    ini_range_etiquetas = np.arange(rmin, rmax+1, (rmax-rmin)/(ne+1)).tolist()
+    step = (rmax-rmin)/(ne-1)
+    ini_range_etiquetas = np.arange(rmin-step, rmax+step+1, step).tolist()
     
     window = 0
     for j in range(self.OutputList[no]['numeroE']):
