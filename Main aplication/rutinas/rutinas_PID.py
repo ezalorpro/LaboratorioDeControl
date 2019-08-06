@@ -382,18 +382,20 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
     
     if ctrl.isdtime(system, strict=True):
         t, y, _ = ctrl.forced_response(system, T, U)
-    elif (not self.main.tfdelaycheckBox2.isChecked()
-        and self.main.PIDstackedWidget.currentIndex() == 0) or (not self.main.ssdelaycheckBox2.isChecked()
-        and self.main.PIDstackedWidget.currentIndex() == 1):
-        pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
-        system = ctrl.feedback(pid*system)
-        t, y, _ = ctrl.forced_response(system, T, U)
-    else:
+    elif (self.main.tfdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 0):
         pade = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 10))
         pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
         system = ctrl.feedback(pid*system*pade)
         t, y, _ = ctrl.forced_response(system, T, U)
-        # t, y = runge_kutta(self, system, T, U, kp, ki, kd)
+    elif (self.main.ssdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex() == 1):
+        pade = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.ssdelayEdit2.text()), 10))
+        pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
+        system = ctrl.feedback(pid*system*pade)
+        t, y, _ = ctrl.forced_response(system, T, U)
+    else:
+        pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
+        system = ctrl.feedback(pid*system)
+        t, y, _ = ctrl.forced_response(system, T, U)
 
     if ctrl.isdtime(system, strict=True):
         y = y[0]

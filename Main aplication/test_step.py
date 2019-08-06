@@ -11,17 +11,6 @@ import pyqtgraph as pg
 from pyqtgraph.Qt import QtGui, QtCore
 import time 
 
-Gs = ctrl.tf([1], [1, 1, 1])
-Gss = ctrl.tf2ss(Gs)
-pid = ctrl.tf([1, 1, 1], [1, 0])
-pid = ctrl.tf2ss(pid*Gss)
-print(pid)
-print(Gss)
-T = np.linspace(0, 28, 1/0.01)
-Gs = ctrl.feedback(Gs*200)
-t, y = ctrl.step_response(Gs, T)
-plt.plot(t, y)
-plt.show()
 
 # colors = [
 #     '#1f77b4',
