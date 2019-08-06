@@ -24,6 +24,7 @@ class PgraphWidgetpid(QGraphicsView):
         
         pg.setConfigOption('background', 'w')
         pg.setConfigOption('foreground', 'k')
+        pg.setConfigOptions(antialias=True)
         
         self.plotwidget = PlotWidget()
         self.plotwidget.setMouseEnabled(False, False)
