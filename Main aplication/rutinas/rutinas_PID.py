@@ -18,9 +18,7 @@ def system_creator_tf(self, numerador, denominador):
         delay = 0
         
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
-    
-    #TODO Adaptacion de escalas de forma automatica
-    
+        
     if self.main.kpCheckBox2.isChecked():
         kp = self.main.kpHSlider2.value()/self.tfSliderValue
     else:
@@ -85,7 +83,6 @@ def system_creator_ss(self, A, B, C, D):
         
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
     
-    #TODO Adaptacion de escalas de forma automatica
     if self.main.kpCheckBox2.isChecked():
         kp = self.main.kpHSlider2.value()/self.ssSliderValue
     else:
@@ -452,9 +449,7 @@ def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False, resolution=50):
         self.main.kpHSlider2.blockSignals(True)
         self.main.kiHSlider2.blockSignals(True)
         self.main.kdHSlider2.blockSignals(True)
-        
-        #TODO Adaptacion de escalas de forma automatica
-        
+                
         self.main.kpHSlider2.setValue(kp*resolution)
         self.main.kiHSlider2.setValue(ki*resolution)
         self.main.kdHSlider2.setValue(kd*resolution)            
@@ -463,7 +458,6 @@ def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False, resolution=50):
         self.main.kiHSlider2.blockSignals(False)
         self.main.kdHSlider2.blockSignals(False)
     
-    #TODO Adaptacion de escalas de forma automatica
     self.main.kpValueLabel2.setText(str(self.main.kpHSlider2.value()/resolution))
     self.main.kiValueLabel2.setText(str(self.main.kiHSlider2.value()/resolution))
     self.main.kdValueLabel2.setText(str(self.main.kdHSlider2.value()/resolution))
