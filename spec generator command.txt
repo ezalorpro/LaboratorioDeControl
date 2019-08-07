@@ -1,1 +1,1 @@
-..\virtualenv\Scripts\pyi-makespec --icon="icono.ico" --add-data="icono.ico;." .\main.py
+..\virtualenv\Scripts\pyi-makespec --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" .\main.py
