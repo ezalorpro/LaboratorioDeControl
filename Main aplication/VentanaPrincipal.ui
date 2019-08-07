@@ -2522,8 +2522,8 @@
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>350</width>
-                         <height>320</height>
+                         <width>16777215</width>
+                         <height>16777215</height>
                         </size>
                        </property>
                        <property name="text">
@@ -2583,8 +2583,8 @@
                       <widget class="QLabel" name="imagenOutputs">
                        <property name="maximumSize">
                         <size>
-                         <width>350</width>
-                         <height>320</height>
+                         <width>16777215</width>
+                         <height>16777215</height>
                         </size>
                        </property>
                        <property name="text">
@@ -2609,6 +2609,12 @@
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>620</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="frameShape">
                      <enum>QFrame::Box</enum>
                     </property>
@@ -2622,8 +2628,26 @@
                      <number>0</number>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_94">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
                      <item row="0" column="0">
                       <widget class="QLabel" name="imagenEsquemas">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
@@ -2632,15 +2656,15 @@
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>500</width>
-                         <height>320</height>
+                         <width>16777215</width>
+                         <height>16777215</height>
                         </size>
                        </property>
                        <property name="text">
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="imagenes.qrc">:/imagenes/imagenes/wow-elfe-6131934.jpg</pixmap>
+                        <pixmap resource="imagenes.qrc">:/imagenes/imagenes/sinEsquema.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>

@@ -39,8 +39,11 @@ def FuzzyHandler(self):
         f2d.hide()
         f3d.hide()
     
+    self.main.imagenEsquemas.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/sinEsquema.png"))
     self.main.estrucNumberInputs.currentIndexChanged.connect(lambda: imagen_entradas(self))
-    self.main.estrucNumberOutputs.currentIndexChanged.connect(lambda: imagen_salidas(self)) 
+    self.main.estrucNumberOutputs.currentIndexChanged.connect(lambda: imagen_salidas(self))
+    self.main.fuzzyEsquemasCheck.clicked['bool'].connect(lambda: check_esquema_show(self))
+    self.main.fuzzyEsquemas.currentIndexChanged.connect(lambda: show_esquema(self))
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     self.main.guardarFuzzButton.clicked.connect(lambda: guardar_controlador(self))
     self.main.cargarFuzzButton.clicked.connect(lambda: cargar_controlador(self))
@@ -86,7 +89,28 @@ def imagen_entradas(self):
 def imagen_salidas(self):
     no = self.main.estrucNumberOutputs.currentIndex() + 1
     self.main.imagenOutputs.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/salida"+str(no)+".png"))
-    
+
+
+def check_esquema_show(self):
+    if not self.main.fuzzyEsquemasCheck.isChecked():
+        self.main.imagenEsquemas.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/sinEsquema.png"))
+        imagen_entradas(self)
+        imagen_salidas(self)
+    else:
+        show_esquema(self)
+   
+        
+def show_esquema(self):
+    if self.main.fuzzyEsquemas.currentIndex() == 0:
+        self.main.imagenEsquemas.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/esquemaPIDdifuso.png"))
+        self.main.imagenInputs.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/entrada2.png"))
+        self.main.imagenOutputs.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/salida1.png"))
+    elif self.main.fuzzyEsquemas.currentIndex() == 1:
+        print('otro esquema')
+        self.main.imagenInputs.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/entrada2.png"))
+        self.main.imagenOutputs.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/salida3.png"))
+        
+        
 def crear_tabs(self):
     if not self.main.fuzzyEsquemasCheck.isChecked():
         self.setWindowTitle('Laboratorio de sistemas de control - Nuevo controlador sin guardar*')
@@ -186,6 +210,7 @@ def EtiquetasDic_creator(self, j, erange):
     }
     return etiquetaDic
 
+
 def cargar_esquema(self):
     path = self.resource_path('Esquemas/' + self.main.fuzzyEsquemas.currentText() + '.json')
     with open(path, 'r', ) as f:
@@ -235,6 +260,7 @@ def cargar_esquema(self):
     
     self.setWindowTitle('Laboratorio de sistemas de control - Nuevo controlador sin guardar*')
 
+
 def guardar_controlador(self):
     
     if len(self.current_file) > 0:
@@ -242,6 +268,7 @@ def guardar_controlador(self):
             json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f)
     else:
         guardarcomo_controlador(self)
+
 
 def guardarcomo_controlador(self):
     path_guardar = QtWidgets.QFileDialog.getSaveFileName(selectedFilter='*.json')
@@ -796,6 +823,7 @@ def crear_controlador(self):
             rimin1, rimax1 = self.InputList[0]['rango']
             rimin2, rimax2 = self.InputList[1]['rango']
             self.fuzzController.graficar_respuesta_3d(self, [rimin1, rimax1], [rimin2, rimax2], no)
+
 
 def prueba_input(self):
     ni = len(self.InputList)
