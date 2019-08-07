@@ -2443,7 +2443,7 @@
                 <item>
                  <widget class="QFrame" name="frame_4">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -2455,34 +2455,97 @@
                    </size>
                   </property>
                   <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
+                   <enum>QFrame::Box</enum>
                   </property>
                   <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
+                   <enum>QFrame::Plain</enum>
+                  </property>
+                  <property name="lineWidth">
+                   <number>2</number>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_17">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
                   <item>
                    <widget class="QFrame" name="frame">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>250</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
-                     <enum>QFrame::Raised</enum>
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>0</number>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_18">
+                     <property name="sizeConstraint">
+                      <enum>QLayout::SetDefaultConstraint</enum>
+                     </property>
+                     <property name="leftMargin">
+                      <number>6</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="horizontalSpacing">
+                      <number>6</number>
+                     </property>
                      <item row="0" column="0">
-                      <widget class="QLabel" name="label_22">
+                      <widget class="QLabel" name="imagenInputs">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>350</width>
+                         <height>320</height>
+                        </size>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="imagenes.qrc">:/imagenes/imagenes/wow-elfe-6131934.jpg</pixmap>
+                        <pixmap resource="imagenes.qrc">:/imagenes/imagenes/entrada2.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                       </property>
+                       <property name="wordWrap">
+                        <bool>false</bool>
+                       </property>
+                       <property name="margin">
+                        <number>0</number>
+                       </property>
+                       <property name="indent">
+                        <number>-1</number>
                        </property>
                       </widget>
                      </item>
@@ -2491,20 +2554,44 @@
                   </item>
                   <item>
                    <widget class="QFrame" name="frame_2">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>250</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
-                     <enum>QFrame::Raised</enum>
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>0</number>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_93">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
                      <item row="0" column="0">
-                      <widget class="QLabel" name="label_23">
+                      <widget class="QLabel" name="imagenOutputs">
+                       <property name="maximumSize">
+                        <size>
+                         <width>350</width>
+                         <height>320</height>
+                        </size>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="imagenes.qrc">:/imagenes/imagenes/wow-elfe-6131934.jpg</pixmap>
+                        <pixmap resource="imagenes.qrc">:/imagenes/imagenes/salida1.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -2516,15 +2603,39 @@
                   </item>
                   <item>
                    <widget class="QFrame" name="frame_3">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::Box</enum>
                     </property>
                     <property name="frameShadow">
-                     <enum>QFrame::Raised</enum>
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>2</number>
+                    </property>
+                    <property name="midLineWidth">
+                     <number>0</number>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_94">
                      <item row="0" column="0">
-                      <widget class="QLabel" name="label_24">
+                      <widget class="QLabel" name="imagenEsquemas">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>500</width>
+                         <height>320</height>
+                        </size>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>

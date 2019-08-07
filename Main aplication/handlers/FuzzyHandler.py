@@ -38,7 +38,9 @@ def FuzzyHandler(self):
         ot_f.hide()
         f2d.hide()
         f3d.hide()
-        
+    
+    self.main.estrucNumberInputs.currentIndexChanged.connect(lambda: imagen_entradas(self))
+    self.main.estrucNumberOutputs.currentIndexChanged.connect(lambda: imagen_salidas(self)) 
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     self.main.guardarFuzzButton.clicked.connect(lambda: guardar_controlador(self))
     self.main.cargarFuzzButton.clicked.connect(lambda: cargar_controlador(self))
@@ -76,6 +78,15 @@ def FuzzyHandler(self):
         slider.valueChanged.connect(lambda: prueba_input(self))
 
 
+def imagen_entradas(self):
+    ni = self.main.estrucNumberInputs.currentIndex() + 1
+    self.main.imagenInputs.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/entrada"+str(ni)+".png"))
+
+
+def imagen_salidas(self):
+    no = self.main.estrucNumberOutputs.currentIndex() + 1
+    self.main.imagenOutputs.setPixmap(QtGui.QPixmap(":/imagenes/imagenes/salida"+str(no)+".png"))
+    
 def crear_tabs(self):
     if not self.main.fuzzyEsquemasCheck.isChecked():
         self.setWindowTitle('Laboratorio de sistemas de control - Nuevo controlador sin guardar*')
