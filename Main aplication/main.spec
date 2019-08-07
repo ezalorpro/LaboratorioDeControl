@@ -15,6 +15,9 @@ a = Analysis(['main.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
+
+a.datas += [('icono.ico','C:\\Users\\PC\\Documents\\Descargas chrome\\NO TOCAR MALDITO IDIOTA!! ZZZZ\\kleiver\\Tesis\\Nueva tesis\\LaboratorioDeControl\\Main aplication\\icono.ico', 'Data')]
+
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
