@@ -1,0 +1,1 @@
+..\virtualenv\Scripts\pyi-makespec --icon="icono.ico" --add-data="icono.ico;." .\main.py

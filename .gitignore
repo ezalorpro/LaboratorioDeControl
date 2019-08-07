@@ -1,6 +1,7 @@
 *.*
 build
 virtualenv
+dist
 !main.spec
 !*.gitignore
 !*.py
