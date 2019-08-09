@@ -25,7 +25,9 @@ def FuzzyHandler(self):
     self.OutputList = []
     self.RuleList = []
     self.RuleEtiquetas = []
-    
+    self.vector_rotacion = [-0.25, 0, 0.25, 0.5, 0.75, 1, 1.25]
+    self.rotacion_windowIn = 2
+    self.rotacion_windowOut = 2
     self.fuzzInitController = FuzzyController
     
     crear_vectores_de_widgets(self)
@@ -444,8 +446,18 @@ def numero_de_etiquetas_in(self):
     if self.InputList[ni]['numeroE'] < ne:
         self.main.etiquetaNumIn.blockSignals(True)
         rmin, rmax = self.InputList[ni]['rango']
-        step = (rmax-rmin)/((ne - self.InputList[ni]['numeroE']))
-        ini_range_etiquetas = np.arange(rmin-step, rmax+step+1, step).tolist()
+        
+        if (ne - self.InputList[ni]['numeroE']) == 1:
+            ini_range_etiquetas = [self.vector_rotacion[self.rotacion_windowIn]*(rmax-rmin) + rmin,
+                                   self.vector_rotacion[self.rotacion_windowIn+1]*(rmax-rmin) + rmin, 
+                                   self.vector_rotacion[self.rotacion_windowIn+2]*(rmax-rmin) + rmin]
+            
+            self.rotacion_windowIn +=1
+            if self.rotacion_windowIn > 4:
+                self.rotacion_windowIn = 0
+        else:
+            step = (rmax-rmin)/((ne - self.InputList[ni]['numeroE']) -1)
+            ini_range_etiquetas = np.arange(rmin-step, rmax+step+1, step).tolist()
         
         window = 0
         for j in range(self.InputList[ni]['numeroE'], ne):
@@ -528,8 +540,18 @@ def numero_de_etiquetas_out(self):
     if self.OutputList[no]['numeroE'] < ne:
         self.main.etiquetaNumOut.blockSignals(True)
         rmin, rmax = self.OutputList[no]['rango']
-        step = (rmax-rmin)/((ne - self.OutputList[no]['numeroE']))
-        ini_range_etiquetas = np.arange(rmin-step, rmax+step+1, step).tolist()
+        
+        if (ne - self.OutputList[no]['numeroE']) == 1:
+            ini_range_etiquetas = [self.vector_rotacion[self.rotacion_windowOut]*(rmax-rmin) + rmin,
+                                   self.vector_rotacion[self.rotacion_windowOut+1]*(rmax-rmin) + rmin, 
+                                   self.vector_rotacion[self.rotacion_windowOut+2]*(rmax-rmin) + rmin]
+            
+            self.rotacion_windowOut +=1
+            if self.rotacion_windowOut > 4:
+                self.rotacion_windowOut = 0
+        else:
+            step = (rmax-rmin)/((ne - self.OutputList[no]['numeroE']) -1)
+            ini_range_etiquetas = np.arange(rmin-step, rmax+step+1, step).tolist()
         
         window = 0
         for j in range(self.OutputList[no]['numeroE'], ne):

@@ -12,6 +12,12 @@ from pyqtgraph.Qt import QtGui, QtCore
 import time 
 
 
+vector_rotacion = [0, 0.333, 0.5, 0.666, 1]
+print(vector_rotacion)
+vector_rotacion2 = vector_rotacion[1:]
+vector_rotacion2.extend([vector_rotacion[0]])
+print(vector_rotacion2)
+
 # colors = [
 #     '#1f77b4',
 #     '#ff7f0e',
@@ -124,63 +130,63 @@ import time
 # print(b)
 # print(c)
 
-input1 = fuzz.Antecedent(np.linspace(-10, 10 + 20/5000, 5000), 'input1')
-input2 = fuzz.Antecedent(np.linspace(-10, 10 + 20/5000, 5000), 'input2')
-output1 = fuzz.Consequent(np.linspace(-10, 10 + 20/5000, 5000), 'output1', defuzzify_method='som')
-output2 = fuzz.Consequent(np.linspace(-10, 10 + 20/5000, 5000), 'output2', defuzzify_method='som')
+# input1 = fuzz.Antecedent(np.linspace(-10, 10 + 20/5000, 5000), 'input1')
+# input2 = fuzz.Antecedent(np.linspace(-10, 10 + 20/5000, 5000), 'input2')
+# output1 = fuzz.Consequent(np.linspace(-10, 10 + 20/5000, 5000), 'output1', defuzzify_method='som')
+# output2 = fuzz.Consequent(np.linspace(-10, 10 + 20/5000, 5000), 'output2', defuzzify_method='som')
 
-input1.automf(3, names=['label1', 'label2', 'label3'])
-input2.automf(3, names=['label1', 'label2', 'label3'])
-output1.automf(3, names=['label1', 'label2', 'label3'])
-output2.automf(3, names=['label1', 'label2', 'label3'])
+# input1.automf(3, names=['label1', 'label2', 'label3'])
+# input2.automf(3, names=['label1', 'label2', 'label3'])
+# output1.automf(3, names=['label1', 'label2', 'label3'])
+# output2.automf(3, names=['label1', 'label2', 'label3'])
 
-rule1 = fuzz.Rule(input1['label1'] & input2['label1'],
-                   consequent=[output1['label1']%1.0, output2['label1']%1.0])
+# rule1 = fuzz.Rule(input1['label1'] & input2['label1'],
+#                    consequent=[output1['label1']%1.0, output2['label1']%1.0])
 
-rule2 = fuzz.Rule(input1['label1'] | input2['label2'],
-                   consequent=[output1['label2']%1.0, output2['label2']%1.0])
+# rule2 = fuzz.Rule(input1['label1'] | input2['label2'],
+#                    consequent=[output1['label2']%1.0, output2['label2']%1.0])
 
-rule3 = fuzz.Rule(input1['label1'] | input2['label3'],
-                   consequent=[output1['label3']%0.5, output2['label3']%0.5])
+# rule3 = fuzz.Rule(input1['label1'] | input2['label3'],
+#                    consequent=[output1['label3']%0.5, output2['label3']%0.5])
 
-rule4 = fuzz.Rule(input1['label2'] | ~input2['label1'],
-                   consequent=[output1['label3']%0.5, output2['label1']%0.5])
+# rule4 = fuzz.Rule(input1['label2'] | ~input2['label1'],
+#                    consequent=[output1['label3']%0.5, output2['label1']%0.5])
 
-rule5 = fuzz.Rule(input1['label2'] & ~input2['label2'],
-                   consequent=[output1['label2']%0.5, output2['label2']%0.5])
+# rule5 = fuzz.Rule(input1['label2'] & ~input2['label2'],
+#                    consequent=[output1['label2']%0.5, output2['label2']%0.5])
 
-rule6 = fuzz.Rule(~input1['label2'] & input2['label3'],
-                   consequent=[output1['label1']%0.5, output2['label3']%0.5])
+# rule6 = fuzz.Rule(~input1['label2'] & input2['label3'],
+#                    consequent=[output1['label1']%0.5, output2['label3']%0.5])
 
-rule7 = fuzz.Rule(input1['label3'] & input2['label1'],
-                   consequent=[output1['label1']%0.25, output2['label3']%0.25])
+# rule7 = fuzz.Rule(input1['label3'] & input2['label1'],
+#                    consequent=[output1['label1']%0.25, output2['label3']%0.25])
 
-rule8 = fuzz.Rule(~input1['label3'] & ~input2['label2'],
-                   consequent=[output1['label1']%0.25, output2['label3']%0.25])
+# rule8 = fuzz.Rule(~input1['label3'] & ~input2['label2'],
+#                    consequent=[output1['label1']%0.25, output2['label3']%0.25])
 
-rule9 = fuzz.Rule(input1['label3'] & input2['label3'],
-                   consequent=[output2['label3']%0.25])
-
-
-temp = fuzz.ControlSystem([rule1, rule2, rule3, rule4, rule5,
-                           rule6, rule7, rule8, rule9])
+# rule9 = fuzz.Rule(input1['label3'] & input2['label3'],
+#                    consequent=[output2['label3']%0.25])
 
 
-controlador = fuzz.ControlSystemSimulation(temp)
+# temp = fuzz.ControlSystem([rule1, rule2, rule3, rule4, rule5,
+#                            rule6, rule7, rule8, rule9])
 
-controlador.input['input1'] = 10
-controlador.input['input2'] = -10
 
-controlador.compute()
+# controlador = fuzz.ControlSystemSimulation(temp)
 
-out1 = controlador.output['output1']
-out2 = controlador.output['output2']
+# controlador.input['input1'] = 10
+# controlador.input['input2'] = -10
 
-print(out1)
-print(out2)
+# controlador.compute()
 
-output1.view(sim=controlador)
-output2.view(sim=controlador)
-plt.show()
+# out1 = controlador.output['output1']
+# out2 = controlador.output['output2']
 
-print(np.around(2.5, 0))
+# print(out1)
+# print(out2)
+
+# output1.view(sim=controlador)
+# output2.view(sim=controlador)
+# plt.show()
+
+# print(np.around(2.5, 0))
