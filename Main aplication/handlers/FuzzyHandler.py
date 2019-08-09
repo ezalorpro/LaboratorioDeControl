@@ -1,7 +1,7 @@
-from rutinas.rutinas_fuzzy import *
 from handlers.modificadorMf import update_definicionmf
 from rutinas.rutinas_fuzzy import FuzzyController
 from PySide2 import QtCore, QtGui, QtWidgets
+import copy
 import json
 
 
