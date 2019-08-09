@@ -12,12 +12,6 @@ from pyqtgraph.Qt import QtGui, QtCore
 import time 
 
 
-vector_rotacion = [0, 0.333, 0.5, 0.666, 1]
-print(vector_rotacion)
-vector_rotacion2 = vector_rotacion[1:]
-vector_rotacion2.extend([vector_rotacion[0]])
-print(vector_rotacion2)
-
 # colors = [
 #     '#1f77b4',
 #     '#ff7f0e',

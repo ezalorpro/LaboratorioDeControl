@@ -473,37 +473,6 @@ def numero_de_etiquetas_in(self):
     self.main.etiquetaNumIn.blockSignals(False)
 
 
-# def numero_de_etiquetas_in(self):
-#     self.RuleList = []
-#     self.RuleEtiquetas = []
-#     self.main.fuzzyTabWidget.removeTab(5)
-#     self.main.fuzzyTabWidget.removeTab(4)
-    
-#     ni = self.main.inputNumber.currentIndex()
-#     ne = int(self.main.inputEtiquetasNum.text())
-    
-#     self.InputList[ni]['etiquetas'] = [0]*ne
-#     self.InputList[ni]['numeroE'] = ne
-#     self.main.etiquetaNumIn.blockSignals(True)
-#     self.main.etiquetaNumIn.clear()
-#     rmin, rmax = self.InputList[ni]['rango']
-#     step = (rmax-rmin)/(ne-1)
-#     ini_range_etiquetas = np.arange(rmin-step, rmax+step+1, step).tolist()
-    
-#     window = 0
-#     for j in range(self.InputList[ni]['numeroE']):
-#         self.main.etiquetaNumIn.insertItem(j, str(j+1))
-#         self.InputList[ni]['etiquetas'][j] = EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window+3])
-#         window +=1
-    
-#     self.main.etiquetaNombreIn.setText('etiqueta1')
-#     self.main.etiquetaDefinicionIn.setText(str(self.InputList[ni]['etiquetas'][0]['definicion']))
-#     self.main.etiquetaMfIn.setCurrentText('trimf')
-#     self.fuzzController.cambio_etiquetas_input(self, self.InputList, ni)
-#     self.fuzzController.rulelist = []
-#     self.main.etiquetaNumIn.blockSignals(False)
-
-
 def numero_de_etiquetas_out(self):
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
@@ -565,37 +534,7 @@ def numero_de_etiquetas_out(self):
     self.fuzzController.rulelist = []
     self.RuleList = self.fuzzController.crear_reglas(self.RuleEtiquetas)
     self.main.etiquetaNumOut.blockSignals(False)
-
-
-# def numero_de_etiquetas_out(self):
-#     self.RuleList = []
-#     self.RuleEtiquetas = []
-#     self.main.fuzzyTabWidget.removeTab(5)
-#     self.main.fuzzyTabWidget.removeTab(4)
-    
-#     no = self.main.outputNumber.currentIndex()
-#     ne = int(self.main.outputEtiquetasNum.text())
-    
-#     self.OutputList[no]['etiquetas'] = [0]*ne
-#     self.OutputList[no]['numeroE'] = ne
-#     self.main.etiquetaNumOut.blockSignals(True)
-#     self.main.etiquetaNumOut.clear()
-#     rmin, rmax = self.OutputList[no]['rango']
-#     step = (rmax-rmin)/(ne-1)
-#     ini_range_etiquetas = np.arange(rmin-step, rmax+step+1, step).tolist()
-    
-#     window = 0
-#     for j in range(self.OutputList[no]['numeroE']):
-#         self.main.etiquetaNumOut.insertItem(j, str(j+1))
-#         self.OutputList[no]['etiquetas'][j] = EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window+3])
-#         window +=1
-    
-#     self.main.etiquetaNombreOut.setText('etiqueta1')
-#     self.main.etiquetaDefinicionOut.setText(str(self.OutputList[no]['etiquetas'][0]['definicion']))
-#     self.main.etiquetaMfOut.setCurrentText('trimf')
-#     self.fuzzController.cambio_etiquetas_output(self, self.OutputList, no)
-#     self.main.etiquetaNumOut.blockSignals(False)
-    
+  
 
 def rango_in(self):
     self.main.fuzzyTabWidget.removeTab(5)
