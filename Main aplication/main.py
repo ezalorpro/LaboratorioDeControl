@@ -33,6 +33,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
             return os.path.join(base_path, relative_path)
 
+    def closeEvent(self, event):
+        error_dialog = QtWidgets.QMessageBox.question(self, "Laboratorio Virtual",
+                                                      'Cerrar el programa?',
+                                                      QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+		
+        event.ignore()
+        if error_dialog == QtWidgets.QMessageBox.Ok:
+            event.accept()
 
 if __name__ == "__main__":
     import sys
