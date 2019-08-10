@@ -3,7 +3,6 @@ import numpy as np
 from scipy import real, imag
 from matplotlib import pyplot as plt
 from collections import deque
-from functools import partial
 import matplotlib.ticker as mticker
 import copy
 import json
@@ -95,11 +94,6 @@ def rutina_step_plot(self, system, T):
     
     t, y, _ = ctrl.forced_response(system, T, U)
     
-    # if not system.delay or ctrl.isdtime(system, strict=True):
-    #     t, y, _ = ctrl.forced_response(system, T, U)
-    # else:
-    #     t, y = runge_kutta(self, system, T, U)
-    
     self.main.stepGraphicsView1.canvas.axes.clear()
     
     if ctrl.isdtime(system, strict=True):
@@ -120,26 +114,6 @@ def rutina_step_plot(self, system, T):
     return t, y
 
 
-def runge_kutta(self, system, T, u):
-    ss = ctrl.tf2ss(system)
-    x = np.zeros_like(ss.B)
-    buffer = deque([0]*int(system.delay/0.05))
-    h = 0.05
-    salida = []
-    for i, _ in enumerate(T):
-        buffer.appendleft(u[i])
-        inputValue = buffer.pop()
-        k1 = h * (ss.A * x + ss.B * inputValue)
-        k2 = h * (ss.A * (x+k1/2) + ss.B * inputValue)
-        k3 = h * (ss.A * (x+k2/2) + ss.B * inputValue)
-        k4 = h * (ss.A * (x+k3) + ss.B * inputValue)
-        
-        x = x + (1/6)*(k1 + 2*k2 + 2*k3 + k4)
-        y = ss.C * x + ss.D * inputValue
-        salida.append(np.asscalar(y[0]))
-        
-    return T, salida
-
 def rutina_impulse_plot(self, system, T):
     U = np.zeros_like(T)
     if system.delay:
@@ -149,10 +123,6 @@ def rutina_impulse_plot(self, system, T):
         U[0] = 1
     
     t, y, _ = ctrl.forced_response(system, T, U)
-    # if not system.delay or ctrl.isdtime(system, strict=True):
-    #     t, y, _ = ctrl.forced_response(system, T, U)
-    # else:
-    #     t, y = runge_kutta(self, system, T, U)
 
     self.main.impulseGraphicsView1.canvas.axes.clear()
 

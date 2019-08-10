@@ -27,15 +27,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         AnalisisHandler(self)
         PIDHandler(self) 
         FuzzyHandler(self)
-        # SimulacionHandler(self)
+        SimulacionHandler(self)
     
     def resource_path(self, relative_path):
-            base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
-            return os.path.join(base_path, relative_path)
+        base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+        return os.path.join(base_path, relative_path)
 
     def closeEvent(self, event):
         error_dialog = QtWidgets.QMessageBox.question(self, "Laboratorio Virtual",
-                                                      'Cerrar el programa?',
+                                                      '¿Cerrar el programa? Los cambios no guardados se perderan',
                                                       QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
 		
         event.ignore()
