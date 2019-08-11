@@ -1,16 +1,68 @@
-import json
-from collections import deque
-import pickle
-import numpy as np
-import controlmdf as ctrl
-from skfuzzymdf import control as fuzz
-from matplotlib import pyplot as plt
-from matplotlib import figure
-from mpl_toolkits.mplot3d import Axes3D
-import pyqtgraph as pg
-from pyqtgraph.Qt import QtGui, QtCore
-import time 
+# import json
+# from collections import deque
+# import pickle
+# import numpy as np
+# import controlmdf as ctrl
+# from skfuzzymdf import control as fuzz
+# from matplotlib import pyplot as plt
+# from matplotlib import figure
+# from mpl_toolkits.mplot3d import Axes3D
+# import time 
+# import pyqtgraph as pg
+# import sys
 
+# import sys
+
+from PySide2 import QtWidgets
+import numpy as np
+
+import pyvista as pv
+
+class MainWindow(QtWidgets.QMainWindow):
+
+    def __init__(self, parent=None, show=True):
+        super(MainWindow, self).__init__(parent)
+
+        # create the frame
+        self.frame = QtWidgets.QFrame()
+        vlayout = QtWidgets.QVBoxLayout()
+
+        # add the pyvista interactor object
+        self.vtk_widget = pv.QtInteractor(self.frame)
+        vlayout.addWidget(self.vtk_widget)
+
+        self.frame.setLayout(vlayout)
+        self.setCentralWidget(self.frame)
+
+        # simple menu to demo functions
+        mainMenu = self.menuBar()
+        fileMenu = mainMenu.addMenu('File')
+        exitButton = QtWidgets.QAction('Exit', self)
+        exitButton.setShortcut('Ctrl+Q')
+        exitButton.triggered.connect(self.close)
+        fileMenu.addAction(exitButton)
+
+        # allow adding a sphere
+        meshMenu = mainMenu.addMenu('Mesh')
+        self.add_sphere_action = QtWidgets.QAction('Add Sphere', self)
+        self.add_sphere_action.triggered.connect(self.add_sphere)
+        meshMenu.addAction(self.add_sphere_action)
+
+        if show:
+            self.show()
+
+    def add_sphere(self):
+        """ add a sphere to the pyqt frame """
+        sphere = pv.Sphere()
+        self.vtk_widget.add_mesh(sphere)
+        self.vtk_widget.reset_camera()
+
+
+if __name__ == '__main__':
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWindow()
+    sys.exit(app.exec_())
 
 # colors = [
 #     '#1f77b4',
@@ -29,14 +81,14 @@ import time
 # pg.setConfigOption('background', 'w')
 # pg.setConfigOption('foreground', 'k')
 
-# #QtGui.QApplication.setGraphicsSystem('raster')
-# app = QtGui.QApplication([])
-# mw = QtGui.QMainWindow()
-# mw.setWindowTitle('pyqtgraph example: PlotWidget')
+# #QtWidgetsGui.QApplication.setGraphicsSystem('raster')
+# app = QtWidgetsGui.QApplication([])
+# mw = QtWidgetsGui.QMainWindow()
+# mw.setWindowTitle('pyQtWidgetsgraph example: PlotWidget')
 # mw.resize(800,800)
-# cw = QtGui.QWidget()
+# cw = QtWidgetsGui.QWidget()
 # mw.setCentralWidget(cw)
-# l = QtGui.QVBoxLayout()
+# l = QtWidgetsGui.QVBoxLayout()
 # cw.setLayout(l)
 
 # pw = pg.PlotWidget(name='Plot1')  ## giving the plots names allows us to link their axes together
@@ -60,7 +112,7 @@ import time
 # c1.setData(np.asarray([-1, 5, 10]),np.asarray([0, 1, 0]))
 # c2.setData(np.asarray([-6, 0, 5]),np.asarray([0, 1, 0]))
 
-# QtGui.QApplication.instance().exec_()
+# QtWidgetsGui.QApplication.instance().exec_()
 
 # path = "c:\\Users\\PC\\Documents\\Descargas chrome\\NO TOCAR MALDITO IDIOTA!! ZZZZ\\kleiver\\Tesis\\Nueva tesis\\LaboratorioDeControl\\Main aplication\\main.py"
 # print(path)
