@@ -407,7 +407,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -5040,7 +5040,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>547</width>
                    <height>2962</height>
                   </rect>
                  </property>
@@ -5792,7 +5792,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>547</width>
                    <height>2632</height>
                   </rect>
                  </property>
@@ -6294,7 +6294,7 @@
                  <enum>QFrame::NoFrame</enum>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="page">
                  <layout class="QGridLayout" name="gridLayout_92">
@@ -6312,7 +6312,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>523</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -6622,7 +6622,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>523</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -6638,7 +6638,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_78">
                            <item row="0" column="0">
-                            <widget class="MlpWidget3D" name="respuesta3d1">
+                            <widget class="PyVistaWidget" name="respuesta3d1">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6666,7 +6666,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_79">
                            <item row="0" column="0">
-                            <widget class="MlpWidget3D" name="respuesta3d2">
+                            <widget class="PyVistaWidget" name="respuesta3d2">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -7781,8 +7781,8 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-31</y>
-               <width>245</width>
+               <y>0</y>
+               <width>228</width>
                <height>249</height>
               </rect>
              </property>
@@ -7962,6 +7962,14 @@
              </layout>
             </widget>
             <widget class="QWidget" name="esquemaPage">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>98</width>
+               <height>28</height>
+              </rect>
+             </property>
              <attribute name="icon">
               <iconset resource="imagenes.qrc">
                <normaloff>:/iconos/arrow.ico</normaloff>:/iconos/arrow.ico</iconset>
@@ -8017,8 +8025,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>180</height>
+               <width>190</width>
+               <height>96</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8177,8 +8185,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>180</height>
+               <width>161</width>
+               <height>67</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8311,6 +8319,11 @@
    <class>PgraphWidgetpid</class>
    <extends>QGraphicsView</extends>
    <header>pyqtgraphWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>PyVistaWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyvistaWidget</header>
   </customwidget>
  </customwidgets>
  <tabstops>

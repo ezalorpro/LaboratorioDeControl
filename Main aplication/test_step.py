@@ -12,11 +12,10 @@
 # import sys
 
 # import sys
-
 from PySide2 import QtWidgets
 import numpy as np
-
 import pyvista as pv
+import sys
 
 class MainWindow(QtWidgets.QMainWindow):
 
@@ -53,17 +52,28 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def add_sphere(self):
         """ add a sphere to the pyqt frame """
-        sphere = pv.Sphere()
-        self.vtk_widget.add_mesh(sphere)
+        x_samp = np.linspace(-10, 10, 200)
+        y_samp = np.linspace(-10, 10, 200)
+        x, y = np.meshgrid(x_samp, y_samp)
+        Total_puntos = len(x)*len(y)
+
+        a = -0.0001
+
+        z = a*(np.abs(np.sin(x)*np.sin(y)*np.exp(np.abs(100-np.sqrt(x**2 + y**2)/np.pi))) + 1)**0.1
+        grid = pv.StructuredGrid(x, y, z)
+        self.vtk_widget.set_scale(xscale=(np.max(z)/np.max(x)),
+                                  yscale=(np.max(z)/np.max(y)))
+        self.vtk_widget.add_mesh(grid,
+                                 scalars=z.ravel(),
+                                 cmap='viridis',
+                                 style='surface')
         self.vtk_widget.reset_camera()
 
 
 if __name__ == '__main__':
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     sys.exit(app.exec_())
-
 # colors = [
 #     '#1f77b4',
 #     '#ff7f0e',
