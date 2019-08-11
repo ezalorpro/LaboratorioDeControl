@@ -2431,7 +2431,7 @@
              <enum>QTabWidget::North</enum>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>5</number>
             </property>
             <property name="elideMode">
              <enum>Qt::ElideNone</enum>
@@ -6638,7 +6638,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_78">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d1">
+                            <widget class="QGraphicsView" name="respuesta3d1">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>

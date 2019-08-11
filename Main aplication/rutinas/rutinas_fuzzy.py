@@ -498,46 +498,61 @@ class FuzzyController():
                      
         for o in range(no):
             # Cross-in-tray
-            x_samp = np.linspace(-10, 10, 20)
-            y_samp = np.linspace(-10, 10, 20)
-            x, y = np.meshgrid(x_samp, y_samp)
-            Total_puntos = len(x)*len(y)
+            # x_samp = np.linspace(-10, 10, 20)
+            # y_samp = np.linspace(-10, 10, 20)
+            # x, y = np.meshgrid(x_samp, y_samp)
+            # Total_puntos = len(x)*len(y)
 
-            a = -0.0001
+            # a = -0.0001
 
-            z = a*(np.abs(np.sin(x)*np.sin(y)*np.exp(np.abs(100-np.sqrt(x**2 + y**2)/np.pi))) + 1)**0.1
+            # z = a*(np.abs(np.sin(x)*np.sin(y)*np.exp(np.abs(100-np.sqrt(x**2 + y**2)/np.pi))) + 1)**0.1
             
             
-            print(z)
-            print(salidas[o])
+            # print(z)
+            # print(salidas[o])
             # salidas[o] = z
             # entrada11[o] = x
             # entrada22[o] = y
+            x = copy.deepcopy(entrada11[o])
+            y = copy.deepcopy(entrada22[o])
+            z = copy.deepcopy(salidas[o])
             
             window.respuesta3ds[o].vtk_widget.clear()
-            window.respuesta3ds[o].vtk_widget.set_scale(xscale=(np.max(salidas[o])/np.max(entrada11[o])),
-                                                        yscale=(np.max(salidas[o])/np.max(entrada22[o])))
+            window.respuesta3ds[o].vtk_widget.remove_bounds_axes()
             
-            grid = pv.StructuredGrid(entrada11[o], entrada22[o], salidas[o])
+            window.respuesta3ds[o].vtk_widget.set_scale(xscale=(np.max(z)/np.max(x)),
+                                                        yscale=(np.max(z)/np.max(y)))
+            
+            grid = pv.StructuredGrid(x, y, z)
             
             window.respuesta3ds[o].vtk_widget.add_mesh(grid, 
-                                                       scalars=salidas[o].ravel(), 
+                                                       scalars=z.ravel(), 
                                                        cmap='viridis', 
                                                        style='surface',
                                                        interpolate_before_map=True,
                                                        lighting=False)
             
+            print(np.min(x))
+            print(np.max(x))
+            
+            print(np.min(y))
+            print(np.max(y))
+            
+            print(np.min(z))
+            print(np.max(z))
+            
             window.respuesta3ds[o].vtk_widget.show_bounds(grid='back',
                                                           location='outer',
                                                           ticks='both',
-                                                          bounds=[np.min(entrada11[o]), np.max(entrada11[o]),
-                                                                  np.min(entrada22[o]), np.max(entrada22[o]),
-                                                                  np.min(salidas[o]), np.max(salidas[o])])
+                                                          bounds=[np.min(x), np.max(x),
+                                                                  np.min(y), np.max(y),
+                                                                  np.min(z), np.max(z)])
             
             window.respuesta3ds[o].vtk_widget.add_scalar_bar()
             window.respuesta3ds[o].vtk_widget.show_axes()
-            window.respuesta3ds[o].vtk_widget.update()
             window.respuesta3ds[o].vtk_widget.update_bounds_axes()
+            window.respuesta3ds[o].vtk_widget.update()
+            
             
             # window.respuesta3ds[o].canvas.axes.clear()
             
