@@ -7,7 +7,6 @@ from skfuzzymdf.fuzzymath.fuzzy_ops import interp_membership
 from collections import OrderedDict
 import pickle
 from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import pyvista as pv
 import pyqtgraph as pg
 import copy
@@ -474,7 +473,7 @@ class FuzzyController():
             window.respuesta2ds[i].toolbar.update()
     
     def graficar_respuesta_3d(self, window, inrange1, inrange2, no):
-        n_puntos = 20
+        n_puntos = 25
         entrada1 = np.linspace(*inrange1, n_puntos)
         entrada2 = np.linspace(*inrange2, n_puntos)
         entrada1, entrada2 = np.meshgrid(entrada1, entrada2)
@@ -498,69 +497,42 @@ class FuzzyController():
                     pass
                      
         for o in range(no):
-            # Cross-in-tray
-            # x_samp = np.linspace(-10, 10, 20)
-            # y_samp = np.linspace(-10, 10, 20)
-            # x, y = np.meshgrid(x_samp, y_samp)
-            # Total_puntos = len(x)*len(y)
-
-            # a = -0.0001
-
-            # z = a*(np.abs(np.sin(x)*np.sin(y)*np.exp(np.abs(100-np.sqrt(x**2 + y**2)/np.pi))) + 1)**0.1
             
-            
-            # print(z)
-            # print(salidas[o])
-            # salidas[o] = z
-            # entrada11[o] = x
-            # entrada22[o] = y
             x = copy.deepcopy(entrada11[o])
             y = copy.deepcopy(entrada22[o])
             z = copy.deepcopy(salidas[o])
-            
-            # with open('probando.pkl', 'wb', ) as f:
-            #     pickle.dump([x, y, z], f)
                 
             window.respuesta3ds[o].vtk_widget.clear()
             window.respuesta3ds[o].vtk_widget.remove_bounds_axes()
             
-            window.respuesta3ds[o].vtk_widget.set_scale(xscale=(np.max(z)/np.max(x)),
-                                                        yscale=(np.max(z)/np.max(y)))
+            xscale = (np.max(z) - np.min(z))/(np.max(x) - np.min(x))
+            yscale = (np.max(z) - np.min(z))/(np.max(y) - np.min(y))
+
+            window.respuesta3ds[o].vtk_widget.set_scale(xscale=xscale, yscale=yscale)
             
             grid = pv.StructuredGrid(x, y, z)
+            grid['scalars'] = z.ravel('F')
             
             window.respuesta3ds[o].vtk_widget.add_mesh(grid, 
-                                                       scalars=z.ravel(), 
+                                                       scalars='scalars', 
                                                        cmap='viridis', 
                                                        style='surface',
-                                                       interpolate_before_map=True,
-                                                       lighting=False)
+                                                       lighting=False,
+                                                       show_edges=True)
             
-            window.respuesta3ds[o].vtk_widget.show_bounds(grid='back',
+            window.respuesta3ds[o].vtk_widget.show_bounds(grid='True',
                                                           location='outer',
-                                                          ticks='both',
+                                                          ticks='inside',
+                                                          xlabel=self.fuzz_inputs[0].label,
+                                                          ylabel=self.fuzz_inputs[1].label,
+                                                          zlabel=self.fuzz_outputs[o].label,
+                                                          padding=0.1,
+                                                          use_2d=True,
+                                                          font_size=12,
                                                           bounds=[np.min(x), np.max(x),
                                                                   np.min(y), np.max(y),
                                                                   np.min(z), np.max(z)])
             
-            window.respuesta3ds[o].vtk_widget.add_scalar_bar()
             window.respuesta3ds[o].vtk_widget.show_axes()
-            window.respuesta3ds[o].vtk_widget.update_bounds_axes()
+            window.respuesta3ds[o].vtk_widget.reset_camera()
             window.respuesta3ds[o].vtk_widget.update()
-            
-            
-            # window.respuesta3ds[o].canvas.axes.clear()
-            
-            # if window.respuesta3ds[o].colorbar != 0:
-            #     window.respuesta3ds[o].colorbar.remove()
-                
-            # surface = window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
-            #                                                 rstride=1, cstride=1, cmap='viridis', linewidth=0.4, antialiased=True)
-            
-            # window.respuesta3ds[o].colorbar = window.respuesta3ds[o].canvas.figure.colorbar(surface)
-            
-            # window.respuesta3ds[o].canvas.axes.view_init(30, 200)
-            # window.respuesta3ds[o].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
-            # window.respuesta3ds[o].canvas.axes.set_ylabel(self.fuzz_inputs[1].label)
-            # window.respuesta3ds[o].canvas.axes.set_zlabel(self.fuzz_outputs[o].label)
-            # window.respuesta3ds[o].canvas.draw() 

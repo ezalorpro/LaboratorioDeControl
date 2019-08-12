@@ -43,6 +43,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if error_dialog == QtWidgets.QMessageBox.Ok:
             event.accept()
 
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

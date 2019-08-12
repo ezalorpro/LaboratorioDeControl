@@ -4,12 +4,13 @@ import pyvista as pv
 import numpy as np
 import pickle
 
-print(pv.Report())
+# print(pv.Report())
 
 # Data from my app
 with open('probando.pkl', 'rb') as f:
     x, y, z = pickle.load(f)
-
+print(x)
+print(y)
 print('generic Data')
 print(type(z))
 print(np.shape(z))
@@ -23,12 +24,15 @@ plt.show()
 
 # PyVista -----
 grid = pv.StructuredGrid(x, y, z)
+# Add scalars to the mesh and ravel with F order
+grid['scalars'] = z.ravel(order='f')
 plotter = pv.Plotter()
-plotter.add_mesh(grid, scalars=z, cmap='viridis', lighting=False)
+plotter.add_mesh(grid, scalars='scalars', cmap='viridis', lighting=False, show_edges=True)
 
-plotter.set_scale(xscale=(np.max(z)/np.max(x)),
-                  yscale=(np.max(z)/np.max(y)))
-plotter.add_scalar_bar()
+xscale = (np.max(z) - np.min(z))/(np.max(x) - np.min(x))
+yscale = (np.max(z) - np.min(z))/(np.max(y) - np.min(y))
+
+plotter.set_scale(xscale=xscale, yscale=yscale)
 plotter.show_bounds(grid='back',
                     location='outer',
                     ticks='both',
@@ -38,13 +42,15 @@ plotter.show_bounds(grid='back',
 plotter.show()
 
 
-# # Known data
+# # # Known data
 # x_samp = np.linspace(-10, 10, 20)
 # y_samp = np.linspace(-10, 10, 20)
 # x, y = np.meshgrid(x_samp, y_samp)
 # a = -0.0001
 # z = a*(np.abs(np.sin(x)*np.sin(y)*np.exp(np.abs(100-np.sqrt(x**2 + y**2)/np.pi))) + 1)**0.1
-
+# print(x)
+# print('\n')
+# print(y)
 # print(type(z))
 # print(np.shape(z))
 
@@ -58,10 +64,13 @@ plotter.show()
 # # PyVista -----
 # grid = pv.StructuredGrid(x, y, z)
 # plotter = pv.Plotter()
-# plotter.add_mesh(grid, scalars=z, cmap='viridis', lighting=False)
+# plotter.add_mesh(grid, scalars=z, cmap='viridis', lighting=False, show_edges=True)
 
-# plotter.set_scale(xscale=(np.max(z)/np.max(x)),
-#                   yscale=(np.max(z)/np.max(y)))
+# xscale = (np.max(z) - np.min(z))/(np.max(x) - np.min(x))
+# yscale = (np.max(z) - np.min(z))/(np.max(y) - np.min(y))
+
+# plotter.set_scale(xscale=xscale, yscale=yscale)
+
 # plotter.add_scalar_bar()
 # plotter.show_bounds(grid='back',
 #                     location='outer',

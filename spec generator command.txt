@@ -1,1 +1,3 @@
-..\virtualenv\Scripts\pyi-makespec --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" .\main.py
+..\virtualenv\Scripts\pyi-makespec --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" --add-data="vtkmodules;vtkmodules" --hidden-import=vtk --hidden-import=vtkmodules .\main.py
+
+..\virtualenv\Scripts\pyi-makespec --onefile --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" --add-data="vtkmodules;vtkmodules" --hidden-import=vtk --hidden-import=vtkmodules .\main.py

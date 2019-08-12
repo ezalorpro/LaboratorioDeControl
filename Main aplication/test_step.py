@@ -2,78 +2,93 @@ import json
 # from collections import deque
 # import pickle
 import numpy as np
-# import controlmdf as ctrl
-# from skfuzzymdf import control as fuzz
-# from matplotlib import pyplot as plt
-# from matplotlib import figure
-# from mpl_toolkits.mplot3d import Axes3D
-# import time 
-# import pyqtgraph as pg
-# import sys
+import controlmdf as ctrl
+from skfuzzymdf import control as fuzz
+from matplotlib import pyplot as plt
+from matplotlib import figure
+from mpl_toolkits.mplot3d import Axes3D
+import time 
+import pyqtgraph as pg
+import sys
 
-# import sys
-# from PySide2 import QtWidgets
-# import numpy as np
-# import pyvista as pv
-# import sys
+import sys
+from PySide2 import QtWidgets
+import numpy as np
+import pyvista as pv
+import sys
 
-# class MainWindow(QtWidgets.QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
 
-#     def __init__(self, parent=None, show=True):
-#         super(MainWindow, self).__init__(parent)
+    def __init__(self, parent=None, show=True):
+        super(MainWindow, self).__init__(parent)
 
-#         # create the frame
-#         self.frame = QtWidgets.QFrame()
-#         vlayout = QtWidgets.QVBoxLayout()
+        # create the frame
+        self.frame = QtWidgets.QFrame()
+        vlayout = QtWidgets.QVBoxLayout()
 
-#         # add the pyvista interactor object
-#         self.vtk_widget = pv.QtInteractor(self.frame)
-#         vlayout.addWidget(self.vtk_widget)
+        # add the pyvista interactor object
+        self.vtk_widget = pv.QtInteractor(self.frame)
+        vlayout.addWidget(self.vtk_widget)
 
-#         self.frame.setLayout(vlayout)
-#         self.setCentralWidget(self.frame)
+        self.frame.setLayout(vlayout)
+        self.setCentralWidget(self.frame)
 
-#         # simple menu to demo functions
-#         mainMenu = self.menuBar()
-#         fileMenu = mainMenu.addMenu('File')
-#         exitButton = QtWidgets.QAction('Exit', self)
-#         exitButton.setShortcut('Ctrl+Q')
-#         exitButton.triggered.connect(self.close)
-#         fileMenu.addAction(exitButton)
+        # simple menu to demo functions
+        mainMenu = self.menuBar()
+        fileMenu = mainMenu.addMenu('File')
+        exitButton = QtWidgets.QAction('Exit', self)
+        exitButton.setShortcut('Ctrl+Q')
+        exitButton.triggered.connect(self.close)
+        fileMenu.addAction(exitButton)
 
-#         # allow adding a sphere
-#         meshMenu = mainMenu.addMenu('Mesh')
-#         self.add_sphere_action = QtWidgets.QAction('Add Sphere', self)
-#         self.add_sphere_action.triggered.connect(self.add_sphere)
-#         meshMenu.addAction(self.add_sphere_action)
+        # allow adding a sphere
+        meshMenu = mainMenu.addMenu('Mesh')
+        self.add_sphere_action = QtWidgets.QAction('Add Sphere', self)
+        self.add_sphere_action.triggered.connect(self.add_sphere)
+        meshMenu.addAction(self.add_sphere_action)
+        self.range = 2
+        if show:
+            self.show()
 
-#         if show:
-#             self.show()
+    def add_sphere(self):
+        """ add a sphere to the pyqt frame """
+        self.vtk_widget.clear()
+        
+        x_samp = np.logspace(-self.range, self.range, 200)
+        y_samp = np.logspace(-self.range, self.range, 200)
+        x, y = np.meshgrid(x_samp, y_samp)
+        a = -0.0001
+        z = a*(np.abs(np.sin(x)*np.sin(y)*np.exp(np.abs(100-np.sqrt(x**2 + y**2)/np.pi))) + 1)**0.1
+        
+        grid = pv.StructuredGrid(x, y, z)
+        grid['scalars'] = z.ravel('F')
+        
+        xscale = (np.max(z) - np.min(z))/(np.max(x) - np.min(x))
+        yscale = (np.max(z) - np.min(z))/(np.max(y) - np.min(y))
+            
+        self.vtk_widget.set_scale(xscale=xscale, yscale=yscale)
+        self.vtk_widget.add_mesh(grid,
+                                 scalars='scalars',
+                                 cmap='viridis',
+                                 style='surface',
+                                 scalar_bar_args={'vertical': True})
+        
+        self.vtk_widget.show_bounds(grid='back',
+                                    location='outer',
+                                    ticks='both',
+                                    bounds=[np.min(x), np.max(x),
+                                            np.min(y), np.max(y),
+                                            np.min(z), np.max(z)])
+        
+        self.vtk_widget.reset_camera()
+        self.range -=1
 
-#     def add_sphere(self):
-#         """ add a sphere to the pyqt frame """
-#         x_samp = np.linspace(-10, 10, 200)
-#         y_samp = np.linspace(-10, 10, 200)
-#         x, y = np.meshgrid(x_samp, y_samp)
-#         Total_puntos = len(x)*len(y)
 
-#         a = -0.0001
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWindow()
+    sys.exit(app.exec_())
 
-#         z = a*(np.abs(np.sin(x)*np.sin(y)*np.exp(np.abs(100-np.sqrt(x**2 + y**2)/np.pi))) + 1)**0.1
-#         grid = pv.StructuredGrid(x, y, z)
-#         self.vtk_widget.set_scale(xscale=(np.max(z)/np.max(x)),
-#                                   yscale=(np.max(z)/np.max(y)))
-#         self.vtk_widget.add_mesh(grid,
-#                                  scalars=z.ravel(),
-#                                  cmap='viridis',
-#                                  style='surface')
-#         self.vtk_widget.reset_camera()
-
-
-# if __name__ == '__main__':
-#     app = QtWidgets.QApplication(sys.argv)
-#     window = MainWindow()
-#     sys.exit(app.exec_())
 # colors = [
 #     '#1f77b4',
 #     '#ff7f0e',
