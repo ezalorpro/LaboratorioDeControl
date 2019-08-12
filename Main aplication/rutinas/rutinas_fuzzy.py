@@ -5,6 +5,7 @@ from skfuzzymdf.control.visualization import FuzzyVariableVisualizer
 from skfuzzymdf.control.controlsystem import CrispValueCalculator
 from skfuzzymdf.fuzzymath.fuzzy_ops import interp_membership
 from collections import OrderedDict
+import pickle
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import pyvista as pv
@@ -517,6 +518,9 @@ class FuzzyController():
             y = copy.deepcopy(entrada22[o])
             z = copy.deepcopy(salidas[o])
             
+            # with open('probando.pkl', 'wb', ) as f:
+            #     pickle.dump([x, y, z], f)
+                
             window.respuesta3ds[o].vtk_widget.clear()
             window.respuesta3ds[o].vtk_widget.remove_bounds_axes()
             
@@ -531,15 +535,6 @@ class FuzzyController():
                                                        style='surface',
                                                        interpolate_before_map=True,
                                                        lighting=False)
-            
-            print(np.min(x))
-            print(np.max(x))
-            
-            print(np.min(y))
-            print(np.max(y))
-            
-            print(np.min(z))
-            print(np.max(z))
             
             window.respuesta3ds[o].vtk_widget.show_bounds(grid='back',
                                                           location='outer',
