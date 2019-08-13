@@ -29,18 +29,16 @@ grid['scalars'] = z.ravel(order='f')
 plotter = pv.Plotter()
 plotter.add_mesh(grid, scalars='scalars', cmap='viridis', lighting=False, show_edges=True)
 
-xscale = (np.max(z) - np.min(z))/(np.max(x) - np.min(x))
-yscale = (np.max(z) - np.min(z))/(np.max(y) - np.min(y))
+xscale = (np.max(z) - np.min(z)) / (np.max(x) - np.min(x))
+yscale = (np.max(z) - np.min(z)) / (np.max(y) - np.min(y))
 
 plotter.set_scale(xscale=xscale, yscale=yscale)
-plotter.show_bounds(grid='back',
-                    location='outer',
-                    ticks='both',
-                    bounds=[np.min(x), np.max(x),
-                            np.min(y), np.max(y),
-                            np.min(z), np.max(z)])
+plotter.show_bounds(
+    grid='back',
+    location='outer',
+    ticks='both',
+    bounds=[np.min(x), np.max(x), np.min(y), np.max(y), np.min(z), np.max(z)])
 plotter.show()
-
 
 # # # Known data
 # x_samp = np.linspace(-10, 10, 20)
@@ -79,4 +77,3 @@ plotter.show()
 #                             np.min(y), np.max(y),
 #                             np.min(z), np.max(z)])
 # plotter.show()
-

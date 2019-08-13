@@ -7,41 +7,49 @@ def AnalisisHandler(self):
     self.main.tfcalcButton1.clicked.connect(lambda: calcular_analisis(self))
     self.main.sscalcButton1.clicked.connect(lambda: calcular_analisis(self))
 
-    self.main.tfdiscretocheckBox1.stateChanged.connect(lambda: analisis_bool_discreto(self))
+    self.main.tfdiscretocheckBox1.stateChanged.connect(
+        lambda: analisis_bool_discreto(self)
+    )
 
     self.main.tfradioButton1.toggled.connect(lambda: analisis_stacked_to_tf(self))
     self.main.ssradioButton1.toggled.connect(lambda: analisis_stacked_to_ss(self))
 
 
 def calcular_analisis(self):
-    if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+    if self.main.tfdelaycheckBox1.isChecked(
+    ) and self.main.AnalisisstackedWidget.currentIndex() == 0:
         try:
             _ = json.loads(self.main.tfdelayEdit1.text())
         except ValueError:
             self.error_dialog.setInformativeText("Delay no valido")
             self.error_dialog.exec_()
             return
-    
-    if self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+
+    if self.main.ssdelaycheckBox1.isChecked(
+    ) and self.main.AnalisisstackedWidget.currentIndex() == 1:
         try:
             _ = json.loads(self.main.ssdelayEdit1.text())
         except ValueError:
             self.error_dialog.setInformativeText("Delay no valido")
             self.error_dialog.exec_()
             return
-    
+
     system_ss = 0
-    
-    if (self.main.tfdiscretocheckBox1.isChecked()
-        and self.main.AnalisisstackedWidget.currentIndex() == 0):
+
+    if (
+        self.main.tfdiscretocheckBox1.isChecked() and
+        self.main.AnalisisstackedWidget.currentIndex() == 0
+    ):
         try:
             self.dt = json.loads(self.main.tfperiodoEdit1.text())
         except ValueError:
             self.error_dialog.setInformativeText("Periodo de muestreo no valido")
             self.error_dialog.exec_()
             return
-    elif (self.main.ssdiscretocheckBox1.isChecked() 
-          and self.main.AnalisisstackedWidget.currentIndex() == 1):
+    elif (
+        self.main.ssdiscretocheckBox1.isChecked() and
+        self.main.AnalisisstackedWidget.currentIndex() == 1
+    ):
         try:
             self.dt = json.loads(self.main.ssperiodoEdit1.text())
         except ValueError:
@@ -76,11 +84,12 @@ def calcular_analisis(self):
         real, imag, freq = rutina_nyquist_plot(self, system_delay)
         rutina_root_locus_plot(self, system_delay)
         rutina_nichols_plot(self, system_delay)
-    
+
     if not system_ss:
         rutina_system_info(self, system, T, mag, phase, omega)
     else:
         rutina_system_info(self, system_ss, T, mag, phase, omega)
+
 
 def analisis_bool_discreto(self):
     if self.main.tfdiscretocheckBox1.isChecked():

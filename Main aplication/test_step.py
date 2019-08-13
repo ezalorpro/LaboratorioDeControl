@@ -1,21 +1,18 @@
 import json
 # from collections import deque
 # import pickle
-import numpy as np
 import controlmdf as ctrl
 from skfuzzymdf import control as fuzz
 from matplotlib import pyplot as plt
 from matplotlib import figure
 from mpl_toolkits.mplot3d import Axes3D
-import time 
+import time
 import pyqtgraph as pg
-import sys
-
 import sys
 from PySide2 import QtWidgets
 import numpy as np
 import pyvista as pv
-import sys
+
 
 class MainWindow(QtWidgets.QMainWindow):
 
@@ -53,35 +50,42 @@ class MainWindow(QtWidgets.QMainWindow):
     def add_sphere(self):
         """ add a sphere to the pyqt frame """
         self.vtk_widget.clear()
-        
+
         x_samp = np.logspace(-self.range, self.range, 200)
         y_samp = np.logspace(-self.range, self.range, 200)
         x, y = np.meshgrid(x_samp, y_samp)
         a = -0.0001
-        z = a*(np.abs(np.sin(x)*np.sin(y)*np.exp(np.abs(100-np.sqrt(x**2 + y**2)/np.pi))) + 1)**0.1
-        
+        z = a * (
+            np.abs(
+                np.sin(x) * np.sin(y) *
+                np.exp(np.abs(100 - np.sqrt(x**2 + y**2) / np.pi))
+            ) + 1
+        )**0.1
+
         grid = pv.StructuredGrid(x, y, z)
         grid['scalars'] = z.ravel('F')
-        
-        xscale = (np.max(z) - np.min(z))/(np.max(x) - np.min(x))
-        yscale = (np.max(z) - np.min(z))/(np.max(y) - np.min(y))
-            
+
+        xscale = (np.max(z) - np.min(z)) / (np.max(x) - np.min(x))
+        yscale = (np.max(z) - np.min(z)) / (np.max(y) - np.min(y))
+
         self.vtk_widget.set_scale(xscale=xscale, yscale=yscale)
-        self.vtk_widget.add_mesh(grid,
-                                 scalars='scalars',
-                                 cmap='viridis',
-                                 style='surface',
-                                 scalar_bar_args={'vertical': True})
-        
-        self.vtk_widget.show_bounds(grid='back',
-                                    location='outer',
-                                    ticks='both',
-                                    bounds=[np.min(x), np.max(x),
-                                            np.min(y), np.max(y),
-                                            np.min(z), np.max(z)])
-        
+        self.vtk_widget.add_mesh(
+            grid,
+            scalars='scalars',
+            cmap='viridis',
+            style='surface',
+            scalar_bar_args={'vertical': True}
+        )
+
+        self.vtk_widget.show_bounds(
+            grid='back',
+            location='outer',
+            ticks='both',
+            bounds=[np.min(x), np.max(x), np.min(y), np.max(y), np.min(z), np.max(z)]
+        )
+
         self.vtk_widget.reset_camera()
-        self.range -=1
+        self.range -= 1
 
 
 if __name__ == '__main__':
@@ -133,7 +137,6 @@ if __name__ == '__main__':
 
 # pw.enableMouse(False)
 
-
 # c1.setData(np.asarray([-1, 5, 10]),np.asarray([0, 1, 0]))
 # c2.setData(np.asarray([-6, 0, 5]),np.asarray([0, 1, 0]))
 
@@ -144,37 +147,34 @@ if __name__ == '__main__':
 # file = path.split('\\')[-1]
 # print(file)
 
-# salidas = [
-#         {
-#             'nombre': 'output1',
-#             'numeroE': 3,
-#             'etiquetas': [
-#                 {
-#                     'nombre': 'bajo',
-#                     'mf': 'trimf',
-#                     'definicion': [-11, -10, 0],
-#                 },
-#                 {
-#                     'nombre': 'medio',
-#                     'mf': 'trimf',
-#                     'definicion': [-10, 0, 10],
-#                 },
-#                 {
-#                     'nombre': 'alto',
-#                     'mf': 'trimf',
-#                     'definicion': [0, 10, 11],
-#                 },
-#                 ],
-#             'rango': [-10, 10],
-#             'metodo': True
-#         }
-#     ]
-
+salidas = [
+    {
+        'nombre': 'output1',
+        'numeroE': 3,
+        'etiquetas':
+            [
+                {
+                    'nombre': 'bajo',
+                    'mf': 'trimf',
+                    'definicion': [-11, -10, 0],},
+                {
+                    'nombre': 'medio',
+                    'mf': 'trimf',
+                    'definicion': [-10, 0, 10],},
+                {
+                    'nombre': 'alto',
+                    'mf': 'trimf',
+                    'definicion': [0, 10, 11],},
+            ],
+        'rango': [-10, 10],
+        'metodo': True
+    }
+]
 
 # def guardar_archivo(lista):
 #     with open('probando.pkl', 'wb', ) as f:
 #         pickle.dump([salidas, lista], f)
-        
+
 # def cargar_archivo():
 #     with open('probando.pkl', 'rb') as f:
 #         data1, data2 = pickle.load(f)
@@ -194,7 +194,7 @@ if __name__ == '__main__':
 # print(salidas)
 # print(nueva_data1)
 
-json.dump([np.asarray([1, 2, 3 ,4])], open("probando.json", 'w'))
+json.dump([np.asarray([1, 2, 3, 4])], open("probando.json", 'w'))
 # a, b, c= json.load(open("probando.json"))
 
 # print(a)
@@ -238,10 +238,8 @@ json.dump([np.asarray([1, 2, 3 ,4])], open("probando.json", 'w'))
 # rule9 = fuzz.Rule(input1['label3'] & input2['label3'],
 #                    consequent=[output2['label3']%0.25])
 
-
 # temp = fuzz.ControlSystem([rule1, rule2, rule3, rule4, rule5,
 #                            rule6, rule7, rule8, rule9])
-
 
 # controlador = fuzz.ControlSystemSimulation(temp)
 

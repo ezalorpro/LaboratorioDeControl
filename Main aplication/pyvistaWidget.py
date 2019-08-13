@@ -5,6 +5,7 @@ import pyvista as pv
 
 
 class PyVistaWidget(QGraphicsView):
+
     def __init__(self, parent=None):
         super(PyVistaWidget, self).__init__(parent)
         pv.set_plot_theme("document")
