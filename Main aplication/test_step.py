@@ -9,89 +9,156 @@ from mpl_toolkits.mplot3d import Axes3D
 import time
 import pyqtgraph as pg
 import sys
-from PySide2 import QtWidgets
+from PySide2 import QtWidgets, QtCore, QtGui
 import numpy as np
 import pyvista as pv
+from multiprocessing import Queue
 
 
-class MainWindow(QtWidgets.QMainWindow):
+class ResultObj(QtCore.QObject):
 
-    def __init__(self, parent=None, show=True):
-        super(MainWindow, self).__init__(parent)
-
-        # create the frame
-        self.frame = QtWidgets.QFrame()
-        vlayout = QtWidgets.QVBoxLayout()
-
-        # add the pyvista interactor object
-        self.vtk_widget = pv.QtInteractor(self.frame)
-        vlayout.addWidget(self.vtk_widget)
-
-        self.frame.setLayout(vlayout)
-        self.setCentralWidget(self.frame)
-
-        # simple menu to demo functions
-        mainMenu = self.menuBar()
-        fileMenu = mainMenu.addMenu('File')
-        exitButton = QtWidgets.QAction('Exit', self)
-        exitButton.setShortcut('Ctrl+Q')
-        exitButton.triggered.connect(self.close)
-        fileMenu.addAction(exitButton)
-
-        # allow adding a sphere
-        meshMenu = mainMenu.addMenu('Mesh')
-        self.add_sphere_action = QtWidgets.QAction('Add Sphere', self)
-        self.add_sphere_action.triggered.connect(self.add_sphere)
-        meshMenu.addAction(self.add_sphere_action)
-        self.range = 2
-        if show:
-            self.show()
-
-    def add_sphere(self):
-        """ add a sphere to the pyqt frame """
-        self.vtk_widget.clear()
-
-        x_samp = np.logspace(-self.range, self.range, 200)
-        y_samp = np.logspace(-self.range, self.range, 200)
-        x, y = np.meshgrid(x_samp, y_samp)
-        a = -0.0001
-        z = a * (
-            np.abs(
-                np.sin(x) * np.sin(y) *
-                np.exp(np.abs(100 - np.sqrt(x**2 + y**2) / np.pi))
-            ) + 1
-        )**0.1
-
-        grid = pv.StructuredGrid(x, y, z)
-        grid['scalars'] = z.ravel('F')
-
-        xscale = (np.max(z) - np.min(z)) / (np.max(x) - np.min(x))
-        yscale = (np.max(z) - np.min(z)) / (np.max(y) - np.min(y))
-
-        self.vtk_widget.set_scale(xscale=xscale, yscale=yscale)
-        self.vtk_widget.add_mesh(
-            grid,
-            scalars='scalars',
-            cmap='viridis',
-            style='surface',
-            scalar_bar_args={'vertical': True}
-        )
-
-        self.vtk_widget.show_bounds(
-            grid='back',
-            location='outer',
-            ticks='both',
-            bounds=[np.min(x), np.max(x), np.min(y), np.max(y), np.min(z), np.max(z)]
-        )
-
-        self.vtk_widget.reset_camera()
-        self.range -= 1
+    def __init__(self, val):
+        self.val = val
 
 
-if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
-    sys.exit(app.exec_())
+class SimpleThread(QtCore.QThread):
+    finished = QtCore.Signal(object)
+
+    def __init__(self, queue, callback, parent=None):
+        QtCore.QThread.__init__(self, parent)
+        self.queue = queue
+        self.finished.connect(callback)
+
+    def run(self):
+        while True:
+            arg = self.queue.get()
+            if arg is None:  # None means exit
+                print("Shutting down")
+                return
+            self.fun(arg)
+
+    def fun(self, arg):
+        for i in range(3):
+            print ('fun: %s' % i)
+            self.sleep(1)
+        self.finished.emit(ResultObj(arg + 1))
+
+
+class AppWindow(QtGui.QMainWindow):
+
+    def __init__(self):
+        super(AppWindow, self).__init__()
+        mainWidget = QtGui.QWidget()
+        self.setCentralWidget(mainWidget)
+        mainLayout = QtGui.QVBoxLayout()
+        mainWidget.setLayout(mainLayout)
+        button = QtGui.QPushButton('Process')
+        button.clicked.connect(self.process)
+        mainLayout.addWidget(button)
+
+    def handle_result(self, result):
+        val = result.val
+        print("got val {}".format(val))
+        # You can update the UI from here.
+
+    def process(self):
+        MAX_CORES = 1
+        self.queue = Queue()
+        self.threads = []
+        for i in range(MAX_CORES):
+            thread = SimpleThread(self.queue, self.handle_result)
+            self.threads.append(thread)
+            thread.start()
+
+        for arg in [1, 2, 3]:
+            self.queue.put(arg)
+
+        for _ in range(MAX_CORES):  # Tell the workers to shut down
+            self.queue.put(None)
+
+
+app = QtGui.QApplication([])
+window = AppWindow()
+window.show()
+sys.exit(app.exec_())
+
+# class MainWindow(QtWidgets.QMainWindow):
+
+#     def __init__(self, parent=None, show=True):
+#         super(MainWindow, self).__init__(parent)
+
+#         # create the frame
+#         self.frame = QtWidgets.QFrame()
+#         vlayout = QtWidgets.QVBoxLayout()
+
+#         # add the pyvista interactor object
+#         self.vtk_widget = pv.QtInteractor(self.frame)
+#         vlayout.addWidget(self.vtk_widget)
+
+#         self.frame.setLayout(vlayout)
+#         self.setCentralWidget(self.frame)
+
+#         # simple menu to demo functions
+#         mainMenu = self.menuBar()
+#         fileMenu = mainMenu.addMenu('File')
+#         exitButton = QtWidgets.QAction('Exit', self)
+#         exitButton.setShortcut('Ctrl+Q')
+#         exitButton.triggered.connect(self.close)
+#         fileMenu.addAction(exitButton)
+
+#         # allow adding a sphere
+#         meshMenu = mainMenu.addMenu('Mesh')
+#         self.add_sphere_action = QtWidgets.QAction('Add Sphere', self)
+#         self.add_sphere_action.triggered.connect(self.add_sphere)
+#         meshMenu.addAction(self.add_sphere_action)
+#         self.range = 2
+#         if show:
+#             self.show()
+
+#     def add_sphere(self):
+#         """ add a sphere to the pyqt frame """
+#         self.vtk_widget.clear()
+
+#         x_samp = np.logspace(-self.range, self.range, 200)
+#         y_samp = np.logspace(-self.range, self.range, 200)
+#         x, y = np.meshgrid(x_samp, y_samp)
+#         a = -0.0001
+#         z = a * (
+#             np.abs(
+#                 np.sin(x) * np.sin(y) *
+#                 np.exp(np.abs(100 - np.sqrt(x**2 + y**2) / np.pi))
+#             ) + 1
+#         )**0.1
+
+#         grid = pv.StructuredGrid(x, y, z)
+#         grid['scalars'] = z.ravel('F')
+
+#         xscale = (np.max(z) - np.min(z)) / (np.max(x) - np.min(x))
+#         yscale = (np.max(z) - np.min(z)) / (np.max(y) - np.min(y))
+
+#         self.vtk_widget.set_scale(xscale=xscale, yscale=yscale)
+#         self.vtk_widget.add_mesh(
+#             grid,
+#             scalars='scalars',
+#             cmap='viridis',
+#             style='surface',
+#             scalar_bar_args={'vertical': True}
+#         )
+
+#         self.vtk_widget.show_bounds(
+#             grid='back',
+#             location='outer',
+#             ticks='both',
+#             bounds=[np.min(x), np.max(x), np.min(y), np.max(y), np.min(z), np.max(z)]
+#         )
+
+#         self.vtk_widget.reset_camera()
+#         self.range -= 1
+
+# if __name__ == '__main__':
+#     app = QtWidgets.QApplication(sys.argv)
+#     window = MainWindow()
+#     sys.exit(app.exec_())
 
 # colors = [
 #     '#1f77b4',
@@ -147,29 +214,29 @@ if __name__ == '__main__':
 # file = path.split('\\')[-1]
 # print(file)
 
-salidas = [
-    {
-        'nombre': 'output1',
-        'numeroE': 3,
-        'etiquetas':
-            [
-                {
-                    'nombre': 'bajo',
-                    'mf': 'trimf',
-                    'definicion': [-11, -10, 0],},
-                {
-                    'nombre': 'medio',
-                    'mf': 'trimf',
-                    'definicion': [-10, 0, 10],},
-                {
-                    'nombre': 'alto',
-                    'mf': 'trimf',
-                    'definicion': [0, 10, 11],},
-            ],
-        'rango': [-10, 10],
-        'metodo': True
-    }
-]
+# salidas = [
+#     {
+#         'nombre': 'output1',
+#         'numeroE': 3,
+#         'etiquetas':
+#             [
+#                 {
+#                     'nombre': 'bajo',
+#                     'mf': 'trimf',
+#                     'definicion': [-11, -10, 0],},
+#                 {
+#                     'nombre': 'medio',
+#                     'mf': 'trimf',
+#                     'definicion': [-10, 0, 10],},
+#                 {
+#                     'nombre': 'alto',
+#                     'mf': 'trimf',
+#                     'definicion': [0, 10, 11],},
+#             ],
+#         'rango': [-10, 10],
+#         'metodo': True
+#     }
+# ]
 
 # def guardar_archivo(lista):
 #     with open('probando.pkl', 'wb', ) as f:
@@ -194,7 +261,7 @@ salidas = [
 # print(salidas)
 # print(nueva_data1)
 
-json.dump([np.asarray([1, 2, 3, 4])], open("probando.json", 'w'))
+# json.dump([np.asarray([1, 2, 3, 4])], open("probando.json", 'w'))
 # a, b, c= json.load(open("probando.json"))
 
 # print(a)

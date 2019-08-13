@@ -15,7 +15,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.main = Ui_MainWindow()
         self.main.setupUi(self)
         self.showMaximized()
-
         icon = QtGui.QIcon()
         image_path = self.resource_path("icono.ico")
         icon.addPixmap(QtGui.QPixmap(image_path), QtGui.QIcon.Normal, QtGui.QIcon.Off)
