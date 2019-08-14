@@ -15,17 +15,27 @@ import pyvista as pv
 from multiprocessing import Queue
 
 
+print(np.ceil(-184.49990881093478/360))
+# gs = ctrl.tf([1], [1, 1, 1])
+# pid = ctrl.tf([0, 7, 0], [1, 1])
 
-T = np.arange(0, 40, 0.1)
-lista = [1, 2, 0.5, 5, 0.25, 10, 1, 15, 0.3, 26, 0.7, 32]
-it = iter(lista)
-u = np.zeros_like(T)
-for i, x in enumerate(it):
-    ini = int(next(it) / 0.1)
-    u[ini:] = x
+# feed = ctrl.feedback(pid*gs)
+# print(feed)
 
-plt.plot(T, u)
-plt.show()
+#          7 s
+# ---------------------
+# s^3 + 2 s^2 + 9 s + 1
+
+# T = np.arange(0, 40, 0.1)
+# lista = [1, 2, 0.5, 5, 0.25, 10, 1, 15, 0.3, 26, 0.7, 32]
+# it = iter(lista)
+# u = np.zeros_like(T)
+# for i, x in enumerate(it):
+#     ini = int(next(it) / 0.1)
+#     u[ini:] = x
+
+# plt.plot(T, u)
+# plt.show()
 # kp, ki, kd = map(float, ['3.7', '2', ''])
 
 # print([kp, ki, kd])
