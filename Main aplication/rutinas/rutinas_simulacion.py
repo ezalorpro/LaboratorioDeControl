@@ -4,15 +4,13 @@ import numpy as np
 from scipy import real, imag
 from matplotlib import pyplot as plt
 from collections import deque
-from functools import partial
 import matplotlib.ticker as mticker
-import time
 import copy
 import json
 
 
 class SimpleThread(QtCore.QThread):
-    finished = QtCore.Signal(object, str)
+    finished = QtCore.Signal(object, list)
     update_progresBar = QtCore.Signal(object, float)
 
     def __init__(self, window, regresar, update_bar, list_info, parent=None):
@@ -22,10 +20,8 @@ class SimpleThread(QtCore.QThread):
         self.update_progresBar.connect(update_bar)
 
     def run(self):
-        for i in range(100):
-            self.update_progresBar.emit(self.window, i * 100 / 100)
-            time.sleep(0.5)
-        self.finished.emit(self.window, 'hola')
+        if self.flag == 0:
+            run_pid()
 
     def run_pid(self):
         if isinstance(system, ctrl.TransferFunction):
@@ -57,7 +53,6 @@ class SimpleThread(QtCore.QThread):
         y = ss.C * x + ss.D * inputValue
         return y, x
 
-
     def PID(vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
         error = set_point - vm
         s_proporcional = error
@@ -66,3 +61,64 @@ class SimpleThread(QtCore.QThread):
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
         error_anterior = error
         return s_control, s_integral, error_anterior
+
+
+def system_creator_tf(self, numerador, denominador):
+    if not self.main.tfdiscretocheckBox1.isChecked(
+    ) and self.main.tfdelaycheckBox1.isChecked():
+        delay = json.loads(self.main.tfdelayEdit1.text())
+    else:
+        delay = 0
+
+    system = ctrl.TransferFunction(numerador, denominador, delay=delay)
+
+    if self.main.tfdiscretocheckBox1.isChecked():
+        system = ctrl.sample_system(system,
+                                    self.dt,
+                                    self.main.tfcomboBox1.currentText(),
+                                    delay=delay)
+    else:
+        fs = int(self.main.samplesSimulacion.text())
+
+    t = float(self.main.tiempoSimulacion.text())
+
+    try:
+        if ctrl.isdtime(system, strict=True):
+            T = np.arange(0, 2 * np.max(t), self.dt)
+        else:
+            T = np.arange(0, 2 * np.max(t), 1 / fs)
+    except ValueError:
+        T = np.arange(0, 100, 0.01)
+
+    return system, T
+
+
+def system_creator_ss(self, A, B, C, D):
+    if not self.main.ssdiscretocheckBox1.isChecked(
+    ) and self.main.ssdelaycheckBox1.isChecked():
+        delay = json.loads(self.main.ssdelayEdit1.text())
+    else:
+        delay = 0
+
+    system = ctrl.StateSpace(A, B, C, D, delay=delay)
+    t, y = ctrl.impulse_response(system)
+
+    if self.main.ssdiscretocheckBox1.isChecked():
+        system = ctrl.sample_system(system,
+                                    self.dt,
+                                    self.main.sscomboBox1.currentText(),
+                                    delay=delay)
+    else:
+        fs = int(self.main.samplesSimulacion.text())
+
+    t = float(self.main.tiempoSimulacion.text())
+
+    try:
+        if ctrl.isdtime(system, strict=True):
+            T = np.arange(0, 2 * np.max(t), self.dt)
+        else:
+            T = np.arange(0, 2 * np.max(t), 1 / fs)
+    except ValueError:
+        T = np.arange(0, 100, 0.01)
+
+    return system, T

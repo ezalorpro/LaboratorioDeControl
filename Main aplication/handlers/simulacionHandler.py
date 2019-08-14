@@ -7,18 +7,17 @@ import json
 
 
 def SimulacionHandler(self):
-
-    self.main.simularButton.clicked.connect(lambda: testing(self))
+    self.main.progressBar.hide()
+    self.main.simularButton.clicked.connect(lambda: calcular_simulacion(self))
 
     self.main.tfdiscretocheckBox4.stateChanged.connect(
-        lambda: analisis_bool_discreto(self)
-    )
+        lambda: analisis_bool_discreto(self))
 
     self.main.tfradioButton4.toggled.connect(lambda: analisis_stacked_to_tf(self))
     self.main.ssradioButton4.toggled.connect(lambda: analisis_stacked_to_ss(self))
 
 
-def calcular_analisis(self):
+def calcular_simulacion(self):
     if self.main.tfdelaycheckBox4.isChecked(
     ) and self.main.AnalisisstackedWidget.currentIndex() == 0:
         try:
@@ -39,20 +38,16 @@ def calcular_analisis(self):
 
     system_ss = 0
 
-    if (
-        self.main.tfdiscretocheckBox4.isChecked() and
-        self.main.AnalisisstackedWidget.currentIndex() == 0
-    ):
+    if (self.main.tfdiscretocheckBox4.isChecked() and
+            self.main.AnalisisstackedWidget.currentIndex() == 0):
         try:
             self.dt = json.loads(self.main.tfperiodoEdit4.text())
         except ValueError:
             self.error_dialog.setInformativeText("Periodo de muestreo no valido")
             self.error_dialog.exec_()
             return
-    elif (
-        self.main.ssdiscretocheckBox4.isChecked() and
-        self.main.AnalisisstackedWidget.currentIndex() == 1
-    ):
+    elif (self.main.ssdiscretocheckBox4.isChecked() and
+          self.main.AnalisisstackedWidget.currentIndex() == 1):
         try:
             self.dt = json.loads(self.main.ssperiodoEdit4.text())
         except ValueError:
@@ -65,28 +60,41 @@ def calcular_analisis(self):
     if self.main.AnalisisstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit4.text())
         dem = json.loads(self.main.tfdemEdit4.text())
-        system, T, system_delay = system_creator_tf(self, num, dem)
+        system, T = system_creator_tf(self, num, dem)
     else:
         A = json.loads(self.main.ssAEdit4.text())
         B = json.loads(self.main.ssBEdit4.text())
         C = json.loads(self.main.ssCEdit4.text())
         D = json.loads(self.main.ssDEdit4.text())
-        system, T, system_delay, system_ss = system_creator_ss(self, A, B, C, D)
+        system, T = system_creator_ss(self, A, B, C, D)
 
-    if system_delay is None:
-        t1, y1 = rutina_impulse_plot(self, system, T)
-        t2, y2 = rutina_step_plot(self, system, T)
-        mag, phase, omega = rutina_bode_plot(self, system)
-        real, imag, freq = rutina_nyquist_plot(self, system)
-        rutina_root_locus_plot(self, system)
-        rutina_nichols_plot(self, system)
+    if not self.main.escalonCheck.isChecked():
+        escalon = float(self.main.escalonSimulacion.text())
     else:
-        t1, y1 = rutina_impulse_plot(self, system_delay, T)
-        t2, y2 = rutina_step_plot(self, system_delay, T)
-        mag, phase, omega = rutina_bode_plot(self, system_delay)
-        real, imag, freq = rutina_nyquist_plot(self, system_delay)
-        rutina_root_locus_plot(self, system_delay)
-        rutina_nichols_plot(self, system_delay)
+        escalon = json.loads(self.main.escalonAvanzado.text())
+
+    list_info = [
+        self.main.esquemaSimulacion.currentIndex(),
+        system,
+        T,
+        self.dt,
+        escalon,
+        self.main.sensorCheck.isChecked(),
+        self.main.accionadorCheck.isChecked(),
+        self.main.saturadorCheck.isChecked(),
+        [
+            self.main.kpSimulacion.text(),
+            self.main.kiSimulacion.text(),
+            self.main.kdSimulacion.text()
+        ],
+        self.main.pathController.text()
+    ]
+
+    self.thread = SimpleThread(self,
+                               plot_final_results,
+                               update_progresBar_function,
+                               list_info)
+    self.thread.start()
 
 
 def analisis_bool_discreto(self):
@@ -103,12 +111,15 @@ def analisis_stacked_to_tf(self):
 def analisis_stacked_to_ss(self):
     self.main.AnalisisstackedWidget.setCurrentIndex(1)
 
+
 def testing(self):
     self.thread = SimpleThread(self, print_final_result, update_progresBar_function, 0)
     self.thread.start()
 
+
 def update_progresBar_function(self, value):
     self.main.progressBar.setValue(value)
 
-def print_final_result(self, result):
+
+def plot_final_results(self, result):
     print(result)
