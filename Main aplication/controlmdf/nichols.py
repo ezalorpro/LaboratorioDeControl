@@ -146,8 +146,6 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None,
     # Find bounds of the current dataset, if there is one.
     if ax.has_data():
         ol_phase_min, ol_phase_max, ol_mag_min, ol_mag_max = ax.axis()
-        print(ol_phase_min)
-        print(ol_phase_max)
         if delay:
             ol_phase_min = -360
             ol_phase_max = 180
@@ -197,8 +195,6 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None,
     # over the range -360 < phase < 0. Given the range
     # the base chart is computed over, the phase offset should be 0
     # for -360 < ol_phase_min < 0.
-    print(np.ceil(ol_phase_min / 360.0))
-    print(np.ceil(ol_phase_max / 360.0))
     phase_offset_min = 360.0*np.ceil(ol_phase_min/360.0)
     phase_offset_max = 360.0*np.ceil(ol_phase_max/360.0)
     if phase_offset_min == phase_offset_max:
@@ -218,10 +214,6 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None,
             ax.text(x, y, str(m) + ' dB', size='small', ha=align, color='gray')
 
     # Fit axes to generated chart
-    print(phase_offset_min - 360.0)
-    print(phase_offset_max - 360.0)
-    print(np.min(cl_mags))
-    print(np.max([ol_mag_max, default_ol_mag_max]))
     ax.axis([phase_offset_min - 360.0, phase_offset_max - 360.0,
               np.min(cl_mags), np.max([ol_mag_max, default_ol_mag_max])])
 
