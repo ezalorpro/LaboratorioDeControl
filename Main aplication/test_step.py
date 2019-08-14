@@ -15,72 +15,86 @@ import pyvista as pv
 from multiprocessing import Queue
 
 
-class ResultObj(QtCore.QObject):
 
-    def __init__(self, val):
-        self.val = val
+T = np.arange(0, 40, 0.1)
+lista = [1, 2, 0.5, 5, 0.25, 10, 1, 15, 0.3, 26, 0.7, 32]
+it = iter(lista)
+u = np.zeros_like(T)
+for i, x in enumerate(it):
+    ini = int(next(it) / 0.1)
+    u[ini:] = x
 
+plt.plot(T, u)
+plt.show()
+# kp, ki, kd = map(float, ['3.7', '2', ''])
 
-class SimpleThread(QtCore.QThread):
-    finished = QtCore.Signal(object)
+# print([kp, ki, kd])
+# class ResultObj(QtCore.QObject):
 
-    def __init__(self, queue, callback, parent=None):
-        QtCore.QThread.__init__(self, parent)
-        self.queue = queue
-        self.finished.connect(callback)
-
-    def run(self):
-        while True:
-            arg = self.queue.get()
-            if arg is None:  # None means exit
-                print("Shutting down")
-                return
-            self.fun(arg)
-
-    def fun(self, arg):
-        for i in range(3):
-            print ('fun: %s' % i)
-            self.sleep(1)
-        self.finished.emit(ResultObj(arg + 1))
+#     def __init__(self, val):
+#         self.val = val
 
 
-class AppWindow(QtGui.QMainWindow):
+# class SimpleThread(QtCore.QThread):
+#     finished = QtCore.Signal(object)
 
-    def __init__(self):
-        super(AppWindow, self).__init__()
-        mainWidget = QtGui.QWidget()
-        self.setCentralWidget(mainWidget)
-        mainLayout = QtGui.QVBoxLayout()
-        mainWidget.setLayout(mainLayout)
-        button = QtGui.QPushButton('Process')
-        button.clicked.connect(self.process)
-        mainLayout.addWidget(button)
+#     def __init__(self, queue, callback, parent=None):
+#         QtCore.QThread.__init__(self, parent)
+#         self.queue = queue
+#         self.finished.connect(callback)
 
-    def handle_result(self, result):
-        val = result.val
-        print("got val {}".format(val))
-        # You can update the UI from here.
+#     def run(self):
+#         while True:
+#             arg = self.queue.get()
+#             if arg is None:  # None means exit
+#                 print("Shutting down")
+#                 return
+#             self.fun(arg)
 
-    def process(self):
-        MAX_CORES = 1
-        self.queue = Queue()
-        self.threads = []
-        for i in range(MAX_CORES):
-            thread = SimpleThread(self.queue, self.handle_result)
-            self.threads.append(thread)
-            thread.start()
-
-        for arg in [1, 2, 3]:
-            self.queue.put(arg)
-
-        for _ in range(MAX_CORES):  # Tell the workers to shut down
-            self.queue.put(None)
+#     def fun(self, arg):
+#         for i in range(3):
+#             print ('fun: %s' % i)
+#             self.sleep(1)
+#         self.finished.emit(ResultObj(arg + 1))
 
 
-app = QtGui.QApplication([])
-window = AppWindow()
-window.show()
-sys.exit(app.exec_())
+# class AppWindow(QtGui.QMainWindow):
+
+#     def __init__(self):
+#         super(AppWindow, self).__init__()
+#         mainWidget = QtGui.QWidget()
+#         self.setCentralWidget(mainWidget)
+#         mainLayout = QtGui.QVBoxLayout()
+#         mainWidget.setLayout(mainLayout)
+#         button = QtGui.QPushButton('Process')
+#         button.clicked.connect(self.process)
+#         mainLayout.addWidget(button)
+
+#     def handle_result(self, result):
+#         val = result.val
+#         print("got val {}".format(val))
+#         # You can update the UI from here.
+
+#     def process(self):
+#         MAX_CORES = 1
+#         self.queue = Queue()
+#         self.threads = []
+#         for i in range(MAX_CORES):
+#             thread = SimpleThread(self.queue, self.handle_result)
+#             self.threads.append(thread)
+#             thread.start()
+
+#         for arg in [1, 2, 3]:
+#             self.queue.put(arg)
+
+#         for _ in range(MAX_CORES):  # Tell the workers to shut down
+#             self.queue.put(None)
+
+
+# app = QtGui.QApplication([])
+# window = AppWindow()
+# window.show()
+# sys.exit(app.exec_())
 
 # class MainWindow(QtWidgets.QMainWindow):
 

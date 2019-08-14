@@ -1,6 +1,7 @@
 from rutinas.rutinas_simulacion import *
 from rutinas.rutinas_fuzzy import FuzzyController
 from PySide2 import QtCore, QtGui, QtWidgets
+from matplotlib import pyplot as plt
 import numpy as np
 import copy
 import json
@@ -55,7 +56,7 @@ def calcular_simulacion(self):
             self.error_dialog.exec_()
             return
     else:
-        self.dt = None
+        self.dt = 1/int(self.main.samplesSimulacion.text())
 
     if self.main.AnalisisstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit4.text())
@@ -113,6 +114,7 @@ def analisis_stacked_to_ss(self):
 
 
 def testing(self):
+    self.main.progressBar.setValue(0)
     self.thread = SimpleThread(self, print_final_result, update_progresBar_function, 0)
     self.thread.start()
 
@@ -122,4 +124,17 @@ def update_progresBar_function(self, value):
 
 
 def plot_final_results(self, result):
-    print(result)
+    self.main.simulacionGraph.canvas.axes1.clear()
+    self.main.simulacionGraph.canvas.axes1.plot(result[0], result[1])
+    self.main.simulacionGraph.canvas.axes1.plot(result[0], result[3], linestyle='--')
+    self.main.simulacionGraph.canvas.axes1.grid(color="lightgray")
+    self.main.simulacionGraph.canvas.draw()
+
+    self.main.simulacionGraph.canvas.axes2.clear()
+    self.main.simulacionGraph.canvas.axes2.plot(result[0], result[2])
+    self.main.simulacionGraph.canvas.axes2.grid(color="lightgray")
+    self.main.simulacionGraph.canvas.draw()
+
+    self.main.simulacionGraph.toolbar.update()
+    self.main.progressBar.hide()
+    self.main.principalTab.setEnabled(True)

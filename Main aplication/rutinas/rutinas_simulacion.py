@@ -16,32 +16,81 @@ class SimpleThread(QtCore.QThread):
     def __init__(self, window, regresar, update_bar, list_info, parent=None):
         QtCore.QThread.__init__(self, parent)
         self.window = window
+        self.window.main.principalTab.setDisabled(True)
+        self.window.main.progressBar.show()
         self.finished.connect(regresar)
         self.update_progresBar.connect(update_bar)
+        self.list_info = copy.deepcopy(list_info)
+
+        self.esquema = self.list_info[0]
+        self.system = self.list_info[1]
+        self.Tiempo = self.list_info[2]
+        self.dt = self.list_info[3]
+        self.escalon = self.list_info[4]
+        self.sensor_flag = self.list_info[5]
+        self.accionador_flag = self.list_info[6]
+        self.saturador_flag = self.list_info[7]
+        self.kp, self.ki, self.kd = map(float, self.list_info[8])
+        self.fuzzy_path = self.list_info[9]
+
 
     def run(self):
-        if self.flag == 0:
-            run_pid()
+        if self.esquema in [0, 1, 2, 3]:
+            y, sc, u = self.run_pid()
+            self.finished.emit(self.window, [self.Tiempo, y, sc, u])
+            return
 
     def run_pid(self):
-        if isinstance(system, ctrl.TransferFunction):
-            ss = ctrl.tf2ss(system)
+        if self.window.main.kpCheck.isChecked():
+            kp = float(self.kp)
         else:
-            ss = system
+            kp = 0
 
-        x = np.zeros_like(ss.B)
-        buffer = deque([0] * int(system.delay / 0.1))
-        h = 0.1
-        salida = [0]
-        sc_t = [0]
-        si_t = [0]
+        if self.window.main.kiCheck.isChecked():
+            ki = float(self.ki)
+        else:
+            ki = 0
+
+        if self.window.main.kdCheck.isChecked():
+            kd = float(self.kd)
+        else:
+            kd = 0
+
+        if isinstance(self.system, ctrl.TransferFunction):
+            self.system = ctrl.tf2ss(self.system)
+
+        if isinstance(self.escalon, float):
+            u = np.ones_like(self.Tiempo)
+            u = u*self.escalon
+        else:
+            it = iter(self.escalon)
+            u = np.zeros_like(self.Tiempo)
+            for i, valor in enumerate(it):
+                ini = int(next(it) / self.dt)
+                u[ini:] = valor
+
+        max_tiempo = len(self.Tiempo)
+        ten_percent = max_tiempo*10/100
+        x = np.zeros_like(self.system.B)
+        buffer = deque([0] * int(self.system.delay / self.dt))
+        h = self.dt
+
+        salida = deque([0])
+        sc_f = deque([0])
+        sc_t = 0
+        si_t = 0
         error_a = 0
-        for i, _ in enumerate(T[1:]):
-            sc_t, si_t, error_a = PID(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
+
+        for i, _ in enumerate(self.Tiempo[1:]):
+            sc_t, si_t, error_a = self.PID(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
             buffer.appendleft(sc_t)
-            inputValue = buffer.pop()
-            y, x = runge_kutta(system, x, h, inputValue)
+            y, x = self.runge_kutta(self.system, x, h, buffer.pop())
+            sc_f.append(sc_t)
             salida.append(np.asscalar(y[0]))
+            if i % ten_percent == 0:
+                self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+        return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
 
     def runge_kutta(self, ss, x, h, inputValue):
         k1 = h * (ss.A * x + ss.B * inputValue)
@@ -53,7 +102,7 @@ class SimpleThread(QtCore.QThread):
         y = ss.C * x + ss.D * inputValue
         return y, x
 
-    def PID(vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
+    def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
         error = set_point - vm
         s_proporcional = error
         s_integral = s_integral + error*ts
@@ -64,18 +113,18 @@ class SimpleThread(QtCore.QThread):
 
 
 def system_creator_tf(self, numerador, denominador):
-    if not self.main.tfdiscretocheckBox1.isChecked(
-    ) and self.main.tfdelaycheckBox1.isChecked():
-        delay = json.loads(self.main.tfdelayEdit1.text())
+    if not self.main.tfdiscretocheckBox4.isChecked(
+    ) and self.main.tfdelaycheckBox4.isChecked():
+        delay = json.loads(self.main.tfdelayEdit4.text())
     else:
         delay = 0
 
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
 
-    if self.main.tfdiscretocheckBox1.isChecked():
+    if self.main.tfdiscretocheckBox4.isChecked():
         system = ctrl.sample_system(system,
                                     self.dt,
-                                    self.main.tfcomboBox1.currentText(),
+                                    self.main.tfcomboBox4.currentText(),
                                     delay=delay)
     else:
         fs = int(self.main.samplesSimulacion.text())
@@ -84,9 +133,9 @@ def system_creator_tf(self, numerador, denominador):
 
     try:
         if ctrl.isdtime(system, strict=True):
-            T = np.arange(0, 2 * np.max(t), self.dt)
+            T = np.arange(0, t, self.dt)
         else:
-            T = np.arange(0, 2 * np.max(t), 1 / fs)
+            T = np.arange(0, t, 1 / fs)
     except ValueError:
         T = np.arange(0, 100, 0.01)
 
@@ -94,19 +143,19 @@ def system_creator_tf(self, numerador, denominador):
 
 
 def system_creator_ss(self, A, B, C, D):
-    if not self.main.ssdiscretocheckBox1.isChecked(
-    ) and self.main.ssdelaycheckBox1.isChecked():
-        delay = json.loads(self.main.ssdelayEdit1.text())
+    if not self.main.ssdiscretocheckBox4.isChecked(
+    ) and self.main.ssdelaycheckBox4.isChecked():
+        delay = json.loads(self.main.ssdelayEdit4.text())
     else:
         delay = 0
 
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
     t, y = ctrl.impulse_response(system)
 
-    if self.main.ssdiscretocheckBox1.isChecked():
+    if self.main.ssdiscretocheckBox4.isChecked():
         system = ctrl.sample_system(system,
                                     self.dt,
-                                    self.main.sscomboBox1.currentText(),
+                                    self.main.sscomboBox4.currentText(),
                                     delay=delay)
     else:
         fs = int(self.main.samplesSimulacion.text())
@@ -115,9 +164,9 @@ def system_creator_ss(self, A, B, C, D):
 
     try:
         if ctrl.isdtime(system, strict=True):
-            T = np.arange(0, 2 * np.max(t), self.dt)
+            T = np.arange(0, t, self.dt)
         else:
-            T = np.arange(0, 2 * np.max(t), 1 / fs)
+            T = np.arange(0, t, 1 / fs)
     except ValueError:
         T = np.arange(0, 100, 0.01)
 

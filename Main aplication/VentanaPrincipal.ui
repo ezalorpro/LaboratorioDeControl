@@ -5040,7 +5040,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>547</width>
+                   <width>111</width>
                    <height>2962</height>
                   </rect>
                  </property>
@@ -5792,7 +5792,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>547</width>
+                   <width>111</width>
                    <height>2632</height>
                   </rect>
                  </property>
@@ -6312,7 +6312,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>523</height>
+                       <height>109</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -6622,7 +6622,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>523</height>
+                       <height>109</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -7089,6 +7089,9 @@
                   <property name="text">
                    <string/>
                   </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                   <property name="placeholderText">
                    <string>Periodo de muestreo</string>
                   </property>
@@ -7115,6 +7118,9 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>Delay en segundos</string>
@@ -7701,7 +7707,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Valor del escalon</string>
+                   <string>Valor del setpoint</string>
                   </property>
                  </widget>
                 </item>
@@ -7734,7 +7740,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Escalon avazado</string>
+                   <string>setpoint avazado</string>
                   </property>
                  </widget>
                 </item>
@@ -7953,8 +7959,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>98</width>
-               <height>28</height>
+               <width>262</width>
+               <height>150</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8012,8 +8018,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>190</width>
-               <height>96</height>
+               <width>262</width>
+               <height>150</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8052,6 +8058,12 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -8102,6 +8114,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -8148,6 +8166,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -8172,8 +8196,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>161</width>
-               <height>67</height>
+               <width>262</width>
+               <height>150</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8249,6 +8273,22 @@
              </widget>
             </item>
             <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QProgressBar" name="progressBar">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -8278,7 +8318,7 @@
          </layout>
         </item>
         <item row="0" column="1">
-         <widget class="MlpWidgetSubplot" name="graphicsView">
+         <widget class="MlpWidgetSubplot" name="simulacionGraph">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
