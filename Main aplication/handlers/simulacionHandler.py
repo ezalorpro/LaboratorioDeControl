@@ -152,7 +152,8 @@ def plot_final_results(self, result):
     self.main.simulacionGraph.canvas.axes1.plot(result[0],
                                                 result[3],
                                                 linestyle='--',
-                                                label='setpoint')
+                                                label='setpoint',
+                                                alpha=0.5)
 
     self.main.simulacionGraph.canvas.axes1.grid(color="lightgray")
     self.main.simulacionGraph.canvas.axes1.legend()

@@ -90,8 +90,26 @@ class SimpleThread(QtCore.QThread):
         else:
             solve = self.runge_kutta
 
+        if self.window.main.accionadorCheck.isChecked():
+            acc_num = json.loads(self.window.main.numAccionador.text())
+            acc_dem = json.loads(self.window.main.demAccionador.text())
+            acc_system = ctrl.tf2ss(ctrl.TransferFunction(acc_num, acc_dem, delay=0))
+            acc_x = np.zeros_like(acc_system.B)
+
+        if self.window.main.saturadorCheck.isChecked():
+            lim_inferior = float(self.window.main.inferiorSaturador.text())
+            lim_superior = float(self.window.main.superiorSaturador.text())
+
         for i, _ in enumerate(self.Tiempo[1:]):
             sc_t, si_t, error_a = self.PID(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
+
+            if self.window.main.accionadorCheck.isChecked():
+                sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                sc_t = np.asscalar(sc_t[0])
+
+            if self.window.main.saturadorCheck.isChecked():
+                sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
             buffer.appendleft(sc_t)
             y, x = solve(self.system, x, h, buffer.pop())
             sc_f.append(sc_t)
