@@ -11,16 +11,22 @@ def SimulacionHandler(self):
     self.main.progressBar.hide()
     self.main.simularButton.clicked.connect(lambda: calcular_simulacion(self))
 
-    self.main.tfdiscretocheckBox4.stateChanged.connect(
-        lambda: analisis_bool_discreto(self))
+    self.main.tfdiscretocheckBox4.clicked['bool'].connect(
+        self.main.samplesSimulacion.setDisabled)
 
-    self.main.tfradioButton4.toggled.connect(lambda: analisis_stacked_to_tf(self))
-    self.main.ssradioButton4.toggled.connect(lambda: analisis_stacked_to_ss(self))
+    self.main.ssdiscretocheckBox4.clicked['bool'].connect(
+        self.main.samplesSimulacion.setDisabled)
+
+    # self.main.tfdiscretocheckBox4.stateChanged.connect(
+    #     lambda: simulacion_bool_discreto(self))
+
+    self.main.tfradioButton4.toggled.connect(lambda: simulacion_stacked_to_tf(self))
+    self.main.ssradioButton4.toggled.connect(lambda: simulacion_stacked_to_ss(self))
 
 
 def calcular_simulacion(self):
     if self.main.tfdelaycheckBox4.isChecked(
-    ) and self.main.AnalisisstackedWidget.currentIndex() == 0:
+    ) and self.main.SimulacionstackedWidget.currentIndex() == 0:
         try:
             _ = json.loads(self.main.tfdelayEdit4.text())
         except ValueError:
@@ -29,7 +35,7 @@ def calcular_simulacion(self):
             return
 
     if self.main.ssdelaycheckBox4.isChecked(
-    ) and self.main.AnalisisstackedWidget.currentIndex() == 1:
+    ) and self.main.SimulacionstackedWidget.currentIndex() == 1:
         try:
             _ = json.loads(self.main.ssdelayEdit4.text())
         except ValueError:
@@ -40,7 +46,7 @@ def calcular_simulacion(self):
     system_ss = 0
 
     if (self.main.tfdiscretocheckBox4.isChecked() and
-            self.main.AnalisisstackedWidget.currentIndex() == 0):
+            self.main.SimulacionstackedWidget.currentIndex() == 0):
         try:
             self.dt = json.loads(self.main.tfperiodoEdit4.text())
         except ValueError:
@@ -48,7 +54,7 @@ def calcular_simulacion(self):
             self.error_dialog.exec_()
             return
     elif (self.main.ssdiscretocheckBox4.isChecked() and
-          self.main.AnalisisstackedWidget.currentIndex() == 1):
+          self.main.SimulacionstackedWidget.currentIndex() == 1):
         try:
             self.dt = json.loads(self.main.ssperiodoEdit4.text())
         except ValueError:
@@ -58,7 +64,7 @@ def calcular_simulacion(self):
     else:
         self.dt = 1/int(self.main.samplesSimulacion.text())
 
-    if self.main.AnalisisstackedWidget.currentIndex() == 0:
+    if self.main.SimulacionstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit4.text())
         dem = json.loads(self.main.tfdemEdit4.text())
         system, T = system_creator_tf(self, num, dem)
@@ -98,19 +104,28 @@ def calcular_simulacion(self):
     self.thread.start()
 
 
-def analisis_bool_discreto(self):
+def simulacion_bool_discreto(self):
     if self.main.tfdiscretocheckBox4.isChecked():
         self.main.tfperiodoEdit4.setEnabled(True)
     else:
         self.main.tfperiodoEdit4.setDisabled(True)
 
 
-def analisis_stacked_to_tf(self):
-    self.main.AnalisisstackedWidget.setCurrentIndex(0)
+def simulacion_stacked_to_tf(self):
+    self.main.SimulacionstackedWidget.setCurrentIndex(0)
+    if self.main.tfdiscretocheckBox4.isChecked():
+        self.main.samplesSimulacion.setDisabled(True)
+    else:
+        self.main.samplesSimulacion.setEnabled(True)
 
 
-def analisis_stacked_to_ss(self):
-    self.main.AnalisisstackedWidget.setCurrentIndex(1)
+
+def simulacion_stacked_to_ss(self):
+    self.main.SimulacionstackedWidget.setCurrentIndex(1)
+    if self.main.ssdiscretocheckBox4.isChecked():
+        self.main.samplesSimulacion.setDisabled(True)
+    else:
+        self.main.samplesSimulacion.setEnabled(True)
 
 
 def testing(self):
@@ -125,14 +140,40 @@ def update_progresBar_function(self, value):
 
 def plot_final_results(self, result):
     self.main.simulacionGraph.canvas.axes1.clear()
-    self.main.simulacionGraph.canvas.axes1.plot(result[0], result[1])
-    self.main.simulacionGraph.canvas.axes1.plot(result[0], result[3], linestyle='--')
+
+    if result[4]:
+        self.main.simulacionGraph.canvas.axes1.step(result[0],
+                                                    result[1],
+                                                    where="mid",
+                                                    label='y(t)')
+    else:
+        self.main.simulacionGraph.canvas.axes1.plot(result[0], result[1], label='y(t)')
+
+    self.main.simulacionGraph.canvas.axes1.plot(result[0],
+                                                result[3],
+                                                linestyle='--',
+                                                label='setpoint')
+
     self.main.simulacionGraph.canvas.axes1.grid(color="lightgray")
+    self.main.simulacionGraph.canvas.axes1.legend()
     self.main.simulacionGraph.canvas.draw()
 
     self.main.simulacionGraph.canvas.axes2.clear()
-    self.main.simulacionGraph.canvas.axes2.plot(result[0], result[2])
+
+    if result[4]:
+        self.main.simulacionGraph.canvas.axes2.step(result[0],
+                                                    result[2],
+                                                    '#2ca02c',
+                                                    where="mid",
+                                                    label='señal de control')
+    else:
+        self.main.simulacionGraph.canvas.axes2.plot(result[0],
+                                                    result[2],
+                                                    '#2ca02c',
+                                                    label='señal de control')
+
     self.main.simulacionGraph.canvas.axes2.grid(color="lightgray")
+    self.main.simulacionGraph.canvas.axes2.legend()
     self.main.simulacionGraph.canvas.draw()
 
     self.main.simulacionGraph.toolbar.update()

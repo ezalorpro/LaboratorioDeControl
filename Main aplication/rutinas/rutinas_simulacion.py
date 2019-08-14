@@ -5,6 +5,7 @@ from scipy import real, imag
 from matplotlib import pyplot as plt
 from collections import deque
 import matplotlib.ticker as mticker
+import time
 import copy
 import json
 
@@ -18,6 +19,7 @@ class SimpleThread(QtCore.QThread):
         self.window = window
         self.window.main.principalTab.setDisabled(True)
         self.window.main.progressBar.show()
+        time.sleep(0.1)
         self.finished.connect(regresar)
         self.update_progresBar.connect(update_bar)
         self.list_info = copy.deepcopy(list_info)
@@ -37,7 +39,9 @@ class SimpleThread(QtCore.QThread):
     def run(self):
         if self.esquema in [0, 1, 2, 3]:
             y, sc, u = self.run_pid()
-            self.finished.emit(self.window, [self.Tiempo, y, sc, u])
+            self.finished.emit(
+                self.window,
+                [self.Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
             return
 
     def run_pid(self):
@@ -81,10 +85,15 @@ class SimpleThread(QtCore.QThread):
         si_t = 0
         error_a = 0
 
+        if ctrl.isdtime(self.system, strict=True):
+            solve = self.ss_discreta
+        else:
+            solve = self.runge_kutta
+
         for i, _ in enumerate(self.Tiempo[1:]):
             sc_t, si_t, error_a = self.PID(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
             buffer.appendleft(sc_t)
-            y, x = self.runge_kutta(self.system, x, h, buffer.pop())
+            y, x = solve(self.system, x, h, buffer.pop())
             sc_f.append(sc_t)
             salida.append(np.asscalar(y[0]))
             if i % ten_percent == 0:
@@ -102,6 +111,11 @@ class SimpleThread(QtCore.QThread):
         y = ss.C * x + ss.D * inputValue
         return y, x
 
+    def ss_discreta(self, ss, x, _, inputValue):
+        x = ss.A * x + ss.B * inputValue
+        y = ss.C * x + ss.D * inputValue
+        return y, x
+
     def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
         error = set_point - vm
         s_proporcional = error
@@ -113,8 +127,7 @@ class SimpleThread(QtCore.QThread):
 
 
 def system_creator_tf(self, numerador, denominador):
-    if not self.main.tfdiscretocheckBox4.isChecked(
-    ) and self.main.tfdelaycheckBox4.isChecked():
+    if self.main.tfdelaycheckBox4.isChecked():
         delay = json.loads(self.main.tfdelayEdit4.text())
     else:
         delay = 0
@@ -143,8 +156,7 @@ def system_creator_tf(self, numerador, denominador):
 
 
 def system_creator_ss(self, A, B, C, D):
-    if not self.main.ssdiscretocheckBox4.isChecked(
-    ) and self.main.ssdelaycheckBox4.isChecked():
+    if self.main.ssdelaycheckBox4.isChecked():
         delay = json.loads(self.main.ssdelayEdit4.text())
     else:
         delay = 0

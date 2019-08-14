@@ -1913,7 +1913,11 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <widget class="PgraphWidgetpid" name="stepGraphicsView2"/>
+             <widget class="PgraphWidgetpid" name="stepGraphicsView2">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -6994,7 +6998,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QStackedWidget" name="AnalisisstackedWidget_2">
+           <widget class="QStackedWidget" name="SimulacionstackedWidget">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -7654,7 +7658,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>20</string>
+                   <string>30</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -7687,7 +7691,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>100</string>
+                   <string>200</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -7756,7 +7760,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>[1,0, 0.5,5, 0.25,10, 1,15]</string>
+                   <string>[1,2, 0.5,8, 0.25,16, 1,23]</string>
                   </property>
                   <property name="frame">
                    <bool>true</bool>
@@ -7775,7 +7779,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>245</width>
+               <width>228</width>
                <height>249</height>
               </rect>
              </property>
@@ -7959,8 +7963,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>150</height>
+               <width>98</width>
+               <height>28</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8018,8 +8022,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>150</height>
+               <width>190</width>
+               <height>96</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8196,8 +8200,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>150</height>
+               <width>161</width>
+               <height>67</height>
               </rect>
              </property>
              <attribute name="icon">
