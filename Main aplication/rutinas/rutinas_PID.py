@@ -60,15 +60,15 @@ def system_creator_tf(self, numerador, denominador):
         if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
             T = np.arange(0, 2 * (np.max(t) + delay), self.dt)
         elif np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), 0.1)
+            T = np.arange(0, 2 * (np.max(t) + delay), 0.05)
         else:
             if ctrl.isdtime(system, strict=True):
                 T = np.arange(0, 100, self.dt)
             else:
-                T = np.arange(0, 100, 0.1)
+                T = np.arange(0, 100, 0.05)
 
     except ValueError:
-        T = np.arange(0, 100, 0.1)
+        T = np.arange(0, 100, 0.05)
 
     return system, T, system_delay, kp, ki, kd
 
@@ -127,15 +127,15 @@ def system_creator_ss(self, A, B, C, D):
         if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
             T = np.arange(0, 2 * (np.max(t) + delay), self.dt)
         elif np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), 0.1)
+            T = np.arange(0, 2 * (np.max(t) + delay), 0.05)
         else:
             if ctrl.isdtime(system, strict=True):
                 T = np.arange(0, 100, self.dt)
             else:
-                T = np.arange(0, 100, 0.1)
+                T = np.arange(0, 100, 0.05)
 
     except ValueError:
-        T = np.arange(0, 100, 0.1)
+        T = np.arange(0, 100, 0.05)
 
     return system, T, system_delay, system_ss, kp, ki, kd
 
@@ -150,7 +150,7 @@ def system_creator_tf_tuning(self, numerador, denominador):
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
 
     t, y = ctrl.impulse_response(system)
-    T = np.arange(0, 2 * np.max(t), 0.1)
+    T = np.arange(0, 2 * np.max(t), 0.05)
     U = np.ones_like(T)
 
     t, y, _ = ctrl.forced_response(system, T, U)
@@ -188,15 +188,15 @@ def system_creator_tf_tuning(self, numerador, denominador):
         if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
             T = np.arange(0, 2 * (np.max(t) + delay), self.dt)
         elif np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), 0.1)
+            T = np.arange(0, 2 * (np.max(t) + delay), 0.05)
         else:
             if ctrl.isdtime(system, strict=True):
                 T = np.arange(0, 100, self.dt)
             else:
-                T = np.arange(0, 100, 0.1)
+                T = np.arange(0, 100, 0.05)
 
     except ValueError:
-        T = np.arange(0, 100, 0.1)
+        T = np.arange(0, 100, 0.05)
 
     return system, T, system_delay, kp, ki, kd
 
@@ -211,7 +211,7 @@ def system_creator_ss_tuning(self, A, B, C, D):
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
 
     t, y = ctrl.impulse_response(system)
-    T = np.arange(0, 2 * np.max(t), 0.1)
+    T = np.arange(0, 2 * np.max(t), 0.05)
     U = np.ones_like(T)
 
     t, y, _ = ctrl.forced_response(system, T, U)
@@ -251,15 +251,15 @@ def system_creator_ss_tuning(self, A, B, C, D):
         if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
             T = np.arange(0, 2 * (np.max(t) + delay), self.dt)
         elif np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), 0.1)
+            T = np.arange(0, 2 * (np.max(t) + delay), 0.05)
         else:
             if ctrl.isdtime(system, strict=True):
                 T = np.arange(0, 100, self.dt)
             else:
-                T = np.arange(0, 100, 0.1)
+                T = np.arange(0, 100, 0.05)
 
     except ValueError:
-        T = np.arange(0, 100, 0.1)
+        T = np.arange(0, 100, 0.05)
 
     return system, T, system_delay, system_ss, kp, ki, kd
 
@@ -374,7 +374,7 @@ def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
 
 def rutina_step_plot(self, system, T, kp, ki, kd):
     U = np.ones_like(T)
-
+    
     if ctrl.isdtime(system, strict=True):
         t, y, _ = ctrl.forced_response(system, T, U)
     elif (
@@ -418,8 +418,8 @@ def runge_kutta(self, system, T, u, kp, ki, kd):
         ss = system
 
     x = np.zeros_like(ss.B)
-    buffer = deque([0] * int(system.delay / 0.1))
-    h = 0.1
+    buffer = deque([0] * int(system.delay / 0.05))
+    h = 0.05
     salida = [0]
     sc_t = [0]
     si_t = [0]

@@ -100,7 +100,9 @@ def step_info(sys, T=None, yout=None, SettlingTimeThreshold=0.02, RiseTimeLimits
         if((yout[i] <= inf_margin) | (yout[i] >= sup_margin)):
             SettlingTime = T[i+1]
             break
-
+    else:
+        SettlingTime = np.nan
+    
     # Peak
     PeakIndex = np.abs(yout).argmax()
     PeakValue = yout[PeakIndex]
