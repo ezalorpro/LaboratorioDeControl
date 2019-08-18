@@ -15,8 +15,9 @@ import pyvista as pv
 from multiprocessing import Queue
 
 
-print(np.ceil(-184.49990881093478/360))
-# gs = ctrl.tf([1], [1, 1, 1])
+
+gs = ctrl.tf2ss(ctrl.tf([1], [1, 1, 1]))
+print(gs.returnScipySignalLTI()[0][0])
 # pid = ctrl.tf([0, 7, 0], [1, 1])
 
 # feed = ctrl.feedback(pid*gs)

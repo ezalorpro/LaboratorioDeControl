@@ -374,7 +374,7 @@ def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
 
 def rutina_step_plot(self, system, T, kp, ki, kd):
     U = np.ones_like(T)
-    
+
     if ctrl.isdtime(system, strict=True):
         t, y, _ = ctrl.forced_response(system, T, U)
     elif (
@@ -384,7 +384,8 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
         pade = ctrl.TransferFunction(
             *ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 10)
         )
-        pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
+        N = 200
+        pid = ctrl.TransferFunction([N*kd+kp, N*kp+ki, N*ki], [1, N, 0])
         system = ctrl.feedback(pid * system * pade)
         t, y, _ = ctrl.forced_response(system, T, U)
     elif (
@@ -394,11 +395,13 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
         pade = ctrl.TransferFunction(
             *ctrl.pade(json.loads(self.main.ssdelayEdit2.text()), 10)
         )
-        pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
+        N = 200
+        pid = ctrl.TransferFunction([N*kd+kp, N*kp+ki, N*ki], [1, N, 0])
         system = ctrl.feedback(pid * system * pade)
         t, y, _ = ctrl.forced_response(system, T, U)
     else:
-        pid = ctrl.TransferFunction([kd, kp, ki], [1, 0])
+        N = 200
+        pid = ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0])
         system = ctrl.feedback(pid * system)
         t, y, _ = ctrl.forced_response(system, T, U)
 

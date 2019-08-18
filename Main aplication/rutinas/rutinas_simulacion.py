@@ -1,7 +1,9 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 import controlmdf as ctrl
 import numpy as np
+from scipy import signal
 from scipy import real, imag
+from scipy.integrate import RK45
 from matplotlib import pyplot as plt
 from collections import deque
 import matplotlib.ticker as mticker
@@ -83,7 +85,7 @@ class SimpleThread(QtCore.QThread):
         sc_f = deque([0])
         sc_t = 0
         si_t = 0
-        error_a = 0
+        error_a = deque([0, 0])
 
         if ctrl.isdtime(self.system, strict=True):
             solve = self.ss_discreta
@@ -100,8 +102,27 @@ class SimpleThread(QtCore.QThread):
             lim_inferior = float(self.window.main.inferiorSaturador.text())
             lim_superior = float(self.window.main.superiorSaturador.text())
 
+        N = 200
+
+        # system_pid = ctrl.tf2ss(
+        #     ctrl.TransferFunction([N*kd+kp, N*kp+ki, N*ki], [1, N, 0])
+        #     )
+
+        system_pid = ctrl.tf2ss(
+            ctrl.TransferFunction([kd, kp, ki], [1, 0])
+            )
+        
+        x_pid = np.zeros_like(system_pid.B)
+
+        filtro = ctrl.TransferFunction([1], [0.001, 1])
+        _, u, __ = ctrl.forced_response(filtro, self.Tiempo, u)
+
         for i, _ in enumerate(self.Tiempo[1:]):
-            sc_t, si_t, error_a = self.PID(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
+
+            # sc_t, si_t= self.PID(salida[i], u[i], h, si_t, error_a, kp, ki, kd, filtro)
+            error = u[i] - salida[i]
+            sc_t, x_pid = solve(system_pid, x_pid, h, error)
+            sc_t = np.asscalar(sc_t[0])
 
             if self.window.main.accionadorCheck.isChecked():
                 sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -134,14 +155,35 @@ class SimpleThread(QtCore.QThread):
         y = ss.C * x + ss.D * inputValue
         return y, x
 
-    def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
+    def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd, filtro):
         error = set_point - vm
         s_proporcional = error
         s_integral = s_integral + error*ts
-        s_derivativa = (error-error_anterior) / ts
+        s_derivativa = (3*error - 4*error_anterior[0] + error_anterior[1]) / (2*ts)
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
-        error_anterior = error
-        return s_control, s_integral, error_anterior
+        error_anterior.pop()
+        error_anterior.appendleft(error)
+        return s_control, s_integral
+
+
+class Lowpassfilter:
+    """ Filtro pasa-bajo con ventaja Hamming"""
+
+    def __init__(self, order, fsampling, fpaso):
+
+        self.order = order
+        self.samples0 = order * [0]
+        self.fsampling = fsampling
+        self.fpaso = fpaso
+        self.h_n = signal.firwin(self.order, self.fpaso, fs=self.fsampling)
+        self.h_n = self.h_n.tolist()
+
+    def filtrar(self, entrada):
+
+        self.samples0.append(entrada)
+        self.samples0 = self.samples0[1:]
+        salida = sum(a * b for a, b in zip(self.samples0, self.h_n))
+        return salida
 
 
 def system_creator_tf(self, numerador, denominador):
