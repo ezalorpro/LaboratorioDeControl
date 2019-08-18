@@ -57,16 +57,12 @@ def FuzzyHandler(self):
     self.main.estrucNumberOutputs.currentIndexChanged.connect(
         lambda: imagen_salidas(self)
     )
-    self.main.fuzzyEsquemasCheck.clicked["bool"].connect(
-        lambda: check_esquema_show(self)
-    )
+    self.main.fuzzyEsquemasCheck.clicked["bool"].connect(lambda: check_esquema_show(self))
     self.main.fuzzyEsquemas.currentIndexChanged.connect(lambda: show_esquema(self))
     self.main.generarFuzzyButton.clicked.connect(lambda: crear_tabs(self))
     self.main.guardarFuzzButton.clicked.connect(lambda: guardar_controlador(self))
     self.main.cargarFuzzButton.clicked.connect(lambda: cargar_controlador(self))
-    self.main.guardarComoFuzzButton.clicked.connect(
-        lambda: guardarcomo_controlador(self)
-    )
+    self.main.guardarComoFuzzButton.clicked.connect(lambda: guardarcomo_controlador(self))
 
     self.main.inputNumber.currentIndexChanged.connect(lambda: seleccion_entrada(self))
     self.main.inputNombre.returnPressed.connect(lambda: nombre_entrada(self))
@@ -97,9 +93,7 @@ def FuzzyHandler(self):
     self.main.etiquetaMfOut.currentIndexChanged.connect(lambda: seleccion_mf_out(self))
     self.main.etiquetaDefinicionOut.returnPressed.connect(lambda: definicion_out(self))
 
-    self.main.fuzzyTabWidget.currentChanged.connect(
-        lambda: rule_list_visualizacion(self)
-    )
+    self.main.fuzzyTabWidget.currentChanged.connect(lambda: rule_list_visualizacion(self))
     self.main.rulelistWidget.currentRowChanged.connect(
         lambda: seleccionar_etiquetas(self)
     )
@@ -202,7 +196,7 @@ def crear_tabs(self):
             window = 0
             for j in range(self.InputList[i]["numeroE"]):
                 self.InputList[i]["etiquetas"][j] = EtiquetasDic_creator(
-                    self, j, ini_range_etiquetas[window : window + 3]
+                    self, j, ini_range_etiquetas[window:window + 3]
                 )
                 window += 1
 
@@ -214,7 +208,7 @@ def crear_tabs(self):
             window = 0
             for j in range(self.OutputList[i]["numeroE"]):
                 self.OutputList[i]["etiquetas"][j] = EtiquetasDic_creator(
-                    self, j, ini_range_etiquetas[window : window + 3]
+                    self, j, ini_range_etiquetas[window:window + 3]
                 )
                 window += 1
 
@@ -322,7 +316,7 @@ def guardar_controlador(self):
 
     if len(self.current_file) > 0:
         with open(self.current_file, "w") as f:
-            json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f)
+            json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f, indent=4)
     else:
         guardarcomo_controlador(self)
 
@@ -332,7 +326,7 @@ def guardarcomo_controlador(self):
     if len(path_guardar[0]) > 1:
         self.current_file = path_guardar[0]
         with open(path_guardar[0], "w") as f:
-            json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f)
+            json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f, indent=4)
             self.setWindowTitle(
                 "Laboratorio de sistemas de control - " + path_guardar[0].split("/")[-1]
             )
@@ -440,8 +434,8 @@ def nombre_entrada(self):
 
     for i in self.InputList:
         if (
-            i["nombre"] == self.main.inputNombre.text()
-            and old_name != self.main.inputNombre.text()
+            i["nombre"] == self.main.inputNombre.text() and
+            old_name != self.main.inputNombre.text()
         ):
             flag = 1
 
@@ -465,8 +459,8 @@ def nombre_salida(self):
 
     for o in self.OutputList:
         if (
-            o["nombre"] == self.main.outputNombre.text()
-            and old_name != self.main.outputNombre.text()
+            o["nombre"] == self.main.outputNombre.text() and
+            old_name != self.main.outputNombre.text()
         ):
             flag = 1
 
@@ -496,8 +490,8 @@ def numero_de_etiquetas_in(self):
             for i, sets in enumerate(copy.deepcopy(self.RuleEtiquetas)):
                 for rule in sets[0]:
                     if (
-                        rule[0] == self.InputList[ni]["etiquetas"][n]["nombre"]
-                        and rule[1] == ni
+                        rule[0] == self.InputList[ni]["etiquetas"][n]["nombre"] and
+                        rule[1] == ni
                     ):
                         break
                     else:
@@ -529,23 +523,23 @@ def numero_de_etiquetas_in(self):
 
         if (ne - self.InputList[ni]["numeroE"]) == 1:
             ini_range_etiquetas = [
-                self.vector_rotacion[self.rotacion_windowIn] * (rmax - rmin) + rmin,
-                self.vector_rotacion[self.rotacion_windowIn + 1] * (rmax - rmin) + rmin,
-                self.vector_rotacion[self.rotacion_windowIn + 2] * (rmax - rmin) + rmin,
+                self.vector_rotacion[self.rotacion_windowIn] * (rmax-rmin) + rmin,
+                self.vector_rotacion[self.rotacion_windowIn + 1] * (rmax-rmin) + rmin,
+                self.vector_rotacion[self.rotacion_windowIn + 2] * (rmax-rmin) + rmin,
             ]
 
             self.rotacion_windowIn += 1
             if self.rotacion_windowIn > 4:
                 self.rotacion_windowIn = 0
         else:
-            step = (rmax - rmin) / ((ne - self.InputList[ni]["numeroE"]) - 1)
+            step = (rmax-rmin) / ((ne - self.InputList[ni]["numeroE"]) - 1)
             ini_range_etiquetas = np.arange(rmin - step, rmax + step + 1, step).tolist()
 
         window = 0
         for j in range(self.InputList[ni]["numeroE"], ne):
             self.main.etiquetaNumIn.insertItem(j, str(j + 1))
             self.InputList[ni]["etiquetas"].append(
-                EtiquetasDic_creator(self, j, ini_range_etiquetas[window : window + 3])
+                EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window + 3])
             )
             window += 1
 
@@ -572,8 +566,8 @@ def numero_de_etiquetas_out(self):
             for o, sets in enumerate(copy.deepcopy(self.RuleEtiquetas)):
                 for rule in sets[1]:
                     if (
-                        rule[0] == self.OutputList[no]["etiquetas"][n]["nombre"]
-                        and rule[1] == no
+                        rule[0] == self.OutputList[no]["etiquetas"][n]["nombre"] and
+                        rule[1] == no
                     ):
                         break
                     else:
@@ -605,25 +599,23 @@ def numero_de_etiquetas_out(self):
 
         if (ne - self.OutputList[no]["numeroE"]) == 1:
             ini_range_etiquetas = [
-                self.vector_rotacion[self.rotacion_windowOut] * (rmax - rmin) + rmin,
-                self.vector_rotacion[self.rotacion_windowOut + 1] * (rmax - rmin)
-                + rmin,
-                self.vector_rotacion[self.rotacion_windowOut + 2] * (rmax - rmin)
-                + rmin,
+                self.vector_rotacion[self.rotacion_windowOut] * (rmax-rmin) + rmin,
+                self.vector_rotacion[self.rotacion_windowOut + 1] * (rmax-rmin) + rmin,
+                self.vector_rotacion[self.rotacion_windowOut + 2] * (rmax-rmin) + rmin,
             ]
 
             self.rotacion_windowOut += 1
             if self.rotacion_windowOut > 4:
                 self.rotacion_windowOut = 0
         else:
-            step = (rmax - rmin) / ((ne - self.OutputList[no]["numeroE"]) - 1)
+            step = (rmax-rmin) / ((ne - self.OutputList[no]["numeroE"]) - 1)
             ini_range_etiquetas = np.arange(rmin - step, rmax + step + 1, step).tolist()
 
         window = 0
         for j in range(self.OutputList[no]["numeroE"], ne):
             self.main.etiquetaNumOut.insertItem(j, str(j + 1))
             self.OutputList[no]["etiquetas"].append(
-                EtiquetasDic_creator(self, j, ini_range_etiquetas[window : window + 3])
+                EtiquetasDic_creator(self, j, ini_range_etiquetas[window:window + 3])
             )
             window += 1
 
@@ -695,22 +687,18 @@ def nombre_etiqueta_in(self):
 
     for i in self.InputList[ni]["etiquetas"]:
         if (
-            i["nombre"] == self.main.etiquetaNombreIn.text()
-            and old_name != self.main.etiquetaNombreIn.text()
+            i["nombre"] == self.main.etiquetaNombreIn.text() and
+            old_name != self.main.etiquetaNombreIn.text()
         ):
             flag = 1
 
     if not flag:
-        self.InputList[ni]["etiquetas"][ne][
-            "nombre"
-        ] = self.main.etiquetaNombreIn.text()
+        self.InputList[ni]["etiquetas"][ne]["nombre"] = self.main.etiquetaNombreIn.text()
     else:
         self.InputList[ni]["etiquetas"][ne]["nombre"] = (
             self.main.etiquetaNombreIn.text() + "1"
         )
-        self.main.etiquetaNombreIn.setText(
-            self.InputList[ni]["etiquetas"][ne]["nombre"]
-        )
+        self.main.etiquetaNombreIn.setText(self.InputList[ni]["etiquetas"][ne]["nombre"])
 
     self.fuzzController.cambio_etinombre_input(self, self.InputList, ni, ne, old_name)
     if len(self.RuleList) > 0:
@@ -740,15 +728,14 @@ def nombre_etiqueta_out(self):
 
     for i in self.OutputList[no]["etiquetas"]:
         if (
-            i["nombre"] == self.main.etiquetaNombreOut.text()
-            and old_name != self.main.etiquetaNombreOut.text()
+            i["nombre"] == self.main.etiquetaNombreOut.text() and
+            old_name != self.main.etiquetaNombreOut.text()
         ):
             flag = 1
 
     if not flag:
-        self.OutputList[no]["etiquetas"][ne][
-            "nombre"
-        ] = self.main.etiquetaNombreOut.text()
+        self.OutputList[no]["etiquetas"][ne]["nombre"] = self.main.etiquetaNombreOut.text(
+        )
     else:
         self.OutputList[no]["etiquetas"][ne]["nombre"] = (
             self.main.etiquetaNombreOut.text() + "1"
@@ -1070,7 +1057,7 @@ def prueba_input(self):
 
     for i, entrada in enumerate(self.InputList[:ni]):
         rmin, rmax = entrada["rango"]
-        values[i] = values[i] * (rmax - rmin) / 1000 + rmin
+        values[i] = values[i] * (rmax-rmin) / 1000 + rmin
         self.intestlabels[i].setText(entrada["nombre"] + f": {np.around(values[i], 3)}")
 
     self.fuzzController.prueba_de_controlador(self, values, ni, no, pyqtgraph=True)

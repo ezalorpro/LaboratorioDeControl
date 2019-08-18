@@ -13,29 +13,28 @@ ctrl.step_info = step_info
 
 
 def system_creator_tf(self, numerador, denominador):
-    if not self.main.tfdiscretocheckBox1.isChecked() and self.main.tfdelaycheckBox1.isChecked():
+    if not self.main.tfdiscretocheckBox1.isChecked(
+    ) and self.main.tfdelaycheckBox1.isChecked():
         delay = json.loads(self.main.tfdelayEdit1.text())
     else:
         delay = 0
-        
+
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
     t, y = ctrl.impulse_response(system)
 
     if self.main.tfdiscretocheckBox1.isChecked():
-        
-        system = ctrl.sample_system(
-            system, self.dt, self.main.tfcomboBox1.currentText()
-        )
-        
+
+        system = ctrl.sample_system(system, self.dt, self.main.tfcomboBox1.currentText())
+
         if self.main.tfdelaycheckBox1.isChecked():
-            delay = [0]*(int(json.loads(self.main.tfdelayEdit1.text())/self.dt) + 1)
+            delay = [0] * (int(json.loads(self.main.tfdelayEdit1.text()) / self.dt) + 1)
             delay[0] = 1
             system_delay = system * ctrl.TransferFunction([1], delay, self.dt)
         else:
             system_delay = None
     else:
         system_delay = system
-    
+
     try:
         if ctrl.isdtime(system, strict=True):
             T = np.arange(0, 2 * np.max(t), self.dt)
@@ -48,24 +47,23 @@ def system_creator_tf(self, numerador, denominador):
 
 
 def system_creator_ss(self, A, B, C, D):
-    if not self.main.ssdiscretocheckBox1.isChecked() and self.main.ssdelaycheckBox1.isChecked():
+    if not self.main.ssdiscretocheckBox1.isChecked(
+    ) and self.main.ssdelaycheckBox1.isChecked():
         delay = json.loads(self.main.ssdelayEdit1.text())
     else:
         delay = 0
-        
+
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
     t, y = ctrl.impulse_response(system)
 
     if self.main.ssdiscretocheckBox1.isChecked():
-        system = ctrl.sample_system(
-            system, self.dt, self.main.sscomboBox1.currentText()
-        )
-        
+        system = ctrl.sample_system(system, self.dt, self.main.sscomboBox1.currentText())
+
         system_ss = system
         system = ctrl.ss2tf(system)
-        
+
         if self.main.ssdelaycheckBox1.isChecked():
-            delay = [0]*(int(json.loads(self.main.ssdelayEdit1.text())/self.dt) + 1)
+            delay = [0] * (int(json.loads(self.main.ssdelayEdit1.text()) / self.dt) + 1)
             delay[0] = 1
             system_delay = system * ctrl.TransferFunction([1], delay, self.dt)
         else:
@@ -82,20 +80,20 @@ def system_creator_ss(self, A, B, C, D):
             T = np.arange(0, 2 * np.max(t), 0.05)
     except ValueError:
         T = np.arange(0, 100, 0.1)
-        
+
     return system, T, system_delay, system_ss
 
 
 def rutina_step_plot(self, system, T):
-    
+
     U = np.ones_like(T)
     if system.delay:
-        U[:int(system.delay/0.05)+1] = 0
-    
+        U[:int(system.delay / 0.05) + 1] = 0
+
     t, y, _ = ctrl.forced_response(system, T, U)
-    
+
     self.main.stepGraphicsView1.canvas.axes.clear()
-    
+
     if ctrl.isdtime(system, strict=True):
         y = y[0]
         self.main.stepGraphicsView1.canvas.axes.step(t, y, where="mid")
@@ -117,11 +115,11 @@ def rutina_step_plot(self, system, T):
 def rutina_impulse_plot(self, system, T):
     U = np.zeros_like(T)
     if system.delay:
-        U[:int(system.delay/0.05)+1] = 0
-        U[int(system.delay/0.05)+1] = 1
+        U[:int(system.delay / 0.05) + 1] = 0
+        U[int(system.delay / 0.05) + 1] = 1
     else:
         U[0] = 1
-    
+
     t, y, _ = ctrl.forced_response(system, T, U)
 
     self.main.impulseGraphicsView1.canvas.axes.clear()
@@ -147,7 +145,7 @@ def rutina_impulse_plot(self, system, T):
 def rutina_bode_plot(self, system):
 
     if ctrl.isdtime(system, strict=True):
-        w = np.linspace(0, 4 * np.pi/self.dt, 50000)
+        w = np.linspace(0, 4 * np.pi / self.dt, 50000)
         mag, phase, omega = ctrl.bode(system, w)
     else:
         w = np.linspace(0, 100 * np.pi, 50000)
@@ -172,18 +170,34 @@ def rutina_bode_plot(self, system):
     self.main.BodeGraphicsView1.canvas.axes2.set_xlabel("rad/s")
 
     gm, pm, wg, wp = margenes_ganancias(self, mag, phase, omega)
-    
-    self.main.BodeGraphicsView1.canvas.axes1.axhline(y=0, color='k', linestyle=':', zorder=-20)
-    self.main.BodeGraphicsView1.canvas.axes2.axhline(y=-180, color='k', linestyle=':', zorder=-20)
-    
+
+    self.main.BodeGraphicsView1.canvas.axes1.axhline(
+        y=0, color='k', linestyle=':', zorder=-20
+    )
+    self.main.BodeGraphicsView1.canvas.axes2.axhline(
+        y=-180, color='k', linestyle=':', zorder=-20
+    )
+
     if not gm == np.infty:
-        self.main.BodeGraphicsView1.canvas.axes1.axvline(x=wg, color='k', linestyle=':', zorder=-20)
-        self.main.BodeGraphicsView1.canvas.axes2.semilogx([wg, wg], [-180, 0], color='k', linestyle=':', zorder=-20)
-        self.main.BodeGraphicsView1.canvas.axes1.semilogx([wg, wg], [-gm, 0], color='k', linewidth=3)
+        self.main.BodeGraphicsView1.canvas.axes1.axvline(
+            x=wg, color='k', linestyle=':', zorder=-20
+        )
+        self.main.BodeGraphicsView1.canvas.axes2.semilogx(
+            [wg, wg], [-180, 0], color='k', linestyle=':', zorder=-20
+        )
+        self.main.BodeGraphicsView1.canvas.axes1.semilogx(
+            [wg, wg], [-gm, 0], color='k', linewidth=3
+        )
     if not pm == np.infty:
-        self.main.BodeGraphicsView1.canvas.axes2.axvline(x=wp, color='k', linestyle=':', zorder=-20)
-        self.main.BodeGraphicsView1.canvas.axes1.semilogx([wp, wp], [np.min(bodeDb), 0], color='k', linestyle=':', zorder=-20)
-        self.main.BodeGraphicsView1.canvas.axes2.semilogx([wp, wp], [-180, pm-180], color='k', linewidth=3)
+        self.main.BodeGraphicsView1.canvas.axes2.axvline(
+            x=wp, color='k', linestyle=':', zorder=-20
+        )
+        self.main.BodeGraphicsView1.canvas.axes1.semilogx(
+            [wp, wp], [np.min(bodeDb), 0], color='k', linestyle=':', zorder=-20
+        )
+        self.main.BodeGraphicsView1.canvas.axes2.semilogx(
+            [wp, wp], [-180, pm - 180], color='k', linewidth=3
+        )
     self.main.BodeGraphicsView1.canvas.draw()
     self.main.BodeGraphicsView1.toolbar.update()
     return mag, phase, omega
@@ -246,26 +260,34 @@ def rutina_nyquist_plot(self, system):
 
 
 def rutina_root_locus_plot(self, system):
-    
+
     self.main.rlocusGraphicsView1.canvas.axes.cla()
-    
-    if not ctrl.isdtime(system, strict=True): 
-        if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
-            pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.tfdelayEdit1.text()), 4))
+
+    if not ctrl.isdtime(system, strict=True):
+        if self.main.tfdelaycheckBox1.isChecked(
+        ) and self.main.AnalisisstackedWidget.currentIndex() == 0:
+            pade_delay = ctrl.TransferFunction(
+                *ctrl.pade(json.loads(self.main.tfdelayEdit1.text()), 4)
+            )
             t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
-            
-        if self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
-            pade_delay = ctrl.TransferFunction(*ctrl.pade(json.loads(self.main.ssdelayEdit1.text()), 4))
+
+        if self.main.ssdelaycheckBox1.isChecked(
+        ) and self.main.AnalisisstackedWidget.currentIndex() == 1:
+            pade_delay = ctrl.TransferFunction(
+                *ctrl.pade(json.loads(self.main.ssdelayEdit1.text()), 4)
+            )
             t, y = ctrl.root_locus(pade_delay*system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
-        
-        if not self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+
+        if not self.main.tfdelaycheckBox1.isChecked(
+        ) and self.main.AnalisisstackedWidget.currentIndex() == 0:
             t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
-            
-        if not self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+
+        if not self.main.ssdelaycheckBox1.isChecked(
+        ) and self.main.AnalisisstackedWidget.currentIndex() == 1:
             t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
     else:
         t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
-    
+
     self.main.rlocusGraphicsView1.canvas.axes.grid(color="lightgray")
     self.main.rlocusGraphicsView1.canvas.axes.set_title("Lugar de las raicez")
     self.main.rlocusGraphicsView1.canvas.draw()
@@ -273,54 +295,88 @@ def rutina_root_locus_plot(self, system):
 
 
 def rutina_nichols_plot(self, system):
-    
+
     self.main.nicholsGraphicsView1.canvas.axes.cla()
-    
+
     if ctrl.isdtime(system, strict=True):
-        w = np.linspace(0, 4 * np.pi/self.dt, 5000)
-        if (self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0) or (self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1):
-            
-            ctrl.nichols_plot(system, w, figure=self.main.nicholsGraphicsView1, ax=self.main.nicholsGraphicsView1.canvas.axes, delay=True)
+        w = np.linspace(0, 4 * np.pi / self.dt, 5000)
+        if (
+            self.main.tfdelaycheckBox1.isChecked() and
+            self.main.AnalisisstackedWidget.currentIndex() == 0
+        ) or (
+            self.main.ssdelaycheckBox1.isChecked() and
+            self.main.AnalisisstackedWidget.currentIndex() == 1
+        ):
+
+            ctrl.nichols_plot(
+                system,
+                w,
+                figure=self.main.nicholsGraphicsView1,
+                ax=self.main.nicholsGraphicsView1.canvas.axes,
+                delay=True
+            )
         else:
-            ctrl.nichols_plot(system, w, figure=self.main.nicholsGraphicsView1, ax=self.main.nicholsGraphicsView1.canvas.axes)
+            ctrl.nichols_plot(
+                system,
+                w,
+                figure=self.main.nicholsGraphicsView1,
+                ax=self.main.nicholsGraphicsView1.canvas.axes
+            )
     else:
         w = np.linspace(0, 100 * np.pi, 5000)
-        if (self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0) or (self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1):
-            
-            ctrl.nichols_plot(system, w, figure=self.main.nicholsGraphicsView1, ax=self.main.nicholsGraphicsView1.canvas.axes, delay=True)
+        if (
+            self.main.tfdelaycheckBox1.isChecked() and
+            self.main.AnalisisstackedWidget.currentIndex() == 0
+        ) or (
+            self.main.ssdelaycheckBox1.isChecked() and
+            self.main.AnalisisstackedWidget.currentIndex() == 1
+        ):
+
+            ctrl.nichols_plot(
+                system,
+                w,
+                figure=self.main.nicholsGraphicsView1,
+                ax=self.main.nicholsGraphicsView1.canvas.axes,
+                delay=True
+            )
         else:
-            ctrl.nichols_plot(system, w, figure=self.main.nicholsGraphicsView1, ax=self.main.nicholsGraphicsView1.canvas.axes)
-        
+            ctrl.nichols_plot(
+                system,
+                w,
+                figure=self.main.nicholsGraphicsView1,
+                ax=self.main.nicholsGraphicsView1.canvas.axes
+            )
+
     self.main.nicholsGraphicsView1.canvas.draw()
     self.main.nicholsGraphicsView1.toolbar.update()
-    
+
 
 def rutina_system_info(self, system, T, mag, phase, omega):
     info = ctrl.step_info(system, T)
 
     Datos = ""
-    
+
     Datos += str(system) + "\n"
-    
-    if self.main.tfdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 0:
+
+    if self.main.tfdelaycheckBox1.isChecked(
+    ) and self.main.AnalisisstackedWidget.currentIndex() == 0:
         delay = json.loads(self.main.tfdelayEdit1.text())
         Datos += f"Delay: {delay}\n"
-    elif self.main.ssdelaycheckBox1.isChecked() and self.main.AnalisisstackedWidget.currentIndex() == 1:
+    elif self.main.ssdelaycheckBox1.isChecked(
+    ) and self.main.AnalisisstackedWidget.currentIndex() == 1:
         delay = json.loads(self.main.ssdelayEdit1.text())
         Datos += f"Delay: {delay}\n"
     else:
         delay = 0
-    
+
     Datos += "----------------------------------------------\n"
-    
-    
-    
+
     for k, v in info.items():
         if 'PeakTime' in k or 'SettlingTime' in k:
             Datos += f"{k} : {v+delay:5.3f}\n"
         else:
             Datos += f"{k} : {v:5.3f}\n"
-                
+
     Datos += "----------------------------------------------\n"
     dcgain = ctrl.dcgain(system)
     Datos += f"Ganancia DC: {real(dcgain):5.3f}\n"
@@ -334,8 +390,8 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     else:
         Datos += f"Margen de ganancia: {gm:5.3f}\n"
         Datos += f"Frecuencia de ganancia: {wg:5.3f}\n"
-    
-    if not pm == np.infty:    
+
+    if not pm == np.infty:
         Datos += f"Margen de fase: {pm:5.3f} °\n"
         Datos += f"Frecuencia de fase: {wp:5.3f} rad/sec\n"
     else:
@@ -359,26 +415,25 @@ def rutina_system_info(self, system, T, mag, phase, omega):
 
 
 def margenes_ganancias(self, mag, phase, omega):
-    
+
     gainDb = 20 * np.log10(mag)
     degPhase = phase * 180.0 / np.pi
-    
+
     indPhase = np.where(gainDb <= 0)[0]
     indGain = np.where(degPhase <= -180)[0]
-    
+
     if not indGain.size == 0:
         omegaGain = omega[indGain[0]]
         GainMargin = -gainDb[indGain[0]]
     else:
         omegaGain = np.nan
         GainMargin = np.infty
-    
+
     if not indPhase.size == 0 and gainDb[0] >= 0:
         omegaPhase = omega[indPhase[1]]
         PhaseMargin = 180 + degPhase[indPhase[1]]
     else:
         omegaPhase = np.nan
         PhaseMargin = np.infty
-        
+
     return GainMargin, PhaseMargin, omegaGain, omegaPhase
-    

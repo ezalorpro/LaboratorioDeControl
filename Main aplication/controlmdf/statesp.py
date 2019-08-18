@@ -780,7 +780,7 @@ but B has %i row(s)\n(output(s))." % (self.inputs, other.outputs))
         j = indices[1]
         return StateSpace(self.A, self.B[:, j], self.C[i, :], self.D[i, j], self.dt)
 
-    def sample(self, Ts, method='zoh', alpha=None):
+    def sample(self, Ts, method='zoh', alpha=None, delay=0):
         """Convert a continuous time system to discrete time
 
         Creates a discrete-time system from a continuous-time system by
@@ -823,7 +823,7 @@ but B has %i row(s)\n(output(s))." % (self.inputs, other.outputs))
 
         sys = (self.A, self.B, self.C, self.D)
         Ad, Bd, C, D, dt = cont2discrete(sys, Ts, method, alpha)
-        return StateSpace(Ad, Bd, C, D, dt)
+        return StateSpace(Ad, Bd, C, D, dt, delay=delay)
 
     def dcgain(self):
         """Return the zero-frequency gain

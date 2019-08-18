@@ -87,7 +87,7 @@ def nichols_plot(sys_list, omega=None, grid=True, figure=None, ax=None, delay=Fa
         if sys.isdtime(True):
             nyquistfrq = 2. * np.pi * 1. / sys.dt / 2.
             omega = omega[omega < nyquistfrq]
-        
+
         # Get the magnitude and phase of the system
         mag_tmp, phase_tmp, omega = sys.freqresp(omega)
         mag = np.squeeze(mag_tmp)
@@ -100,7 +100,7 @@ def nichols_plot(sys_list, omega=None, grid=True, figure=None, ax=None, delay=Fa
 
         # Generate the plot
         ax.plot(x, y)
-        
+
         ax.xaxis.set_major_formatter(mticker.FormatStrFormatter("%.1f °"))
         ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%.1f dB"))
 
@@ -197,6 +197,8 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None,
     # for -360 < ol_phase_min < 0.
     phase_offset_min = 360.0*np.ceil(ol_phase_min/360.0)
     phase_offset_max = 360.0*np.ceil(ol_phase_max/360.0)
+    if phase_offset_min == phase_offset_max:
+        phase_offset_max += 360
     phase_offsets = np.arange(phase_offset_min, phase_offset_max, 360.0)
 
     for phase_offset in phase_offsets:

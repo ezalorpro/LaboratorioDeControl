@@ -1913,7 +1913,11 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <widget class="PgraphWidgetpid" name="stepGraphicsView2"/>
+             <widget class="PgraphWidgetpid" name="stepGraphicsView2">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -2431,7 +2435,7 @@
              <enum>QTabWidget::North</enum>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>5</number>
             </property>
             <property name="elideMode">
              <enum>Qt::ElideNone</enum>
@@ -6294,7 +6298,7 @@
                  <enum>QFrame::NoFrame</enum>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="page">
                  <layout class="QGridLayout" name="gridLayout_92">
@@ -6312,7 +6316,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>523</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -6622,7 +6626,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>523</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -6931,19 +6935,6 @@
         <string>Simulacion</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_98">
-        <item row="0" column="1" rowspan="2">
-         <widget class="MlpWidgetSubplot" name="graphicsView">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_59">
           <item>
@@ -7007,7 +6998,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QStackedWidget" name="AnalisisstackedWidget_2">
+           <widget class="QStackedWidget" name="SimulacionstackedWidget">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -7102,6 +7093,9 @@
                   <property name="text">
                    <string/>
                   </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                   <property name="placeholderText">
                    <string>Periodo de muestreo</string>
                   </property>
@@ -7128,6 +7122,9 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>Delay en segundos</string>
@@ -7661,10 +7658,10 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>20</string>
+                   <string>30</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -7694,10 +7691,10 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>100</string>
+                   <string>200</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -7714,7 +7711,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Valor del escalon</string>
+                   <string>Valor del setpoint</string>
                   </property>
                  </widget>
                 </item>
@@ -7730,7 +7727,7 @@
                    <string>1</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -7747,7 +7744,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Escalon avazado</string>
+                   <string>setpoint avazado</string>
                   </property>
                  </widget>
                 </item>
@@ -7763,10 +7760,13 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>[1,0, 0.5,5, 0.25,10, 1,15]</string>
+                   <string>[1,2, 0.5,8, 0.25,16, 1,23]</string>
                   </property>
                   <property name="frame">
                    <bool>true</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>[valor1, tiempo1, valor2, tiempo2]</string>
@@ -7781,8 +7781,8 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-31</y>
-               <width>245</width>
+               <y>0</y>
+               <width>228</width>
                <height>249</height>
               </rect>
              </property>
@@ -7821,6 +7821,9 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -7844,6 +7847,9 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -7876,6 +7882,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>[1]</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -7899,6 +7911,12 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>[2, 1]</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -7931,6 +7949,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -7955,6 +7979,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>100</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -7962,6 +7992,14 @@
              </layout>
             </widget>
             <widget class="QWidget" name="esquemaPage">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>98</width>
+               <height>28</height>
+              </rect>
+             </property>
              <attribute name="icon">
               <iconset resource="imagenes.qrc">
                <normaloff>:/iconos/arrow.ico</normaloff>:/iconos/arrow.ico</iconset>
@@ -8017,8 +8055,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>180</height>
+               <width>190</width>
+               <height>96</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8057,6 +8095,12 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -8107,6 +8151,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -8153,6 +8203,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -8177,8 +8233,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>180</height>
+               <width>161</width>
+               <height>67</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8239,19 +8295,77 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="simularButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Simular</string>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_44">
+            <item>
+             <widget class="QPushButton" name="simularButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Simular</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QProgressBar" name="progressBar">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="textVisible">
+               <bool>true</bool>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="textDirection">
+               <enum>QProgressBar::TopToBottom</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
+        </item>
+        <item row="0" column="1">
+         <widget class="MlpWidgetSubplot" name="simulacionGraph">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -8298,11 +8412,6 @@
    <header>mlpwidget</header>
   </customwidget>
   <customwidget>
-   <class>MlpWidget3D</class>
-   <extends>QGraphicsView</extends>
-   <header>mlpwidget</header>
-  </customwidget>
-  <customwidget>
    <class>PgraphWidget</class>
    <extends>QGraphicsView</extends>
    <header>pyqtgraphWidget</header>
@@ -8311,6 +8420,11 @@
    <class>PgraphWidgetpid</class>
    <extends>QGraphicsView</extends>
    <header>pyqtgraphWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>MlpWidget3D</class>
+   <extends>QGraphicsView</extends>
+   <header>mlpwidget</header>
   </customwidget>
  </customwidgets>
  <tabstops>

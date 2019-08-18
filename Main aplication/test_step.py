@@ -1,68 +1,196 @@
-# import json
+import json
 # from collections import deque
 # import pickle
-# import numpy as np
-# import controlmdf as ctrl
-# from skfuzzymdf import control as fuzz
-# from matplotlib import pyplot as plt
-# from matplotlib import figure
-# from mpl_toolkits.mplot3d import Axes3D
-# import time 
-# import pyqtgraph as pg
-# import sys
-
-# import sys
-
-from PySide2 import QtWidgets
+import controlmdf as ctrl
+from skfuzzymdf import control as fuzz
+from matplotlib import pyplot as plt
+from matplotlib import figure
+from mpl_toolkits.mplot3d import Axes3D
+import time
+import pyqtgraph as pg
+import sys
+from PySide2 import QtWidgets, QtCore, QtGui
 import numpy as np
-
 import pyvista as pv
+from multiprocessing import Queue
+import math
 
-class MainWindow(QtWidgets.QMainWindow):
+start = 0.0001
+end = 30
+base = 1.2
+logs = np.geomspace(start, end, 200)
+t = np.linspace(0, 30, 2000)
+t_log = np.log(np.linspace(base**0, base**30, 2000))/np.log(base)
+plt.plot(t, t_log)
+plt.show()
+# gs = ctrl.tf2ss(ctrl.tf([1], [1, 1, 1]))
+# print(gs.returnScipySignalLTI()[0][0])
+# pid = ctrl.tf([0, 7, 0], [1, 1])
 
-    def __init__(self, parent=None, show=True):
-        super(MainWindow, self).__init__(parent)
+# feed = ctrl.feedback(pid*gs)
+# print(feed)
 
-        # create the frame
-        self.frame = QtWidgets.QFrame()
-        vlayout = QtWidgets.QVBoxLayout()
+#          7 s
+# ---------------------
+# s^3 + 2 s^2 + 9 s + 1
 
-        # add the pyvista interactor object
-        self.vtk_widget = pv.QtInteractor(self.frame)
-        vlayout.addWidget(self.vtk_widget)
+# T = np.arange(0, 40, 0.1)
+# lista = [1, 2, 0.5, 5, 0.25, 10, 1, 15, 0.3, 26, 0.7, 32]
+# it = iter(lista)
+# u = np.zeros_like(T)
+# for i, x in enumerate(it):
+#     ini = int(next(it) / 0.1)
+#     u[ini:] = x
 
-        self.frame.setLayout(vlayout)
-        self.setCentralWidget(self.frame)
+# plt.plot(T, u)
+# plt.show()
+# kp, ki, kd = map(float, ['3.7', '2', ''])
 
-        # simple menu to demo functions
-        mainMenu = self.menuBar()
-        fileMenu = mainMenu.addMenu('File')
-        exitButton = QtWidgets.QAction('Exit', self)
-        exitButton.setShortcut('Ctrl+Q')
-        exitButton.triggered.connect(self.close)
-        fileMenu.addAction(exitButton)
+# print([kp, ki, kd])
+# class ResultObj(QtCore.QObject):
 
-        # allow adding a sphere
-        meshMenu = mainMenu.addMenu('Mesh')
-        self.add_sphere_action = QtWidgets.QAction('Add Sphere', self)
-        self.add_sphere_action.triggered.connect(self.add_sphere)
-        meshMenu.addAction(self.add_sphere_action)
-
-        if show:
-            self.show()
-
-    def add_sphere(self):
-        """ add a sphere to the pyqt frame """
-        sphere = pv.Sphere()
-        self.vtk_widget.add_mesh(sphere)
-        self.vtk_widget.reset_camera()
+#     def __init__(self, val):
+#         self.val = val
 
 
-if __name__ == '__main__':
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
-    sys.exit(app.exec_())
+# class SimpleThread(QtCore.QThread):
+#     finished = QtCore.Signal(object)
+
+#     def __init__(self, queue, callback, parent=None):
+#         QtCore.QThread.__init__(self, parent)
+#         self.queue = queue
+#         self.finished.connect(callback)
+
+#     def run(self):
+#         while True:
+#             arg = self.queue.get()
+#             if arg is None:  # None means exit
+#                 print("Shutting down")
+#                 return
+#             self.fun(arg)
+
+#     def fun(self, arg):
+#         for i in range(3):
+#             print ('fun: %s' % i)
+#             self.sleep(1)
+#         self.finished.emit(ResultObj(arg + 1))
+
+
+# class AppWindow(QtGui.QMainWindow):
+
+#     def __init__(self):
+#         super(AppWindow, self).__init__()
+#         mainWidget = QtGui.QWidget()
+#         self.setCentralWidget(mainWidget)
+#         mainLayout = QtGui.QVBoxLayout()
+#         mainWidget.setLayout(mainLayout)
+#         button = QtGui.QPushButton('Process')
+#         button.clicked.connect(self.process)
+#         mainLayout.addWidget(button)
+
+#     def handle_result(self, result):
+#         val = result.val
+#         print("got val {}".format(val))
+#         # You can update the UI from here.
+
+#     def process(self):
+#         MAX_CORES = 1
+#         self.queue = Queue()
+#         self.threads = []
+#         for i in range(MAX_CORES):
+#             thread = SimpleThread(self.queue, self.handle_result)
+#             self.threads.append(thread)
+#             thread.start()
+
+#         for arg in [1, 2, 3]:
+#             self.queue.put(arg)
+
+#         for _ in range(MAX_CORES):  # Tell the workers to shut down
+#             self.queue.put(None)
+
+
+# app = QtGui.QApplication([])
+# window = AppWindow()
+# window.show()
+# sys.exit(app.exec_())
+
+# class MainWindow(QtWidgets.QMainWindow):
+
+#     def __init__(self, parent=None, show=True):
+#         super(MainWindow, self).__init__(parent)
+
+#         # create the frame
+#         self.frame = QtWidgets.QFrame()
+#         vlayout = QtWidgets.QVBoxLayout()
+
+#         # add the pyvista interactor object
+#         self.vtk_widget = pv.QtInteractor(self.frame)
+#         vlayout.addWidget(self.vtk_widget)
+
+#         self.frame.setLayout(vlayout)
+#         self.setCentralWidget(self.frame)
+
+#         # simple menu to demo functions
+#         mainMenu = self.menuBar()
+#         fileMenu = mainMenu.addMenu('File')
+#         exitButton = QtWidgets.QAction('Exit', self)
+#         exitButton.setShortcut('Ctrl+Q')
+#         exitButton.triggered.connect(self.close)
+#         fileMenu.addAction(exitButton)
+
+#         # allow adding a sphere
+#         meshMenu = mainMenu.addMenu('Mesh')
+#         self.add_sphere_action = QtWidgets.QAction('Add Sphere', self)
+#         self.add_sphere_action.triggered.connect(self.add_sphere)
+#         meshMenu.addAction(self.add_sphere_action)
+#         self.range = 2
+#         if show:
+#             self.show()
+
+#     def add_sphere(self):
+#         """ add a sphere to the pyqt frame """
+#         self.vtk_widget.clear()
+
+#         x_samp = np.logspace(-self.range, self.range, 200)
+#         y_samp = np.logspace(-self.range, self.range, 200)
+#         x, y = np.meshgrid(x_samp, y_samp)
+#         a = -0.0001
+#         z = a * (
+#             np.abs(
+#                 np.sin(x) * np.sin(y) *
+#                 np.exp(np.abs(100 - np.sqrt(x**2 + y**2) / np.pi))
+#             ) + 1
+#         )**0.1
+
+#         grid = pv.StructuredGrid(x, y, z)
+#         grid['scalars'] = z.ravel('F')
+
+#         xscale = (np.max(z) - np.min(z)) / (np.max(x) - np.min(x))
+#         yscale = (np.max(z) - np.min(z)) / (np.max(y) - np.min(y))
+
+#         self.vtk_widget.set_scale(xscale=xscale, yscale=yscale)
+#         self.vtk_widget.add_mesh(
+#             grid,
+#             scalars='scalars',
+#             cmap='viridis',
+#             style='surface',
+#             scalar_bar_args={'vertical': True}
+#         )
+
+#         self.vtk_widget.show_bounds(
+#             grid='back',
+#             location='outer',
+#             ticks='both',
+#             bounds=[np.min(x), np.max(x), np.min(y), np.max(y), np.min(z), np.max(z)]
+#         )
+
+#         self.vtk_widget.reset_camera()
+#         self.range -= 1
+
+# if __name__ == '__main__':
+#     app = QtWidgets.QApplication(sys.argv)
+#     window = MainWindow()
+#     sys.exit(app.exec_())
 
 # colors = [
 #     '#1f77b4',
@@ -108,7 +236,6 @@ if __name__ == '__main__':
 
 # pw.enableMouse(False)
 
-
 # c1.setData(np.asarray([-1, 5, 10]),np.asarray([0, 1, 0]))
 # c2.setData(np.asarray([-6, 0, 5]),np.asarray([0, 1, 0]))
 
@@ -120,36 +247,33 @@ if __name__ == '__main__':
 # print(file)
 
 # salidas = [
-#         {
-#             'nombre': 'output1',
-#             'numeroE': 3,
-#             'etiquetas': [
+#     {
+#         'nombre': 'output1',
+#         'numeroE': 3,
+#         'etiquetas':
+#             [
 #                 {
 #                     'nombre': 'bajo',
 #                     'mf': 'trimf',
-#                     'definicion': [-11, -10, 0],
-#                 },
+#                     'definicion': [-11, -10, 0],},
 #                 {
 #                     'nombre': 'medio',
 #                     'mf': 'trimf',
-#                     'definicion': [-10, 0, 10],
-#                 },
+#                     'definicion': [-10, 0, 10],},
 #                 {
 #                     'nombre': 'alto',
 #                     'mf': 'trimf',
-#                     'definicion': [0, 10, 11],
-#                 },
-#                 ],
-#             'rango': [-10, 10],
-#             'metodo': True
-#         }
-#     ]
-
+#                     'definicion': [0, 10, 11],},
+#             ],
+#         'rango': [-10, 10],
+#         'metodo': True
+#     }
+# ]
 
 # def guardar_archivo(lista):
 #     with open('probando.pkl', 'wb', ) as f:
 #         pickle.dump([salidas, lista], f)
-        
+
 # def cargar_archivo():
 #     with open('probando.pkl', 'rb') as f:
 #         data1, data2 = pickle.load(f)
@@ -169,7 +293,7 @@ if __name__ == '__main__':
 # print(salidas)
 # print(nueva_data1)
 
-# json.dump([['hola', 'chao'], [True, False], [1, 0.2]], open("probando.json", 'w'))
+# json.dump([np.asarray([1, 2, 3, 4])], open("probando.json", 'w'))
 # a, b, c= json.load(open("probando.json"))
 
 # print(a)
@@ -213,10 +337,8 @@ if __name__ == '__main__':
 # rule9 = fuzz.Rule(input1['label3'] & input2['label3'],
 #                    consequent=[output2['label3']%0.25])
 
-
 # temp = fuzz.ControlSystem([rule1, rule2, rule3, rule4, rule5,
 #                            rule6, rule7, rule8, rule9])
-
 
 # controlador = fuzz.ControlSystemSimulation(temp)
 
