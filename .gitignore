@@ -2,6 +2,7 @@
 build
 virtualenv
 dist
+vtkmodules
 !main.spec
 !*.gitignore
 !*.py
