@@ -6,7 +6,7 @@ from skfuzzymdf.control.controlsystem import CrispValueCalculator
 from skfuzzymdf.fuzzymath.fuzzy_ops import interp_membership
 from collections import OrderedDict
 from matplotlib import pyplot as plt
-import pyvista as pv
+# import pyvista as pv
 import pyqtgraph as pg
 import copy
 
@@ -589,47 +589,64 @@ class FuzzyController:
                     pass
 
         for o in range(no):
+            window.respuesta3ds[o].canvas.axes.clear()
+            
+            if window.respuesta3ds[o].colorbar != 0:
+                window.respuesta3ds[o].colorbar.remove()
+                
+            surface = window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
+                                                            rstride=1, cstride=1, cmap='viridis', linewidth=0.4, antialiased=True)
+            
+            window.respuesta3ds[o].colorbar = window.respuesta3ds[o].canvas.figure.colorbar(surface)
+            
+            window.respuesta3ds[o].canvas.axes.view_init(30, 200)
+            window.respuesta3ds[o].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
+            window.respuesta3ds[o].canvas.axes.set_ylabel(self.fuzz_inputs[1].label)
+            window.respuesta3ds[o].canvas.axes.set_zlabel(self.fuzz_outputs[o].label)
+            window.respuesta3ds[o].canvas.draw() 
+        
+        # for o in range(no):
 
-            x = copy.deepcopy(entrada11[o])
-            y = copy.deepcopy(entrada22[o])
-            z = copy.deepcopy(salidas[o])
+        #     x = copy.deepcopy(entrada11[o])
+        #     y = copy.deepcopy(entrada22[o])
+        #     z = copy.deepcopy(salidas[o])
 
-            window.respuesta3ds[o].vtk_widget.clear()
-            window.respuesta3ds[o].vtk_widget.remove_bounds_axes()
+        #     window.respuesta3ds[o].vtk_widget.clear()
+        #     window.respuesta3ds[o].vtk_widget.remove_bounds_axes()
 
-            xscale = (np.max(z) - np.min(z)) / (np.max(x) - np.min(x))
-            yscale = (np.max(z) - np.min(z)) / (np.max(y) - np.min(y))
+        #     xscale = (np.max(z) - np.min(z)) / (np.max(x) - np.min(x))
+        #     yscale = (np.max(z) - np.min(z)) / (np.max(y) - np.min(y))
 
-            window.respuesta3ds[o].vtk_widget.set_scale(xscale=xscale, yscale=yscale)
+        #     window.respuesta3ds[o].vtk_widget.set_scale(xscale=xscale, yscale=yscale)
 
-            grid = pv.StructuredGrid(x, y, z)
-            grid['scalars'] = z.ravel('F')
+        #     grid = pv.StructuredGrid(x, y, z)
+        #     grid['scalars'] = z.ravel('F')
 
-            window.respuesta3ds[o].vtk_widget.add_mesh(grid,
-                                                       scalars='scalars',
-                                                       cmap='viridis',
-                                                       style='surface',
-                                                       lighting=False,
-                                                       show_edges=True,
-                                                       stitle=self.fuzz_outputs[o].label,
-                                                       scalar_bar_args={
-                                                           'label_font_size': 18,
-                                                           'title_font_size': 18,
-                                                           'position_x': 0.99
-                                                       })
+        #     window.respuesta3ds[o].vtk_widget.add_mesh(grid,
+        #                                                scalars='scalars',
+        #                                                cmap='viridis',
+        #                                                style='surface',
+        #                                                lighting=False,
+        #                                                show_edges=True,
+        #                                                stitle=self.fuzz_outputs[o].label,
+        #                                                scalar_bar_args={
+        #                                                    'label_font_size': 18,
+        #                                                    'title_font_size': 18,
+        #                                                    'position_x': 0.99
+        #                                                })
 
-            window.respuesta3ds[o].vtk_widget.show_bounds(
-                grid='True',
-                location='outer',
-                ticks='inside',
-                xlabel=self.fuzz_inputs[0].label,
-                ylabel=self.fuzz_inputs[1].label,
-                zlabel=self.fuzz_outputs[o].label,
-                padding=0.1,
-                use_2d=True,
-                font_size=12,
-                bounds=[np.min(x), np.max(x), np.min(y), np.max(y), np.min(z), np.max(z)])
+        #     window.respuesta3ds[o].vtk_widget.show_bounds(
+        #         grid='True',
+        #         location='outer',
+        #         ticks='inside',
+        #         xlabel=self.fuzz_inputs[0].label,
+        #         ylabel=self.fuzz_inputs[1].label,
+        #         zlabel=self.fuzz_outputs[o].label,
+        #         padding=0.1,
+        #         use_2d=True,
+        #         font_size=12,
+        #         bounds=[np.min(x), np.max(x), np.min(y), np.max(y), np.min(z), np.max(z)])
 
-            window.respuesta3ds[o].vtk_widget.show_axes()
-            window.respuesta3ds[o].vtk_widget.reset_camera()
-            window.respuesta3ds[o].vtk_widget.update()
+        #     window.respuesta3ds[o].vtk_widget.show_axes()
+        #     window.respuesta3ds[o].vtk_widget.reset_camera()
+        #     window.respuesta3ds[o].vtk_widget.update()

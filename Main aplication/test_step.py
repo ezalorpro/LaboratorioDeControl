@@ -13,11 +13,18 @@ from PySide2 import QtWidgets, QtCore, QtGui
 import numpy as np
 import pyvista as pv
 from multiprocessing import Queue
+import math
 
-
-
-gs = ctrl.tf2ss(ctrl.tf([1], [1, 1, 1]))
-print(gs.returnScipySignalLTI()[0][0])
+start = 0.0001
+end = 30
+base = 1.2
+logs = np.geomspace(start, end, 200)
+t = np.linspace(0, 30, 2000)
+t_log = np.log(np.linspace(base**0, base**30, 2000))/np.log(base)
+plt.plot(t, t_log)
+plt.show()
+# gs = ctrl.tf2ss(ctrl.tf([1], [1, 1, 1]))
+# print(gs.returnScipySignalLTI()[0][0])
 # pid = ctrl.tf([0, 7, 0], [1, 1])
 
 # feed = ctrl.feedback(pid*gs)

@@ -2435,7 +2435,7 @@
              <enum>QTabWidget::North</enum>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>5</number>
             </property>
             <property name="elideMode">
              <enum>Qt::ElideNone</enum>
@@ -6298,7 +6298,7 @@
                  <enum>QFrame::NoFrame</enum>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="page">
                  <layout class="QGridLayout" name="gridLayout_92">
@@ -6316,7 +6316,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>523</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -6626,7 +6626,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>523</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -6642,7 +6642,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_78">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d1">
+                            <widget class="MlpWidget3D" name="respuesta3d1">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6670,7 +6670,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_79">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d2">
+                            <widget class="MlpWidget3D" name="respuesta3d2">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6698,7 +6698,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_80">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d3">
+                            <widget class="MlpWidget3D" name="respuesta3d3">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6726,7 +6726,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_81">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d4">
+                            <widget class="MlpWidget3D" name="respuesta3d4">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6754,7 +6754,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_82">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d5">
+                            <widget class="MlpWidget3D" name="respuesta3d5">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6782,7 +6782,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_83">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d6">
+                            <widget class="MlpWidget3D" name="respuesta3d6">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6810,7 +6810,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_84">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d7">
+                            <widget class="MlpWidget3D" name="respuesta3d7">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6838,7 +6838,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_85">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d8">
+                            <widget class="MlpWidget3D" name="respuesta3d8">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6866,7 +6866,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_86">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d9">
+                            <widget class="MlpWidget3D" name="respuesta3d9">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -6894,7 +6894,7 @@
                           </property>
                           <layout class="QGridLayout" name="gridLayout_87">
                            <item row="0" column="0">
-                            <widget class="PyVistaWidget" name="respuesta3d10">
+                            <widget class="MlpWidget3D" name="respuesta3d10">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
@@ -7782,7 +7782,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>245</width>
+               <width>228</width>
                <height>249</height>
               </rect>
              </property>
@@ -8055,8 +8055,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>150</height>
+               <width>190</width>
+               <height>96</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8422,9 +8422,9 @@
    <header>pyqtgraphWidget</header>
   </customwidget>
   <customwidget>
-   <class>PyVistaWidget</class>
+   <class>MlpWidget3D</class>
    <extends>QGraphicsView</extends>
-   <header>pyvistaWidget</header>
+   <header>mlpwidget</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -178,5 +178,6 @@ def plot_final_results(self, result):
     self.main.simulacionGraph.canvas.draw()
 
     self.main.simulacionGraph.toolbar.update()
+    self.main.progressBar.setValue(0)
     self.main.progressBar.hide()
     self.main.principalTab.setEnabled(True)

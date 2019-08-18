@@ -85,12 +85,15 @@ class SimpleThread(QtCore.QThread):
         sc_f = deque([0])
         sc_t = 0
         si_t = 0
-        error_a = deque([0, 0])
-
+        
         if ctrl.isdtime(self.system, strict=True):
+            error_a = 0
             solve = self.ss_discreta
+            PIDf = self.PID_discreto
         else:
+            error_a = deque([0]*2)
             solve = self.runge_kutta
+            PIDf = self.PID
 
         if self.window.main.accionadorCheck.isChecked():
             acc_num = json.loads(self.window.main.numAccionador.text())
@@ -102,27 +105,9 @@ class SimpleThread(QtCore.QThread):
             lim_inferior = float(self.window.main.inferiorSaturador.text())
             lim_superior = float(self.window.main.superiorSaturador.text())
 
-        N = 200
-
-        # system_pid = ctrl.tf2ss(
-        #     ctrl.TransferFunction([N*kd+kp, N*kp+ki, N*ki], [1, N, 0])
-        #     )
-
-        system_pid = ctrl.tf2ss(
-            ctrl.TransferFunction([kd, kp, ki], [1, 0])
-            )
-        
-        x_pid = np.zeros_like(system_pid.B)
-
-        filtro = ctrl.TransferFunction([1], [0.001, 1])
-        _, u, __ = ctrl.forced_response(filtro, self.Tiempo, u)
-
         for i, _ in enumerate(self.Tiempo[1:]):
-
-            # sc_t, si_t= self.PID(salida[i], u[i], h, si_t, error_a, kp, ki, kd, filtro)
-            error = u[i] - salida[i]
-            sc_t, x_pid = solve(system_pid, x_pid, h, error)
-            sc_t = np.asscalar(sc_t[0])
+            
+            sc_t, si_t, error_a = PIDf(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
 
             if self.window.main.accionadorCheck.isChecked():
                 sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -144,7 +129,7 @@ class SimpleThread(QtCore.QThread):
         k1 = h * (ss.A * x + ss.B * inputValue)
         k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
         k3 = h * (ss.A * (x + k2/2) + ss.B * inputValue)
-        k4 = h * (ss.A * (x+k3) + ss.B * inputValue)
+        k4 = h * (ss.A * (x + k3) + ss.B * inputValue)
 
         x = x + (1/6) * (k1 + 2*k2 + 2*k3 + k4)
         y = ss.C * x + ss.D * inputValue
@@ -155,15 +140,25 @@ class SimpleThread(QtCore.QThread):
         y = ss.C * x + ss.D * inputValue
         return y, x
 
-    def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd, filtro):
+    def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
         error = set_point - vm
         s_proporcional = error
         s_integral = s_integral + error*ts
-        s_derivativa = (3*error - 4*error_anterior[0] + error_anterior[1]) / (2*ts)
+        error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
+        s_derivativa = (error_derivativo - error_anterior[0]) / ts
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
         error_anterior.pop()
-        error_anterior.appendleft(error)
-        return s_control, s_integral
+        error_anterior.appendleft(error_derivativo)
+        return s_control, s_integral, error_anterior
+
+    def PID_discreto(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
+        error = set_point - vm
+        s_proporcional = error
+        s_integral = s_integral + error*ts
+        s_derivativa = (error - error_anterior) / ts
+        s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
+        error_anterior = error
+        return s_control, s_integral, error_anterior
 
 
 class Lowpassfilter:

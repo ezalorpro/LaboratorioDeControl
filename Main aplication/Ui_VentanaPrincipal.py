@@ -8,6 +8,7 @@
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -3289,7 +3290,7 @@ class Ui_MainWindow(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 5254, 109))
+        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 5254, 523))
         self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
         self.gridLayout_89 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_4)
         self.gridLayout_89.setObjectName("gridLayout_89")
@@ -3468,7 +3469,7 @@ class Ui_MainWindow(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollArea_4.setObjectName("scrollArea_4")
         self.scrollAreaWidgetContents_5 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 5254, 109))
+        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 5254, 523))
         self.scrollAreaWidgetContents_5.setObjectName("scrollAreaWidgetContents_5")
         self.gridLayout_91 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_5)
         self.gridLayout_91.setObjectName("gridLayout_91")
@@ -3480,7 +3481,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe1.setObjectName("respuesta3dframe1")
         self.gridLayout_78 = QtWidgets.QGridLayout(self.respuesta3dframe1)
         self.gridLayout_78.setObjectName("gridLayout_78")
-        self.respuesta3d1 = PyVistaWidget(self.respuesta3dframe1)
+        self.respuesta3d1 = MlpWidget3D(self.respuesta3dframe1)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3496,7 +3497,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe2.setObjectName("respuesta3dframe2")
         self.gridLayout_79 = QtWidgets.QGridLayout(self.respuesta3dframe2)
         self.gridLayout_79.setObjectName("gridLayout_79")
-        self.respuesta3d2 = PyVistaWidget(self.respuesta3dframe2)
+        self.respuesta3d2 = MlpWidget3D(self.respuesta3dframe2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3512,7 +3513,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe3.setObjectName("respuesta3dframe3")
         self.gridLayout_80 = QtWidgets.QGridLayout(self.respuesta3dframe3)
         self.gridLayout_80.setObjectName("gridLayout_80")
-        self.respuesta3d3 = PyVistaWidget(self.respuesta3dframe3)
+        self.respuesta3d3 = MlpWidget3D(self.respuesta3dframe3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3528,7 +3529,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe4.setObjectName("respuesta3dframe4")
         self.gridLayout_81 = QtWidgets.QGridLayout(self.respuesta3dframe4)
         self.gridLayout_81.setObjectName("gridLayout_81")
-        self.respuesta3d4 = PyVistaWidget(self.respuesta3dframe4)
+        self.respuesta3d4 = MlpWidget3D(self.respuesta3dframe4)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3544,7 +3545,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe5.setObjectName("respuesta3dframe5")
         self.gridLayout_82 = QtWidgets.QGridLayout(self.respuesta3dframe5)
         self.gridLayout_82.setObjectName("gridLayout_82")
-        self.respuesta3d5 = PyVistaWidget(self.respuesta3dframe5)
+        self.respuesta3d5 = MlpWidget3D(self.respuesta3dframe5)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3560,7 +3561,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe6.setObjectName("respuesta3dframe6")
         self.gridLayout_83 = QtWidgets.QGridLayout(self.respuesta3dframe6)
         self.gridLayout_83.setObjectName("gridLayout_83")
-        self.respuesta3d6 = PyVistaWidget(self.respuesta3dframe6)
+        self.respuesta3d6 = MlpWidget3D(self.respuesta3dframe6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3576,7 +3577,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe7.setObjectName("respuesta3dframe7")
         self.gridLayout_84 = QtWidgets.QGridLayout(self.respuesta3dframe7)
         self.gridLayout_84.setObjectName("gridLayout_84")
-        self.respuesta3d7 = PyVistaWidget(self.respuesta3dframe7)
+        self.respuesta3d7 = MlpWidget3D(self.respuesta3dframe7)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3592,7 +3593,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe8.setObjectName("respuesta3dframe8")
         self.gridLayout_85 = QtWidgets.QGridLayout(self.respuesta3dframe8)
         self.gridLayout_85.setObjectName("gridLayout_85")
-        self.respuesta3d8 = PyVistaWidget(self.respuesta3dframe8)
+        self.respuesta3d8 = MlpWidget3D(self.respuesta3dframe8)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3608,7 +3609,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe9.setObjectName("respuesta3dframe9")
         self.gridLayout_86 = QtWidgets.QGridLayout(self.respuesta3dframe9)
         self.gridLayout_86.setObjectName("gridLayout_86")
-        self.respuesta3d9 = PyVistaWidget(self.respuesta3dframe9)
+        self.respuesta3d9 = MlpWidget3D(self.respuesta3dframe9)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -3624,7 +3625,7 @@ class Ui_MainWindow(object):
         self.respuesta3dframe10.setObjectName("respuesta3dframe10")
         self.gridLayout_87 = QtWidgets.QGridLayout(self.respuesta3dframe10)
         self.gridLayout_87.setObjectName("gridLayout_87")
-        self.respuesta3d10 = PyVistaWidget(self.respuesta3dframe10)
+        self.respuesta3d10 = MlpWidget3D(self.respuesta3dframe10)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -4082,7 +4083,7 @@ class Ui_MainWindow(object):
         icon.addPixmap(QtGui.QPixmap(":/iconos/arrow.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.toolBox.addItem(self.configuracionPage, icon, "")
         self.bloquesPage = QtWidgets.QWidget()
-        self.bloquesPage.setGeometry(QtCore.QRect(0, 0, 245, 249))
+        self.bloquesPage.setGeometry(QtCore.QRect(0, 0, 228, 249))
         self.bloquesPage.setObjectName("bloquesPage")
         self.gridLayout_101 = QtWidgets.QGridLayout(self.bloquesPage)
         self.gridLayout_101.setObjectName("gridLayout_101")
@@ -4213,7 +4214,7 @@ class Ui_MainWindow(object):
         self.gridLayout_102.addWidget(self.esquemaSimulacionGraph, 0, 0, 1, 1)
         self.toolBox.addItem(self.esquemaPage, icon, "")
         self.pidPage = QtWidgets.QWidget()
-        self.pidPage.setGeometry(QtCore.QRect(0, 0, 262, 150))
+        self.pidPage.setGeometry(QtCore.QRect(0, 0, 190, 96))
         self.pidPage.setObjectName("pidPage")
         self.gridLayout_100 = QtWidgets.QGridLayout(self.pidPage)
         self.gridLayout_100.setObjectName("gridLayout_100")
@@ -4403,13 +4404,13 @@ class Ui_MainWindow(object):
         self.analisisGraficaTab.setCurrentIndex(0)
         self.PIDstackedWidget.setCurrentIndex(0)
         self.estrucNumberInputs.setCurrentIndex(1)
-        self.fuzzyTabWidget.setCurrentIndex(0)
+        self.fuzzyTabWidget.setCurrentIndex(5)
         self.etiquetaNumIn.setCurrentIndex(0)
         self.etiquetaNumOut.setCurrentIndex(0)
         self.rulelistWidget.setCurrentRow(-1)
         self.inlist1.setCurrentRow(-1)
         self.inlist9.setCurrentRow(-1)
-        self.respuestastackedWidget.setCurrentIndex(0)
+        self.respuestastackedWidget.setCurrentIndex(1)
         self.SimulacionstackedWidget.setCurrentIndex(0)
         self.sscomboBox4.setCurrentIndex(0)
         self.toolBox.setCurrentIndex(0)
@@ -4795,9 +4796,8 @@ class Ui_MainWindow(object):
         self.actionpelado.setText(_translate("MainWindow", "pelado"))
         self.actionAbout.setText(_translate("MainWindow", "About"))
 
-from mlpwidget import MlpWidget, MlpWidgetSubplot
+from mlpwidget import MlpWidget, MlpWidget3D, MlpWidgetSubplot
 from pyqtgraphWidget import PgraphWidget, PgraphWidgetpid
-from pyvistaWidget import PyVistaWidget
 import imagenes_rc
 
 if __name__ == "__main__":
@@ -4808,4 +4808,3 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-
