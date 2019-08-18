@@ -1,9 +1,8 @@
 from PySide2 import QtCore, QtGui, QtWidgets
+from rutinas.rutinas_fuzzy import FuzzyController
 import controlmdf as ctrl
 import numpy as np
-from scipy import signal
 from scipy import real, imag
-from scipy.integrate import RK45
 from matplotlib import pyplot as plt
 from collections import deque
 import matplotlib.ticker as mticker
@@ -39,12 +38,18 @@ class SimpleThread(QtCore.QThread):
 
 
     def run(self):
-        if self.esquema in [0, 1, 2, 3]:
+        if self.esquema in [0]:
             y, sc, u = self.run_pid()
             self.finished.emit(
                 self.window,
                 [self.Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
             return
+
+        if self.esquema in [1]:
+            y, sc, u = self.run_fuzzy()
+            self.finished.emit(
+                self.window,
+                [self.Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
 
     def run_pid(self):
         if self.window.main.kpCheck.isChecked():
@@ -85,7 +90,7 @@ class SimpleThread(QtCore.QThread):
         sc_f = deque([0])
         sc_t = 0
         si_t = 0
-        
+
         if ctrl.isdtime(self.system, strict=True):
             error_a = 0
             solve = self.ss_discreta
@@ -106,7 +111,7 @@ class SimpleThread(QtCore.QThread):
             lim_superior = float(self.window.main.superiorSaturador.text())
 
         for i, _ in enumerate(self.Tiempo[1:]):
-            
+
             sc_t, si_t, error_a = PIDf(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
 
             if self.window.main.accionadorCheck.isChecked():
@@ -125,6 +130,98 @@ class SimpleThread(QtCore.QThread):
 
         return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
 
+    def run_fuzzy(self):
+
+        if self.window.main.kpCheck.isChecked():
+            kp = float(self.kp)
+        else:
+            kp = 0
+
+        if self.window.main.kiCheck.isChecked():
+            ki = float(self.ki)
+        else:
+            ki = 0
+
+        if self.window.main.kdCheck.isChecked():
+            kd = float(self.kd)
+        else:
+            kd = 0
+
+        if len(self.fuzzy_path) > 1:
+            with open(self.fuzzy_path, "r") as f:
+                InputList, OutputList, RuleEtiquetas = json.load(f)
+
+            fuzzy_c = FuzzyController(InputList, OutputList, RuleEtiquetas)
+
+        ni = len(InputList)
+        no = len(OutputList)
+
+        if isinstance(self.system, ctrl.TransferFunction):
+            self.system = ctrl.tf2ss(self.system)
+
+        if isinstance(self.escalon, float):
+            u = np.ones_like(self.Tiempo)
+            u = u*self.escalon
+        else:
+            it = iter(self.escalon)
+            u = np.zeros_like(self.Tiempo)
+            for i, valor in enumerate(it):
+                ini = int(next(it) / self.dt)
+                u[ini:] = valor
+
+        max_tiempo = len(self.Tiempo)
+        ten_percent = max_tiempo*10/100
+        x = np.zeros_like(self.system.B)
+        buffer = deque([0] * int(self.system.delay / self.dt))
+        h = self.dt
+
+        salida = deque([0])
+        sc_f = deque([0])
+        si_t = 0
+
+        if ctrl.isdtime(self.system, strict=True):
+            error_a = 0
+            solve = self.ss_discreta
+            PIDf = self.PID_discreto
+        else:
+            error_a = deque([0]*2)
+            solve = self.runge_kutta
+            PIDf = self.PID
+
+        if self.window.main.accionadorCheck.isChecked():
+            acc_num = json.loads(self.window.main.numAccionador.text())
+            acc_dem = json.loads(self.window.main.demAccionador.text())
+            acc_system = ctrl.tf2ss(ctrl.TransferFunction(acc_num, acc_dem, delay=0))
+            acc_x = np.zeros_like(acc_system.B)
+
+        if self.window.main.saturadorCheck.isChecked():
+            lim_inferior = float(self.window.main.inferiorSaturador.text())
+            lim_superior = float(self.window.main.superiorSaturador.text())
+
+        if self.esquema == 1:
+            inputs = [0, 0]
+            for i, _ in enumerate(self.Tiempo[1:]):
+                error, d_error, si_t, error_a = self.derivada_filtrada(salida[i], u[i], h, si_t, error_a, ki)
+
+                sc_t = fuzzy_c.calcular_valor([error, d_error], [0]*1)[0] + si_t
+
+                if self.window.main.accionadorCheck.isChecked():
+                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                    sc_t = np.asscalar(sc_t[0])
+
+                if self.window.main.saturadorCheck.isChecked():
+                    sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
+                buffer.appendleft(sc_t)
+                y, x = solve(self.system, x, h, buffer.pop())
+                sc_f.append(sc_t)
+                salida.append(np.asscalar(y[0]))
+                if i % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+
+
     def runge_kutta(self, ss, x, h, inputValue):
         k1 = h * (ss.A * x + ss.B * inputValue)
         k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
@@ -139,6 +236,15 @@ class SimpleThread(QtCore.QThread):
         x = ss.A * x + ss.B * inputValue
         y = ss.C * x + ss.D * inputValue
         return y, x
+
+    def derivada_filtrada(self, vm, set_point, ts, s_integral, error_anterior, ki):
+        error = set_point - vm
+        s_integral = (s_integral + error*ts)*ki
+        error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
+        s_derivativa = (error_derivativo - error_anterior[0]) / ts
+        error_anterior.pop()
+        error_anterior.appendleft(error_derivativo)
+        return error, s_derivativa, s_integral, error_anterior
 
     def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
         error = set_point - vm

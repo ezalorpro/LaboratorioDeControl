@@ -22,6 +22,8 @@ def SimulacionHandler(self):
 
     self.main.tfradioButton4.toggled.connect(lambda: simulacion_stacked_to_tf(self))
     self.main.ssradioButton4.toggled.connect(lambda: simulacion_stacked_to_ss(self))
+    self.main.loadController.clicked.connect(lambda: get_pathcontroller(self))
+    self.main.esquemaSimulacion.currentIndexChanged.connect(lambda: accion_esquema_selector(self))
 
 
 def calcular_simulacion(self):
@@ -128,10 +130,19 @@ def simulacion_stacked_to_ss(self):
         self.main.samplesSimulacion.setEnabled(True)
 
 
-def testing(self):
-    self.main.progressBar.setValue(0)
-    self.thread = SimpleThread(self, print_final_result, update_progresBar_function, 0)
-    self.thread.start()
+def get_pathcontroller(self):
+    path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter="*.json")
+    self.main.pathController.setText(path_cargar[0])
+
+
+def accion_esquema_selector(self):
+    index = self.main.esquemaSimulacion.currentIndex()
+
+    if index == 0:
+        self.main.loadController.setDisabled(True)
+
+    if index == 1:
+        self.main.loadController.setEnabled(True)
 
 
 def update_progresBar_function(self, value):

@@ -590,21 +590,21 @@ class FuzzyController:
 
         for o in range(no):
             window.respuesta3ds[o].canvas.axes.clear()
-            
+
             if window.respuesta3ds[o].colorbar != 0:
                 window.respuesta3ds[o].colorbar.remove()
-                
-            surface = window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o], 
+
+            surface = window.respuesta3ds[o].canvas.axes.plot_surface(entrada11[o], entrada22[o], salidas[o],
                                                             rstride=1, cstride=1, cmap='viridis', linewidth=0.4, antialiased=True)
-            
+
             window.respuesta3ds[o].colorbar = window.respuesta3ds[o].canvas.figure.colorbar(surface)
-            
+
             window.respuesta3ds[o].canvas.axes.view_init(30, 200)
             window.respuesta3ds[o].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
             window.respuesta3ds[o].canvas.axes.set_ylabel(self.fuzz_inputs[1].label)
             window.respuesta3ds[o].canvas.axes.set_zlabel(self.fuzz_outputs[o].label)
-            window.respuesta3ds[o].canvas.draw() 
-        
+            window.respuesta3ds[o].canvas.draw()
+
         # for o in range(no):
 
         #     x = copy.deepcopy(entrada11[o])
@@ -650,3 +650,15 @@ class FuzzyController:
         #     window.respuesta3ds[o].vtk_widget.show_axes()
         #     window.respuesta3ds[o].vtk_widget.reset_camera()
         #     window.respuesta3ds[o].vtk_widget.update()
+
+    def calcular_valor(self, inputs, outputs):
+        for i, value in enumerate(inputs):
+            value = np.clip(value, np.min(self.fuzz_inputs[i].universe), np.max(self.fuzz_inputs[i].universe))
+            self.Controlador.input[self.fuzz_inputs[i].label] = value
+
+        self.Controlador.compute()
+        
+        for o in range(len(outputs)):
+            outputs[o] = self.Controlador.output[self.fuzz_outputs[o].label]
+        
+        return outputs
