@@ -1,5 +1,5 @@
 import json
-# from collections import deque
+from collections import deque
 # import pickle
 import controlmdf as ctrl
 from skfuzzymdf import control as fuzz
@@ -12,12 +12,87 @@ import sys
 from PySide2 import QtWidgets, QtCore, QtGui
 import numpy as np
 import pyvista as pv
+from scipy import signal
 from multiprocessing import Queue
 import math
+N = 10
+derivadaf = ctrl.TransferFunction([N], [1/N, 1])
+print(derivadaf)
+ctrl.bode(derivadaf, dB=True)
+plt.show()
 
+# class Lowpassfilter:
+#     """ Filtro pasa-bajo con ventaja Hamming"""
 
-a = 19
-print(np.clip(a, 20, 30))
+#     def __init__(self, order, fsampling, fpaso, coeficiente):
+
+#         self.order = order
+#         self.samples0 = [0]*order
+#         self.fsampling = fsampling
+#         self.fpaso = fpaso
+#         self.h_n = signal.firwin(self.order, self.fpaso, fs=self.fsampling)*coeficiente
+#         self.h_n = self.h_n.tolist()
+
+#     def filtrar(self, entrada):
+
+#         self.samples0.append(entrada)
+#         self.samples0 = self.samples0[1:]
+#         salida = sum(a * b for a, b in zip(self.samples0, self.h_n))
+#         return salida
+
+class Lowpassfilter:
+    """ Filtro pasa-bajo promediador"""
+
+    def __init__(self, samples0, fsampling, fcorte):
+        self.fsampling = fsampling
+        self.fcorte = fcorte
+        self.fcorte_normalizada = self.fcorte / self.fsampling
+        self.order = int(np.sqrt(0.196202 + pow(self.fcorte_normalizada, 2)) / self.fcorte_normalizada)
+        self.samples0 = self.order * deque([0])
+        print(" Filter order: %d " % self.order)
+
+    def filtrar(self, entrada):
+        self.samples0.pop()
+        salida = (entrada + sum(self.samples0)) / self.order
+        self.samples0.appendleft(salida)
+        return salida
+
+fs = 200
+nyq = fs / 2
+
+filtro = Lowpassfilter(0, fs, N/(2*np.pi))
+# b, a = signal.butter(3, omega)
+w, h = signal.freqz([100 / filtro.order] * filtro.order)
+
+plt.figure(figsize=(11, 8))
+plt.semilogx(w * fs, 20 * np.log10(abs(h)))
+plt.title('Respuesta del filtro Butterworth')
+plt.xlabel('Frequency [Hz]')
+plt.ylabel('Amplitude [dB]')
+plt.grid(which='both', axis='both')
+plt.axvline(N * nyq / np.pi, color='green')  # Frecuencia de corte
+
+plt.savefig("Filtro Bode.png", bbox_inches='tight', pad_inches=0.1)
+plt.show()
+
+# fs = 1000 / 3
+# nyq = fs / 2
+# omega = 0.05
+
+# b, a = signal.butter(3, omega)
+# w, h = signal.freqz(b, a)
+
+# plt.figure(figsize=(11, 8))
+# plt.semilogx(w * nyq / np.pi, 20 * np.log10(abs(h)))
+# plt.title('Respuesta del filtro Butterworth')
+# plt.xlabel('Frequency [Hz]')
+# plt.ylabel('Amplitude [dB]')
+# plt.grid(which='both', axis='both')
+# plt.axvline(omega * nyq, color='green')  # Frecuencia de corte
+
+# plt.savefig("Filtro Bode.png", bbox_inches='tight', pad_inches=0.1)
+# plt.show()
+
 # start = 0.0001
 # end = 30
 # base = 1.2

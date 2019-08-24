@@ -36,6 +36,7 @@ class SimpleThread(QtCore.QThread):
         self.saturador_flag = self.list_info[7]
         self.kp, self.ki, self.kd = map(float, self.list_info[8])
         self.fuzzy_path = self.list_info[9]
+        self.N = self.list_info[10]
 
 
     def run(self):
@@ -97,7 +98,9 @@ class SimpleThread(QtCore.QThread):
             solve = self.ss_discreta
             PIDf = self.PID_discreto
         else:
-            error_a = deque([0]*2)
+            N = 100
+            error_a = deque([0] * 2)
+            self.filtro = Lowpassfilter(1 / self.dt, (N - 1) / (2 * np.pi))
             solve = self.runge_kutta
             PIDf = self.PID
 
@@ -110,9 +113,8 @@ class SimpleThread(QtCore.QThread):
         if self.window.main.saturadorCheck.isChecked():
             lim_inferior = float(self.window.main.inferiorSaturador.text())
             lim_superior = float(self.window.main.superiorSaturador.text())
-        
-        for i, _ in enumerate(self.Tiempo[1:]):
 
+        for i, _ in enumerate(self.Tiempo[1:]):
             sc_t, si_t, error_a = PIDf(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
 
             if self.window.main.accionadorCheck.isChecked():
@@ -186,7 +188,9 @@ class SimpleThread(QtCore.QThread):
             solve = self.ss_discreta
             PIDf = self.PID_discreto
         else:
+            N = 100
             error_a = deque([0]*2)
+            self.filtro = Lowpassfilter(1 / self.dt, (N-1) / (2 * np.pi))
             solve = self.runge_kutta
             PIDf = self.PID
 
@@ -242,7 +246,8 @@ class SimpleThread(QtCore.QThread):
     def derivada_filtrada(self, vm, set_point, ts, s_integral, error_anterior, ki):
         error = set_point - vm
         s_integral = (s_integral + error*ts)*ki
-        error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
+        error_derivativo = self.filtro.filtrar(error)
+        # error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
         s_derivativa = (error_derivativo - error_anterior[0]) / ts
         error_anterior.pop()
         error_anterior.appendleft(error_derivativo)
@@ -252,7 +257,8 @@ class SimpleThread(QtCore.QThread):
         error = set_point - vm
         s_proporcional = error
         s_integral = s_integral + error*ts
-        error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
+        error_derivativo = self.filtro.filtrar(error)
+        # error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
         s_derivativa = (error_derivativo - error_anterior[0]) / ts
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
         error_anterior.pop()
@@ -267,8 +273,34 @@ class SimpleThread(QtCore.QThread):
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
         error_anterior = error
         return s_control, s_integral, error_anterior
-    
-    
+
+
+class Lowpassfilter:
+    """ Filtro pasa-bajo promediador"""
+
+    def __init__(self, fsampling, fcorte):
+        self.fsampling = fsampling
+        self.fcorte = fcorte
+        self.fcorte_normalizada = self.fcorte / self.fsampling
+
+        if self.fcorte_normalizada == 0:
+            self.order = 0
+        else:
+            self.order = int(
+                np.sqrt(0.196202 + pow(self.fcorte_normalizada, 2)) / self.fcorte_normalizada)
+            self.samples0 = self.order * deque([0])
+
+    def filtrar(self, entrada):
+
+        if self.order == 0:
+            return 0
+
+        self.samples0.pop()
+        salida = (entrada + sum(self.samples0)) / self.order
+        self.samples0.appendleft(entrada)
+        return salida
+
+
 def system_creator_tf(self, numerador, denominador):
     if self.main.tfdelaycheckBox4.isChecked():
         delay = json.loads(self.main.tfdelayEdit4.text())
