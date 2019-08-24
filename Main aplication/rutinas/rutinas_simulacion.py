@@ -34,9 +34,8 @@ class SimpleThread(QtCore.QThread):
         self.sensor_flag = self.list_info[5]
         self.accionador_flag = self.list_info[6]
         self.saturador_flag = self.list_info[7]
-        self.kp, self.ki, self.kd = map(float, self.list_info[8])
+        self.kp, self.ki, self.kd, self.N = map(float, self.list_info[8])
         self.fuzzy_path = self.list_info[9]
-        self.N = self.list_info[10]
 
 
     def run(self):
@@ -98,9 +97,8 @@ class SimpleThread(QtCore.QThread):
             solve = self.ss_discreta
             PIDf = self.PID_discreto
         else:
-            N = 100
             error_a = deque([0] * 2)
-            self.filtro = Lowpassfilter(1 / self.dt, (N - 1) / (2 * np.pi))
+            self.filtro = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
             solve = self.runge_kutta
             PIDf = self.PID
 
@@ -188,9 +186,8 @@ class SimpleThread(QtCore.QThread):
             solve = self.ss_discreta
             PIDf = self.PID_discreto
         else:
-            N = 100
             error_a = deque([0]*2)
-            self.filtro = Lowpassfilter(1 / self.dt, (N-1) / (2 * np.pi))
+            self.filtro = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
             solve = self.runge_kutta
             PIDf = self.PID
 
@@ -283,7 +280,7 @@ class Lowpassfilter:
         self.fcorte = fcorte
         self.fcorte_normalizada = self.fcorte / self.fsampling
 
-        if self.fcorte_normalizada == 0:
+        if self.fcorte_normalizada <= 0:
             self.order = 0
         else:
             self.order = int(

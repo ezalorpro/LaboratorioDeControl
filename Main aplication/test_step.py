@@ -19,7 +19,6 @@ N = 10
 derivadaf = ctrl.TransferFunction([N], [1/N, 1])
 print(derivadaf)
 ctrl.bode(derivadaf, dB=True)
-plt.show()
 
 # class Lowpassfilter:
 #     """ Filtro pasa-bajo con ventaja Hamming"""
@@ -72,7 +71,7 @@ plt.ylabel('Amplitude [dB]')
 plt.grid(which='both', axis='both')
 plt.axvline(N * nyq / np.pi, color='green')  # Frecuencia de corte
 
-plt.savefig("Filtro Bode.png", bbox_inches='tight', pad_inches=0.1)
+# plt.savefig("Filtro Bode.png", bbox_inches='tight', pad_inches=0.1)
 plt.show()
 
 # fs = 1000 / 3

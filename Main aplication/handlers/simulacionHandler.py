@@ -94,7 +94,8 @@ def calcular_simulacion(self):
         [
             self.main.kpSimulacion.text(),
             self.main.kiSimulacion.text(),
-            self.main.kdSimulacion.text()
+            self.main.kdSimulacion.text(),
+            self.main.NSimulacion.text()
         ],
         self.main.pathController.text()
     ]
