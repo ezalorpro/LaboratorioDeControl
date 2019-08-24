@@ -33,7 +33,7 @@ def system_creator_tf(self, numerador, denominador):
     else:
         kd = 0
 
-    t, y = ctrl.impulse_response(system)
+    t = self.main.pidTiempoSlider.value()
 
     if self.main.tfdiscretocheckBox2.isChecked():
         pid = ctrl.TransferFunction(
@@ -57,15 +57,10 @@ def system_creator_tf(self, numerador, denominador):
         system_delay = system
 
     try:
-        if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), self.dt)
-        elif np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), 0.05)
+        if ctrl.isdtime(system, strict=True):
+            T = np.arange(0, t+self.dt, self.dt)
         else:
-            if ctrl.isdtime(system, strict=True):
-                T = np.arange(0, 100, self.dt)
-            else:
-                T = np.arange(0, 100, 0.05)
+            T = np.arange(0, t+0.05, 0.05)
 
     except ValueError:
         T = np.arange(0, 100, 0.05)
@@ -95,7 +90,7 @@ def system_creator_ss(self, A, B, C, D):
     else:
         kd = 0
 
-    t, y = ctrl.impulse_response(system)
+    t = self.main.pidTiempoSlider.value()
 
     if self.main.ssdiscretocheckBox2.isChecked():
         pid = ctrl.TransferFunction(
@@ -124,15 +119,10 @@ def system_creator_ss(self, A, B, C, D):
         system_delay = None
 
     try:
-        if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), self.dt)
-        elif np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), 0.05)
+        if ctrl.isdtime(system, strict=True):
+            T = np.arange(0, t+self.dt, self.dt)
         else:
-            if ctrl.isdtime(system, strict=True):
-                T = np.arange(0, 100, self.dt)
-            else:
-                T = np.arange(0, 100, 0.05)
+            T = np.arange(0, t+0.05, 0.05)
 
     except ValueError:
         T = np.arange(0, 100, 0.05)
@@ -149,14 +139,14 @@ def system_creator_tf_tuning(self, numerador, denominador):
 
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
 
-    t, y = ctrl.impulse_response(system)
-    T = np.arange(0, 2 * np.max(t), 0.05)
+    t = self.main.pidTiempoSlider.value()
+    T = np.arange(0, t, 0.05)
     U = np.ones_like(T)
 
-    t, y, _ = ctrl.forced_response(system, T, U)
+    t_temp, y, _ = ctrl.forced_response(system, T, U)
     dc_gain = ctrl.dcgain(system)
 
-    K_proceso, tau, alpha = model_method(self, t, y, self.main.tfAutoTuningcomboBox2.currentText(), dc_gain)
+    K_proceso, tau, alpha = model_method(self, t_temp, y, self.main.tfAutoTuningcomboBox2.currentText(), dc_gain)
 
     try:
         kp, ki, kd = auto_tuning_method(self, K_proceso, tau, alpha, self.main.tfAutoTuningcomboBox2.currentText())
@@ -185,15 +175,10 @@ def system_creator_tf_tuning(self, numerador, denominador):
         system_delay = system
 
     try:
-        if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), self.dt)
-        elif np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), 0.05)
+        if ctrl.isdtime(system, strict=True):
+            T = np.arange(0, t+self.dt, self.dt)
         else:
-            if ctrl.isdtime(system, strict=True):
-                T = np.arange(0, 100, self.dt)
-            else:
-                T = np.arange(0, 100, 0.05)
+            T = np.arange(0, t+0.05, 0.05)
 
     except ValueError:
         T = np.arange(0, 100, 0.05)
@@ -210,14 +195,14 @@ def system_creator_ss_tuning(self, A, B, C, D):
 
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
 
-    t, y = ctrl.impulse_response(system)
-    T = np.arange(0, 2 * np.max(t), 0.05)
+    t = self.main.pidTiempoSlider.value()
+    T = np.arange(0, t, 0.05)
     U = np.ones_like(T)
 
-    t, y, _ = ctrl.forced_response(system, T, U)
+    t_temp, y, _ = ctrl.forced_response(system, T, U)
     dc_gain = ctrl.dcgain(system)
 
-    K_proceso, tau, alpha = model_method(self, t, y, self.main.ssAutoTuningcomboBox2.currentText(), dc_gain)
+    K_proceso, tau, alpha = model_method(self, t_temp, y, self.main.ssAutoTuningcomboBox2.currentText(), dc_gain)
 
     try:
         kp, ki, kd = auto_tuning_method(self, K_proceso, tau, alpha, self.main.ssAutoTuningcomboBox2.currentText())
@@ -248,15 +233,10 @@ def system_creator_ss_tuning(self, A, B, C, D):
         system_delay = system
 
     try:
-        if ctrl.isdtime(system, strict=True) and np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), self.dt)
-        elif np.max(t) < 100:
-            T = np.arange(0, 2 * (np.max(t) + delay), 0.05)
+        if ctrl.isdtime(system, strict=True):
+            T = np.arange(0, t+self.dt, self.dt)
         else:
-            if ctrl.isdtime(system, strict=True):
-                T = np.arange(0, 100, self.dt)
-            else:
-                T = np.arange(0, 100, 0.05)
+            T = np.arange(0, t+0.05, 0.05)
 
     except ValueError:
         T = np.arange(0, 100, 0.05)
@@ -384,7 +364,7 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
         pade = ctrl.TransferFunction(
             *ctrl.pade(json.loads(self.main.tfdelayEdit2.text()), 10)
         )
-        N = 200
+        N = self.main.pidNSlider.value()
         pid = ctrl.TransferFunction([N*kd+kp, N*kp+ki, N*ki], [1, N, 0])
         system = ctrl.feedback(pid * system * pade)
         t, y, _ = ctrl.forced_response(system, T, U)
@@ -395,12 +375,12 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
         pade = ctrl.TransferFunction(
             *ctrl.pade(json.loads(self.main.ssdelayEdit2.text()), 10)
         )
-        N = 200
+        N = self.main.pidNSlider.value()
         pid = ctrl.TransferFunction([N*kd+kp, N*kp+ki, N*ki], [1, N, 0])
         system = ctrl.feedback(pid * system * pade)
         t, y, _ = ctrl.forced_response(system, T, U)
     else:
-        N = 200
+        N = self.main.pidNSlider.value()
         pid = ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0])
         system = ctrl.feedback(pid * system)
         t, y, _ = ctrl.forced_response(system, T, U)
@@ -468,9 +448,14 @@ def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False, resolution=50):
         self.main.kiHSlider2.blockSignals(False)
         self.main.kdHSlider2.blockSignals(False)
 
-    self.main.kpValueLabel2.setText(str(self.main.kpHSlider2.value() / resolution))
-    self.main.kiValueLabel2.setText(str(self.main.kiHSlider2.value() / resolution))
-    self.main.kdValueLabel2.setText(str(self.main.kdHSlider2.value() / resolution))
+    self.main.kpValueLabel2.setText(str(np.around(self.main.kpHSlider2.value() / resolution, 3)))
+    self.main.kiValueLabel2.setText(str(np.around(self.main.kiHSlider2.value() / resolution, 3)))
+    self.main.kdValueLabel2.setText(str(np.around(self.main.kdHSlider2.value() / resolution, 3)))
+
+
+def update_time_and_N_labels(self):
+    self.main.pidTiempoLabelValue.setText(str(np.around(self.main.pidTiempoSlider.value(), 3)))
+    self.main.pidNLabelValue.setText(str(np.around(self.main.pidNSlider.value(), 3)))
 
 
 def rutina_system_info(self, system, T, t, y, kp=0, ki=0, kd=0, autotuning=False):

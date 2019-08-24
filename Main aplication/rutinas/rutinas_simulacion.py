@@ -3,6 +3,7 @@ from rutinas.rutinas_fuzzy import FuzzyController
 import controlmdf as ctrl
 import numpy as np
 from scipy import real, imag
+from scipy import signal
 from matplotlib import pyplot as plt
 from collections import deque
 import matplotlib.ticker as mticker
@@ -109,7 +110,7 @@ class SimpleThread(QtCore.QThread):
         if self.window.main.saturadorCheck.isChecked():
             lim_inferior = float(self.window.main.inferiorSaturador.text())
             lim_superior = float(self.window.main.superiorSaturador.text())
-
+        
         for i, _ in enumerate(self.Tiempo[1:]):
 
             sc_t, si_t, error_a = PIDf(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
@@ -177,6 +178,7 @@ class SimpleThread(QtCore.QThread):
 
         salida = deque([0])
         sc_f = deque([0])
+        sc_t = 0
         si_t = 0
 
         if ctrl.isdtime(self.system, strict=True):
@@ -203,7 +205,7 @@ class SimpleThread(QtCore.QThread):
             for i, _ in enumerate(self.Tiempo[1:]):
                 error, d_error, si_t, error_a = self.derivada_filtrada(salida[i], u[i], h, si_t, error_a, ki)
 
-                sc_t = fuzzy_c.calcular_valor([error, d_error], [0]*1)[0] + si_t
+                sc_t = sc_t + (fuzzy_c.calcular_valor([error*kp, d_error*kd], [0]*1)[0]*h)*ki
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -265,28 +267,8 @@ class SimpleThread(QtCore.QThread):
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
         error_anterior = error
         return s_control, s_integral, error_anterior
-
-
-class Lowpassfilter:
-    """ Filtro pasa-bajo con ventaja Hamming"""
-
-    def __init__(self, order, fsampling, fpaso):
-
-        self.order = order
-        self.samples0 = order * [0]
-        self.fsampling = fsampling
-        self.fpaso = fpaso
-        self.h_n = signal.firwin(self.order, self.fpaso, fs=self.fsampling)
-        self.h_n = self.h_n.tolist()
-
-    def filtrar(self, entrada):
-
-        self.samples0.append(entrada)
-        self.samples0 = self.samples0[1:]
-        salida = sum(a * b for a, b in zip(self.samples0, self.h_n))
-        return salida
-
-
+    
+    
 def system_creator_tf(self, numerador, denominador):
     if self.main.tfdelaycheckBox4.isChecked():
         delay = json.loads(self.main.tfdelayEdit4.text())

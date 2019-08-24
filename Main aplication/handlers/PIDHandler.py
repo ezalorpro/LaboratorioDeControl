@@ -13,6 +13,9 @@ def PIDHandler(self):
     self.main.kiHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
     self.main.kdHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
 
+    self.main.pidTiempoSlider.valueChanged.connect(lambda: chequeo_de_accion(self))
+    self.main.pidNSlider.valueChanged.connect(lambda: chequeo_de_accion(self))
+
     self.main.kpCheckBox2.stateChanged.connect(lambda: chequeo_de_accion(self))
     self.main.kiCheckBox2.stateChanged.connect(lambda: chequeo_de_accion(self))
     self.main.kdCheckBox2.stateChanged.connect(lambda: chequeo_de_accion(self))
@@ -111,9 +114,11 @@ def calcular_PID(self):
     if not system_ss:
         rutina_system_info(self, system_pid, T, t2, y2)
         update_gain_labels(self, resolution=self.tfSliderValue)
+        update_time_and_N_labels(self)
     else:
         rutina_system_info(self, system_ss, T, t2, y2)
         update_gain_labels(self, resolution=self.ssSliderValue)
+        update_time_and_N_labels(self)
 
 
 def calcular_autotuning(self):
@@ -196,11 +201,13 @@ def calcular_autotuning(self):
         update_gain_labels(
             self, kp, ki, kd, autotuning=True, resolution=self.tfSliderValue
         )
+        update_time_and_N_labels(self)
     else:
         rutina_system_info(self, system_ss, T, t2, y2, kp, ki, kd, autotuning=True)
         update_gain_labels(
             self, kp, ki, kd, autotuning=True, resolution=self.ssSliderValue
         )
+        update_time_and_N_labels(self)
 
 
 def PID_bool_discreto(self):
