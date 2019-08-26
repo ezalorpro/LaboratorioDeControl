@@ -7721,7 +7721,7 @@
              <enum>QFrame::NoFrame</enum>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="configuracionPage">
              <property name="geometry">
@@ -7775,14 +7775,45 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>133</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <item>
                    <property name="text">
-                    <string>PID</string>
+                    <string>PID clasico</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
                     <string>PID difuso</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>PI difuso + PD difuso</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>PI difuso + D clasico</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>PD difuso + I clasico</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Programador de ganancias</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>clasico + difuso</string>
                    </property>
                   </item>
                  </widget>
@@ -8151,8 +8182,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>250</width>
-               <height>120</height>
+               <width>98</width>
+               <height>28</height>
               </rect>
              </property>
              <attribute name="icon">

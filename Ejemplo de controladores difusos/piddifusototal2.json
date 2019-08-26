@@ -1,0 +1,380 @@
+[
+    [
+        {
+            "nombre": "error",
+            "numeroE": 3,
+            "etiquetas": [
+                {
+                    "nombre": "negativo",
+                    "mf": "trimf",
+                    "definicion": [
+                        -2.0,
+                        -1.0,
+                        0.0
+                    ]
+                },
+                {
+                    "nombre": "cero",
+                    "mf": "trimf",
+                    "definicion": [
+                        -1.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "nombre": "positivo",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.0,
+                        1.0,
+                        2.0
+                    ]
+                }
+            ],
+            "rango": [
+                -1,
+                1
+            ]
+        },
+        {
+            "nombre": "d_error",
+            "numeroE": 3,
+            "etiquetas": [
+                {
+                    "nombre": "negativo",
+                    "mf": "trimf",
+                    "definicion": [
+                        -2.0,
+                        -1.0,
+                        0.0
+                    ]
+                },
+                {
+                    "nombre": "cero",
+                    "mf": "trimf",
+                    "definicion": [
+                        -1.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "nombre": "positivo",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.0,
+                        1.0,
+                        2.0
+                    ]
+                }
+            ],
+            "rango": [
+                -1,
+                1
+            ]
+        },
+        {
+            "nombre": "d2_error",
+            "numeroE": 3,
+            "etiquetas": [
+                {
+                    "nombre": "negativo",
+                    "mf": "trimf",
+                    "definicion": [
+                        -2.0,
+                        -1.0,
+                        0.0
+                    ]
+                },
+                {
+                    "nombre": "cero",
+                    "mf": "trimf",
+                    "definicion": [
+                        -1.0,
+                        0.0,
+                        1.0
+                    ]
+                },
+                {
+                    "nombre": "positivo",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.0,
+                        1.0,
+                        2.0
+                    ]
+                }
+            ],
+            "rango": [
+                -1,
+                1
+            ]
+        }
+    ],
+    [
+        {
+            "nombre": "scontrol",
+            "numeroE": 3,
+            "etiquetas": [
+                {
+                    "nombre": "negativa",
+                    "mf": "trimf",
+                    "definicion": [
+                        -3.0,
+                        -2.0,
+                        0
+                    ]
+                },
+                {
+                    "nombre": "cero",
+                    "mf": "trimf",
+                    "definicion": [
+                        -2.0,
+                        0,
+                        2.0
+                    ]
+                },
+                {
+                    "nombre": "positiva",
+                    "mf": "trimf",
+                    "definicion": [
+                        0,
+                        2.0,
+                        3.0
+                    ]
+                }
+            ],
+            "rango": [
+                -2,
+                2
+            ],
+            "metodo": "centroid"
+        }
+    ],
+    [
+        [
+            [
+                [
+                    "cero",
+                    0,
+                    false
+                ]
+            ],
+            [
+                [
+                    "cero",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "cero",
+                    0,
+                    true
+                ],
+                [
+                    "negativo",
+                    1,
+                    false
+                ],
+                [
+                    "positivo",
+                    2,
+                    false
+                ]
+            ],
+            [
+                [
+                    "negativa",
+                    0,
+                    0.24999999999999933
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "cero",
+                    0,
+                    true
+                ],
+                [
+                    "positivo",
+                    1,
+                    false
+                ],
+                [
+                    "negativo",
+                    2,
+                    false
+                ]
+            ],
+            [
+                [
+                    "positiva",
+                    0,
+                    0.25
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "positivo",
+                    0,
+                    false
+                ],
+                [
+                    "negativo",
+                    1,
+                    false
+                ],
+                [
+                    "negativo",
+                    2,
+                    false
+                ]
+            ],
+            [
+                [
+                    "positiva",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "negativo",
+                    0,
+                    false
+                ],
+                [
+                    "positivo",
+                    1,
+                    false
+                ],
+                [
+                    "positivo",
+                    2,
+                    false
+                ]
+            ],
+            [
+                [
+                    "negativa",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "positivo",
+                    0,
+                    false
+                ],
+                [
+                    "negativo",
+                    1,
+                    false
+                ],
+                [
+                    "positivo",
+                    2,
+                    false
+                ]
+            ],
+            [
+                [
+                    "cero",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "negativo",
+                    0,
+                    false
+                ],
+                [
+                    "positivo",
+                    1,
+                    false
+                ],
+                [
+                    "negativo",
+                    2,
+                    false
+                ]
+            ],
+            [
+                [
+                    "cero",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "positivo",
+                    0,
+                    false
+                ],
+                [
+                    "positivo",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "negativa",
+                    0,
+                    0.8999999999999999
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "negativo",
+                    0,
+                    false
+                ],
+                [
+                    "negativo",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "positiva",
+                    0,
+                    0.8999999999999999
+                ]
+            ],
+            true
+        ]
+    ]
+]

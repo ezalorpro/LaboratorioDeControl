@@ -50,14 +50,14 @@ class FuzzyController:
     def crear_input(self, inputlist):
         vector = []
         for i, ins in enumerate(inputlist):
-            temp_in = fuzz.Antecedent(np.linspace(*ins['rango'], 500), ins['nombre'])
+            temp_in = fuzz.Antecedent(np.linspace(*ins['rango'], 200), ins['nombre'])
             vector.append(temp_in)
         return vector
 
     def crear_output(self, outputlist):
         vector = []
         for i, ins in enumerate(outputlist):
-            temp_in = fuzz.Consequent(np.linspace(*ins['rango'], 500),
+            temp_in = fuzz.Consequent(np.linspace(*ins['rango'], 200),
                                       ins['nombre'],
                                       ins['metodo'])
             vector.append(temp_in)
@@ -114,12 +114,12 @@ class FuzzyController:
 
     def update_rango_input(self, window, inputlist, i):
         self.fuzz_inputs[i].universe = np.asarray(np.linspace(*inputlist[i]['rango'],
-                                                              500))
+                                                              200))
         self.graficar_mf_in(window, i)
 
     def update_rango_output(self, window, outputlist, o):
         self.fuzz_outputs[o].universe = np.asarray(
-            np.linspace(*outputlist[o]['rango'], 500))
+            np.linspace(*outputlist[o]['rango'], 200))
         self.graficar_mf_out(window, o)
 
     def cambiar_metodo(self, window, o, metodo):
@@ -653,7 +653,7 @@ class FuzzyController:
 
     def calcular_valor(self, inputs, outputs):
         for i, value in enumerate(inputs):
-            value = np.clip(value, np.min(self.fuzz_inputs[i].universe), np.max(self.fuzz_inputs[i].universe))
+            # value = np.clip(value, np.min(self.fuzz_inputs[i].universe), np.max(self.fuzz_inputs[i].universe))
             self.Controlador.input[self.fuzz_inputs[i].label] = value
 
         self.Controlador.compute()

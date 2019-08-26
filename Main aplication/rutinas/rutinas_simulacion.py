@@ -216,12 +216,26 @@ class SimpleThread(QtCore.QThread):
             lim_inferior = float(self.window.main.inferiorSaturador.text())
             lim_superior = float(self.window.main.superiorSaturador.text())
 
-        if self.esquema == 1:
-            inputs = [0, 0]
-            for i, _ in enumerate(self.Tiempo[1:]):
-                error, d_error, si_t, error_a = self.derivada_filtrada(salida[i], u[i], h, si_t, error_a, ki)
+        if self.window.main.sensorCheck.isChecked():
+            sensor_num = json.loads(self.window.main.numSensor.text())
+            sensor_dem = json.loads(self.window.main.demSensor.text())
+            sensor_system = ctrl.tf2ss(ctrl.TransferFunction(sensor_num, sensor_dem, delay=0))
+            sensor_x = np.zeros_like(sensor_system.B)
+            salida2 = deque([0])
 
-                sc_t = sc_t + (fuzzy_c.calcular_valor([error*kp, d_error*kd], [0]*1)[0]*h)*ki
+        if self.esquema == 1:
+            inputs = [0, 0, 0]
+            error_vector = deque([0])
+            d_error_vector = deque([0])
+            d2_error_vector = deque([0])
+            for i, _ in enumerate(self.Tiempo[1:]):
+                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+                error_vector.append(error)
+                d_error_vector.append(d_error)
+                d2_error_vector.append(d2_error)
+
+                sc_t = sc_t + fuzzy_c.calcular_valor([error, d_error, d2_error],
+                                                     [0] * 1)[0] * h
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -233,9 +247,23 @@ class SimpleThread(QtCore.QThread):
                 buffer.appendleft(sc_t)
                 y, x = solve(self.system, x, h, buffer.pop())
                 sc_f.append(sc_t)
+
+                if self.window.main.sensorCheck.isChecked():
+                    salida2.append(np.asscalar(y[0]))
+                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+
                 salida.append(np.asscalar(y[0]))
+
                 if i % ten_percent == 0:
                     self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+            if self.window.main.sensorCheck.isChecked():
+                salida = salida2
+
+            # plt.plot(self.Tiempo, error_vector)
+            # plt.plot(self.Tiempo, d_error_vector)
+            # plt.plot(self.Tiempo, d2_error_vector)
+            # plt.show()
 
             return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
 
@@ -255,15 +283,14 @@ class SimpleThread(QtCore.QThread):
         y = ss.C * x + ss.D * inputValue
         return y, x
 
-    def derivada_filtrada(self, vm, set_point, ts, s_integral, error_anterior, ki):
+    def derivada_filtrada(self, vm, set_point, ts, error_anterior):
         error = set_point - vm
-        s_integral = (s_integral + error*ts)*ki
         error_derivativo = self.filtro.filtrar(error)
-        # error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
-        s_derivativa = (error_derivativo - error_anterior[0]) / ts
+        s_derivativa1 = (error_derivativo - error_anterior[0]) / ts
+        s_derivativa2 = (error_derivativo - 2 * error_anterior[0] + error_anterior[1]) / (ts**2)
         error_anterior.pop()
         error_anterior.appendleft(error_derivativo)
-        return error, s_derivativa, s_integral, error_anterior
+        return error, s_derivativa1, s_derivativa2, error_anterior
 
     def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
         error = set_point - vm
