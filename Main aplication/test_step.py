@@ -16,9 +16,9 @@ from scipy import signal
 from multiprocessing import Queue
 import math
 N = 10
-derivadaf = ctrl.TransferFunction([N], [1/N, 1])
+derivadaf = ctrl.TransferFunction([N, 0], [1, N])
 print(derivadaf)
-ctrl.bode(derivadaf, dB=True)
+ctrl.bode(derivadaf, dB=True, Hz=True)
 
 # class Lowpassfilter:
 #     """ Filtro pasa-bajo con ventaja Hamming"""
@@ -39,32 +39,39 @@ ctrl.bode(derivadaf, dB=True)
 #         salida = sum(a * b for a, b in zip(self.samples0, self.h_n))
 #         return salida
 
-class Lowpassfilter:
-    """ Filtro pasa-bajo promediador"""
 
-    def __init__(self, samples0, fsampling, fcorte):
+class Lowpassfilter:
+    """ Filtro pasa-bajo con ventaja Hamming"""
+
+    def __init__(self, order, fsampling, fpaso):
+
+        self.order = order
+        self.samples0 = order*[0]
         self.fsampling = fsampling
-        self.fcorte = fcorte
-        self.fcorte_normalizada = self.fcorte / self.fsampling
-        self.order = int(np.sqrt(0.196202 + pow(self.fcorte_normalizada, 2)) / self.fcorte_normalizada)
-        self.samples0 = self.order * deque([0])
-        print(" Filter order: %d " % self.order)
+        self.fpaso = fpaso
+        self.h_n = signal.firwin(self.order,
+                                 self.fpaso,
+                                 fs=self.fsampling,
+                                 pass_zero=False) * 10
+        self.h_n = self.h_n.tolist()
 
     def filtrar(self, entrada):
-        self.samples0.pop()
-        salida = (entrada + sum(self.samples0)) / self.order
-        self.samples0.appendleft(salida)
+
+        self.samples0.append(entrada)
+        self.samples0 = self.samples0[1:]
+        salida = sum(a * b for a, b in zip(self.samples0, self.h_n))
         return salida
+
 
 fs = 200
 nyq = fs / 2
 
-filtro = Lowpassfilter(0, fs, N/(2*np.pi))
+filtro = Lowpassfilter(111, fs, N/(2*np.pi))
 # b, a = signal.butter(3, omega)
-w, h = signal.freqz([100 / filtro.order] * filtro.order)
+w, h = signal.freqz(filtro.h_n)
 
 plt.figure(figsize=(11, 8))
-plt.semilogx(w * fs, 20 * np.log10(abs(h)))
+plt.semilogx(w * nyq / np.pi, 20 * np.log10(abs(h)))
 plt.title('Respuesta del filtro Butterworth')
 plt.xlabel('Frequency [Hz]')
 plt.ylabel('Amplitude [dB]')

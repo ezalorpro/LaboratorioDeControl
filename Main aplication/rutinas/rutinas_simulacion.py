@@ -98,7 +98,7 @@ class SimpleThread(QtCore.QThread):
             PIDf = self.PID_discreto
         else:
             error_a = deque([0] * 2)
-            self.filtro = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
+            self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
             solve = self.runge_kutta
             PIDf = self.PID
 
@@ -119,8 +119,14 @@ class SimpleThread(QtCore.QThread):
             sensor_x = np.zeros_like(sensor_system.B)
             salida2 = deque([0])
 
+        pid = ctrl.tf2ss(ctrl.TransferFunction([self.N*kd+kp, self.N*kp+ki, self.N*ki], [1, self.N, 0]))
+        x_pid = np.zeros_like(pid.B)
+
         for i, _ in enumerate(self.Tiempo[1:]):
-            sc_t, si_t, error_a = PIDf(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
+            # sc_t, si_t, error_a = PIDf(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
+            error = u[i] - salida[i]
+            sc_t, x_pid = solve(pid, x_pid, h, error)
+            sc_t = np.asscalar(sc_t[0])
 
             if self.window.main.accionadorCheck.isChecked():
                 sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -163,7 +169,7 @@ class SimpleThread(QtCore.QThread):
         else:
             kd = 0
 
-        if len(self.fuzzy_path1) > 1 and self.esquema in [1, 2, 3, 4, 5, 6]:
+        if len(self.fuzzy_path1) > 1 and self.esquema in [1, 2, 3, 4, 5, 6, 7, 8]:
             with open(self.fuzzy_path1, "r") as f:
                 InputList1, OutputList1, RuleEtiquetas1 = json.load(f)
 
@@ -201,11 +207,14 @@ class SimpleThread(QtCore.QThread):
 
         if ctrl.isdtime(self.system, strict=True):
             error_a = 0
+            error_a_pid = 0
             solve = self.ss_discreta
             PIDf = self.PID_discreto
         else:
             error_a = deque([0]*2)
+            error_a_pid = deque([0] * 2)
             self.filtro = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
+            self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
             solve = self.runge_kutta
             PIDf = self.PID
 
@@ -420,6 +429,39 @@ class SimpleThread(QtCore.QThread):
 
             return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
 
+        if self.esquema == 7:
+            for i, _ in enumerate(self.Tiempo[1:]):
+                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+                kp, ki, kd = fuzzy_c1.calcular_valor([error, d_error], [0] * 3)
+                si_t = si_t + error*h
+
+                sc_t = error*kp + si_t*ki + d_error*kd
+
+                if self.window.main.accionadorCheck.isChecked():
+                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                    sc_t = np.asscalar(sc_t[0])
+
+                if self.window.main.saturadorCheck.isChecked():
+                    sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
+                buffer.appendleft(sc_t)
+                y, x = solve(self.system, x, h, buffer.pop())
+                sc_f.append(sc_t)
+
+                if self.window.main.sensorCheck.isChecked():
+                    salida2.append(np.asscalar(y[0]))
+                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+
+                salida.append(np.asscalar(y[0]))
+
+                if i % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+            if self.window.main.sensorCheck.isChecked():
+                salida = salida2
+
+            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+
     def runge_kutta(self, ss, x, h, inputValue):
         k1 = h * (ss.A * x + ss.B * inputValue)
         k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
@@ -448,7 +490,7 @@ class SimpleThread(QtCore.QThread):
         error = set_point - vm
         s_proporcional = error
         s_integral = s_integral + error*ts
-        error_derivativo = self.filtro.filtrar(error)
+        error_derivativo = self.filtroPID.filtrar(error)
         # error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
         s_derivativa = (error_derivativo - error_anterior[0]) / ts
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd

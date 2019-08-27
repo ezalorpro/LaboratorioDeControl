@@ -169,7 +169,7 @@ def accion_esquema_selector(self):
         self.main.kdFrame.show()
         self.main.NFrame.show()
 
-    if index in [1, 2, 3]:
+    if index in [1, 2, 3, 7]:
         self.main.controller1Frame.show()
         self.main.controller2Frame.hide()
         self.main.kpFrame.hide()
