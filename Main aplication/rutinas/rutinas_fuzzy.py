@@ -653,7 +653,7 @@ class FuzzyController:
 
     def calcular_valor(self, inputs, outputs):
         for i, value in enumerate(inputs):
-            # value = np.clip(value, np.min(self.fuzz_inputs[i].universe), np.max(self.fuzz_inputs[i].universe))
+            value = np.clip(value, np.min(self.fuzz_inputs[i].universe), np.max(self.fuzz_inputs[i].universe))
             self.Controlador.input[self.fuzz_inputs[i].label] = value
 
         self.Controlador.compute()

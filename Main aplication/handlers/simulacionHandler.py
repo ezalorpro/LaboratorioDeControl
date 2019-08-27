@@ -9,6 +9,14 @@ import json
 
 def SimulacionHandler(self):
     self.main.progressBar.hide()
+
+    self.main.controller1Frame.hide()
+    self.main.controller2Frame.hide()
+    self.main.kpFrame.show()
+    self.main.kiFrame.show()
+    self.main.kdFrame.show()
+    self.main.NFrame.show()
+
     self.main.simularButton.clicked.connect(lambda: calcular_simulacion(self))
 
     self.main.tfdiscretocheckBox4.clicked['bool'].connect(
@@ -17,12 +25,10 @@ def SimulacionHandler(self):
     self.main.ssdiscretocheckBox4.clicked['bool'].connect(
         self.main.samplesSimulacion.setDisabled)
 
-    # self.main.tfdiscretocheckBox4.stateChanged.connect(
-    #     lambda: simulacion_bool_discreto(self))
-
     self.main.tfradioButton4.toggled.connect(lambda: simulacion_stacked_to_tf(self))
     self.main.ssradioButton4.toggled.connect(lambda: simulacion_stacked_to_ss(self))
-    self.main.loadController.clicked.connect(lambda: get_pathcontroller(self))
+    self.main.loadController1.clicked.connect(lambda: get_pathcontroller1(self))
+    self.main.loadController2.clicked.connect(lambda: get_pathcontroller2(self))
     self.main.esquemaSimulacion.currentIndexChanged.connect(lambda: accion_esquema_selector(self))
 
 
@@ -97,7 +103,10 @@ def calcular_simulacion(self):
             self.main.kdSimulacion.text(),
             self.main.NSimulacion.text()
         ],
-        self.main.pathController.text()
+        [
+            self.main.pathController1.text(),
+            self.main.pathController2.text()
+        ]
     ]
 
     self.thread = SimpleThread(self,
@@ -131,19 +140,76 @@ def simulacion_stacked_to_ss(self):
         self.main.samplesSimulacion.setEnabled(True)
 
 
-def get_pathcontroller(self):
+def get_pathcontroller1(self):
     path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter="*.json")
-    self.main.pathController.setText(path_cargar[0])
+    self.main.pathController1.setText(path_cargar[0])
+
+
+def get_pathcontroller2(self):
+    path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter="*.json")
+    self.main.pathController2.setText(path_cargar[0])
 
 
 def accion_esquema_selector(self):
+
+    self.main.controller1Frame.hide()
+    self.main.controller2Frame.hide()
+    self.main.kpFrame.hide()
+    self.main.kiFrame.hide()
+    self.main.kdFrame.hide()
+    self.main.NFrame.hide()
+
     index = self.main.esquemaSimulacion.currentIndex()
 
     if index == 0:
-        self.main.loadController.setDisabled(True)
+        self.main.controller1Frame.hide()
+        self.main.controller2Frame.hide()
+        self.main.kpFrame.show()
+        self.main.kiFrame.show()
+        self.main.kdFrame.show()
+        self.main.NFrame.show()
 
-    if index == 1:
-        self.main.loadController.setEnabled(True)
+    if index in [1, 2, 3]:
+        self.main.controller1Frame.show()
+        self.main.controller2Frame.hide()
+        self.main.kpFrame.hide()
+        self.main.kiFrame.hide()
+        self.main.kdFrame.hide()
+        self.main.NSimulacion.setEnabled(True)
+        self.main.NFrame.show()
+
+    if index == 4:
+        self.main.controller1Frame.show()
+        self.main.controller2Frame.show()
+        self.main.kpFrame.hide()
+        self.main.kiFrame.hide()
+        self.main.kdFrame.hide()
+        self.main.NSimulacion.setEnabled(True)
+        self.main.NFrame.show()
+
+    if index == 5:
+        self.main.controller1Frame.show()
+        self.main.controller2Frame.hide()
+        self.main.kpFrame.hide()
+        self.main.kiFrame.hide()
+        self.main.kdFrame.show()
+        self.main.kdCheck.hide()
+        self.main.kdCheck.setChecked(True)
+        self.main.kdSimulacion.setEnabled(True)
+        self.main.NSimulacion.setEnabled(True)
+        self.main.NFrame.show()
+
+    if index == 6:
+        self.main.controller1Frame.show()
+        self.main.controller2Frame.hide()
+        self.main.kpFrame.hide()
+        self.main.kiFrame.show()
+        self.main.kdFrame.hide()
+        self.main.kiCheck.hide()
+        self.main.kiCheck.setChecked(True)
+        self.main.kiSimulacion.setEnabled(True)
+        self.main.NSimulacion.setEnabled(True)
+        self.main.NFrame.show()
 
 
 def update_progresBar_function(self, value):

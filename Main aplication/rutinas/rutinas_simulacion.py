@@ -35,7 +35,7 @@ class SimpleThread(QtCore.QThread):
         self.accionador_flag = self.list_info[6]
         self.saturador_flag = self.list_info[7]
         self.kp, self.ki, self.kd, self.N = map(float, self.list_info[8])
-        self.fuzzy_path = self.list_info[9]
+        self.fuzzy_path1, self.fuzzy_path2 = self.list_info[9]
 
 
     def run(self):
@@ -46,7 +46,7 @@ class SimpleThread(QtCore.QThread):
                 [self.Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
             return
 
-        if self.esquema in [1]:
+        if self.esquema in [1,2,3,4,5,6,7,8]:
             y, sc, u = self.run_fuzzy()
             self.finished.emit(
                 self.window,
@@ -163,14 +163,17 @@ class SimpleThread(QtCore.QThread):
         else:
             kd = 0
 
-        if len(self.fuzzy_path) > 1:
-            with open(self.fuzzy_path, "r") as f:
-                InputList, OutputList, RuleEtiquetas = json.load(f)
+        if len(self.fuzzy_path1) > 1 and self.esquema in [1, 2, 3, 4, 5, 6]:
+            with open(self.fuzzy_path1, "r") as f:
+                InputList1, OutputList1, RuleEtiquetas1 = json.load(f)
 
-            fuzzy_c = FuzzyController(InputList, OutputList, RuleEtiquetas)
+            fuzzy_c1 = FuzzyController(InputList1, OutputList1, RuleEtiquetas1)
 
-        ni = len(InputList)
-        no = len(OutputList)
+        if len(self.fuzzy_path2) > 1 and self.esquema in [4]:
+            with open(self.fuzzy_path2, "r") as f:
+                InputList2, OutputList2, RuleEtiquetas2 = json.load(f)
+
+            fuzzy_c2 = FuzzyController(InputList2, OutputList2, RuleEtiquetas2)
 
         if isinstance(self.system, ctrl.TransferFunction):
             self.system = ctrl.tf2ss(self.system)
@@ -224,18 +227,11 @@ class SimpleThread(QtCore.QThread):
             salida2 = deque([0])
 
         if self.esquema == 1:
-            inputs = [0, 0, 0]
-            error_vector = deque([0])
-            d_error_vector = deque([0])
-            d2_error_vector = deque([0])
             for i, _ in enumerate(self.Tiempo[1:]):
                 error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
-                error_vector.append(error)
-                d_error_vector.append(d_error)
-                d2_error_vector.append(d2_error)
 
-                sc_t = sc_t + fuzzy_c.calcular_valor([error, d_error, d2_error],
-                                                     [0] * 1)[0] * h
+                sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error, d2_error],
+                                                      [0] * 1)[0] * h
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -260,13 +256,169 @@ class SimpleThread(QtCore.QThread):
             if self.window.main.sensorCheck.isChecked():
                 salida = salida2
 
-            # plt.plot(self.Tiempo, error_vector)
-            # plt.plot(self.Tiempo, d_error_vector)
-            # plt.plot(self.Tiempo, d2_error_vector)
-            # plt.show()
+            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+
+        if self.esquema == 2:
+            for i, _ in enumerate(self.Tiempo[1:]):
+                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+                sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
+
+                if self.window.main.accionadorCheck.isChecked():
+                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                    sc_t = np.asscalar(sc_t[0])
+
+                if self.window.main.saturadorCheck.isChecked():
+                    sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
+                buffer.appendleft(sc_t)
+                y, x = solve(self.system, x, h, buffer.pop())
+                sc_f.append(sc_t)
+
+                if self.window.main.sensorCheck.isChecked():
+                    salida2.append(np.asscalar(y[0]))
+                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+
+                salida.append(np.asscalar(y[0]))
+
+                if i % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+            if self.window.main.sensorCheck.isChecked():
+                salida = salida2
 
             return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
 
+        if self.esquema == 3:
+            for i, _ in enumerate(self.Tiempo[1:]):
+                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+                sc_t = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
+
+                if self.window.main.accionadorCheck.isChecked():
+                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                    sc_t = np.asscalar(sc_t[0])
+
+                if self.window.main.saturadorCheck.isChecked():
+                    sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
+                buffer.appendleft(sc_t)
+                y, x = solve(self.system, x, h, buffer.pop())
+                sc_f.append(sc_t)
+
+                if self.window.main.sensorCheck.isChecked():
+                    salida2.append(np.asscalar(y[0]))
+                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+
+                salida.append(np.asscalar(y[0]))
+
+                if i % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+            if self.window.main.sensorCheck.isChecked():
+                salida = salida2
+
+            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+
+        if self.esquema == 4:
+            spi = 0
+            for i, _ in enumerate(self.Tiempo[1:]):
+                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+                spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
+                spd = fuzzy_c2.calcular_valor([error, d_error], [0] * 1)[0]
+                sc_t = spi + spd
+
+                if self.window.main.accionadorCheck.isChecked():
+                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                    sc_t = np.asscalar(sc_t[0])
+
+                if self.window.main.saturadorCheck.isChecked():
+                    sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
+                buffer.appendleft(sc_t)
+                y, x = solve(self.system, x, h, buffer.pop())
+                sc_f.append(sc_t)
+
+                if self.window.main.sensorCheck.isChecked():
+                    salida2.append(np.asscalar(y[0]))
+                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+
+                salida.append(np.asscalar(y[0]))
+
+                if i % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+            if self.window.main.sensorCheck.isChecked():
+                salida = salida2
+
+            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+
+        if self.esquema == 5:
+            spi = 0
+            for i, _ in enumerate(self.Tiempo[1:]):
+                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+                spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
+                sc_t = spi + d_error*kd
+
+                if self.window.main.accionadorCheck.isChecked():
+                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                    sc_t = np.asscalar(sc_t[0])
+
+                if self.window.main.saturadorCheck.isChecked():
+                    sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
+                buffer.appendleft(sc_t)
+                y, x = solve(self.system, x, h, buffer.pop())
+                sc_f.append(sc_t)
+
+                if self.window.main.sensorCheck.isChecked():
+                    salida2.append(np.asscalar(y[0]))
+                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+
+                salida.append(np.asscalar(y[0]))
+
+                if i % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+            if self.window.main.sensorCheck.isChecked():
+                salida = salida2
+
+            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+
+        if self.esquema == 6:
+            spi = 0
+            for i, _ in enumerate(self.Tiempo[1:]):
+                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+                spi = spi + error*h
+                spd = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
+                sc_t = spi*ki + spd
+
+                if self.window.main.accionadorCheck.isChecked():
+                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                    sc_t = np.asscalar(sc_t[0])
+
+                if self.window.main.saturadorCheck.isChecked():
+                    sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
+                buffer.appendleft(sc_t)
+                y, x = solve(self.system, x, h, buffer.pop())
+                sc_f.append(sc_t)
+
+                if self.window.main.sensorCheck.isChecked():
+                    salida2.append(np.asscalar(y[0]))
+                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+
+                salida.append(np.asscalar(y[0]))
+
+                if i % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+
+            if self.window.main.sensorCheck.isChecked():
+                salida = salida2
+
+            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
 
     def runge_kutta(self, ss, x, h, inputValue):
         k1 = h * (ss.A * x + ss.B * inputValue)
