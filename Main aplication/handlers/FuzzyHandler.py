@@ -322,7 +322,7 @@ def guardar_controlador(self):
 
 
 def guardarcomo_controlador(self):
-    path_guardar = QtWidgets.QFileDialog.getSaveFileName(selectedFilter="*.json")
+    path_guardar = QtWidgets.QFileDialog.getSaveFileName(filter="JSON (*.json)")
     if len(path_guardar[0]) > 1:
         self.current_file = path_guardar[0]
         with open(path_guardar[0], "w") as f:
@@ -333,7 +333,7 @@ def guardarcomo_controlador(self):
 
 
 def cargar_controlador(self):
-    self.path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter="*.json")
+    self.path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON (*.json)")
     if len(self.path_cargar[0]) > 1:
         with open(self.path_cargar[0], "r") as f:
             self.InputList, self.OutputList, self.RuleEtiquetas = json.load(f)

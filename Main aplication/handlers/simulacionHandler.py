@@ -141,12 +141,12 @@ def simulacion_stacked_to_ss(self):
 
 
 def get_pathcontroller1(self):
-    path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter="*.json")
+    path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON (*.json)")
     self.main.pathController1.setText(path_cargar[0])
 
 
 def get_pathcontroller2(self):
-    path_cargar = QtWidgets.QFileDialog.getOpenFileName(selectedFilter="*.json")
+    path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON (*.json)")
     self.main.pathController2.setText(path_cargar[0])
 
 
