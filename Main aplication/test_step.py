@@ -13,13 +13,44 @@ from PySide2 import QtWidgets, QtCore, QtGui
 import numpy as np
 import pyvista as pv
 from scipy import signal
+from scipy.integrate import RK45
 from multiprocessing import Queue
 import math
 N = 30
-derivadaf = ctrl.tf2ss(ctrl.TransferFunction([N, 0], [1, N]))
-print(derivadaf)
-ctrl.bode(derivadaf, dB=True, Hz=True)
+kp = 1
+kd = 1
+ki = 1
 
+derivadaf = ctrl.tf2ss(
+    ctrl.TransferFunction([1], [1, 1, 1]) *
+    ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+
+
+def state_space(t, y, A, B, U, y_vect):
+    ydot = A*y_vect.reshape([-1, 1]) + B*U
+    return np.squeeze(np.asarray(ydot))
+
+
+A1 = derivadaf.A
+B1 = derivadaf.B
+C1 = derivadaf.C
+D1 = derivadaf.D
+
+x_vect = np.asarray(np.zeros_like(B1))
+x_vect = x_vect.flatten()
+print(x_vect)
+salida = [0]
+tiempo = [0]
+solution = RK45(lambda t,y: state_space(t, y, A1, B1, 1, x_vect), t0=0, y0=x_vect, max_step=0.1, t_bound=20)
+while solution.status is not 'finished':
+    solution.step()
+    x_vect = solution.y
+    salida.append((C1*x_vect.reshape([-1, 1]) + D1*1).item())
+    tiempo.append(solution.t)
+
+
+plt.plot(tiempo, salida)
+plt.show()
 # class Lowpassfilter:
 #     """ Filtro pasa-bajo con ventaja Hamming"""
 
@@ -40,46 +71,46 @@ ctrl.bode(derivadaf, dB=True, Hz=True)
 #         return salida
 
 
-class Lowpassfilter:
-    """ Filtro pasa-bajo con ventaja Hamming"""
+# class Lowpassfilter:
+#     """ Filtro pasa-bajo con ventaja Hamming"""
 
-    def __init__(self, order, fsampling, fpaso):
+#     def __init__(self, order, fsampling, fpaso):
 
-        self.order = order
-        self.samples0 = order*[0]
-        self.fsampling = fsampling
-        self.fpaso = fpaso
-        self.h_n = signal.firwin(self.order,
-                                 self.fpaso,
-                                 fs=self.fsampling) * 30
-        self.h_n = self.h_n.tolist()
-        print(self.h_n)
+#         self.order = order
+#         self.samples0 = order*[0]
+#         self.fsampling = fsampling
+#         self.fpaso = fpaso
+#         self.h_n = signal.firwin(self.order,
+#                                  self.fpaso,
+#                                  fs=self.fsampling) * 30
+#         self.h_n = self.h_n.tolist()
+#         print(self.h_n)
 
-    def filtrar(self, entrada):
+#     def filtrar(self, entrada):
 
-        self.samples0.append(entrada)
-        self.samples0 = self.samples0[1:]
-        salida = sum(a * b for a, b in zip(self.samples0, self.h_n))
-        return salida
-# [-0.3664505514016285, -4.578068971937084, 21.576763158929094, -4.578068971937084, -0.3664505514016285]
+#         self.samples0.append(entrada)
+#         self.samples0 = self.samples0[1:]
+#         salida = sum(a * b for a, b in zip(self.samples0, self.h_n))
+#         return salida
+# # [-0.3664505514016285, -4.578068971937084, 21.576763158929094, -4.578068971937084, -0.3664505514016285]
 
-fs = 30
-nyq = fs / 2
+# fs = 30
+# nyq = fs / 2
 
-filtro = Lowpassfilter(5, fs, N/(2*np.pi))
-# b, a = signal.butter(3, omega)
-w, h = signal.freqz(filtro.h_n)
+# filtro = Lowpassfilter(5, fs, N/(2*np.pi))
+# # b, a = signal.butter(3, omega)
+# w, h = signal.freqz(filtro.h_n)
 
-plt.figure(figsize=(11, 8))
-plt.semilogx(w * nyq / np.pi, 20 * np.log10(abs(h)))
-plt.title('Respuesta del filtro Butterworth')
-plt.xlabel('Frequency [Hz]')
-plt.ylabel('Amplitude [dB]')
-plt.grid(which='both', axis='both')
-plt.axvline(N * nyq / np.pi, color='green')  # Frecuencia de corte
+# plt.figure(figsize=(11, 8))
+# plt.semilogx(w * nyq / np.pi, 20 * np.log10(abs(h)))
+# plt.title('Respuesta del filtro Butterworth')
+# plt.xlabel('Frequency [Hz]')
+# plt.ylabel('Amplitude [dB]')
+# plt.grid(which='both', axis='both')
+# plt.axvline(N * nyq / np.pi, color='green')  # Frecuencia de corte
 
-# plt.savefig("Filtro Bode.png", bbox_inches='tight', pad_inches=0.1)
-plt.show()
+# # plt.savefig("Filtro Bode.png", bbox_inches='tight', pad_inches=0.1)
+# plt.show()
 
 # fs = 1000 / 3
 # nyq = fs / 2
