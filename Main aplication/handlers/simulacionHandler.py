@@ -15,7 +15,6 @@ def SimulacionHandler(self):
     self.main.kpFrame.show()
     self.main.kiFrame.show()
     self.main.kdFrame.show()
-    self.main.NFrame.show()
 
     self.main.simularButton.clicked.connect(lambda: calcular_simulacion(self))
 
@@ -30,6 +29,7 @@ def SimulacionHandler(self):
     self.main.loadController1.clicked.connect(lambda: get_pathcontroller1(self))
     self.main.loadController2.clicked.connect(lambda: get_pathcontroller2(self))
     self.main.esquemaSimulacion.currentIndexChanged.connect(lambda: accion_esquema_selector(self))
+    self.main.kdCheck.stateChanged.connect(lambda: enabled_N(self))
 
 
 def calcular_simulacion(self):
@@ -157,7 +157,6 @@ def accion_esquema_selector(self):
     self.main.kpFrame.hide()
     self.main.kiFrame.hide()
     self.main.kdFrame.hide()
-    self.main.NFrame.hide()
 
     index = self.main.esquemaSimulacion.currentIndex()
 
@@ -167,7 +166,14 @@ def accion_esquema_selector(self):
         self.main.kpFrame.show()
         self.main.kiFrame.show()
         self.main.kdFrame.show()
+        self.main.kdCheck.show()
+        self.main.kiCheck.show()
         self.main.NFrame.show()
+        if self.main.kdCheck.isChecked():
+            self.main.NSimulacion.setEnabled(True)
+        else:
+            self.main.NSimulacion.setDisabled(True)
+
 
     if index in [1, 2, 3, 7]:
         self.main.controller1Frame.show()
@@ -210,6 +216,33 @@ def accion_esquema_selector(self):
         self.main.kiSimulacion.setEnabled(True)
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+
+    if index == 8:
+        self.main.controller1Frame.show()
+        self.main.controller2Frame.hide()
+        self.main.kpFrame.show()
+        self.main.kiFrame.show()
+        self.main.kdFrame.show()
+        self.main.kdCheck.show()
+        self.main.kiCheck.show()
+        self.main.NSimulacion.setEnabled(True)
+        self.main.NFrame.show()
+        self.main.NSimulacion.setEnabled(True)
+
+
+def enabled_N(self):
+
+    index = self.main.esquemaSimulacion.currentIndex()
+
+    if self.main.kdCheck.isChecked() and index in [0, 5, 8]:
+        self.main.kdSimulacion.setEnabled(True)
+        self.main.NSimulacion.setEnabled(True)
+
+    elif not self.main.kdCheck.isChecked() and index in [0, 5]:
+        self.main.kdSimulacion.setDisabled(True)
+        self.main.NSimulacion.setDisabled(True)
+    elif index == 8:
+        self.main.kdSimulacion.setDisabled(True)
 
 
 def update_progresBar_function(self, value):

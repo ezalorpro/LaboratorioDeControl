@@ -15,8 +15,8 @@ import pyvista as pv
 from scipy import signal
 from multiprocessing import Queue
 import math
-N = 10
-derivadaf = ctrl.TransferFunction([N, 0], [1, N])
+N = 30
+derivadaf = ctrl.tf2ss(ctrl.TransferFunction([N, 0], [1, N]))
 print(derivadaf)
 ctrl.bode(derivadaf, dB=True, Hz=True)
 
@@ -51,9 +51,9 @@ class Lowpassfilter:
         self.fpaso = fpaso
         self.h_n = signal.firwin(self.order,
                                  self.fpaso,
-                                 fs=self.fsampling,
-                                 pass_zero=False) * 10
+                                 fs=self.fsampling) * 30
         self.h_n = self.h_n.tolist()
+        print(self.h_n)
 
     def filtrar(self, entrada):
 
@@ -61,12 +61,12 @@ class Lowpassfilter:
         self.samples0 = self.samples0[1:]
         salida = sum(a * b for a, b in zip(self.samples0, self.h_n))
         return salida
+# [-0.3664505514016285, -4.578068971937084, 21.576763158929094, -4.578068971937084, -0.3664505514016285]
 
-
-fs = 200
+fs = 30
 nyq = fs / 2
 
-filtro = Lowpassfilter(111, fs, N/(2*np.pi))
+filtro = Lowpassfilter(5, fs, N/(2*np.pi))
 # b, a = signal.butter(3, omega)
 w, h = signal.freqz(filtro.h_n)
 
