@@ -71,19 +71,27 @@ class SimpleThread(QtCore.QThread):
         if isinstance(self.system, ctrl.TransferFunction):
             self.system = ctrl.tf2ss(self.system)
 
+        tiempo_total = np.max(self.Tiempo)
+
         if isinstance(self.escalon, float):
-            u = np.ones_like(self.Tiempo)
-            u = u*self.escalon
+            u = self.escalon
+            max_tiempo = [np.max(self.Tiempo)]
         else:
             it = iter(self.escalon)
-            u = np.zeros_like(self.Tiempo)
+            u_value = [0]
+            max_tiempo = []
             for i, valor in enumerate(it):
-                ini = int(next(it) / self.dt)
-                u[ini:] = valor
+                max_tiempo.append(next(it))
+                u_value.append(valor)
+            index_tbound = len(max_tiempo)
+            max_tiempo.append(tiempo_total)
 
         len_tiempo = len(self.Tiempo)
-        ten_percent = len_tiempo * 10 / 100
-        max_tiempo = np.max(self.Tiempo)
+        ten_percent = int(tiempo_total * 10 / 100)
+        
+        if ten_percent == 0:
+            ten_percent = 1
+            
         x = np.zeros_like(self.system.B)
         buffer = deque([0] * int(self.system.delay / self.dt))
         h = 0.000001
@@ -97,11 +105,13 @@ class SimpleThread(QtCore.QThread):
             error_a = 0
             solve = self.ss_discreta
             PIDf = self.PID_discreto
+            h_new = self.dt
+            h = self.dt
         else:
             error_a = deque([0] * 2)
             self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
             solve = self.runge_kutta
-            PIDf = self.PID
+            PIDf = self.rk4adaptativo
 
         if self.window.main.accionadorCheck.isChecked():
             acc_num = json.loads(self.window.main.numAccionador.text())
@@ -125,12 +135,24 @@ class SimpleThread(QtCore.QThread):
 
         i = 0
         tiempo = 0
-
+        setpoint_window = 0
         self.Tiempo = [0]
         setpoint = [0]
-        while tiempo < max_tiempo:
-            error = 1 - salida[i]
-            h, h_new, sc_t, x_pid = self.rk4adaptativo(pid, h, tiempo, max_tiempo, x_pid, error)
+
+        while tiempo < tiempo_total:
+
+            if not isinstance(self.escalon, float):
+                if tiempo + h >= max_tiempo[
+                        setpoint_window] and setpoint_window < index_tbound:
+                    setpoint_window += 1
+                u = u_value[setpoint_window]
+
+            error = u - salida[i]
+            
+            if ctrl.isdtime(self.system, strict=True):
+                sc_t, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+            else:
+                h, h_new, sc_t, x_pid = PIDf(pid, h, tiempo, max_tiempo[setpoint_window], x_pid, error)
 
             if self.window.main.accionadorCheck.isChecked():
                 sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -148,10 +170,10 @@ class SimpleThread(QtCore.QThread):
 
             salida.append(y)
 
-            if int(tiempo) % int(max_tiempo*10/100) == 0:
-                self.update_progresBar.emit(self.window, int(tiempo) * 100 / max_tiempo)
+            if int(tiempo) % ten_percent == 0:
+                self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
 
-            setpoint.append(1)
+            setpoint.append(u)
             tiempo +=h
             self.Tiempo.append(tiempo)
             h = h_new
@@ -544,8 +566,7 @@ class SimpleThread(QtCore.QThread):
         error_anterior.appendleft(error_derivativo)
         return s_control, s_integral, error_anterior
 
-    def PID_discreto(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
-        error = set_point - vm
+    def PID_discreto(self, error, ts, s_integral, error_anterior, kp, ki, kd):
         s_proporcional = error
         s_integral = s_integral + error*ts
         s_derivativa = (error - error_anterior) / ts
