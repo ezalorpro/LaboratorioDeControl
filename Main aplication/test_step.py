@@ -1,56 +1,60 @@
-import json
-from collections import deque
-# import pickle
-import controlmdf as ctrl
-from skfuzzymdf import control as fuzz
-from matplotlib import pyplot as plt
-from matplotlib import figure
-from mpl_toolkits.mplot3d import Axes3D
-import time
-import pyqtgraph as pg
-import sys
-from PySide2 import QtWidgets, QtCore, QtGui
+# import json
+# from collections import deque
+# # import pickle
+# import controlmdf as ctrl
+# from skfuzzymdf import control as fuzz
+# from matplotlib import pyplot as plt
+# from matplotlib import figure
+# from mpl_toolkits.mplot3d import Axes3D
+# import time
+# import pyqtgraph as pg
+# import sys
+# from PySide2 import QtWidgets, QtCore, QtGui
 import numpy as np
-import pyvista as pv
-from scipy import signal
-from scipy.integrate import RK45
-from multiprocessing import Queue
-import math
-N = 30
-kp = 1
-kd = 1
-ki = 1
+# import pyvista as pv
+# from scipy import signal
+# from scipy.integrate import RK45
+# from multiprocessing import Queue
+# import math
 
-derivadaf = ctrl.tf2ss(
-    ctrl.TransferFunction([1], [1, 1, 1]) *
-    ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+a = np.asarray([1, 2])
+b = np.asarray([3, 4])
+print(a/b)
+# N = 30
+# kp = 1
+# kd = 1
+# ki = 1
 
-
-def state_space(t, y, A, B, U, y_vect):
-    ydot = A*y_vect.reshape([-1, 1]) + B*U
-    return np.squeeze(np.asarray(ydot))
-
-
-A1 = derivadaf.A
-B1 = derivadaf.B
-C1 = derivadaf.C
-D1 = derivadaf.D
-
-x_vect = np.asarray(np.zeros_like(B1))
-x_vect = x_vect.flatten()
-print(x_vect)
-salida = [0]
-tiempo = [0]
-solution = RK45(lambda t,y: state_space(t, y, A1, B1, 1, x_vect), t0=0, y0=x_vect, max_step=0.1, t_bound=20)
-while solution.status is not 'finished':
-    solution.step()
-    x_vect = solution.y
-    salida.append((C1*x_vect.reshape([-1, 1]) + D1*1).item())
-    tiempo.append(solution.t)
+# derivadaf = ctrl.tf2ss(
+#     ctrl.TransferFunction([1], [1, 1, 1]) *
+#     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
 
 
-plt.plot(tiempo, salida)
-plt.show()
+# def state_space(t, y, A, B, U, y_vect):
+#     ydot = A*y_vect.reshape([-1, 1]) + B*U
+#     return np.squeeze(np.asarray(ydot))
+
+
+# A1 = derivadaf.A
+# B1 = derivadaf.B
+# C1 = derivadaf.C
+# D1 = derivadaf.D
+
+# x_vect = np.asarray(np.zeros_like(B1))
+# x_vect = x_vect.flatten()
+# print(x_vect)
+# salida = [0]
+# tiempo = [0]
+# solution = RK45(lambda t,y: state_space(t, y, A1, B1, 1, x_vect), t0=0, y0=x_vect, max_step=0.1, t_bound=20)
+# while solution.status is not 'finished':
+#     solution.step()
+#     x_vect = solution.y
+#     salida.append((C1*x_vect.reshape([-1, 1]) + D1*1).item())
+#     tiempo.append(solution.t)
+
+
+# plt.plot(tiempo, salida)
+# plt.show()
 # class Lowpassfilter:
 #     """ Filtro pasa-bajo con ventaja Hamming"""
 
