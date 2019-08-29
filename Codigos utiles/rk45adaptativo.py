@@ -1,6 +1,7 @@
 import numpy as np
 import control as ctrl
 from matplotlib import pyplot as plt
+from scipy.integrate import RK45
 
 def runge_kutta_45_DP(ss, x, h, inputValue):
     k1 = h*(ss.A * x + ss.B * inputValue)
@@ -20,6 +21,11 @@ def runge_kutta_45_DP(ss, x, h, inputValue):
     return y5th.item(), y4th.item(), x5th, x4th
 
 
+def norm(x):
+    """Compute RMS norm."""
+    return np.linalg.norm(x) / x.size**0.5
+
+
 N = 100
 kp = 1
 ki = 1
@@ -30,14 +36,14 @@ pid = ctrl.tf2ss(ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]
 x_pidB = np.zeros_like(pid.B)
 x_pidS = np.zeros_like(pid.B)
 
-sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1]))
+sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
 vstadosB = np.zeros_like(sistema.B)
 vstadosS = np.zeros_like(sistema.B)
 
-min_step = 0.001
-max_step_increase = 0.1
-h_ant = 0.0001
-rtol = 5e-3
+min_step_decrease = 0.2
+max_step_increase = 5
+h_ant = 0.000001
+rtol = 1e-3
 atol = 1e-6
 tiempo = 0
 tbound = 30
@@ -56,23 +62,31 @@ while tiempo < tbound:
 
         ypidb, y4th, x_five, x_four = runge_kutta_45_DP(pid, x_pidB, h_ant, error)
 
-        scale =  rtol * np.abs(x_five) + atol
+        scale = atol + np.maximum(np.abs(x_pidB), np.abs(x_five)) * rtol
         delta1 = np.abs(x_five - x_four)
-        error_ratio = np.max(delta1/(scale))
+        error_norm = norm(delta1 / scale)
 
-        h_est = h_ant * (sf1 / error_ratio)**(1 / 5)
+        if error_norm == 0:
+            h_est = h_ant*max_step_increase
+        elif error_norm < 1:
+            h_est = h_ant * min(max_step_increase,
+                               max(1, sf1 * error_norm**(-1 / (4+1))))
+        else:
+            h_ant = h_ant * max(min_step_decrease, sf1 * error_norm**(-1 / (4+1)))
+            continue
 
-        if h_est > sf2*h_ant:
-            h_est = sf2 * h_ant
-            if error_ratio < sf1:
-                h_ant = h_est
-                continue
+        # h_est = sf1 * h_ant * (1 / error_ratio)**(1 / 5)
 
-        elif h_est < h_ant/sf2:
-            h_est = h_ant / sf2
-            if error_ratio < sf1:
-                h_ant = h_est
-                continue
+        # if error_ratio >= 1:
+        #     h_ant = h_est
+        #     continue
+
+        # if h_est > sf2 * h_ant:
+        #     h_est = sf2 * h_ant
+        # elif h_est < h_ant / sf2:
+        #     h_est = h_ant / sf2
+        # else:
+        #     h_est = h_ant
 
         # if abs(h_ant - h_est) > max_step_increase:
         #     h_est = h_ant + max_step_increase
@@ -82,7 +96,7 @@ while tiempo < tbound:
 
         yb, __, vstadosB, _ = runge_kutta_45_DP(sistema, vstadosB, h_ant, ypidb)
         break
-
+    print(tiempo)
     salida.append(yb)
     tiempo += h_ant
     tiempo_out.append(tiempo)

@@ -122,10 +122,11 @@ class SimpleThread(QtCore.QThread):
         pid = ctrl.tf2ss(ctrl.TransferFunction([self.N*kd+kp, self.N*kp+ki, self.N*ki], [1, self.N, 0]))
         x_pid = np.zeros_like(pid.B)
 
-        for i, _ in enumerate(self.Tiempo[1:]):
+
+        while tiempo < max_tiempo:
             # sc_t, si_t, error_a = PIDf(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
             error = u[i] - salida[i]
-            sc_t, x_pid = solve(pid, x_pid, h, error)
+            sc_t, x_pid = self.rk4adaptativo(pid, x_pid, h, error)
             sc_t = np.asscalar(sc_t[0])
 
             if self.window.main.accionadorCheck.isChecked():
@@ -462,6 +463,35 @@ class SimpleThread(QtCore.QThread):
 
             return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
 
+    def rk4adaptativo(self, h_ant, tiempo, tbound, systema, ):
+        while True:
+            if tiempo + h_ant >= tbound:
+                h_ant = tbound - tiempo
+
+            ypidb, x_pidBn = self.runge_kutta(systema, x_pidB, h_ant, error)
+            ypids, x_pidSn = self.runge_kutta(systema, x_pidS, h_ant / 2, error)
+            ypids, x_pidSn = self.runge_kutta(systema, x_pidS, h_ant / 2, error)
+
+            scale = rtol * np.abs(x_pidSn) + atol
+            delta1 = np.abs(x_pidBn - x_pidSn)
+            error_ratio = np.max(delta1 / (scale))
+
+            h_est = sf1 * h_ant * (sf1 / error_ratio)**(1 / 5)
+
+            if h_est > sf2 * h_ant:
+                h_est = sf2 * h_ant
+                if error_ratio < sf1:
+                    h_ant = h_est
+                    continue
+            elif h_est < h_ant / sf2:
+                h_est = h_ant / sf2
+                if error_ratio < sf1:
+                    h_ant = h_est
+                    continue
+            break
+        
+        return h_ant, h_est, ypids, x_pidSn
+
     def runge_kutta(self, ss, x, h, inputValue):
         k1 = h * (ss.A * x + ss.B * inputValue)
         k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
@@ -470,7 +500,7 @@ class SimpleThread(QtCore.QThread):
 
         x = x + (1/6) * (k1 + 2*k2 + 2*k3 + k4)
         y = ss.C * x + ss.D * inputValue
-        return y, x
+        return y.item(), x
 
     def ss_discreta(self, ss, x, _, inputValue):
         x = ss.A * x + ss.B * inputValue

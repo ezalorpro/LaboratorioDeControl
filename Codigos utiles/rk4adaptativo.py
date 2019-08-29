@@ -1,6 +1,13 @@
 import numpy as np
 import control as ctrl
 from matplotlib import pyplot as plt
+import time
+
+
+def norm(x):
+    """Compute RMS norm."""
+    return np.linalg.norm(x) / x.size**0.5
+
 
 def runge_kutta(ss, x, h, inputValue):
     k1 = h*(ss.A * x + ss.B * inputValue)
@@ -15,8 +22,8 @@ def runge_kutta(ss, x, h, inputValue):
 
 N = 100
 kp = 1
-ki = 2
-kd = 2
+ki = 1
+kd = 1
 
 pid = ctrl.tf2ss(
     ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
@@ -29,11 +36,11 @@ sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
 vstadosB = np.zeros_like(sistema.B)
 vstadosS = np.zeros_like(sistema.B)
 
-min_step = 0.01
-max_step = 0.5
-h_ant = 0.0001
-rtol = 5e-3
-atol = 1e-6
+min_step_decrease = 0.2
+max_step_increase = 5
+h_ant = 0.000000000001
+rtol = 1e-9
+atol = 1e-9
 tiempo = 0
 tbound = 30
 sp = 1
@@ -41,35 +48,65 @@ salida = [0]
 tiempo_out = [0]
 yb = 0
 sf1 = 0.9
-sf2 = 4
+sf2 = 10
+sc_t = [0]
+start = time.time()
 
 while tiempo < tbound:
     error = sp - yb
     while True:
         if tiempo + h_ant >= tbound:
             h_ant = tbound - tiempo
+            ypids, x_pidSn = runge_kutta(pid, x_pidS, h_ant, error)
+        else:
+            ypidb, x_pidBn = runge_kutta(pid, x_pidB, h_ant, error)
+            ypids, x_pidSn = runge_kutta(pid, x_pidS, h_ant / 2, error)
+            ypids, x_pidSn = runge_kutta(pid, x_pidSn, h_ant / 2, error)
 
-        ypidb, x_pidBn = runge_kutta(pid, x_pidB, h_ant, error)
-        ypids, x_pidSn = runge_kutta(pid, x_pidS, h_ant / 2, error)
-        ypids, x_pidSn = runge_kutta(pid, x_pidS, h_ant / 2, error)
+            scale = atol + np.maximum(np.abs(x_pidBn), np.abs(x_pidB)) * rtol
+            delta1 = np.abs(x_pidBn - x_pidSn)
+            error_norm = norm(delta1 / scale)
 
-        scale = rtol * np.abs(x_pidSn) + atol
-        delta1 = np.abs(x_pidBn - x_pidSn)
-        error_ratio = np.max(delta1 / (scale))
-
-        h_est = sf1 * h_ant * (sf1 / error_ratio)**(1 / 5)
-
-        if h_est > sf2 * h_ant:
-            h_est = sf2 * h_ant
-            if error_ratio < sf1:
-                h_ant = h_est
-                continue
-        elif h_est < h_ant / sf2:
-            h_est = h_ant / sf2
-            if error_ratio < sf1:
-                h_ant = h_est
+            if error_norm == 0:
+                h_est = h_ant * max_step_increase
+            elif error_norm < 1:
+                h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (4+1))))
+            else:
+                h_ant = h_ant * max(min_step_decrease, sf1 * error_norm**(-1 / (4+1)))
                 continue
 
+            # scale = rtol * (np.abs(x_pidSn) + np.abs(x_pidBn))/2
+            # delta1 = norm(x_pidBn - x_pidSn)
+            # error_ratio = np.max(delta1 / (scale+atol))
+
+            # h_est = sf1 * h_ant * (1 / error_ratio)**(1 / 5)
+
+            # delta1 = np.max(np.abs(x_pidBn - x_pidSn)/h_ant)
+
+            # if delta1 > rtol:
+            #     h_ant =  h_ant * (rtol / (2*delta1))**(1 / 5)
+            #     continue
+            # else:
+            #     h_est = h_ant * (rtol / (2*delta1))**(1 / 5)
+
+            # if error_ratio >= 1:
+            #     h_ant = h_est
+            #     continue
+
+            # if h_est > sf2 * h_ant:
+            #     h_est = sf2 * h_est
+            # elif h_est < h_ant / sf2:
+            #     h_est = h_est / sf2
+            # else:
+            #     h_est = h_est
+
+            # if h_est > max_step:
+            #     h_est = max_step
+            # elif h_est < min_step:
+            #     h_est = min_step
+        print(tiempo)
+        # print(tiempo)
+        sc_t.append(ypids)
         yb, vstadosB = runge_kutta(sistema, vstadosB, h_ant, ypids)
         break
 
@@ -87,9 +124,15 @@ while tiempo < tbound:
     tiempo_out.append(tiempo)
 
     h_ant = h_est
-    x_pidB = x_pidBn
-    x_pidS = x_pidBn
+    x_pidB = x_pidSn
+    x_pidS = x_pidSn
 
 print(len(tiempo_out))
+print(f'{time.time() - start}')
 plt.plot(tiempo_out, salida)
+plt.grid()
+plt.show()
+
+plt.plot(tiempo_out, sc_t)
+plt.grid()
 plt.show()
