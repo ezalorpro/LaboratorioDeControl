@@ -81,11 +81,12 @@ class SimpleThread(QtCore.QThread):
                 ini = int(next(it) / self.dt)
                 u[ini:] = valor
 
-        max_tiempo = len(self.Tiempo)
-        ten_percent = max_tiempo*10/100
+        len_tiempo = len(self.Tiempo)
+        ten_percent = len_tiempo * 10 / 100
+        max_tiempo = np.max(self.Tiempo)
         x = np.zeros_like(self.system.B)
         buffer = deque([0] * int(self.system.delay / self.dt))
-        h = self.dt
+        h = 0.000001
 
         salida = deque([0])
         sc_f = deque([0])
@@ -122,16 +123,17 @@ class SimpleThread(QtCore.QThread):
         pid = ctrl.tf2ss(ctrl.TransferFunction([self.N*kd+kp, self.N*kp+ki, self.N*ki], [1, self.N, 0]))
         x_pid = np.zeros_like(pid.B)
 
+        i = 0
+        tiempo = 0
 
+        self.Tiempo = [0]
+        setpoint = [0]
         while tiempo < max_tiempo:
-            # sc_t, si_t, error_a = PIDf(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
-            error = u[i] - salida[i]
-            sc_t, x_pid = self.rk4adaptativo(pid, x_pid, h, error)
-            sc_t = np.asscalar(sc_t[0])
+            error = 1 - salida[i]
+            h, h_new, sc_t, x_pid = self.rk4adaptativo(pid, h, tiempo, max_tiempo, x_pid, error)
 
             if self.window.main.accionadorCheck.isChecked():
                 sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
-                sc_t = np.asscalar(sc_t[0])
 
             if self.window.main.saturadorCheck.isChecked():
                 sc_t = min(max(sc_t, lim_inferior), lim_superior)
@@ -141,17 +143,23 @@ class SimpleThread(QtCore.QThread):
             sc_f.append(sc_t)
 
             if self.window.main.sensorCheck.isChecked():
-                salida2.append(np.asscalar(y[0]))
+                salida2.append(y)
                 y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
 
-            salida.append(np.asscalar(y[0]))
+            salida.append(y)
 
-            if i % ten_percent == 0:
-                self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+            if int(tiempo) % int(max_tiempo*10/100) == 0:
+                self.update_progresBar.emit(self.window, int(tiempo) * 100 / max_tiempo)
+
+            setpoint.append(1)
+            tiempo +=h
+            self.Tiempo.append(tiempo)
+            h = h_new
+            i +=1
 
         if self.window.main.sensorCheck.isChecked():
             salida = salida2
-        return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+        return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
     def run_fuzzy(self):
 
@@ -463,34 +471,42 @@ class SimpleThread(QtCore.QThread):
 
             return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
 
-    def rk4adaptativo(self, h_ant, tiempo, tbound, systema, ):
+    def rk4adaptativo(self,
+                      systema,
+                      h_ant,
+                      tiempo,
+                      tbound,
+                      xVectB,
+                      entrada,
+                      rtol=1e-6,
+                      atol=1e-8,
+                      max_step_increase=5,
+                      min_step_decrease=0.2,
+                      safety_factor=0.9):
         while True:
             if tiempo + h_ant >= tbound:
                 h_ant = tbound - tiempo
+                yS, xVectSn = self.runge_kutta(systema, xVectB, h_ant, entrada)
+                h_est = h_ant
+            else:
+                yB, xVectBn = self.runge_kutta(systema, xVectB, h_ant, entrada)
+                yS, xVectSn = self.runge_kutta(systema, xVectB, h_ant / 2, entrada)
+                yS, xVectSn = self.runge_kutta(systema, xVectSn, h_ant / 2, entrada)
 
-            ypidb, x_pidBn = self.runge_kutta(systema, x_pidB, h_ant, error)
-            ypids, x_pidSn = self.runge_kutta(systema, x_pidS, h_ant / 2, error)
-            ypids, x_pidSn = self.runge_kutta(systema, x_pidS, h_ant / 2, error)
+                scale = atol + np.maximum(np.abs(xVectBn), np.abs(xVectB)) * rtol
+                delta1 = np.abs(xVectBn - xVectSn)
+                error_norm = norm(delta1 / scale)
 
-            scale = rtol * np.abs(x_pidSn) + atol
-            delta1 = np.abs(x_pidBn - x_pidSn)
-            error_ratio = np.max(delta1 / (scale))
-
-            h_est = sf1 * h_ant * (sf1 / error_ratio)**(1 / 5)
-
-            if h_est > sf2 * h_ant:
-                h_est = sf2 * h_ant
-                if error_ratio < sf1:
-                    h_ant = h_est
-                    continue
-            elif h_est < h_ant / sf2:
-                h_est = h_ant / sf2
-                if error_ratio < sf1:
-                    h_ant = h_est
+                if error_norm == 0:
+                    h_est = h_ant * max_step_increase
+                elif error_norm < 1:
+                    h_est = h_ant * min(max_step_increase,
+                                        max(1, safety_factor * error_norm**(-1 / (4+1))))
+                else:
+                    h_ant = h_ant * max(min_step_decrease, safety_factor * error_norm**(-1 / (4+1)))
                     continue
             break
-        
-        return h_ant, h_est, ypids, x_pidSn
+        return h_ant, h_est, yS, xVectSn
 
     def runge_kutta(self, ss, x, h, inputValue):
         k1 = h * (ss.A * x + ss.B * inputValue)
@@ -563,6 +579,11 @@ class Lowpassfilter:
         salida = sum(self.samples0) / self.order
 
         return salida
+
+
+def norm(x):
+    """Compute RMS norm."""
+    return np.linalg.norm(x) / x.size**0.5
 
 
 def system_creator_tf(self, numerador, denominador):
