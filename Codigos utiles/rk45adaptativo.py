@@ -37,7 +37,7 @@ vstadosS = np.zeros_like(sistema.B)
 min_step = 0.001
 max_step_increase = 0.1
 h_ant = 0.0001
-rtol = 1e-3
+rtol = 5e-3
 atol = 1e-6
 tiempo = 0
 tbound = 30
@@ -56,31 +56,31 @@ while tiempo < tbound:
 
         ypidb, y4th, x_five, x_four = runge_kutta_45_DP(pid, x_pidB, h_ant, error)
 
-        scale =  rtol * (np.abs(x_five) + np.abs(x_four))/2
+        scale =  rtol * np.abs(x_five) + atol
         delta1 = np.abs(x_five - x_four)
-        error_ratio = np.max(delta1/(scale+atol))
+        error_ratio = np.max(delta1/(scale))
 
-        h_est = sf1*h_ant * (1 / error_ratio)**(1 / 5)
+        h_est = h_ant * (sf1 / error_ratio)**(1 / 5)
 
         if h_est > sf2*h_ant:
             h_est = sf2 * h_ant
-            if error_ratio < 1:
+            if error_ratio < sf1:
                 h_ant = h_est
                 continue
-        
+
         elif h_est < h_ant/sf2:
             h_est = h_ant / sf2
-            if error_ratio < 1:
+            if error_ratio < sf1:
                 h_ant = h_est
                 continue
-        
+
         # if abs(h_ant - h_est) > max_step_increase:
         #     h_est = h_ant + max_step_increase
 
         # if h_est < min_step:
         #     h_est = min_step
 
-        yb, __,  vstadosB, _ = runge_kutta_45_DP(sistema, vstadosB, h_ant, ypidb)
+        yb, __, vstadosB, _ = runge_kutta_45_DP(sistema, vstadosB, h_ant, ypidb)
         break
 
     salida.append(yb)
