@@ -7717,6 +7717,12 @@
               <height>300</height>
              </size>
             </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>300</height>
+             </size>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -7978,7 +7984,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>228</width>
+               <width>245</width>
                <height>249</height>
               </rect>
              </property>
@@ -8192,8 +8198,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>98</width>
-               <height>28</height>
+               <width>262</width>
+               <height>180</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8250,7 +8256,7 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-108</y>
+               <y>0</y>
                <width>245</width>
                <height>356</height>
               </rect>

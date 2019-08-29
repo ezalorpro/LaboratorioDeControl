@@ -40,17 +40,17 @@ class SimpleThread(QtCore.QThread):
 
     def run(self):
         if self.esquema in [0]:
-            y, sc, u = self.run_pid()
+            Tiempo, y, sc, u = self.run_pid()
             self.finished.emit(
                 self.window,
-                [self.Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
+                [Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
             return
 
         if self.esquema in [1,2,3,4,5,6,7,8]:
-            y, sc, u = self.run_fuzzy()
+            Tiempo, y, sc, u = self.run_fuzzy()
             self.finished.emit(
                 self.window,
-                [self.Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
+                [Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
 
     def run_pid(self):
         if self.window.main.kpCheck.isChecked():
@@ -71,11 +71,11 @@ class SimpleThread(QtCore.QThread):
         if isinstance(self.system, ctrl.TransferFunction):
             self.system = ctrl.tf2ss(self.system)
 
-        tiempo_total = np.max(self.Tiempo)
+        tiempo_total = self.Tiempo
 
         if isinstance(self.escalon, float):
             u = self.escalon
-            max_tiempo = [np.max(self.Tiempo)]
+            max_tiempo = [self.Tiempo]
         else:
             it = iter(self.escalon)
             u_value = [0]
@@ -86,12 +86,11 @@ class SimpleThread(QtCore.QThread):
             index_tbound = len(max_tiempo)
             max_tiempo.append(tiempo_total)
 
-        len_tiempo = len(self.Tiempo)
         ten_percent = int(tiempo_total * 10 / 100)
-        
+
         if ten_percent == 0:
             ten_percent = 1
-            
+
         x = np.zeros_like(self.system.B)
         buffer = deque([0] * int(self.system.delay / self.dt))
         h = 0.000001
@@ -136,7 +135,7 @@ class SimpleThread(QtCore.QThread):
         i = 0
         tiempo = 0
         setpoint_window = 0
-        self.Tiempo = [0]
+        Tiempo_list = [0]
         setpoint = [0]
 
         while tiempo < tiempo_total:
@@ -148,7 +147,7 @@ class SimpleThread(QtCore.QThread):
                 u = u_value[setpoint_window]
 
             error = u - salida[i]
-            
+
             if ctrl.isdtime(self.system, strict=True):
                 sc_t, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
             else:
@@ -175,13 +174,13 @@ class SimpleThread(QtCore.QThread):
 
             setpoint.append(u)
             tiempo +=h
-            self.Tiempo.append(tiempo)
+            Tiempo_list.append(tiempo)
             h = h_new
             i +=1
 
         if self.window.main.sensorCheck.isChecked():
             salida = salida2
-        return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
+        return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
     def run_fuzzy(self):
 
@@ -215,21 +214,29 @@ class SimpleThread(QtCore.QThread):
         if isinstance(self.system, ctrl.TransferFunction):
             self.system = ctrl.tf2ss(self.system)
 
+        tiempo_total = self.Tiempo
+
         if isinstance(self.escalon, float):
-            u = np.ones_like(self.Tiempo)
-            u = u*self.escalon
+            u = self.escalon
+            max_tiempo = [self.Tiempo]
         else:
             it = iter(self.escalon)
-            u = np.zeros_like(self.Tiempo)
+            u_value = [0]
+            max_tiempo = []
             for i, valor in enumerate(it):
-                ini = int(next(it) / self.dt)
-                u[ini:] = valor
+                max_tiempo.append(next(it))
+                u_value.append(valor)
+            index_tbound = len(max_tiempo)
+            max_tiempo.append(tiempo_total)
 
-        max_tiempo = len(self.Tiempo)
-        ten_percent = max_tiempo*10/100
+        ten_percent = int(tiempo_total * 10 / 100)
+
+        if ten_percent == 0:
+            ten_percent = 1
+
         x = np.zeros_like(self.system.B)
         buffer = deque([0] * int(self.system.delay / self.dt))
-        h = self.dt
+        h = 0.000001
 
         salida = deque([0])
         sc_f = deque([0])
@@ -238,16 +245,15 @@ class SimpleThread(QtCore.QThread):
 
         if ctrl.isdtime(self.system, strict=True):
             error_a = 0
-            error_a_pid = 0
             solve = self.ss_discreta
             PIDf = self.PID_discreto
+            h_new = self.dt
+            h = self.dt
         else:
-            error_a = deque([0]*2)
-            error_a_pid = deque([0] * 2)
-            self.filtro = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
+            error_a = deque([0] * 2)
             self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
             solve = self.runge_kutta
-            PIDf = self.PID
+            PIDf = self.rk4adaptativo
 
         if self.window.main.accionadorCheck.isChecked():
             acc_num = json.loads(self.window.main.numAccionador.text())
@@ -262,20 +268,50 @@ class SimpleThread(QtCore.QThread):
         if self.window.main.sensorCheck.isChecked():
             sensor_num = json.loads(self.window.main.numSensor.text())
             sensor_dem = json.loads(self.window.main.demSensor.text())
-            sensor_system = ctrl.tf2ss(ctrl.TransferFunction(sensor_num, sensor_dem, delay=0))
+            sensor_system = ctrl.tf2ss(
+                ctrl.TransferFunction(sensor_num, sensor_dem, delay=0))
             sensor_x = np.zeros_like(sensor_system.B)
             salida2 = deque([0])
 
+        i = 0
+        tiempo = 0
+        setpoint_window = 0
+        Tiempo_list = [0]
+        setpoint = [0]
+
         if self.esquema == 1:
-            for i, _ in enumerate(self.Tiempo[1:]):
-                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+            derivada = ctrl.tf2ss(ctrl.TransferFunction([self.N, 1], [1, self.N]))
+            x_derivada = np.zeros_like(derivada.B)
+
+            derivada2 = ctrl.tf2ss(
+                ctrl.TransferFunction([self.N, 1], [1, self.N]) *
+                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+
+            x_derivada2 = np.zeros_like(derivada2.B)
+
+            while tiempo < tiempo_total:
+                if not isinstance(self.escalon, float):
+                    if tiempo + h >= max_tiempo[
+                            setpoint_window] and setpoint_window < index_tbound:
+                        setpoint_window += 1
+                    u = u_value[setpoint_window]
+
+                error = u - salida[i]
+
+                if ctrl.isdtime(self.system, strict=True):
+                    d2_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                else:
+                    h, h_new, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
+                                                           max_tiempo[setpoint_window], x_derivada2, error)
+
+                d_error, x_derivada = solve(derivada, x_derivada, h, sc_t)
 
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error, d2_error],
                                                       [0] * 1)[0] * h
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
-                    sc_t = np.asscalar(sc_t[0])
 
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
@@ -285,28 +321,49 @@ class SimpleThread(QtCore.QThread):
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
-                    salida2.append(np.asscalar(y[0]))
+                    salida2.append(y)
                     y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
 
-                salida.append(np.asscalar(y[0]))
+                salida.append(y)
 
-                if i % ten_percent == 0:
-                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+                if int(tiempo) % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
+
+                setpoint.append(u)
+                tiempo +=h
+                Tiempo_list.append(tiempo)
+                h = h_new
+                i +=1
 
             if self.window.main.sensorCheck.isChecked():
                 salida = salida2
 
-            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+            return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
         if self.esquema == 2:
-            for i, _ in enumerate(self.Tiempo[1:]):
-                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+            derivada = ctrl.tf2ss(ctrl.TransferFunction([self.N, 1], [1, self.N]))
+            x_derivada = np.zeros_like(derivada.B)
+
+            while tiempo < tiempo_total:
+                if not isinstance(self.escalon, float):
+                    if tiempo + h >= max_tiempo[
+                            setpoint_window] and setpoint_window < index_tbound:
+                        setpoint_window += 1
+                    u = u_value[setpoint_window]
+
+                error = u - salida[i]
+
+                if ctrl.isdtime(self.system, strict=True):
+                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                else:
+                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                           max_tiempo[setpoint_window], x_derivada, error)
 
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
-                    sc_t = np.asscalar(sc_t[0])
 
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
@@ -316,28 +373,49 @@ class SimpleThread(QtCore.QThread):
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
-                    salida2.append(np.asscalar(y[0]))
+                    salida2.append(y)
                     y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
 
-                salida.append(np.asscalar(y[0]))
+                salida.append(y)
 
-                if i % ten_percent == 0:
-                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+                if int(tiempo) % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
+
+                setpoint.append(u)
+                tiempo +=h
+                Tiempo_list.append(tiempo)
+                h = h_new
+                i +=1
 
             if self.window.main.sensorCheck.isChecked():
                 salida = salida2
 
-            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+            return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
         if self.esquema == 3:
-            for i, _ in enumerate(self.Tiempo[1:]):
-                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+            derivada = ctrl.tf2ss(ctrl.TransferFunction([self.N, 1], [1, self.N]))
+            x_derivada = np.zeros_like(derivada.B)
+
+            while tiempo < tiempo_total:
+                if not isinstance(self.escalon, float):
+                    if tiempo + h >= max_tiempo[
+                            setpoint_window] and setpoint_window < index_tbound:
+                        setpoint_window += 1
+                    u = u_value[setpoint_window]
+
+                error = u - salida[i]
+
+                if ctrl.isdtime(self.system, strict=True):
+                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                else:
+                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                           max_tiempo[setpoint_window], x_derivada, error)
 
                 sc_t = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
-                    sc_t = np.asscalar(sc_t[0])
 
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
@@ -347,23 +425,45 @@ class SimpleThread(QtCore.QThread):
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
-                    salida2.append(np.asscalar(y[0]))
+                    salida2.append(y)
                     y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
 
-                salida.append(np.asscalar(y[0]))
+                salida.append(y)
 
-                if i % ten_percent == 0:
-                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+                if int(tiempo) % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
+
+                setpoint.append(u)
+                tiempo +=h
+                Tiempo_list.append(tiempo)
+                h = h_new
+                i +=1
 
             if self.window.main.sensorCheck.isChecked():
                 salida = salida2
 
-            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+            return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
         if self.esquema == 4:
+
+            derivada = ctrl.tf2ss(ctrl.TransferFunction([self.N, 1], [1, self.N]))
+            x_derivada = np.zeros_like(derivada.B)
             spi = 0
-            for i, _ in enumerate(self.Tiempo[1:]):
-                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+            while tiempo < tiempo_total:
+                if not isinstance(self.escalon, float):
+                    if tiempo + h >= max_tiempo[
+                            setpoint_window] and setpoint_window < index_tbound:
+                        setpoint_window += 1
+                    u = u_value[setpoint_window]
+
+                error = u - salida[i]
+
+                if ctrl.isdtime(self.system, strict=True):
+                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                else:
+                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                           max_tiempo[setpoint_window], x_derivada, error)
 
                 spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
                 spd = fuzzy_c2.calcular_valor([error, d_error], [0] * 1)[0]
@@ -371,7 +471,6 @@ class SimpleThread(QtCore.QThread):
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
-                    sc_t = np.asscalar(sc_t[0])
 
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
@@ -381,30 +480,51 @@ class SimpleThread(QtCore.QThread):
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
-                    salida2.append(np.asscalar(y[0]))
+                    salida2.append(y)
                     y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
 
-                salida.append(np.asscalar(y[0]))
+                salida.append(y)
 
-                if i % ten_percent == 0:
-                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+                if int(tiempo) % ten_percent == 0:
+                    self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
+
+                setpoint.append(u)
+                tiempo +=h
+                Tiempo_list.append(tiempo)
+                h = h_new
+                i +=1
 
             if self.window.main.sensorCheck.isChecked():
                 salida = salida2
 
-            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+            return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
         if self.esquema == 5:
+
+            derivada = ctrl.tf2ss(ctrl.TransferFunction([self.N, 1], [1, self.N]))
+            x_derivada = np.zeros_like(derivada.B)
             spi = 0
-            for i, _ in enumerate(self.Tiempo[1:]):
-                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+            while tiempo < tiempo_total:
+                if not isinstance(self.escalon, float):
+                    if tiempo + h >= max_tiempo[
+                            setpoint_window] and setpoint_window < index_tbound:
+                        setpoint_window += 1
+                    u = u_value[setpoint_window]
+
+                error = u - salida[i]
+
+                if ctrl.isdtime(self.system, strict=True):
+                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                else:
+                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                           max_tiempo[setpoint_window], x_derivada, error)
 
                 spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
                 sc_t = spi + d_error*kd
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
-                    sc_t = np.asscalar(sc_t[0])
 
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
@@ -414,30 +534,53 @@ class SimpleThread(QtCore.QThread):
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
-                    salida2.append(np.asscalar(y[0]))
+                    salida2.append(y)
                     y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
 
-                salida.append(np.asscalar(y[0]))
+                salida.append(y)
 
-                if i % ten_percent == 0:
-                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+                if int(tiempo) % ten_percent == 0:
+                    self.update_progresBar.emit(self.window,
+                                                int(tiempo) * 100 / tiempo_total)
+
+                setpoint.append(u)
+                tiempo += h
+                Tiempo_list.append(tiempo)
+                h = h_new
+                i += 1
 
             if self.window.main.sensorCheck.isChecked():
                 salida = salida2
 
-            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+            return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
         if self.esquema == 6:
+
+            derivada = ctrl.tf2ss(ctrl.TransferFunction([self.N, 1], [1, self.N]))
+            x_derivada = np.zeros_like(derivada.B)
             spi = 0
-            for i, _ in enumerate(self.Tiempo[1:]):
-                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
+
+            while tiempo < tiempo_total:
+                if not isinstance(self.escalon, float):
+                    if tiempo + h >= max_tiempo[
+                            setpoint_window] and setpoint_window < index_tbound:
+                        setpoint_window += 1
+                    u = u_value[setpoint_window]
+
+                error = u - salida[i]
+
+                if ctrl.isdtime(self.system, strict=True):
+                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                else:
+                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                           max_tiempo[setpoint_window], x_derivada, error)
+
                 spi = spi + error*h
                 spd = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
                 sc_t = spi*ki + spd
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
-                    sc_t = np.asscalar(sc_t[0])
 
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
@@ -447,30 +590,61 @@ class SimpleThread(QtCore.QThread):
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
-                    salida2.append(np.asscalar(y[0]))
+                    salida2.append(y)
                     y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
 
-                salida.append(np.asscalar(y[0]))
+                salida.append(y)
 
-                if i % ten_percent == 0:
-                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+                if int(tiempo) % ten_percent == 0:
+                    self.update_progresBar.emit(self.window,
+                                                int(tiempo) * 100 / tiempo_total)
+
+                setpoint.append(u)
+                tiempo += h
+                Tiempo_list.append(tiempo)
+                h = h_new
+                i += 1
 
             if self.window.main.sensorCheck.isChecked():
                 salida = salida2
 
-            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+            return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
         if self.esquema == 7:
-            for i, _ in enumerate(self.Tiempo[1:]):
-                error, d_error, d2_error, error_a = self.derivada_filtrada(salida[i], u[i], h, error_a)
-                kp, ki, kd = fuzzy_c1.calcular_valor([error, d_error], [0] * 3)
-                si_t = si_t + error*h
 
-                sc_t = error*kp + si_t*ki + d_error*kd
+            pid = ctrl.tf2ss(ctrl.TransferFunction([self.N*1+1, self.N*1+1, self.N*1], [1, self.N, 0]))
+            x_pid = np.zeros_like(pid.B)
+
+            derivada = ctrl.tf2ss(ctrl.TransferFunction([self.N, 1], [1, self.N]))
+            x_derivada = np.zeros_like(derivada.B)
+            spi = 0
+
+            while tiempo < tiempo_total:
+                if not isinstance(self.escalon, float):
+                    if tiempo + h >= max_tiempo[
+                            setpoint_window] and setpoint_window < index_tbound:
+                        setpoint_window += 1
+                    u = u_value[setpoint_window]
+
+                error = u - salida[i]
+
+                if ctrl.isdtime(self.system, strict=True):
+                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                else:
+                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                           max_tiempo[setpoint_window], x_derivada, error)
+
+                kp, ki, kd = fuzzy_c1.calcular_valor([error, d_error], [0] * 3)
+
+                pid = ctrl.tf2ss(
+                    ctrl.TransferFunction(
+                        [self.N * kd + kp, self.N * kp + ki, self.N * ki],
+                        [1, self.N, 0]))
+
+                sc_t, x_pid = solve(pid, x_pid, h, error)
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
-                    sc_t = np.asscalar(sc_t[0])
 
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
@@ -480,18 +654,28 @@ class SimpleThread(QtCore.QThread):
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
-                    salida2.append(np.asscalar(y[0]))
+                    salida2.append(y)
                     y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
 
-                salida.append(np.asscalar(y[0]))
+                salida.append(y)
 
-                if i % ten_percent == 0:
-                    self.update_progresBar.emit(self.window, i * 100 / max_tiempo)
+                if int(tiempo) % ten_percent == 0:
+                    self.update_progresBar.emit(self.window,
+                                                int(tiempo) * 100 / tiempo_total)
+
+                setpoint.append(u)
+                tiempo += h
+                Tiempo_list.append(tiempo)
+                h = h_new
+                i += 1
 
             if self.window.main.sensorCheck.isChecked():
                 salida = salida2
 
-            return copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(u)
+            return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
+
+        if self.esquema == 8:
+            pass
 
     def rk4adaptativo(self,
                       systema,
@@ -620,20 +804,8 @@ def system_creator_tf(self, numerador, denominador):
                                     self.dt,
                                     self.main.tfcomboBox4.currentText(),
                                     delay=delay)
-    else:
-        fs = int(self.main.samplesSimulacion.text())
 
-    t = float(self.main.tiempoSimulacion.text())
-
-    try:
-        if ctrl.isdtime(system, strict=True):
-            T = np.arange(0, t, self.dt)
-        else:
-            T = np.arange(0, t, 1 / fs)
-    except ValueError:
-        T = np.arange(0, 100, 0.01)
-
-    return system, T
+    return system
 
 
 def system_creator_ss(self, A, B, C, D):
@@ -643,24 +815,11 @@ def system_creator_ss(self, A, B, C, D):
         delay = 0
 
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
-    t, y = ctrl.impulse_response(system)
 
     if self.main.ssdiscretocheckBox4.isChecked():
         system = ctrl.sample_system(system,
                                     self.dt,
                                     self.main.sscomboBox4.currentText(),
                                     delay=delay)
-    else:
-        fs = int(self.main.samplesSimulacion.text())
 
-    t = float(self.main.tiempoSimulacion.text())
-
-    try:
-        if ctrl.isdtime(system, strict=True):
-            T = np.arange(0, t, self.dt)
-        else:
-            T = np.arange(0, t, 1 / fs)
-    except ValueError:
-        T = np.arange(0, 100, 0.01)
-
-    return system, T
+    return system

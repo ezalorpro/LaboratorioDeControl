@@ -75,13 +75,13 @@ def calcular_simulacion(self):
     if self.main.SimulacionstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit4.text())
         dem = json.loads(self.main.tfdemEdit4.text())
-        system, T = system_creator_tf(self, num, dem)
+        system = system_creator_tf(self, num, dem)
     else:
         A = json.loads(self.main.ssAEdit4.text())
         B = json.loads(self.main.ssBEdit4.text())
         C = json.loads(self.main.ssCEdit4.text())
         D = json.loads(self.main.ssDEdit4.text())
-        system, T = system_creator_ss(self, A, B, C, D)
+        system = system_creator_ss(self, A, B, C, D)
 
     if not self.main.escalonCheck.isChecked():
         escalon = float(self.main.escalonSimulacion.text())
@@ -91,7 +91,7 @@ def calcular_simulacion(self):
     list_info = [
         self.main.esquemaSimulacion.currentIndex(),
         system,
-        T,
+        float(self.main.tiempoSimulacion.text()),
         self.dt,
         escalon,
         self.main.sensorCheck.isChecked(),
@@ -102,11 +102,8 @@ def calcular_simulacion(self):
             self.main.kiSimulacion.text(),
             self.main.kdSimulacion.text(),
             self.main.NSimulacion.text()
-        ],
-        [
-            self.main.pathController1.text(),
-            self.main.pathController2.text()
-        ]
+        ], 
+        [self.main.pathController1.text(), self.main.pathController2.text()]
     ]
 
     self.thread = SimpleThread(self,
