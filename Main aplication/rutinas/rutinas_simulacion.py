@@ -635,13 +635,16 @@ class SimpleThread(QtCore.QThread):
                                                            max_tiempo[setpoint_window], x_derivada, error)
 
                 kp, ki, kd = fuzzy_c1.calcular_valor([error, d_error], [0] * 3)
+                
+                spi = spi + error*h
+                sc_t = spi*ki + d_error*kd + error*kp
+                
+                # pid = ctrl.tf2ss(
+                #     ctrl.TransferFunction(
+                #         [self.N * kd + kp, self.N * kp + ki, self.N * ki],
+                #         [1, self.N, 0]))
 
-                pid = ctrl.tf2ss(
-                    ctrl.TransferFunction(
-                        [self.N * kd + kp, self.N * kp + ki, self.N * ki],
-                        [1, self.N, 0]))
-
-                sc_t, x_pid = solve(pid, x_pid, h, error)
+                # sc_t, x_pid = solve(pid, x_pid, h, error)
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)

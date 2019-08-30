@@ -17,9 +17,11 @@ import numpy as np
 # from multiprocessing import Queue
 # import math
 
-a = np.asarray([1, 2])
+a = np.asarray([[1, 2, 3], [2, 3, 4]])
 b = np.asarray([3, 4])
-print(a/b)
+print(len(a))
+print(a**2)
+# print(np.linalg.matrix_power(a, 2))
 # N = 30
 # kp = 1
 # kd = 1

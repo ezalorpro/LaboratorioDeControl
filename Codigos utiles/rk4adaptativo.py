@@ -2,7 +2,7 @@ import numpy as np
 import control as ctrl
 from matplotlib import pyplot as plt
 import time
-
+from math import factorial
 
 def norm(x):
     """Compute RMS norm."""
@@ -10,10 +10,10 @@ def norm(x):
 
 
 def runge_kutta(ss, x, h, inputValue):
-    k1 = h*(ss.A * x + ss.B * inputValue)
-    k2 = h*(ss.A * (x + k1/2) + ss.B * (inputValue))
-    k3 = h*(ss.A * (x + k2/2) + ss.B * (inputValue))
-    k4 = h*(ss.A * (x + k3) + ss.B * (inputValue))
+    k1 = h * (ss.A * x + ss.B * inputValue)
+    k2 = h * (ss.A * (x + k1/2) + ss.B * (inputValue))
+    k3 = h * (ss.A * (x + k2/2) + ss.B * (inputValue))
+    k4 = h * (ss.A * (x+k3) + ss.B * (inputValue))
 
     x = x + (1/6)*(k1 + k2*2 + k3*2 + k4)
     y = ss.C * x + ss.D * inputValue
@@ -38,7 +38,7 @@ vstadosS = np.zeros_like(sistema.B)
 
 min_step_decrease = 0.2
 max_step_increase = 5
-h_ant = 0.000000000001
+h_ant = 0.0001
 rtol = 1e-6
 atol = 1e-8
 tiempo = 0
@@ -51,10 +51,12 @@ sf1 = 0.9
 sf2 = 4
 sc_t = [0]
 start = time.time()
+counter = 0
 
 while tiempo < tbound:
     error = sp - yb
     while True:
+        counter +=1
         if tiempo + h_ant >= tbound:
             h_ant = tbound - tiempo
             ypids, x_pidSn = runge_kutta(pid, x_pidS, h_ant, error)
@@ -126,7 +128,10 @@ while tiempo < tbound:
     h_ant = h_est
     x_pidB = x_pidSn
     x_pidS = x_pidSn
+    input_a1 = error
+    input_a2 = ypids
 
+print(counter)
 print(len(tiempo_out))
 print(f'{time.time() - start}')
 plt.plot(tiempo_out, salida)
