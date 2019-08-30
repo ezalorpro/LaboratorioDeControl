@@ -20,12 +20,23 @@ def runge_kutta(ss, x, h, inputValue):
     return y.item(), x
 
 
-N = 100
+# def runge_kutta(ss, x, h, inputValue):
+#     k1 = h * (ss.A * x + ss.B * inputValue)
+#     k2 = h * (ss.A * (x + k1) + ss.B * (inputValue))
+#     k3 = h * (ss.A * (x + k1/4 + k2/4) + ss.B * (inputValue))
+#     # k4 = h * (ss.A * (x+k3) + ss.B * (inputValue))
+
+#     x = x + (k1/6 + k2/6 + k3*2/3)
+#     y = ss.C * x + ss.D * inputValue
+#     return y.item(), x
+
+
+N = 0
 kp = 1
 ki = 1
 kd = 1
 
-pid = ctrl.tf2ss(
+pid = ctrl.tf2ss(ctrl.TransferFunction([1], [0.01, 1])*
     ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
                           [1, N, 0]))
 
@@ -39,8 +50,8 @@ vstadosS = np.zeros_like(sistema.B)
 min_step_decrease = 0.2
 max_step_increase = 5
 h_ant = 0.0001
-rtol = 1e-6
-atol = 1e-8
+rtol = 1e-3
+atol = 1e-6
 tiempo = 0
 tbound = 30
 sp = 1

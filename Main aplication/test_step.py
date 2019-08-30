@@ -1,9 +1,9 @@
 # import json
 # from collections import deque
 # # import pickle
-# import controlmdf as ctrl
+import controlmdf as ctrl
 # from skfuzzymdf import control as fuzz
-# from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 # from matplotlib import figure
 # from mpl_toolkits.mplot3d import Axes3D
 # import time
@@ -13,50 +13,82 @@
 import numpy as np
 # import pyvista as pv
 # from scipy import signal
-# from scipy.integrate import RK45
+from scipy.integrate import RK45
 # from multiprocessing import Queue
 # import math
 
-a = np.asarray([[1, 2, 3], [2, 3, 4]])
-b = np.asarray([3, 4])
-print(len(a))
-print(a**2)
+# a = np.asarray([[1, 2, 3], [2, 3, 4]])
+# b = np.asarray([3, 4])
+# print(len(a))
+# print(a**2)
 # print(np.linalg.matrix_power(a, 2))
-# N = 30
-# kp = 1
-# kd = 1
-# ki = 1
+N = 0
+kp = 1
+kd = 1
+ki = 1
 
-# derivadaf = ctrl.tf2ss(
-#     ctrl.TransferFunction([1], [1, 1, 1]) *
-#     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+derivadaf = ctrl.tf2ss(ctrl.TransferFunction([1], [0.01, 1])*
+    ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
 
-
-# def state_space(t, y, A, B, U, y_vect):
-#     ydot = A*y_vect.reshape([-1, 1]) + B*U
-#     return np.squeeze(np.asarray(ydot))
+sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
+vstadosB = np.zeros_like(sistema.B)
 
 
-# A1 = derivadaf.A
-# B1 = derivadaf.B
-# C1 = derivadaf.C
-# D1 = derivadaf.D
-
-# x_vect = np.asarray(np.zeros_like(B1))
-# x_vect = x_vect.flatten()
-# print(x_vect)
-# salida = [0]
-# tiempo = [0]
-# solution = RK45(lambda t,y: state_space(t, y, A1, B1, 1, x_vect), t0=0, y0=x_vect, max_step=0.1, t_bound=20)
-# while solution.status is not 'finished':
-#     solution.step()
-#     x_vect = solution.y
-#     salida.append((C1*x_vect.reshape([-1, 1]) + D1*1).item())
-#     tiempo.append(solution.t)
+def state_space(t, y, A, B, U, y_vect):
+    ydot = A*y_vect.reshape([-1, 1]) + B*U
+    return np.squeeze(np.asarray(ydot))
 
 
-# plt.plot(tiempo, salida)
-# plt.show()
+def runge_kutta(ss, x, h, inputValue):
+    k1 = h * (ss.A * x + ss.B * inputValue)
+    k2 = h * (ss.A * (x + k1/2) + ss.B * (inputValue))
+    k3 = h * (ss.A * (x + k2/2) + ss.B * (inputValue))
+    k4 = h * (ss.A * (x+k3) + ss.B * (inputValue))
+
+    x = x + (1/6) * (k1 + k2*2 + k3*2 + k4)
+    y = ss.C * x + ss.D * inputValue
+    return y.item(), x
+
+
+A1 = derivadaf.A
+B1 = derivadaf.B
+C1 = derivadaf.C
+D1 = derivadaf.D
+
+x_vect = np.asarray(np.zeros_like(B1))
+x_vect = x_vect.flatten()
+print(x_vect)
+salida = [0]
+tiempo = [0]
+tiempo2 = 0
+error = 0
+output = 0
+sc_t = 0
+counter = 0
+
+solution = RK45(lambda t,
+                y: state_space(t, y, A1, B1, error, x_vect),
+                t0=0,
+                y0=x_vect,
+                max_step=0.08,
+                rtol=1e-9,
+                atol=1e-10,
+                t_bound=30)
+
+while solution.status is not 'finished' and solution.status is not 'failed':
+    error = 1 - output
+    counter +=1
+    solution.step()
+    print(solution.t)
+    x_vect = solution.y
+    sc_t = (C1 * x_vect.reshape([-1, 1]) + D1*1).item()
+    output, vstadosB = runge_kutta(sistema, vstadosB, solution.step_size, sc_t)
+    salida.append(output)
+    tiempo.append(solution.t)
+
+print(counter)
+plt.plot(tiempo, salida)
+plt.show()
 # class Lowpassfilter:
 #     """ Filtro pasa-bajo con ventaja Hamming"""
 
