@@ -22,12 +22,12 @@ from scipy.integrate import RK45
 # print(len(a))
 # print(a**2)
 # print(np.linalg.matrix_power(a, 2))
-N = 0
+N = 100
 kp = 1
 kd = 1
 ki = 1
 
-derivadaf = ctrl.tf2ss(ctrl.TransferFunction([1], [0.01, 1])*
+derivadaf = ctrl.tf2ss(ctrl.TransferFunction([1], [0.1, 1])*
     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
 
 sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
@@ -70,9 +70,9 @@ solution = RK45(lambda t,
                 y: state_space(t, y, A1, B1, error, x_vect),
                 t0=0,
                 y0=x_vect,
-                max_step=0.08,
-                rtol=1e-9,
-                atol=1e-10,
+                max_step=0.1,
+                rtol=1e-3,
+                atol=1e-6,
                 t_bound=30)
 
 while solution.status is not 'finished' and solution.status is not 'failed':

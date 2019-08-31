@@ -252,7 +252,7 @@ class SimpleThread(QtCore.QThread):
         si_t = 0
 
         if ctrl.isdtime(self.system, strict=True):
-            error_a = 0
+            error_a = deque([0] * 2)
             solve = self.ss_discreta
             PIDf = self.PID_discreto
             h_new = self.dt
@@ -311,12 +311,11 @@ class SimpleThread(QtCore.QThread):
                 error = u - salida[i]
 
                 if ctrl.isdtime(self.system, strict=True):
-                    d2_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
                     h, h_new, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada2, error)
-
-                d_error, x_derivada = solve(derivada, x_derivada, h, sc_t)
+                    d_error, x_derivada = solve(derivada, x_derivada, h, sc_t)
 
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error, d2_error],
                                                       [0] * 1)[0] * h
@@ -368,7 +367,7 @@ class SimpleThread(QtCore.QThread):
                 error = u - salida[i]
 
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
                     h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
@@ -422,7 +421,7 @@ class SimpleThread(QtCore.QThread):
                 error = u - salida[i]
 
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
                     h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
@@ -477,7 +476,7 @@ class SimpleThread(QtCore.QThread):
                 error = u - salida[i]
 
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
                     h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
@@ -534,7 +533,7 @@ class SimpleThread(QtCore.QThread):
                 error = u - salida[i]
 
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
                     h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
@@ -591,7 +590,7 @@ class SimpleThread(QtCore.QThread):
                 error = u - salida[i]
 
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
                     h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
@@ -654,7 +653,7 @@ class SimpleThread(QtCore.QThread):
                 error = u - salida[i]
 
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
                     h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
@@ -727,7 +726,7 @@ class SimpleThread(QtCore.QThread):
                 yS, xVectSn = self.runge_kutta(systema, xVectB, h_ant / 2, entrada)
                 yS, xVectSn = self.runge_kutta(systema, xVectSn, h_ant / 2, entrada)
 
-                scale = atol + np.maximum(np.abs(xVectBn), np.abs(xVectB)) * rtol
+                scale = atol + rtol * (np.abs(xVectBn) + np.abs(xVectB)) / 2
                 delta1 = np.abs(xVectBn - xVectSn)
                 error_norm = norm(delta1 / scale)
 
@@ -785,6 +784,13 @@ class SimpleThread(QtCore.QThread):
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
         error_anterior = error
         return s_control, s_integral, error_anterior
+
+    def derivadas_discretas(self, error, ts, error_anterior):
+        s_derivativa = (error-error_anterior[0]) / ts
+        s_derivativa2 = (error - 2 * error_anterior[0] + error_anterior[1]) / (ts**2)
+        error_anterior.pop()
+        error_anterior.appendleft(error)
+        return s_derivativa, s_derivativa2, error_anterior
 
 
 class Lowpassfilter:

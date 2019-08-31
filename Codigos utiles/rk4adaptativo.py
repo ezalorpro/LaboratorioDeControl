@@ -31,12 +31,12 @@ def runge_kutta(ss, x, h, inputValue):
 #     return y.item(), x
 
 
-N = 0
+N = 100
 kp = 1
 ki = 1
 kd = 1
 
-pid = ctrl.tf2ss(ctrl.TransferFunction([1], [0.01, 1])*
+pid = ctrl.tf2ss(ctrl.TransferFunction([1], [0.1, 1])*
     ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
                           [1, N, 0]))
 
@@ -59,7 +59,7 @@ salida = [0]
 tiempo_out = [0]
 yb = 0
 sf1 = 0.9
-sf2 = 4
+sf2 = 5
 sc_t = [0]
 start = time.time()
 counter = 0
@@ -76,7 +76,8 @@ while tiempo < tbound:
             ypids, x_pidSn = runge_kutta(pid, x_pidS, h_ant / 2, error)
             ypids, x_pidSn = runge_kutta(pid, x_pidSn, h_ant / 2, error)
 
-            scale = atol + np.maximum(np.abs(x_pidBn), np.abs(x_pidB)) * rtol
+            # scale = atol + np.maximum(np.abs(x_pidBn), np.abs(x_pidB)) * rtol
+            scale = atol + rtol * (np.abs(x_pidSn) + np.abs(x_pidBn)) / 2 
             delta1 = np.abs(x_pidBn - x_pidSn)
             error_norm = norm(delta1 / scale)
 
@@ -89,7 +90,7 @@ while tiempo < tbound:
                 continue
 
             # scale = rtol * (np.abs(x_pidSn) + np.abs(x_pidBn))/2
-            # delta1 = norm(x_pidBn - x_pidSn)
+            # delta1 = np.abs(x_pidBn - x_pidSn)
             # error_ratio = np.max(delta1 / (scale+atol))
 
             # h_est = sf1 * h_ant * (1 / error_ratio)**(1 / 5)
