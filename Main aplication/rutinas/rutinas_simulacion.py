@@ -300,7 +300,7 @@ class SimpleThread(QtCore.QThread):
                 ctrl.TransferFunction([self.N, 1], [1, self.N]))
 
             x_derivada2 = np.zeros_like(derivada2.B)
-
+            
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
                     if tiempo + h >= max_tiempo[
@@ -313,9 +313,13 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
+                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                           max_tiempo[setpoint_window], x_derivada, error)
+                    
+                    h, h_new2, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada2, error)
-                    d_error, x_derivada = solve(derivada, x_derivada, h, sc_t)
+                    
+                    h_new = min(h_new1, h_new2)
 
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error, d2_error],
                                                       [0] * 1)[0] * h
@@ -328,7 +332,7 @@ class SimpleThread(QtCore.QThread):
 
                 buffer.appendleft(sc_t)
                 y, x = solve(self.system, x, h, buffer.pop())
-                sc_f.append(sc_t)
+                sc_f.append(d_error)
 
                 if self.window.main.sensorCheck.isChecked():
                     salida2.append(y)
