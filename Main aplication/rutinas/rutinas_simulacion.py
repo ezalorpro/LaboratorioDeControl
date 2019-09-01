@@ -130,6 +130,7 @@ class SimpleThread(QtCore.QThread):
             salida2 = deque([0])
 
         if self.N*kd == 0:
+            self.N = 50
             pid = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.01, 1]) * ctrl.TransferFunction(
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
@@ -159,7 +160,7 @@ class SimpleThread(QtCore.QThread):
             if ctrl.isdtime(self.system, strict=True):
                 sc_t, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
             else:
-                h, h_new, sc_t, x_pid = PIDf(pid, h, tiempo, max_tiempo[setpoint_window], x_pid, error)
+                h, h_new1, sc_t, x_pid = PIDf(pid, h, tiempo, max_tiempo[setpoint_window], x_pid, error)
 
             if self.window.main.accionadorCheck.isChecked():
                 sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -168,7 +169,18 @@ class SimpleThread(QtCore.QThread):
                 sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
             buffer.appendleft(sc_t)
-            y, x = solve(self.system, x, h, buffer.pop())
+
+            if ctrl.isdtime(self.system, strict=True):
+                y, x = solve(self.system, x, h, buffer.pop())
+            else:
+                h, h_new2, y, x = self.rk4adaptativo(self.system,
+                                                        h,
+                                                        tiempo,
+                                                        max_tiempo[setpoint_window],
+                                                        x,
+                                                        buffer.pop())
+                h_new = min(h_new1, h_new2)
+
             sc_f.append(sc_t)
 
             if self.window.main.sensorCheck.isChecked():
@@ -300,7 +312,7 @@ class SimpleThread(QtCore.QThread):
                 ctrl.TransferFunction([self.N, 1], [1, self.N]))
 
             x_derivada2 = np.zeros_like(derivada2.B)
-            
+
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
                     if tiempo + h >= max_tiempo[
@@ -315,11 +327,9 @@ class SimpleThread(QtCore.QThread):
                 else:
                     h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
-                    
+
                     h, h_new2, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada2, error)
-                    
-                    h_new = min(h_new1, h_new2)
 
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error, d2_error],
                                                       [0] * 1)[0] * h
@@ -331,7 +341,18 @@ class SimpleThread(QtCore.QThread):
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 buffer.appendleft(sc_t)
-                y, x = solve(self.system, x, h, buffer.pop())
+
+                if ctrl.isdtime(self.system, strict=True):
+                    y, x = solve(self.system, x, h, buffer.pop())
+                else:
+                    h, h_new3, y, x = self.rk4adaptativo(self.system,
+                                                            h,
+                                                            tiempo,
+                                                            max_tiempo[setpoint_window],
+                                                            x,
+                                                            buffer.pop())
+                    h_new = min(h_new1, h_new2, h_new3)
+
                 sc_f.append(d_error)
 
                 if self.window.main.sensorCheck.isChecked():
@@ -373,7 +394,7 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
 
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
@@ -385,7 +406,18 @@ class SimpleThread(QtCore.QThread):
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 buffer.appendleft(sc_t)
-                y, x = solve(self.system, x, h, buffer.pop())
+
+                if ctrl.isdtime(self.system, strict=True):
+                    y, x = solve(self.system, x, h, buffer.pop())
+                else:
+                    h, h_new2, y, x = self.rk4adaptativo(self.system,
+                                                            h,
+                                                            tiempo,
+                                                            max_tiempo[setpoint_window],
+                                                            x,
+                                                            buffer.pop())
+                    h_new = min(h_new1, h_new2)
+
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
@@ -427,7 +459,7 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
 
                 sc_t = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
@@ -439,7 +471,18 @@ class SimpleThread(QtCore.QThread):
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 buffer.appendleft(sc_t)
-                y, x = solve(self.system, x, h, buffer.pop())
+
+                if ctrl.isdtime(self.system, strict=True):
+                    y, x = solve(self.system, x, h, buffer.pop())
+                else:
+                    h, h_new2, y, x = self.rk4adaptativo(self.system,
+                                                            h,
+                                                            tiempo,
+                                                            max_tiempo[setpoint_window],
+                                                            x,
+                                                            buffer.pop())
+                    h_new = min(h_new1, h_new2)
+
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
@@ -482,7 +525,7 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
 
                 spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
@@ -496,7 +539,18 @@ class SimpleThread(QtCore.QThread):
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 buffer.appendleft(sc_t)
-                y, x = solve(self.system, x, h, buffer.pop())
+
+                if ctrl.isdtime(self.system, strict=True):
+                    y, x = solve(self.system, x, h, buffer.pop())
+                else:
+                    h, h_new2, y, x = self.rk4adaptativo(self.system,
+                                                            h,
+                                                            tiempo,
+                                                            max_tiempo[setpoint_window],
+                                                            x,
+                                                            buffer.pop())
+                    h_new = min(h_new1, h_new2)
+
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
@@ -539,7 +593,7 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
 
                 spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
@@ -552,7 +606,18 @@ class SimpleThread(QtCore.QThread):
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 buffer.appendleft(sc_t)
-                y, x = solve(self.system, x, h, buffer.pop())
+
+                if ctrl.isdtime(self.system, strict=True):
+                    y, x = solve(self.system, x, h, buffer.pop())
+                else:
+                    h, h_new2, y, x = self.rk4adaptativo(self.system,
+                                                            h,
+                                                            tiempo,
+                                                            max_tiempo[setpoint_window],
+                                                            x,
+                                                            buffer.pop())
+                    h_new = min(h_new1, h_new2)
+
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
@@ -596,7 +661,7 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
 
                 spi = spi + error*h
@@ -610,7 +675,18 @@ class SimpleThread(QtCore.QThread):
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 buffer.appendleft(sc_t)
-                y, x = solve(self.system, x, h, buffer.pop())
+
+                if ctrl.isdtime(self.system, strict=True):
+                    y, x = solve(self.system, x, h, buffer.pop())
+                else:
+                    h, h_new2, y, x = self.rk4adaptativo(self.system,
+                                                            h,
+                                                            tiempo,
+                                                            max_tiempo[setpoint_window],
+                                                            x,
+                                                            buffer.pop())
+                    h_new = min(h_new1, h_new2)
+
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
@@ -659,7 +735,7 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
 
                 kp, ki, kd = fuzzy_c1.calcular_valor([error, d_error], [0] * 3)
@@ -681,7 +757,18 @@ class SimpleThread(QtCore.QThread):
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 buffer.appendleft(sc_t)
-                y, x = solve(self.system, x, h, buffer.pop())
+
+                if ctrl.isdtime(self.system, strict=True):
+                    y, x = solve(self.system, x, h, buffer.pop())
+                else:
+                    h, h_new2, y, x = self.rk4adaptativo(self.system,
+                                                            h,
+                                                            tiempo,
+                                                            max_tiempo[setpoint_window],
+                                                            x,
+                                                            buffer.pop())
+                    h_new = min(h_new1, h_new2)
+
                 sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
