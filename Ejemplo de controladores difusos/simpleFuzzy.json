@@ -1,0 +1,204 @@
+[
+    [
+        {
+            "nombre": "error",
+            "numeroE": 5,
+            "etiquetas": [
+                {
+                    "nombre": "negativo grande",
+                    "mf": "trimf",
+                    "definicion": [
+                        -2,
+                        -1,
+                        -0.5
+                    ]
+                },
+                {
+                    "nombre": "negativo",
+                    "mf": "trimf",
+                    "definicion": [
+                        -1,
+                        -0.5,
+                        0
+                    ]
+                },
+                {
+                    "nombre": "cero",
+                    "mf": "trimf",
+                    "definicion": [
+                        -0.5,
+                        0,
+                        0.5
+                    ]
+                },
+                {
+                    "nombre": "positivo",
+                    "mf": "trimf",
+                    "definicion": [
+                        0,
+                        0.5,
+                        1.0
+                    ]
+                },
+                {
+                    "nombre": "positivo grande",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.5,
+                        1.0,
+                        2
+                    ]
+                }
+            ],
+            "rango": [
+                -1,
+                1
+            ]
+        }
+    ],
+    [
+        {
+            "nombre": "s_fuzzy",
+            "numeroE": 5,
+            "etiquetas": [
+                {
+                    "nombre": "negativa grande",
+                    "mf": "trimf",
+                    "definicion": [
+                        -2,
+                        -1,
+                        -0.5
+                    ]
+                },
+                {
+                    "nombre": "negativa",
+                    "mf": "trimf",
+                    "definicion": [
+                        -1,
+                        -0.5,
+                        0
+                    ]
+                },
+                {
+                    "nombre": "cero",
+                    "mf": "trimf",
+                    "definicion": [
+                        -0.5,
+                        0.0,
+                        0.5
+                    ]
+                },
+                {
+                    "nombre": "positiva",
+                    "mf": "trimf",
+                    "definicion": [
+                        0,
+                        0.5,
+                        1.0
+                    ]
+                },
+                {
+                    "nombre": "positiva grande",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.5,
+                        1.0,
+                        1.667
+                    ]
+                }
+            ],
+            "rango": [
+                -1,
+                1
+            ],
+            "metodo": "centroid"
+        }
+    ],
+    [
+        [
+            [
+                [
+                    "positivo grande",
+                    0,
+                    false
+                ]
+            ],
+            [
+                [
+                    "positiva grande",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "positivo",
+                    0,
+                    false
+                ]
+            ],
+            [
+                [
+                    "positiva",
+                    0,
+                    0.49999999999999956
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "cero",
+                    0,
+                    false
+                ]
+            ],
+            [
+                [
+                    "cero",
+                    0,
+                    0.09999999999999924
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "negativo",
+                    0,
+                    false
+                ]
+            ],
+            [
+                [
+                    "negativa",
+                    0,
+                    0.49999999999999956
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "negativo grande",
+                    0,
+                    false
+                ]
+            ],
+            [
+                [
+                    "negativa grande",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ]
+    ]
+]

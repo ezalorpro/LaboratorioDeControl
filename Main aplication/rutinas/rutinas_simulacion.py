@@ -101,7 +101,7 @@ class SimpleThread(QtCore.QThread):
         si_t = 0
 
         if ctrl.isdtime(self.system, strict=True):
-            error_a = 0
+            error_a = deque([0] * 2)
             solve = self.ss_discreta
             PIDf = self.PID_discreto
             h_new = self.dt
@@ -116,6 +116,15 @@ class SimpleThread(QtCore.QThread):
             acc_num = json.loads(self.window.main.numAccionador.text())
             acc_dem = json.loads(self.window.main.demAccionador.text())
             acc_system = ctrl.tf2ss(ctrl.TransferFunction(acc_num, acc_dem, delay=0))
+            if ctrl.isdtime(
+                    self.system, strict=True
+            ) and self.window.main.SimulacionstackedWidget.currentIndex() == 0:
+                acc_system = ctrl.sample_system(
+                    acc_system, self.dt, self.window.main.tfcomboBox4.currentText())
+            elif ctrl.isdtime(self.system, strict=True):
+                acc_system = ctrl.sample_system(
+                    acc_system, self.dt, self.window.main.sscomboBox4.currentText())
+
             acc_x = np.zeros_like(acc_system.B)
 
         if self.window.main.saturadorCheck.isChecked():
@@ -126,11 +135,20 @@ class SimpleThread(QtCore.QThread):
             sensor_num = json.loads(self.window.main.numSensor.text())
             sensor_dem = json.loads(self.window.main.demSensor.text())
             sensor_system = ctrl.tf2ss(ctrl.TransferFunction(sensor_num, sensor_dem, delay=0))
+            if ctrl.isdtime(
+                    self.system, strict=True
+            ) and self.window.main.SimulacionstackedWidget.currentIndex() == 0:
+                acc_system = ctrl.sample_system(
+                    sensor_system, self.dt, self.window.main.tfcomboBox4.currentText())
+            elif ctrl.isdtime(self.system, strict=True):
+                acc_system = ctrl.sample_system(
+                    sensor_system, self.dt, self.window.main.sscomboBox4.currentText())
             sensor_x = np.zeros_like(sensor_system.B)
             salida2 = deque([0])
 
         if self.N*kd == 0:
             self.N = 50
+            kd = 0
             pid = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.01, 1]) * ctrl.TransferFunction(
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
@@ -160,7 +178,7 @@ class SimpleThread(QtCore.QThread):
             if ctrl.isdtime(self.system, strict=True):
                 sc_t, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
             else:
-                h, h_new1, sc_t, x_pid = PIDf(pid, h, tiempo, max_tiempo[setpoint_window], x_pid, error)
+                h, h_new, sc_t, x_pid = PIDf(pid, h, tiempo, max_tiempo[setpoint_window], x_pid, error)
 
             if self.window.main.accionadorCheck.isChecked():
                 sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -170,16 +188,7 @@ class SimpleThread(QtCore.QThread):
 
             buffer.appendleft(sc_t)
 
-            if ctrl.isdtime(self.system, strict=True):
-                y, x = solve(self.system, x, h, buffer.pop())
-            else:
-                h, h_new2, y, x = self.rk4adaptativo(self.system,
-                                                        h,
-                                                        tiempo,
-                                                        max_tiempo[setpoint_window],
-                                                        x,
-                                                        buffer.pop())
-                h_new = min(h_new1, h_new2)
+            y, x = solve(self.system, x, h, buffer.pop())
 
             sc_f.append(sc_t)
 
@@ -279,6 +288,15 @@ class SimpleThread(QtCore.QThread):
             acc_num = json.loads(self.window.main.numAccionador.text())
             acc_dem = json.loads(self.window.main.demAccionador.text())
             acc_system = ctrl.tf2ss(ctrl.TransferFunction(acc_num, acc_dem, delay=0))
+            if ctrl.isdtime(
+                    self.system, strict=True
+            ) and self.window.main.SimulacionstackedWidget.currentIndex() == 0:
+                acc_system = ctrl.sample_system(
+                    acc_system, self.dt, self.window.main.tfcomboBox4.currentText())
+            elif ctrl.isdtime(self.system, strict=True):
+                acc_system = ctrl.sample_system(
+                    acc_system, self.dt, self.window.main.sscomboBox4.currentText())
+
             acc_x = np.zeros_like(acc_system.B)
 
         if self.window.main.saturadorCheck.isChecked():
@@ -290,6 +308,14 @@ class SimpleThread(QtCore.QThread):
             sensor_dem = json.loads(self.window.main.demSensor.text())
             sensor_system = ctrl.tf2ss(
                 ctrl.TransferFunction(sensor_num, sensor_dem, delay=0))
+            if ctrl.isdtime(
+                    self.system, strict=True
+            ) and self.window.main.SimulacionstackedWidget.currentIndex() == 0:
+                acc_system = ctrl.sample_system(
+                    sensor_system, self.dt, self.window.main.tfcomboBox4.currentText())
+            elif ctrl.isdtime(self.system, strict=True):
+                acc_system = ctrl.sample_system(
+                    sensor_system, self.dt, self.window.main.sscomboBox4.currentText())
             sensor_x = np.zeros_like(sensor_system.B)
             salida2 = deque([0])
 
@@ -303,15 +329,19 @@ class SimpleThread(QtCore.QThread):
 
             derivada = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+                ctrl.TransferFunction([self.N, 0], [1, self.N]))
             x_derivada = np.zeros_like(derivada.B)
 
             derivada2 = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+                ctrl.TransferFunction([self.N, 0], [1, self.N]) *
+                ctrl.TransferFunction([self.N, 0], [1, self.N]))
 
             x_derivada2 = np.zeros_like(derivada2.B)
+
+            if self.N == 0:
+                h = 0.05
+                h_new = h
 
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
@@ -325,11 +355,20 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                           max_tiempo[setpoint_window], x_derivada, error)
+                    if self.N != 0:
+                        h, h_new2, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
+                                                            max_tiempo[setpoint_window], x_derivada2, error)
 
-                    h, h_new2, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
-                                                           max_tiempo[setpoint_window], x_derivada2, error)
+                        h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                            max_tiempo[setpoint_window], x_derivada, error)
+
+                        h_new = min(h_new1, h_new2)
+                    else:
+                        d_error = 0
+                        d2_error = 0
+
+
+
 
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error, d2_error],
                                                       [0] * 1)[0] * h
@@ -342,18 +381,9 @@ class SimpleThread(QtCore.QThread):
 
                 buffer.appendleft(sc_t)
 
-                if ctrl.isdtime(self.system, strict=True):
-                    y, x = solve(self.system, x, h, buffer.pop())
-                else:
-                    h, h_new3, y, x = self.rk4adaptativo(self.system,
-                                                            h,
-                                                            tiempo,
-                                                            max_tiempo[setpoint_window],
-                                                            x,
-                                                            buffer.pop())
-                    h_new = min(h_new1, h_new2, h_new3)
+                y, x = solve(self.system, x, h, buffer.pop())
 
-                sc_f.append(d_error)
+                sc_f.append(sc_t)
 
                 if self.window.main.sensorCheck.isChecked():
                     salida2.append(y)
@@ -379,8 +409,12 @@ class SimpleThread(QtCore.QThread):
 
             derivada = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+                ctrl.TransferFunction([self.N, 0], [1, self.N]))
             x_derivada = np.zeros_like(derivada.B)
+
+            if self.N == 0:
+                h = 0.05
+                h_new = h
 
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
@@ -394,8 +428,11 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    if self.N != 0:
+                        h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
+                    else:
+                        d_error = 0
 
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
 
@@ -407,16 +444,7 @@ class SimpleThread(QtCore.QThread):
 
                 buffer.appendleft(sc_t)
 
-                if ctrl.isdtime(self.system, strict=True):
-                    y, x = solve(self.system, x, h, buffer.pop())
-                else:
-                    h, h_new2, y, x = self.rk4adaptativo(self.system,
-                                                            h,
-                                                            tiempo,
-                                                            max_tiempo[setpoint_window],
-                                                            x,
-                                                            buffer.pop())
-                    h_new = min(h_new1, h_new2)
+                y, x = solve(self.system, x, h, buffer.pop())
 
                 sc_f.append(sc_t)
 
@@ -444,8 +472,12 @@ class SimpleThread(QtCore.QThread):
 
             derivada = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+                ctrl.TransferFunction([self.N, 0], [1, self.N]))
             x_derivada = np.zeros_like(derivada.B)
+
+            if self.N == 0:
+                h = 0.05
+                h_new = h
 
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
@@ -459,8 +491,11 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    if self.N != 0:
+                        h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
+                    else:
+                        d_error = 0
 
                 sc_t = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
 
@@ -472,16 +507,7 @@ class SimpleThread(QtCore.QThread):
 
                 buffer.appendleft(sc_t)
 
-                if ctrl.isdtime(self.system, strict=True):
-                    y, x = solve(self.system, x, h, buffer.pop())
-                else:
-                    h, h_new2, y, x = self.rk4adaptativo(self.system,
-                                                            h,
-                                                            tiempo,
-                                                            max_tiempo[setpoint_window],
-                                                            x,
-                                                            buffer.pop())
-                    h_new = min(h_new1, h_new2)
+                y, x = solve(self.system, x, h, buffer.pop())
 
                 sc_f.append(sc_t)
 
@@ -509,9 +535,13 @@ class SimpleThread(QtCore.QThread):
 
             derivada = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+                ctrl.TransferFunction([self.N, 0], [1, self.N]))
             x_derivada = np.zeros_like(derivada.B)
             spi = 0
+
+            if self.N == 0:
+                h = 0.05
+                h_new = h
 
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
@@ -525,8 +555,11 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    if self.N != 0:
+                        h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
+                    else:
+                        d_error = 0
 
                 spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
                 spd = fuzzy_c2.calcular_valor([error, d_error], [0] * 1)[0]
@@ -540,16 +573,7 @@ class SimpleThread(QtCore.QThread):
 
                 buffer.appendleft(sc_t)
 
-                if ctrl.isdtime(self.system, strict=True):
-                    y, x = solve(self.system, x, h, buffer.pop())
-                else:
-                    h, h_new2, y, x = self.rk4adaptativo(self.system,
-                                                            h,
-                                                            tiempo,
-                                                            max_tiempo[setpoint_window],
-                                                            x,
-                                                            buffer.pop())
-                    h_new = min(h_new1, h_new2)
+                y, x = solve(self.system, x, h, buffer.pop())
 
                 sc_f.append(sc_t)
 
@@ -577,9 +601,13 @@ class SimpleThread(QtCore.QThread):
 
             derivada = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+                ctrl.TransferFunction([self.N, 0], [1, self.N]))
             x_derivada = np.zeros_like(derivada.B)
             spi = 0
+
+            if self.N == 0:
+                h = 0.05
+                h_new = h
 
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
@@ -593,8 +621,11 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    if self.N != 0:
+                        h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
+                    else:
+                        d_error = 0
 
                 spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
                 sc_t = spi + d_error*kd
@@ -607,16 +638,7 @@ class SimpleThread(QtCore.QThread):
 
                 buffer.appendleft(sc_t)
 
-                if ctrl.isdtime(self.system, strict=True):
-                    y, x = solve(self.system, x, h, buffer.pop())
-                else:
-                    h, h_new2, y, x = self.rk4adaptativo(self.system,
-                                                            h,
-                                                            tiempo,
-                                                            max_tiempo[setpoint_window],
-                                                            x,
-                                                            buffer.pop())
-                    h_new = min(h_new1, h_new2)
+                y, x = solve(self.system, x, h, buffer.pop())
 
                 sc_f.append(sc_t)
 
@@ -645,9 +667,13 @@ class SimpleThread(QtCore.QThread):
 
             derivada = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+                ctrl.TransferFunction([self.N, 0], [1, self.N]))
             x_derivada = np.zeros_like(derivada.B)
             spi = 0
+
+            if self.N == 0:
+                h = 0.05
+                h_new = h
 
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
@@ -661,8 +687,10 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                    if self.N != 0:
+                        h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error)
+                        d_error = 0
 
                 spi = spi + error*h
                 spd = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
@@ -676,16 +704,7 @@ class SimpleThread(QtCore.QThread):
 
                 buffer.appendleft(sc_t)
 
-                if ctrl.isdtime(self.system, strict=True):
-                    y, x = solve(self.system, x, h, buffer.pop())
-                else:
-                    h, h_new2, y, x = self.rk4adaptativo(self.system,
-                                                            h,
-                                                            tiempo,
-                                                            max_tiempo[setpoint_window],
-                                                            x,
-                                                            buffer.pop())
-                    h_new = min(h_new1, h_new2)
+                y, x = solve(self.system, x, h, buffer.pop())
 
                 sc_f.append(sc_t)
 
@@ -712,16 +731,15 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 7:
 
-            pid = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) * ctrl.TransferFunction(
-                    [self.N * 1 + 1, self.N * 1 + 1, self.N * 1], [1, self.N, 0]))
-            x_pid = np.zeros_like(pid.B)
-
             derivada = ctrl.tf2ss(
                 ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 1], [1, self.N]))
+                ctrl.TransferFunction([self.N, 0], [1, self.N]))
             x_derivada = np.zeros_like(derivada.B)
             spi = 0
+
+            if self.N == 0:
+                h = 0.05
+                h_new = h
 
             while tiempo < tiempo_total:
                 if not isinstance(self.escalon, float):
@@ -735,20 +753,16 @@ class SimpleThread(QtCore.QThread):
                 if ctrl.isdtime(self.system, strict=True):
                     d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
                 else:
-                    h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                           max_tiempo[setpoint_window], x_derivada, error)
+                    if self.N != 0:
+                        h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                                                            max_tiempo[setpoint_window], x_derivada, error)
+                    else:
+                        d_error = 0
 
                 kp, ki, kd = fuzzy_c1.calcular_valor([error, d_error], [0] * 3)
 
                 spi = spi + error*h
                 sc_t = spi*ki + d_error*kd + error*kp
-
-                # pid = ctrl.tf2ss(
-                #     ctrl.TransferFunction(
-                #         [self.N * kd + kp, self.N * kp + ki, self.N * ki],
-                #         [1, self.N, 0]))
-
-                # sc_t, x_pid = solve(pid, x_pid, h, error)
 
                 if self.window.main.accionadorCheck.isChecked():
                     sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -758,16 +772,7 @@ class SimpleThread(QtCore.QThread):
 
                 buffer.appendleft(sc_t)
 
-                if ctrl.isdtime(self.system, strict=True):
-                    y, x = solve(self.system, x, h, buffer.pop())
-                else:
-                    h, h_new2, y, x = self.rk4adaptativo(self.system,
-                                                            h,
-                                                            tiempo,
-                                                            max_tiempo[setpoint_window],
-                                                            x,
-                                                            buffer.pop())
-                    h_new = min(h_new1, h_new2)
+                y, x = solve(self.system, x, h, buffer.pop())
 
                 sc_f.append(sc_t)
 
@@ -793,7 +798,71 @@ class SimpleThread(QtCore.QThread):
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
         if self.esquema == 8:
-            pass
+
+            if self.N*kd == 0:
+                self.N = 50
+                kd = 0
+                pid = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [0.01, 1]) * ctrl.TransferFunction(
+                        [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
+            else:
+                pid = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [0.1, 1]) * ctrl.TransferFunction(
+                        [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
+
+            x_pid = np.zeros_like(pid.B)
+
+            while tiempo < tiempo_total:
+                if not isinstance(self.escalon, float):
+                    if tiempo + h >= max_tiempo[
+                            setpoint_window] and setpoint_window < index_tbound:
+                        setpoint_window += 1
+                    u = u_value[setpoint_window]
+
+                error = u - salida[i]
+
+                if ctrl.isdtime(self.system, strict=True):
+                    s_pid, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
+                else:
+                    h, h_new, s_pid, x_pid = PIDf(pid, h, tiempo,
+                                                 max_tiempo[setpoint_window], x_pid, error)
+
+                s_fuzzy = fuzzy_c1.calcular_valor([error], [0] * 1)[0]
+
+                sc_t = s_pid + s_fuzzy
+
+                if self.window.main.accionadorCheck.isChecked():
+                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+
+                if self.window.main.saturadorCheck.isChecked():
+                    sc_t = min(max(sc_t, lim_inferior), lim_superior)
+
+                buffer.appendleft(sc_t)
+
+                y, x = solve(self.system, x, h, buffer.pop())
+
+                sc_f.append(sc_t)
+
+                if self.window.main.sensorCheck.isChecked():
+                    salida2.append(y)
+                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+
+                salida.append(y)
+
+                if int(tiempo) % ten_percent == 0:
+                    self.update_progresBar.emit(self.window,
+                                                int(tiempo) * 100 / tiempo_total)
+
+                setpoint.append(u)
+                tiempo += h
+                Tiempo_list.append(tiempo)
+                h = h_new
+                i += 1
+
+            if self.window.main.sensorCheck.isChecked():
+                salida = salida2
+
+            return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
     def rk4adaptativo(self,
                       systema,
@@ -807,6 +876,7 @@ class SimpleThread(QtCore.QThread):
                       max_step_increase=5,
                       min_step_decrease=0.2,
                       safety_factor=0.9):
+
         while True:
             if tiempo + h_ant >= tbound:
                 h_ant = tbound - tiempo
@@ -871,9 +941,10 @@ class SimpleThread(QtCore.QThread):
     def PID_discreto(self, error, ts, s_integral, error_anterior, kp, ki, kd):
         s_proporcional = error
         s_integral = s_integral + error*ts
-        s_derivativa = (error - error_anterior) / ts
+        s_derivativa = (error - error_anterior[0]) / ts
         s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
-        error_anterior = error
+        error_anterior.pop()
+        error_anterior.appendleft(error)
         return s_control, s_integral, error_anterior
 
     def derivadas_discretas(self, error, ts, error_anterior):
