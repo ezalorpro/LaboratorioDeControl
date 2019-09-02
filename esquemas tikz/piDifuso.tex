@@ -27,6 +27,38 @@
 }
 \makeatother
 
+\makeatletter
+
+\pgfdeclareshape{fuzzyBlock}{
+\inheritsavedanchors[from={rectangle}]
+\inheritbackgroundpath[from={rectangle}]
+\inheritanchorborder[from={rectangle}]
+\foreach \x in {center,north east,north west,north,south,south east,south west, west, east}{
+\inheritanchor[from={rectangle}]{\x}
+}
+\foregroundpath{
+\pgfpointdiff{\northeast}{\southwest}
+\pgf@xa=\pgf@x \pgf@ya=\pgf@y
+\northeast
+
+\pgfpathmoveto{\pgfpoint{0.45\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.45\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0.4\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0.2\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0.2\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.2\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.2\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.4\pgf@xa}{0.33\pgf@ya}}
+}
+}
+\makeatother
+
 \begin{document}
 
 \tikzset{%
@@ -63,6 +95,13 @@
         outer sep=-1pt,
         inner sep=0pt, 
         node distance=0.6cm
+    },
+    EmptyBlock/.style={
+        circle,
+        minimum size=0pt,
+        outer sep=-1pt,
+        inner sep=-1pt, 
+        node distance=2cm
     }
 }
 
@@ -70,22 +109,35 @@
 
     \node[input] (input) {};
     \node [sum, right = of input] (sum) {};
-    \node [block1, right = of sum] (filtro) {$\frac{1}{0.1s + 1}$};
-    \node [block1, right = of filtro] (controller) {$PID$};
-    \node [block1, right = of controller] (actuador) {$A(s)$};
+    \node [branch, node distance=0.4cm, right = of sum] (errorjoint) {};
+    \node [block1, right = of errorjoint] (filtro) {$\frac{1}{0.1s + 1}$};
+    \node [block1, node distance=0.45cm, right = of filtro] (derivada) {$\frac{Ns}{1+\frac{N}{s}}$};
+    
+    \coordinate[node distance=0.8cm, above = of errorjoint] (empty1) {};
+    \coordinate[node distance=3.5cm, right = of empty1] (empty2) {};
+    
+    \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=0.6cm, draw, right = of derivada] (controller) {};
+    \node [block1, minimum height=2em, minimum width=1em, right = of controller] (integrador) {$\frac{1}{s}$};
+
+    \node [block1, right = of integrador] (actuador) {$A(s)$};
     \node [record, minimum size=2em, node distance=0.6cm, draw, right = of actuador] (saturador) {};
     \node [block1, right = of saturador] (system) {$G(s)$};
-    \node [branch, right = of system] (yjoint) {};
+    \node [branch, node distance=0.4cm, right = of system] (yjoint) {};
     \node [output, right = of yjoint] (output) {};
-    \node [block1, node distance=1cm, below = of actuador] (sensor){$H(s)$};
+    \node [block1, node distance=1.2cm, below = of integrador] (sensor){$H(s)$};
     
 
     \draw [draw,->] (input) node[above right] {$sp$} -- (sum);
-    \draw [->] (sum) -- (filtro);
-    \draw [->] (filtro) -- (controller);
-    \draw [->] (controller) -- (actuador);
+    \draw [-] (sum) -- (errorjoint);
+    \draw [-] (errorjoint) -- (empty1);
+    \draw [->] (errorjoint) -- (filtro);
+    \draw [->] (filtro) -- (derivada);
+    \draw [-] (empty1) -- (empty2);
+    \draw [->] (empty2) |- ([yshift=1em]controller);
+    \draw [->] ([xshift=1em]derivada) |- (controller);
+    \draw [->] (controller) -- (integrador);
+    \draw [->] (integrador) -- (actuador);
     \draw [->] (actuador) -- (saturador);
-    
     \draw [->] (saturador) -- (system);
     \draw [-] (system) -- (yjoint);
     \draw [->] (yjoint) -- (output) node [name=y, above left] {$Vp$};

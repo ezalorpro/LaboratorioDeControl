@@ -88,7 +88,7 @@
     \draw [-] (system) -- (yjoint);
     \draw [->] (yjoint) -- (output) node [name=y, above left] {$Vp$};
     \draw [->] (yjoint.south) |- (sensor);
-    \draw [->] (sensor) -| node[pos=0.99, right] {$-$} node [pos=.25, above] {} (sum);
+    \draw [->] (sensor) -| node[pos=0.97, right] {\tiny{$-$}} (sum);
     \draw[thick,dashed] ($(actuador.north west)+(-0.2,0.1)$)  rectangle ($(saturador.south east)+(0.2,-0.1)$);
     \draw[thick,dashed] ($(sensor.north west)+(-0.2,0.1)$)  rectangle ($(sensor.south east)+(0.2,-0.1)$);
 
