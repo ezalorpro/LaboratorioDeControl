@@ -70,22 +70,20 @@
 
     \node[input] (input) {};
     \node [sum, right = of input] (sum) {};
-    \node [block1, right = of sum] (filtro) {$\frac{1}{0.1s + 1}$};
-    \node [block1, right = of filtro] (controller) {$PID$};
+    \node [block1, right = of sum] (controller) {$PI$};
     \node [block1, right = of controller] (actuador) {$A(s)$};
     \node [record, minimum size=2em, node distance=0.6cm, draw, right = of actuador] (saturador) {};
     \node [block1, right = of saturador] (system) {$G(s)$};
     \node [branch, right = of system] (yjoint) {};
-    \node [output, right = of yjoint] (output) {};
-    \node [block1, node distance=1cm, below = of actuador] (sensor){$H(s)$};
-    
+    \node [output, right = of yjoint] (output) {};    
 
     \draw [draw,->] (input) node[above right] {$sp$} -- (sum);
-    \draw [->] (sum) -- (filtro);
-    \draw [->] (filtro) -- (controller);
+    \draw [->] (sum) -- (controller);
     \draw [->] (controller) -- (actuador);
-    \draw [->] (actuador) -- (saturador);
+    \draw [->] (actuador) -- node[name=empty, above left] {} (saturador);
     
+    \node [block1, node distance=1cm, below = of empty] (sensor){$H(s)$};
+
     \draw [->] (saturador) -- (system);
     \draw [-] (system) -- (yjoint);
     \draw [->] (yjoint) -- (output) node [name=y, above left] {$Vp$};

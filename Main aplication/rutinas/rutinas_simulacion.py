@@ -149,8 +149,7 @@ class SimpleThread(QtCore.QThread):
         if self.N*kd == 0:
             self.N = 50
             kd = 0
-            pid = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.01, 1]) * ctrl.TransferFunction(
+            pid = ctrl.tf2ss(ctrl.TransferFunction(
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
         else:
             pid = ctrl.tf2ss(
@@ -802,8 +801,7 @@ class SimpleThread(QtCore.QThread):
             if self.N*kd == 0:
                 self.N = 50
                 kd = 0
-                pid = ctrl.tf2ss(
-                    ctrl.TransferFunction([1], [0.01, 1]) * ctrl.TransferFunction(
+                pid = ctrl.tf2ss(ctrl.TransferFunction(
                         [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
             else:
                 pid = ctrl.tf2ss(
