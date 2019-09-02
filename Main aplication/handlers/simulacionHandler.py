@@ -102,7 +102,7 @@ def calcular_simulacion(self):
             self.main.kiSimulacion.text(),
             self.main.kdSimulacion.text(),
             self.main.NSimulacion.text()
-        ], 
+        ],
         [self.main.pathController1.text(), self.main.pathController2.text()]
     ]
 
@@ -156,6 +156,7 @@ def accion_esquema_selector(self):
     self.main.kdFrame.hide()
 
     index = self.main.esquemaSimulacion.currentIndex()
+    self.main.tabSimulation.setCurrentIndex(0)
 
     if index == 0:
         self.main.controller1Frame.hide()
@@ -166,10 +167,15 @@ def accion_esquema_selector(self):
         self.main.kdCheck.show()
         self.main.kiCheck.show()
         self.main.NFrame.show()
+        self.main.labelFiltro.show()
+
         if self.main.kdCheck.isChecked():
             self.main.NSimulacion.setEnabled(True)
         else:
             self.main.NSimulacion.setDisabled(True)
+
+        self.main.esquemaSimulacionGraph.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/pidClasico.png"))
 
 
     if index in [1, 2, 3, 7]:
@@ -180,6 +186,23 @@ def accion_esquema_selector(self):
         self.main.kdFrame.hide()
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.labelFiltro.hide()
+
+        if index == 1:
+            self.main.esquemaSimulacionGraph.setPixmap(
+                QtGui.QPixmap(":/imagenes/imagenes/pidDifuso.png"))
+
+        if index == 2:
+            self.main.esquemaSimulacionGraph.setPixmap(
+                QtGui.QPixmap(":/imagenes/imagenes/piDifuso.png"))
+
+        if index == 3:
+            self.main.esquemaSimulacionGraph.setPixmap(
+                QtGui.QPixmap(":/imagenes/imagenes/pdDifuso.png"))
+
+        if index == 7:
+            self.main.esquemaSimulacionGraph.setPixmap(
+                QtGui.QPixmap(":/imagenes/imagenes/GainScheduler.png"))
 
     if index == 4:
         self.main.controller1Frame.show()
@@ -189,6 +212,9 @@ def accion_esquema_selector(self):
         self.main.kdFrame.hide()
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.labelFiltro.hide()
+        self.main.esquemaSimulacionGraph.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/pipdDifuso.png"))
 
     if index == 5:
         self.main.controller1Frame.show()
@@ -201,6 +227,9 @@ def accion_esquema_selector(self):
         self.main.kdSimulacion.setEnabled(True)
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.labelFiltro.hide()
+        self.main.esquemaSimulacionGraph.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/piplusDDifuso.png"))
 
     if index == 6:
         self.main.controller1Frame.show()
@@ -213,6 +242,9 @@ def accion_esquema_selector(self):
         self.main.kiSimulacion.setEnabled(True)
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.labelFiltro.hide()
+        self.main.esquemaSimulacionGraph.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/pdplusIDifuso.png"))
 
     if index == 8:
         self.main.controller1Frame.show()
@@ -225,6 +257,10 @@ def accion_esquema_selector(self):
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
         self.main.NSimulacion.setEnabled(True)
+        self.main.labelFiltro.show()
+
+        self.main.esquemaSimulacionGraph.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/pidplusDifuso.png"))
 
 
 def enabled_N(self):
@@ -289,3 +325,4 @@ def plot_final_results(self, result):
     self.main.progressBar.setValue(0)
     self.main.progressBar.hide()
     self.main.principalTab.setEnabled(True)
+    self.main.tabSimulation.setCurrentIndex(1)

@@ -6781,7 +6781,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>523</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -7089,7 +7089,7 @@
        <attribute name="title">
         <string>Simulacion</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_98">
+       <layout class="QGridLayout" name="gridLayout_109">
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_59">
           <item>
@@ -7979,6 +7979,15 @@
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="configuracionAdvPage">
+             <attribute name="icon">
+              <iconset resource="imagenes.qrc">
+               <normaloff>:/iconos/arrow.ico</normaloff>:/iconos/arrow.ico</iconset>
+             </attribute>
+             <attribute name="label">
+              <string>Configuracion avanzada</string>
+             </attribute>
+            </widget>
             <widget class="QWidget" name="bloquesPage">
              <property name="geometry">
               <rect>
@@ -8190,65 +8199,6 @@
                  </widget>
                 </item>
                </layout>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="esquemaPage">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>262</width>
-               <height>180</height>
-              </rect>
-             </property>
-             <attribute name="icon">
-              <iconset resource="imagenes.qrc">
-               <normaloff>:/iconos/arrow.ico</normaloff>:/iconos/arrow.ico</iconset>
-             </attribute>
-             <attribute name="label">
-              <string>Esquema</string>
-             </attribute>
-             <layout class="QGridLayout" name="gridLayout_102">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <item row="0" column="0">
-               <widget class="QLabel" name="esquemaSimulacionGraph">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>250</width>
-                  <height>120</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="pixmap">
-                 <pixmap resource="imagenes.qrc">:/imagenes/imagenes/esquemaPIDdifuso.png</pixmap>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-                <property name="wordWrap">
-                 <bool>false</bool>
-                </property>
-               </widget>
               </item>
              </layout>
             </widget>
@@ -8710,16 +8660,103 @@
          </layout>
         </item>
         <item row="0" column="1">
-         <widget class="MlpWidgetSubplot" name="simulacionGraph">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QTabWidget" name="tabSimulation">
+          <property name="currentIndex">
+           <number>0</number>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>Esquema</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_110">
+            <item row="0" column="0">
+             <widget class="QLabel" name="esquemaSimulacionGraph">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>980</width>
+                <height>270</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="imagenes.qrc">:/imagenes/imagenes/pidClasico.png</pixmap>
+              </property>
+              <property name="scaledContents">
+               <bool>true</bool>
+              </property>
+              <property name="wordWrap">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QFrame" name="frame_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Plain</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_102">
+               <item row="0" column="0">
+                <widget class="QLabel" name="labelBloques">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;-- Bloques opcionales, solo formaran parte del sistema si son explicitamente habilitados&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="labelFiltro">
+                 <property name="text">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff0000;&quot;&gt;--&lt;/span&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;  Filtro de entrada, solo formara parte del esquema si se habilita la componente derivativa&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab">
+           <attribute name="title">
+            <string>Simulacion</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_98">
+            <item row="0" column="0">
+             <widget class="MlpWidgetSubplot" name="simulacionGraph">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
