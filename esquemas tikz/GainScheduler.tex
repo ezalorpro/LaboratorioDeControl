@@ -113,7 +113,7 @@
     \coordinate[node distance=1cm, right = of errorjoint] (empty1) {};
     \node [branch, node distance=1.45cm, right = of empty1] (errorjoint2) {};
     \node [block1, node distance=1cm, above = of errorjoint] (filtro) {$\frac{1}{0.1s + 1}$};
-    \node [block1, node distance=0.45cm, right = of filtro] (derivada) {$\frac{Ns}{1+\frac{N}{s}}$};
+    \node [block1, node distance=0.45cm, right = of filtro] (derivada) {$\frac{N}{1+\frac{N}{s}}$};
     
     \node [fuzzyBlock, minimum height=2em, minimum width=3em, draw, right = of derivada] (controller) {};
     \node [block1, right = of errorjoint2] (controllerpid) {$PID$};
