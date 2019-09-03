@@ -92,7 +92,6 @@ class SimpleThread(QtCore.QThread):
             ten_percent = 1
 
         x = np.zeros_like(self.system.B)
-        buffer = deque([0] * int(self.system.delay / self.dt))
         h = 0.000001
 
         salida = deque([0])
@@ -185,9 +184,7 @@ class SimpleThread(QtCore.QThread):
             if self.window.main.saturadorCheck.isChecked():
                 sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-            buffer.appendleft(sc_t)
-
-            y, x = solve(self.system, x, h, buffer.pop())
+            y, x = solve(self.system, x, h, sc_t)
 
             sc_f.append(sc_t)
 
@@ -263,7 +260,6 @@ class SimpleThread(QtCore.QThread):
             ten_percent = 1
 
         x = np.zeros_like(self.system.B)
-        buffer = deque([0] * int(self.system.delay / self.dt))
         h = 0.000001
 
         salida = deque([0])
@@ -378,9 +374,7 @@ class SimpleThread(QtCore.QThread):
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-                buffer.appendleft(sc_t)
-
-                y, x = solve(self.system, x, h, buffer.pop())
+                y, x = solve(self.system, x, h, sc_t)
 
                 sc_f.append(sc_t)
 
@@ -441,9 +435,7 @@ class SimpleThread(QtCore.QThread):
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-                buffer.appendleft(sc_t)
-
-                y, x = solve(self.system, x, h, buffer.pop())
+                y, x = solve(self.system, x, h, sc_t)
 
                 sc_f.append(sc_t)
 
@@ -504,9 +496,7 @@ class SimpleThread(QtCore.QThread):
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-                buffer.appendleft(sc_t)
-
-                y, x = solve(self.system, x, h, buffer.pop())
+                y, x = solve(self.system, x, h, sc_t)
 
                 sc_f.append(sc_t)
 
@@ -570,9 +560,7 @@ class SimpleThread(QtCore.QThread):
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-                buffer.appendleft(sc_t)
-
-                y, x = solve(self.system, x, h, buffer.pop())
+                y, x = solve(self.system, x, h, sc_t)
 
                 sc_f.append(sc_t)
 
@@ -635,9 +623,7 @@ class SimpleThread(QtCore.QThread):
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-                buffer.appendleft(sc_t)
-
-                y, x = solve(self.system, x, h, buffer.pop())
+                y, x = solve(self.system, x, h, sc_t)
 
                 sc_f.append(sc_t)
 
@@ -701,9 +687,7 @@ class SimpleThread(QtCore.QThread):
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-                buffer.appendleft(sc_t)
-
-                y, x = solve(self.system, x, h, buffer.pop())
+                y, x = solve(self.system, x, h, sc_t)
 
                 sc_f.append(sc_t)
 
@@ -769,9 +753,7 @@ class SimpleThread(QtCore.QThread):
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-                buffer.appendleft(sc_t)
-
-                y, x = solve(self.system, x, h, buffer.pop())
+                y, x = solve(self.system, x, h, sc_t)
 
                 sc_f.append(sc_t)
 
@@ -835,9 +817,7 @@ class SimpleThread(QtCore.QThread):
                 if self.window.main.saturadorCheck.isChecked():
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
-                buffer.appendleft(sc_t)
-
-                y, x = solve(self.system, x, h, buffer.pop())
+                y, x = solve(self.system, x, h, sc_t)
 
                 sc_f.append(sc_t)
 
@@ -992,12 +972,20 @@ def system_creator_tf(self, numerador, denominador):
         delay = 0
 
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
+    
+    if delay and not self.main.tfdiscretocheckBox4.isChecked():
+        pade = ctrl.TransferFunction(*ctrl.pade(delay, 10))
+        system = system*pade
 
     if self.main.tfdiscretocheckBox4.isChecked():
         system = ctrl.sample_system(system,
                                     self.dt,
                                     self.main.tfcomboBox4.currentText(),
                                     delay=delay)
+        if delay:
+            delayV = [0] * (int(delay / self.dt) + 1)
+            delayV[0] = 1
+            system = system * ctrl.TransferFunction([1], delayV, self.dt)
 
     return system
 

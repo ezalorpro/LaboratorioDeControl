@@ -134,21 +134,49 @@ def check_esquema_show(self):
 def show_esquema(self):
     if self.main.fuzzyEsquemas.currentIndex() == 0:
         self.main.imagenEsquemas.setPixmap(
-            QtGui.QPixmap(":/imagenes/imagenes/esquemaPIDdifuso.png")
+            QtGui.QPixmap(":/imagenes/imagenes/pidDifuso.png")
         )
+        self.main.imagenInputs.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/entrada3.png")
+        )
+        self.main.imagenOutputs.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/salida1.png")
+        )
+    elif self.main.fuzzyEsquemas.currentIndex() == 1:
+        self.main.imagenEsquemas.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/piDifuso.png"))
         self.main.imagenInputs.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/entrada2.png")
         )
         self.main.imagenOutputs.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/salida1.png")
         )
-    elif self.main.fuzzyEsquemas.currentIndex() == 1:
-        print("otro esquema")
+    elif self.main.fuzzyEsquemas.currentIndex() == 2:
+        self.main.imagenEsquemas.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/pdDifuso.png"))
+        self.main.imagenInputs.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/entrada2.png")
+        )
+        self.main.imagenOutputs.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/salida1.png")
+        )
+    elif self.main.fuzzyEsquemas.currentIndex() == 3:
+        self.main.imagenEsquemas.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/GainScheduler.png"))
         self.main.imagenInputs.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/entrada2.png")
         )
         self.main.imagenOutputs.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/salida3.png")
+        )
+    elif self.main.fuzzyEsquemas.currentIndex() == 4:
+        self.main.imagenEsquemas.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/pidplusDifuso.png"))
+        self.main.imagenInputs.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/entrada1.png")
+        )
+        self.main.imagenOutputs.setPixmap(
+            QtGui.QPixmap(":/imagenes/imagenes/salida1.png")
         )
 
 
