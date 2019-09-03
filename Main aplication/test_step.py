@@ -1,25 +1,53 @@
-# import json
-# from collections import deque
-# # import pickle
-import controlmdf as ctrl
-# from skfuzzymdf import control as fuzz
-from matplotlib import pyplot as plt
-# from matplotlib import figure
-# from mpl_toolkits.mplot3d import Axes3D
-# import time
-# import pyqtgraph as pg
-# import sys
-# from PySide2 import QtWidgets, QtCore, QtGui
-import numpy as np
-# import pyvista as pv
-# from scipy import signal
-from scipy.integrate import RK45
-from scipy import signal
-# from multiprocessing import Queue
-# import math
+from qtconsole.qt import QtGui
+from qtconsole.rich_jupyter_widget import RichJupyterWidget
+from qtconsole.inprocess import QtInProcessKernelManager
 
-sistema = signal.StateSpace(signal.TransferFunction([1], [1, 1, 1]))
-print(sistema.A)
+
+def show():
+    global ipython_widget  # Prevent from being garbage collected
+
+    # Create an in-process kernel
+    kernel_manager = QtInProcessKernelManager()
+    kernel_manager.start_kernel(show_banner=False)
+    kernel = kernel_manager.kernel
+    kernel.gui = 'qt'
+
+    kernel_client = kernel_manager.client()
+    kernel_client.start_channels()
+
+    ipython_widget = RichJupyterWidget()
+    ipython_widget.kernel_manager = kernel_manager
+    ipython_widget.kernel_client = kernel_client
+    ipython_widget.show()
+
+
+if __name__ == "__main__":
+    app = QtGui.QApplication([])
+    show()
+    app.exec_()
+
+# # import json
+# # from collections import deque
+# # # import pickle
+# import controlmdf as ctrl
+# # from skfuzzymdf import control as fuzz
+# from matplotlib import pyplot as plt
+# # from matplotlib import figure
+# # from mpl_toolkits.mplot3d import Axes3D
+# # import time
+# # import pyqtgraph as pg
+# # import sys
+# # from PySide2 import QtWidgets, QtCore, QtGui
+# import numpy as np
+# # import pyvista as pv
+# # from scipy import signal
+# from scipy.integrate import RK45
+# from scipy import signal
+# # from multiprocessing import Queue
+# # import math
+
+# sistema = signal.StateSpace(signal.TransferFunction([1], [1, 1, 1]))
+# print(sistema.A)
 # a = np.asarray([[1, 2, 3], [2, 3, 4]])
 # b = np.asarray([3, 4])
 # print(len(a))

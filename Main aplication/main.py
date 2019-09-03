@@ -45,6 +45,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         event.ignore()
         if error_dialog == QtWidgets.QMessageBox.Ok:
+            self.main.jupyterWidget.jupyter_widget.kernel_client.stop_channels()
+            self.main.jupyterWidget.jupyter_widget.kernel_manager.shutdown_kernel()
             event.accept()
 
 
