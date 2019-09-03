@@ -972,7 +972,7 @@ def system_creator_tf(self, numerador, denominador):
         delay = 0
 
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
-    
+
     if delay and not self.main.tfdiscretocheckBox4.isChecked():
         pade = ctrl.TransferFunction(*ctrl.pade(delay, 10))
         system = system*pade
@@ -998,10 +998,18 @@ def system_creator_ss(self, A, B, C, D):
 
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
 
+    if delay and not self.main.ssdiscretocheckBox4.isChecked():
+        pade = ctrl.TransferFunction(*ctrl.pade(delay, 10))
+        system = system*pade
+
     if self.main.ssdiscretocheckBox4.isChecked():
         system = ctrl.sample_system(system,
                                     self.dt,
                                     self.main.sscomboBox4.currentText(),
                                     delay=delay)
+        if delay:
+            delayV = [0] * (int(delay / self.dt) + 1)
+            delayV[0] = 1
+            system = system * ctrl.TransferFunction([1], delayV, self.dt)
 
     return system
