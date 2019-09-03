@@ -5,36 +5,36 @@
             "numeroE": 3,
             "etiquetas": [
                 {
-                    "nombre": "Bajo",
+                    "nombre": "negativo",
                     "mf": "trimf",
                     "definicion": [
-                        -110.0,
-                        -100.0,
+                        -1.1,
+                        -1.0,
                         0.0
                     ]
                 },
                 {
-                    "nombre": "Medio",
+                    "nombre": "cero",
                     "mf": "trimf",
                     "definicion": [
-                        -100.0,
+                        -1.0,
                         0.0,
-                        100.0
+                        1.0
                     ]
                 },
                 {
-                    "nombre": "Alto",
+                    "nombre": "positivo",
                     "mf": "trimf",
                     "definicion": [
                         0.0,
-                        100.0,
-                        110.0
+                        1.0,
+                        1.1
                     ]
                 }
             ],
             "rango": [
-                -100,
-                100
+                -1,
+                1
             ]
         },
         {
@@ -42,36 +42,36 @@
             "numeroE": 3,
             "etiquetas": [
                 {
-                    "nombre": "Bajo",
+                    "nombre": "negativo",
                     "mf": "trimf",
                     "definicion": [
-                        -110.0,
-                        -100.0,
+                        -11.0,
+                        -10.0,
                         0.0
                     ]
                 },
                 {
-                    "nombre": "Medio",
+                    "nombre": "cero",
                     "mf": "trimf",
                     "definicion": [
-                        -100.0,
+                        -10.0,
                         0.0,
-                        100.0
+                        10.0
                     ]
                 },
                 {
-                    "nombre": "Alto",
+                    "nombre": "positivo",
                     "mf": "trimf",
                     "definicion": [
                         0.0,
-                        100.0,
-                        110.0
+                        10.0,
+                        11.0
                     ]
                 }
             ],
             "rango": [
-                -100,
-                100
+                -10,
+                10
             ]
         }
     ],
@@ -102,7 +102,7 @@
                     "nombre": "Alto",
                     "mf": "trimf",
                     "definicion": [
-                        5,
+                        5.0,
                         10.0,
                         11.0
                     ]
