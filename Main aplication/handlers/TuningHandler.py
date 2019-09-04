@@ -227,8 +227,10 @@ def calcular_csv(self):
                              encoding=None,
                              autostrip=True,
                              dtype=None)
-    
-    csv_data = procesar_csv(self, csv_data)
+
+    csv_data, info = procesar_csv(self, csv_data)
+    Kc, tau, y1, y2, t0, t1, t2 = calcular_modelo(self, csv_data, *info)
+    entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2)
 
 
 def csv_path(self):
