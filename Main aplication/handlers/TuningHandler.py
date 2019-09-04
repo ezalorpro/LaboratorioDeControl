@@ -1,8 +1,9 @@
 from rutinas.rutinas_PID import *
+from rutinas.rutinas_CSV import *
 import json
 
 
-def PIDHandler(self):
+def TuningHandler(self):
     self.tfSliderValue = self.main.tfreolutionSpin2.value()
     self.ssSliderValue = self.main.ssreolutionSpin2.value()
 
@@ -24,6 +25,7 @@ def PIDHandler(self):
 
     self.main.tfradioButton2.toggled.connect(lambda: PID_stacked_to_tf(self))
     self.main.ssradioButton2.toggled.connect(lambda: PID_stacked_to_ss(self))
+    self.main.csvradioButton2.toggled.connect(lambda: PID_stacked_to_csv(self))
 
     self.main.tfAutoTuningcheckBox2.clicked['bool'].connect(
         lambda: tf_habilitar_sliders_checkbox(self)
@@ -46,8 +48,11 @@ def chequeo_de_accion(self):
     elif self.main.tfAutoTuningcheckBox2.isChecked(
     ) and self.main.PIDstackedWidget.currentIndex() == 0:
         calcular_autotuning(self)
-    else:
+    elif self.main.ssAutoTuningcheckBox2.isChecked(
+    ) and self.main.PIDstackedWidget.currentIndex() == 1:
         calcular_autotuning(self)
+    else:
+        calcular_csv(self)
 
 
 def calcular_PID(self):
@@ -210,6 +215,10 @@ def calcular_autotuning(self):
         update_time_and_N_labels(self)
 
 
+def calcular_csv(self):
+    pass
+
+
 def PID_bool_discreto(self):
     if self.main.tfdiscretocheckBox2.isChecked():
         self.main.tfperiodoEdit2.setEnabled(True)
@@ -219,11 +228,15 @@ def PID_bool_discreto(self):
 
 def PID_stacked_to_tf(self):
     self.main.PIDstackedWidget.setCurrentIndex(0)
+    self.main.GraphStakedTuning.setCurrentIndex(0)
     tf_habilitar_sliders_checkbox(self)
     update_gain_labels(self, resolution=self.tfSliderValue)
 
 
 def tf_habilitar_sliders_checkbox(self):
+    
+    self.main.pidNSlider.setEnabled(True)
+    
     if self.main.tfAutoTuningcheckBox2.isChecked():
         self.main.kpCheckBox2.setDisabled(True)
         self.main.kiCheckBox2.setDisabled(True)
@@ -254,11 +267,15 @@ def tf_habilitar_sliders_checkbox(self):
 
 def PID_stacked_to_ss(self):
     self.main.PIDstackedWidget.setCurrentIndex(1)
+    self.main.GraphStakedTuning.setCurrentIndex(0)
     ss_habilitar_sliders_checkbox(self)
     update_gain_labels(self, resolution=self.ssSliderValue)
 
 
 def ss_habilitar_sliders_checkbox(self):
+    
+    self.main.pidNSlider.setEnabled(True)
+    
     if self.main.ssAutoTuningcheckBox2.isChecked():
         self.main.kpCheckBox2.setDisabled(True)
         self.main.kiCheckBox2.setDisabled(True)
@@ -295,3 +312,15 @@ def actualizar_sliders_tf(self):
 def actualizar_sliders_ss(self):
     self.ssSliderValue = self.main.ssreolutionSpin2.value()
     update_gain_labels(self, resolution=self.ssSliderValue)
+
+
+def PID_stacked_to_csv(self):
+    self.main.PIDstackedWidget.setCurrentIndex(2)
+    self.main.GraphStakedTuning.setCurrentIndex(1)
+    self.main.kpCheckBox2.setDisabled(True)
+    self.main.kiCheckBox2.setDisabled(True)
+    self.main.kdCheckBox2.setDisabled(True)
+    self.main.kpHSlider2.setDisabled(True)
+    self.main.kiHSlider2.setDisabled(True)
+    self.main.kdHSlider2.setDisabled(True)
+    self.main.pidNSlider.setDisabled(True)

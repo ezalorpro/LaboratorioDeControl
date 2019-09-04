@@ -1,7 +1,7 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from Ui_VentanaPrincipal import Ui_MainWindow
 from handlers.analisisHandler import AnalisisHandler
-from handlers.PIDHandler import PIDHandler
+from handlers.TuningHandler import TuningHandler
 from handlers.FuzzyHandler import FuzzyHandler
 from handlers.simulacionHandler import SimulacionHandler
 from handlers.jupyterConsoleHandler import jupyterConsoleHandler
@@ -28,7 +28,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.error_dialog.setWindowTitle("Error")
 
         AnalisisHandler(self)
-        PIDHandler(self)
+        TuningHandler(self)
         FuzzyHandler(self)
         SimulacionHandler(self)
         jupyterConsoleHandler(self)
