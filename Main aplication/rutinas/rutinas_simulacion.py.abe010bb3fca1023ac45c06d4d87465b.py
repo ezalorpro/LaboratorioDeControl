@@ -889,7 +889,7 @@ class SimpleThread(QtCore.QThread):
 
     def ss_discreta(self, ss, x, _, inputValue):
         x = np.dot(ss.A, x) + np.dot(ss.B, inputValue)
-        y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
+        y = np.dot(ss.C, x) + np.dot(ss.B, inputValue)
         return y, x
 
     def derivada_filtrada(self, vm, set_point, ts, error_anterior):
