@@ -1,5 +1,7 @@
+from PySide2 import QtCore, QtGui, QtWidgets
 from rutinas.rutinas_PID import *
 from rutinas.rutinas_CSV import *
+import numpy as np
 import json
 
 
@@ -9,6 +11,9 @@ def TuningHandler(self):
 
     self.main.tfcalcButton2.clicked.connect(lambda: chequeo_de_accion(self))
     self.main.sscalcButton2.clicked.connect(lambda: chequeo_de_accion(self))
+    self.main.csvcalcButton2.clicked.connect(lambda: chequeo_de_accion(self))
+
+    self.main.BtnFile.clicked.connect(lambda: csv_path(self))
 
     self.main.kpHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
     self.main.kiHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
@@ -216,7 +221,19 @@ def calcular_autotuning(self):
 
 
 def calcular_csv(self):
-    pass
+
+    csv_data = np.genfromtxt(self.main.pathCSVedit.text(),
+                             delimiter=self.main.EditSeparador.text(),
+                             encoding=None,
+                             autostrip=True,
+                             dtype=None)
+    
+    csv_data = procesar_csv(self, csv_data)
+
+
+def csv_path(self):
+    path_csv = QtWidgets.QFileDialog.getOpenFileName(filter="CSV (*.csv)")
+    self.main.pathCSVedit.setText(path_csv[0])
 
 
 def PID_bool_discreto(self):
@@ -234,9 +251,9 @@ def PID_stacked_to_tf(self):
 
 
 def tf_habilitar_sliders_checkbox(self):
-    
+
     self.main.pidNSlider.setEnabled(True)
-    
+
     if self.main.tfAutoTuningcheckBox2.isChecked():
         self.main.kpCheckBox2.setDisabled(True)
         self.main.kiCheckBox2.setDisabled(True)
@@ -273,9 +290,9 @@ def PID_stacked_to_ss(self):
 
 
 def ss_habilitar_sliders_checkbox(self):
-    
+
     self.main.pidNSlider.setEnabled(True)
-    
+
     if self.main.ssAutoTuningcheckBox2.isChecked():
         self.main.kpCheckBox2.setDisabled(True)
         self.main.kiCheckBox2.setDisabled(True)
