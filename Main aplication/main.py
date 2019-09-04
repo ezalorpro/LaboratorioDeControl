@@ -4,6 +4,7 @@ from handlers.analisisHandler import AnalisisHandler
 from handlers.PIDHandler import PIDHandler
 from handlers.FuzzyHandler import FuzzyHandler
 from handlers.simulacionHandler import SimulacionHandler
+from handlers.jupyterConsoleHandler import jupyterConsoleHandler
 import os
 
 
@@ -30,6 +31,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         PIDHandler(self)
         FuzzyHandler(self)
         SimulacionHandler(self)
+        jupyterConsoleHandler(self)
 
     def resource_path(self, relative_path):
         base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))

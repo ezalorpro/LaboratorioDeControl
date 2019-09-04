@@ -20,12 +20,3 @@ class JupyterConsole(QGraphicsView):
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.jupyter_widget)
         self.setLayout(vertical_layout)
-
-        self.jupyter_widget._execute("import sys", True)
-        self.jupyter_widget._execute(
-            "sys.path.append(r'c:\\Users\\PC\\Documents\\Descargas chrome\\NO TOCAR MALDITO IDIOTA!! ZZZZ\\kleiver\\Tesis\\Nueva tesis\\LaboratorioDeControl\\Main aplication')",
-            True)
-
-        # self.jupyter_widget._execute(
-        #     "sys.path.append('c:/Users/PC/Documents/Descargas chrome/NO TOCAR MALDITO IDIOTA!! ZZZZ/kleiver/Tesis/Nueva tesis/LaboratorioDeControl/Main aplication')",
-        #     True)
