@@ -407,7 +407,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -2908,6 +2908,12 @@
               </item>
               <item>
                <widget class="QPushButton" name="cargarFuzzButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Cargar</string>
                 </property>
@@ -2924,6 +2930,13 @@
                <widget class="QPushButton" name="guardarComoFuzzButton">
                 <property name="text">
                  <string>Salvar como...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="exportarFuzzButton">
+                <property name="text">
+                 <string>Exportar</string>
                 </property>
                </widget>
               </item>
@@ -8464,8 +8477,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>98</width>
-               <height>28</height>
+               <width>100</width>
+               <height>30</height>
               </rect>
              </property>
              <attribute name="icon">

@@ -1,5 +1,6 @@
 from handlers.modificadorMf import update_definicionmf
 from rutinas.rutinas_fuzzy import FuzzyController
+from rutinas.rutinas_fuzzy import FISParser
 from PySide2 import QtCore, QtGui, QtWidgets
 import numpy as np
 import copy
@@ -30,6 +31,7 @@ def FuzzyHandler(self):
     self.rotacion_windowIn = 2
     self.rotacion_windowOut = 2
     self.fuzzInitController = FuzzyController
+    self.parser = FISParser
 
     crear_vectores_de_widgets(self)
 
@@ -341,8 +343,7 @@ def cargar_esquema(self):
 
 
 def guardar_controlador(self):
-
-    if len(self.current_file) > 0:
+    if len(self.current_file) > 0 and not '.fis' in self.current_file:
         with open(self.current_file, "w") as f:
             json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f, indent=4)
     else:
@@ -361,10 +362,20 @@ def guardarcomo_controlador(self):
 
 
 def cargar_controlador(self):
-    self.path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON (*.json)")
+    self.path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON/FIS (*.json *.fis)")
     if len(self.path_cargar[0]) > 1:
-        with open(self.path_cargar[0], "r") as f:
-            self.InputList, self.OutputList, self.RuleEtiquetas = json.load(f)
+
+        if '.json' in self.path_cargar[0]:
+            with open(self.path_cargar[0], "r") as f:
+                self.InputList, self.OutputList, self.RuleEtiquetas = json.load(f)
+        else:
+            temp_parser = self.parser(self.path_cargar[0])
+            try:
+                self.InputList, self.OutputList, self.RuleEtiquetas = temp_parser.fis_to_json()
+            except TypeError:
+                self.error_dialog.setInformativeText("No se permiten salidas negadas")
+                self.error_dialog.exec_()
+                return
 
         self.main.guardarFuzzButton.setEnabled(True)
         self.main.guardarComoFuzzButton.setEnabled(True)

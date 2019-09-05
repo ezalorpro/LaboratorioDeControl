@@ -5,6 +5,7 @@ from time import time
 import ast
 import pprint
 import copy
+import json
 
 
 class FISParser:
@@ -76,11 +77,11 @@ class FISParser:
                 r = []
                 for inp in range(self.numinputs):
                     rpar = rp['a%d' % inp]
-                    rval = rpar - 1 if rpar else None
+                    rval = rpar if rpar != 0 else None
                     r.append(rval)
                 for outp in range(self.numoutputs):
                     rpar = rp['c%d' % outp]
-                    rval = rpar - 1 if rpar else None
+                    rval = rpar if rpar != 0 else None
                     r.append(rval)
                 r += [rp['w'], rp['c'] - 1]
                 self.RuleList.append(r)
@@ -90,23 +91,23 @@ class FISParser:
                 r = []
                 for inp in range(self.numinputs):
                     rpar = rp['a%d' % inp]
-                    rval = rpar - 1 if rpar else None
+                    rval = rpar if rpar != 0 else None
                     r.append(rval)
                 for outp in range(self.numoutputs):
                     rpar = rp['c%d' % outp]
-                    rval = rpar - 1 if rpar else None
+                    rval = rpar if rpar != 0 else None
                     r.append(rval)
                 r += [rp['w'], rp['c'] - 1]
                 self.RuleList.append(r)
 
     def fis_to_json(self):
         ni = int(self.systemList['numinputs'])
-        no = int(self.systemList['numinputs'])
+        no = int(self.systemList['numoutputs'])
         nr = int(self.systemList['numrules'])
 
         InputList = [0] * ni
         OutputList = [0] * no
-        RuleEtiquetas = [0] * nr
+        RuleEtiquetas = []
 
         for i in range(ni):
             InputList[i] = {
@@ -132,7 +133,7 @@ class FISParser:
                 "numeroE": int(self.OutputList[i]['nummfs']),
                 "etiquetas": [0] * int(self.OutputList[i]['nummfs']),
                 "rango": ast.literal_eval(self.OutputList[i]['range'].replace(' ', ',')),
-                "metodo": self.OutputList[i]['defuzzmethod']
+                "metodo": self.systemList['defuzzmethod']
             }
 
             for ne in range(int(self.OutputList[i]['nummfs'])):
@@ -144,37 +145,38 @@ class FISParser:
                     "mf": temp2[0],
                     "definicion": ast.literal_eval(temp2[1].replace(' ', ','))
                 }
-        for i in self.RuleList:
+        for numeror, i in enumerate(self.RuleList):
             ril = []
             rol = []
 
             for j in range(ni):
                 if i[j] is not None:
-                    nombre = InputList[i]['etiquetas'][i[j]]['nombre']
-                    numero = i[j]
-                    negacion = False if i[j] >=0 else True
+                    nombre = InputList[j]['etiquetas'][abs(i[j])-1]['nombre']
+                    numero = j
+                    negacion = False if i[j] >0 else True
                     ril.append([nombre, numero, negacion])
 
             for j in range(ni, no+ni):
                 if i[j] is not None:
-                    nombre = OutputList[i]['etiquetas'][i[j]]['nombre']
-                    numero = i[j]
-                    peso = i[no+ni]
-                    ril.append([nombre, numero, peso])
-
+                    nombre = OutputList[j-ni]['etiquetas'][abs(i[j])-1]['nombre']
+                    numero = j-ni
+                    peso = float(i[no+ni])
+                    rol.append([nombre, numero, peso])
+                    
             and_condition = True if i[ni+no+1] == 0 else False
-            RuleEtiquetas[i] = copy.deepcopy([ril, rol, and_condition])
+            RuleEtiquetas.append(copy.deepcopy([ril, rol, and_condition]))
 
         return copy.deepcopy(InputList), copy.deepcopy(OutputList), copy.deepcopy(RuleEtiquetas)
 
 
 if __name__ == "__main__":
-    Parsing = FISParser('controladorcompleto.fis')
-    print(Parsing.RuleList)
-    print(Parsing.systemList)
-    lista1, lista2 = Parsing.fis_to_json()
-    pprint.pprint(lista1)
-    pprint.pprint(lista2)
+    Parsing = FISParser('gainsheduler2.fis')
+    lista1, lista2, lista3 = Parsing.fis_to_json()
+    pprint.pprint(Parsing.systemList)
+    pprint.pprint(Parsing.OutputList)
+    pprint.pprint(lista3)
+    json.dump([lista1, lista2, lista3], open("probandoparsin.json", 'w'), indent=4)
+
     # temp = Parsing.InputList[0]['mf1'].replace("'", '').split(':')
     # temp2 = temp[1].split(',')
     # print(temp2)
