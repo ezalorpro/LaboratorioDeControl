@@ -96,51 +96,54 @@ def entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2):
     kp, ki, kd = auto_tuning_method_csv(self, Kc, tau, t1-t0, self.main.csvMetodo.currentText())
 
     self.main.csvGraphicsView.canvas.axes1.clear()
-    self.main.csvGraphicsView.canvas.axes1.plot(csv_data['time'], csv_data['efc'])
+    self.main.csvGraphicsView.canvas.axes1.plot(csv_data['time'], csv_data['efc'], label='EFC')
 
     t0_efc = self.main.csvGraphicsView.canvas.axes1.axvline(x=t0,
-                                                   color='k',
-                                                   linestyle=':',
-                                                   zorder=-20)
+                                                            color='k',
+                                                            linestyle=':',
+                                                            zorder=-20,
+                                                            label='t0, t1, t2')
     t1_efc = self.main.csvGraphicsView.canvas.axes1.axvline(x=t1,
-                                                   color='k',
-                                                   linestyle=':',
-                                                   zorder=-20)
+                                                            color='k',
+                                                            linestyle=':',
+                                                            zorder=-20)
     t2_efc = self.main.csvGraphicsView.canvas.axes1.axvline(x=t2,
-                                                   color='k',
-                                                   linestyle=':',
-                                                   zorder=-20)
+                                                            color='k',
+                                                            linestyle=':',
+                                                            zorder=-20)
 
     self.main.csvGraphicsView.canvas.axes1.grid(True, which="both", color="lightgray")
-    self.main.csvGraphicsView.canvas.axes1.set_title("EFC")
+    self.main.csvGraphicsView.canvas.axes1.legend()
     self.main.csvGraphicsView.canvas.axes1.yaxis.set_major_formatter(
         mticker.FormatStrFormatter("%.1f %%")
     )
 
     self.main.csvGraphicsView.canvas.axes2.clear()
-    self.main.csvGraphicsView.canvas.axes2.plot(csv_data['time'], csv_data['vp'])
+    self.main.csvGraphicsView.canvas.axes2.plot(csv_data['time'],
+                                                csv_data['vp'],
+                                                label='Vp')
 
-    recta, = self.main.csvGraphicsView.canvas.axes2.plot([t1, t2], [y1, y2])
+    recta, = self.main.csvGraphicsView.canvas.axes2.plot([t1, t2], [y1, y2], label='recta')
 
     t0_vp = self.main.csvGraphicsView.canvas.axes2.axvline(x=t0,
-                                                   color='k',
-                                                   linestyle=':',
-                                                   zorder=-20)
+                                                           color='k',
+                                                           linestyle=':',
+                                                           zorder=-20,
+                                                           label='t0, t1, t2')
     t1_vp = self.main.csvGraphicsView.canvas.axes2.axvline(x=t1,
-                                                   color='k',
-                                                   linestyle=':',
-                                                   zorder=-20)
+                                                           color='k',
+                                                           linestyle=':',
+                                                           zorder=-20)
     t2_vp = self.main.csvGraphicsView.canvas.axes2.axvline(x=t2,
-                                                   color='k',
-                                                   linestyle=':',
-                                                   zorder=-20)
+                                                           color='k',
+                                                           linestyle=':',
+                                                           zorder=-20)
 
     self.main.csvGraphicsView.canvas.axes2.grid(True, which="both", color="lightgray")
-    self.main.csvGraphicsView.canvas.axes2.set_title("Vp")
+    self.main.csvGraphicsView.canvas.axes2.legend()
     self.main.csvGraphicsView.canvas.axes2.yaxis.set_major_formatter(
         mticker.FormatStrFormatter("%.1f %%")
     )
-    self.main.csvGraphicsView.canvas.axes2.set_xlabel("tiempo")
 
     self.main.csvGraphicsView.canvas.draw()
     self.main.csvGraphicsView.toolbar.update()

@@ -362,7 +362,7 @@ def actualizar_sliders_ss(self):
 
 
 def PID_stacked_to_csv(self):
-    self.main.pidTiempoLabel.setText('t0')
+    self.main.pidTiempoLabel.setText('t1')
     self.main.pidLabelController.setText("")
     self.main.PIDstackedWidget.setCurrentIndex(2)
     self.main.GraphStakedTuning.setCurrentIndex(1)
