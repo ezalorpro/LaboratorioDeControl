@@ -1,30 +1,215 @@
-from qtconsole.qt import QtGui
-from qtconsole.rich_jupyter_widget import RichJupyterWidget
-from qtconsole.inprocess import QtInProcessKernelManager
+from __future__ import division
+import sys
+from parse import parse
+from time import time
+import ast
+import pprint
+import copy
 
 
-def show():
-    global ipython_widget  # Prevent from being garbage collected
+class FISParser:
 
-    # Create an in-process kernel
-    kernel_manager = QtInProcessKernelManager()
-    kernel_manager.start_kernel(show_banner=False)
-    kernel = kernel_manager.kernel
-    kernel.gui = 'qt'
+    def __init__(self, fisfile):
+        with open(fisfile, 'r') as infis:
+            self.rawlines = infis.readlines()
+        self.systemList = 0
+        self.InputList = []
+        self.OutputList = []
+        self.RuleList = []
+        self.get_system()
+        self.get_vars()
+        self.get_rules()
 
-    kernel_client = kernel_manager.client()
-    kernel_client.start_channels()
+    def get_system(self):
+        end_sysblock = self.rawlines.index('\n')
+        systemblock = self.rawlines[1:end_sysblock]
+        fisargs = map(lambda x: parse('{arg}={val}', x), systemblock)
+        fissys = {f['arg'].lower(): f['val'].strip("'") for f in fisargs}
+        self.numinputs = int(fissys['numinputs'])
+        self.numoutputs = int(fissys['numoutputs'])
+        self.numrules = int(fissys['numrules'])
+        self.start_varblocks = end_sysblock + 1
+        self.systemList = fissys
 
-    ipython_widget = RichJupyterWidget()
-    ipython_widget.kernel_manager = kernel_manager
-    ipython_widget.kernel_client = kernel_client
-    ipython_widget.show()
+    def get_var(self, vartype, varnum, start_line, end_line):
+        varblock = self.rawlines[start_line:end_line]
+        fisargs = map(lambda x: parse('{arg}={val}', x), varblock)
+        fisvar = {f['arg'].lower(): f['val'].strip("'") for f in fisargs}
+        varrange = parse('[{:g}{:g}]', fisvar['range']).fixed
+        varname = fisvar['name']
+
+        if 'input' in vartype:
+            self.InputList.append(fisvar)
+        elif 'output' in vartype:
+            self.OutputList.append(fisvar)
+
+    def get_vars(self):
+        start_ruleblock = self.rawlines.index('[Rules]\n')
+        var_lines = []
+        var_types = []
+        flag = 0
+        for i, line in enumerate(self.rawlines[self.start_varblocks - 1:start_ruleblock]):
+            if flag:
+                flag = 0
+                vt = parse('[{type}{num:d}]', line)
+                var_types.append((vt['type'].lower(), vt['num']))
+            if line == '\n':
+                var_lines.append(i + self.start_varblocks - 1)
+                flag = 1
+        for i, l in enumerate(var_lines[:-1]):
+            if 'input' in var_types[i][0]:
+                self.get_var('input', var_types[i][1] - 1, l + 2, var_lines[i + 1])
+            elif 'output' in var_types[i][0]:
+                self.get_var('output', var_types[i][1] - 1, l + 2, var_lines[i + 1])
+
+    def get_rules(self):
+        start_ruleblock = self.rawlines.index('[Rules]\n')
+        ruleblock = self.rawlines[start_ruleblock + 1:]
+        antecedents = (('{a%d:d} ' * self.numinputs) %
+                       tuple(range(self.numinputs))).strip()
+        consequents = ('{c%d:d} ' * self.numoutputs) % tuple(range(self.numoutputs))
+        p = antecedents + ', ' + consequents + '({w:d}) : {c:d}'
+        for rule in ruleblock:
+            try:
+                p = antecedents + ', ' + consequents + '({w:d}) : {c:d}'
+                rp = parse(p, rule)
+                r = []
+                for inp in range(self.numinputs):
+                    rpar = rp['a%d' % inp]
+                    rval = rpar - 1 if rpar else None
+                    r.append(rval)
+                for outp in range(self.numoutputs):
+                    rpar = rp['c%d' % outp]
+                    rval = rpar - 1 if rpar else None
+                    r.append(rval)
+                r += [rp['w'], rp['c'] - 1]
+                self.RuleList.append(r)
+            except:
+                p = antecedents + ', ' + consequents + '({w:f}) : {c:d}'
+                rp = parse(p, rule)
+                r = []
+                for inp in range(self.numinputs):
+                    rpar = rp['a%d' % inp]
+                    rval = rpar - 1 if rpar else None
+                    r.append(rval)
+                for outp in range(self.numoutputs):
+                    rpar = rp['c%d' % outp]
+                    rval = rpar - 1 if rpar else None
+                    r.append(rval)
+                r += [rp['w'], rp['c'] - 1]
+                self.RuleList.append(r)
+
+    def fis_to_json(self):
+        ni = int(self.systemList['numinputs'])
+        no = int(self.systemList['numinputs'])
+        nr = int(self.systemList['numrules'])
+
+        InputList = [0] * ni
+        OutputList = [0] * no
+        RuleEtiquetas = [0] * nr
+
+        for i in range(ni):
+            InputList[i] = {
+                "nombre": self.InputList[i]['name'],
+                "numeroE": int(self.InputList[i]['nummfs']),
+                "etiquetas": [0] * int(self.InputList[i]['nummfs']),
+                "rango": ast.literal_eval(self.InputList[i]['range'].replace(' ', ',')),
+            }
+
+            for ne in range(int(self.InputList[i]['nummfs'])):
+                temp_etiqueta = self.InputList[0]['mf' + str(ne + 1)].replace(
+                    "'", '').split(':')
+                temp2 = temp_etiqueta[1].split(',')
+                InputList[i]['etiquetas'][ne] = {
+                    "nombre": temp_etiqueta[0],
+                    "mf": temp2[0],
+                    "definicion": ast.literal_eval(temp2[1].replace(' ', ','))
+                }
+
+        for i in range(no):
+            OutputList[i] = {
+                "nombre": self.OutputList[i]['name'],
+                "numeroE": int(self.OutputList[i]['nummfs']),
+                "etiquetas": [0] * int(self.OutputList[i]['nummfs']),
+                "rango": ast.literal_eval(self.OutputList[i]['range'].replace(' ', ',')),
+                "metodo": self.OutputList[i]['defuzzmethod']
+            }
+
+            for ne in range(int(self.OutputList[i]['nummfs'])):
+                temp_etiqueta = self.OutputList[0]['mf' + str(ne + 1)].replace(
+                    "'", '').split(':')
+                temp2 = temp_etiqueta[1].split(',')
+                OutputList[i]['etiquetas'][ne] = {
+                    "nombre": temp_etiqueta[0],
+                    "mf": temp2[0],
+                    "definicion": ast.literal_eval(temp2[1].replace(' ', ','))
+                }
+        for i in self.RuleList:
+            ril = []
+            rol = []
+
+            for j in range(ni):
+                if i[j] is not None:
+                    nombre = InputList[i]['etiquetas'][i[j]]['nombre']
+                    numero = i[j]
+                    negacion = False if i[j] >=0 else True
+                    ril.append([nombre, numero, negacion])
+
+            for j in range(ni, no+ni):
+                if i[j] is not None:
+                    nombre = OutputList[i]['etiquetas'][i[j]]['nombre']
+                    numero = i[j]
+                    peso = i[no+ni]
+                    ril.append([nombre, numero, peso])
+
+            and_condition = True if i[ni+no+1] == 0 else False
+            RuleEtiquetas[i] = copy.deepcopy([ril, rol, and_condition])
+
+        return copy.deepcopy(InputList), copy.deepcopy(OutputList), copy.deepcopy(RuleEtiquetas)
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication([])
-    show()
-    app.exec_()
+    Parsing = FISParser('controladorcompleto.fis')
+    print(Parsing.RuleList)
+    print(Parsing.systemList)
+    lista1, lista2 = Parsing.fis_to_json()
+    pprint.pprint(lista1)
+    pprint.pprint(lista2)
+    # temp = Parsing.InputList[0]['mf1'].replace("'", '').split(':')
+    # temp2 = temp[1].split(',')
+    # print(temp2)
+
+
+
+
+
+# from qtconsole.qt import QtGui
+# from qtconsole.rich_jupyter_widget import RichJupyterWidget
+# from qtconsole.inprocess import QtInProcessKernelManager
+
+
+# def show():
+#     global ipython_widget  # Prevent from being garbage collected
+
+#     # Create an in-process kernel
+#     kernel_manager = QtInProcessKernelManager()
+#     kernel_manager.start_kernel(show_banner=False)
+#     kernel = kernel_manager.kernel
+#     kernel.gui = 'qt'
+
+#     kernel_client = kernel_manager.client()
+#     kernel_client.start_channels()
+
+#     ipython_widget = RichJupyterWidget()
+#     ipython_widget.kernel_manager = kernel_manager
+#     ipython_widget.kernel_client = kernel_client
+#     ipython_widget.show()
+
+
+# if __name__ == "__main__":
+#     app = QtGui.QApplication([])
+#     show()
+#     app.exec_()
 
 # # import json
 # # from collections import deque
