@@ -407,7 +407,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -2180,8 +2180,20 @@
               </item>
               <item row="4" column="0">
                <layout class="QHBoxLayout" name="horizontalLayout_49">
+                <property name="leftMargin">
+                 <number>8</number>
+                </property>
+                <property name="rightMargin">
+                 <number>8</number>
+                </property>
                 <item>
                  <widget class="QLabel" name="ssMetodoLabel2_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="text">
                    <string>Metodo</string>
                   </property>
@@ -2191,6 +2203,12 @@
                  <widget class="QComboBox" name="csvMetodo">
                   <property name="enabled">
                    <bool>true</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
                   <item>
                    <property name="text">
@@ -8446,8 +8464,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>100</width>
-               <height>30</height>
+               <width>98</width>
+               <height>28</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8677,7 +8695,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>245</width>
+               <width>213</width>
                <height>356</height>
               </rect>
              </property>

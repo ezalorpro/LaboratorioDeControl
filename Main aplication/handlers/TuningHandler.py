@@ -6,6 +6,7 @@ import json
 
 
 def TuningHandler(self):
+    self.GraphObjets = 0
     self.tfSliderValue = self.main.tfreolutionSpin2.value()
     self.ssSliderValue = self.main.ssreolutionSpin2.value()
 
@@ -19,7 +20,7 @@ def TuningHandler(self):
     self.main.kiHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
     self.main.kdHSlider2.valueChanged.connect(lambda: chequeo_de_accion(self))
 
-    self.main.pidTiempoSlider.valueChanged.connect(lambda: chequeo_de_accion(self))
+    self.main.pidTiempoSlider.valueChanged.connect(lambda: tiempo_slider_cambio(self))
     self.main.pidNSlider.valueChanged.connect(lambda: chequeo_de_accion(self))
 
     self.main.kpCheckBox2.stateChanged.connect(lambda: chequeo_de_accion(self))
@@ -42,6 +43,12 @@ def TuningHandler(self):
     self.main.tfreolutionSpin2.valueChanged.connect(lambda: actualizar_sliders_tf(self))
     self.main.ssreolutionSpin2.valueChanged.connect(lambda: actualizar_sliders_ss(self))
 
+
+def tiempo_slider_cambio(self):
+    if self.main.PIDstackedWidget.currentIndex() == 2:
+        ajustar_atraso_manual(self)
+    else:
+        chequeo_de_accion(self)
 
 def chequeo_de_accion(self):
     if not self.main.tfAutoTuningcheckBox2.isChecked(
@@ -229,8 +236,19 @@ def calcular_csv(self):
                              dtype=None)
 
     csv_data, info = procesar_csv(self, csv_data)
-    Kc, tau, y1, y2, t0, t1, t2 = calcular_modelo(self, csv_data, *info)
-    entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2)
+    Kc, tau, y1, y2, t0, t1, t2, anclaT, anclaY = calcular_modelo(self, csv_data, *info)
+    self.GraphObjets, self.model_info = entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2)
+    self.model_info.extend([anclaT, anclaY])
+    self.main.pidTiempoSlider.setEnabled(True)
+
+
+def ajustar_atraso_manual(self):
+    Kc, t0, t1, t2 , y2, y1, anclaT, anclaY = self.model_info
+    t1_new = self.main.pidTiempoSlider.value()
+    t1_new = np.round(t0 + (t2-t0) * t1_new / 1000, 3)
+    self.main.pidTiempoLabelValue.setText(str(t1_new))
+    slop = (anclaY-y1) / (anclaT-t1_new)
+    calculos_manual(self, self.GraphObjets, Kc, t0, t1_new, t2, slop, y1)
 
 
 def csv_path(self):
@@ -248,6 +266,10 @@ def PID_bool_discreto(self):
 def PID_stacked_to_tf(self):
     self.main.PIDstackedWidget.setCurrentIndex(0)
     self.main.GraphStakedTuning.setCurrentIndex(0)
+    self.main.pidTiempoLabel.setText('Tiempo')
+    self.main.pidLabelController.setText(
+        "<html><head/><body><p><span style=\" font-size:12pt;\">PID = K</span><span style=\" font-size:12pt; vertical-align:sub;\">p </span><span style=\" font-size:12pt;\">* e(s) + K</span><span style=\" font-size:12pt; vertical-align:sub;\">i  </span><span style=\" font-size:12pt;\">/ s + K</span><span style=\" font-size:12pt; vertical-align:sub;\">d * </span><span style=\" font-size:12pt;\">N/(1 + s/N) </span></p></body></html>"
+    )
     tf_habilitar_sliders_checkbox(self)
     update_gain_labels(self, resolution=self.tfSliderValue)
 
@@ -255,6 +277,7 @@ def PID_stacked_to_tf(self):
 def tf_habilitar_sliders_checkbox(self):
 
     self.main.pidNSlider.setEnabled(True)
+    self.main.pidTiempoSlider.setEnabled(True)
 
     if self.main.tfAutoTuningcheckBox2.isChecked():
         self.main.kpCheckBox2.setDisabled(True)
@@ -287,6 +310,10 @@ def tf_habilitar_sliders_checkbox(self):
 def PID_stacked_to_ss(self):
     self.main.PIDstackedWidget.setCurrentIndex(1)
     self.main.GraphStakedTuning.setCurrentIndex(0)
+    self.main.pidTiempoLabel.setText('Tiempo')
+    self.main.pidLabelController.setText(
+        "<html><head/><body><p><span style=\" font-size:12pt;\">PID = K</span><span style=\" font-size:12pt; vertical-align:sub;\">p </span><span style=\" font-size:12pt;\">* e(s) + K</span><span style=\" font-size:12pt; vertical-align:sub;\">i  </span><span style=\" font-size:12pt;\">/ s + K</span><span style=\" font-size:12pt; vertical-align:sub;\">d * </span><span style=\" font-size:12pt;\">N/(1 + s/N) </span></p></body></html>"
+    )
     ss_habilitar_sliders_checkbox(self)
     update_gain_labels(self, resolution=self.ssSliderValue)
 
@@ -294,6 +321,7 @@ def PID_stacked_to_ss(self):
 def ss_habilitar_sliders_checkbox(self):
 
     self.main.pidNSlider.setEnabled(True)
+    self.main.pidTiempoSlider.setEnabled(True)
 
     if self.main.ssAutoTuningcheckBox2.isChecked():
         self.main.kpCheckBox2.setDisabled(True)
@@ -334,6 +362,8 @@ def actualizar_sliders_ss(self):
 
 
 def PID_stacked_to_csv(self):
+    self.main.pidTiempoLabel.setText('t0')
+    self.main.pidLabelController.setText("")
     self.main.PIDstackedWidget.setCurrentIndex(2)
     self.main.GraphStakedTuning.setCurrentIndex(1)
     self.main.kpCheckBox2.setDisabled(True)
@@ -343,3 +373,8 @@ def PID_stacked_to_csv(self):
     self.main.kiHSlider2.setDisabled(True)
     self.main.kdHSlider2.setDisabled(True)
     self.main.pidNSlider.setDisabled(True)
+
+    if not self.GraphObjets:
+        self.main.pidTiempoSlider.setDisabled(True)
+    else:
+        self.main.pidTiempoSlider.setEnabled(True)

@@ -485,6 +485,7 @@ def rutina_system_info(self, system, T, t, y, kp=0, ki=0, kd=0, autotuning=False
     Datos += f"Ganancia DC: {real(dcgain):5.3f}\n"
 
     if autotuning:
+        Datos += "----------------------------------------------\n"
         Datos += f"Kp: {kp}\n"
         Datos += f"Ki: {ki}\n"
         Datos += f"Kd: {kd}\n"

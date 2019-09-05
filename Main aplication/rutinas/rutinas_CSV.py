@@ -1,4 +1,5 @@
 from PySide2 import QtCore, QtGui, QtWidgets
+import controlmdf as ctrl
 import matplotlib.ticker as mticker
 import numpy as np
 
@@ -85,8 +86,10 @@ def calcular_modelo(self,
     y1 = vpmin
     y2 = slop * (t2 - t[i_max]) + y[i_max]
     tau = t2 - t1
+    anclaT = t[i_max]
+    anclaY = y[i_max]
 
-    return Kc, tau, y1, y2, t0, t1, t2
+    return Kc, tau, y1, y2, t0, t1, t2, anclaT, anclaY
 
 
 def entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2):
@@ -94,6 +97,20 @@ def entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2):
 
     self.main.csvGraphicsView.canvas.axes1.clear()
     self.main.csvGraphicsView.canvas.axes1.plot(csv_data['time'], csv_data['efc'])
+
+    t0_efc = self.main.csvGraphicsView.canvas.axes1.axvline(x=t0,
+                                                   color='k',
+                                                   linestyle=':',
+                                                   zorder=-20)
+    t1_efc = self.main.csvGraphicsView.canvas.axes1.axvline(x=t1,
+                                                   color='k',
+                                                   linestyle=':',
+                                                   zorder=-20)
+    t2_efc = self.main.csvGraphicsView.canvas.axes1.axvline(x=t2,
+                                                   color='k',
+                                                   linestyle=':',
+                                                   zorder=-20)
+
     self.main.csvGraphicsView.canvas.axes1.grid(True, which="both", color="lightgray")
     self.main.csvGraphicsView.canvas.axes1.set_title("EFC")
     self.main.csvGraphicsView.canvas.axes1.yaxis.set_major_formatter(
@@ -102,7 +119,22 @@ def entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2):
 
     self.main.csvGraphicsView.canvas.axes2.clear()
     self.main.csvGraphicsView.canvas.axes2.plot(csv_data['time'], csv_data['vp'])
-    self.main.csvGraphicsView.canvas.axes2.plot([t1, t2], [y1, y2])
+
+    recta, = self.main.csvGraphicsView.canvas.axes2.plot([t1, t2], [y1, y2])
+
+    t0_vp = self.main.csvGraphicsView.canvas.axes2.axvline(x=t0,
+                                                   color='k',
+                                                   linestyle=':',
+                                                   zorder=-20)
+    t1_vp = self.main.csvGraphicsView.canvas.axes2.axvline(x=t1,
+                                                   color='k',
+                                                   linestyle=':',
+                                                   zorder=-20)
+    t2_vp = self.main.csvGraphicsView.canvas.axes2.axvline(x=t2,
+                                                   color='k',
+                                                   linestyle=':',
+                                                   zorder=-20)
+
     self.main.csvGraphicsView.canvas.axes2.grid(True, which="both", color="lightgray")
     self.main.csvGraphicsView.canvas.axes2.set_title("Vp")
     self.main.csvGraphicsView.canvas.axes2.yaxis.set_major_formatter(
@@ -113,23 +145,45 @@ def entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2):
     self.main.csvGraphicsView.canvas.draw()
     self.main.csvGraphicsView.toolbar.update()
 
-    Datos = "----------------------------------------------\n"
-    Datos += f"Modelo de 1er orden"
-    Datos += f"Kc: {Kc}\n"
-    Datos += f"Tau: {t2-t1}\n"
-    Datos += f"alpha: {t1-t0}\n"
+    actualizar_Datos(self, Kc, t0, t1, t2, kp, ki, kd)
+    self.main.pidTiempoSlider.blockSignals(True)
+    self.main.pidTiempoSlider.setValue(np.round(1000*(t1-t0)/(t2-t0), 3))
+    self.main.pidTiempoLabelValue.setText(str(np.round(t1, 3)))
+    self.main.pidTiempoSlider.blockSignals(False)
+
+
+    return [t0_efc, t1_efc, t2_efc, recta, t0_vp, t1_vp, t2_vp], [Kc, t0, t1, t2, y2, y1]
+
+
+def calculos_manual(self, GraphObjets, Kc, t0, t1, t2, slop, y1):
+    kp, ki, kd = auto_tuning_method_csv(self, Kc, t2-t1, t1-t0, self.main.csvMetodo.currentText())
+
+    GraphObjets[1].set_data(t1, [0, 1])
+    GraphObjets[5].set_data(t1, [0, 1])
+    new_y2 = slop * (t2 - t1) + y1
+    GraphObjets[3].set_data([t1, t2], [y1, new_y2])
+    self.main.csvGraphicsView.canvas.draw()
+    actualizar_Datos(self, Kc, t0, t1, t2, kp, ki, kd)
+
+
+def actualizar_Datos(self, Kc, t0, t1, t2, kp, ki, kd):
+    Datos = "Modelo:\n"
+    Datos += str(ctrl.TransferFunction([Kc], [t2-t1, 1])) + "\n"
+    Datos += f"Delay: {t1-t0:.3f}\n"
     Datos += "----------------------------------------------\n"
-    Datos += f"Kp: {kp}\n"
-    Datos += f"Ki: {ki}\n"
-    Datos += f"Kd: {kd}\n"
+    Datos += f"Kp: {kp:.4f}\n"
+    Datos += f"Ki: {ki:.4f}\n"
+    Datos += f"Kd: {kd:.4f}\n"
     self.main.csvdatosTextEdit2.setPlainText(Datos)
+    self.main.pidLabelController.setText(
+        f" Kc = {Kc:.3f} -- Tau = {t2-t1:.3f} -- Alpha = {t1-t0:.3f}")
 
 
 def auto_tuning_method_csv(self, k_proceso, tau, alpha, metodo):
 
     if alpha <= 0.05:
         print('Alfa es demasiado pequeño')
-        raise TypeError(' Alfa es demasiado pequeño')
+        raise TypeError('Alfa es demasiado pequeño')
 
     if 'ZN' in metodo:
         if 'P--' in metodo:
