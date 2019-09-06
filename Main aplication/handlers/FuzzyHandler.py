@@ -65,6 +65,7 @@ def FuzzyHandler(self):
     self.main.guardarFuzzButton.clicked.connect(lambda: guardar_controlador(self))
     self.main.cargarFuzzButton.clicked.connect(lambda: cargar_controlador(self))
     self.main.guardarComoFuzzButton.clicked.connect(lambda: guardarcomo_controlador(self))
+    self.main.exportarFuzzButton.clicked.connect(lambda: exportar_fis(self))
 
     self.main.inputNumber.currentIndexChanged.connect(lambda: seleccion_entrada(self))
     self.main.inputNombre.returnPressed.connect(lambda: nombre_entrada(self))
@@ -359,6 +360,16 @@ def guardarcomo_controlador(self):
             self.setWindowTitle(
                 "Laboratorio de sistemas de control - " + path_guardar[0].split("/")[-1]
             )
+
+
+def exportar_fis(self):
+    path_guardar = QtWidgets.QFileDialog.getSaveFileName(filter="FIS (*.fis)")
+    if len(path_guardar[0]) > 1:
+        self.current_file = path_guardar[0]
+        temp_parser = self.parser(self.current_file, self.InputList, self.OutputList, self.RuleEtiquetas)
+        temp_parser.json_to_fis()
+        self.setWindowTitle("Laboratorio de sistemas de control - " +
+                            path_guardar[0].split("/")[-1])
 
 
 def cargar_controlador(self):
