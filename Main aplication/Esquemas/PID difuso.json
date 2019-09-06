@@ -8,30 +8,30 @@
                     "nombre": "negativo",
                     "mf": "gauss2mf",
                     "definicion": [
+                        0.325,
                         -1.5,
-                        0.125,
-                        -0.9,
-                        0.325
+                        0.325,
+                        -0.9
                     ]
                 },
                 {
                     "nombre": "cero",
                     "mf": "gauss2mf",
                     "definicion": [
-                        0,
                         0.325,
                         0,
-                        0.325
+                        0.325,
+                        0
                     ]
                 },
                 {
                     "nombre": "positivo",
                     "mf": "gauss2mf",
                     "definicion": [
+                        0.325,
                         0.9,
                         0.325,
-                        1.5,
-                        0.325
+                        1.5
                     ]
                 }
             ],
@@ -120,24 +120,24 @@
                     "nombre": "negativa",
                     "mf": "gaussmf",
                     "definicion": [
-                        -1.0,
-                        0.5
+                        0.5,
+                        -1.0
                     ]
                 },
                 {
                     "nombre": "cero",
                     "mf": "gaussmf",
                     "definicion": [
-                        0.0,
-                        0.5
+                        0.5,
+                        0.0
                     ]
                 },
                 {
                     "nombre": "positiva",
                     "mf": "gaussmf",
                     "definicion": [
-                        1.0,
-                        0.5
+                        0.5,
+                        1.0
                     ]
                 }
             ],

@@ -713,10 +713,12 @@ def seleccion_etiqueta_in(self):
     ne = self.main.etiquetaNumIn.currentIndex()
 
     self.main.etiquetaNombreIn.setText(self.InputList[ni]["etiquetas"][ne]["nombre"])
+    self.main.etiquetaMfIn.blockSignals(True)
     self.main.etiquetaMfIn.setCurrentText(self.InputList[ni]["etiquetas"][ne]["mf"])
     self.main.etiquetaDefinicionIn.setText(
         str(self.InputList[ni]["etiquetas"][ne]["definicion"])
     )
+    self.main.etiquetaMfIn.blockSignals(False)
 
 
 def seleccion_etiqueta_out(self):
@@ -724,11 +726,12 @@ def seleccion_etiqueta_out(self):
     ne = self.main.etiquetaNumOut.currentIndex()
 
     self.main.etiquetaNombreOut.setText(self.OutputList[no]["etiquetas"][ne]["nombre"])
+    self.main.etiquetaMfOut.blockSignals(True)
     self.main.etiquetaMfOut.setCurrentText(self.OutputList[no]["etiquetas"][ne]["mf"])
     self.main.etiquetaDefinicionOut.setText(
         str(self.OutputList[no]["etiquetas"][ne]["definicion"])
     )
-
+    self.main.etiquetaMfOut.blockSignals(False)
 
 def nombre_etiqueta_in(self):
     ni = self.main.inputNumber.currentIndex()

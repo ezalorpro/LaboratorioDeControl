@@ -407,7 +407,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -9293,7 +9293,11 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_111">
         <item row="0" column="0">
-         <widget class="JupyterConsole" name="jupyterWidget"/>
+         <widget class="JupyterConsole" name="jupyterWidget">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

@@ -4803,6 +4803,7 @@ class Ui_MainWindow(object):
         self.gridLayout_111 = QtWidgets.QGridLayout(self.tab_3)
         self.gridLayout_111.setObjectName("gridLayout_111")
         self.jupyterWidget = JupyterConsole(self.tab_3)
+        self.jupyterWidget.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.jupyterWidget.setObjectName("jupyterWidget")
         self.gridLayout_111.addWidget(self.jupyterWidget, 0, 0, 1, 1)
         self.principalTab.addTab(self.tab_3, "")
@@ -4823,7 +4824,7 @@ class Ui_MainWindow(object):
         self.actionAbout.setObjectName("actionAbout")
 
         self.retranslateUi(MainWindow)
-        self.principalTab.setCurrentIndex(2)
+        self.principalTab.setCurrentIndex(0)
         self.AnalisisstackedWidget.setCurrentIndex(0)
         self.sscomboBox1.setCurrentIndex(0)
         self.analisisGraficaTab.setCurrentIndex(0)
