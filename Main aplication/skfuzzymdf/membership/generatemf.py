@@ -36,7 +36,7 @@ def _nearest(x, y0):
     return idx0, x[idx0]
 
 
-def dsigmf(x, b1, c1, b2, c2):
+def dsigmf(x, c1, b1, c2, b2):
     """
     Difference of two fuzzy sigmoid membership functions.
 
@@ -61,10 +61,10 @@ def dsigmf(x, b1, c1, b2, c2):
             f1(x) = 1 / (1. + exp[- c1 * (x - b1)])
             f2(x) = 1 / (1. + exp[- c2 * (x - b2)])
     """
-    return sigmf(x, b1, c=c1) - sigmf(x, b2, c=c2)
+    return np.abs(sigmf(x, c1, b=b1) - sigmf(x, c2, b=b2))
 
 
-def gaussmf(x, mean, sigma):
+def gaussmf(x, sigma, mean):
     """
     Gaussian fuzzy membership function.
 
@@ -85,7 +85,7 @@ def gaussmf(x, mean, sigma):
     return np.exp(-((x - mean)**2.) / (2 * sigma**2.))
 
 
-def gauss2mf(x, mean1, sigma1, mean2, sigma2):
+def gauss2mf(x, sigma1, mean1, sigma2, mean2):
     """
     Gaussian fuzzy membership function of two combined Gaussians.
 
@@ -115,8 +115,8 @@ def gauss2mf(x, mean1, sigma1, mean2, sigma2):
     y = np.ones(len(x))
     idx1 = x <= mean1
     idx2 = x > mean2
-    y[idx1] = gaussmf(x[idx1], mean1, sigma1)
-    y[idx2] = gaussmf(x[idx2], mean2, sigma2)
+    y[idx1] = gaussmf(x[idx1], sigma1, mean1)
+    y[idx2] = gaussmf(x[idx2], sigma2, mean2)
     return y
 
 
@@ -244,7 +244,7 @@ def pimf(x, a, b, c, d):
     return y
 
 
-def psigmf(x, b1, c1, b2, c2):
+def psigmf(x, c1, b1, c2, b2):
     """
     Product of two sigmoid membership functions.
 
@@ -284,7 +284,7 @@ def psigmf(x, b1, c1, b2, c2):
     For a smoothed rect-like function, c2 < 0 < c1. For its inverse (zero in
     middle, one at edges) c1 < 0 < c2.
     """
-    return sigmf(x, b1, c1) * sigmf(x, b2, c2)
+    return sigmf(x, c1, b1) * sigmf(x, c2, b2)
 
 
 def sigmoid(wx, b):
@@ -308,7 +308,7 @@ def sigmoid(wx, b):
                                            np.ones((1, wx.shape[1]))))))
 
 
-def sigmf(x, b, c):
+def sigmf(x, c, b):
     """
     The basic sigmoid membership function generator.
 
@@ -391,7 +391,7 @@ def trapmf(x, a, b, c, d):
     y : 1d array
         Trapezoidal membership function.
     """
-    
+
     assert a <= b and b <= c and c <= d, 'abcd requires the four elements \
                                           a <= b <= c <= d.'
     y = np.ones(len(x))

@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -1366,6 +1366,7 @@ class Ui_MainWindow(object):
         self.guardarComoFuzzButton.setObjectName("guardarComoFuzzButton")
         self.verticalLayout_17.addWidget(self.guardarComoFuzzButton)
         self.exportarFuzzButton = QtWidgets.QPushButton(self.fuzzyTab)
+        self.exportarFuzzButton.setEnabled(True)
         self.exportarFuzzButton.setObjectName("exportarFuzzButton")
         self.verticalLayout_17.addWidget(self.exportarFuzzButton)
         spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -1581,7 +1582,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.inputNumber.sizePolicy().hasHeightForWidth())
         self.inputNumber.setSizePolicy(sizePolicy)
-        self.inputNumber.setMaxVisibleItems(20)
+        self.inputNumber.setMaxVisibleItems(50)
         self.inputNumber.setObjectName("inputNumber")
         self.inputNumber.addItem("")
         self.verticalLayout_9.addWidget(self.inputNumber)
@@ -1673,6 +1674,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.etiquetaNumIn.sizePolicy().hasHeightForWidth())
         self.etiquetaNumIn.setSizePolicy(sizePolicy)
         self.etiquetaNumIn.setCurrentText("1")
+        self.etiquetaNumIn.setMaxVisibleItems(50)
         self.etiquetaNumIn.setFrame(True)
         self.etiquetaNumIn.setObjectName("etiquetaNumIn")
         self.etiquetaNumIn.addItem("")
@@ -1692,6 +1694,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.etiquetaMfIn.sizePolicy().hasHeightForWidth())
         self.etiquetaMfIn.setSizePolicy(sizePolicy)
+        self.etiquetaMfIn.setMaxVisibleItems(12)
         self.etiquetaMfIn.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContentsOnFirstShow)
         self.etiquetaMfIn.setFrame(True)
         self.etiquetaMfIn.setObjectName("etiquetaMfIn")
@@ -1780,6 +1783,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.etiquetaNumOut.sizePolicy().hasHeightForWidth())
         self.etiquetaNumOut.setSizePolicy(sizePolicy)
         self.etiquetaNumOut.setCurrentText("1")
+        self.etiquetaNumOut.setMaxVisibleItems(50)
         self.etiquetaNumOut.setFrame(True)
         self.etiquetaNumOut.setObjectName("etiquetaNumOut")
         self.etiquetaNumOut.addItem("")
@@ -1799,6 +1803,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.etiquetaMfOut.sizePolicy().hasHeightForWidth())
         self.etiquetaMfOut.setSizePolicy(sizePolicy)
+        self.etiquetaMfOut.setMaxVisibleItems(12)
         self.etiquetaMfOut.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContentsOnFirstShow)
         self.etiquetaMfOut.setFrame(True)
         self.etiquetaMfOut.setObjectName("etiquetaMfOut")
@@ -1886,7 +1891,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.outputNumber.sizePolicy().hasHeightForWidth())
         self.outputNumber.setSizePolicy(sizePolicy)
-        self.outputNumber.setMaxVisibleItems(20)
+        self.outputNumber.setMaxVisibleItems(50)
         self.outputNumber.setObjectName("outputNumber")
         self.outputNumber.addItem("")
         self.verticalLayout_13.addWidget(self.outputNumber)

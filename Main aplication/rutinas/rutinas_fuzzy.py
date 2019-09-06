@@ -12,6 +12,7 @@ import ast
 import pyqtgraph as pg
 import copy
 import json
+import re
 
 
 class FuzzyController:
@@ -702,8 +703,6 @@ class FISParser:
         varblock = self.rawlines[start_line:end_line]
         fisargs = map(lambda x: parse('{arg}={val}', x), varblock)
         fisvar = {f['arg'].lower(): f['val'].strip("'") for f in fisargs}
-        varrange = parse('[{:g}{:g}]', fisvar['range']).fixed
-        varname = fisvar['name']
 
         if 'input' in vartype:
             self.InputList.append(fisvar)
@@ -777,10 +776,14 @@ class FISParser:
 
         for i in range(ni):
             InputList[i] = {
-                "nombre": self.InputList[i]['name'],
-                "numeroE": int(self.InputList[i]['nummfs']),
+                "nombre":
+                    self.InputList[i]['name'],
+                "numeroE":
+                    int(self.InputList[i]['nummfs']),
                 "etiquetas": [0] * int(self.InputList[i]['nummfs']),
-                "rango": ast.literal_eval(self.InputList[i]['range'].replace(' ', ',')),
+                "rango":
+                    ast.literal_eval(
+                        re.sub("\s+", ",", self.InputList[i]['range'].strip()))
             }
 
             for ne in range(int(self.InputList[i]['nummfs'])):
@@ -790,16 +793,21 @@ class FISParser:
                 InputList[i]['etiquetas'][ne] = {
                     "nombre": temp_etiqueta[0],
                     "mf": temp2[0],
-                    "definicion": ast.literal_eval(temp2[1].replace(' ', ','))
+                    "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                 }
 
         for i in range(no):
             OutputList[i] = {
-                "nombre": self.OutputList[i]['name'],
-                "numeroE": int(self.OutputList[i]['nummfs']),
+                "nombre":
+                    self.OutputList[i]['name'],
+                "numeroE":
+                    int(self.OutputList[i]['nummfs']),
                 "etiquetas": [0] * int(self.OutputList[i]['nummfs']),
-                "rango": ast.literal_eval(self.OutputList[i]['range'].replace(' ', ',')),
-                "metodo": self.systemList['defuzzmethod']
+                "rango":
+                    ast.literal_eval(
+                        re.sub("\s+", ",", self.OutputList[i]['range'].strip())),
+                "metodo":
+                    self.systemList['defuzzmethod']
             }
 
             for ne in range(int(self.OutputList[i]['nummfs'])):
@@ -809,7 +817,7 @@ class FISParser:
                 OutputList[i]['etiquetas'][ne] = {
                     "nombre": temp_etiqueta[0],
                     "mf": temp2[0],
-                    "definicion": ast.literal_eval(temp2[1].replace(' ', ','))
+                    "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                 }
         for numeror, i in enumerate(self.RuleList):
             ril = []
@@ -859,12 +867,18 @@ class FISParser:
             for i in range(ni):
                 f.write(f"[Input" + str(i + 1) + "]\n")
                 f.write(f"Name='{self.InputList[i]['nombre']}'\n")
-                f.write(f"Range={str(self.InputList[i]['rango']).replace(',', ' ')}\n")
+                string_temp = re.sub('\s+', '',
+                                     str(self.InputList[i]['rango'])).replace(',', ' ')
+                f.write(f"Range={string_temp}\n")
                 f.write(f"NumMFs={self.InputList[i]['numeroE']}\n")
 
                 for ne in range(self.InputList[i]['numeroE']):
+                    string_temp = re.sub(
+                        '\s+', '',
+                        str(self.InputList[i]['etiquetas'][ne]['definicion'])).replace(
+                            ',', ' ')
                     f.write(
-                        f"MF{ne+1}='{self.InputList[i]['etiquetas'][ne]['nombre']}':'{self.InputList[i]['etiquetas'][ne]['mf']}',{str(self.InputList[i]['etiquetas'][ne]['definicion']).replace(',', ' ')}\n"
+                        f"MF{ne+1}='{self.InputList[i]['etiquetas'][ne]['nombre']}':'{self.InputList[i]['etiquetas'][ne]['mf']}',{string_temp}\n"
                     )
 
                 f.write(f"\n")
@@ -872,12 +886,18 @@ class FISParser:
             for i in range(no):
                 f.write(f"[Output" + str(i + 1) + "]\n")
                 f.write(f"Name='{self.OutputList[i]['nombre']}'\n")
-                f.write(f"Range={str(self.OutputList[i]['rango']).replace(',', ' ')}\n")
+                string_temp = re.sub('\s+', '',
+                                     str(self.OutputList[i]['rango'])).replace(',', ' ')
+                f.write(f"Range={string_temp}\n")
                 f.write(f"NumMFs={self.OutputList[i]['numeroE']}\n")
 
                 for ne in range(self.OutputList[i]['numeroE']):
+                    string_temp = re.sub(
+                        '\s+', '',
+                        str(self.OutputList[i]['etiquetas'][ne]['definicion'])).replace(
+                            ',', ' ')
                     f.write(
-                        f"MF{ne+1}='{self.OutputList[i]['etiquetas'][ne]['nombre']}':'{self.OutputList[i]['etiquetas'][ne]['mf']}',{str(self.OutputList[i]['etiquetas'][ne]['definicion']).replace(',', ' ')}\n"
+                        f"MF{ne+1}='{self.OutputList[i]['etiquetas'][ne]['nombre']}':'{self.OutputList[i]['etiquetas'][ne]['mf']}',{string_temp}\n"
                     )
 
                 f.write(f"\n")

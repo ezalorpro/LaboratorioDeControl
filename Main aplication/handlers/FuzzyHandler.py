@@ -16,6 +16,7 @@ def FuzzyHandler(self):
 
     self.main.guardarFuzzButton.setDisabled(True)
     self.main.guardarComoFuzzButton.setDisabled(True)
+    self.main.exportarFuzzButton.setDisabled(True)
 
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
@@ -202,6 +203,7 @@ def crear_tabs(self):
 
         self.main.guardarFuzzButton.setEnabled(True)
         self.main.guardarComoFuzzButton.setEnabled(True)
+        self.main.exportarFuzzButton.setEnabled(True)
 
         self.main.fuzzyTabWidget.removeTab(5)
         self.main.fuzzyTabWidget.removeTab(4)
@@ -299,6 +301,7 @@ def cargar_esquema(self):
 
     self.main.guardarFuzzButton.setEnabled(True)
     self.main.guardarComoFuzzButton.setEnabled(True)
+    self.main.exportarFuzzButton.setEnabled(True)
 
     self.current_file = ""
 
@@ -390,6 +393,7 @@ def cargar_controlador(self):
 
         self.main.guardarFuzzButton.setEnabled(True)
         self.main.guardarComoFuzzButton.setEnabled(True)
+        self.main.exportarFuzzButton.setEnabled(True)
         self.main.inputNombre.setReadOnly(False)
         self.main.outputNombre.setReadOnly(False)
 
@@ -820,7 +824,8 @@ def seleccion_mf_in(self):
     definicion = self.InputList[ni]["etiquetas"][ne]["definicion"]
     self.InputList[ni]["etiquetas"][ne]["mf"] = self.main.etiquetaMfIn.currentText()
     new_mf = self.InputList[ni]["etiquetas"][ne]["mf"]
-    new_definicion, tooltip = update_definicionmf(self, old_mf, definicion, new_mf)
+    new_definicion, tooltip = update_definicionmf(self, old_mf, definicion, 'trimf')
+    new_definicion, tooltip = update_definicionmf(self, 'trimf', new_definicion, self.main.etiquetaMfIn.currentText())
     new_definicion = round_list(new_definicion)
     self.main.etiquetaDefinicionIn.setText(str(new_definicion))
     self.main.etiquetaDefinicionIn.setToolTip(tooltip)
@@ -847,7 +852,8 @@ def seleccion_mf_out(self):
     definicion = self.OutputList[no]["etiquetas"][ne]["definicion"]
     self.OutputList[no]["etiquetas"][ne]["mf"] = self.main.etiquetaMfOut.currentText()
     new_mf = self.OutputList[no]["etiquetas"][ne]["mf"]
-    new_definicion, tooltip = update_definicionmf(self, old_mf, definicion, new_mf)
+    new_definicion, tooltip = update_definicionmf(self, old_mf, definicion, 'trimf')
+    new_definicion, tooltip = update_definicionmf(self, 'trimf', new_definicion, self.main.etiquetaMfOut.currentText())
     new_definicion = round_list(new_definicion)
     self.main.etiquetaDefinicionOut.setText(str(new_definicion))
     self.main.etiquetaDefinicionOut.setToolTip(tooltip)

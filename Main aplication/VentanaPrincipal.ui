@@ -2935,6 +2935,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="exportarFuzzButton">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
                  <string>Exportar FIS</string>
                 </property>
@@ -3436,7 +3439,7 @@
                      </sizepolicy>
                     </property>
                     <property name="maxVisibleItems">
-                     <number>20</number>
+                     <number>50</number>
                     </property>
                     <item>
                      <property name="text">
@@ -3619,6 +3622,9 @@
                     <property name="currentIndex">
                      <number>0</number>
                     </property>
+                    <property name="maxVisibleItems">
+                     <number>50</number>
+                    </property>
                     <property name="frame">
                      <bool>true</bool>
                     </property>
@@ -3655,6 +3661,9 @@
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="maxVisibleItems">
+                     <number>12</number>
                     </property>
                     <property name="sizeAdjustPolicy">
                      <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -3867,6 +3876,9 @@
                     <property name="currentIndex">
                      <number>0</number>
                     </property>
+                    <property name="maxVisibleItems">
+                     <number>50</number>
+                    </property>
                     <property name="frame">
                      <bool>true</bool>
                     </property>
@@ -3903,6 +3915,9 @@
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="maxVisibleItems">
+                     <number>12</number>
                     </property>
                     <property name="sizeAdjustPolicy">
                      <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -4096,7 +4111,7 @@
                      </sizepolicy>
                     </property>
                     <property name="maxVisibleItems">
-                     <number>20</number>
+                     <number>50</number>
                     </property>
                     <item>
                      <property name="text">
