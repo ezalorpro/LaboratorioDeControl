@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -1705,6 +1705,7 @@ class Ui_MainWindow(object):
         self.etiquetaMfIn.addItem("")
         self.etiquetaMfIn.addItem("")
         self.etiquetaMfIn.addItem("")
+        self.etiquetaMfIn.addItem("")
         self.verticalLayout_8.addWidget(self.etiquetaMfIn)
         self.etiquetaDefinicionIn = QtWidgets.QLineEdit(self.entradasTab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -1801,6 +1802,7 @@ class Ui_MainWindow(object):
         self.etiquetaMfOut.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContentsOnFirstShow)
         self.etiquetaMfOut.setFrame(True)
         self.etiquetaMfOut.setObjectName("etiquetaMfOut")
+        self.etiquetaMfOut.addItem("")
         self.etiquetaMfOut.addItem("")
         self.etiquetaMfOut.addItem("")
         self.etiquetaMfOut.addItem("")
@@ -5076,9 +5078,10 @@ class Ui_MainWindow(object):
         self.etiquetaMfIn.setItemText(4, _translate("MainWindow", "smf"))
         self.etiquetaMfIn.setItemText(5, _translate("MainWindow", "zmf"))
         self.etiquetaMfIn.setItemText(6, _translate("MainWindow", "sigmf"))
-        self.etiquetaMfIn.setItemText(7, _translate("MainWindow", "psigmf"))
-        self.etiquetaMfIn.setItemText(8, _translate("MainWindow", "pimf"))
-        self.etiquetaMfIn.setItemText(9, _translate("MainWindow", "gbellmf"))
+        self.etiquetaMfIn.setItemText(7, _translate("MainWindow", "dsigmf"))
+        self.etiquetaMfIn.setItemText(8, _translate("MainWindow", "psigmf"))
+        self.etiquetaMfIn.setItemText(9, _translate("MainWindow", "pimf"))
+        self.etiquetaMfIn.setItemText(10, _translate("MainWindow", "gbellmf"))
         self.etiquetaDefinicionIn.setText(_translate("MainWindow", "[-3, 0, 3]"))
         self.etiquetaDefinicionIn.setPlaceholderText(_translate("MainWindow", "vector de la mf"))
         self.fuzzyTabWidget.setTabText(self.fuzzyTabWidget.indexOf(self.entradasTab), _translate("MainWindow", "Entradas"))
@@ -5096,9 +5099,10 @@ class Ui_MainWindow(object):
         self.etiquetaMfOut.setItemText(4, _translate("MainWindow", "smf"))
         self.etiquetaMfOut.setItemText(5, _translate("MainWindow", "zmf"))
         self.etiquetaMfOut.setItemText(6, _translate("MainWindow", "sigmf"))
-        self.etiquetaMfOut.setItemText(7, _translate("MainWindow", "psigmf"))
-        self.etiquetaMfOut.setItemText(8, _translate("MainWindow", "pimf"))
-        self.etiquetaMfOut.setItemText(9, _translate("MainWindow", "gbellmf"))
+        self.etiquetaMfOut.setItemText(7, _translate("MainWindow", "dsigmf"))
+        self.etiquetaMfOut.setItemText(8, _translate("MainWindow", "psigmf"))
+        self.etiquetaMfOut.setItemText(9, _translate("MainWindow", "pimf"))
+        self.etiquetaMfOut.setItemText(10, _translate("MainWindow", "gbellmf"))
         self.etiquetaDefinicionOut.setText(_translate("MainWindow", "[-3, 0, 3]"))
         self.etiquetaDefinicionOut.setPlaceholderText(_translate("MainWindow", "vector de la mf"))
         self.label_11.setText(_translate("MainWindow", "Salida"))

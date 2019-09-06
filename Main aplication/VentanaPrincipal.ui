@@ -3699,6 +3699,11 @@
                     </item>
                     <item>
                      <property name="text">
+                      <string>dsigmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
                       <string>psigmf</string>
                      </property>
                     </item>
@@ -3938,6 +3943,11 @@
                     <item>
                      <property name="text">
                       <string>sigmf</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>dsigmf</string>
                      </property>
                     </item>
                     <item>
