@@ -151,7 +151,7 @@ def ejecutar():
     start = time.time()
     counter = 0
 
-    RK = ralston3
+    RK = runge_kutta2
 
     while tiempo < tbound:
         error = sp - yb
@@ -172,9 +172,9 @@ def ejecutar():
                 if error_norm == 0:
                     h_est = h_ant * max_step_increase
                 elif error_norm < 1:
-                    h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (4+1))))
+                    h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (2+1))))
                 else:
-                    h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (4+1))))
+                    h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (2+1))))
                     continue
 
             print(tiempo)

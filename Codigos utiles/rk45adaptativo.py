@@ -167,7 +167,7 @@ counter = 0
 start = time.time()
 # dopri5
 # fehlberg45dot
-RK = dopri5
+RK = fehlberg45
 
 while tiempo < tbound:
     counter += 1
@@ -183,12 +183,11 @@ while tiempo < tbound:
         error_norm = norm(delta1 / scale)
 
         if error_norm == 0:
-            h_est = h_ant*max_step_increase
+            h_est = h_ant * max_step_increase
         elif error_norm < 1:
-            h_est = h_ant * min(max_step_increase,
-                               max(1, sf1 * error_norm**(-1 / (4))))
+            h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (4+1))))
         else:
-            h_ant = h_ant * max(min_step_decrease, sf1 * error_norm**(-1 / (4)))
+            h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (4+1))))
             continue
 
         yb, __, vstadosB, _ = RK(sistema, vstadosB, h_ant, ypidb)

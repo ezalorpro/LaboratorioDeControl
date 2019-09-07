@@ -147,6 +147,9 @@ def get_pathcontroller2(self):
     self.main.pathController2.setText(path_cargar[0])
 
 
+def configuration_data(self):
+    pass
+
 def accion_esquema_selector(self):
 
     self.main.controller1Frame.hide()
