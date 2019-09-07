@@ -4,11 +4,11 @@ from matplotlib import pyplot as plt
 from scipy.integrate import RK45
 import time
 
-def runge_kutta_45_DP(ss, x, h, inputValue):
+def dopri5(ss, x, h, inputValue):
     k1 = h*(ss.A * x + ss.B * inputValue)
     k2 = h*(ss.A * (x + k1/5) + ss.B * inputValue)
     k3 = h * (ss.A * (x + k1*3/40 + k2*9/40) + ss.B * inputValue)
-    k4 = h*(ss.A * (x + k1*44/45 + k2 * (-56 / 15) + k3*32/39) + ss.B * inputValue)
+    k4 = h*(ss.A * (x + k1*44/45 + k2 * (-56 / 15) + k3*32/9) + ss.B * inputValue)
     k5 = h * (ss.A * (x + k1*19372/6561 + k2 * (-25360 / 2187) + k3*64448/6561 + k4 *
                       (-212 / 729)) + ss.B * inputValue)
     k6 = h * (ss.A *
@@ -26,7 +26,7 @@ def runge_kutta_45_DP(ss, x, h, inputValue):
     return y5th.item(), y4th.item(), x5th, x4th
 
 
-def runge_kutta_45_F(ss, x, h, inputValue):
+def fehlberg45(ss, x, h, inputValue):
     k1 = h * (ss.A * x + ss.B * inputValue)
     k2 = h * (ss.A * (x + k1/4) + ss.B * inputValue)
     k3 = h * (ss.A * (x + k1*3/32 + k2*9/32) + ss.B * inputValue)
@@ -42,6 +42,56 @@ def runge_kutta_45_F(ss, x, h, inputValue):
 
     x4th = x + (k1*25/216 + k2*0 + k3*1408/2565 + k4*2197/4104 + k5 *
                 (-1 / 5) + k6*0)
+
+    y5th = ss.C * x5th + ss.D * inputValue
+    y4th = ss.C * x4th + ss.D * inputValue
+    return y4th.item(), y5th.item(), x4th, x5th
+
+
+def bogacki_shampine23(ss, x, h, inputValue):
+    k1 = h * (ss.A * x + ss.B * inputValue)
+    k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
+    k3 = h * (ss.A * (x + k2*3/4) + ss.B * inputValue)
+    k4 = h * (ss.A * (x + k1*2/9 + k2*1/3 + k3*4/9) + ss.B * inputValue)
+
+    x3th = x + (k1*2/9 + k2*1/3 + k3*4/9)
+
+    x2th = x + (k1*7/24 + k2*1/4 + k3*1/3 + k4*1/8)
+
+    y3th = ss.C * x3th + ss.D * inputValue
+    y2th = ss.C * x2th + ss.D * inputValue
+    return y2th.item(), y3th.item(), x2th, x3th
+
+
+def fehlberg12(ss, x, h, inputValue): # Malisimo
+    k1 = h * (ss.A * x + ss.B * inputValue)
+    k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
+    k3 = h * (ss.A * (x + k1*1/256 + k2*255/256) + ss.B * inputValue)
+
+    x1th = x + (k1*1/256 + k2*255/256)
+
+    x2th = x + (k1*1/512 + k2*255/256 + k3*1/512)
+
+    y1th = ss.C * x1th + ss.D * inputValue
+    y2th = ss.C * x2th + ss.D * inputValue
+    return y1th.item(), y2th.item(), x1th, x2th
+
+
+def cash_karp(ss, x, h, inputValue):
+    k1 = h * (ss.A * x + ss.B * inputValue)
+    k2 = h * (ss.A * (x + k1/4) + ss.B * inputValue)
+    k3 = h * (ss.A * (x + k1*3/32 + k2*9/32) + ss.B * inputValue)
+    k4 = h * (ss.A * (x + k1*1932/2197 + k2 *
+                      (-7200 / 2197) + k3*7296/2197) + ss.B * inputValue)
+    k5 = h * (ss.A * (x + k1*439/216 + k2 * (-8) + k3*3680/513 + k4 *
+                      (-845 / 4104)) + ss.B * inputValue)
+    k6 = h * (ss.A * (x + k1*8/27 + k2 * (2) + k3 * (-3544 / 2565) + k4*1859/4104 + k5 *
+                      (-11 / 40)) + ss.B * inputValue)
+
+    x5th = x + (k1*16/135 + k2*0 + k3*6656/12825 + k4*28561/56430 + k5 *
+                (-9 / 50) + k6*2/55)
+
+    x4th = x + (k1*25/216 + k2*0 + k3*1408/2565 + k4*2197/4104 + k5 * (-1 / 5) + k6*0)
 
     y5th = ss.C * x5th + ss.D * inputValue
     y4th = ss.C * x4th + ss.D * inputValue
@@ -73,17 +123,20 @@ min_step_decrease = 0.2
 max_step_increase = 5
 h_ant = 0.0001
 rtol = 1e-3
-atol = 1e-5
+atol = 1e-6
 tiempo = 0
 tbound = 30
 sp = 1
 salida = [0]
 tiempo_out = [0]
 yb = 0
-sf1 = 0.8
+sf1 = 0.95
 sf2 = 4
 counter = 0
 start = time.time()
+
+RK = dopri5
+
 while tiempo < tbound:
     counter += 1
     error = sp - yb
@@ -91,7 +144,7 @@ while tiempo < tbound:
         if tiempo + h_ant >= tbound:
             h_ant = tbound - tiempo
 
-        ypidb, y4th, x_five, x_four = runge_kutta_45_F(pid, x_pidB, h_ant, error)
+        ypidb, y4th, x_five, x_four = RK(pid, x_pidB, h_ant, error)
 
         scale = atol + np.maximum(np.abs(x_pidB), np.abs(x_five)) * rtol
         delta1 = np.abs(x_five - x_four)
@@ -106,7 +159,7 @@ while tiempo < tbound:
             h_ant = h_ant * max(min_step_decrease, sf1 * error_norm**(-1 / (4)))
             continue
 
-        yb, __, vstadosB, _ = runge_kutta_45_F(sistema, vstadosB, h_ant, ypidb)
+        yb, __, vstadosB, _ = RK(sistema, vstadosB, h_ant, ypidb)
         break
 
     print(tiempo)
@@ -120,4 +173,5 @@ print(counter)
 print(len(tiempo_out))
 print(f'{time.time() - start}')
 plt.plot(tiempo_out, salida)
+plt.grid()
 plt.show()

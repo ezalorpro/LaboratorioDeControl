@@ -847,10 +847,10 @@ class SimpleThread(QtCore.QThread):
                       xVectB,
                       entrada,
                       rtol=1e-3,
-                      atol=1e-6,
+                      atol=5e-6,
                       max_step_increase=5,
                       min_step_decrease=0.2,
-                      safety_factor=0.9):
+                      safety_factor=0.95):
 
         while True:
             if tiempo + h_ant >= tbound:
@@ -877,13 +877,28 @@ class SimpleThread(QtCore.QThread):
             break
         return h_ant, h_est, yS, xVectSn
 
-    def runge_kutta(self, ss, x, h, inputValue):
+    def runge_kutta4(self, ss, x, h, inputValue):
         k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
         k2 = np.dot(h, (np.dot(ss.A, (x + k1/2)) + np.dot(ss.B, inputValue)))
         k3 = np.dot(h, (np.dot(ss.A, (x + k2/2)) + np.dot(ss.B, inputValue)))
         k4 = np.dot(h, (np.dot(ss.A, (x + k3)) + np.dot(ss.B, inputValue)))
 
         x = x + np.dot((1 / 6), (k1 + np.dot(k2, 2) + np.dot(k3, 2) + k4))
+        y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
+        return y.item(), x
+
+    def runge_kutta(self ,ss, x, h, inputValue):  # Mejor: rtol = 1e-3, atol = 5e-6
+        k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
+        k2 = np.dot(h, (np.dot(ss.A, (x + k1/4)) + np.dot(ss.B, inputValue)))
+        k3 = np.dot(h, (np.dot(ss.A, (x + k1/8 + k2/8)) + np.dot(ss.B, inputValue)))
+        k4 = np.dot(h, (np.dot(ss.A, (x - k2/2 + k3)) + np.dot(ss.B, inputValue)))
+        k5 = np.dot(h, (np.dot(ss.A, (x - k1*3/16 + k4*9/16)) + np.dot(ss.B, inputValue)))
+        k6 = np.dot(h,
+                    (np.dot(ss.A, (x - k1*3/7 + k2*2/7 + k3*12/7 - k4*12/7 + k5*8/7)) +
+                     np.dot(ss.B, inputValue)))
+
+        x = x + (np.dot(k1, 7 / 90) + np.dot(k3, 32 / 90) + np.dot(k4, 12 / 90) +
+                 np.dot(k5, 32 / 90) + np.dot(k6, 7 / 90))
         y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
         return y.item(), x
 
