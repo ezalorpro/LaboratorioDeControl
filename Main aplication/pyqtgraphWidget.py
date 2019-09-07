@@ -1,7 +1,7 @@
 from PySide2.QtWidgets import QGraphicsView
 from PySide2.QtWidgets import QVBoxLayout
-from pyqtgraph import PlotWidget
-import pyqtgraph as pg
+from pyqtgraphmdf import PlotWidget
+import pyqtgraphmdf as pg
 
 
 class PgraphWidget(QGraphicsView):

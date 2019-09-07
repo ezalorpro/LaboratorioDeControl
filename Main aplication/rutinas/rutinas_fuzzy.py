@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 from parse import parse
 # import pyvista as pv
 import ast
-import pyqtgraph as pg
+import pyqtgraphmdf as pg
 import copy
 import json
 import re
