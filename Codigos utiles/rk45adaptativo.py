@@ -4,22 +4,41 @@ from matplotlib import pyplot as plt
 from scipy.integrate import RK45
 import time
 
+
 def dopri5(ss, x, h, inputValue):
-    k1 = h*(ss.A * x + ss.B * inputValue)
-    k2 = h*(ss.A * (x + k1/5) + ss.B * inputValue)
-    k3 = h * (ss.A * (x + k1*3/40 + k2*9/40) + ss.B * inputValue)
-    k4 = h*(ss.A * (x + k1*44/45 + k2 * (-56 / 15) + k3*32/9) + ss.B * inputValue)
-    k5 = h * (ss.A * (x + k1*19372/6561 + k2 * (-25360 / 2187) + k3*64448/6561 + k4 *
-                      (-212 / 729)) + ss.B * inputValue)
-    k6 = h * (ss.A *
-              (x + k1*9017/3168 + k2 * (-355 / 33) + k3*46732/5247 + k4*49/176 + k5 *
-               (-5103 / 18656)) + ss.B * inputValue)
-    k7 = h * (ss.A * (x + k1*35/384 + k2*0 + k3*500/1113 + k4*125/192 + k5 *
-                      (-2187 / 6784) + k6*11/84) + ss.B * inputValue)
+    k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
+    k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 5))) + np.dot(ss.B, inputValue)))
+    k3 = np.dot(h,
+                (np.dot(ss.A, (x + np.dot(k1, 3 / 40) + np.dot(k2, 9 / 40))) +
+                 np.dot(ss.B, inputValue)))
+    k4 = np.dot(
+        h,
+        (np.dot(ss.A,
+                (x + np.dot(k1, 44 / 45) + np.dot(k2, -56 / 15) + np.dot(k3, 32 / 9))) +
+         np.dot(ss.B, inputValue)))
+    k5 = np.dot(h,
+                (np.dot(ss.A,
+                        (x + np.dot(k1, 19372 / 6561) + np.dot(k2, -25360 / 2187) +
+                         np.dot(k3, 64448 / 6561) + np.dot(k4, -212 / 729))) +
+                 np.dot(ss.B, inputValue)))
+    k6 = np.dot(h,
+                (np.dot(ss.A,
+                        (x + np.dot(k1, 9017 / 3168) + np.dot(k2, -355 / 33) +
+                         np.dot(k3, 46732 / 5247) + np.dot(k4, 49 / 176) +
+                         np.dot(k5, -5103 / 18656))) + np.dot(ss.B, inputValue)))
+    k7 = np.dot(
+        h,
+        (np.dot(ss.A,
+                (x + np.dot(k1, 35 / 384) + np.dot(k3, 500 / 1113) + np.dot(
+                    k4, 125 / 192) + np.dot(k5, -2187 / 6784) + np.dot(k6, 11 / 84))) +
+         np.dot(ss.B, inputValue)))
 
-    x5th = x + (k1*35/384 + k2*0 + k3*500/1113 + k4*125/192 + k5*(-2187 / 6784) + k6*11/84 + k7*0)
+    x5th = x + (np.dot(k1, 35 / 384) + np.dot(k3, 500 / 1113) + np.dot(k4, 125 / 192) +
+                np.dot(k5, -2187 / 6784) + np.dot(k6, 11 / 84))
 
-    x4th = x + (k1*5179/57600 + k2*0 + k3*7571/16695 + k4*393/640 + k5*(-92097 / 339200) + k6*187/2100 + k7*1/40)
+    x4th = x + (np.dot(k1, 5179 / 57600) + np.dot(k3, 7571 / 16695) +
+                np.dot(k4, 393 / 640) + np.dot(k5, -92097 / 339200) +
+                np.dot(k6, 187 / 2100) + np.dot(k7, 1 / 40))
 
     y5th = ss.C * x5th + ss.D * inputValue
     y4th = ss.C * x4th + ss.D * inputValue
@@ -27,21 +46,32 @@ def dopri5(ss, x, h, inputValue):
 
 
 def fehlberg45(ss, x, h, inputValue):
-    k1 = h * (ss.A * x + ss.B * inputValue)
-    k2 = h * (ss.A * (x + k1/4) + ss.B * inputValue)
-    k3 = h * (ss.A * (x + k1*3/32 + k2*9/32) + ss.B * inputValue)
-    k4 = h * (ss.A * (x + k1*1932/2197 + k2 *
-                      (-7200 / 2197) + k3*7296/2197) + ss.B * inputValue)
-    k5 = h * (ss.A * (x + k1*439/216 + k2 * (-8) + k3*3680/513 + k4 *
-                      (-845 / 4104)) + ss.B * inputValue)
-    k6 = h * (ss.A * (x + k1*8/27 + k2 * (2) + k3 * (-3544 / 2565) + k4*1859/4104 + k5 *
-                      (-11 / 40)) + ss.B * inputValue)
+    k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
+    k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 4))) + np.dot(ss.B, inputValue)))
+    k3 = np.dot(h,
+                (np.dot(ss.A, (x + np.dot(k1, 3 / 32) + np.dot(k2, 9 / 32))) +
+                 np.dot(ss.B, inputValue)))
+    k4 = np.dot(h,
+                (np.dot(ss.A,
+                        (x + np.dot(k1, 1932 / 2197) + np.dot(k2, -7200 / 2197) +
+                         np.dot(k3, 7296 / 2197))) + np.dot(ss.B, inputValue)))
+    k5 = np.dot(
+        h,
+        (np.dot(ss.A,
+                (x + np.dot(k1, 439 / 216) + np.dot(k2, -8) + np.dot(k3, 3680 / 513) +
+                 np.dot(k4, -845 / 4104))) + np.dot(ss.B, inputValue)))
+    k6 = np.dot(
+        h,
+        (np.dot(ss.A,
+                (x + np.dot(k1, -8 / 27) + np.dot(k2, 2) + np.dot(k3, -3544 / 2565) +
+                 np.dot(k4, 1859 / 4104) + np.dot(k5, -11 / 40))) +
+         np.dot(ss.B, inputValue)))
 
-    x5th = x + (k1*16/135 + k2*0 + k3*6656/12825 + k4*28561/56430 + k5 *
-                (-9 / 50) + k6*2/55)
+    x5th = x + (np.dot(k1, 16 / 135) + np.dot(k3, 6656 / 12825) +
+                np.dot(k4, 28561 / 56430) + np.dot(k5, -9 / 50) + np.dot(k6, 2 / 55))
 
-    x4th = x + (k1*25/216 + k2*0 + k3*1408/2565 + k4*2197/4104 + k5 *
-                (-1 / 5) + k6*0)
+    x4th = x + (np.dot(k1, 25 / 216) + np.dot(k3, 1408 / 2565) + np.dot(k4, 2197 / 4104) +
+                np.dot(k5, -1 / 5))
 
     y5th = ss.C * x5th + ss.D * inputValue
     y4th = ss.C * x4th + ss.D * inputValue
@@ -49,49 +79,50 @@ def fehlberg45(ss, x, h, inputValue):
 
 
 def bogacki_shampine23(ss, x, h, inputValue):
-    k1 = h * (ss.A * x + ss.B * inputValue)
-    k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
-    k3 = h * (ss.A * (x + k2*3/4) + ss.B * inputValue)
-    k4 = h * (ss.A * (x + k1*2/9 + k2*1/3 + k3*4/9) + ss.B * inputValue)
+    k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
+    k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 2))) + np.dot(ss.B, inputValue)))
+    k3 = np.dot(h,
+                (np.dot(ss.A, (x + np.dot(k2, 3 / 4))) +
+                 np.dot(ss.B, inputValue)))
+    k4 = np.dot(h,
+                (np.dot(ss.A,
+                        (x + np.dot(k1, 2/9) + np.dot(k2, 1/3) +
+                         np.dot(k3, 4/9))) + np.dot(ss.B, inputValue)))
 
-    x3th = x + (k1*2/9 + k2*1/3 + k3*4/9)
+    x3th = x + (np.dot(k1, 2 / 9) + np.dot(k2, 1 / 3) + np.dot(k3, 4 / 9))
 
-    x2th = x + (k1*7/24 + k2*1/4 + k3*1/3 + k4*1/8)
+    x2th = x + (np.dot(k1, 7/24) + np.dot(k2, 1/4) + np.dot(k3, 1/3) +
+                np.dot(k4, 1/8))
 
     y3th = ss.C * x3th + ss.D * inputValue
     y2th = ss.C * x2th + ss.D * inputValue
     return y2th.item(), y3th.item(), x2th, x3th
 
-
-def fehlberg12(ss, x, h, inputValue): # Malisimo
-    k1 = h * (ss.A * x + ss.B * inputValue)
-    k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
-    k3 = h * (ss.A * (x + k1*1/256 + k2*255/256) + ss.B * inputValue)
-
-    x1th = x + (k1*1/256 + k2*255/256)
-
-    x2th = x + (k1*1/512 + k2*255/256 + k3*1/512)
-
-    y1th = ss.C * x1th + ss.D * inputValue
-    y2th = ss.C * x2th + ss.D * inputValue
-    return y1th.item(), y2th.item(), x1th, x2th
-
-
 def cash_karp(ss, x, h, inputValue):
-    k1 = h * (ss.A * x + ss.B * inputValue)
-    k2 = h * (ss.A * (x + k1/4) + ss.B * inputValue)
-    k3 = h * (ss.A * (x + k1*3/32 + k2*9/32) + ss.B * inputValue)
-    k4 = h * (ss.A * (x + k1*1932/2197 + k2 *
-                      (-7200 / 2197) + k3*7296/2197) + ss.B * inputValue)
-    k5 = h * (ss.A * (x + k1*439/216 + k2 * (-8) + k3*3680/513 + k4 *
-                      (-845 / 4104)) + ss.B * inputValue)
-    k6 = h * (ss.A * (x + k1*8/27 + k2 * (2) + k3 * (-3544 / 2565) + k4*1859/4104 + k5 *
-                      (-11 / 40)) + ss.B * inputValue)
+    k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
+    k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 5))) + np.dot(ss.B, inputValue)))
+    k3 = np.dot(h,
+                (np.dot(ss.A, (x + np.dot(k1, 3 / 40) + np.dot(k2, 9 / 40))) +
+                 np.dot(ss.B, inputValue)))
+    k4 = np.dot(h,
+                (np.dot(ss.A,
+                        (x + np.dot(k1, 3/10) + np.dot(k2, -9/10) +
+                         np.dot(k3, 6/5))) + np.dot(ss.B, inputValue)))
+    k5 = np.dot(
+        h,
+        (np.dot(ss.A,
+                (x + np.dot(k1, -11/54) + np.dot(k2, 5/2) + np.dot(k3, -70/27) +
+                 np.dot(k4, 35/27))) + np.dot(ss.B, inputValue)))
+    k6 = np.dot(h,
+                (np.dot(ss.A,
+                        (x + np.dot(k1, 1631 / 55296) + np.dot(k2, 175 / 512) +
+                         np.dot(k3, 575 / 13824) + np.dot(k4, 44275 / 110592) +
+                         np.dot(k5, 253 / 4096))) + np.dot(ss.B, inputValue)))
 
-    x5th = x + (k1*16/135 + k2*0 + k3*6656/12825 + k4*28561/56430 + k5 *
-                (-9 / 50) + k6*2/55)
+    x5th = x + (np.dot(k1, 37 / 378) + np.dot(k3, 250 / 621) + np.dot(k4, 125 / 594) + np.dot(k6, 512 / 1771))
 
-    x4th = x + (k1*25/216 + k2*0 + k3*1408/2565 + k4*2197/4104 + k5 * (-1 / 5) + k6*0)
+    x4th = x + (np.dot(k1, 2825 / 27648) + np.dot(k3, 18575 / 48384) +
+                np.dot(k4, 13525 / 55296) + np.dot(k5, 277 / 14336) + np.dot(k6, 1 / 4))
 
     y5th = ss.C * x5th + ss.D * inputValue
     y4th = ss.C * x4th + ss.D * inputValue
@@ -123,7 +154,7 @@ min_step_decrease = 0.2
 max_step_increase = 5
 h_ant = 0.0001
 rtol = 1e-3
-atol = 1e-6
+atol = 5e-6
 tiempo = 0
 tbound = 30
 sp = 1
@@ -134,7 +165,8 @@ sf1 = 0.95
 sf2 = 4
 counter = 0
 start = time.time()
-
+# dopri5
+# fehlberg45dot
 RK = dopri5
 
 while tiempo < tbound:

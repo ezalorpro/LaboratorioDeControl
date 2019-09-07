@@ -64,6 +64,28 @@ def ejecutar():
         y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
         return y.item(), x
 
+    def runge_kutta5dot(ss, x, h, inputValue):  # Mejor: rtol = 1e-3, atol = 5e-6
+        k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
+        k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 4))) + np.dot(ss.B, inputValue)))
+        k3 = np.dot(h,
+                    (np.dot(ss.A, (x + np.dot(k1, 1 / 8) + np.dot(k2, 1 / 8))) +
+                     np.dot(ss.B, inputValue)))
+        k4 = np.dot(h, (np.dot(ss.A,
+                               (x - np.dot(k2, 1 / 2) + k3)) + np.dot(ss.B, inputValue)))
+        k5 = np.dot(h,
+                    (np.dot(ss.A, (x - np.dot(k1, 3 / 16) + np.dot(k4, 9 / 16))) +
+                     np.dot(ss.B, inputValue)))
+        k6 = np.dot(
+            h,
+            (np.dot(ss.A,
+                    (x - np.dot(k1, 3 / 7) + np.dot(k2, 2 / 7) + np.dot(k3, 12 / 7) -
+                     np.dot(k4, 12 / 7) + np.dot(k5, 8 / 7))) + np.dot(ss.B, inputValue)))
+
+        x = x + (np.dot(k1, 7 / 90) + np.dot(k3, 32 / 90) + np.dot(k4, 12 / 90) +
+                 np.dot(k5, 32 / 90) + np.dot(k6, 7 / 90))
+        y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
+        return y.item(), x
+
     def runge_kutta6(ss, x, h, inputValue):  # No rindio
         k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
         k2 = np.dot(h, (np.dot(ss.A, (x + k1/3)) + np.dot(ss.B, inputValue)))
@@ -144,7 +166,7 @@ def ejecutar():
     x_pidB = np.zeros_like(pid.B)
     x_pidS = np.zeros_like(pid.B)
 
-    sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1]))
+    sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
     vstadosB = np.zeros_like(sistema.B)
 
     min_step_decrease = 0.2
@@ -164,7 +186,7 @@ def ejecutar():
     start = time.time()
     counter = 0
 
-    RK = runge_kutta5
+    RK = runge_kutta5dot
 
     while tiempo < tbound:
         error = sp - yb
