@@ -10,6 +10,16 @@ def ejecutar():
         """Compute RMS norm."""
         return np.linalg.norm(x) / x.size**0.5
 
+    def tres_octavos4(ss, x, h, inputValue):
+        k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B,inputValue)))
+        k2 = np.dot(h, (np.dot(ss.A, (x + k1/3)) + np.dot(ss.B, inputValue)))
+        k3 = np.dot(h, (np.dot(ss.A, (x - k1/3 + k2)) + np.dot(ss.B, inputValue)))
+        k4 = np.dot(h, (np.dot(ss.A, (x + k1 - k2 + k3)) + np.dot(ss.B, inputValue)))
+
+        x = x + (np.dot(k1, 1 / 8) + np.dot(k2, 3 / 8) + np.dot(k3, 3 / 8) +
+                 np.dot(k4, 1 / 8))
+        y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
+        return y.item(), x
 
     def runge_kutta4(ss, x, h, inputValue):
         k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B,inputValue)))
@@ -88,7 +98,7 @@ def ejecutar():
     x_pidB = np.zeros_like(pid.B)
     x_pidS = np.zeros_like(pid.B)
 
-    sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1]))
+    sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
     vstadosB = np.zeros_like(sistema.B)
 
     min_step_decrease = 0.2
@@ -108,7 +118,7 @@ def ejecutar():
     start = time.time()
     counter = 0
 
-    RK = ralston4
+    RK = runge_kutta4
 
     while tiempo < tbound:
         error = sp - yb
