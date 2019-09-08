@@ -30,7 +30,7 @@ def SimulacionHandler(self):
     self.main.loadController1.clicked.connect(lambda: get_pathcontroller1(self))
     self.main.loadController2.clicked.connect(lambda: get_pathcontroller2(self))
     self.main.esquemaSimulacion.currentIndexChanged.connect(lambda: accion_esquema_selector(self))
-    # self.main.kdCheck.stateChanged.connect(lambda: enabled_N(self))
+    self.main.defaultConfiguration.clicked.connect(lambda: restablecer_configuracion(self))
 
 
 def calcular_simulacion(self):
@@ -220,6 +220,14 @@ def configuration_data(self):
     return rk_base, metodo_adaptativo, [rk_metodo, ordenq, rtol, atol, max_step_inc, min_step_dec, safety_factor]
 
 
+def restablecer_configuracion(self):
+    self.main.padeOrder.setText('10')
+    self.main.solverMethod.setCurrentIndex(8)
+    self.main.rtolLineEdit.setText('1e-3')
+    self.main.atolLineEdit.setText('5e-6')
+    self.main.maxStepIncr.setText('5')
+    self.main.minStepDecr.setText('0.2')
+    self.main.safetyFactor.setText('0.95')
 
 
 def accion_esquema_selector(self):
@@ -242,6 +250,7 @@ def accion_esquema_selector(self):
         self.main.kdCheck.show()
         self.main.kiCheck.show()
         self.main.NFrame.show()
+        self.main.NSpacer.show()
         self.main.labelFiltro.show()
 
         if self.main.kdCheck.isChecked():
@@ -261,6 +270,7 @@ def accion_esquema_selector(self):
         self.main.kdFrame.hide()
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.NSpacer.hide()
         self.main.labelFiltro.hide()
 
         if index == 1:
@@ -287,6 +297,7 @@ def accion_esquema_selector(self):
         self.main.kdFrame.hide()
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.NSpacer.hide()
         self.main.labelFiltro.hide()
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/pipdDifuso.png"))
@@ -302,6 +313,7 @@ def accion_esquema_selector(self):
         self.main.kdSimulacion.setEnabled(True)
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.NSpacer.hide()
         self.main.labelFiltro.hide()
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/piplusDDifuso.png"))
@@ -317,6 +329,7 @@ def accion_esquema_selector(self):
         self.main.kiSimulacion.setEnabled(True)
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.NSpacer.hide()
         self.main.labelFiltro.hide()
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/pdplusIDifuso.png"))
@@ -331,26 +344,12 @@ def accion_esquema_selector(self):
         self.main.kiCheck.show()
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
+        self.main.NSpacer.show()
         self.main.NSimulacion.setEnabled(True)
         self.main.labelFiltro.show()
 
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/pidplusDifuso.png"))
-
-
-# def enabled_N(self):
-
-#     index = self.main.esquemaSimulacion.currentIndex()
-
-#     if self.main.kdCheck.isChecked() and index in [0, 5, 8]:
-#         self.main.kdSimulacion.setEnabled(True)
-#         self.main.NSimulacion.setEnabled(True)
-
-#     elif not self.main.kdCheck.isChecked() and index in [0, 5]:
-#         self.main.kdSimulacion.setDisabled(True)
-#         self.main.NSimulacion.setDisabled(True)
-#     elif index == 8:
-#         self.main.kdSimulacion.setDisabled(True)
 
 
 def update_progresBar_function(self, value):

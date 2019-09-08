@@ -110,7 +110,7 @@ class SimpleThread(QtCore.QThread):
             h = self.dt
         else:
             error_a = deque([0] * 2)
-            self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
+            # self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
             solve = self.rk_base
             PIDf = self.metodo_adaptativo
 
@@ -278,7 +278,7 @@ class SimpleThread(QtCore.QThread):
             h = self.dt
         else:
             error_a = deque([0] * 2)
-            self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
+            # self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
             solve = self.rk_base
             PIDf = self.metodo_adaptativo
 
@@ -848,26 +848,26 @@ class SimpleThread(QtCore.QThread):
         y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
         return y, x
 
-    def derivada_filtrada(self, vm, set_point, ts, error_anterior):
-        error = set_point - vm
-        error_derivativo = self.filtro.filtrar(error)
-        s_derivativa1 = (error_derivativo - error_anterior[0]) / ts
-        s_derivativa2 = (error_derivativo - 2 * error_anterior[0] + error_anterior[1]) / (ts**2)
-        error_anterior.pop()
-        error_anterior.appendleft(error_derivativo)
-        return error, s_derivativa1, s_derivativa2, error_anterior
+    # def derivada_filtrada(self, vm, set_point, ts, error_anterior):
+    #     error = set_point - vm
+    #     error_derivativo = self.filtro.filtrar(error)
+    #     s_derivativa1 = (error_derivativo - error_anterior[0]) / ts
+    #     s_derivativa2 = (error_derivativo - 2 * error_anterior[0] + error_anterior[1]) / (ts**2)
+    #     error_anterior.pop()
+    #     error_anterior.appendleft(error_derivativo)
+    #     return error, s_derivativa1, s_derivativa2, error_anterior
 
-    def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
-        error = set_point - vm
-        s_proporcional = error
-        s_integral = s_integral + error*ts
-        error_derivativo = self.filtroPID.filtrar(error)
-        # error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
-        s_derivativa = (error_derivativo - error_anterior[0]) / ts
-        s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
-        error_anterior.pop()
-        error_anterior.appendleft(error_derivativo)
-        return s_control, s_integral, error_anterior
+    # def PID(self, vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
+    #     error = set_point - vm
+    #     s_proporcional = error
+    #     s_integral = s_integral + error*ts
+    #     error_derivativo = self.filtroPID.filtrar(error)
+    #     # error_derivativo = (error + sum(error_anterior))/(len(error_anterior) + 1)
+    #     s_derivativa = (error_derivativo - error_anterior[0]) / ts
+    #     s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
+    #     error_anterior.pop()
+    #     error_anterior.appendleft(error_derivativo)
+    #     return s_control, s_integral, error_anterior
 
     def PID_discreto(self, error, ts, s_integral, error_anterior, kp, ki, kd):
         s_proporcional = error
@@ -886,36 +886,31 @@ class SimpleThread(QtCore.QThread):
         return s_derivativa, s_derivativa2, error_anterior
 
 
-class Lowpassfilter:
-    """ Filtro pasa-bajo promediador"""
+# class Lowpassfilter:
+#     """ Filtro pasa-bajo promediador"""
 
-    def __init__(self, fsampling, fcorte):
-        self.fsampling = fsampling
-        self.fcorte = fcorte
-        self.fcorte_normalizada = self.fcorte / self.fsampling
+#     def __init__(self, fsampling, fcorte):
+#         self.fsampling = fsampling
+#         self.fcorte = fcorte
+#         self.fcorte_normalizada = self.fcorte / self.fsampling
 
-        if self.fcorte_normalizada <= 0:
-            self.order = 0
-        else:
-            self.order = int(
-                np.sqrt(0.196202 + pow(self.fcorte_normalizada, 2)) / self.fcorte_normalizada)
-            self.samples0 = self.order * deque([0])
+#         if self.fcorte_normalizada <= 0:
+#             self.order = 0
+#         else:
+#             self.order = int(
+#                 np.sqrt(0.196202 + pow(self.fcorte_normalizada, 2)) / self.fcorte_normalizada)
+#             self.samples0 = self.order * deque([0])
 
-    def filtrar(self, entrada):
+#     def filtrar(self, entrada):
 
-        if self.order == 0:
-            return 0
+#         if self.order == 0:
+#             return 0
 
-        self.samples0.pop()
-        self.samples0.appendleft(entrada)
-        salida = sum(self.samples0) / self.order
+#         self.samples0.pop()
+#         self.samples0.appendleft(entrada)
+#         salida = sum(self.samples0) / self.order
 
-        return salida
-
-
-# def norm(x):
-#     """Compute RMS norm."""
-#     return np.linalg.norm(x) / x.size**0.5
+#         return salida
 
 
 def system_creator_tf(self, numerador, denominador):

@@ -26,7 +26,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.error_dialog.setText("Error")
         self.error_dialog.setInformativeText('404')
         self.error_dialog.setWindowTitle("Error")
-
+        
         AnalisisHandler(self)
         TuningHandler(self)
         FuzzyHandler(self)
