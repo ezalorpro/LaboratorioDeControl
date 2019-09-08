@@ -36,6 +36,9 @@ class SimpleThread(QtCore.QThread):
         self.saturador_flag = self.list_info[7]
         self.kp, self.ki, self.kd, self.N = map(float, self.list_info[8])
         self.fuzzy_path1, self.fuzzy_path2 = self.list_info[9]
+        self.rk_base = self.list_info[10]
+        self.metodo_adaptativo = self.list_info[11]
+        self.solver_configuration = self.list_info[12]
 
 
     def run(self):
@@ -86,7 +89,7 @@ class SimpleThread(QtCore.QThread):
             index_tbound = len(max_tiempo)
             max_tiempo.append(tiempo_total)
 
-        ten_percent = int(tiempo_total * 10 / 100)
+        ten_percent = int(tiempo_total * 20 / 100)
 
         if ten_percent == 0:
             ten_percent = 1
@@ -108,8 +111,8 @@ class SimpleThread(QtCore.QThread):
         else:
             error_a = deque([0] * 2)
             self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
-            solve = self.runge_kutta
-            PIDf = self.rk4adaptativo
+            solve = self.rk_base
+            PIDf = self.metodo_adaptativo
 
         if self.window.main.accionadorCheck.isChecked():
             acc_num = json.loads(self.window.main.numAccionador.text())
@@ -176,7 +179,7 @@ class SimpleThread(QtCore.QThread):
             if ctrl.isdtime(self.system, strict=True):
                 sc_t, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
             else:
-                h, h_new, sc_t, x_pid = PIDf(pid, h, tiempo, max_tiempo[setpoint_window], x_pid, error)
+                h, h_new, sc_t, x_pid = PIDf(pid, h, tiempo, max_tiempo[setpoint_window], x_pid, error, *self.solver_configuration)
 
             if self.window.main.accionadorCheck.isChecked():
                 sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
@@ -254,7 +257,7 @@ class SimpleThread(QtCore.QThread):
             index_tbound = len(max_tiempo)
             max_tiempo.append(tiempo_total)
 
-        ten_percent = int(tiempo_total * 10 / 100)
+        ten_percent = int(tiempo_total * 20 / 100)
 
         if ten_percent == 0:
             ten_percent = 1
@@ -276,8 +279,8 @@ class SimpleThread(QtCore.QThread):
         else:
             error_a = deque([0] * 2)
             self.filtroPID = Lowpassfilter(1 / self.dt, (self.N - 1) / np.pi)
-            solve = self.runge_kutta
-            PIDf = self.rk4adaptativo
+            solve = self.rk_base
+            PIDf = self.metodo_adaptativo
 
         if self.window.main.accionadorCheck.isChecked():
             acc_num = json.loads(self.window.main.numAccionador.text())
@@ -352,10 +355,10 @@ class SimpleThread(QtCore.QThread):
                 else:
                     if self.N != 0:
                         h, h_new2, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
-                                                            max_tiempo[setpoint_window], x_derivada2, error)
+                                                            max_tiempo[setpoint_window], x_derivada2, error, *self.solver_configuration)
 
                         h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                            max_tiempo[setpoint_window], x_derivada, error)
+                                                            max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
 
                         h_new = min(h_new1, h_new2)
                     else:
@@ -420,7 +423,7 @@ class SimpleThread(QtCore.QThread):
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                           max_tiempo[setpoint_window], x_derivada, error)
+                                                           max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
                     else:
                         d_error = 0
 
@@ -481,7 +484,7 @@ class SimpleThread(QtCore.QThread):
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                           max_tiempo[setpoint_window], x_derivada, error)
+                                                           max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
                     else:
                         d_error = 0
 
@@ -543,7 +546,7 @@ class SimpleThread(QtCore.QThread):
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                           max_tiempo[setpoint_window], x_derivada, error)
+                                                           max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
                     else:
                         d_error = 0
 
@@ -607,7 +610,7 @@ class SimpleThread(QtCore.QThread):
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                           max_tiempo[setpoint_window], x_derivada, error)
+                                                           max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
                     else:
                         d_error = 0
 
@@ -671,7 +674,7 @@ class SimpleThread(QtCore.QThread):
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                           max_tiempo[setpoint_window], x_derivada, error)
+                                                           max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
                         d_error = 0
 
                 spi = spi + error*h
@@ -735,7 +738,7 @@ class SimpleThread(QtCore.QThread):
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
-                                                            max_tiempo[setpoint_window], x_derivada, error)
+                                                            max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
                     else:
                         d_error = 0
 
@@ -802,7 +805,7 @@ class SimpleThread(QtCore.QThread):
                     s_pid, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
                 else:
                     h, h_new, s_pid, x_pid = PIDf(pid, h, tiempo,
-                                                 max_tiempo[setpoint_window], x_pid, error)
+                                                 max_tiempo[setpoint_window], x_pid, error, *self.solver_configuration)
 
                 s_fuzzy = fuzzy_c1.calcular_valor([error], [0] * 1)[0]
 
@@ -838,69 +841,7 @@ class SimpleThread(QtCore.QThread):
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
-
-    def rk4adaptativo(self,
-                      systema,
-                      h_ant,
-                      tiempo,
-                      tbound,
-                      xVectB,
-                      entrada,
-                      rtol=1e-3,
-                      atol=5e-6,
-                      max_step_increase=5,
-                      min_step_decrease=0.2,
-                      safety_factor=0.95):
-
-        while True:
-            if tiempo + h_ant >= tbound:
-                h_ant = tbound - tiempo
-                yS, xVectSn = self.runge_kutta(systema, xVectB, h_ant, entrada)
-                h_est = h_ant
-            else:
-                yB, xVectBn = self.runge_kutta(systema, xVectB, h_ant, entrada)
-                yS, xVectSn = self.runge_kutta(systema, xVectB, h_ant / 2, entrada)
-                yS, xVectSn = self.runge_kutta(systema, xVectSn, h_ant / 2, entrada)
-
-                scale = atol + rtol * (np.abs(xVectBn) + np.abs(xVectB)) / 2
-                delta1 = np.abs(xVectBn - xVectSn)
-                error_norm = norm(delta1 / scale)
-
-                if error_norm == 0:
-                    h_est = h_ant * max_step_increase
-                elif error_norm < 1:
-                    h_est = h_ant * min(max_step_increase,
-                                        max(1, safety_factor * error_norm**(-1 / (4+1))))
-                else:
-                    h_ant = h_ant * max(min_step_decrease, safety_factor * error_norm**(-1 / (4+1)))
-                    continue
-            break
-        return h_ant, h_est, yS, xVectSn
-
-    def runge_kutta4(self, ss, x, h, inputValue):
-        k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
-        k2 = np.dot(h, (np.dot(ss.A, (x + k1/2)) + np.dot(ss.B, inputValue)))
-        k3 = np.dot(h, (np.dot(ss.A, (x + k2/2)) + np.dot(ss.B, inputValue)))
-        k4 = np.dot(h, (np.dot(ss.A, (x + k3)) + np.dot(ss.B, inputValue)))
-
-        x = x + np.dot((1 / 6), (k1 + np.dot(k2, 2) + np.dot(k3, 2) + k4))
-        y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
-        return y.item(), x
-
-    def runge_kutta(self ,ss, x, h, inputValue):  # Mejor: rtol = 1e-3, atol = 5e-6
-        k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
-        k2 = np.dot(h, (np.dot(ss.A, (x + k1/4)) + np.dot(ss.B, inputValue)))
-        k3 = np.dot(h, (np.dot(ss.A, (x + k1/8 + k2/8)) + np.dot(ss.B, inputValue)))
-        k4 = np.dot(h, (np.dot(ss.A, (x - k2/2 + k3)) + np.dot(ss.B, inputValue)))
-        k5 = np.dot(h, (np.dot(ss.A, (x - k1*3/16 + k4*9/16)) + np.dot(ss.B, inputValue)))
-        k6 = np.dot(h,
-                    (np.dot(ss.A, (x - k1*3/7 + k2*2/7 + k3*12/7 - k4*12/7 + k5*8/7)) +
-                     np.dot(ss.B, inputValue)))
-
-        x = x + (np.dot(k1, 7 / 90) + np.dot(k3, 32 / 90) + np.dot(k4, 12 / 90) +
-                 np.dot(k5, 32 / 90) + np.dot(k6, 7 / 90))
-        y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
-        return y.item(), x
+        
 
     def ss_discreta(self, ss, x, _, inputValue):
         x = np.dot(ss.A, x) + np.dot(ss.B, inputValue)
@@ -972,9 +913,9 @@ class Lowpassfilter:
         return salida
 
 
-def norm(x):
-    """Compute RMS norm."""
-    return np.linalg.norm(x) / x.size**0.5
+# def norm(x):
+#     """Compute RMS norm."""
+#     return np.linalg.norm(x) / x.size**0.5
 
 
 def system_creator_tf(self, numerador, denominador):
@@ -986,7 +927,7 @@ def system_creator_tf(self, numerador, denominador):
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
 
     if delay and not self.main.tfdiscretocheckBox4.isChecked():
-        pade = ctrl.TransferFunction(*ctrl.pade(delay, 10))
+        pade = ctrl.TransferFunction(*ctrl.pade(delay, int(self.main.padeOrder.text())))
         system = system*pade
 
     if self.main.tfdiscretocheckBox4.isChecked():
@@ -1011,7 +952,7 @@ def system_creator_ss(self, A, B, C, D):
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
 
     if delay and not self.main.ssdiscretocheckBox4.isChecked():
-        pade = ctrl.TransferFunction(*ctrl.pade(delay, 10))
+        pade = ctrl.TransferFunction(*ctrl.pade(delay, int(self.main.padeOrder.text())))
         system = system*pade
 
     if self.main.ssdiscretocheckBox4.isChecked():

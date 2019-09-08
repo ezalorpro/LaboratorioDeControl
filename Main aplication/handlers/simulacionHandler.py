@@ -1,5 +1,6 @@
 from rutinas.rutinas_simulacion import *
 from rutinas.rutinas_fuzzy import FuzzyController
+from rutinas.rutinas_rk import *
 from PySide2 import QtCore, QtGui, QtWidgets
 from matplotlib import pyplot as plt
 import numpy as np
@@ -88,6 +89,8 @@ def calcular_simulacion(self):
     else:
         escalon = json.loads(self.main.escalonAvanzado.text())
 
+    rk_base, metodo_adaptativo, solver_config = configuration_data(self)
+
     list_info = [
         self.main.esquemaSimulacion.currentIndex(),
         system,
@@ -102,8 +105,10 @@ def calcular_simulacion(self):
             self.main.kiSimulacion.text(),
             self.main.kdSimulacion.text(),
             self.main.NSimulacion.text()
-        ],
-        [self.main.pathController1.text(), self.main.pathController2.text()]
+        ], [self.main.pathController1.text(), self.main.pathController2.text()],
+        rk_base,
+        metodo_adaptativo,
+        solver_config
     ]
 
     self.thread = SimpleThread(self,
@@ -148,7 +153,74 @@ def get_pathcontroller2(self):
 
 
 def configuration_data(self):
-    pass
+    rtol = float(self.main.rtolLineEdit.text())
+    atol = float(self.main.atolLineEdit.text())
+    max_step_inc = float(self.main.maxStepIncr.text())
+    min_step_dec = float(self.main.minStepDecr.text())
+    safety_factor = float(self.main.safetyFactor.text())
+
+    if self.main.solverMethod.currentIndex() <= 8:
+        metodo_adaptativo = rk_doble_paso_adaptativo
+    else:
+        metodo_adaptativo = rk_embebido_adaptativo
+
+    if self.main.solverMethod.currentIndex() == 0:
+        rk_metodo = runge_kutta2
+        rk_base = rk_metodo
+        ordenq = 2
+    elif self.main.solverMethod.currentIndex() == 1:
+        rk_metodo = runge_kutta3
+        rk_base = rk_metodo
+        ordenq = 3
+    elif self.main.solverMethod.currentIndex() == 2:
+        rk_metodo = heun3
+        rk_base = rk_metodo
+        ordenq = 3
+    elif self.main.solverMethod.currentIndex() == 3:
+        rk_metodo = ralston3
+        rk_base = rk_metodo
+        ordenq = 3
+    elif self.main.solverMethod.currentIndex() == 4:
+        rk_metodo = SSPRK3
+        rk_base = rk_metodo
+        ordenq = 3
+    elif self.main.solverMethod.currentIndex() == 5:
+        rk_metodo = runge_kutta4
+        rk_base = rk_metodo
+        ordenq = 4
+    elif self.main.solverMethod.currentIndex() == 6:
+        rk_metodo = tres_octavos4
+        rk_base = rk_metodo
+        ordenq = 4
+    elif self.main.solverMethod.currentIndex() == 7:
+        rk_metodo = ralston4
+        rk_base = rk_metodo
+        ordenq = 4
+    elif self.main.solverMethod.currentIndex() == 8:
+        rk_metodo = runge_kutta5
+        rk_base = rk_metodo
+        ordenq = 5
+    elif self.main.solverMethod.currentIndex() == 9:
+        rk_metodo = bogacki_shampine23
+        rk_base = runge_kutta2
+        ordenq = 2
+    elif self.main.solverMethod.currentIndex() == 10:
+        rk_metodo = fehlberg45
+        rk_base = runge_kutta4
+        ordenq = 4
+    elif self.main.solverMethod.currentIndex() == 11:
+        rk_metodo = cash_karp45
+        rk_base = runge_kutta4
+        ordenq = 4
+    elif self.main.solverMethod.currentIndex() == 12:
+        rk_metodo = dopri54
+        rk_base = runge_kutta5
+        ordenq = 4
+
+    return rk_base, metodo_adaptativo, [rk_metodo, ordenq, rtol, atol, max_step_inc, min_step_dec, safety_factor]
+
+
+
 
 def accion_esquema_selector(self):
 

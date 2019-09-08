@@ -1,5 +1,12 @@
-def rk_doble_paso_adaptativo(self,
-                             systema,
+import numpy as np
+
+
+def norm(x):
+    """Compute RMS norm."""
+    return np.linalg.norm(x) / x.size**0.5
+
+
+def rk_doble_paso_adaptativo(systema,
                              h_ant,
                              tiempo,
                              tbound,
@@ -7,11 +14,11 @@ def rk_doble_paso_adaptativo(self,
                              entrada,
                              metodo,
                              ordenq,
-                             rtol=1e-3,
-                             atol=5e-6,
-                             max_step_increase=5,
-                             min_step_decrease=0.2,
-                             safety_factor=0.95):
+                             rtol,
+                             atol,
+                             max_step_increase,
+                             min_step_decrease,
+                             safety_factor):
 
     while True:
         if tiempo + h_ant >= tbound:
@@ -158,20 +165,19 @@ def runge_kutta5(ss, x, h, inputValue):
     return y.item(), x
 
 
-def rk_embebido_adaptativo(self,
-                           systema,
+def rk_embebido_adaptativo(systema,
                            h_ant,
                            tiempo,
                            tbound,
-                           xVectB,
+                           xVectr,
                            entrada,
                            metodo,
                            ordenq,
-                           rtol=1e-3,
-                           atol=5e-6,
-                           max_step_increase=5,
-                           min_step_decrease=0.2,
-                           safety_factor=0.95):
+                           rtol,
+                           atol,
+                           max_step_increase,
+                           min_step_decrease,
+                           safety_factor):
 
     while True:
         if tiempo + h_ant >= tbound:
