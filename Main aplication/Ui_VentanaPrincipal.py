@@ -4992,7 +4992,7 @@ class Ui_MainWindow(object):
         self.tabSimulation.setCurrentIndex(0)
         self.SimulacionstackedWidget.setCurrentIndex(0)
         self.sscomboBox4.setCurrentIndex(0)
-        self.toolBox.setCurrentIndex(1)
+        self.toolBox.setCurrentIndex(0)
         self.solverMethod.setCurrentIndex(8)
         self.kiCheckBox2.clicked['bool'].connect(self.kiHSlider2.setEnabled)
         self.kpCheckBox2.clicked['bool'].connect(self.kpHSlider2.setEnabled)
