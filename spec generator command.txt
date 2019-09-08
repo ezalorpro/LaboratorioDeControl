@@ -1,3 +1,7 @@
-..\virtualenv\Scripts\pyi-makespec --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" --add-data="vtkmodules;vtkmodules" --hidden-import=vtk --hidden-import=vtkmodules .\main.py
+..\virtualenv\Scripts\pyi-makespec --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" --additional-hooks-dir='hooks' --hidden-import=qtconsole.client .\main.py
 
 ..\virtualenv\Scripts\pyi-makespec --onefile --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" --add-data="vtkmodules;vtkmodules" --hidden-import=vtk --hidden-import=vtkmodules .\main.py
+
+..\virtualenv\Scripts\pyi-makespec --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" --hooks-path='hooks' -gidden-import=qtconsole .\main.py
+
+..\virtualenv\Scripts\pyi-makespec --onefile --icon="icono.ico" --add-data="icono.ico;." --add-data="Esquemas;Esquemas" --hidden-import=qtconsole.client --hidden-import=IPython --hidden-import=jupyter_client --hidden-import=qtconsole .\main.py

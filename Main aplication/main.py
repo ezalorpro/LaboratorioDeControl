@@ -31,7 +31,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         TuningHandler(self)
         FuzzyHandler(self)
         SimulacionHandler(self)
-        jupyterConsoleHandler(self)
+        # jupyterConsoleHandler(self)
 
     def resource_path(self, relative_path):
         base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
