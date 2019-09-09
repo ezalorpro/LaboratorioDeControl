@@ -151,7 +151,7 @@ def ejecutar():
     start = time.time()
     counter = 0
 
-    RK = runge_kutta2
+    RK = runge_kutta5
 
     while tiempo < tbound:
         error = sp - yb
@@ -172,12 +172,12 @@ def ejecutar():
                 if error_norm == 0:
                     h_est = h_ant * max_step_increase
                 elif error_norm < 1:
-                    h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (2+1))))
+                    h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (5+1))))
                 else:
-                    h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (2+1))))
+                    h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (5+1))))
                     continue
 
-            print(tiempo)
+            # print(tiempo)
             sc_t.append(ypids)
             yb, vstadosB = RK(sistema, vstadosB, h_ant, ypids)
             break
@@ -195,13 +195,13 @@ def ejecutar():
     print(counter)
     print(len(tiempo_out))
     print(f'{time.time() - start}')
-    plt.plot(tiempo_out, salida)
-    plt.grid()
-    plt.show()
+    # plt.plot(tiempo_out, salida)
+    # plt.grid()
+    # plt.show()
 
-    plt.plot(tiempo_out, sc_t)
-    plt.grid()
-    plt.show()
+    # plt.plot(tiempo_out, sc_t)
+    # plt.grid()
+    # plt.show()
 
 if __name__ == "__main__":
     ejecutar()
