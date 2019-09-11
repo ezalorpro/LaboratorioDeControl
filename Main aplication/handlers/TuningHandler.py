@@ -43,6 +43,149 @@ def TuningHandler(self):
     self.main.tfreolutionSpin2.valueChanged.connect(lambda: actualizar_sliders_tf(self))
     self.main.ssreolutionSpin2.valueChanged.connect(lambda: actualizar_sliders_ss(self))
 
+    # Validaciones de entradas
+
+    self.main.tfnumEdit2.editingFinished.connect(lambda: tfnum_validator(self))
+    self.main.tfdemEdit2.editingFinished.connect(lambda: tfdem_validator(self))
+    self.main.tfdelayEdit2.editingFinished.connect(lambda: tfdelay_validator(self))
+    self.main.tfperiodoEdit2.editingFinished.connect(lambda: tfperiodo_validator(self))
+
+    self.main.ssAEdit2.editingFinished.connect(lambda: ssA_validator(self))
+    self.main.ssBEdit2.editingFinished.connect(lambda: ssB_validator(self))
+    self.main.ssCEdit2.editingFinished.connect(lambda: ssC_validator(self))
+    self.main.ssDEdit2.editingFinished.connect(lambda: ssD_validator(self))
+    self.main.ssdelayEdit2.editingFinished.connect(lambda: ssdelay_validator(self))
+    self.main.ssperiodoEdit2.editingFinished.connect(lambda: ssperiodo_validator(self))
+
+    self.main.EditLVP.editingFinished.connect(lambda: LVP_validator(self))
+    self.main.EditUVP.editingFinished.connect(lambda: UVP_validator(self))
+    self.main.EditLEFC.editingFinished.connect(lambda: LEFC_validator(self))
+    self.main.EditUEFC.editingFinished.connect(lambda: UEFC_validator(self))
+
+
+def tfnum_validator(self):
+    try:
+        _ = json.loads(self.main.tfnumEdit2.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, los coeficientes deben estar entre corchetes y separados por comas.\n i.g., [1, 2, 3]"
+        )
+        self.error_dialog.exec_()
+        self.main.tfnumEdit2.setFocus()
+        return
+
+
+def tfdem_validator(self):
+    try:
+        _ = json.loads(self.main.tfdemEdit2.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, los coeficientes deben estar entre corchetes y separados por comas.\n i.g., [1, 2, 3]"
+        )
+        self.error_dialog.exec_()
+        self.main.tfdemEdit2.setFocus()
+        return
+
+
+def tfdelay_validator(self):
+    try:
+        _ = float(self.main.tfdelayEdit2.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Delay no valido, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.tfdelayEdit2.setFocus()
+        return
+
+
+def tfperiodo_validator(self):
+    try:
+        _ = float(self.main.tfperiodoEdit2.text())
+        if _ <= 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Periodo de muestreo no valido, debe ser un numero real mayor que cero")
+        self.error_dialog.exec_()
+        self.main.tfperiodoEdit2.setFocus()
+        return
+
+
+def ssA_validator(self):
+    try:
+        _ = json.loads(self.main.ssAEdit2.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, las matrices deben estar definidas entre corchetes con cada fila delimitada por otro par de corchetes y separadas entre si por comas, cada valor debera ir separado por coma.\n i.g., [[1, 1], [1, -1]]"
+        )
+        self.error_dialog.exec_()
+        self.main.ssAEdit2.setFocus()
+        return
+
+
+def ssB_validator(self):
+    try:
+        _ = json.loads(self.main.ssBEdit2.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, las matrices deben estar definidas entre corchetes con cada fila delimitada por otro par de corchetes y separadas entre si por comas, cada valor debera ir separado por coma.\n i.g., [[1, 1], [1, -1]]"
+        )
+        self.error_dialog.exec_()
+        self.main.ssBEdit2.setFocus()
+        return
+
+
+def ssC_validator(self):
+    try:
+        _ = json.loads(self.main.ssCEdit2.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, las matrices deben estar definidas entre corchetes con cada fila delimitada por otro par de corchetes y separadas entre si por comas, cada valor debera ir separado por coma.\n i.g., [[1, 1], [1, -1]]"
+        )
+        self.error_dialog.exec_()
+        self.main.ssCEdit2.setFocus()
+        return
+
+
+def ssD_validator(self):
+    try:
+        _ = json.loads(self.main.ssDEdit2.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, las matrices deben estar definidas entre corchetes con cada fila delimitada por otro par de corchetes y separadas entre si por comas, cada valor debera ir separado por coma.\n i.g., [[1, 1], [1, -1]]"
+        )
+        self.error_dialog.exec_()
+        self.main.ssDEdit2.setFocus()
+        return
+
+
+def ssdelay_validator(self):
+    try:
+        _ = float(self.main.ssdelayEdit2.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Delay no valido, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.ssdelayEdit2.setFocus()
+        return
+
+
+def ssperiodo_validator(self):
+    try:
+        _ = float(self.main.ssperiodoEdit2.text())
+        if _ <= 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Periodo de muestreo no valido, debe ser un numero real mayor que cero")
+        self.error_dialog.exec_()
+        self.main.ssperiodoEdit2.setFocus()
+        return
+
 
 def tiempo_slider_cambio(self):
     if self.main.PIDstackedWidget.currentIndex() == 2:
@@ -69,46 +212,18 @@ def chequeo_de_accion(self):
 
 def calcular_PID(self):
 
-    if self.main.tfdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex(
-    ) == 0:
-        try:
-            _ = json.loads(self.main.tfdelayEdit2.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Delay no valido")
-            self.error_dialog.exec_()
-            return
-
-    if self.main.ssdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex(
-    ) == 1:
-        try:
-            _ = json.loads(self.main.ssdelayEdit2.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Delay no valido")
-            self.error_dialog.exec_()
-            return
-
     system_ss = 0
 
     if (
         self.main.tfdiscretocheckBox2.isChecked() and
         self.main.PIDstackedWidget.currentIndex() == 0
     ):
-        try:
-            self.dt = json.loads(self.main.tfperiodoEdit2.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
-            self.error_dialog.exec_()
-            return
+        self.dt = json.loads(self.main.tfperiodoEdit2.text())
     elif (
         self.main.ssdiscretocheckBox2.isChecked() and
         self.main.PIDstackedWidget.currentIndex() == 1
     ):
-        try:
-            self.dt = json.loads(self.main.ssperiodoEdit2.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
-            self.error_dialog.exec_()
-            return
+        self.dt = json.loads(self.main.ssperiodoEdit2.text())
     else:
         self.dt = None
 
@@ -140,48 +255,18 @@ def calcular_PID(self):
 
 def calcular_autotuning(self):
 
-    if self.main.tfdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex(
-    ) == 0:
-        try:
-            _ = json.loads(self.main.tfdelayEdit2.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Delay no valido")
-            self.error_dialog.exec_()
-            return
-
-    if self.main.ssdelaycheckBox2.isChecked() and self.main.PIDstackedWidget.currentIndex(
-    ) == 1:
-        try:
-            _ = json.loads(self.main.ssdelayEdit2.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Delay no valido")
-            self.error_dialog.exec_()
-            return
-
     system_ss = 0
 
     if (
         self.main.tfdiscretocheckBox2.isChecked() and
         self.main.PIDstackedWidget.currentIndex() == 0
     ):
-        try:
-            self.dt = json.loads(self.main.tfperiodoEdit2.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
-            self.error_dialog.exec_()
-            return
+        self.dt = json.loads(self.main.tfperiodoEdit2.text())
     elif (
         self.main.ssdiscretocheckBox2.isChecked() and
         self.main.PIDstackedWidget.currentIndex() == 1
     ):
-        try:
-            self.dt = json.loads(self.main.ssperiodoEdit2.text())
-        except ValueError:
-            self.error_dialog.setInformativeText(
-                "El alfa calculado es igual o menor a 0, lo cual es invalido para auto-tuning, se recomienda agregar un Delay mayor a 0.3"
-            )
-            self.error_dialog.exec_()
-            return
+        self.dt = json.loads(self.main.ssperiodoEdit2.text())
     else:
         self.dt = None
 
@@ -204,7 +289,9 @@ def calcular_autotuning(self):
         try:
             system_pid, T, system_delay, system_ss, kp, ki, kd = system_creator_ss_tuning(self, A, B, C, D)
         except TypeError:
-            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
+            self.error_dialog.setInformativeText(
+                "El alfa calculado es igual o menor a 0.05, lo cual es invalido para auto-tuning, se recomienda agregar un Delay mayor a 0.3"
+            )
             self.error_dialog.exec_()
             return
 
@@ -228,18 +315,77 @@ def calcular_autotuning(self):
 
 
 def calcular_csv(self):
+    try:
+        csv_data = np.genfromtxt(self.main.pathCSVedit.text(),
+                                delimiter=self.main.EditSeparador.text(),
+                                encoding=None,
+                                autostrip=True,
+                                dtype=None)
+    except OSError:
+        self.error_dialog.setInformativeText(
+            "Archivo no valido"
+        )
+        self.error_dialog.exec_()
+        self.main.tfdelayEdit1.setFocus()
+        return
 
-    csv_data = np.genfromtxt(self.main.pathCSVedit.text(),
-                             delimiter=self.main.EditSeparador.text(),
-                             encoding=None,
-                             autostrip=True,
-                             dtype=None)
+    try:
+        csv_data, info = procesar_csv(self, csv_data)
+    except UnboundLocalError:
+        self.error_dialog.setInformativeText(
+            "Error en el formato del CSV, verifique los nombres de los encabezados y/o el separador asignado")
+        self.error_dialog.exec_()
+        self.main.tfdelayEdit1.setFocus()
+        return
 
-    csv_data, info = procesar_csv(self, csv_data)
     Kc, tau, y1, y2, t0, t1, t2, anclaT, anclaY = calcular_modelo(self, csv_data, *info)
     self.GraphObjets, self.model_info = entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2)
     self.model_info.extend([anclaT, anclaY])
     self.main.pidTiempoSlider.setEnabled(True)
+
+
+def LVP_validator(self):
+    try:
+        _ = float(self.main.EditLVP.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Valor no valido, deber se un numero real")
+        self.error_dialog.exec_()
+        self.main.EditLVP.setFocus()
+        return
+
+
+def UVP_validator(self):
+    try:
+        _ = float(self.main.EditUVP.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Valor no valido, deber se un numero real")
+        self.error_dialog.exec_()
+        self.main.EditUVP.setFocus()
+        return
+
+   
+def LEFC_validator(self):
+    try:
+        _ = float(self.main.EditLEFC.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Valor no valido, deber se un numero real")
+        self.error_dialog.exec_()
+        self.main.EditLEFC.setFocus()
+        return
+
+    
+def UEFC_validator(self):
+    try:
+        _ = float(self.main.EditUEFC.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Valor no valido, deber se un numero real")
+        self.error_dialog.exec_()
+        self.main.EditUEFC.setFocus()
+        return
 
 
 def ajustar_atraso_manual(self):

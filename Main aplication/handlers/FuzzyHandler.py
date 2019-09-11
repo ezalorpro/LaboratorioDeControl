@@ -1,4 +1,4 @@
-from handlers.modificadorMf import update_definicionmf
+from handlers.modificadorMf import update_definicionmf, validacion_mf
 from rutinas.rutinas_fuzzy import FuzzyController
 from rutinas.rutinas_fuzzy import FISParser
 from PySide2 import QtCore, QtGui, QtWidgets
@@ -69,33 +69,33 @@ def FuzzyHandler(self):
     self.main.exportarFuzzButton.clicked.connect(lambda: exportar_fis(self))
 
     self.main.inputNumber.currentIndexChanged.connect(lambda: seleccion_entrada(self))
-    self.main.inputNombre.returnPressed.connect(lambda: nombre_entrada(self))
-    self.main.inputEtiquetasNum.returnPressed.connect(
+    self.main.inputNombre.editingFinished.connect(lambda: nombre_entrada(self))
+    self.main.inputEtiquetasNum.editingFinished.connect(
         lambda: numero_de_etiquetas_in(self)
     )
-    self.main.inputRange.returnPressed.connect(lambda: rango_in(self))
+    self.main.inputRange.editingFinished.connect(lambda: rango_in(self))
 
     self.main.etiquetaNumIn.currentIndexChanged.connect(
         lambda: seleccion_etiqueta_in(self)
     )
-    self.main.etiquetaNombreIn.returnPressed.connect(lambda: nombre_etiqueta_in(self))
+    self.main.etiquetaNombreIn.editingFinished.connect(lambda: nombre_etiqueta_in(self))
     self.main.etiquetaMfIn.currentIndexChanged.connect(lambda: seleccion_mf_in(self))
-    self.main.etiquetaDefinicionIn.returnPressed.connect(lambda: definicion_in(self))
+    self.main.etiquetaDefinicionIn.editingFinished.connect(lambda: definicion_in(self))
 
     self.main.outputNumber.currentIndexChanged.connect(lambda: seleccion_salida(self))
-    self.main.outputNombre.returnPressed.connect(lambda: nombre_salida(self))
-    self.main.outputEtiquetasNum.returnPressed.connect(
+    self.main.outputNombre.editingFinished.connect(lambda: nombre_salida(self))
+    self.main.outputEtiquetasNum.editingFinished.connect(
         lambda: numero_de_etiquetas_out(self)
     )
-    self.main.outputRange.returnPressed.connect(lambda: rango_out(self))
+    self.main.outputRange.editingFinished.connect(lambda: rango_out(self))
     self.main.defuzzMethodOut.currentIndexChanged.connect(lambda: defuzz_metodo(self))
 
     self.main.etiquetaNumOut.currentIndexChanged.connect(
         lambda: seleccion_etiqueta_out(self)
     )
-    self.main.etiquetaNombreOut.returnPressed.connect(lambda: nombre_etiqueta_out(self))
+    self.main.etiquetaNombreOut.editingFinished.connect(lambda: nombre_etiqueta_out(self))
     self.main.etiquetaMfOut.currentIndexChanged.connect(lambda: seleccion_mf_out(self))
-    self.main.etiquetaDefinicionOut.returnPressed.connect(lambda: definicion_out(self))
+    self.main.etiquetaDefinicionOut.editingFinished.connect(lambda: definicion_out(self))
 
     self.main.fuzzyTabWidget.currentChanged.connect(lambda: rule_list_visualizacion(self))
     self.main.rulelistWidget.currentRowChanged.connect(
@@ -480,6 +480,14 @@ def seleccion_salida(self):
 
 
 def nombre_entrada(self):
+
+    if self.main.inputNombre.text().strip() == '':
+        self.error_dialog.setInformativeText(
+            "El nombre no puede estar vacio")
+        self.error_dialog.exec_()
+        self.main.inputNombre.setFocus()
+        return
+
     ni = self.main.inputNumber.currentIndex()
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
@@ -505,6 +513,14 @@ def nombre_entrada(self):
 
 
 def nombre_salida(self):
+
+    if self.main.outputNombre.text().strip() == '':
+        self.error_dialog.setInformativeText(
+            "El nombre no puede estar vacio")
+        self.error_dialog.exec_()
+        self.main.outputNombre.setFocus()
+        return
+
     no = self.main.outputNumber.currentIndex()
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
@@ -530,6 +546,18 @@ def nombre_salida(self):
 
 
 def numero_de_etiquetas_in(self):
+
+    try:
+        _ = int(self.main.inputEtiquetasNum.text())
+        if _ < 1:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "El numero de etiquetas debe ser un valor entero mayor o igual a 1")
+        self.error_dialog.exec_()
+        self.main.inputEtiquetasNum.setFocus()
+        return
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
 
@@ -606,6 +634,18 @@ def numero_de_etiquetas_in(self):
 
 
 def numero_de_etiquetas_out(self):
+
+    try:
+        _ = int(self.main.outputEtiquetasNum.text())
+        if _ < 1:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "El numero de etiquetas debe ser un valor entero mayor o igual a 1")
+        self.error_dialog.exec_()
+        self.main.outputEtiquetasNum.setFocus()
+        return
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
 
@@ -682,6 +722,19 @@ def numero_de_etiquetas_out(self):
 
 
 def rango_in(self):
+
+    try:
+        _ = json.loads(self.main.inputRange.text())
+        if len(_) > 2 or len(_) < 2:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Rango no valido, el rango debe estar entre corchetes y los valores separados por coma.\n i.g., [-10, 10]"
+        )
+        self.error_dialog.exec_()
+        self.main.inputRange.setFocus()
+        return
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
     ni = self.main.inputNumber.currentIndex()
@@ -691,6 +744,19 @@ def rango_in(self):
 
 
 def rango_out(self):
+
+    try:
+        _ = json.loads(self.main.outputRange.text())
+        if len(_) > 2 or len(_) < 2:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Rango no valido, el rango debe estar entre corchetes y los valores separados por coma.\n i.g., [-10, 10]"
+        )
+        self.error_dialog.exec_()
+        self.main.outputRange.setFocus()
+        return
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
     no = self.main.outputNumber.currentIndex()
@@ -734,6 +800,14 @@ def seleccion_etiqueta_out(self):
     self.main.etiquetaMfOut.blockSignals(False)
 
 def nombre_etiqueta_in(self):
+
+    if self.main.etiquetaNombreIn.text().strip() == '':
+        self.error_dialog.setInformativeText(
+            "El nombre no puede estar vacio")
+        self.error_dialog.exec_()
+        self.main.etiquetaNombreIn.setFocus()
+        return
+
     ni = self.main.inputNumber.currentIndex()
     ne = self.main.etiquetaNumIn.currentIndex()
     self.main.fuzzyTabWidget.removeTab(5)
@@ -775,6 +849,14 @@ def actualizar_RulesEtiquetas_in(self, ni, new_name, old_name):
 
 
 def nombre_etiqueta_out(self):
+
+    if self.main.etiquetaNombreOut.text().strip() == '':
+        self.error_dialog.setInformativeText(
+            "El nombre no puede estar vacio")
+        self.error_dialog.exec_()
+        self.main.etiquetaNombreOut.setFocus()
+        return
+
     no = self.main.outputNumber.currentIndex()
     ne = self.main.etiquetaNumOut.currentIndex()
     self.main.fuzzyTabWidget.removeTab(5)
@@ -836,6 +918,12 @@ def seleccion_mf_in(self):
 
 
 def definicion_in(self):
+
+    try:
+        deinificion_in_validator(self)
+    except AssertionError:
+        return
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
     ni = self.main.inputNumber.currentIndex()
@@ -844,6 +932,24 @@ def definicion_in(self):
         self.main.etiquetaDefinicionIn.text()
     )
     self.fuzzController.update_definicion_input(self, self.InputList, ni, ne)
+
+
+def deinificion_in_validator(self):
+    mf = self.main.etiquetaMfIn.currentText()
+    try:
+        _ = json.loads(self.main.etiquetaDefinicionIn.text())
+        try:
+            validacion_mf(self, _, mf)
+        except AssertionError:
+            self.main.etiquetaDefinicionIn.setFocus()
+            raise AssertionError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato de definicion invalido para la funcion de membresia: " + mf +
+            "\nDebe estar entre corchetes con valores separados por comas")
+        self.error_dialog.exec_()
+        self.main.etiquetaDefinicionIn.setFocus()
+        raise AssertionError
 
 
 def seleccion_mf_out(self):
@@ -864,6 +970,12 @@ def seleccion_mf_out(self):
 
 
 def definicion_out(self):
+
+    try:
+        deinificion_out_validator(self)
+    except AssertionError:
+        return
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
     no = self.main.outputNumber.currentIndex()
@@ -872,6 +984,24 @@ def definicion_out(self):
         self.main.etiquetaDefinicionOut.text()
     )
     self.fuzzController.update_definicion_output(self, self.OutputList, no, ne)
+
+
+def deinificion_out_validator(self):
+    mf = self.main.etiquetaMfOut.currentText()
+    try:
+        _ = json.loads(self.main.etiquetaDefinicionOut.text())
+        try:
+            validacion_mf(self, _, mf)
+        except AssertionError:
+            self.main.etiquetaDefinicionOut.setFocus()
+            raise AssertionError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato de definicion invalido para la funcion de membresia: " + mf +
+            "\nDebe estar entre corchetes con valores separados por comas")
+        self.error_dialog.exec_()
+        self.main.etiquetaDefinicionOut.setFocus()
+        raise AssertionError
 
 
 def round_list(lista):

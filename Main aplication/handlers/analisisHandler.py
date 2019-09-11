@@ -14,48 +14,156 @@ def AnalisisHandler(self):
     self.main.tfradioButton1.toggled.connect(lambda: analisis_stacked_to_tf(self))
     self.main.ssradioButton1.toggled.connect(lambda: analisis_stacked_to_ss(self))
 
+    # Validaciones de entradas
+
+    self.main.tfnumEdit1.editingFinished.connect(lambda: tfnum_validator(self))
+    self.main.tfdemEdit1.editingFinished.connect(lambda: tfdem_validator(self))
+    self.main.tfdelayEdit1.editingFinished.connect(lambda: tfdelay_validator(self))
+    self.main.tfperiodoEdit1.editingFinished.connect(lambda: tfperiodo_validator(self))
+
+    self.main.ssAEdit1.editingFinished.connect(lambda: ssA_validator(self))
+    self.main.ssBEdit1.editingFinished.connect(lambda: ssB_validator(self))
+    self.main.ssCEdit1.editingFinished.connect(lambda: ssC_validator(self))
+    self.main.ssDEdit1.editingFinished.connect(lambda: ssD_validator(self))
+    self.main.ssdelayEdit1.editingFinished.connect(lambda: ssdelay_validator(self))
+    self.main.ssperiodoEdit1.editingFinished.connect(lambda: ssperiodo_validator(self))
+
+
+def tfnum_validator(self):
+    try:
+        _ = json.loads(self.main.tfnumEdit1.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, los coeficientes deben estar entre corchetes y separados por comas.\n i.g., [1, 2, 3]"
+        )
+        self.error_dialog.exec_()
+        self.main.tfnumEdit1.setFocus()
+        return
+
+
+def tfdem_validator(self):
+    try:
+        _ = json.loads(self.main.tfdemEdit1.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, los coeficientes deben estar entre corchetes y separados por comas.\n i.g., [1, 2, 3]"
+        )
+        self.error_dialog.exec_()
+        self.main.tfdemEdit1.setFocus()
+        return
+
+
+def tfdelay_validator(self):
+    try:
+        _ = float(self.main.tfdelayEdit1.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText("Delay no valido, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.tfdelayEdit1.setFocus()
+        return
+
+
+def tfperiodo_validator(self):
+    try:
+        _ = float(self.main.tfperiodoEdit1.text())
+        if _ <= 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Periodo de muestreo no valido, debe ser un numero real mayor que cero")
+        self.error_dialog.exec_()
+        self.main.tfperiodoEdit1.setFocus()
+        return
+
+
+def ssA_validator(self):
+    try:
+        _ = json.loads(self.main.ssAEdit1.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, las matrices deben estar definidas entre corchetes con cada fila delimitada por otro par de corchetes y separadas entre si por comas, cada valor debera ir separado por coma.\n i.g., [[1, 1], [1, -1]]"
+        )
+        self.error_dialog.exec_()
+        self.main.ssAEdit1.setFocus()
+        return
+
+
+def ssB_validator(self):
+    try:
+        _ = json.loads(self.main.ssBEdit1.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, las matrices deben estar definidas entre corchetes con cada fila delimitada por otro par de corchetes y separadas entre si por comas, cada valor debera ir separado por coma.\n i.g., [[1, 1], [1, -1]]"
+        )
+        self.error_dialog.exec_()
+        self.main.ssBEdit1.setFocus()
+        return
+
+
+def ssC_validator(self):
+    try:
+        _ = json.loads(self.main.ssCEdit1.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, las matrices deben estar definidas entre corchetes con cada fila delimitada por otro par de corchetes y separadas entre si por comas, cada valor debera ir separado por coma.\n i.g., [[1, 1], [1, -1]]"
+        )
+        self.error_dialog.exec_()
+        self.main.ssCEdit1.setFocus()
+        return
+
+
+def ssD_validator(self):
+    try:
+        _ = json.loads(self.main.ssDEdit1.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, las matrices deben estar definidas entre corchetes con cada fila delimitada por otro par de corchetes y separadas entre si por comas, cada valor debera ir separado por coma.\n i.g., [[1, 1], [1, -1]]"
+        )
+        self.error_dialog.exec_()
+        self.main.ssDEdit1.setFocus()
+        return
+
+
+def ssdelay_validator(self):
+    try:
+        _ = float(self.main.ssdelayEdit1.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText("Delay no valido, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.ssdelayEdit1.setFocus()
+        return
+
+
+def ssperiodo_validator(self):
+    try:
+        _ = float(self.main.ssperiodoEdit1.text())
+        if _ <= 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Periodo de muestreo no valido, debe ser un numero real mayor que cero")
+        self.error_dialog.exec_()
+        self.main.ssperiodoEdit1.setFocus()
+        return
+
 
 def calcular_analisis(self):
-    if self.main.tfdelaycheckBox1.isChecked(
-    ) and self.main.AnalisisstackedWidget.currentIndex() == 0:
-        try:
-            _ = json.loads(self.main.tfdelayEdit1.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Delay no valido")
-            self.error_dialog.exec_()
-            return
-
-    if self.main.ssdelaycheckBox1.isChecked(
-    ) and self.main.AnalisisstackedWidget.currentIndex() == 1:
-        try:
-            _ = json.loads(self.main.ssdelayEdit1.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Delay no valido")
-            self.error_dialog.exec_()
-            return
-
     system_ss = 0
 
     if (
         self.main.tfdiscretocheckBox1.isChecked() and
         self.main.AnalisisstackedWidget.currentIndex() == 0
     ):
-        try:
-            self.dt = json.loads(self.main.tfperiodoEdit1.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
-            self.error_dialog.exec_()
-            return
+        self.dt = json.loads(self.main.tfperiodoEdit1.text())
     elif (
         self.main.ssdiscretocheckBox1.isChecked() and
         self.main.AnalisisstackedWidget.currentIndex() == 1
     ):
-        try:
-            self.dt = json.loads(self.main.ssperiodoEdit1.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Periodo de muestreo no valido")
-            self.error_dialog.exec_()
-            return
+        self.dt = json.loads(self.main.ssperiodoEdit1.text())
     else:
         self.dt = None
 

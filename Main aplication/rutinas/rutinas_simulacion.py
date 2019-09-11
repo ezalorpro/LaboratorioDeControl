@@ -75,6 +75,7 @@ class SimpleThread(QtCore.QThread):
             self.system = ctrl.tf2ss(self.system)
 
         tiempo_total = self.Tiempo
+        tiempo = 0
 
         if isinstance(self.escalon, float):
             u = self.escalon
@@ -88,9 +89,9 @@ class SimpleThread(QtCore.QThread):
                 u_value.append(valor)
             index_tbound = len(max_tiempo)
             max_tiempo.append(tiempo_total)
+            tiempo += max_tiempo[0] - 0.0000011
 
         ten_percent = int(tiempo_total * 20 / 100)
-
         if ten_percent == 0:
             ten_percent = 1
 
@@ -161,7 +162,6 @@ class SimpleThread(QtCore.QThread):
         x_pid = np.zeros_like(pid.B)
 
         i = 0
-        tiempo = 0
         setpoint_window = 0
         Tiempo_list = [0]
         setpoint = [0]
@@ -172,6 +172,9 @@ class SimpleThread(QtCore.QThread):
                 if tiempo + h >= max_tiempo[
                         setpoint_window] and setpoint_window < index_tbound:
                     setpoint_window += 1
+                    print(tiempo)
+                    print(u_value[setpoint_window])
+                    print(h)
                 u = u_value[setpoint_window]
 
             error = u - salida[i]
@@ -243,6 +246,7 @@ class SimpleThread(QtCore.QThread):
             self.system = ctrl.tf2ss(self.system)
 
         tiempo_total = self.Tiempo
+        tiempo = 0
 
         if isinstance(self.escalon, float):
             u = self.escalon
@@ -256,6 +260,7 @@ class SimpleThread(QtCore.QThread):
                 u_value.append(valor)
             index_tbound = len(max_tiempo)
             max_tiempo.append(tiempo_total)
+            tiempo += max_tiempo[0] - 0.0000011
 
         ten_percent = int(tiempo_total * 20 / 100)
 
@@ -318,7 +323,6 @@ class SimpleThread(QtCore.QThread):
             salida2 = deque([0])
 
         i = 0
-        tiempo = 0
         setpoint_window = 0
         Tiempo_list = [0]
         setpoint = [0]
@@ -841,7 +845,7 @@ class SimpleThread(QtCore.QThread):
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
-        
+
 
     def ss_discreta(self, ss, x, _, inputValue):
         x = np.dot(ss.A, x) + np.dot(ss.B, inputValue)

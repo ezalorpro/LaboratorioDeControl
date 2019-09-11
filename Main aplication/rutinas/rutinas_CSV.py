@@ -17,9 +17,12 @@ def procesar_csv(self, csv_data):
     csv_data = np.delete(csv_data, 0, 0)
 
     dic_data = dict()
-    dic_data['time'] = np.array(csv_data[:, indexTime])
-    dic_data['vp'] = np.array(list(map(float, csv_data[:, indexVp])))
-    dic_data['efc'] = np.array(list(map(float, csv_data[:, indexEFC])))
+    try:
+        dic_data['time'] = np.array(csv_data[:, indexTime])
+        dic_data['vp'] = np.array(list(map(float, csv_data[:, indexVp])))
+        dic_data['efc'] = np.array(list(map(float, csv_data[:, indexEFC])))
+    except UnboundLocalError:
+        raise UnboundLocalError
 
     Tiempo = []
 
