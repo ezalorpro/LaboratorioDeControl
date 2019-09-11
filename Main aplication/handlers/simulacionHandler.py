@@ -445,32 +445,32 @@ def calcular_simulacion(self):
     num = json.loads(self.main.numSensor.text())
     dem = json.loads(self.main.demSensor.text())
 
-    if len(num) > len(dem):
+    if len(num) > len(dem) and self.main.sensorCheck.isChecked():
         self.error_dialog.setInformativeText(
             "Funcion de transferencia del sensor impropia, el numerador debe ser de un grado menor o igual al del denominador")
         self.error_dialog.exec_()
-        self.main.ssdelayEdit1.setFocus()
+        self.main.toolBox.setCurrentIndex(2)
         return
 
     num = json.loads(self.main.numAccionador.text())
     dem = json.loads(self.main.demAccionador.text())
 
-    if len(num) > len(dem):
+    if len(num) > len(dem) and self.main.accionadorCheck.isChecked():
         self.error_dialog.setInformativeText(
             "Funcion de transferencia del accionador impropia, el numerador debe ser de un grado menor o igual al del denominador")
         self.error_dialog.exec_()
-        self.main.ssdelayEdit1.setFocus()
+        self.main.toolBox.setCurrentIndex(2)
         return
 
     lim_inf = float(self.main.inferiorSaturador.text())
     lim_sup = float(self.main.superiorSaturador.text())
 
-    if lim_inf >= lim_sup:
+    if lim_inf >= lim_sup and self.main.saturadorCheck.isChecked():
         self.error_dialog.setInformativeText(
             "Limites del saturador del accionador invalidos, el limite inferior debe ser menor que el limite superior"
         )
         self.error_dialog.exec_()
-        self.main.ssdelayEdit1.setFocus()
+        self.main.toolBox.setCurrentIndex(2)
         return
 
     if len(self.main.pathController1.text(
@@ -567,6 +567,7 @@ def calcular_simulacion(self):
     self.thread = SimpleThread(self,
                                plot_final_results,
                                update_progresBar_function,
+                               error_gui,
                                list_info)
     self.thread.start()
 
@@ -799,6 +800,26 @@ def accion_esquema_selector(self):
 
 def update_progresBar_function(self, value):
     self.main.progressBar.setValue(value)
+
+
+def error_gui(self, error):
+    self.main.progressBar.setValue(0)
+    self.main.progressBar.hide()
+    self.main.principalTab.setEnabled(True)
+
+    if error == 0:
+        self.error_dialog.setInformativeText("Error inesperado")
+        self.error_dialog.exec_()
+
+    if error == 1:
+        self.error_dialog.setInformativeText("No se permiten salidas negadas en los controladores")
+        self.error_dialog.exec_()
+
+    if error == 2:
+        self.error_dialog.setInformativeText(
+            "Controlador no valido para el esquema seleccionado")
+        self.error_dialog.exec_()
+
 
 
 def plot_final_results(self, result):

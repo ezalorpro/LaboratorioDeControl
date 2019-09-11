@@ -16,8 +16,9 @@ import json
 class SimpleThread(QtCore.QThread):
     finished = QtCore.Signal(object, list)
     update_progresBar = QtCore.Signal(object, float)
+    error_gui = QtCore.Signal(object, int)
 
-    def __init__(self, window, regresar, update_bar, list_info, parent=None):
+    def __init__(self, window, regresar, update_bar, error_gui, list_info, parent=None):
         QtCore.QThread.__init__(self, parent)
         self.window = window
         self.window.main.principalTab.setDisabled(True)
@@ -25,6 +26,7 @@ class SimpleThread(QtCore.QThread):
         time.sleep(0.1)
         self.finished.connect(regresar)
         self.update_progresBar.connect(update_bar)
+        self.error_gui.connect(error_gui)
         self.list_info = copy.deepcopy(list_info)
 
         self.esquema = self.list_info[0]
@@ -41,20 +43,36 @@ class SimpleThread(QtCore.QThread):
         self.metodo_adaptativo = self.list_info[11]
         self.solver_configuration = self.list_info[12]
 
+    def stop(self):
+        self._isRunning = False
 
     def run(self):
         if self.esquema in [0]:
-            Tiempo, y, sc, u = self.run_pid()
-            self.finished.emit(
-                self.window,
-                [Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
-            return
+            try:
+                Tiempo, y, sc, u = self.run_pid()
+                self.finished.emit(
+                    self.window,
+                    [Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
+                self.stop()
+            except:
+                self.error_gui.emit(self.window, 0)
+                self.stop()
 
         if self.esquema in [1,2,3,4,5,6,7,8]:
-            Tiempo, y, sc, u = self.run_fuzzy()
-            self.finished.emit(
-                self.window,
-                [Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
+            try:
+                Tiempo, y, sc, u = self.run_fuzzy()
+                self.finished.emit(
+                    self.window,
+                    [Tiempo, y, sc, u, ctrl.isdtime(self.system, strict=True)])
+                self.stop()
+
+            except IndexError:
+                self.error_gui.emit(self.window, 1)
+                self.stop()
+
+            except AssertionError:
+                self.error_gui.emit(self.window, 2)
+                self.stop()
 
     def run_pid(self):
         if self.window.main.kpCheck.isChecked():
@@ -240,9 +258,12 @@ class SimpleThread(QtCore.QThread):
                 try:
                     InputList1, OutputList1, RuleEtiquetas1 = temp_parser.fis_to_json()
                 except TypeError:
-                    self.error_dialog.setInformativeText("No se permiten salidas negadas")
-                    self.error_dialog.exec_()
-                    return
+                    raise IndexError
+
+            try:
+                controlador_validator(self, self.esquema, InputList1, OutputList1, RuleEtiquetas1)
+            except AssertionError:
+                raise AssertionError
 
             fuzzy_c1 = FuzzyController(InputList1, OutputList1, RuleEtiquetas1)
 
@@ -255,9 +276,12 @@ class SimpleThread(QtCore.QThread):
                 try:
                     InputList2, OutputList2, RuleEtiquetas2 = temp_parser.fis_to_json()
                 except TypeError:
-                    self.error_dialog.setInformativeText("No se permiten salidas negadas")
-                    self.error_dialog.exec_()
-                    return
+                    raise IndexError
+
+            try:
+                controlador_validator(self, self.esquema, InputList2, OutputList2, RuleEtiquetas2)
+            except AssertionError:
+                raise AssertionError
 
             fuzzy_c2 = FuzzyController(InputList2, OutputList2, RuleEtiquetas2)
 
@@ -984,3 +1008,29 @@ def system_creator_ss(self, A, B, C, D):
             system = system * ctrl.TransferFunction([1], delayV, self.dt)
 
     return system
+
+def controlador_validator(self, esquema, InputList, OutputList, RuleEtiquetas):
+
+    if esquema == 1:
+        if len(InputList) == 3 and len(OutputList) == 1 and len(RuleEtiquetas) != 0:
+            return
+        else:
+            raise AssertionError
+
+    if esquema in [2, 3, 4, 5, 6]:
+        if len(InputList) == 2 and len(OutputList) == 1 and len(RuleEtiquetas) != 0:
+            return
+        else:
+            raise AssertionError
+
+    if esquema == 7:
+        if len(InputList) == 2 and len(OutputList) == 3 and len(RuleEtiquetas) != 0:
+            return
+        else:
+            raise AssertionError
+    
+    if esquema == 8:
+        if len(InputList) == 1 and len(OutputList) == 1 and len(RuleEtiquetas) != 0:
+            return
+        else:
+            raise AssertionError

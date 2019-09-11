@@ -954,8 +954,11 @@ class FISParser:
             for i in range(nr):
                 rule_str = ""
                 for j in range(ni):
-                    rule_str += str(rules_no_format[i][j]) + " "
-                rule_str += ","
+                    if not j == ni-1:
+                        rule_str += str(rules_no_format[i][j]) + " "
+                    else:
+                        rule_str += str(rules_no_format[i][j])
+                rule_str += ", "
                 for j in range(ni, ni + no):
                     rule_str += str(rules_no_format[i][j]) + " "
                 rule_str += f"({str(rules_no_format[i][ni+no])})" + " "
