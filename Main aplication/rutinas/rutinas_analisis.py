@@ -1,3 +1,6 @@
+""" [Archivo que contiene todas las rutinas necesarias para la funcionalidad de analisis de sistemas de control] """
+
+
 import controlmdf as ctrl
 import numpy as np
 from scipy import real, imag
@@ -7,12 +10,21 @@ import matplotlib.ticker as mticker
 import copy
 import json
 
+# Monkey patch de la funcion step_info, necesario para obtener la informacion del step en tiempo discreto
 from rutinas.MonkeyPatch_stepinfo import step_info
-
 ctrl.step_info = step_info
 
 
 def system_creator_tf(self, numerador, denominador):
+    """
+    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia]
+    
+    :param numerador: [Coeficientes del numerador]
+    :type numerador: [list]
+    :param denominador: [Coeficientes del denominador]
+    :type denominador: [list]
+    """
+
     if not self.main.tfdiscretocheckBox1.isChecked(
     ) and self.main.tfdelaycheckBox1.isChecked():
         delay = json.loads(self.main.tfdelayEdit1.text())
@@ -20,10 +32,12 @@ def system_creator_tf(self, numerador, denominador):
         delay = 0
 
     system = ctrl.TransferFunction(numerador, denominador, delay=delay)
+
+    # Para obtener un tiempo aproximado
     t, y = ctrl.impulse_response(system)
 
+    # En caso de que el sistema sea discreto
     if self.main.tfdiscretocheckBox1.isChecked():
-
         system = ctrl.sample_system(system, self.dt, self.main.tfcomboBox1.currentText())
 
         if self.main.tfdelaycheckBox1.isChecked():
@@ -47,6 +61,19 @@ def system_creator_tf(self, numerador, denominador):
 
 
 def system_creator_ss(self, A, B, C, D):
+    """
+    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados]
+    
+    :param A: [Matriz de estados]
+    :type A: list
+    :param B: [Matriz de entrada]
+    :type B: [list]
+    :param C: [Matriz de salida]
+    :type C: [list]
+    :param D: [Matriz de transmision directa]
+    :type D: [list]
+    """
+    
     if not self.main.ssdiscretocheckBox1.isChecked(
     ) and self.main.ssdelaycheckBox1.isChecked():
         delay = json.loads(self.main.ssdelayEdit1.text())
@@ -79,14 +106,25 @@ def system_creator_ss(self, A, B, C, D):
         else:
             T = np.arange(0, 2 * np.max(t), 0.05)
     except ValueError:
-        T = np.arange(0, 100, 0.1)
+        T = np.arange(0, 100, 0.05)
 
     return system, T, system_delay, system_ss
 
 
 def rutina_step_plot(self, system, T):
+    """
+    [Funcion para obtener la respuesta escalon del sistema y su respectiva graficacion]
+    
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    :param T: [Vector de tiempo]
+    :type T: [numpyArray]
+    """
 
     U = np.ones_like(T)
+
+    # Desplazamiento en el tiempo en caso de delay
     if system.delay:
         U[:int(system.delay / 0.05) + 1] = 0
 
@@ -109,11 +147,24 @@ def rutina_step_plot(self, system, T):
     self.main.stepGraphicsView1.canvas.axes.set_ylabel("Respuesta")
     self.main.stepGraphicsView1.canvas.draw()
     self.main.stepGraphicsView1.toolbar.update()
+
     return t, y
 
 
 def rutina_impulse_plot(self, system, T):
+    """
+    [Funcion para obtener la respuesta impulso del sistema y su respectiva graficacion]
+    
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    :param T: [Vector de tiempo]
+    :type T: [numpyArray]
+    """
+
     U = np.zeros_like(T)
+
+    # Desplazamiento en el tiempo en caso de delay
     if system.delay:
         U[:int(system.delay / 0.05) + 1] = 0
         U[int(system.delay / 0.05) + 1] = 1
@@ -139,10 +190,17 @@ def rutina_impulse_plot(self, system, T):
     self.main.impulseGraphicsView1.canvas.axes.set_ylabel("Respuesta")
     self.main.impulseGraphicsView1.canvas.draw()
     self.main.impulseGraphicsView1.toolbar.update()
+
     return t, y
 
 
 def rutina_bode_plot(self, system):
+    """
+    [Funcion para obtener la respuesta en frecuencia del sistema y su respectiva graficacion en diagrama de bode]
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    """
 
     if ctrl.isdtime(system, strict=True):
         w = np.linspace(0, 4 * np.pi / self.dt, 50000)
@@ -151,15 +209,17 @@ def rutina_bode_plot(self, system):
         w = np.linspace(0, 100 * np.pi, 50000)
         mag, phase, omega = ctrl.bode(system, w)
 
+    # Grafica de amplitud en dB
     bodeDb = 20 * np.log10(mag)
     self.main.BodeGraphicsView1.canvas.axes1.clear()
     self.main.BodeGraphicsView1.canvas.axes1.semilogx(omega, bodeDb)
     self.main.BodeGraphicsView1.canvas.axes1.grid(True, which="both", color="lightgray")
-    self.main.BodeGraphicsView1.canvas.axes1.set_title("Magnitud")
+    self.main.BodeGraphicsView1.canvas.axes1.set_title("Amplitud")
     self.main.BodeGraphicsView1.canvas.axes1.yaxis.set_major_formatter(
         mticker.FormatStrFormatter("%.1f dB")
     )
 
+    # Grafica de fase en grados
     self.main.BodeGraphicsView1.canvas.axes2.clear()
     self.main.BodeGraphicsView1.canvas.axes2.semilogx(omega, phase * 180.0 / np.pi)
     self.main.BodeGraphicsView1.canvas.axes2.grid(True, which="both", color="lightgray")
@@ -169,6 +229,7 @@ def rutina_bode_plot(self, system):
     )
     self.main.BodeGraphicsView1.canvas.axes2.set_xlabel("rad/s")
 
+    # Calculo y graficacion del margen de ganancia y de fase
     gm, pm, wg, wp = margenes_ganancias(self, mag, phase, omega)
 
     self.main.BodeGraphicsView1.canvas.axes1.axhline(
@@ -198,12 +259,20 @@ def rutina_bode_plot(self, system):
         self.main.BodeGraphicsView1.canvas.axes2.semilogx(
             [wp, wp], [-180, pm - 180], color='k', linewidth=3
         )
+
     self.main.BodeGraphicsView1.canvas.draw()
     self.main.BodeGraphicsView1.toolbar.update()
+
     return mag, phase, omega
 
 
 def rutina_nyquist_plot(self, system):
+    """
+    [Funcion para obtener la respuesta en frecuencia del sistema y su respectiva graficacion en diagrama de Nyquist]
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    """
 
     if ctrl.isdtime(system, strict=True):
         w = np.linspace(0, 10 * np.pi, 5000)
@@ -215,6 +284,7 @@ def rutina_nyquist_plot(self, system):
     self.main.NyquistGraphicsView1.canvas.axes.cla()
     self.main.NyquistGraphicsView1.canvas.axes.plot([-1], [0], "r+")
 
+    # Flechas para la direccion
     self.main.NyquistGraphicsView1.canvas.axes.arrow(
         real[0],
         imag[0],
@@ -249,6 +319,7 @@ def rutina_nyquist_plot(self, system):
         width=np.max(np.abs(real)) / 70,
     )
 
+    # Graficacion del diagrama de Nyquist
     self.main.NyquistGraphicsView1.canvas.axes.plot(real, imag, "tab:blue")
     self.main.NyquistGraphicsView1.canvas.axes.plot(real, -imag, "tab:blue")
     self.main.NyquistGraphicsView1.canvas.axes.grid(color="lightgray")
@@ -260,9 +331,16 @@ def rutina_nyquist_plot(self, system):
 
 
 def rutina_root_locus_plot(self, system):
+    """
+    [Funcion para obtener el lugar de la raices del sistema y su respectiva graficacion, la graficacion se realizo de forma interna en la libreria de control, para esto se moodifico la funcion root_locus para poder enviar el axis y la figura]
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    """
 
     self.main.rlocusGraphicsView1.canvas.axes.cla()
 
+    # Distincion entre discreto y continuo, con delay y sin delay.
     if not ctrl.isdtime(system, strict=True):
         if self.main.tfdelaycheckBox1.isChecked(
         ) and self.main.AnalisisstackedWidget.currentIndex() == 0:
@@ -293,8 +371,16 @@ def rutina_root_locus_plot(self, system):
     self.main.rlocusGraphicsView1.canvas.draw()
     self.main.rlocusGraphicsView1.toolbar.update()
 
+    return
+
 
 def rutina_nichols_plot(self, system):
+    """
+    [Funcion para obtener el diagram de nichols del sistema y su respectiva graficacion, la graficacion se realizo de forma interna en la libreria de control, para esto se moodifico la funcion nichols_plot para poder enviar el axis y la figura, adicionalmente se realizaron algunas modificaciones para una mejor presentacion de la grafica]
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    """
 
     self.main.nicholsGraphicsView1.canvas.axes.cla()
 
@@ -350,8 +436,26 @@ def rutina_nichols_plot(self, system):
     self.main.nicholsGraphicsView1.canvas.draw()
     self.main.nicholsGraphicsView1.toolbar.update()
 
+    return
+
 
 def rutina_system_info(self, system, T, mag, phase, omega):
+    """
+    [Funcion para mostrar los resultados obtenidos de los calculos en un TextEdit]
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    :param T: [Vector de tiempo]
+    :type T: [numpyArray]
+    :param mag: [Magnitud de la respuesta en frecuencia]
+    :type mag: [numpyArray]
+    :param phase: [Fase de la respuesta en frecuencia]
+    :type phase: [numpyArray]
+    :param omega: [Frecuencias utilizadas para la respuesta en frecuencia]
+    :type omega: [numpyArray]
+    """
+
+    # Informacion del step
     info = ctrl.step_info(system, T)
 
     Datos = ""
@@ -381,7 +485,7 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     dcgain = ctrl.dcgain(system)
     Datos += f"Ganancia DC: {real(dcgain):5.3f}\n"
 
-    # gm, pm, wg, wp = ctrl.margin(system)
+    # Calculo del margen de ganancia y de fase
     gm, pm, wg, wp = margenes_ganancias(self, mag, phase, omega)
 
     if not gm == np.infty:
@@ -398,6 +502,7 @@ def rutina_system_info(self, system, T, mag, phase, omega):
         Datos += f"Margen de fase: {pm:5.3f}\n"
         Datos += f"Frecuencia de fase: {wp:5.3f}\n"
 
+    # Valores Eigen
     Datos += "----------------------------------------------\n"
     Datos += f"  {'Valores eigen':<18}  {'Damping':<16}  Wn\n"
     wn, damping, eigen = ctrl.damp(system, doprint=False)
@@ -413,15 +518,27 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     else:
         self.main.ssdatosTextEdit1.setPlainText(Datos)
 
+    return
+
 
 def margenes_ganancias(self, mag, phase, omega):
-
+    """
+    [Funcion para obtener el margen de ganancia y el margen de fase]
+    
+    :param mag: [Magnitud de la respuesta en frecuencia]
+    :type mag: [numpyArray]
+    :param phase: [Fase de la respuesta en frecuencia]
+    :type phase: [numpyArray]
+    :param omega: [Frecuencias utilizadas para la respuesta en frecuencia]
+    :type omega: [numpyArray]
+    """
+    
     gainDb = 20 * np.log10(mag)
     degPhase = phase * 180.0 / np.pi
 
     indPhase = np.where(gainDb <= 0)[0]
     indGain = np.where(degPhase <= -180)[0]
-    
+
     if not indGain.size == 0:
         omegaGain = omega[indGain[0]]
         GainMargin = -gainDb[indGain[0]]

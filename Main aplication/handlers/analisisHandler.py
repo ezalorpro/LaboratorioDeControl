@@ -1,9 +1,15 @@
+""" [Archivo para el manejo de la funcion de analisis de sistemas de control, sirve de intermediario entre la interfaz grafica y las rutinas de analisis] """
+
+
 from rutinas.rutinas_analisis import *
 import json
 
 
 def AnalisisHandler(self):
-
+    """
+    [Funcion principal para el manejo de la funcionalida de analisis de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets]
+    """
+    
     self.main.tfcalcButton1.clicked.connect(lambda: calcular_analisis(self))
     self.main.sscalcButton1.clicked.connect(lambda: calcular_analisis(self))
 
@@ -30,6 +36,8 @@ def AnalisisHandler(self):
 
 
 def tfnum_validator(self):
+    """ [Validacion del numerador de la funcion de transferencia] """
+    
     try:
         _ = json.loads(self.main.tfnumEdit1.text())
     except ValueError:
@@ -42,6 +50,8 @@ def tfnum_validator(self):
 
 
 def tfdem_validator(self):
+    """ [Validacion del denominador de la funcion de transferencia] """
+    
     try:
         _ = json.loads(self.main.tfdemEdit1.text())
     except ValueError:
@@ -54,6 +64,8 @@ def tfdem_validator(self):
 
 
 def tfdelay_validator(self):
+    """ [Validacion del delay de la funcion de transferencia] """
+    
     try:
         _ = float(self.main.tfdelayEdit1.text())
         if _ < 0:
@@ -66,6 +78,8 @@ def tfdelay_validator(self):
 
 
 def tfperiodo_validator(self):
+    """ [Validacion del periodo de muestreo de la funcion de transferencia] """
+    
     try:
         _ = float(self.main.tfperiodoEdit1.text())
         if _ <= 0:
@@ -79,6 +93,8 @@ def tfperiodo_validator(self):
 
 
 def ssA_validator(self):
+    """ [Validacion de la matriz de estados de la ecuacion de espacio de estados] """
+    
     try:
         _ = json.loads(self.main.ssAEdit1.text())
     except ValueError:
@@ -91,6 +107,8 @@ def ssA_validator(self):
 
 
 def ssB_validator(self):
+    """ [Validacion de la matriz de entrada de la ecuacion de espacio de estados] """
+    
     try:
         _ = json.loads(self.main.ssBEdit1.text())
     except ValueError:
@@ -103,6 +121,8 @@ def ssB_validator(self):
 
 
 def ssC_validator(self):
+    """ [Validacion de la matriz de salida de la ecuacion de espacio de estados] """
+    
     try:
         _ = json.loads(self.main.ssCEdit1.text())
     except ValueError:
@@ -115,6 +135,8 @@ def ssC_validator(self):
 
 
 def ssD_validator(self):
+    """ [Validacion de la matriz de transmision directa de la ecuacion de espacio de estados] """
+    
     try:
         _ = json.loads(self.main.ssDEdit1.text())
     except ValueError:
@@ -127,6 +149,8 @@ def ssD_validator(self):
 
 
 def ssdelay_validator(self):
+    """ [Validacion del delay de la ecuacion de espacio de estados] """
+    
     try:
         _ = float(self.main.ssdelayEdit1.text())
         if _ < 0:
@@ -139,6 +163,8 @@ def ssdelay_validator(self):
 
 
 def ssperiodo_validator(self):
+    """ [Validacion del periodo de muestreo de la ecuacion de espacio de estados] """
+    
     try:
         _ = float(self.main.ssperiodoEdit1.text())
         if _ <= 0:
@@ -152,6 +178,11 @@ def ssperiodo_validator(self):
 
 
 def calcular_analisis(self):
+    """
+    [Funcion para realizar el los calculos necesarios para la funcionalidad de analisis de sistemas de control, 
+    el llamado a esta funcion se realizar por medio del boton calcular]
+    """
+    
     system_ss = 0
 
     if (
@@ -168,18 +199,21 @@ def calcular_analisis(self):
         self.dt = None
 
     if self.main.AnalisisstackedWidget.currentIndex() == 0:
+        # caso: Funcion de transferencia
         num = json.loads(self.main.tfnumEdit1.text())
         dem = json.loads(self.main.tfdemEdit1.text())
-        
+
+        # Validacion de funcion propia
         if len(num) > len(dem):
             self.error_dialog.setInformativeText(
                 "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al denominador")
             self.error_dialog.exec_()
             self.main.ssdelayEdit1.setFocus()
             return
-        
+
         system, T, system_delay = system_creator_tf(self, num, dem)
     else:
+        # caso: Ecuacion de espacio de estados
         A = json.loads(self.main.ssAEdit1.text())
         B = json.loads(self.main.ssBEdit1.text())
         C = json.loads(self.main.ssCEdit1.text())
@@ -187,6 +221,7 @@ def calcular_analisis(self):
         system, T, system_delay, system_ss = system_creator_ss(self, A, B, C, D)
 
     if system_delay is None:
+        # caso: Sistema sin delay
         t1, y1 = rutina_impulse_plot(self, system, T)
         t2, y2 = rutina_step_plot(self, system, T)
         mag, phase, omega = rutina_bode_plot(self, system)
@@ -194,6 +229,7 @@ def calcular_analisis(self):
         rutina_root_locus_plot(self, system)
         rutina_nichols_plot(self, system)
     else:
+        # caso: Sistema con delay
         t1, y1 = rutina_impulse_plot(self, system_delay, T)
         t2, y2 = rutina_step_plot(self, system_delay, T)
         mag, phase, omega = rutina_bode_plot(self, system_delay)
@@ -208,6 +244,8 @@ def calcular_analisis(self):
 
 
 def analisis_bool_discreto(self):
+    """ [Funcion para habilitar y deshabilitar el periodo de muestreo] """
+    
     if self.main.tfdiscretocheckBox1.isChecked():
         self.main.tfperiodoEdit1.setEnabled(True)
     else:
@@ -215,8 +253,10 @@ def analisis_bool_discreto(self):
 
 
 def analisis_stacked_to_tf(self):
+    """ [Funcion para cambiar de ecuacion de espacio de estados a funcion de transferencia] """
     self.main.AnalisisstackedWidget.setCurrentIndex(0)
 
 
 def analisis_stacked_to_ss(self):
+    """ [Funcion para cambiar de funcion de transferencia a ecuacion de espacio de estados] """
     self.main.AnalisisstackedWidget.setCurrentIndex(1)
