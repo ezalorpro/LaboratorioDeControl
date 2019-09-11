@@ -230,6 +230,14 @@ def calcular_PID(self):
     if self.main.PIDstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit2.text())
         dem = json.loads(self.main.tfdemEdit2.text())
+        
+        if len(num) > len(dem):
+            self.error_dialog.setInformativeText(
+                "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al denominador")
+            self.error_dialog.exec_()
+            self.main.ssdelayEdit1.setFocus()
+            return
+        
         system_pid, T, system_delay, kp, ki, kd = system_creator_tf(self, num, dem)
     else:
         A = json.loads(self.main.ssAEdit2.text())
@@ -273,6 +281,14 @@ def calcular_autotuning(self):
     if self.main.PIDstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit2.text())
         dem = json.loads(self.main.tfdemEdit2.text())
+        
+        if len(num) > len(dem):
+            self.error_dialog.setInformativeText(
+                "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al denominador")
+            self.error_dialog.exec_()
+            self.main.ssdelayEdit1.setFocus()
+            return
+        
         try:
             system_pid, T, system_delay, kp, ki, kd = system_creator_tf_tuning(self, num, dem)
         except TypeError:
