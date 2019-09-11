@@ -1,3 +1,8 @@
+""" 
+[Archivo para el manejo de la funcion de Tunning, sirve de intermediario entre la interfaz grafica y las rutinas de entonacion de controladores PID y la identificacion de modelos a partir de un archivo CSV y entonacion de PID para el mismo] 
+"""
+
+
 from PySide2 import QtCore, QtGui, QtWidgets
 from rutinas.rutinas_PID import *
 from rutinas.rutinas_CSV import *
@@ -6,6 +11,10 @@ import json
 
 
 def TuningHandler(self):
+    """
+    [Funcion principal para el manejo de la funcionalida de Tunning, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
+    """
+
     self.GraphObjets = 0
     self.tfSliderValue = self.main.tfreolutionSpin2.value()
     self.ssSliderValue = self.main.ssreolutionSpin2.value()
@@ -64,6 +73,8 @@ def TuningHandler(self):
 
 
 def tfnum_validator(self):
+    """ [Validacion del numerador de la funcion de transferencia] """
+
     try:
         _ = json.loads(self.main.tfnumEdit2.text())
     except ValueError:
@@ -76,6 +87,8 @@ def tfnum_validator(self):
 
 
 def tfdem_validator(self):
+    """ [Validacion del denominador de la funcion de transferencia] """
+
     try:
         _ = json.loads(self.main.tfdemEdit2.text())
     except ValueError:
@@ -88,6 +101,8 @@ def tfdem_validator(self):
 
 
 def tfdelay_validator(self):
+    """ [Validacion del delay de la funcion de transferencia] """
+
     try:
         _ = float(self.main.tfdelayEdit2.text())
         if _ < 0:
@@ -101,6 +116,7 @@ def tfdelay_validator(self):
 
 
 def tfperiodo_validator(self):
+    """ [Validacion del periodo de muestreo de la funcion de transferencia] """
     try:
         _ = float(self.main.tfperiodoEdit2.text())
         if _ <= 0:
@@ -114,6 +130,8 @@ def tfperiodo_validator(self):
 
 
 def ssA_validator(self):
+    """ [Validacion de la matriz de estados de la ecuacion de espacio de estados] """
+
     try:
         _ = json.loads(self.main.ssAEdit2.text())
     except ValueError:
@@ -126,6 +144,8 @@ def ssA_validator(self):
 
 
 def ssB_validator(self):
+    """ [Validacion de la matriz de entrada de la ecuacion de espacio de estados] """
+
     try:
         _ = json.loads(self.main.ssBEdit2.text())
     except ValueError:
@@ -138,6 +158,8 @@ def ssB_validator(self):
 
 
 def ssC_validator(self):
+    """ [Validacion de la matriz de salida de la ecuacion de espacio de estados] """
+
     try:
         _ = json.loads(self.main.ssCEdit2.text())
     except ValueError:
@@ -150,6 +172,8 @@ def ssC_validator(self):
 
 
 def ssD_validator(self):
+    """ [Validacion de la matriz de transmision directa de la ecuacion de espacio de estados] """
+
     try:
         _ = json.loads(self.main.ssDEdit2.text())
     except ValueError:
@@ -162,6 +186,8 @@ def ssD_validator(self):
 
 
 def ssdelay_validator(self):
+    """ [Validacion del delay de la ecuacion de espacio de estados] """
+
     try:
         _ = float(self.main.ssdelayEdit2.text())
         if _ < 0:
@@ -175,6 +201,8 @@ def ssdelay_validator(self):
 
 
 def ssperiodo_validator(self):
+    """ [Validacion del periodo de muestreo de la ecuacion de espacio de estados] """
+
     try:
         _ = float(self.main.ssperiodoEdit2.text())
         if _ <= 0:
@@ -188,12 +216,18 @@ def ssperiodo_validator(self):
 
 
 def tiempo_slider_cambio(self):
+    """ [Para discriminar entre entonacion e identificacion de modelo con archivo csv] """
+
     if self.main.PIDstackedWidget.currentIndex() == 2:
         ajustar_atraso_manual(self)
     else:
         chequeo_de_accion(self)
 
 def chequeo_de_accion(self):
+    """
+     [Para discriminar entre entonacion con funcion de transferencia, ecuacion de espacio de estados o identificacion de modelo con archivo csv] 
+     """
+
     if not self.main.tfAutoTuningcheckBox2.isChecked(
     ) and self.main.PIDstackedWidget.currentIndex() == 0:
         calcular_PID(self)
@@ -211,6 +245,10 @@ def chequeo_de_accion(self):
 
 
 def calcular_PID(self):
+    """
+    [Funcion para realizar el los calculos necesarios para la funcionalidad de entonacion de controaldores PID, 
+    el llamado a esta funcion se realizar por medio del boton calcular o cada vez que se modifique alguno de los sliders]
+    """
 
     system_ss = 0
 
@@ -228,18 +266,21 @@ def calcular_PID(self):
         self.dt = None
 
     if self.main.PIDstackedWidget.currentIndex() == 0:
+        # caso: Funcion de transferencia
         num = json.loads(self.main.tfnumEdit2.text())
         dem = json.loads(self.main.tfdemEdit2.text())
-        
+
+        # Validacion de funcion propia
         if len(num) > len(dem):
             self.error_dialog.setInformativeText(
                 "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al denominador")
             self.error_dialog.exec_()
             self.main.ssdelayEdit1.setFocus()
             return
-        
+
         system_pid, T, system_delay, kp, ki, kd = system_creator_tf(self, num, dem)
     else:
+        # caso: Ecuacion de espacio de estados
         A = json.loads(self.main.ssAEdit2.text())
         B = json.loads(self.main.ssBEdit2.text())
         C = json.loads(self.main.ssCEdit2.text())
@@ -247,8 +288,10 @@ def calcular_PID(self):
         system_pid, T, system_delay, system_ss, kp, ki, kd = system_creator_ss(self, A, B, C, D)
 
     if system_delay is None:
+        # caso: Sistema sin delay
         t2, y2 = rutina_step_plot(self, system_pid, T, kp, ki, kd)
     else:
+        # caso: Sistema con delay
         t2, y2 = rutina_step_plot(self, system_delay, T, kp, ki, kd)
 
     if not system_ss:
@@ -262,6 +305,10 @@ def calcular_PID(self):
 
 
 def calcular_autotuning(self):
+    """
+    [Funcion para realizar el los calculos necesarios para la funcionalidad de entonacion de controaldores PID con auto tunning, 
+    el llamado a esta funcion se realizar por medio del boton calcular si previamente se habilito la funcionalidad de auto tunning]
+    """
 
     system_ss = 0
 
@@ -279,16 +326,18 @@ def calcular_autotuning(self):
         self.dt = None
 
     if self.main.PIDstackedWidget.currentIndex() == 0:
+        # caso: Funcion de transferencia
         num = json.loads(self.main.tfnumEdit2.text())
         dem = json.loads(self.main.tfdemEdit2.text())
-        
+
+        # Validacion de funcion propia
         if len(num) > len(dem):
             self.error_dialog.setInformativeText(
                 "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al denominador")
             self.error_dialog.exec_()
             self.main.ssdelayEdit1.setFocus()
             return
-        
+
         try:
             system_pid, T, system_delay, kp, ki, kd = system_creator_tf_tuning(self, num, dem)
         except TypeError:
@@ -298,6 +347,7 @@ def calcular_autotuning(self):
             self.error_dialog.exec_()
             return
     else:
+        # caso: Ecuacion de espacio de estados
         A = json.loads(self.main.ssAEdit2.text())
         B = json.loads(self.main.ssBEdit2.text())
         C = json.loads(self.main.ssCEdit2.text())
@@ -312,8 +362,10 @@ def calcular_autotuning(self):
             return
 
     if system_delay is None:
+        # caso: Sistema sin delay
         t2, y2 = rutina_step_plot(self, system_pid, T, kp, ki, kd)
     else:
+        # caso: Sistema con delay
         t2, y2 = rutina_step_plot(self, system_delay, T, kp, ki, kd)
 
     if not system_ss:
@@ -331,6 +383,10 @@ def calcular_autotuning(self):
 
 
 def calcular_csv(self):
+    """
+    [Funcion para realizar el los calculos necesarios para la funcionalidad de identificacion de modelos y entonacion de controlador PID, el llamado a esta funcion se realizar por medio del boton calcular]
+    """
+
     try:
         csv_data = np.genfromtxt(self.main.pathCSVedit.text(),
                                 delimiter=self.main.EditSeparador.text(),
@@ -361,6 +417,8 @@ def calcular_csv(self):
 
 
 def LVP_validator(self):
+    """ [Validacion del limite inferior del span de VP] """
+
     try:
         _ = float(self.main.EditLVP.text())
     except ValueError:
@@ -372,6 +430,8 @@ def LVP_validator(self):
 
 
 def UVP_validator(self):
+    """ [Validacion del limite superior del span de VP] """
+
     try:
         _ = float(self.main.EditUVP.text())
     except ValueError:
@@ -381,8 +441,10 @@ def UVP_validator(self):
         self.main.EditUVP.setFocus()
         return
 
-   
+
 def LEFC_validator(self):
+    """ [Validacion del limite inferior del span de EFC] """
+
     try:
         _ = float(self.main.EditLEFC.text())
     except ValueError:
@@ -392,8 +454,10 @@ def LEFC_validator(self):
         self.main.EditLEFC.setFocus()
         return
 
-    
+
 def UEFC_validator(self):
+    """ [Validacion del limite superior del span de EFC] """
+
     try:
         _ = float(self.main.EditUEFC.text())
     except ValueError:
@@ -405,6 +469,10 @@ def UEFC_validator(self):
 
 
 def ajustar_atraso_manual(self):
+    """
+    [Funcion para ajutar el tiempo t1, despues de realizar el calculo para un archivo csv, se utiliza en caso de que la estimacion automatica no sea lo suficientemente buena]
+    """
+
     Kc, t0, t1, t2 , y2, y1, anclaT, anclaY = self.model_info
     t1_new = self.main.pidTiempoSlider.value()
     t1_new = np.round(t0 + (t2-t0) * t1_new / 1000, 3)
@@ -414,11 +482,14 @@ def ajustar_atraso_manual(self):
 
 
 def csv_path(self):
+    """ [Funcion para cargar el archivo csv] """
     path_csv = QtWidgets.QFileDialog.getOpenFileName(filter="CSV (*.csv)")
     self.main.pathCSVedit.setText(path_csv[0])
 
 
 def PID_bool_discreto(self):
+    """ [Funcion para habilitar y deshabilitar el periodo de muestreo] """
+
     if self.main.tfdiscretocheckBox2.isChecked():
         self.main.tfperiodoEdit2.setEnabled(True)
     else:
@@ -426,6 +497,8 @@ def PID_bool_discreto(self):
 
 
 def PID_stacked_to_tf(self):
+    """ [Funcion para cambiar a funcion de transferencia] """
+
     self.main.PIDstackedWidget.setCurrentIndex(0)
     self.main.GraphStakedTuning.setCurrentIndex(0)
     self.main.pidTiempoLabel.setText('Tiempo')
@@ -437,6 +510,7 @@ def PID_stacked_to_tf(self):
 
 
 def tf_habilitar_sliders_checkbox(self):
+    """ [Funcion para habilitar ganancias antes y despues del auto tuning con funcion de transferencia] """
 
     self.main.pidNSlider.setEnabled(True)
     self.main.pidTiempoSlider.setEnabled(True)
@@ -470,6 +544,8 @@ def tf_habilitar_sliders_checkbox(self):
 
 
 def PID_stacked_to_ss(self):
+    """ [Funcion para cambiar a ecuacion de espacio de estados] """
+
     self.main.PIDstackedWidget.setCurrentIndex(1)
     self.main.GraphStakedTuning.setCurrentIndex(0)
     self.main.pidTiempoLabel.setText('Tiempo')
@@ -481,6 +557,7 @@ def PID_stacked_to_ss(self):
 
 
 def ss_habilitar_sliders_checkbox(self):
+    """ [Funcion para habilitar ganancias antes y despues del auto tuning con ecuacion de espacio de estados] """
 
     self.main.pidNSlider.setEnabled(True)
     self.main.pidTiempoSlider.setEnabled(True)
@@ -514,16 +591,20 @@ def ss_habilitar_sliders_checkbox(self):
 
 
 def actualizar_sliders_tf(self):
+    """ [Funcion para ajustar la resolucion de los sliders con funcion de transferencia] """
     self.tfSliderValue = self.main.tfreolutionSpin2.value()
     update_gain_labels(self, resolution=self.tfSliderValue)
 
 
 def actualizar_sliders_ss(self):
+    """ [Funcion para ajustar la resolucion de los sliders con ecuacion de espacio de estados] """
     self.ssSliderValue = self.main.ssreolutionSpin2.value()
     update_gain_labels(self, resolution=self.ssSliderValue)
 
 
 def PID_stacked_to_csv(self):
+    """ [Funcion para cambiar a csv] """
+    
     self.main.pidTiempoLabel.setText('t1')
     self.main.pidLabelController.setText("")
     self.main.PIDstackedWidget.setCurrentIndex(2)

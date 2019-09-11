@@ -1,4 +1,6 @@
-""" [Archivo para el manejo de la funcion de analisis de sistemas de control, sirve de intermediario entre la interfaz grafica y las rutinas de analisis] """
+""" 
+[Archivo para el manejo de la funcion de analisis de sistemas de control, sirve de intermediario entre la interfaz grafica y las rutinas de analisis] 
+"""
 
 
 from rutinas.rutinas_analisis import *
@@ -7,7 +9,7 @@ import json
 
 def AnalisisHandler(self):
     """
-    [Funcion principal para el manejo de la funcionalida de analisis de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets]
+    [Funcion principal para el manejo de la funcionalida de analisis de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
     """
     
     self.main.tfcalcButton1.clicked.connect(lambda: calcular_analisis(self))
