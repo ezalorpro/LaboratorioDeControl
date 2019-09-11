@@ -1,5 +1,6 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from rutinas.rutinas_fuzzy import FuzzyController
+from rutinas.rutinas_fuzzy import FISParser
 import controlmdf as ctrl
 import numpy as np
 from scipy import real, imag
@@ -231,14 +232,32 @@ class SimpleThread(QtCore.QThread):
             kd = 0
 
         if len(self.fuzzy_path1) > 1 and self.esquema in [1, 2, 3, 4, 5, 6, 7, 8]:
-            with open(self.fuzzy_path1, "r") as f:
-                InputList1, OutputList1, RuleEtiquetas1 = json.load(f)
+            if '.json' in self.fuzzy_path1:
+                with open(self.fuzzy_path1, "r") as f:
+                    InputList1, OutputList1, RuleEtiquetas1 = json.load(f)
+            else:
+                temp_parser = FISParser(self.fuzzy_path1)
+                try:
+                    InputList1, OutputList1, RuleEtiquetas1 = temp_parser.fis_to_json()
+                except TypeError:
+                    self.error_dialog.setInformativeText("No se permiten salidas negadas")
+                    self.error_dialog.exec_()
+                    return
 
             fuzzy_c1 = FuzzyController(InputList1, OutputList1, RuleEtiquetas1)
 
         if len(self.fuzzy_path2) > 1 and self.esquema in [4]:
-            with open(self.fuzzy_path2, "r") as f:
-                InputList2, OutputList2, RuleEtiquetas2 = json.load(f)
+            if '.json' in self.fuzzy_path2:
+                with open(self.fuzzy_path2, "r") as f:
+                    InputList2, OutputList2, RuleEtiquetas2 = json.load(f)
+            else:
+                temp_parser = FISParser(self.fuzzy_path2)
+                try:
+                    InputList2, OutputList2, RuleEtiquetas2 = temp_parser.fis_to_json()
+                except TypeError:
+                    self.error_dialog.setInformativeText("No se permiten salidas negadas")
+                    self.error_dialog.exec_()
+                    return
 
             fuzzy_c2 = FuzzyController(InputList2, OutputList2, RuleEtiquetas2)
 

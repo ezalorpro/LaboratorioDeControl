@@ -44,6 +44,25 @@ def SimulacionHandler(self):
     self.main.escalonSimulacion.editingFinished.connect(lambda: escalon_validator(self))
     self.main.escalonAvanzado.editingFinished.connect(lambda: escalonAvanzado_validator(self))
 
+    self.main.padeOrder.editingFinished.connect(lambda: pade_validator(self))
+    self.main.rtolLineEdit.editingFinished.connect(lambda: rtol_validator(self))
+    self.main.atolLineEdit.editingFinished.connect(lambda: atol_validator(self))
+    self.main.maxStepIncr.editingFinished.connect(lambda: maxstep_validator(self))
+    self.main.minStepDecr.editingFinished.connect(lambda: minstep_validator(self))
+    self.main.safetyFactor.editingFinished.connect(lambda: safetyFactor_validator(self))
+
+    self.main.numSensor.editingFinished.connect(lambda: sensornum_validator(self))
+    self.main.demSensor.editingFinished.connect(lambda: sensordem_validator(self))
+    self.main.numAccionador.editingFinished.connect(lambda: accionadornum_validator(self))
+    self.main.demAccionador.editingFinished.connect(lambda: accionadordem_validator(self))
+    self.main.inferiorSaturador.editingFinished.connect(lambda: inferiorSaturador_validator(self))
+    self.main.superiorSaturador.editingFinished.connect(lambda: superiorSaturador_validator(self))
+
+    self.main.kpSimulacion.editingFinished.connect(lambda: kp_validator(self))
+    self.main.kiSimulacion.editingFinished.connect(lambda: ki_validator(self))
+    self.main.kdSimulacion.editingFinished.connect(lambda: kd_validator(self))
+    self.main.NSimulacion.editingFinished.connect(lambda: N_validator(self))
+
 
 def tfnum_validator(self):
     try:
@@ -221,7 +240,255 @@ def escalonAvanzado_validator(self):
         return
 
 
+def pade_validator(self):
+    try:
+        _ = int(self.main.padeOrder.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Orden del pade no valido, debe ser un numero entero mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.padeOrder.setFocus()
+        return
+
+def rtol_validator(self):
+    try:
+        _ = float(self.main.rtolLineEdit.text())
+        if _ <= 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Tolerancia relativa no valida, debe ser un numero real mayor que cero, se puede expresar en notacion cientifica\n i.g., 1e-3")
+        self.error_dialog.exec_()
+        self.main.rtolLineEdit.setFocus()
+        return
+
+def atol_validator(self):
+    try:
+        _ = float(self.main.atolLineEdit.text())
+        if _ <= 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Tolerancia absoluta no valida, debe ser un numero real mayor que cero, se puede expresar en notacion cientifica\n i.g., 5e-6")
+        self.error_dialog.exec_()
+        self.main.atolLineEdit.setFocus()
+        return
+
+
+def maxstep_validator(self):
+    try:
+        _ = float(self.main.maxStepIncr.text())
+        if _ <= 1:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Incremento maximo de paso no valido, debe ser un numero real mayor que 1"
+        )
+        self.error_dialog.exec_()
+        self.main.maxStepIncr.setFocus()
+        return
+
+
+def minstep_validator(self):
+    try:
+        _ = float(self.main.minStepDecr.text())
+        if _ <= 0 or _ >=1:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Decremento minimo de paso no valido, debe ser un numero real menor que 1 y mayor que cero")
+        self.error_dialog.exec_()
+        self.main.minStepDecr.setFocus()
+        return
+
+
+def safetyFactor_validator(self):
+    try:
+        _ = float(self.main.safetyFactor.text())
+        if _ <= 0 or _ >= 1:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Factor de seguridad no valido, debe ser un numero real menor que 1 y mayor que cero"
+        )
+        self.error_dialog.exec_()
+        self.main.safetyFactor.setFocus()
+        return
+
+
+def sensornum_validator(self):
+    try:
+        _ = json.loads(self.main.numSensor.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, los coeficientes deben estar entre corchetes y separados por comas.\n i.g., [1, 2, 3]"
+        )
+        self.error_dialog.exec_()
+        self.main.numSensor.setFocus()
+        return
+
+
+def sensordem_validator(self):
+    try:
+        _ = json.loads(self.main.demSensor.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, los coeficientes deben estar entre corchetes y separados por comas.\n i.g., [1, 2, 3]"
+        )
+        self.error_dialog.exec_()
+        self.main.demSensor.setFocus()
+        return
+
+
+def accionadornum_validator(self):
+    try:
+        _ = json.loads(self.main.numAccionador.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, los coeficientes deben estar entre corchetes y separados por comas.\n i.g., [1, 2, 3]"
+        )
+        self.error_dialog.exec_()
+        self.main.numAccionador.setFocus()
+        return
+
+
+def accionadordem_validator(self):
+    try:
+        _ = json.loads(self.main.demAccionador.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Formato no valido, los coeficientes deben estar entre corchetes y separados por comas.\n i.g., [1, 2, 3]"
+        )
+        self.error_dialog.exec_()
+        self.main.demAccionador.setFocus()
+        return
+
+
+def inferiorSaturador_validator(self):
+    try:
+        _ = float(self.main.inferiorSaturador.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Limite inferior no valido, debe ser un numero real")
+        self.error_dialog.exec_()
+        self.main.inferiorSaturador.setFocus()
+        return
+
+
+def superiorSaturador_validator(self):
+    try:
+        _ = float(self.main.superiorSaturador.text())
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Limite superior no valido, debe ser un numero real")
+        self.error_dialog.exec_()
+        self.main.superiorSaturador.setFocus()
+        return
+
+
+def kp_validator(self):
+    try:
+        _ = float(self.main.kpSimulacion.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Ganancia kp no valida, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.kpSimulacion.setFocus()
+        return
+
+
+def ki_validator(self):
+    try:
+        _ = float(self.main.kiSimulacion.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Ganancia ki no valida, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.kiSimulacion.setFocus()
+        return
+
+
+def kd_validator(self):
+    try:
+        _ = float(self.main.kdSimulacion.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Ganancia kd no valida, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.kdSimulacion.setFocus()
+        return
+
+
+def N_validator(self):
+    try:
+        _ = float(self.main.NSimulacion.text())
+        if _ < 0:
+            raise ValueError
+    except ValueError:
+        self.error_dialog.setInformativeText(
+            "Valor de N no valido, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.exec_()
+        self.main.NSimulacion.setFocus()
+        return
+
+
 def calcular_simulacion(self):
+
+    num = json.loads(self.main.numSensor.text())
+    dem = json.loads(self.main.demSensor.text())
+
+    if len(num) > len(dem):
+        self.error_dialog.setInformativeText(
+            "Funcion de transferencia del sensor impropia, el numerador debe ser de un grado menor o igual al del denominador")
+        self.error_dialog.exec_()
+        self.main.ssdelayEdit1.setFocus()
+        return
+
+    num = json.loads(self.main.numAccionador.text())
+    dem = json.loads(self.main.demAccionador.text())
+
+    if len(num) > len(dem):
+        self.error_dialog.setInformativeText(
+            "Funcion de transferencia del accionador impropia, el numerador debe ser de un grado menor o igual al del denominador")
+        self.error_dialog.exec_()
+        self.main.ssdelayEdit1.setFocus()
+        return
+
+    lim_inf = float(self.main.inferiorSaturador.text())
+    lim_sup = float(self.main.superiorSaturador.text())
+
+    if lim_inf >= lim_sup:
+        self.error_dialog.setInformativeText(
+            "Limites del saturador del accionador invalidos, el limite inferior debe ser menor que el limite superior"
+        )
+        self.error_dialog.exec_()
+        self.main.ssdelayEdit1.setFocus()
+        return
+
+    if len(self.main.pathController1.text(
+    )) < 1 and self.main.esquemaSimulacion.currentIndex() in [1, 2, 3, 4, 5, 6, 7, 8]:
+        self.error_dialog.setInformativeText(
+            "Debe seleccionar un archivo valido para cargar el controaldor difuso")
+        self.error_dialog.exec_()
+        self.main.toolBox.setCurrentIndex(3)
+        return
+
+    if len(self.main.pathController2.text(
+    )) < 1 and self.main.esquemaSimulacion.currentIndex() in [4]:
+        self.error_dialog.setInformativeText(
+            "Debe seleccionar un archivo valido para cargar el controaldor difuso 2")
+        self.error_dialog.exec_()
+        self.main.toolBox.setCurrentIndex(3)
+        return
+
     if self.main.tfdelaycheckBox4.isChecked(
     ) and self.main.SimulacionstackedWidget.currentIndex() == 0:
         try:
@@ -254,14 +521,14 @@ def calcular_simulacion(self):
     if self.main.SimulacionstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit4.text())
         dem = json.loads(self.main.tfdemEdit4.text())
-        
+
         if len(num) > len(dem):
             self.error_dialog.setInformativeText(
-                "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al denominador")
+                "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al del denominador")
             self.error_dialog.exec_()
             self.main.ssdelayEdit1.setFocus()
             return
-        
+
         system = system_creator_tf(self, num, dem)
     else:
         A = json.loads(self.main.ssAEdit4.text())
@@ -321,12 +588,12 @@ def simulacion_stacked_to_ss(self):
 
 
 def get_pathcontroller1(self):
-    path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON (*.json)")
+    path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON/FIS (*.json *.fis)")
     self.main.pathController1.setText(path_cargar[0])
 
 
 def get_pathcontroller2(self):
-    path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON (*.json)")
+    path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON/FIS (*.json *.fis)")
     self.main.pathController2.setText(path_cargar[0])
 
 

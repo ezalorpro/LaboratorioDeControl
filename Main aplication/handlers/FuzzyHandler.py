@@ -378,7 +378,6 @@ def exportar_fis(self):
 def cargar_controlador(self):
     self.path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON/FIS (*.json *.fis)")
     if len(self.path_cargar[0]) > 1:
-
         if '.json' in self.path_cargar[0]:
             with open(self.path_cargar[0], "r") as f:
                 self.InputList, self.OutputList, self.RuleEtiquetas = json.load(f)
