@@ -421,7 +421,7 @@ def margenes_ganancias(self, mag, phase, omega):
 
     indPhase = np.where(gainDb <= 0)[0]
     indGain = np.where(degPhase <= -180)[0]
-
+    
     if not indGain.size == 0:
         omegaGain = omega[indGain[0]]
         GainMargin = -gainDb[indGain[0]]
@@ -429,7 +429,7 @@ def margenes_ganancias(self, mag, phase, omega):
         omegaGain = np.nan
         GainMargin = np.infty
 
-    if not indPhase.size == 0 and gainDb[0] >= 0:
+    if not indPhase.size < 2 and gainDb[0] >= 0:
         omegaPhase = omega[indPhase[1]]
         PhaseMargin = 180 + degPhase[indPhase[1]]
     else:

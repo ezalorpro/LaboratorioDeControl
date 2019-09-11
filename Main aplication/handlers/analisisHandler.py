@@ -170,6 +170,14 @@ def calcular_analisis(self):
     if self.main.AnalisisstackedWidget.currentIndex() == 0:
         num = json.loads(self.main.tfnumEdit1.text())
         dem = json.loads(self.main.tfdemEdit1.text())
+        
+        if len(num) > len(dem):
+            self.error_dialog.setInformativeText(
+                "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al denominador")
+            self.error_dialog.exec_()
+            self.main.ssdelayEdit1.setFocus()
+            return
+        
         system, T, system_delay = system_creator_tf(self, num, dem)
     else:
         A = json.loads(self.main.ssAEdit1.text())
