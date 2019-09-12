@@ -295,11 +295,11 @@ def calcular_PID(self):
         t2, y2 = rutina_step_plot(self, system_delay, T, kp, ki, kd)
 
     if not system_ss:
-        rutina_system_info(self, system_pid, T, t2, y2)
+        rutina_system_info(self, system_pid, T, y2)
         update_gain_labels(self, resolution=self.tfSliderValue)
         update_time_and_N_labels(self)
     else:
-        rutina_system_info(self, system_ss, T, t2, y2)
+        rutina_system_info(self, system_ss, T, y2)
         update_gain_labels(self, resolution=self.ssSliderValue)
         update_time_and_N_labels(self)
 
@@ -369,13 +369,13 @@ def calcular_autotuning(self):
         t2, y2 = rutina_step_plot(self, system_delay, T, kp, ki, kd)
 
     if not system_ss:
-        rutina_system_info(self, system_pid, T, t2, y2, kp, ki, kd, autotuning=True)
+        rutina_system_info(self, system_pid, T, y2, kp, ki, kd, autotuning=True)
         update_gain_labels(
             self, kp, ki, kd, autotuning=True, resolution=self.tfSliderValue
         )
         update_time_and_N_labels(self)
     else:
-        rutina_system_info(self, system_ss, T, t2, y2, kp, ki, kd, autotuning=True)
+        rutina_system_info(self, system_ss, T, y2, kp, ki, kd, autotuning=True)
         update_gain_labels(
             self, kp, ki, kd, autotuning=True, resolution=self.ssSliderValue
         )
@@ -602,9 +602,50 @@ def actualizar_sliders_ss(self):
     update_gain_labels(self, resolution=self.ssSliderValue)
 
 
+def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False, resolution=50):
+    """
+    [Funcion para actualizar los labels que representan las ganancias, se ejecuta cada vez que un slider de ganancias cambia]
+    
+    :param kp: [Ganancia proporcional], defaults to 0
+    :type kp: [float], optional
+    :param ki: [Ganancia integral], defaults to 0
+    :type ki: [float], optional
+    :param kd: [Ganancia derivativa], defaults to 0
+    :type kd: [float], optional
+    :param autotuning: [Bandera para señar si es o no una operacion con auto tunning], defaults to False
+    :type autotuning: [bool], optional
+    :param resolution: [Resolucion de los sliders], defaults to 50
+    :type resolution: [int], optional
+    """
+
+    if autotuning:
+        self.main.kpHSlider2.blockSignals(True)
+        self.main.kiHSlider2.blockSignals(True)
+        self.main.kdHSlider2.blockSignals(True)
+
+        self.main.kpHSlider2.setValue(kp * resolution)
+        self.main.kiHSlider2.setValue(ki * resolution)
+        self.main.kdHSlider2.setValue(kd * resolution)
+
+        self.main.kpHSlider2.blockSignals(False)
+        self.main.kiHSlider2.blockSignals(False)
+        self.main.kdHSlider2.blockSignals(False)
+
+    self.main.kpValueLabel2.setText(str(np.around(self.main.kpHSlider2.value() / resolution, 3)))
+    self.main.kiValueLabel2.setText(str(np.around(self.main.kiHSlider2.value() / resolution, 3)))
+    self.main.kdValueLabel2.setText(str(np.around(self.main.kdHSlider2.value() / resolution, 3)))
+
+
+def update_time_and_N_labels(self):
+    """ [Funcion para actualizar los labels que representan al tiempo y al valor N] """
+    self.main.pidTiempoLabelValue.setText(
+        str(np.around(self.main.pidTiempoSlider.value(), 3)))
+    self.main.pidNLabelValue.setText(str(np.around(self.main.pidNSlider.value(), 3)))
+
+
 def PID_stacked_to_csv(self):
     """ [Funcion para cambiar a csv] """
-    
+
     self.main.pidTiempoLabel.setText('t1')
     self.main.pidLabelController.setText("")
     self.main.PIDstackedWidget.setCurrentIndex(2)

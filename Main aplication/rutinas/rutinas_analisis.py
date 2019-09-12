@@ -73,7 +73,7 @@ def system_creator_ss(self, A, B, C, D):
     :param D: [Matriz de transmision directa]
     :type D: [list]
     """
-    
+
     if not self.main.ssdiscretocheckBox1.isChecked(
     ) and self.main.ssdelaycheckBox1.isChecked():
         delay = json.loads(self.main.ssdelayEdit1.text())
@@ -81,8 +81,11 @@ def system_creator_ss(self, A, B, C, D):
         delay = 0
 
     system = ctrl.StateSpace(A, B, C, D, delay=delay)
+
+    # Para obtener un tiempo aproximado
     t, y = ctrl.impulse_response(system)
 
+    # En caso de que el sistema sea discreto
     if self.main.ssdiscretocheckBox1.isChecked():
         system = ctrl.sample_system(system, self.dt, self.main.sscomboBox1.currentText())
 
@@ -532,7 +535,7 @@ def margenes_ganancias(self, mag, phase, omega):
     :param omega: [Frecuencias utilizadas para la respuesta en frecuencia]
     :type omega: [numpyArray]
     """
-    
+
     gainDb = 20 * np.log10(mag)
     degPhase = phase * 180.0 / np.pi
 

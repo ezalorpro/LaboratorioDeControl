@@ -1,3 +1,6 @@
+""" [Archivo que contiene todas las rutinas necesarias para la funcionalidad de identificacion de modelo y tunning con csv] """
+
+
 from PySide2 import QtCore, QtGui, QtWidgets
 import controlmdf as ctrl
 import matplotlib.ticker as mticker
@@ -5,7 +8,18 @@ import numpy as np
 
 
 def procesar_csv(self, csv_data):
+    """
+    [Funcion para procesar la data del archivo csv, se crea una nueva data en un diccionario, se normalizan las escalas con el span y se transforma el tiempo a segundos. Para la transformacion de tiempo a segundos los formatos aceptados son:
+        hh:mm:ss
+           mm:ss
+              ss
+    En cualquiera de los casos se llevara a segundos y se restara el tiempo inicial para que empiece en cero ]
+    
+    :param csv_data: [Data del csv]
+    :type csv_data: [numpyArray]
+    """
 
+    # Identificacion de columnas
     for i, header in enumerate(csv_data[0]):
         if 'time' in header.lower():
             indexTime = i
@@ -16,46 +30,48 @@ def procesar_csv(self, csv_data):
 
     csv_data = np.delete(csv_data, 0, 0)
 
-    dic_data = dict()
+    dict_data = dict()
     try:
-        dic_data['time'] = np.array(csv_data[:, indexTime])
-        dic_data['vp'] = np.array(list(map(float, csv_data[:, indexVp])))
-        dic_data['efc'] = np.array(list(map(float, csv_data[:, indexEFC])))
+        dict_data['time'] = np.array(csv_data[:, indexTime])
+        dict_data['vp'] = np.array(list(map(float, csv_data[:, indexVp])))
+        dict_data['efc'] = np.array(list(map(float, csv_data[:, indexEFC])))
     except UnboundLocalError:
         raise UnboundLocalError
 
     Tiempo = []
 
-    for time_entry in dic_data['time']:
+    # Transformacion de tiempo a segundos
+    for time_entry in dict_data['time']:
         my_time = str(time_entry)
         t1 = sum(i * j for i, j in zip(list(map(float, my_time.split(':')))[::-1], [1, 60, 3600]))
         Tiempo.append(t1)
 
-    dic_data['time'] = np.array(Tiempo) - Tiempo[0]
+    dict_data['time'] = np.array(Tiempo) - Tiempo[0]
 
     MinVP = float(self.main.EditLVP.text())
     MaxVP = float(self.main.EditUVP.text())
     MinEFC = float(self.main.EditLEFC.text())
     MaxEFC = float(self.main.EditUEFC.text())
 
+    # Normalizacion
     FactorVP = 100 / MaxVP - MinVP
     FactorEFC = 100 / MaxEFC - MinEFC
 
-    dic_data['vp'] = (dic_data['vp']-MinVP)*FactorVP
-    dic_data['efc'] = (dic_data['efc']-MinEFC)*FactorEFC
+    dict_data['vp'] = (dict_data['vp']-MinVP)*FactorVP
+    dict_data['efc'] = (dict_data['efc']-MinEFC)*FactorEFC
 
-    _, indices = np.unique(dic_data['vp'], return_index=True)
+    _, indices = np.unique(dict_data['vp'], return_index=True)
     indices = np.sort(indices)
 
-    dic_data['time'] = dic_data['time'][indices]
-    dic_data['vp'] = dic_data['vp'][indices]
-    dic_data['efc'] = dic_data['efc'][indices]
+    dict_data['time'] = dict_data['time'][indices]
+    dict_data['vp'] = dict_data['vp'][indices]
+    dict_data['efc'] = dict_data['efc'][indices]
 
-    return dic_data, [indexTime, indexVp, indexEFC, MinVP, MaxVP, MinEFC, MaxEFC]
+    return dict_data, [indexTime, indexVp, indexEFC, MinVP, MaxVP, MinEFC, MaxEFC]
 
 
 def calcular_modelo(self,
-                    dic_data,
+                    dict_data,
                     indexTime,
                     indexVp,
                     indexEFC,
@@ -63,17 +79,37 @@ def calcular_modelo(self,
                     MaxVP,
                     MinEFC,
                     MaxEFC):
+    """
+    [Fucion para calcular los parametros del modelo de primer orden]
+    
+    :param dict_data: [Diccionario con la data procesada del csv]
+    :type dict_data: [dict]
+    :param indexTime: [Indice que identifica al tiempo]
+    :type indexTime: [int]
+    :param indexVp: [Indice que identifica a Vp]
+    :type indexVp: [int]
+    :param indexEFC: [Indice que identifica al EFC]
+    :type indexEFC: [int]
+    :param MinVP: [Limite inferior de Vp]
+    :type MinVP: [float]
+    :param MaxVP: [Limite superior de Vp]
+    :type MaxVP: [float]
+    :param MinEFC: [Limite inferior de EFC]
+    :type MinEFC: [float]
+    :param MaxEFC: [Limite superior de EFC]
+    :type MaxEFC: [float]
+    """
 
-    y = dic_data['vp']
-    t = dic_data['time']
+    y = dict_data['vp']
+    t = dict_data['time']
 
-    vpmin = np.min(dic_data['vp'][0])
-    vpmax = np.max(dic_data['vp'][-1])
-    efcmin = np.min(dic_data['efc'][0])
-    efcmax = np.max(dic_data['efc'][-1])
+    vpmin = np.min(dict_data['vp'][0])
+    vpmax = np.max(dict_data['vp'][-1])
+    efcmin = np.min(dict_data['efc'][0])
+    efcmax = np.max(dict_data['efc'][-1])
 
     i_max = np.argmax(np.abs(np.gradient(y)))
-    efc_max = np.argmax(np.abs(np.gradient(dic_data['efc'])))
+    efc_max = np.argmax(np.abs(np.gradient(dict_data['efc'])))
 
     for index, i in enumerate(y):
         if i >= 0.63 * (vpmax-vpmin) + vpmin:
@@ -95,11 +131,34 @@ def calcular_modelo(self,
     return Kc, tau, y1, y2, t0, t1, t2, anclaT, anclaY
 
 
-def entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2):
+def entonar_y_graficar(self, dict_data, Kc, tau, y1, y2, t0, t1, t2):
+    """
+    [Funcion para calcular el controlador PID a partir de los datos del modelo de primer orden, ademas, se grafica la data del csv junto con algunos parametros de la identificacion del modelo]
+    
+    :param dict_data: [Diccionario con la data procesada del csv]
+    :type dict_data: [dict]
+    :param Kc: [Ganancia del proceso]
+    :type Kc: [float]
+    :param tau: [Constante de tiempo del proceso]
+    :type tau: [float]
+    :param y1: [Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al tiempo]
+    :type y1: [float]
+    :param y2: [Punto y2 de la recta de identificacion]
+    :type y2: [float]
+    :param t0: [Tiempo del inicio del escalon]
+    :type t0: [float]
+    :param t1: [Tiempo del inicio de la respuesta del proceso ante el escalon]
+    :type t1: [float]
+    :param t2: [Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio]
+    :type t2: [float]
+    """
+
     kp, ki, kd = auto_tuning_method_csv(self, Kc, tau, t1-t0, self.main.csvMetodo.currentText())
 
     self.main.csvGraphicsView.canvas.axes1.clear()
-    self.main.csvGraphicsView.canvas.axes1.plot(csv_data['time'], csv_data['efc'], label='EFC')
+    self.main.csvGraphicsView.canvas.axes1.plot(dict_data['time'],
+                                                dict_data['efc'],
+                                                label='EFC')
 
     t0_efc = self.main.csvGraphicsView.canvas.axes1.axvline(x=t0,
                                                             color='k',
@@ -122,8 +181,8 @@ def entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2):
     )
 
     self.main.csvGraphicsView.canvas.axes2.clear()
-    self.main.csvGraphicsView.canvas.axes2.plot(csv_data['time'],
-                                                csv_data['vp'],
+    self.main.csvGraphicsView.canvas.axes2.plot(dict_data['time'],
+                                                dict_data['vp'],
                                                 label='Vp')
 
     recta, = self.main.csvGraphicsView.canvas.axes2.plot([t1, t2], [y1, y2], label='recta')
@@ -162,6 +221,24 @@ def entonar_y_graficar(self, csv_data, Kc, tau, y1, y2, t0, t1, t2):
 
 
 def calculos_manual(self, GraphObjets, Kc, t0, t1, t2, slop, y1):
+    """
+    [Funcion para recalcular el controlador PID a partir de los datos del modelo de primer orden con el nueto tiempo t1, ademas, se grafica la data del csv junto con algunos parametros de la identificacion del modelo y la nueva recta]
+    
+    :param GraphObjets: [Lista de objetos de graficacion]
+    :type GraphObjets: [list]
+    :param Kc: [Ganancia del proceso]
+    :type Kc: [float]
+    :param t0: [Tiempo del inicio del escalon]
+    :type t0: [float]
+    :param t1: [Tiempo del inicio de la respuesta del proceso ante el escalon]
+    :type t1: [float]
+    :param t2: [Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio]
+    :type t2: [float]
+    :param slop: [Pendiente de la recta de identificacion]
+    :type slop: [float]
+    :param y1: [Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al tiempo]
+    :type y1: [float]
+    """
     kp, ki, kd = auto_tuning_method_csv(self, Kc, t2-t1, t1-t0, self.main.csvMetodo.currentText())
 
     GraphObjets[1].set_data(t1, [0, 1])
@@ -173,6 +250,27 @@ def calculos_manual(self, GraphObjets, Kc, t0, t1, t2, slop, y1):
 
 
 def actualizar_Datos(self, Kc, t0, t1, t2, kp, ki, kd):
+    """
+    [Funcion para mostrar los resultados obtenidos del modelo en un TextEdit]
+    
+    [extended_summary]
+    
+    :param Kc: [Ganancia del proceso]
+    :type Kc: [float]
+    :param t0: [Tiempo del inicio del escalon]
+    :type t0: [float]
+    :param t1: [Tiempo del inicio de la respuesta del proceso ante el escalon]
+    :type t1: [float]
+    :param t2: [Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio]
+    :type t2: [float]
+    :param kp: [Ganancia proporcional]
+    :type kp: [float]
+    :param ki: [Ganancia integral]
+    :type ki: [float]
+    :param kd: [Ganancia derivativa]
+    :type kd: [float]
+    """
+    
     Datos = "Modelo:\n"
     Datos += str(ctrl.TransferFunction([Kc], [t2-t1, 1])) + "\n"
     Datos += f"Delay: {t1-t0:.3f}\n"
@@ -186,7 +284,19 @@ def actualizar_Datos(self, Kc, t0, t1, t2, kp, ki, kd):
 
 
 def auto_tuning_method_csv(self, k_proceso, tau, alpha, metodo):
-
+    """
+    [Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una respuesta escalon en lazo abierto]
+    
+    :param k_proceso: [Ganancia del proceso]
+    :type k_proceso: [float]
+    :param tau: [Constante de tiempo del proceso]
+    :type tau: [float]
+    :param alpha: [Tiempo muerto o delay del proceso]
+    :type alpha: [float]
+    :param metodo: [Metodo a utilizar]
+    :type metodo: [str]
+    """
+    
     if alpha <= 0.05:
         print('Alfa es demasiado pequeño')
         raise TypeError('Alfa es demasiado pequeño')

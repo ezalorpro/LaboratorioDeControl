@@ -1,3 +1,6 @@
+""" [Archivo que contiene todas las rutinas necesarias para la funcionalidad de tunning de PID] """
+
+
 import controlmdf as ctrl
 import numpy as np
 from scipy import real, imag
@@ -12,6 +15,15 @@ ctrl.step_info = step_info
 
 
 def system_creator_tf(self, numerador, denominador):
+    """
+    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia]
+    
+    :param numerador: [Coeficientes del numerador]
+    :type numerador: [list]
+    :param denominador: [Coeficientes del denominador]
+    :type denominador: [list]
+    """
+
     if not self.main.tfdiscretocheckBox2.isChecked(
     ) and self.main.tfdelaycheckBox2.isChecked():
         delay = json.loads(self.main.tfdelayEdit2.text())
@@ -35,6 +47,7 @@ def system_creator_tf(self, numerador, denominador):
 
     t = self.main.pidTiempoSlider.value()
 
+    # En caso de que el sistema sea discreto
     if self.main.tfdiscretocheckBox2.isChecked():
         pid = ctrl.TransferFunction(
             [kd + self.dt * kp + ki * self.dt**2, -self.dt * kp - 2*kd, kd],
@@ -69,6 +82,19 @@ def system_creator_tf(self, numerador, denominador):
 
 
 def system_creator_ss(self, A, B, C, D):
+    """
+    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados]
+    
+    :param A: [Matriz de estados]
+    :type A: list
+    :param B: [Matriz de entrada]
+    :type B: [list]
+    :param C: [Matriz de salida]
+    :type C: [list]
+    :param D: [Matriz de transmision directa]
+    :type D: [list]
+    """
+
     if not self.main.ssdiscretocheckBox2.isChecked(
     ) and self.main.ssdelaycheckBox2.isChecked():
         delay = json.loads(self.main.ssdelayEdit2.text())
@@ -92,6 +118,7 @@ def system_creator_ss(self, A, B, C, D):
 
     t = self.main.pidTiempoSlider.value()
 
+    # En caso de que el sistema sea discreto
     if self.main.ssdiscretocheckBox2.isChecked():
         pid = ctrl.TransferFunction(
             [kd + self.dt * kp + ki * self.dt**2, -self.dt * kp - 2*kd, kd],
@@ -131,6 +158,19 @@ def system_creator_ss(self, A, B, C, D):
 
 
 def system_creator_tf_tuning(self, numerador, denominador):
+    """
+    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia, adicionalmente se realiza el auto tuning utilizando el metodo escojido por le usuario]
+    
+    :param A: [Matriz de estados]
+    :type A: list
+    :param B: [Matriz de entrada]
+    :type B: [list]
+    :param C: [Matriz de salida]
+    :type C: [list]
+    :param D: [Matriz de transmision directa]
+    :type D: [list]
+    """
+
     if not self.main.tfdiscretocheckBox2.isChecked(
     ) and self.main.tfdelaycheckBox2.isChecked():
         delay = json.loads(self.main.tfdelayEdit2.text())
@@ -146,13 +186,16 @@ def system_creator_tf_tuning(self, numerador, denominador):
     t_temp, y, _ = ctrl.forced_response(system, T, U)
     dc_gain = ctrl.dcgain(system)
 
-    K_proceso, tau, alpha = model_method(self, t_temp, y, self.main.tfAutoTuningcomboBox2.currentText(), dc_gain)
+    # Parametros del modelo
+    K_proceso, tau, alpha = model_method(self, t_temp, y, dc_gain)
 
+    # Auto tunning
     try:
         kp, ki, kd = auto_tuning_method(self, K_proceso, tau, alpha, self.main.tfAutoTuningcomboBox2.currentText())
     except TypeError:
         raise TypeError('Alfa es muy pequeño')
 
+    # En caso de que el sistema sea discreto
     if self.main.tfdiscretocheckBox2.isChecked():
         pid = ctrl.TransferFunction(
             [kd + self.dt * kp + ki * self.dt**2, -self.dt * kp - 2*kd, kd],
@@ -187,6 +230,19 @@ def system_creator_tf_tuning(self, numerador, denominador):
 
 
 def system_creator_ss_tuning(self, A, B, C, D):
+    """
+    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados, adicionalmente se realiza el auto tuning utilizando el metodo escojido por le usuario]
+    
+    :param A: [Matriz de estados]
+    :type A: list
+    :param B: [Matriz de entrada]
+    :type B: [list]
+    :param C: [Matriz de salida]
+    :type C: [list]
+    :param D: [Matriz de transmision directa]
+    :type D: [list]
+    """
+
     if not self.main.ssdiscretocheckBox2.isChecked(
     ) and self.main.ssdelaycheckBox2.isChecked():
         delay = json.loads(self.main.ssdelayEdit2.text())
@@ -202,8 +258,10 @@ def system_creator_ss_tuning(self, A, B, C, D):
     t_temp, y, _ = ctrl.forced_response(system, T, U)
     dc_gain = ctrl.dcgain(system)
 
-    K_proceso, tau, alpha = model_method(self, t_temp, y, self.main.ssAutoTuningcomboBox2.currentText(), dc_gain)
+    # Parametros del modelo
+    K_proceso, tau, alpha = model_method(self, t_temp, y, dc_gain)
 
+    # Auto tunning
     try:
         kp, ki, kd = auto_tuning_method(self, K_proceso, tau, alpha, self.main.ssAutoTuningcomboBox2.currentText())
     except TypeError:
@@ -244,33 +302,55 @@ def system_creator_ss_tuning(self, A, B, C, D):
     return system, T, system_delay, system_ss, kp, ki, kd
 
 
-def model_method(self, t, y, metodo, dc_gain):
-    if '1er orden' in metodo:
-        i_max = np.argmax(np.abs(np.gradient(y)))
+def model_method(self, t, y, dc_gain):
+    """
+    [Funcion para obtener los parametros del modelo de primer orden de un sistema a partir de su respuesta escalon]
+    
+    :param t: [Vector de tiempo]
+    :type t: [numpyArray]
+    :param y: [Vector de respuesta]
+    :type y: [numpyArray]
+    :param dc_gain: [Ganancia DC del sistema]
+    :type dc_gain: [float]
+    """
 
-        for index, i in enumerate(y):
-            if i >= 0.63 * dc_gain:
-                indexv = index
-                break
+    i_max = np.argmax(np.abs(np.gradient(y)))
 
-        slop = (y[i_max] - y[i_max - 1]) / (t[i_max] - t[i_max - 1])
-        x1 = (0 - y[i_max]) / (slop) + t[i_max]
-        x2 = t[indexv]
-        y2 = slop * (x2 - t[i_max]) + y[i_max]
+    for index, i in enumerate(y):
+        if i >= 0.63 * dc_gain:
+            indexv = index
+            break
 
-        tau = x2 - x1
+    slop = (y[i_max] - y[i_max - 1]) / (t[i_max] - t[i_max - 1])
+    x1 = (0 - y[i_max]) / (slop) + t[i_max]
+    x2 = t[indexv]
+    y2 = slop * (x2 - t[i_max]) + y[i_max]
 
-        if self.main.tfdelaycheckBox2.isChecked():
-            alpha = x1 + json.loads(self.main.tfdelayEdit2.text())
-        else:
-            alpha = x1
+    tau = x2 - x1
 
-        K_proceso = y[-1] / 1
+    if self.main.tfdelaycheckBox2.isChecked():
+        alpha = x1 + json.loads(self.main.tfdelayEdit2.text())
+    else:
+        alpha = x1
 
-        return K_proceso, tau, alpha
+    K_proceso = y[-1] / 1
+
+    return K_proceso, tau, alpha
 
 
 def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
+    """
+    [Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una respuesta escalon en lazo abierto]
+    
+    :param k_proceso: [Ganancia del proceso]
+    :type k_proceso: [float]
+    :param tau: [Constante de tiempo del proceso]
+    :type tau: [float]
+    :param alpha: [Tiempo muerto o delay del proceso]
+    :type alpha: [float]
+    :param metodo: [Metodo a utilizar]
+    :type metodo: [str]
+    """
 
     if alpha <= 0.05:
         print('Alfa es demasiado pequeño')
@@ -353,8 +433,24 @@ def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
 
 
 def rutina_step_plot(self, system, T, kp, ki, kd):
+    """
+    [Funcion para obtener la respuesta escalon del sistema en lazo cerrado en combinacion con un controlador PID y su respectiva graficacion]
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    :param T: [Vector de tiempo]
+    :type T: [numpyArray]
+    :param kp: [Ganancia proporcional]
+    :type kp: [float]
+    :param ki: [Ganancia integral]
+    :type ki: [float]
+    :param kd: [Ganancia derivativa]
+    :type kd: [float]
+    """
+
     U = np.ones_like(T)
 
+    # Discriminacion entre continue y discreto, con delay o sin delay, delay realizado con pade
     if ctrl.isdtime(system, strict=True):
         t, y, _ = ctrl.forced_response(system, T, U)
     elif (
@@ -394,71 +490,26 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
     return t, y
 
 
-def runge_kutta(self, system, T, u, kp, ki, kd):
-    if isinstance(system, ctrl.TransferFunction):
-        ss = ctrl.tf2ss(system)
-    else:
-        ss = system
-
-    x = np.zeros_like(ss.B)
-    buffer = deque([0] * int(system.delay / 0.05))
-    h = 0.05
-    salida = [0]
-    sc_t = [0]
-    si_t = [0]
-    error_a = 0
-    for i, _ in enumerate(T[1:]):
-        sc_t, si_t, error_a = PID(salida[i], u[i], h, si_t, error_a, kp, ki, kd)
-        buffer.appendleft(sc_t)
-        inputValue = buffer.pop()
-
-        k1 = h * (ss.A * x + ss.B * inputValue)
-        k2 = h * (ss.A * (x + k1/2) + ss.B * inputValue)
-        k3 = h * (ss.A * (x + k2/2) + ss.B * inputValue)
-        k4 = h * (ss.A * (x+k3) + ss.B * inputValue)
-
-        x = x + (1/6) * (k1 + 2*k2 + 2*k3 + k4)
-        y = ss.C * x + ss.D * inputValue
-        salida.append(np.asscalar(y[0]))
-
-    return T, salida
-
-
-def PID(vm, set_point, ts, s_integral, error_anterior, kp, ki, kd):
-    error = set_point - vm
-    s_proporcional = error
-    s_integral = s_integral + error*ts
-    s_derivativa = (error-error_anterior) / ts
-    s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
-    error_anterior = error
-    return s_control, s_integral, error_anterior
-
-
-def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False, resolution=50):
-    if autotuning:
-        self.main.kpHSlider2.blockSignals(True)
-        self.main.kiHSlider2.blockSignals(True)
-        self.main.kdHSlider2.blockSignals(True)
-
-        self.main.kpHSlider2.setValue(kp * resolution)
-        self.main.kiHSlider2.setValue(ki * resolution)
-        self.main.kdHSlider2.setValue(kd * resolution)
-
-        self.main.kpHSlider2.blockSignals(False)
-        self.main.kiHSlider2.blockSignals(False)
-        self.main.kdHSlider2.blockSignals(False)
-
-    self.main.kpValueLabel2.setText(str(np.around(self.main.kpHSlider2.value() / resolution, 3)))
-    self.main.kiValueLabel2.setText(str(np.around(self.main.kiHSlider2.value() / resolution, 3)))
-    self.main.kdValueLabel2.setText(str(np.around(self.main.kdHSlider2.value() / resolution, 3)))
-
-
-def update_time_and_N_labels(self):
-    self.main.pidTiempoLabelValue.setText(str(np.around(self.main.pidTiempoSlider.value(), 3)))
-    self.main.pidNLabelValue.setText(str(np.around(self.main.pidNSlider.value(), 3)))
-
-
-def rutina_system_info(self, system, T, t, y, kp=0, ki=0, kd=0, autotuning=False):
+def rutina_system_info(self, system, T, y, kp=0, ki=0, kd=0, autotuning=False):
+    """
+    [Funcion para mostrar los resultados obtenidos de los calculos en un TextEdit]
+    
+    :param system: [Representacion del sistema]
+    :type system: [LTI]
+    :param T: [Vector de tiempo]
+    :type T: [numpyArray]
+    :param y: [Vector de respuesta]
+    :type y: [numpyArray]
+    :param kp: [Ganancia proporcional], defaults to 0
+    :type kp: [float], optional
+    :param ki: [Ganancia integral], defaults to 0
+    :type ki: [float], optional
+    :param kd: [Ganancia derivativa], defaults to 0
+    :type kd: [float], optional
+    :param autotuning: [Bandera para señar si es o no una operacion con auto tunning], defaults to False
+    :type autotuning: [bool], optional
+    """
+    
     info = ctrl.step_info(system, T=T, yout=y)
 
     Datos = ""
