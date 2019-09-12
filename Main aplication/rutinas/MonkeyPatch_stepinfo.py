@@ -1,4 +1,6 @@
-""" Funcion para obtener la informacion step de un sistema discreto """
+""" [Funcion para obtener la informacion step de un sistema discreto, tomada de la libreria de control] """
+
+
 import scipy as sp              # SciPy library (used all over)
 import numpy as np
 from controlmdf.statesp import _convertToStateSpace, _mimo2simo, _mimo2siso

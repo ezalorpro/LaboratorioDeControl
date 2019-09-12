@@ -120,11 +120,11 @@ def ejecutar():
         return y.item(), x
 
     N = 100
-    kp = 1
-    ki = 1
-    kd = 1
+    kp = 20
+    ki = 20
+    kd = 20
 
-    pid = ctrl.tf2ss(ctrl.TransferFunction([1], [0.1, 1])*
+    pid = ctrl.tf2ss(ctrl.TransferFunction([1], [10/(N*kd), 1])*
         ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
                             [1, N, 0]))
 
@@ -134,9 +134,9 @@ def ejecutar():
     sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
     vstadosB = np.zeros_like(sistema.B)
 
-    min_step_decrease = 0.2
-    max_step_increase = 5
-    h_ant = 0.0001
+    min_step_decrease = 0.1
+    max_step_increase = 10
+    h_ant = 0.000001
     rtol = 1e-3
     atol = 5e-6
     tiempo = 0
@@ -177,7 +177,7 @@ def ejecutar():
                     h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (5+1))))
                     continue
 
-            # print(tiempo)
+            print(tiempo)
             sc_t.append(ypids)
             yb, vstadosB = RK(sistema, vstadosB, h_ant, ypids)
             break
@@ -195,13 +195,13 @@ def ejecutar():
     print(counter)
     print(len(tiempo_out))
     print(f'{time.time() - start}')
-    # plt.plot(tiempo_out, salida)
-    # plt.grid()
-    # plt.show()
+    plt.plot(tiempo_out, salida)
+    plt.grid()
+    plt.show()
 
-    # plt.plot(tiempo_out, sc_t)
-    # plt.grid()
-    # plt.show()
+    plt.plot(tiempo_out, sc_t)
+    plt.grid()
+    plt.show()
 
 if __name__ == "__main__":
     ejecutar()

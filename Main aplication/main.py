@@ -29,9 +29,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :param parent: [Sin efecto], defaults to None
         :type parent: [NoneType], optional
         """
-        
-        super(MainWindow, self).__init__(parent) 
-        self.main = Ui_MainWindow()  # Ventana principal, objeto de donde se manejara todo
+
+        super(MainWindow, self).__init__(parent)
+        # Ventana principal, objeto de donde se manejara todo
+        self.main = Ui_MainWindow()
         self.main.setupUi(self)
         self.showMaximized()
 
@@ -61,13 +62,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :param relative_path: [direccion relativa]
         :type relative_path: [str]
         """
-        
+
         base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
         return os.path.join(base_path, relative_path)
 
     def closeEvent(self, event):
         """ [Evento de cerrado de la ventana] """
-        
+
         error_dialog = QtWidgets.QMessageBox.question(
             self,
             "Laboratorio Virtual",

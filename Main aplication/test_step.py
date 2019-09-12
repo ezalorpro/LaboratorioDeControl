@@ -1,13 +1,30 @@
-from skfuzzy import control as fuzz
-from skfuzzy.membership import generatemf as mf
-from matplotlib import pyplot as plt
+import controlmdf as ctrl
 import numpy as np
+from matplotlib import pyplot as plt
 
-input1 = fuzz.Antecedent(np.linspace(-10, 10, 100), 'input1')
-
-input1['label1'] = mf.dsigmf(input1.universe, *[-5, 1, 5, -1])
-input1.view()
+N = 100
+kd = 10
+derivativa = ctrl.TransferFunction([N*kd, 0], [1, N])
+ctrl.bode(derivativa)
 plt.show()
+
+filtro = ctrl.TransferFunction([1], [1/(N*kd), 1])
+ctrl.bode(filtro)
+plt.show()
+
+ctrl.bode(derivativa*filtro)
+plt.show()
+
+# from skfuzzy import control as fuzz
+# from skfuzzy.membership import generatemf as mf
+# from matplotlib import pyplot as plt
+# import numpy as np
+
+# input1 = fuzz.Antecedent(np.linspace(-10, 10, 100), 'input1')
+
+# input1['label1'] = mf.dsigmf(input1.universe, *[-5, 1, 5, -1])
+# input1.view()
+# plt.show()
 
 # from __future__ import division
 # import sys

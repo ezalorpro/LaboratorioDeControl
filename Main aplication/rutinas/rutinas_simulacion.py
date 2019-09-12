@@ -175,7 +175,7 @@ class SimpleThread(QtCore.QThread):
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
         else:
             pid = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) * ctrl.TransferFunction(
+                ctrl.TransferFunction([1], [10/(self.N*kd), 1]) * ctrl.TransferFunction(
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
 
         x_pid = np.zeros_like(pid.B)
@@ -372,19 +372,23 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 1:
 
-            derivada = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]))
-            x_derivada = np.zeros_like(derivada.B)
+            if not self.N == 0:
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [10 / self.N, 1]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
 
-            derivada2 = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                derivada2 = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [10 / self.N, 1]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada2 = np.zeros_like(derivada2.B)
 
-            x_derivada2 = np.zeros_like(derivada2.B)
-
-            if self.N == 0:
+            else:
+                derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
+                x_derivada = np.zeros_like(derivada.B)
+                derivada2 = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
+                x_derivada2 = np.zeros_like(derivada2.B)
                 h = 0.05
                 h_new = h
 
@@ -447,12 +451,15 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 2:
 
-            derivada = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]))
-            x_derivada = np.zeros_like(derivada.B)
+            if not self.N == 0:
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [10 / self.N, 1]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
 
-            if self.N == 0:
+            else:
+                derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
+                x_derivada = np.zeros_like(derivada.B)
                 h = 0.05
                 h_new = h
 
@@ -508,12 +515,15 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 3:
 
-            derivada = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]))
-            x_derivada = np.zeros_like(derivada.B)
+            if not self.N == 0:
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [10 / self.N, 1]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
 
-            if self.N == 0:
+            else:
+                derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
+                x_derivada = np.zeros_like(derivada.B)
                 h = 0.05
                 h_new = h
 
@@ -569,13 +579,17 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 4:
 
-            derivada = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]))
-            x_derivada = np.zeros_like(derivada.B)
             spi = 0
+            
+            if not self.N == 0:
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [10 / self.N, 1]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
 
-            if self.N == 0:
+            else:
+                derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
+                x_derivada = np.zeros_like(derivada.B)
                 h = 0.05
                 h_new = h
 
@@ -633,13 +647,17 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 5:
 
-            derivada = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]))
-            x_derivada = np.zeros_like(derivada.B)
             spi = 0
+            
+            if not self.N == 0:
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [10 / self.N, 1]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
 
-            if self.N == 0:
+            else:
+                derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
+                x_derivada = np.zeros_like(derivada.B)
                 h = 0.05
                 h_new = h
 
@@ -697,13 +715,17 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 6:
 
-            derivada = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]))
-            x_derivada = np.zeros_like(derivada.B)
             spi = 0
+            
+            if not self.N == 0:
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [10 / self.N, 1]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
 
-            if self.N == 0:
+            else:
+                derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
+                x_derivada = np.zeros_like(derivada.B)
                 h = 0.05
                 h_new = h
 
@@ -722,6 +744,7 @@ class SimpleThread(QtCore.QThread):
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
+                    else:    
                         d_error = 0
 
                 spi = spi + error*h
@@ -761,13 +784,17 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 7:
 
-            derivada = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [0.1, 1]) *
-                ctrl.TransferFunction([self.N, 0], [1, self.N]))
-            x_derivada = np.zeros_like(derivada.B)
             spi = 0
+            
+            if not self.N == 0:
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([1], [10 / self.N, 1]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
 
-            if self.N == 0:
+            else:
+                derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
+                x_derivada = np.zeros_like(derivada.B)
                 h = 0.05
                 h_new = h
 
@@ -834,7 +861,7 @@ class SimpleThread(QtCore.QThread):
                         [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
             else:
                 pid = ctrl.tf2ss(
-                    ctrl.TransferFunction([1], [0.1, 1]) * ctrl.TransferFunction(
+                    ctrl.TransferFunction([1], [10 / (self.N * kd), 1]) * ctrl.TransferFunction(
                         [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
 
             x_pid = np.zeros_like(pid.B)
@@ -1028,7 +1055,7 @@ def controlador_validator(self, esquema, InputList, OutputList, RuleEtiquetas):
             return
         else:
             raise AssertionError
-    
+
     if esquema == 8:
         if len(InputList) == 1 and len(OutputList) == 1 and len(RuleEtiquetas) != 0:
             return

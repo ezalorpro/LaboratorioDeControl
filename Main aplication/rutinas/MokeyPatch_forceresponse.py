@@ -1,4 +1,6 @@
-# Libraries that we make use of
+""" [Funcion para obtener la respuesta forzada de un sistema, tomada de la libreria de control] """
+
+
 import scipy as sp              # SciPy library (used all over)
 import numpy as np              # NumPy library
 from scipy.signal.ltisys import _default_response_times

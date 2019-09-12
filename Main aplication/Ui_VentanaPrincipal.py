@@ -4995,7 +4995,7 @@ class Ui_MainWindow(object):
         self.actionAbout.setObjectName("actionAbout")
 
         self.retranslateUi(MainWindow)
-        self.principalTab.setCurrentIndex(3)
+        self.principalTab.setCurrentIndex(0)
         self.AnalisisstackedWidget.setCurrentIndex(0)
         self.sscomboBox1.setCurrentIndex(0)
         self.analisisGraficaTab.setCurrentIndex(0)
