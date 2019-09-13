@@ -2,18 +2,56 @@ import controlmdf as ctrl
 import numpy as np
 from matplotlib import pyplot as plt
 
-N = 100
-kd = 10
-derivativa = ctrl.TransferFunction([N*kd, 0], [1, N])
-ctrl.bode(derivativa)
+N = 0
+kp = 5
+ki = 5
+kd = 5
+
+pid1 = ctrl.tf2ss(ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+
+pid2 = ctrl.tf2ss(
+    ctrl.TransferFunction([1], [0.1, 1]) *
+    ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+
+# pid3 = ctrl.tf2ss(
+#     ctrl.TransferFunction([1], [10 / (N*kd), 1]) *
+#     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+
+pid4 = ctrl.tf2ss(
+    ctrl.TransferFunction([
+        10 * kp,
+        N**2 * kd**2 + N*kd*kp + 10*N*kp + 10*ki,
+        N**2*kd * kp + kd*N*ki + 10*N*ki,
+        N**2 * kd * ki
+    ], [10, 10*N + N*kd, N**2 * kd, 0]))
+
+ctrl.bode(pid1)
+ctrl.bode(pid2)
+# ctrl.bode(pid3)
+ctrl.bode(pid4)
 plt.show()
 
-filtro = ctrl.TransferFunction([1], [1/(N*kd), 1])
-ctrl.bode(filtro)
-plt.show()
+# N = 100
+# kd1 = 1
+# kd2 = 10
 
-ctrl.bode(derivativa*filtro)
-plt.show()
+# derivativa1 = ctrl.TransferFunction([N * kd1, 0], [1, N])
+# derivativa2 = ctrl.TransferFunction([N * kd2, 0], [1, N])
+# ctrl.bode(derivativa1)
+# ctrl.bode(derivativa2)
+# plt.show()
+
+# filtro1 = ctrl.TransferFunction([1], [1 / (N), 1])
+# filtro2 = ctrl.TransferFunction([1], [1 / (N*kd2), 1])
+# ctrl.bode(filtro1)
+# ctrl.bode(filtro2)
+# plt.show()
+
+# ctrl.bode(derivativa1 * filtro1)
+# ctrl.bode(derivativa1 * filtro1)
+# ctrl.bode(derivativa2 * filtro1)
+# ctrl.bode(derivativa2 * filtro2)
+# plt.show()
 
 # from skfuzzy import control as fuzz
 # from skfuzzy.membership import generatemf as mf

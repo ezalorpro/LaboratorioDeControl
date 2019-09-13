@@ -697,7 +697,6 @@ def accion_esquema_selector(self):
         self.main.kiCheck.show()
         self.main.NFrame.show()
         self.main.NSpacer.show()
-        self.main.labelFiltro.show()
 
         if self.main.kdCheck.isChecked():
             self.main.NSimulacion.setEnabled(True)
@@ -717,7 +716,6 @@ def accion_esquema_selector(self):
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
         self.main.NSpacer.hide()
-        self.main.labelFiltro.hide()
 
         if index == 1:
             self.main.esquemaSimulacionGraph.setPixmap(
@@ -744,7 +742,6 @@ def accion_esquema_selector(self):
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
         self.main.NSpacer.hide()
-        self.main.labelFiltro.hide()
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/pipdDifuso.png"))
 
@@ -760,7 +757,6 @@ def accion_esquema_selector(self):
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
         self.main.NSpacer.hide()
-        self.main.labelFiltro.hide()
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/piplusDDifuso.png"))
 
@@ -776,7 +772,6 @@ def accion_esquema_selector(self):
         self.main.NSimulacion.setEnabled(True)
         self.main.NFrame.show()
         self.main.NSpacer.hide()
-        self.main.labelFiltro.hide()
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/pdplusIDifuso.png"))
 
@@ -792,7 +787,6 @@ def accion_esquema_selector(self):
         self.main.NFrame.show()
         self.main.NSpacer.show()
         self.main.NSimulacion.setEnabled(True)
-        self.main.labelFiltro.show()
 
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/pidplusDifuso.png"))

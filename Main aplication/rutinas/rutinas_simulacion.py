@@ -175,8 +175,12 @@ class SimpleThread(QtCore.QThread):
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
         else:
             pid = ctrl.tf2ss(
-                ctrl.TransferFunction([1], [10/(self.N*kd), 1]) * ctrl.TransferFunction(
-                    [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
+                ctrl.TransferFunction([
+                    10 * kp,
+                    self.N**2 * kd**2 + self.N * kd * kp + 10 * self.N * kp + 10*ki,
+                    self.N**2 * kd * kp + kd * self.N * ki + 10 * self.N * ki,
+                    self.N**2 * kd * ki
+                ], [10, 10 * self.N + self.N * kd, self.N**2 * kd, 0]))
 
         x_pid = np.zeros_like(pid.B)
 
@@ -191,9 +195,6 @@ class SimpleThread(QtCore.QThread):
                 if tiempo + h >= max_tiempo[
                         setpoint_window] and setpoint_window < index_tbound:
                     setpoint_window += 1
-                    print(tiempo)
-                    print(u_value[setpoint_window])
-                    print(h)
                 u = u_value[setpoint_window]
 
             error = u - salida[i]
@@ -580,7 +581,7 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 4:
 
             spi = 0
-            
+
             if not self.N == 0:
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
@@ -648,7 +649,7 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 5:
 
             spi = 0
-            
+
             if not self.N == 0:
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
@@ -716,7 +717,7 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 6:
 
             spi = 0
-            
+
             if not self.N == 0:
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
@@ -744,7 +745,7 @@ class SimpleThread(QtCore.QThread):
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                            max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
-                    else:    
+                    else:
                         d_error = 0
 
                 spi = spi + error*h
@@ -785,7 +786,7 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 7:
 
             spi = 0
-            
+
             if not self.N == 0:
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
@@ -861,8 +862,14 @@ class SimpleThread(QtCore.QThread):
                         [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
             else:
                 pid = ctrl.tf2ss(
-                    ctrl.TransferFunction([1], [10 / (self.N * kd), 1]) * ctrl.TransferFunction(
-                        [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
+                    ctrl.TransferFunction(
+                        [
+                            10 * kp,
+                            self.N**2 * kd**2 + self.N * kd * kp + 10 * self.N * kp +
+                            10*ki,
+                            self.N**2 * kd * kp + kd * self.N * ki + 10 * self.N * ki,
+                            self.N**2 * kd * ki
+                        ], [10, 10 * self.N + self.N * kd, self.N**2 * kd, 0]))
 
             x_pid = np.zeros_like(pid.B)
 

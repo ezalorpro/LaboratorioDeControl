@@ -120,22 +120,36 @@ def ejecutar():
         return y.item(), x
 
     N = 100
-    kp = 20
-    ki = 20
-    kd = 20
+    kp = 1
+    ki = 1
+    kd = 0
 
-    pid = ctrl.tf2ss(ctrl.TransferFunction([1], [10/(N*kd), 1])*
-        ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
-                            [1, N, 0]))
+    # pid = ctrl.tf2ss(ctrl.TransferFunction([1], [10/(N*kd), 1])*
+    #     ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
+    #                         [1, N, 0]))
 
+    # pid = ctrl.tf2ss(
+    #     ctrl.TransferFunction(
+    #         [kp, N**2 * kd + 2*N*kp + ki, N**2 * kp + 2*N*ki, N**2 * ki],
+    #         [1, 2 * N, N**2, 0]))
+
+    pid = ctrl.tf2ss(
+        ctrl.TransferFunction([
+            10 * kp,
+            N**2 * kd**2 + N*kd*kp + 10*N*kp + 10*ki,
+            N**2*kd * kp + kd*N*ki + 10*N*ki,
+            N**2 * kd * ki
+        ], [10, 10*N + N*kd, N**2 * kd, 0]))
+
+    print(pid)
     x_pidB = np.zeros_like(pid.B)
     x_pidS = np.zeros_like(pid.B)
 
     sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
     vstadosB = np.zeros_like(sistema.B)
 
-    min_step_decrease = 0.1
-    max_step_increase = 10
+    min_step_decrease = 0.2
+    max_step_increase = 5
     h_ant = 0.000001
     rtol = 1e-3
     atol = 5e-6

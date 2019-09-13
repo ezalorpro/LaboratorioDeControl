@@ -110,7 +110,7 @@
     \node[input] (input) {};
     \node [sum, right = of input] (sum) {};
     \node [branch, node distance=0.4cm, right = of sum] (errorjoint) {};
-    \node [block1, right = of errorjoint] (filtro) {$\frac{1}{0.1s + 1}$};
+    \node [block1, right = of errorjoint] (filtro) {$\frac{N}{10s + N}$};
     \node [branch, node distance=0.4cm, right = of filtro] (filtrojoint) {};
     \node [block1, node distance=0.45cm, right = of filtrojoint] (derivada) {$\frac{N}{1+\frac{N}{s}}$};
     \node [block1, below = of derivada] (derivada2) {$\left(\frac{N}{1+\frac{N}{s}}\right) ^{2}$};

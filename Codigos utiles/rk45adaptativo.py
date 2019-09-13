@@ -134,14 +134,22 @@ def norm(x):
     return np.linalg.norm(x) / x.size**0.5
 
 
-N = 100
+N = 0
 kp = 1
 ki = 1
 kd = 1
 
+# pid = ctrl.tf2ss(
+#     ctrl.TransferFunction([1], [0.1, 1]) *
+#     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+
 pid = ctrl.tf2ss(
-    ctrl.TransferFunction([1], [0.1, 1]) *
-    ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+    ctrl.TransferFunction([
+        10 * kp,
+        N**2 * kd**2 + N*kd*kp + 10*N*kp + 10*ki,
+        N**2 * kd * kp + kd*N*ki + 10*N*ki,
+        N**2 * kd * ki
+    ], [10, 10*N + N*kd, N**2 * kd, 0]))
 
 x_pidB = np.zeros_like(pid.B)
 x_pidS = np.zeros_like(pid.B)
@@ -154,7 +162,7 @@ min_step_decrease = 0.2
 max_step_increase = 5
 h_ant = 0.0001
 rtol = 1e-3
-atol = 5e-6
+atol = 1e-6
 tiempo = 0
 tbound = 30
 sp = 1
@@ -167,7 +175,7 @@ counter = 0
 start = time.time()
 # dopri5
 # fehlberg45dot
-RK = fehlberg45
+RK = dopri5
 
 while tiempo < tbound:
     counter += 1

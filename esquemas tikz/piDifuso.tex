@@ -110,7 +110,7 @@
     \node[input] (input) {};
     \node [sum, right = of input] (sum) {};
     \node [branch, node distance=0.4cm, right = of sum] (errorjoint) {};
-    \node [block1, right = of errorjoint] (filtro) {$\frac{1}{0.1s + 1}$};
+    \node [block1, right = of errorjoint] (filtro) {$\frac{N}{10s + N}$};
     \node [block1, node distance=0.45cm, right = of filtro] (derivada) {$\frac{N}{1+\frac{N}{s}}$};
     
     \coordinate[node distance=0.8cm, above = of errorjoint] (empty1) {};

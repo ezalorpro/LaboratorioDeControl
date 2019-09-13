@@ -70,8 +70,7 @@
 
     \node[input] (input) {};
     \node [sum, right = of input] (sum) {};
-    \node [block1, right = of sum] (filtro) {$\frac{1}{0.1s + 1}$};
-    \node [block1, right = of filtro] (controller) {$PID$};
+    \node [block1, right = of sum] (controller) {$PID$};
     \node [block1, right = of controller] (actuador) {$A(s)$};
     \node [record, minimum size=2em, node distance=0.6cm, draw, right = of actuador] (saturador) {};
     \node [block1, right = of saturador] (system) {$G(s)$};
@@ -81,8 +80,7 @@
     
 
     \draw [draw,->] (input) node[above right] {$sp$} -- (sum);
-    \draw [->] (sum) -- (filtro);
-    \draw [->] (filtro) -- (controller);
+    \draw [->] (sum) -- (controller);
     \draw [->] (controller) -- (actuador);
     \draw [->] (actuador) -- (saturador);
     
@@ -93,7 +91,6 @@
     \draw [->] (sensor) -| node[pos=0.97, right] {\tiny{$-$}} (sum);
     \draw[thick,dashed] ($(actuador.north west)+(-0.2,0.1)$)  rectangle ($(saturador.south east)+(0.2,-0.1)$);
     \draw[thick,dashed] ($(sensor.north west)+(-0.2,0.1)$)  rectangle ($(sensor.south east)+(0.2,-0.1)$);
-    \draw[red,thick,dashed] ($(filtro.north west)+(-0.2,0.1)$)  rectangle ($(filtro.south east)+(0.2,-0.1)$);
 
 \end{tikzpicture}
 \end{document}

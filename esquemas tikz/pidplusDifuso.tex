@@ -120,27 +120,22 @@
     \node [sum, right = of input] (sum) {};
     \node [branch, node distance=0.4cm, right = of sum] (errorjoint) {};
     
-    \node [block1, right = of errorjoint] (filtro) {$\frac{1}{0.1s + 1}$};
-    \coordinate[node distance=1cm, above = of filtro] (empty2) {};
+    \node [block1, right = of errorjoint] (controllerpid) {$PID$};
+    \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=0.6cm, draw, above = of controllerpid] (controller) {};
     
-    \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=0.6cm, draw, right = of empty2] (controller) {};
-    \node [block1, right = of filtro] (controllerpid) {$PID$};
-
     \node [sum, right = of controllerpid] (sum2) {};
     \node [block1, right = of sum2] (actuador) {$A(s)$};
     \node [record, minimum size=2em, node distance=0.6cm, draw, right = of actuador] (saturador) {};
     \node [block1, right = of saturador] (system) {$G(s)$};
     \node [branch, node distance=0.4cm, right = of system] (yjoint) {};
     \node [output, right = of yjoint] (output) {};
-    \node [block1, node distance=1.2cm, below = of sum2] (sensor){$H(s)$};
+    \node [block1, node distance=1.2cm, below = of actuador] (sensor){$H(s)$};
     
 
     \draw [draw,->] (input) node[above right] {$sp$} -- (sum);
     \draw [-] (sum) -- (errorjoint);
-    \draw [-] (errorjoint) -- (filtro);
-    \draw [-] (errorjoint) |- (empty2);
-    \draw [->] (filtro) -- (controllerpid);
-    \draw [->] (empty2) -- (controller);
+    \draw [->] (errorjoint) -- (controllerpid);
+    \draw [->] (errorjoint) |- (controller);
     \draw [->] (controller) -| node[pos=0.97, left] {\tiny{$+$}} (sum2);
     \draw [->] (controllerpid) -- (sum2);
     \draw [->] (sum2) -- (actuador);
@@ -152,7 +147,6 @@
     \draw [->] (sensor) -| node[pos=0.97, right] {\tiny{$-$}} (sum);
     \draw[thick,dashed] ($(actuador.north west)+(-0.2,0.1)$)  rectangle ($(saturador.south east)+(0.2,-0.1)$);
     \draw[thick,dashed] ($(sensor.north west)+(-0.2,0.1)$)  rectangle ($(sensor.south east)+(0.2,-0.1)$);
-    \draw[red,thick,dashed] ($(filtro.north west)+(-0.2,0.1)$)  rectangle ($(filtro.south east)+(0.2,-0.1)$);
 
 \end{tikzpicture}
 \end{document}
