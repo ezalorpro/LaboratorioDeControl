@@ -1,27 +1,46 @@
-import numpy as np
-from skfuzzymdf import control as fuzz
-from skfuzzymdf.membership import generatemf
+""" 
+[Archivo que contiene las clases FuzzyController y FISParser, para administrar el controlador difuso y cargar y exportar archivos .fis respectivamente] 
+"""
+
+
 from skfuzzymdf.control.visualization import FuzzyVariableVisualizer
 from skfuzzymdf.control.controlsystem import CrispValueCalculator
 from skfuzzymdf.fuzzymath.fuzzy_ops import interp_membership
+from skfuzzymdf.membership import generatemf
+from skfuzzymdf import control as fuzz
 from collections import OrderedDict
-from matplotlib import pyplot as plt
 from parse import parse
-# import pyvista as pv
-import ast
+
 import pyqtgraphmdf as pg
+import numpy as np
+
+import ast
 import copy
-import json
 import re
 
 
 class FuzzyController:
+    """
+    [Clase para administrar el controlador difuso, a partir de la misma se puede crear el controlador difuso e ir creandolo de forma programatica por medio de la interfaz grafica definida en Ui_VentanaPrincipal.py y manejada en FuzzyHandler.py]
+    """
 
     def __init__(self, inputlist, outputlist, rulelist=[]):
+        """
+        [Se utiliza para inicializar el controlador con las entradas y salidas del mismo, en caso de que se envie el parametro opcional, rulelist, se crea el controlador a partir de las reglas suministradas y queda listo para usar]
+        
+        :param inputlist: [Lista de variables de entrada]
+        :type inputlist: [list]
+        :param outputlist: [Lista de variables de salida]
+        :type outputlist: [list]
+        :param rulelist: [Lista de reglas], defaults to []
+        :type rulelist: [list], optional
+        """
+
         self.fuzz_inputs = self.crear_input(inputlist)
         self.fuzz_outputs = self.crear_output(outputlist)
         self.flagpyqt = 1
 
+        # Rotacion de colores para las funciones de membresia
         self.colors = [
             '#1f77b4',
             '#ff7f0e',
@@ -34,6 +53,7 @@ class FuzzyController:
             '#bcbd22',
             '#17becf'
         ]
+
         self.inlabelsplot = []
         self.inareas = []
         self.invalues = []
@@ -52,6 +72,13 @@ class FuzzyController:
             self.crear_controlador()
 
     def crear_input(self, inputlist):
+        """
+        [Funcion para crear las variables de entrada a partir de la lista de variables de entrada]
+        
+        :param inputlist: [Lista de variables de entrada]
+        :type inputlist: [list]
+        """
+
         vector = []
         for i, ins in enumerate(inputlist):
             temp_in = fuzz.Antecedent(np.linspace(*ins['rango'], 200), ins['nombre'])
@@ -59,6 +86,13 @@ class FuzzyController:
         return vector
 
     def crear_output(self, outputlist):
+        """
+        [Funcion para crear las variables de salida a partir de la lista de variables de salida]
+        
+        :param outputlist: [Lista de variables de salida]
+        :type outputlist: [list]
+        """
+
         vector = []
         for i, ins in enumerate(outputlist):
             temp_in = fuzz.Consequent(np.linspace(*ins['rango'], 200),
@@ -68,6 +102,12 @@ class FuzzyController:
         return vector
 
     def crear_etiquetas_input(self, inputlist):
+        """
+        [Funcion para crear las etiquetas de una entrada a partir de la lista de variables de entrada]
+        
+        :param inputlist: [Lista de variables de entrada]
+        :type inputlist: [list]
+        """
 
         for n, i in enumerate(inputlist):
             for eti in i['etiquetas']:
@@ -75,12 +115,28 @@ class FuzzyController:
                     self.fuzz_inputs[n].universe, *eti['definicion'])
 
     def crear_etiquetas_output(self, outputlist):
+        """
+        [Funcion para crear las etiquetas de una salida a partir de la lista de variables de salida]
+        
+        :param outputlist: [Lista de variables de salida]
+        :type outputlist: [list]
+        """
+
         for n, i in enumerate(outputlist):
             for eti in i['etiquetas']:
                 self.fuzz_outputs[n][eti['nombre']] = getattr(generatemf, eti['mf'])(
                     self.fuzz_outputs[n].universe, *eti['definicion'])
 
     def graficar_mf_in(self, window, i):
+        """
+        [Funcion para graficar las funciones de membresia de una entrada]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param i: [Numero de entrada]
+        :type i: [int]
+        """
+
         window.main.inputgraphicsView.canvas.axes.clear()
         FuzzyVariableVisualizer(self.fuzz_inputs[i],
                                 window.main.inputgraphicsView,
@@ -90,6 +146,15 @@ class FuzzyController:
         window.main.inputgraphicsView.toolbar.update()
 
     def graficar_mf_out(self, window, o):
+        """
+        [Funcion para graficar las funciones de membresia de una salida]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param o: [Numero de salida]
+        :type o: [int]
+        """
+
         window.main.outputgraphicsView.canvas.axes.clear()
         FuzzyVariableVisualizer(self.fuzz_outputs[o],
                                 window.main.outputgraphicsView,
@@ -99,37 +164,128 @@ class FuzzyController:
         window.main.outputgraphicsView.toolbar.update()
 
     def cambiar_nombre_input(self, window, i, nombre):
+        """
+        [Funcio para cambiar el nombre de una entrada]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param i: [Numero de entrada]
+        :type i: [int]
+        :param nombre: [Nuevo nombre de la entrada]
+        :type nombre: [str]
+        """
+
         self.fuzz_inputs[i].label = nombre
         self.graficar_mf_in(window, i)
 
     def cambiar_nombre_output(self, window, o, nombre):
+        """
+         [Funcio para cambiar el nombre de una salida]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param o: [Numero de salida]
+        :type o: [int]
+        :param nombre: [Nuevo nombre de la salida]
+        :type nombre: [str]
+        """
+
         self.fuzz_outputs[o].label = nombre
         self.graficar_mf_out(window, o)
 
     def cambio_etiquetas_input(self, window, inputlist, i):
+        """
+        [Funcion para actualizar las etiquetas de entrada del controlador]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param inputlist: [Lista de variables de entrada]
+        :type inputlist: [list]
+        :param i: [Numero de entrada]
+        :type i: [int]
+        """
+
         self.fuzz_inputs[i].terms = OrderedDict()
         self.crear_etiquetas_input(inputlist)
         self.graficar_mf_in(window, i)
 
     def cambio_etiquetas_output(self, window, outputlist, o):
+        """
+        [Funcion para actualizar las etiquetas de salida del controlador]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param outputlist: [Lista de variables de salida]
+        :type outputlist: [list]
+        :param o: [Numero de salida]
+        :type o: [int]
+        """
+
         self.fuzz_outputs[o].terms = OrderedDict()
         self.crear_etiquetas_output(outputlist)
         self.graficar_mf_out(window, o)
 
     def update_rango_input(self, window, inputlist, i):
+        """
+        [Funcion para actualizar el universo de discurso de una entrada]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param inputlist: [Lista de variables de entrada]
+        :type inputlist: [list]
+        :param i: [Numero de entrada]
+        :type i: [int]
+        """
+
         self.fuzz_inputs[i].universe = np.asarray(np.linspace(*inputlist[i]['rango'],
                                                               200))
         self.graficar_mf_in(window, i)
 
     def update_rango_output(self, window, outputlist, o):
+        """
+        [Funcion para actualizar el universo de discurso de una salida]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param outputlist: [Lista de variables de salida]
+        :type outputlist: [list]
+        :param o: [Numero de salida]
+        :type o: [int]
+        """
+
         self.fuzz_outputs[o].universe = np.asarray(
             np.linspace(*outputlist[o]['rango'], 200))
         self.graficar_mf_out(window, o)
 
     def cambiar_metodo(self, window, o, metodo):
+        """ 
+        [Funcion para cambiar el metodo de defuzzificacion de una salida]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param o: [Numero de salida]
+        :type o: [int]
+        :param metodo: [Nombre del nuevo metodo de defuzzificacion]
+        :type o: [str]
+        """
         self.fuzz_inputs[o].defuzzify_method = metodo
 
     def cambio_etinombre_input(self, window, inputlist, i, n, old_name):
+        """
+        [Funcio para cambiar el nombre de una etiqueta en la entrada seleccionada]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param inputlist: [Lista de variables de entrada]
+        :type inputlist: [list]
+        :param i: [Numero de entrada]
+        :type i: [int]
+        :param n: [Numero de etiqueta]
+        :type n: [int]
+        :param old_name: [Nombre anterior]
+        :type old_name: [str]
+        """
+
         eti = inputlist[i]['etiquetas'][n]
         self.fuzz_inputs[i].terms.pop(old_name)
         self.fuzz_inputs[i][eti['nombre']] = getattr(generatemf, eti['mf'])(
@@ -137,6 +293,21 @@ class FuzzyController:
         self.graficar_mf_in(window, i)
 
     def cambio_etinombre_output(self, window, outputlist, o, n, old_name):
+        """
+        [Funcio para cambiar el nombre de una etiqueta en la salida seleccionada]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param outputlist: [Lista de variables de salida]
+        :type outputlist: [list]
+        :param o: [Numero de salida]
+        :type o: [int]
+        :param n: [Numero de etiqueta]
+        :type n: [int]
+        :param old_name: [Nombre anterior]
+        :type old_name: [str]
+        """
+
         eti = outputlist[o]['etiquetas'][n]
         self.fuzz_outputs[o].terms.pop(old_name)
         self.fuzz_outputs[o][eti['nombre']] = getattr(generatemf, eti['mf'])(
@@ -144,23 +315,61 @@ class FuzzyController:
         self.graficar_mf_out(window, o)
 
     def update_definicion_input(self, window, inputlist, i, n):
+        """
+        [Funcion para actualizar la definicion de una funcion de membresia en la entrada seleccionada]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param inputlist: [Lista de variables de entrada]
+        :type inputlist: [list]
+        :param i: [Numero de entrada]
+        :type i: [int]
+        :param n: [Numero de etiqueta]
+        :type n: [int]
+        """
+
         eti = inputlist[i]['etiquetas'][n]
         self.fuzz_inputs[i][eti['nombre']] = getattr(generatemf, eti['mf'])(
             self.fuzz_inputs[i].universe, *eti['definicion'])
         self.graficar_mf_in(window, i)
 
     def update_definicion_output(self, window, outputlist, o, n):
+        """
+        [Funcion para actualizar la definicion de una funcion de membresia en la salida seleccionada]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param outputlist: [Lista de variables de salida]
+        :type outputlist: [list]
+        :param o: [Numero de salida]
+        :type o: [int]
+        :param n: [Numero de etiqueta]
+        :type n: [int]
+        """
+
         eti = outputlist[o]['etiquetas'][n]
         self.fuzz_outputs[o][eti['nombre']] = getattr(generatemf, eti['mf'])(
             self.fuzz_outputs[o].universe, *eti['definicion'])
         self.graficar_mf_out(window, o)
 
     def crear_reglas(self, rulelistC):
+        """
+        [Funcion para crear las reglas a partir de una lista que contiene toda la informacion necesaria, esta lista es creada en FuzzyHandler.py:
+        
+        Cada posicion en la lista contiene un set de entradas, salidas y la logica a utilizar (AND o OR), a su vez, cada set es una lista que posee en cada posicion otra lista con la etiqueta, el numero de entrada/salida y si esta o no negada para el caso de las entradas, en caso de ser salida contiene el peso asignado]
+        
+        :param rulelistC: [Lista con la informacion necesaria para crear las reglas]
+        :type rulelistC: [list]
+        """
+
+        # Un set por cada regla
         for sets in rulelistC:
             Etiquetasin, Etiquetasout, logica = copy.deepcopy(sets)
 
+            # Creacion del objeto de regla de Scikit-Fuzzy
             self.rulelist.append(fuzz.Rule())
 
+            # Los antecedentes deben inicializarce antes de poder expandirse de forma programatica
             inetiqueta_ini, ni_ini, negacion_ini = Etiquetasin[0]
 
             if not negacion_ini:
@@ -168,11 +377,13 @@ class FuzzyController:
             else:
                 self.rulelist[-1].antecedent = ~self.fuzz_inputs[ni_ini][inetiqueta_ini]
 
+            # Los consecuentes deben inicializarce antes de poder expandirse de forma programatica
             outetiqueta_oni, no_ini, weight_ini = Etiquetasout[0]
 
             self.rulelist[
                 -1].consequent = self.fuzz_outputs[no_ini][outetiqueta_oni] % weight_ini
 
+            # Expansion del antecedente de forma programatica
             for i in Etiquetasin[1:len(Etiquetasin)]:
                 if logica:
                     if not i[2]:
@@ -189,15 +400,30 @@ class FuzzyController:
                         self.rulelist[-1].antecedent = self.rulelist[
                             -1].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
 
+            # Expansion del consecuente de forma programatica
             for o in Etiquetasout[1:len(Etiquetasout)]:
                 self.rulelist[-1].consequent.append(self.fuzz_outputs[o[1]][o[0]] % o[2])
 
         return self.rulelist
 
-    def agregar_regla(self, window, ni, no, Etiquetasin, Etiquetasout):
+    def agregar_regla(self, window, Etiquetasin, Etiquetasout, logica):
+        """
+        [Funcion para crear una regla a partir de un set]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param Etiquetasin: [set de entrada]
+        :type Etiquetasin: [list]
+        :param Etiquetasout: [set de salida]
+        :type Etiquetasout: [list]
+        :param logica: [Logica a utilizar]
+        :type logica: [bool]
+        """
 
+        # Creacion del objeto de regla de Scikit-Fuzzy
         self.rulelist.append(fuzz.Rule())
 
+        # Los antecedentes deben inicializarce antes de poder expandirse de forma programatica
         inetiqueta_ini, ni_ini, negacion_ini = Etiquetasin[0]
 
         if not negacion_ini:
@@ -205,13 +431,15 @@ class FuzzyController:
         else:
             self.rulelist[-1].antecedent = ~self.fuzz_inputs[ni_ini][inetiqueta_ini]
 
+        # Los consecuentes deben inicializarce antes de poder expandirse de forma programatica
         outetiqueta_oni, no_ini, weight_ini = Etiquetasout[0]
 
         self.rulelist[
             -1].consequent = self.fuzz_outputs[no_ini][outetiqueta_oni] % weight_ini
 
+        # Expansion del antecedente de forma programatica
         for i in Etiquetasin[1:len(Etiquetasin)]:
-            if window.main.andradioButton.isChecked():
+            if logica:
                 if not i[2]:
                     self.rulelist[-1].antecedent = self.rulelist[
                         -1].antecedent & self.fuzz_inputs[i[1]][i[0]]
@@ -226,18 +454,43 @@ class FuzzyController:
                     self.rulelist[-1].antecedent = self.rulelist[
                         -1].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
 
+        # Expansion del consecuente de forma programatica
         for o in Etiquetasout[1:len(Etiquetasout)]:
             self.rulelist[-1].consequent.append(self.fuzz_outputs[o[1]][o[0]] % o[2])
 
         return self.rulelist[-1]
 
     def eliminar_regla(self, index_rule):
+        """
+        [Funcion para eliminar una regla]
+        
+        :param index_rule: [Indice indicando la regla a eliminar]
+        :type index_rule: [int]
+        """
         del self.rulelist[index_rule]
 
-    def cambiar_regla(self, window, ni, no, Etiquetasin, Etiquetasout, index_rule):
+    def cambiar_regla(self, window, Etiquetasin, Etiquetasout, index_rule, logica):
+        """
+        [Funcion para cambiar una regla a partir de un nuevo set]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param Etiquetasin: [set de entrada]
+        :type Etiquetasin: [list]
+        :param Etiquetasout: [set de salida]
+        :type Etiquetasout: [list]
+        :param index_rule: [Indice indicando la regla a cambiar]
+        :type index_rule: [int]
+        :param logica: [Logica a utilizar]
+        :type logica: [bool]
+        """
+
         del self.rulelist[index_rule]
+
+        # Creacion del objeto de regla de Scikit-Fuzzy
         self.rulelist.insert(index_rule, fuzz.Rule())
 
+        # Los antecedentes deben inicializarce antes de poder expandirse de forma programatica
         inetiqueta_ini, ni_ini, negacion_ini = Etiquetasin[0]
 
         if not negacion_ini:
@@ -247,13 +500,15 @@ class FuzzyController:
             self.rulelist[
                 index_rule].antecedent = ~self.fuzz_inputs[ni_ini][inetiqueta_ini]
 
+        # Los consecuentes deben inicializarce antes de poder expandirse de forma programatica
         outetiqueta_oni, no_ini, weight_ini = Etiquetasout[0]
 
         self.rulelist[index_rule].consequent = self.fuzz_outputs[no_ini][
             outetiqueta_oni] % weight_ini
 
+        # Expansion del antecedente de forma programatica
         for i in Etiquetasin[1:len(Etiquetasin)]:
-            if window.main.andradioButton.isChecked():
+            if logica:
                 if not i[2]:
                     self.rulelist[index_rule].antecedent = self.rulelist[
                         index_rule].antecedent & self.fuzz_inputs[i[1]][i[0]]
@@ -268,6 +523,7 @@ class FuzzyController:
                     self.rulelist[index_rule].antecedent = self.rulelist[
                         index_rule].antecedent | ~self.fuzz_inputs[i[1]][i[0]]
 
+        # Expansion del consecuente de forma programatica
         for o in Etiquetasout[1:len(Etiquetasout)]:
             self.rulelist[index_rule].consequent.append(self.fuzz_outputs[o[1]][o[0]] %
                                                         o[2])
@@ -275,45 +531,50 @@ class FuzzyController:
         return self.rulelist[index_rule]
 
     def crear_controlador(self):
+        """ [Funcion para crear el controlador difuso a partir de todas las reglas creadas] """
         temp = fuzz.ControlSystem(self.rulelist)
         self.Controlador = fuzz.ControlSystemSimulation(temp, flush_after_run=20000)
 
-    def prueba_de_controlador(self, window, values, ni, no, pyqtgraph=False):
+    def prueba_de_controlador(self, window, values, ni, no):
+        """
+        [Funcion para realizar la prueba del controlador]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param values: [Valores de entradas dados por el usuario con los sliders]
+        :type values: [list]
+        :param ni: [Numero de entradas]
+        :type ni: [int]
+        :param no: [Numero de salidas]
+        :type no: [int]
+        """
+
         for i in range(ni):
             self.Controlador.input[self.fuzz_inputs[i].label] = values[i]
 
-        self.Controlador.compute()
-        if not pyqtgraph:
-            self.graficar_prueba(window, ni, no)
-        else:
-            if self.flagpyqt:
-                self.crear_plots_in(window, values, ni, no)
-                self.crear_plots_out(window, values, ni, no)
-                self.flagpyqt = 0
-            self.graficar_prueba_pyqtgraph(window, ni, no)
+        try:
+            self.Controlador.compute()
+        except:
+            pass
+        
+        # Para crear los objetos de graficacion de PyQtGraph una sola vez
+        if self.flagpyqt:
+            self.crear_plots_in(window, ni)
+            self.crear_plots_out(window, no)
+            self.flagpyqt = 0
 
-    def graficar_prueba(self, window, ni, no):
-        for i, grafica in enumerate(window.ingraphs[:ni]):
-            grafica.canvas.axes.clear()
-            FuzzyVariableVisualizer(self.fuzz_inputs[i], grafica,
-                                    grafica.canvas.axes).view_gui(self.Controlador,
-                                                                  legend=False)
-            grafica.canvas.axes.grid(color="lightgray")
-            grafica.canvas.draw()
+        self.graficar_prueba_pyqtgraph(window, ni, no)
 
-        for o, grafica in enumerate(window.outgraphs[:no]):
-            grafica.canvas.axes.clear()
-            value = FuzzyVariableVisualizer(self.fuzz_outputs[o],
-                                            grafica,
-                                            grafica.canvas.axes).view_gui(
-                                                self.Controlador, legend=False)
-            grafica.canvas.axes.grid(color="lightgray")
-            grafica.canvas.draw()
+    def crear_plots_in(self, window, ni):
+        """
+        [Funcion para crear los objetos de graficacion de PyQtGraph de la entrada, el codigo para la obtencion de los valores de salida y el graficado es una version altamente modificada de la funcion .view() de Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param ni: [Numero de entradas]
+        :type ni: [int]
+        """
 
-            window.outtestlabels[o].setText(window.OutputList[o]['nombre'] +
-                                            f': {np.around(value, 3)}')
-
-    def crear_plots_in(self, window, values, ni, no):
         for i in range(ni):
             window.ingraphs[i].plotwidget.clear()
             window.ingraphs[i].plotwidget.setXRange(*window.InputList[i]['rango'], 0.02)
@@ -330,23 +591,21 @@ class FuzzyController:
                 entradas.append(window.ingraphs[i].plotwidget.plot(
                     self.fuzz_inputs[i].universe,
                     term.mf,
-                    pen={
-                        'width': 2, 'color': pg.mkColor(self.colors[color])
-                    }))
+                    pen={'width': 2, 'color': pg.mkColor(self.colors[color])}
+                    )
+                )
 
                 under_plot = window.ingraphs[i].plotwidget.plot(
                     ups_universe,
                     zeros,
-                    pen={
-                        'width': 0.1, 'color': pg.mkColor(self.colors[color] + '6A')
-                    })
+                    pen={'width': 0.1, 'color': pg.mkColor(self.colors[color] + '6A')}
+                )
 
                 over_plot = window.ingraphs[i].plotwidget.plot(
                     ups_universe,
                     cut_mfs[key],
-                    pen={
-                        'width': 0.1, 'color': pg.mkColor(self.colors[color] + '6A')
-                    })
+                    pen={'width': 0.1, 'color': pg.mkColor(self.colors[color] + '6A')}
+                )
 
                 fillItem = pg.FillBetweenItem(under_plot,
                                               over_plot,
@@ -356,10 +615,9 @@ class FuzzyController:
                 areas.append(copy.copy([under_plot, over_plot]))
                 color += 1
 
+            # Codigo tomado de la funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph
             if len(cut_mfs) > 0 and not all(output_mf == 0):
                 crisp_value = self.fuzz_inputs[i].input[self.Controlador]
-
-                # Draw the crisp value at the actual cut height
                 if crisp_value is not None:
                     y = 0.
                     for key, term in self.fuzz_inputs[i].terms.items():
@@ -369,8 +627,6 @@ class FuzzyController:
                                 interp_membership(self.fuzz_inputs[i].universe,
                                                   term.mf,
                                                   crisp_value))
-
-                    # Small cut values are hard to see, so simply set them to 1
                     if y < 0.1:
                         y = 1.
 
@@ -390,7 +646,16 @@ class FuzzyController:
             self.inlabelsplot.append(copy.copy(entradas))
             self.inareas.append(copy.copy(areas))
 
-    def crear_plots_out(self, window, values, ni, no):
+    def crear_plots_out(self, window, no):
+        """
+        [Funcion para crear los objetos de graficacion de PyQtGraph de la salida, el codigo para la obtencion de los valores de salida y el graficado es una version altamente modificada de la funcion .view() de Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param no: [Numero de salidas]
+        :type no: [int]
+        """
+
         for i in range(no):
             window.outgraphs[i].plotwidget.clear()
             window.outgraphs[i].plotwidget.setXRange(*window.OutputList[i]['rango'], 0.02)
@@ -433,10 +698,9 @@ class FuzzyController:
                 areas.append(copy.copy([under_plot, over_plot]))
                 color += 1
 
+            # Codigo tomado de la funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph
             if len(cut_mfs) > 0 and not all(output_mf == 0):
                 crisp_value = self.fuzz_outputs[i].output[self.Controlador]
-
-                # Draw the crisp value at the actual cut height
                 if crisp_value is not None:
                     y = 0.
                     for key, term in self.fuzz_outputs[i].terms.items():
@@ -446,8 +710,6 @@ class FuzzyController:
                                 interp_membership(self.fuzz_outputs[i].universe,
                                                   term.mf,
                                                   crisp_value))
-
-                    # Small cut values are hard to see, so simply set them to 1
                     if y < 0.1:
                         y = 1.
 
@@ -468,6 +730,17 @@ class FuzzyController:
             self.outareas.append(copy.copy(areas))
 
     def graficar_prueba_pyqtgraph(self, window, ni, no):
+        """
+        [Funcion para actualizar la grafica en funcion de las nuevas entradas, codigo tomado y modificado de la funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param ni: [Numero de entradas]
+        :type ni: [int]
+        :param no: [Numero de salidas]
+        :type no: [int]
+        """
+
         for i in range(ni):
             crispy = CrispValueCalculator(self.fuzz_inputs[i], self.Controlador)
             ups_universe, output_mf, cut_mfs = crispy.find_memberships()
@@ -481,6 +754,7 @@ class FuzzyController:
                 under_plot.setData(ups_universe, zeros)
                 over_plot.setData(ups_universe, cut_mfs[label['nombre']])
 
+            # Codigo tomado de la funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph
             if len(cut_mfs) > 0 and not all(output_mf == 0):
                 crisp_value = self.fuzz_inputs[i].input[self.Controlador]
                 if crisp_value is not None:
@@ -514,10 +788,9 @@ class FuzzyController:
                 under_plot.setData(ups_universe, zeros)
                 over_plot.setData(ups_universe, cut_mfs[label['nombre']])
 
+            # Codigo tomado de la funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph
             if len(cut_mfs) > 0 and not all(output_mf == 0):
                 crisp_value = self.fuzz_outputs[i].output[self.Controlador]
-
-                # Draw the crisp value at the actual cut height
                 if crisp_value is not None:
                     y = 0.
                     for key, term in self.fuzz_outputs[i].terms.items():
@@ -527,8 +800,6 @@ class FuzzyController:
                                 interp_membership(self.fuzz_outputs[i].universe,
                                                   term.mf,
                                                   crisp_value))
-
-                    # Small cut values are hard to see, so simply set them to 1
                     if y < 0.1:
                         y = 1.
 
@@ -543,45 +814,71 @@ class FuzzyController:
                                             f': {np.around(crisp_value, 3)}')
 
     def graficar_respuesta_2d(self, window, inrange, no):
+        """
+        [Funcion para graficar la respuesta del controlador en caso de poseer una entrada]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param inrange: [Rango de la variable de entrada]
+        :type inrange: [list]
+        :param no: [Numero de salidas]
+        :type no: [int]
+        """
         entrada = np.linspace(*inrange, 500)
 
         entradas = []
-        salidas = [[] for i in range(no)]
+        salidas = [[] for _ in range(no)]
 
         for value in entrada:
             self.Controlador.input[self.fuzz_inputs[0].label] = value
             try:
                 self.Controlador.compute()
                 entradas.append(value)
-                for i in range(no):
-                    salidas[i].append(self.Controlador.output[self.fuzz_outputs[i].label])
+                for o in range(no):
+                    salidas[o].append(self.Controlador.output[self.fuzz_outputs[o].label])
             except:
                 pass
-
-        for i in range(no):
-            window.respuesta2ds[i].canvas.axes.clear()
-            window.respuesta2ds[i].canvas.axes.plot(entradas, salidas[i])
-            window.respuesta2ds[i].canvas.axes.grid(color="lightgray")
-            window.respuesta2ds[i].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
-            window.respuesta2ds[i].canvas.axes.set_ylabel(self.fuzz_outputs[i].label)
-            window.respuesta2ds[i].canvas.draw()
-            window.respuesta2ds[i].toolbar.update()
+        
+        # Se muestra una grafica por cada salida
+        for o in range(no):
+            window.respuesta2ds[o].canvas.axes.clear()
+            window.respuesta2ds[o].canvas.axes.plot(entradas, salidas[o])
+            window.respuesta2ds[o].canvas.axes.grid(color="lightgray")
+            window.respuesta2ds[o].canvas.axes.set_xlabel(self.fuzz_inputs[0].label)
+            window.respuesta2ds[o].canvas.axes.set_ylabel(self.fuzz_outputs[o].label)
+            window.respuesta2ds[o].canvas.draw()
+            window.respuesta2ds[o].toolbar.update()
 
     def graficar_respuesta_3d(self, window, inrange1, inrange2, no):
+        """
+        [Funcion para graficar la superficie de respuesta del controlador en caso de poseer 2 entradas]
+        
+        :param window: [Objeto que contiene a la ventana principal]
+        :type window: [object]
+        :param inrange1: [Rango de la variable de entrada uno]
+        :type inrange1: [list]
+        :param inrange2: [Rango de la variable de entrada dos]
+        :type inrange2: [list]
+        :param no: [Numero de salidas]
+        :type no: [int]
+        """
+        
         n_puntos = 25
         entrada1 = np.linspace(*inrange1, n_puntos)
         entrada2 = np.linspace(*inrange2, n_puntos)
         entrada1, entrada2 = np.meshgrid(entrada1, entrada2)
 
-        entrada11 = [np.zeros_like(entrada1) for i in range(no)]
-        entrada22 = [np.zeros_like(entrada2) for i in range(no)]
+        entrada11 = [np.zeros_like(entrada1) for _ in range(no)]
+        entrada22 = [np.zeros_like(entrada2) for _ in range(no)]
 
-        salidas = [np.zeros_like(entrada1) for i in range(no)]
+        salidas = [np.zeros_like(entrada1) for _ in range(no)]
 
         for i in range(n_puntos):
             for j in range(n_puntos):
                 self.Controlador.input[self.fuzz_inputs[0].label] = entrada1[i, j]
                 self.Controlador.input[self.fuzz_inputs[1].label] = entrada2[i, j]
+                
+                # Se almacenan solo los valores validos
                 try:
                     self.Controlador.compute()
                     for o in range(no):
@@ -591,7 +888,8 @@ class FuzzyController:
                             self.fuzz_outputs[o].label]
                 except:
                     pass
-
+        
+        # Se grafica una superficie por cada salida
         for o in range(no):
             window.respuesta3ds[o].canvas.axes.clear()
 
@@ -609,55 +907,20 @@ class FuzzyController:
             window.respuesta3ds[o].canvas.axes.set_zlabel(self.fuzz_outputs[o].label)
             window.respuesta3ds[o].canvas.draw()
 
-        # for o in range(no):
-
-        #     x = copy.deepcopy(entrada11[o])
-        #     y = copy.deepcopy(entrada22[o])
-        #     z = copy.deepcopy(salidas[o])
-
-        #     window.respuesta3ds[o].vtk_widget.clear()
-        #     window.respuesta3ds[o].vtk_widget.remove_bounds_axes()
-
-        #     xscale = (np.max(z) - np.min(z)) / (np.max(x) - np.min(x))
-        #     yscale = (np.max(z) - np.min(z)) / (np.max(y) - np.min(y))
-
-        #     window.respuesta3ds[o].vtk_widget.set_scale(xscale=xscale, yscale=yscale)
-
-        #     grid = pv.StructuredGrid(x, y, z)
-        #     grid['scalars'] = z.ravel('F')
-
-        #     window.respuesta3ds[o].vtk_widget.add_mesh(grid,
-        #                                                scalars='scalars',
-        #                                                cmap='viridis',
-        #                                                style='surface',
-        #                                                lighting=False,
-        #                                                show_edges=True,
-        #                                                stitle=self.fuzz_outputs[o].label,
-        #                                                scalar_bar_args={
-        #                                                    'label_font_size': 18,
-        #                                                    'title_font_size': 18,
-        #                                                    'position_x': 0.99
-        #                                                })
-
-        #     window.respuesta3ds[o].vtk_widget.show_bounds(
-        #         grid='True',
-        #         location='outer',
-        #         ticks='inside',
-        #         xlabel=self.fuzz_inputs[0].label,
-        #         ylabel=self.fuzz_inputs[1].label,
-        #         zlabel=self.fuzz_outputs[o].label,
-        #         padding=0.1,
-        #         use_2d=True,
-        #         font_size=12,
-        #         bounds=[np.min(x), np.max(x), np.min(y), np.max(y), np.min(z), np.max(z)])
-
-        #     window.respuesta3ds[o].vtk_widget.show_axes()
-        #     window.respuesta3ds[o].vtk_widget.reset_camera()
-        #     window.respuesta3ds[o].vtk_widget.update()
-
     def calcular_valor(self, inputs, outputs):
+        """
+        [Funcion para calcular las salidas del controlador dado sus entradas, esta funcion se utiliza en la funcionalidad de simulacion de sistemas de control]
+        
+        :param inputs: [Lista con los valores de entrada]
+        :type inputs: [list]
+        :param outputs: [Lista vacia del tamaño del numero de salidas]
+        :type outputs: [list]
+        """
+        
         for i, value in enumerate(inputs):
+            # Para asegurar los limites del universe de discurso
             value = np.clip(value, np.min(self.fuzz_inputs[i].universe), np.max(self.fuzz_inputs[i].universe))
+            
             self.Controlador.input[self.fuzz_inputs[i].label] = value
 
         self.Controlador.compute()

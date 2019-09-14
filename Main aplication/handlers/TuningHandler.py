@@ -3,10 +3,12 @@
 """
 
 
-from PySide2 import QtCore, QtGui, QtWidgets
 from rutinas.rutinas_PID import *
 from rutinas.rutinas_CSV import *
+from PySide2 import QtWidgets
+
 import numpy as np
+
 import json
 
 

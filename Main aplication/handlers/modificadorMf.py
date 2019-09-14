@@ -1,5 +1,26 @@
+""" 
+[Archivo para el cambio de definicion entre funciones de membresia, los cambios se realizan en dos pasos:
+
+    old_mf  ->  trimf
+    trimf   ->  new_mf
+    
+De este modo se reduce el numero de casos a codificar, adicionalmente, se agrego la funcion para realizar
+la validacion de las definiciones ingresadas por el usuario] 
+"""
+
+
 def update_definicionmf(self, old_mf, definicion, new_mf):
-    """ 22 condiciones if para transformar funciones de membresia a otras formas aproximadas """
+    """
+    [summary]
+    
+    :param old_mf: [Nombre de la antigua funcion de membresia]
+    :type old_mf: [str]
+    :param definicion: [Lista con los valroes correspondiente a la definicion de la antigua funcion de membresia]
+    :type definicion: [list]
+    :param new_mf: [Nombre de la nueva funcion de membresia]
+    :type new_mf: [str]
+    """
+    
     if old_mf == 'trimf':
         a, b, c = definicion
 
@@ -123,6 +144,15 @@ def update_definicionmf(self, old_mf, definicion, new_mf):
         return [na, nb, nc], '[a, b, c] con: a <= b <= c'
 
 def validacion_mf(self, _, mf):
+    """
+    [Funcion para validar las definiciones ingresadas por el usuario]
+    
+    :param _: [Definicion]
+    :type _: [list]
+    :param mf: [Nombre de la funcion de membresia a validar]
+    :type mf: [str]
+    """
+    
     if mf == 'trimf':
         if not len(_) < 3 and not len(_) > 3:
             if not _[0] <= _[1] or not _[1] <= _[2]:

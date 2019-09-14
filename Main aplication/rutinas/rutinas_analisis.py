@@ -1,13 +1,14 @@
 """ [Archivo que contiene todas las rutinas necesarias para la funcionalidad de analisis de sistemas de control] """
 
 
-import controlmdf as ctrl
-import numpy as np
-from scipy import real, imag
 from matplotlib import pyplot as plt
 from collections import deque
+from scipy import real, imag
+
 import matplotlib.ticker as mticker
-import copy
+import controlmdf as ctrl
+import numpy as np
+
 import json
 
 # Monkey patch de la funcion step_info, necesario para obtener la informacion del step en tiempo discreto

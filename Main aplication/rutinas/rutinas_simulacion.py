@@ -1,13 +1,11 @@
-from PySide2 import QtCore, QtGui, QtWidgets
 from rutinas.rutinas_fuzzy import FuzzyController
 from rutinas.rutinas_fuzzy import FISParser
+from PySide2 import QtCore, QtGui, QtWidgets
+from collections import deque
+
 import controlmdf as ctrl
 import numpy as np
-from scipy import real, imag
-from scipy import signal
-from matplotlib import pyplot as plt
-from collections import deque
-import matplotlib.ticker as mticker
+
 import time
 import copy
 import json

@@ -1,9 +1,8 @@
 """ [Archivo que contiene todas las rutinas necesarias para la funcionalidad de identificacion de modelo y tunning con csv] """
 
 
-from PySide2 import QtCore, QtGui, QtWidgets
-import controlmdf as ctrl
 import matplotlib.ticker as mticker
+import controlmdf as ctrl
 import numpy as np
 
 

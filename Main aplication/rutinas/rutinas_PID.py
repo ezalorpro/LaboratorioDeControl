@@ -1,16 +1,16 @@
 """ [Archivo que contiene todas las rutinas necesarias para la funcionalidad de tunning de PID] """
 
 
+from collections import deque
+from scipy import real
+
 import controlmdf as ctrl
 import numpy as np
-from scipy import real, imag
-from collections import deque
-from matplotlib import pyplot as plt
-import matplotlib.ticker as mticker
+
 import json
 
+# Monkey patch de la funcion step_info, necesario para obtener la informacion del step en tiempo discreto
 from rutinas.MonkeyPatch_stepinfo import step_info
-
 ctrl.step_info = step_info
 
 
@@ -509,7 +509,7 @@ def rutina_system_info(self, system, T, y, kp=0, ki=0, kd=0, autotuning=False):
     :param autotuning: [Bandera para señar si es o no una operacion con auto tunning], defaults to False
     :type autotuning: [bool], optional
     """
-    
+
     info = ctrl.step_info(system, T=T, yout=y)
 
     Datos = ""

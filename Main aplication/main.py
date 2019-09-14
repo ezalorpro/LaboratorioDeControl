@@ -1,13 +1,14 @@
 """ [Archivo principal, en orden de ejecutar la aplicacion, este es el archivo a ejecutar] """
 
 
-from PySide2 import QtCore, QtGui, QtWidgets
-from Ui_VentanaPrincipal import Ui_MainWindow
+from handlers.jupyterConsoleHandler import jupyterConsoleHandler
+from handlers.simulacionHandler import SimulacionHandler
 from handlers.analisisHandler import AnalisisHandler
 from handlers.TuningHandler import TuningHandler
 from handlers.FuzzyHandler import FuzzyHandler
-from handlers.simulacionHandler import SimulacionHandler
-from handlers.jupyterConsoleHandler import jupyterConsoleHandler
+from Ui_VentanaPrincipal import Ui_MainWindow
+from PySide2 import QtGui, QtWidgets
+
 import os
 
 

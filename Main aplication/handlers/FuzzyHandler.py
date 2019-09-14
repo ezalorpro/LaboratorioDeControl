@@ -7,7 +7,9 @@ from handlers.modificadorMf import update_definicionmf, validacion_mf
 from rutinas.rutinas_fuzzy import FuzzyController
 from rutinas.rutinas_fuzzy import FISParser
 from PySide2 import QtCore, QtGui, QtWidgets
+
 import numpy as np
+
 import copy
 import json
 
@@ -1104,7 +1106,7 @@ def definicion_in(self):
 
 def deinificion_in_validator(self):
     """ [Funcion para validar las definiciones de las funciones de membresia] """
-    
+
     mf = self.main.etiquetaMfIn.currentText()
     try:
         _ = json.loads(self.main.etiquetaDefinicionIn.text())
@@ -1172,7 +1174,7 @@ def definicion_out(self):
 
 def deinificion_out_validator(self):
     """ [Funcion para validar las definiciones de las funciones de membresia] """
-    
+
     mf = self.main.etiquetaMfOut.currentText()
     try:
         _ = json.loads(self.main.etiquetaDefinicionOut.text())
@@ -1198,7 +1200,7 @@ def round_list(lista):
 
 def rule_list_visualizacion(self):
     """ [Funcion para mostrar las reglas creadas para el controlador actual en un listWidget] """
-    
+
     if self.main.fuzzyTabWidget.currentIndex() == 3:
 
         self.main.rulelistWidget.blockSignals(True)
@@ -1208,18 +1210,18 @@ def rule_list_visualizacion(self):
         for regla in self.RuleList:
             self.main.rulelistWidget.addItem(str(regla))
 
-        # Se muestran los widgets necesarios en funcion del numero de entradas
+        # Se ocultan los widgets necesarios en funcion del numero de entradas y salidas
         for i, o in zip(self.inframes, self.outframes):
             i.hide()
             o.hide()
 
-        # Se muestran los widgets necesarios en funcion del numero de salidas
         for i, o in zip(self.inlists, self.outlists):
             i.clear()
             o.clear()
 
         self.main.rulelistWidget.setCurrentRow(0)
 
+        # Se muestran los widgets necesarios en funcion del numero de entradas
         for i, entrada in enumerate(self.InputList):
             self.inframes[i].show()
             self.inlabels[i].setText(entrada["nombre"])
@@ -1228,6 +1230,7 @@ def rule_list_visualizacion(self):
             self.inlists[i].addItem("None")
             self.inlists[i].setCurrentRow(0)
 
+        # Se muestran los widgets necesarios en funcion del numero de salidas
         for o, salida in enumerate(self.OutputList):
             self.outframes[o].show()
             self.outlabels[o].setText(salida["nombre"])
@@ -1242,7 +1245,7 @@ def rule_list_visualizacion(self):
 
 def seleccionar_etiquetas(self):
     """ [Funcion para seleccionar las etiquetas correspodientes a cada entrada/salida de la regla seleccionada] """
-    
+
     if len(self.RuleEtiquetas) > 0:
         ni = len(self.InputList)
         no = len(self.OutputList)
@@ -1250,11 +1253,13 @@ def seleccionar_etiquetas(self):
         ruleindex = self.main.rulelistWidget.currentRow()
         Etiquetasin, Etiquetasout, logica = self.RuleEtiquetas[ruleindex]
 
+        # Chequeo de AND o OR
         if logica:
             self.main.andradioButton.setChecked(True)
         else:
             self.main.orradioButton.setChecked(True)
 
+        # Determinando que etiquetas corresponden a cada entrada
         for index in range(ni):
             for Etiquetasin2 in Etiquetasin:
                 if Etiquetasin2[1] == index:
@@ -1272,6 +1277,7 @@ def seleccionar_etiquetas(self):
                 self.inlists[index].setCurrentItem(item[-1])
                 self.innots[index].setChecked(False)
 
+        # Determinando que etiquetas corresponden a cada salida
         for index in range(no):
             for Etiquetasout2 in Etiquetasout:
                 if Etiquetasout2[1] == index:
@@ -1287,6 +1293,8 @@ def seleccionar_etiquetas(self):
 
 
 def rule_list_agregar(self):
+    """ [Funcion para crear una nueva regla a partir de las etiquetas seleccionadas para cada entrada y salida] """
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
     ni = len(self.InputList)
@@ -1295,27 +1303,32 @@ def rule_list_agregar(self):
     Etiquetasin = []
     Etiquetasout = []
 
+    # Informacion de la entrada para la regla
     for i, entrada in enumerate(self.InputList):
         if self.inlists[i].currentItem().text() != "None":
             Etiquetasin.append(
                 [self.inlists[i].currentItem().text(), i, self.innots[i].isChecked()]
             )
 
+    # Informacion de la salida para la regla
     for o, salida in enumerate(self.OutputList):
         if self.outlists[o].currentItem().text() != "None":
             Etiquetasout.append(
                 [self.outlists[o].currentItem().text(), o, self.outweights[o].value()]
             )
 
+    # Si la regla es valida, se agrega al controlador y al listWidget
     if len(Etiquetasin) > 0 and len(Etiquetasout) > 0:
         self.RuleEtiquetas.append(
             copy.deepcopy(
-                [Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]
-            )
-        )
+                [Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]))
+
         self.RuleList.append(
-            self.fuzzController.agregar_regla(self, ni, no, Etiquetasin, Etiquetasout)
-        )
+            self.fuzzController.agregar_regla(self,
+                                              Etiquetasin,
+                                              Etiquetasout,
+                                              self.main.andradioButton.isChecked()))
+
         self.main.rulelistWidget.addItem(str(self.RuleList[-1]))
         self.main.rulelistWidget.setCurrentRow(len(self.RuleList) - 1)
     else:
@@ -1326,8 +1339,11 @@ def rule_list_agregar(self):
 
 
 def rule_list_eliminar(self):
+    """ [Funcion para eliminar una regla] """
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
+
     if self.main.rulelistWidget.count():
         index_rule = self.main.rulelistWidget.currentRow()
         self.fuzzController.eliminar_regla(index_rule)
@@ -1337,6 +1353,8 @@ def rule_list_eliminar(self):
 
 
 def rule_list_cambiar(self):
+    """ [Funcion para modificar una regla] """
+
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
     index_rule = self.main.rulelistWidget.currentRow()
@@ -1347,18 +1365,21 @@ def rule_list_cambiar(self):
     Etiquetasin = []
     Etiquetasout = []
 
+    # Informacion de la entrada para la nueva regla
     for i, entrada in enumerate(self.InputList):
         if self.inlists[i].currentItem().text() != "None":
             Etiquetasin.append(
                 [self.inlists[i].currentItem().text(), i, self.innots[i].isChecked()]
             )
 
+    # Informacion de la salida para la nueva regla
     for o, salida in enumerate(self.OutputList):
         if self.outlists[o].currentItem().text() != "None":
             Etiquetasout.append(
                 [self.outlists[o].currentItem().text(), o, self.outweights[o].value()]
             )
 
+    # Si la nueva regla es valida, se elimina la anterior y se agrega al controlador y al listWidget
     if len(Etiquetasin) > 0 and len(Etiquetasout) > 0:
         del self.RuleEtiquetas[index_rule]
         self.RuleEtiquetas.insert(
@@ -1367,9 +1388,12 @@ def rule_list_cambiar(self):
                 [Etiquetasin, Etiquetasout, self.main.andradioButton.isChecked()]
             ),
         )
-        regla = self.fuzzController.cambiar_regla(
-            self, ni, no, Etiquetasin, Etiquetasout, index_rule
-        )
+        regla = self.fuzzController.cambiar_regla(self,
+                                                  Etiquetasin,
+                                                  Etiquetasout,
+                                                  index_rule,
+                                                  self.main.andradioButton.isChecked())
+        
         self.main.rulelistWidget.takeItem(index_rule)
         self.main.rulelistWidget.insertItem(index_rule, str(regla))
         self.main.rulelistWidget.setCurrentRow(index_rule)
@@ -1383,6 +1407,9 @@ def rule_list_cambiar(self):
 
 
 def crear_controlador(self):
+    """ 
+    [Funcion para crear el controlador a partir de toda la informacion recolectada, esta creacion se realiza con el fin de realizar la prueba del controlador y observar la superficie de respuesta del controlador en caso de poseer una o dos entradas]"""
+
     if self.main.rulelistWidget.count():
         self.fuzzController = self.fuzzInitController(
             self.InputList, self.OutputList, self.RuleEtiquetas
@@ -1393,6 +1420,7 @@ def crear_controlador(self):
         ni = len(self.InputList)
         no = len(self.OutputList)
 
+        # Se ocultan los widgets necesarios en funcion del numero de entradas y salidas
         for it_f, ot_f, f2d, f3d in zip(
             self.intestframes,
             self.outtestframes,
@@ -1404,14 +1432,18 @@ def crear_controlador(self):
             f2d.hide()
             f3d.hide()
 
+        # Se muestran los widgets necesarios en funcion del numero de entradas
         for i, salida in enumerate(self.InputList):
             self.intestframes[i].show()
 
+        # Se muestran los widgets necesarios en funcion del numero de salidas
         for o, salida in enumerate(self.OutputList):
             self.outtestframes[o].show()
 
+        # Ejecucion del codigo correspondiente a la prueba del controlador
         prueba_input(self)
 
+        # Chequeo del numero de entradas
         if ni == 1:
             self.main.fuzzyTabWidget.addTab(self.RespuestaTab, "Respuesta")
             self.main.respuestastackedWidget.setCurrentIndex(0)
@@ -1433,9 +1465,12 @@ def crear_controlador(self):
 
 
 def prueba_input(self):
+    """ [Funcion para la ejecucion del codigo correspondiente a la prueba del controlador] """
+
     ni = len(self.InputList)
     no = len(self.OutputList)
 
+    # Captura de los valores de entrada
     values = [i.value() for i in self.intestsliders[:ni]]
 
     for i, entrada in enumerate(self.InputList[:ni]):
@@ -1443,10 +1478,11 @@ def prueba_input(self):
         values[i] = values[i] * (rmax-rmin) / 1000 + rmin
         self.intestlabels[i].setText(entrada["nombre"] + f": {np.around(values[i], 3)}")
 
-    self.fuzzController.prueba_de_controlador(self, values, ni, no, pyqtgraph=True)
+    self.fuzzController.prueba_de_controlador(self, values, ni, no)
 
 
 def crear_vectores_de_widgets(self):
+    """ [Funcion para el almacenado de widgets en listas para acceder a ellos por indices] """
 
     self.inframes = [
         self.main.inframe1,
