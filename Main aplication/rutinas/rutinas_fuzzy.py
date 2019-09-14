@@ -556,7 +556,7 @@ class FuzzyController:
             self.Controlador.compute()
         except:
             pass
-        
+
         # Para crear los objetos de graficacion de PyQtGraph una sola vez
         if self.flagpyqt:
             self.crear_plots_in(window, ni)
@@ -838,7 +838,7 @@ class FuzzyController:
                     salidas[o].append(self.Controlador.output[self.fuzz_outputs[o].label])
             except:
                 pass
-        
+
         # Se muestra una grafica por cada salida
         for o in range(no):
             window.respuesta2ds[o].canvas.axes.clear()
@@ -862,7 +862,7 @@ class FuzzyController:
         :param no: [Numero de salidas]
         :type no: [int]
         """
-        
+
         n_puntos = 25
         entrada1 = np.linspace(*inrange1, n_puntos)
         entrada2 = np.linspace(*inrange2, n_puntos)
@@ -877,7 +877,7 @@ class FuzzyController:
             for j in range(n_puntos):
                 self.Controlador.input[self.fuzz_inputs[0].label] = entrada1[i, j]
                 self.Controlador.input[self.fuzz_inputs[1].label] = entrada2[i, j]
-                
+
                 # Se almacenan solo los valores validos
                 try:
                     self.Controlador.compute()
@@ -888,7 +888,7 @@ class FuzzyController:
                             self.fuzz_outputs[o].label]
                 except:
                     pass
-        
+
         # Se grafica una superficie por cada salida
         for o in range(no):
             window.respuesta3ds[o].canvas.axes.clear()
@@ -916,11 +916,11 @@ class FuzzyController:
         :param outputs: [Lista vacia del tamaño del numero de salidas]
         :type outputs: [list]
         """
-        
+
         for i, value in enumerate(inputs):
             # Para asegurar los limites del universe de discurso
             value = np.clip(value, np.min(self.fuzz_inputs[i].universe), np.max(self.fuzz_inputs[i].universe))
-            
+
             self.Controlador.input[self.fuzz_inputs[i].label] = value
 
         self.Controlador.compute()
@@ -932,8 +932,27 @@ class FuzzyController:
 
 
 class FISParser:
+    """
+    [Clase para cargar y exportar archivos .fis, para cargar los archivos FIS las funciones get_system, get_vars, get_var y get_rules fueron tomadas de yapflm (Yet Another Python Fuzzy Logic Module) para obtener los datos necesarias del .fis, de alli, se aplica la funcion fis_to_json para completar el parsin.
+    
+    En el caso de la exportancion, se realiza utilizando la funcion json_to_fis]
+    """
 
     def __init__(self, file, InputList=None, OutputList=None, RuleEtiquetas=None):
+        """
+        [Constructor de la clase, inicializa las variables a utilizar y selecciona entre cargar el fis o exportarlo dependiendo de las variables con las que se cree el objeto]
+        
+        :param file: [Direccion del archivo a cargar o exportar]
+        :type file: [str]
+        :param inputlist: [Lista de variables de entrada], defaults to None
+        :type inputlist: [list], optional
+        :param OutputList: [Lista de variables de entrada], defaults to None
+        :type OutputList: [list], optional
+        :param RuleEtiquetas: [Lista con la informacion necesaria para crear las reglas], defaults to None
+        :type RuleEtiquetas: [list], optional
+        """
+
+        # Cargar archivo .fis
         if InputList is None and OutputList is None and RuleEtiquetas is None:
             with open(file, 'r') as infis:
                 self.rawlines = infis.readlines()
@@ -945,6 +964,7 @@ class FISParser:
             self.get_vars()
             self.get_rules()
         else:
+            # Exportar archivo .fis
             self.file = file
             self.InputList = InputList
             self.OutputList = OutputList
@@ -952,6 +972,8 @@ class FISParser:
             self.json_to_fis()
 
     def get_system(self):
+        """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        
         end_sysblock = self.rawlines.index('\n')
         systemblock = self.rawlines[1:end_sysblock]
         fisargs = map(lambda x: parse('{arg}={val}', x), systemblock)
@@ -963,6 +985,8 @@ class FISParser:
         self.systemList = fissys
 
     def get_var(self, vartype, varnum, start_line, end_line):
+        """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        
         varblock = self.rawlines[start_line:end_line]
         fisargs = map(lambda x: parse('{arg}={val}', x), varblock)
         fisvar = {f['arg'].lower(): f['val'].strip("'") for f in fisargs}
@@ -973,6 +997,8 @@ class FISParser:
             self.OutputList.append(fisvar)
 
     def get_vars(self):
+        """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        
         start_ruleblock = self.rawlines.index('[Rules]\n')
         var_lines = []
         var_types = []
@@ -992,6 +1018,8 @@ class FISParser:
                 self.get_var('output', var_types[i][1] - 1, l + 2, var_lines[i + 1])
 
     def get_rules(self):
+        """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        
         start_ruleblock = self.rawlines.index('[Rules]\n')
         ruleblock = self.rawlines[start_ruleblock + 1:]
         antecedents = (('{a%d:d} ' * self.numinputs) %
@@ -1029,6 +1057,9 @@ class FISParser:
                 self.RuleList.append(r)
 
     def fis_to_json(self):
+        """ [Funcion para completar la creacion del controlador a partir de un archivo .fis] """
+        
+        # Datos del controlador
         ni = int(self.systemList['numinputs'])
         no = int(self.systemList['numoutputs'])
         nr = int(self.systemList['numrules'])
@@ -1037,6 +1068,7 @@ class FISParser:
         OutputList = [0] * no
         RuleEtiquetas = []
 
+        # Creacion de las variables de entrada
         for i in range(ni):
             InputList[i] = {
                 "nombre":
@@ -1059,6 +1091,7 @@ class FISParser:
                     "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                 }
 
+        # Creacion de las variables de salida
         for i in range(no):
             OutputList[i] = {
                 "nombre":
@@ -1082,6 +1115,8 @@ class FISParser:
                     "mf": temp2[0],
                     "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                 }
+                
+        # Creacion de las reglas
         for numeror, i in enumerate(self.RuleList):
             ril = []
             rol = []
@@ -1108,11 +1143,16 @@ class FISParser:
         return copy.deepcopy(InputList), copy.deepcopy(OutputList), copy.deepcopy(RuleEtiquetas)
 
     def json_to_fis(self):
+        """ [Funcion para exportar el controlador en formato .fis] """
+        
+        # Datos del controlador
         ni = len(self.InputList)
         no = len(self.OutputList)
         nr = len(self.RuleEtiquetas)
 
         with open(self.file, 'w') as f:
+            
+            # Informacion general del controlador
             f.write(f"[System]\n")
             f.write(f"Name='{self.file.split('/')[-1].split('.')[0]}'\n")
             f.write(f"Type='mamdani'\n")
@@ -1127,6 +1167,7 @@ class FISParser:
             f.write(f"DefuzzMethod='{self.OutputList[0]['metodo']}'\n")
             f.write(f"\n")
 
+            # Parsin de las entradas del controlador
             for i in range(ni):
                 f.write(f"[Input" + str(i + 1) + "]\n")
                 f.write(f"Name='{self.InputList[i]['nombre']}'\n")
@@ -1146,6 +1187,7 @@ class FISParser:
 
                 f.write(f"\n")
 
+            # Parsin de las salidas del controlador
             for i in range(no):
                 f.write(f"[Output" + str(i + 1) + "]\n")
                 f.write(f"Name='{self.OutputList[i]['nombre']}'\n")
@@ -1165,10 +1207,13 @@ class FISParser:
 
                 f.write(f"\n")
 
+            # Parsin de las reglas del controlador
             rules_no_format = []
             for i, rule in enumerate(self.RuleEtiquetas):
 
                 inner_rules = []
+                
+                # set de entradas
                 for nir in range(ni):
                     for inputrule in rule[0]:
                         if nir == inputrule[1]:
@@ -1189,7 +1234,8 @@ class FISParser:
                     else:
                         inner_rules.append(0)
                         break
-
+                
+                # set de salidas
                 for nor in range(no):
                     for outputtrule in rule[1]:
                         if nor == outputtrule[1]:
@@ -1214,6 +1260,7 @@ class FISParser:
 
             f.write(f"[Rules]\n")
 
+            # Escribiendo las reglas en el archivo
             for i in range(nr):
                 rule_str = ""
                 for j in range(ni):
@@ -1227,3 +1274,4 @@ class FISParser:
                 rule_str += f"({str(rules_no_format[i][ni+no])})" + " "
                 rule_str += f": {str(rules_no_format[i][ni+no+1])}\n"
                 f.write(rule_str)
+        return

@@ -1,10 +1,11 @@
-from rutinas.rutinas_simulacion import *
 from rutinas.rutinas_fuzzy import FuzzyController
+from rutinas.rutinas_simulacion import *
 from rutinas.rutinas_rk import *
-from PySide2 import QtCore, QtGui, QtWidgets
 from matplotlib import pyplot as plt
+from PySide2 import QtGui, QtWidgets
+
 import numpy as np
-import copy
+
 import json
 
 
@@ -27,7 +28,6 @@ def SimulacionHandler(self):
     self.main.defaultConfiguration.clicked.connect(lambda: restablecer_configuracion(self))
 
     # Validaciones de entradas
-
     self.main.tfnumEdit4.editingFinished.connect(lambda: tfnum_validator(self))
     self.main.tfdemEdit4.editingFinished.connect(lambda: tfdem_validator(self))
     self.main.tfdelayEdit4.editingFinished.connect(lambda: tfdelay_validator(self))
