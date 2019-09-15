@@ -32,6 +32,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         """
 
         super(MainWindow, self).__init__(parent)
+        
         # Ventana principal, objeto de donde se manejara todo
         self.main = Ui_MainWindow()
         self.main.setupUi(self)

@@ -1,7 +1,18 @@
+""" 
+[Archivo para definir los metodos de Runge-kutta explicitos y embebidos, en todos los casos se utiliza un algoritmo para el ajuste del tamaño de paso, en el caso de los metodos explicitos se utiliza el metodo de doble paso] 
+"""
+
+
 import numpy as np
 
 
 def norm(x):
+    """
+    [Funcion para calcular la norma RMS de un vector]
+    
+    :param x: [Vector]
+    :type x: [numpyArray]
+    """
     return np.linalg.norm(x) / x.size**0.5
 
 
@@ -18,35 +29,87 @@ def rk_doble_paso_adaptativo(systema,
                              max_step_increase,
                              min_step_decrease,
                              safety_factor):
+    """
+    [Funcion para definir y manejar el ajuste del tamaño de paso por el metodo de doble paso para Runge-kutta's explicitos, la funcion esta realizada de forma especifica para trabajar con sistemas de control representados con ecuaciones de espacio de estados]
+    
+    :param systema: [Representacion del sistema de control]
+    :type systema: [LTI]
+    :param h_ant: [Tamaño de paso actual]
+    :type h_ant: [float]
+    :param tiempo: [Tiempo actual]
+    :type tiempo: [float]
+    :param tbound: [Tiempo maximo de simulacion]
+    :type tbound: [float]
+    :param xVectB: [Vector de estado]
+    :type xVectB: [numpyArray]
+    :param entrada: [Valor de entrada al sistema]
+    :type entrada: [float]
+    :param metodo: [Runge-Kutta a utilizar: RK2, Rk3, etc.]
+    :type metodo: [function]
+    :param ordenq: [Orden del metodo]
+    :type ordenq: [int]
+    :param rtol: [Tolerancia relativa]
+    :type rtol: [float]
+    :param atol: [Tolerancia absoluta]
+    :type atol: [float]
+    :param max_step_increase: [Maximo incremento del tamaño de paso]
+    :type max_step_increase: [float]
+    :param min_step_decrease: [Minimo decremento del tamaño de paso]
+    :type min_step_decrease: [float]
+    :param safety_factor: [Factor de seguridad]
+    :type safety_factor: [float]
+    """
 
     while True:
+        # Para asegurar el tiempo maximo
         if tiempo + h_ant >= tbound:
             h_ant = tbound - tiempo
             yS, xVectSn = metodo(systema, xVectB, h_ant, entrada)
             h_est = h_ant
         else:
+            # Paso de tamaño regular
             yB, xVectBn = metodo(systema, xVectB, h_ant, entrada)
+
+            # Dos pasos de tamaño medio
             yS, xVectSn = metodo(systema, xVectB, h_ant / 2, entrada)
             yS, xVectSn = metodo(systema, xVectSn, h_ant / 2, entrada)
 
+            # Ajuste del tamaño de paso
             scale = atol + rtol * (np.abs(xVectBn) + np.abs(xVectB)) / 2
             delta1 = np.abs(xVectBn - xVectSn)
             error_norm = norm(delta1 / scale)
 
             if error_norm == 0:
+                # Incremento maximo dado el bajo error
                 h_est = h_ant * max_step_increase
             elif error_norm < 1:
+                # Incremento normal
                 h_est = h_ant * min(max_step_increase,
                                     max(1, safety_factor * error_norm**(-1 / (ordenq+1))))
             else:
-                h_ant = h_ant * max(min_step_decrease,
-                                    safety_factor * error_norm**(-1 / (ordenq+1)))
+                # Decremento normal y se vuelve a calcular la salida
+                h_ant = h_ant * min(
+                    1,
+                    max(min_step_decrease, safety_factor * error_norm**(-1 / (ordenq+1))))
                 continue
         break
     return h_ant, h_est, yS, xVectSn
 
 
 def runge_kutta2(ss, x, h, inputValue):
+    """
+    [Runge-Kutta de orden 2, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 2))) + np.dot(ss.B, inputValue)))
 
@@ -56,6 +119,19 @@ def runge_kutta2(ss, x, h, inputValue):
 
 
 def runge_kutta3(ss, x, h, inputValue):
+    """
+    [Runge-Kutta de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 2))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h, (np.dot(ss.A, (x - k1 + np.dot(k2, 2))) + np.dot(ss.B, inputValue)))
@@ -66,6 +142,19 @@ def runge_kutta3(ss, x, h, inputValue):
 
 
 def heun3(ss, x, h, inputValue):
+    """
+    [Runge-Kutta Heun de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 3))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h, (np.dot(ss.A, (x + np.dot(k2, 2 / 3))) + np.dot(ss.B, inputValue)))
@@ -76,6 +165,19 @@ def heun3(ss, x, h, inputValue):
 
 
 def ralston3(ss, x, h, inputValue):
+    """
+    [Runge-Kutta Ralston de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 2))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h, (np.dot(ss.A, (x + np.dot(k2, 3 / 4))) + np.dot(ss.B, inputValue)))
@@ -86,6 +188,19 @@ def ralston3(ss, x, h, inputValue):
 
 
 def SSPRK3(ss, x, h, inputValue):
+    """
+    [Runge-Kutta con preservado de estabilidad fuerte de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + k1)) + np.dot(ss.B, inputValue)))
     k3 = np.dot(
@@ -99,6 +214,19 @@ def SSPRK3(ss, x, h, inputValue):
 
 
 def runge_kutta4(ss, x, h, inputValue):
+    """
+    [Runge-Kutta de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 2))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h, (np.dot(ss.A, (x + np.dot(k2, 1 / 2))) + np.dot(ss.B, inputValue)))
@@ -111,6 +239,19 @@ def runge_kutta4(ss, x, h, inputValue):
 
 
 def tres_octavos4(ss, x, h, inputValue):
+    """
+    [Runge-Kutta 3/8 de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 3))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h, (np.dot(ss.A,
@@ -124,6 +265,19 @@ def tres_octavos4(ss, x, h, inputValue):
 
 
 def ralston4(ss, x, h, inputValue):
+    """
+    [Runge-Kutta Ralston con minimo error de truncamiento de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 0.4))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h,
@@ -141,6 +295,19 @@ def ralston4(ss, x, h, inputValue):
 
 
 def runge_kutta5(ss, x, h, inputValue):
+    """
+    [Runge-Kutta de orden 5, metodo asignado por defecto, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 4))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(
@@ -177,25 +344,61 @@ def rk_embebido_adaptativo(systema,
                            max_step_increase,
                            min_step_decrease,
                            safety_factor):
+    """
+    [Funcion para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la funcion esta realizada de forma especifica para trabajar con sistemas de control representados con ecuaciones de espacio de estados]
+    
+    :param systema: [Representacion del sistema de control]
+    :type systema: [LTI]
+    :param h_ant: [Tamaño de paso actual]
+    :type h_ant: [float]
+    :param tiempo: [Tiempo actual]
+    :type tiempo: [float]
+    :param tbound: [Tiempo maximo de simulacion]
+    :type tbound: [float]
+    :param xVectB: [Vector de estado]
+    :type xVectB: [numpyArray]
+    :param entrada: [Valor de entrada al sistema]
+    :type entrada: [float]
+    :param metodo: [Runge-Kutta a utilizar: DOPRI54, RKF45, etc.]
+    :type metodo: [function]
+    :param ordenq: [Valor del metodo de menor orden]
+    :type ordenq: [int]
+    :param rtol: [Tolerancia relativa]
+    :type rtol: [float]
+    :param atol: [Tolerancia absoluta]
+    :type atol: [float]
+    :param max_step_increase: [Maximo incremento del tamaño de paso]
+    :type max_step_increase: [float]
+    :param min_step_decrease: [Minimo decremento del tamaño de paso]
+    :type min_step_decrease: [float]
+    :param safety_factor: [Factor de seguridad]
+    :type safety_factor: [float]
+    """
 
     while True:
+        # Para asegurar el tiempo maximo
         if tiempo + h_ant >= tbound:
             h_ant = tbound - tiempo
             yr, ytemp, xr, xtemp = metodo(systema, xVectr, h_ant, entrada)
             h_est = h_ant
         else:
+            # Metodo embebido, la integracion se continua con yr y xr
             yr, ytemp, xr, xtemp = metodo(systema, xVectr, h_ant, entrada)
 
+            # Ajuste del tamaño de paso
             scale = atol + np.maximum(np.abs(xVectr), np.abs(xr)) * rtol
             delta1 = np.abs(xr - xtemp)
             error_norm = norm(delta1 / scale)
 
             if error_norm == 0:
+                # Incremento maximo dado el bajo error
                 h_est = h_ant * max_step_increase
             elif error_norm < 1:
+                # Incremento normal
                 h_est = h_ant * min(max_step_increase,
                                     max(1, safety_factor * error_norm**(-1 / (ordenq+1))))
             else:
+                # Decremento normal y se vuelve a calcular la salida
                 h_ant = h_ant * min(
                     1,
                     max(min_step_decrease, safety_factor * error_norm**(-1 / (ordenq+1))))
@@ -205,6 +408,19 @@ def rk_embebido_adaptativo(systema,
 
 
 def bogacki_shampine23(ss, x, h, inputValue):
+    """
+    [Runge-Kutta embebido de Bogacki-Shampine 2(3), la integracion se continua con la salida de orden 2, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 2))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h, (np.dot(ss.A, (x + np.dot(k2, 3 / 4))) + np.dot(ss.B, inputValue)))
@@ -224,6 +440,19 @@ def bogacki_shampine23(ss, x, h, inputValue):
 
 
 def fehlberg45(ss, x, h, inputValue):
+    """
+    [Runge-Kutta embebido de Fehlberg 4(5), la integracion se continua con la salida de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 4))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h,
@@ -257,6 +486,19 @@ def fehlberg45(ss, x, h, inputValue):
 
 
 def cash_karp45(ss, x, h, inputValue):
+    """
+    [Runge-Kutta embebido de Cash-Karp 4(5), la integracion se continua con la salida de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 5))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h,
@@ -290,6 +532,19 @@ def cash_karp45(ss, x, h, inputValue):
 
 
 def dopri54(ss, x, h, inputValue):
+    """
+    [Runge-Kutta embebido de Dormand-Prince 5(4), la integracion se continua con la salida de orden 5, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    
+    :param ss: [Representacion del sistema]
+    :type ss: [LTI]
+    :param x: [Vector de estado]
+    :type x: [numpyArray]
+    :param h: [Tamaño de paso]
+    :type h: [float]
+    :param inputValue: [Valor de entrada al sistema]
+    :type inputValue: [float]
+    """
+
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
     k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 5))) + np.dot(ss.B, inputValue)))
     k3 = np.dot(h,

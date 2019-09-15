@@ -1,7 +1,11 @@
+""" 
+[Archivo para el manejo de la funcion de simulacion de sistemas de control, sirve de intermediario entre la interfaz grafica y la clase creada para manejar la simulacion en una hilo distinto, esto es debido al tiempo que puede llegar a tomar cada simulacion] 
+"""
+
+
 from rutinas.rutinas_fuzzy import FuzzyController
 from rutinas.rutinas_simulacion import *
 from rutinas.rutinas_rk import *
-from matplotlib import pyplot as plt
 from PySide2 import QtGui, QtWidgets
 
 import numpy as np
@@ -10,10 +14,14 @@ import json
 
 
 def SimulacionHandler(self):
-    self.main.progressBar.hide()
+    """
+    [Funcion principal para el manejo de la funcionalida de simulacion de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
+    """
 
+    self.main.progressBar.hide()
     self.main.controller1Frame.hide()
     self.main.controller2Frame.hide()
+
     self.main.kpFrame.show()
     self.main.kiFrame.show()
     self.main.kdFrame.show()
@@ -65,6 +73,8 @@ def SimulacionHandler(self):
 
 
 def tfnum_validator(self):
+    """ [Validacion del numerador de la funcion de transferencia] """
+
     try:
         _ = json.loads(self.main.tfnumEdit4.text())
     except ValueError:
@@ -77,6 +87,8 @@ def tfnum_validator(self):
 
 
 def tfdem_validator(self):
+    """ [Validacion del denominador de la funcion de transferencia] """
+
     try:
         _ = json.loads(self.main.tfdemEdit4.text())
     except ValueError:
@@ -89,6 +101,8 @@ def tfdem_validator(self):
 
 
 def tfdelay_validator(self):
+    """ [Validacion del delay de la funcion de transferencia] """
+
     try:
         _ = float(self.main.tfdelayEdit4.text())
         if _ < 0:
@@ -102,6 +116,8 @@ def tfdelay_validator(self):
 
 
 def tfperiodo_validator(self):
+    """ [Validacion del periodo de muestreo de la funcion de transferencia] """
+
     try:
         _ = float(self.main.tfperiodoEdit4.text())
         if _ <= 0:
@@ -115,6 +131,8 @@ def tfperiodo_validator(self):
 
 
 def ssA_validator(self):
+    """ [Validacion de la matriz de estados de la ecuacion de espacio de estados] """
+
     try:
         _ = json.loads(self.main.ssAEdit4.text())
     except ValueError:
@@ -127,6 +145,8 @@ def ssA_validator(self):
 
 
 def ssB_validator(self):
+    """ [Validacion de la matriz de entrada de la ecuacion de espacio de estados] """
+
     try:
         _ = json.loads(self.main.ssBEdit4.text())
     except ValueError:
@@ -139,6 +159,8 @@ def ssB_validator(self):
 
 
 def ssC_validator(self):
+    """ [Validacion de la matriz de salida de la ecuacion de espacio de estados] """
+
     try:
         _ = json.loads(self.main.ssCEdit4.text())
     except ValueError:
@@ -151,6 +173,8 @@ def ssC_validator(self):
 
 
 def ssD_validator(self):
+    """ [Validacion de la matriz de transmision directa de la ecuacion de espacio de estados] """
+
     try:
         _ = json.loads(self.main.ssDEdit4.text())
     except ValueError:
@@ -163,6 +187,8 @@ def ssD_validator(self):
 
 
 def ssdelay_validator(self):
+    """ [Validacion del delay de la ecuacion de espacio de estados] """
+
     try:
         _ = float(self.main.ssdelayEdit4.text())
         if _ < 0:
@@ -176,6 +202,8 @@ def ssdelay_validator(self):
 
 
 def ssperiodo_validator(self):
+    """ [Validacion del periodo de muestreo de la ecuacion de espacio de estados] """
+
     try:
         _ = float(self.main.ssperiodoEdit4.text())
         if _ <= 0:
@@ -189,6 +217,8 @@ def ssperiodo_validator(self):
 
 
 def tiempo_validator(self):
+    """ [Validacion del tiempo de simulacion] """
+
     try:
         _ = float(self.main.tiempoSimulacion.text())
         if _ <= 0:
@@ -202,6 +232,8 @@ def tiempo_validator(self):
 
 
 def escalon_validator(self):
+    """ [Validacion del escalon simple] """
+
     try:
         _ = float(self.main.escalonSimulacion.text())
     except ValueError:
@@ -213,6 +245,8 @@ def escalon_validator(self):
 
 
 def escalonAvanzado_validator(self):
+    """ [Validacion del escalon avanzado] """
+
     try:
         _ = json.loads(self.main.escalonAvanzado.text())
         if len(_) % 2 != 0:
@@ -241,6 +275,8 @@ def escalonAvanzado_validator(self):
 
 
 def pade_validator(self):
+    """ [Validacion del orden del pade] """
+
     try:
         _ = int(self.main.padeOrder.text())
         if _ < 0:
@@ -253,6 +289,8 @@ def pade_validator(self):
         return
 
 def rtol_validator(self):
+    """ [Validacion de la tolerancia relativa] """
+
     try:
         _ = float(self.main.rtolLineEdit.text())
         if _ <= 0:
@@ -265,6 +303,8 @@ def rtol_validator(self):
         return
 
 def atol_validator(self):
+    """ [Validacion de la tolerancia absoluta] """
+
     try:
         _ = float(self.main.atolLineEdit.text())
         if _ <= 0:
@@ -278,6 +318,8 @@ def atol_validator(self):
 
 
 def maxstep_validator(self):
+    """ [Validacion del incremento maximo de paso] """
+
     try:
         _ = float(self.main.maxStepIncr.text())
         if _ <= 1:
@@ -292,6 +334,8 @@ def maxstep_validator(self):
 
 
 def minstep_validator(self):
+    """ [Validacion del decremento minimo de paso] """
+
     try:
         _ = float(self.main.minStepDecr.text())
         if _ <= 0 or _ >=1:
@@ -305,6 +349,8 @@ def minstep_validator(self):
 
 
 def safetyFactor_validator(self):
+    """ [Validacion del factor de seguridad] """
+
     try:
         _ = float(self.main.safetyFactor.text())
         if _ <= 0 or _ >= 1:
@@ -319,6 +365,8 @@ def safetyFactor_validator(self):
 
 
 def sensornum_validator(self):
+    """ [Validacion del numerador de la funcion de transferencia correspondiente al sensor] """
+
     try:
         _ = json.loads(self.main.numSensor.text())
     except ValueError:
@@ -331,6 +379,8 @@ def sensornum_validator(self):
 
 
 def sensordem_validator(self):
+    """ [Validacion del denominador de la funcion de transferencia correspondiente al sensor] """
+
     try:
         _ = json.loads(self.main.demSensor.text())
     except ValueError:
@@ -343,6 +393,8 @@ def sensordem_validator(self):
 
 
 def accionadornum_validator(self):
+    """ [Validacion del numerador de la funcion de transferencia correspondiente al accionador] """
+
     try:
         _ = json.loads(self.main.numAccionador.text())
     except ValueError:
@@ -355,6 +407,8 @@ def accionadornum_validator(self):
 
 
 def accionadordem_validator(self):
+    """ [Validacion del denominador de la funcion de transferencia correspondiente al accionador] """
+
     try:
         _ = json.loads(self.main.demAccionador.text())
     except ValueError:
@@ -367,6 +421,8 @@ def accionadordem_validator(self):
 
 
 def inferiorSaturador_validator(self):
+    """ [Validacion del limite inferior del saturador] """
+
     try:
         _ = float(self.main.inferiorSaturador.text())
     except ValueError:
@@ -378,6 +434,8 @@ def inferiorSaturador_validator(self):
 
 
 def superiorSaturador_validator(self):
+    """ [Validacion del limite superior del saturador] """
+
     try:
         _ = float(self.main.superiorSaturador.text())
     except ValueError:
@@ -389,6 +447,8 @@ def superiorSaturador_validator(self):
 
 
 def kp_validator(self):
+    """ [Validacion de la ganancia proporcional] """
+
     try:
         _ = float(self.main.kpSimulacion.text())
         if _ < 0:
@@ -402,6 +462,8 @@ def kp_validator(self):
 
 
 def ki_validator(self):
+    """ [Validacion de la ganancia integral] """
+
     try:
         _ = float(self.main.kiSimulacion.text())
         if _ < 0:
@@ -415,6 +477,8 @@ def ki_validator(self):
 
 
 def kd_validator(self):
+    """ [Validacion de la ganancia derivativa] """
+
     try:
         _ = float(self.main.kdSimulacion.text())
         if _ < 0:
@@ -428,6 +492,8 @@ def kd_validator(self):
 
 
 def N_validator(self):
+    """ [Validacion del valor N] """
+
     try:
         _ = float(self.main.NSimulacion.text())
         if _ < 0:
@@ -445,6 +511,7 @@ def calcular_simulacion(self):
     num = json.loads(self.main.numSensor.text())
     dem = json.loads(self.main.demSensor.text())
 
+    # Validacion de funcion propia para el sensor
     if len(num) > len(dem) and self.main.sensorCheck.isChecked():
         self.error_dialog.setInformativeText(
             "Funcion de transferencia del sensor impropia, el numerador debe ser de un grado menor o igual al del denominador")
@@ -455,6 +522,7 @@ def calcular_simulacion(self):
     num = json.loads(self.main.numAccionador.text())
     dem = json.loads(self.main.demAccionador.text())
 
+    # Validacion de funcion propia para el accionador
     if len(num) > len(dem) and self.main.accionadorCheck.isChecked():
         self.error_dialog.setInformativeText(
             "Funcion de transferencia del accionador impropia, el numerador debe ser de un grado menor o igual al del denominador")
@@ -465,6 +533,7 @@ def calcular_simulacion(self):
     lim_inf = float(self.main.inferiorSaturador.text())
     lim_sup = float(self.main.superiorSaturador.text())
 
+    # Validacion de limites validos para el saturador
     if lim_inf >= lim_sup and self.main.saturadorCheck.isChecked():
         self.error_dialog.setInformativeText(
             "Limites del saturador del accionador invalidos, el limite inferior debe ser menor que el limite superior"
@@ -473,6 +542,7 @@ def calcular_simulacion(self):
         self.main.toolBox.setCurrentIndex(2)
         return
 
+    # Validacion de seleccion de archivo para el controlador difuso
     if len(self.main.pathController1.text(
     )) < 1 and self.main.esquemaSimulacion.currentIndex() in [1, 2, 3, 4, 5, 6, 7, 8]:
         self.error_dialog.setInformativeText(
@@ -481,6 +551,7 @@ def calcular_simulacion(self):
         self.main.toolBox.setCurrentIndex(3)
         return
 
+    # Validacion de seleccion de archivo para el controlador difuso 2 (PD)
     if len(self.main.pathController2.text(
     )) < 1 and self.main.esquemaSimulacion.currentIndex() in [4]:
         self.error_dialog.setInformativeText(
@@ -488,24 +559,6 @@ def calcular_simulacion(self):
         self.error_dialog.exec_()
         self.main.toolBox.setCurrentIndex(3)
         return
-
-    if self.main.tfdelaycheckBox4.isChecked(
-    ) and self.main.SimulacionstackedWidget.currentIndex() == 0:
-        try:
-            _ = json.loads(self.main.tfdelayEdit4.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Delay no valido")
-            self.error_dialog.exec_()
-            return
-
-    if self.main.ssdelaycheckBox4.isChecked(
-    ) and self.main.SimulacionstackedWidget.currentIndex() == 1:
-        try:
-            _ = json.loads(self.main.ssdelayEdit4.text())
-        except ValueError:
-            self.error_dialog.setInformativeText("Delay no valido")
-            self.error_dialog.exec_()
-            return
 
     system_ss = 0
 
@@ -519,9 +572,11 @@ def calcular_simulacion(self):
         self.dt = 0
 
     if self.main.SimulacionstackedWidget.currentIndex() == 0:
+        # caso: Funcion de transferencia
         num = json.loads(self.main.tfnumEdit4.text())
         dem = json.loads(self.main.tfdemEdit4.text())
 
+        # Validacion de funcion propia
         if len(num) > len(dem):
             self.error_dialog.setInformativeText(
                 "Funcion de transferencia impropia, el numerador debe ser de un grado menor o igual al del denominador")
@@ -531,6 +586,7 @@ def calcular_simulacion(self):
 
         system = system_creator_tf(self, num, dem)
     else:
+        # caso: Ecuacion de espacio de estados
         A = json.loads(self.main.ssAEdit4.text())
         B = json.loads(self.main.ssBEdit4.text())
         C = json.loads(self.main.ssCEdit4.text())
@@ -542,8 +598,10 @@ def calcular_simulacion(self):
     else:
         escalon = json.loads(self.main.escalonAvanzado.text())
 
+    # Configuracion del solver
     rk_base, metodo_adaptativo, solver_config = configuration_data(self)
 
+    # Lista a enviar al QThread con toda la informacion necesaria
     list_info = [
         self.main.esquemaSimulacion.currentIndex(),
         system,
@@ -564,52 +622,57 @@ def calcular_simulacion(self):
         solver_config
     ]
 
+    # Instanciacion del objeto QThread
     self.thread = SimpleThread(self,
                                plot_final_results,
                                update_progresBar_function,
                                error_gui,
                                list_info)
+
+    # Inicio del proceso de simulacion
     self.thread.start()
 
 
-def simulacion_bool_discreto(self):
-    if self.main.tfdiscretocheckBox4.isChecked():
-        self.main.tfperiodoEdit4.setEnabled(True)
-    else:
-        self.main.tfperiodoEdit4.setDisabled(True)
-
-
 def simulacion_stacked_to_tf(self):
+    """ [Funcion para cambiar de ecuacion de espacio de estados a funcion de transferencia] """
     self.main.SimulacionstackedWidget.setCurrentIndex(0)
 
 
-
 def simulacion_stacked_to_ss(self):
+    """ [Funcion para cambiar de funcion de transferencia a ecuacion de espacio de estados] """
     self.main.SimulacionstackedWidget.setCurrentIndex(1)
 
 
 def get_pathcontroller1(self):
+    """ [Funcion para obtener la direccion al archivo del controlador difuso] """
+
     path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON/FIS (*.json *.fis)")
     self.main.pathController1.setText(path_cargar[0])
 
 
 def get_pathcontroller2(self):
+    """ [Funcion para obtener la direccion al archivo del controlador difuso 2 (PD)] """
+
     path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON/FIS (*.json *.fis)")
     self.main.pathController2.setText(path_cargar[0])
 
 
 def configuration_data(self):
+    """ [Funcion para cambiar la configuracion del solver a utilizar] """
+
     rtol = float(self.main.rtolLineEdit.text())
     atol = float(self.main.atolLineEdit.text())
     max_step_inc = float(self.main.maxStepIncr.text())
     min_step_dec = float(self.main.minStepDecr.text())
     safety_factor = float(self.main.safetyFactor.text())
 
+    # Seleccion entre metodo explicito y embebido
     if self.main.solverMethod.currentIndex() <= 8:
         metodo_adaptativo = rk_doble_paso_adaptativo
     else:
         metodo_adaptativo = rk_embebido_adaptativo
 
+    # Metodos y orden
     if self.main.solverMethod.currentIndex() == 0:
         rk_metodo = runge_kutta2
         rk_base = rk_metodo
@@ -667,6 +730,8 @@ def configuration_data(self):
 
 
 def restablecer_configuracion(self):
+    """ [Funcion para restablecer la configuracion avanzada por defecto] """
+
     self.main.padeOrder.setText('10')
     self.main.solverMethod.setCurrentIndex(8)
     self.main.rtolLineEdit.setText('1e-3')
@@ -677,6 +742,7 @@ def restablecer_configuracion(self):
 
 
 def accion_esquema_selector(self):
+    """ [Funcion para mostrar los widgets indicados en funcion del esquema seleccionado] """
 
     self.main.controller1Frame.hide()
     self.main.controller2Frame.hide()
@@ -687,7 +753,7 @@ def accion_esquema_selector(self):
     index = self.main.esquemaSimulacion.currentIndex()
     self.main.tabSimulation.setCurrentIndex(0)
 
-    if index == 0:
+    if index == 0:  # PID Clasico
         self.main.controller1Frame.hide()
         self.main.controller2Frame.hide()
         self.main.kpFrame.show()
@@ -707,7 +773,7 @@ def accion_esquema_selector(self):
             QtGui.QPixmap(":/imagenes/imagenes/pidClasico.png"))
 
 
-    if index in [1, 2, 3, 7]:
+    if index in [1, 2, 3, 7]:  # PID difuso, PI difuso, PD difuso, Programador de ganancias
         self.main.controller1Frame.show()
         self.main.controller2Frame.hide()
         self.main.kpFrame.hide()
@@ -717,23 +783,23 @@ def accion_esquema_selector(self):
         self.main.NFrame.show()
         self.main.NSpacer.hide()
 
-        if index == 1:
+        if index == 1:  # PID difuso
             self.main.esquemaSimulacionGraph.setPixmap(
                 QtGui.QPixmap(":/imagenes/imagenes/pidDifuso.png"))
 
-        if index == 2:
+        if index == 2:  # PI difuso
             self.main.esquemaSimulacionGraph.setPixmap(
                 QtGui.QPixmap(":/imagenes/imagenes/piDifuso.png"))
 
-        if index == 3:
+        if index == 3:  # PD difuso
             self.main.esquemaSimulacionGraph.setPixmap(
                 QtGui.QPixmap(":/imagenes/imagenes/pdDifuso.png"))
 
-        if index == 7:
+        if index == 7:  # Programador de ganancias
             self.main.esquemaSimulacionGraph.setPixmap(
                 QtGui.QPixmap(":/imagenes/imagenes/GainScheduler.png"))
 
-    if index == 4:
+    if index == 4:  # PI difuso + PD difuso
         self.main.controller1Frame.show()
         self.main.controller2Frame.show()
         self.main.kpFrame.hide()
@@ -745,7 +811,7 @@ def accion_esquema_selector(self):
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/pipdDifuso.png"))
 
-    if index == 5:
+    if index == 5:  # PI difuso + D Clasico
         self.main.controller1Frame.show()
         self.main.controller2Frame.hide()
         self.main.kpFrame.hide()
@@ -760,7 +826,7 @@ def accion_esquema_selector(self):
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/piplusDDifuso.png"))
 
-    if index == 6:
+    if index == 6:  # PD difuso + I Clasico
         self.main.controller1Frame.show()
         self.main.controller2Frame.hide()
         self.main.kpFrame.hide()
@@ -775,7 +841,7 @@ def accion_esquema_selector(self):
         self.main.esquemaSimulacionGraph.setPixmap(
             QtGui.QPixmap(":/imagenes/imagenes/pdplusIDifuso.png"))
 
-    if index == 8:
+    if index == 8:  # PID Clasico + Difuso simple
         self.main.controller1Frame.show()
         self.main.controller2Frame.hide()
         self.main.kpFrame.show()
@@ -793,10 +859,23 @@ def accion_esquema_selector(self):
 
 
 def update_progresBar_function(self, value):
+    """
+    [Funcion para actualizar la barra de progreso de la simulacion, esta funcion es utilizada por el QThread]
+    
+    :param value: [Valor en porcentaje del progreso]
+    :type value: [float]
+    """
     self.main.progressBar.setValue(value)
 
 
 def error_gui(self, error):
+    """
+    [Funcion para mostrar los errores que pudiesen ocurrir durante la simulacion, esta funcion es utilizada por el QThread]
+    
+    :param error: [Indicador del error]
+    :type error: [int]
+    """
+
     self.main.progressBar.setValue(0)
     self.main.progressBar.hide()
     self.main.principalTab.setEnabled(True)
@@ -817,8 +896,20 @@ def error_gui(self, error):
 
 
 def plot_final_results(self, result):
-    self.main.simulacionGraph.canvas.axes1.clear()
+    """
+    [Funcion para graficar los resultados finales de la simulacion]
+    
+    :param result: [Lista con los resultados obtenidos]
+    :type result: [list]
+    """
 
+    self.main.simulacionGraph.canvas.axes1.clear()
+    
+    # Limitando los resultados para evitar problemas con matplotlib
+    result[1] = np.clip(result[1], -1e300, 1e300)
+    result[2] = np.clip(result[2], -1e300, 1e300)
+    
+    # Distincion entre continuo y discreto para y(t)
     if result[4]:
         self.main.simulacionGraph.canvas.axes1.step(result[0],
                                                     result[1],
@@ -827,6 +918,7 @@ def plot_final_results(self, result):
     else:
         self.main.simulacionGraph.canvas.axes1.plot(result[0], result[1], label='y(t)')
 
+    # Setpoint
     self.main.simulacionGraph.canvas.axes1.plot(result[0],
                                                 result[3],
                                                 linestyle='--',
@@ -839,6 +931,7 @@ def plot_final_results(self, result):
 
     self.main.simulacionGraph.canvas.axes2.clear()
 
+    # Distincion entre continuo y discreto para la señal de control
     if result[4]:
         self.main.simulacionGraph.canvas.axes2.step(result[0],
                                                     result[2],
@@ -854,8 +947,8 @@ def plot_final_results(self, result):
     self.main.simulacionGraph.canvas.axes2.grid(color="lightgray")
     self.main.simulacionGraph.canvas.axes2.legend()
     self.main.simulacionGraph.canvas.draw()
-
     self.main.simulacionGraph.toolbar.update()
+    
     self.main.progressBar.setValue(0)
     self.main.progressBar.hide()
     self.main.principalTab.setEnabled(True)

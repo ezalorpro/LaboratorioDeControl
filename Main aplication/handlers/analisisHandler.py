@@ -16,10 +16,6 @@ def AnalisisHandler(self):
     self.main.tfcalcButton1.clicked.connect(lambda: calcular_analisis(self))
     self.main.sscalcButton1.clicked.connect(lambda: calcular_analisis(self))
 
-    self.main.tfdiscretocheckBox1.stateChanged.connect(
-        lambda: analisis_bool_discreto(self)
-    )
-
     self.main.tfradioButton1.toggled.connect(lambda: analisis_stacked_to_tf(self))
     self.main.ssradioButton1.toggled.connect(lambda: analisis_stacked_to_ss(self))
 
