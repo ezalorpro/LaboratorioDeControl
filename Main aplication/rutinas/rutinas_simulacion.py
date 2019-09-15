@@ -1156,7 +1156,7 @@ class SimpleThread(QtCore.QThread):
 
     def ss_discreta(self, ss, x, _, inputValue):
         """
-        [Funcion para calcular la respuesta del sistema por medio de la representacion en diferencias de las ecuaciones de espacio de estados]
+        [Funcion para calcular la respuesta del sistema por medio de la representacion discreta de las ecuaciones de espacio de estados]
         
         :param ss: [Representacion del sistema]
         :type ss: [LTI]
