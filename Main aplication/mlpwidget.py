@@ -1,14 +1,23 @@
-from matplotlib.backends.backend_qt5agg import (
-    FigureCanvas,
-    NavigationToolbar2QT as NavigationToolbar,)
+""" 
+[Archivo para definir las clases MlpWidget, MlpWidgetNoToolbar, MlpWidgetSubplot y MlpWidget3D, estas clases son utilizadas por qtdesigner para promocionar un QGraphicsView a las clases aca definidas en orden de mostrar las graficas en un QGraphicsView]
+"""
 
-from matplotlib.figure import Figure
-from mpl_toolkits.mplot3d import Axes3D
+
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from matplotlib.backends.backend_qt5agg import FigureCanvas
 from PySide2.QtWidgets import QWidget, QGraphicsView
 from PySide2.QtWidgets import QVBoxLayout
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.figure import Figure
 
 
 class MlpWidget(QGraphicsView):
+    """
+    [Clase basica para mostrar graficas utilizando Matplotlib]
+    
+    :param QGraphicsView: [Clase base del QGraphicsView]
+    :type QGraphicsView: [objectType]
+    """
 
     def __init__(self, parent=None):
         super(MlpWidget, self).__init__(parent)
@@ -26,6 +35,12 @@ class MlpWidget(QGraphicsView):
 
 
 class MlpWidgetNoToolbar(QGraphicsView):
+    """
+    [Clase para mostrar graficas utilizando Matplotlib sin el toolbar]
+    
+    :param QGraphicsView: [Clase base del QGraphicsView]
+    :type QGraphicsView: [objectType]
+    """
 
     def __init__(self, parent=None):
         super(MlpWidgetNoToolbar, self).__init__(parent)
@@ -41,6 +56,12 @@ class MlpWidgetNoToolbar(QGraphicsView):
 
 
 class MlpWidgetSubplot(QGraphicsView):
+    """
+    [Clase para mostrar graficas en subplots utilizando Matplotlib]
+    
+    :param QGraphicsView: [Clase base del QGraphicsView]
+    :type QGraphicsView: [objectType]
+    """
 
     def __init__(self, parent=None):
         super(MlpWidgetSubplot, self).__init__(parent)
@@ -60,7 +81,13 @@ class MlpWidgetSubplot(QGraphicsView):
 
 
 class MlpWidget3D(QGraphicsView):
-
+    """
+    [Clase basica para mostrar graficas en 3D utilizando Matplotlib]
+    
+    :param QGraphicsView: [Clase base del QGraphicsView]
+    :type QGraphicsView: [objectType]
+    """
+    
     def __init__(self, parent=None):
         super(MlpWidget3D, self).__init__(parent)
         self.canvas = FigureCanvas(Figure(tight_layout=True))
