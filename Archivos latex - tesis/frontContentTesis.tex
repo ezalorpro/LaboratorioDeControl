@@ -1,0 +1,51 @@
+\input{FrontContent/contraPortada}
+
+% ----------------------------------------------------------------------
+% Habilitar un solo Formato, ambos están definidos
+% en configurationFile.tex
+
+%\NumeradoFormat 	% Formato de títulos numerado con capítulos en romano
+\UnetFormat			% Formato de titulo basado en instructivo TAP de la UNET
+% ----------------------------------------------------------------------
+
+%\frontmatter
+\clearpage
+\spacing{1.5} 
+\FrontBackStyle							% Estilo frontal y final
+\CenterformatFront						% Formato frontal
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Carta de aprobación para presentación}
+	\input{FrontContent/cartaAprobacion}
+
+\setcounter{page}{4}
+\chapter{Dedicatoria}
+	\input{FrontContent/Dedicatoria}
+
+\chapter{Agradecimiento}
+	\input{FrontContent/Agradecimiento}
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Resumen}
+	\input{FrontContent/Resumen}
+
+\clearpage
+\spacing{1.5} 							% interlineado de los indices
+\tableofcontents						% indice
+	\listoffigures						% Indice de figuras
+	\listoftables						% Indice de tablas
+	\listoflistings						% Indice de códigos
+
+
+% Contenido después de los indices ---------------------------------------
+\clearpage
+\spacing{1.5}
+\MainStyle								% Estilo principal
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% Introducción
+\chapter{Introducción}
+	\input{FrontContent/Introduccion}
