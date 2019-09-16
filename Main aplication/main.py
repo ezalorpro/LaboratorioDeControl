@@ -1,7 +1,6 @@
 """ [Archivo principal, en orden de ejecutar la aplicacion, este es el archivo a ejecutar] """
 
 
-from handlers.jupyterConsoleHandler import jupyterConsoleHandler
 from handlers.simulacionHandler import SimulacionHandler
 from handlers.analisisHandler import AnalisisHandler
 from handlers.TuningHandler import TuningHandler
@@ -55,7 +54,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         TuningHandler(self)  # Handler para la pestaña de Tunning
         FuzzyHandler(self)  # Handler para la pestaña de diseño de controladores difusos
         SimulacionHandler(self)  # Handler para la pestaña de simulacion de sistemas de control
-        jupyterConsoleHandler(self)  # Handler para la pestaña de la qtconsole
 
     def resource_path(self, relative_path):
         """
@@ -80,8 +78,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         event.ignore()
         if error_dialog == QtWidgets.QMessageBox.Ok:
-            self.main.jupyterWidget.jupyter_widget.kernel_client.stop_channels()
-            self.main.jupyterWidget.jupyter_widget.kernel_manager.shutdown_kernel()
             event.accept()
 
 

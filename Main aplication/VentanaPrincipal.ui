@@ -9651,77 +9651,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>Terminal</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_111">
-        <item row="0" column="0">
-         <widget class="JupyterConsole" name="jupyterWidget">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_50">
-          <item>
-           <spacer name="horizontalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="limpiarConsole">
-            <property name="text">
-             <string>Limpiar terminal</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="agregarPathConsole">
-            <property name="text">
-             <string>Agregar PATH</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -9778,11 +9707,6 @@
    <class>MlpWidget3D</class>
    <extends>QGraphicsView</extends>
    <header>mlpwidget</header>
-  </customwidget>
-  <customwidget>
-   <class>JupyterConsole</class>
-   <extends>QGraphicsView</extends>
-   <header>jupyterWidget</header>
   </customwidget>
  </customwidgets>
  <tabstops>
