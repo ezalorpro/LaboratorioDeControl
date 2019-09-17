@@ -137,6 +137,25 @@
 		Código...
 	\end{minted}
 \end{longlisting}
+
+% Para pseudocodigo
+\begin{longlisting}
+	\caption{Titulo del codigo}
+	\label{code:1}				
+	\begin{minted}[escapeinside=||,
+		mathescape=true,
+		autogobble=true,
+		fontsize=\footnotesize,
+		obeytabs=true,
+		tabsize=4,
+		baselinestretch=1]{text}
+		|\bf{FOR}| 1:n
+			|\bf{IF}| y > 2
+				|$\frac{dx}{dt}$|
+			|\bf{ELSE}|
+				|$\int_a^b x dy$|
+	\end{minted}
+\end{longlisting}
 % --------------------------------------------------------------------------------------------------
 
 % Plantilla para codigo sin agregar a la lista de codigos y sin caption
