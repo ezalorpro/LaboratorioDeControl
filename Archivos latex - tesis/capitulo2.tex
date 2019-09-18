@@ -68,7 +68,7 @@
             
             Normalmente la notación presentada en las ecuaciones \cref{eq:SSrepresentationX,eq:SSrepresentationY} es preferida dado que son compactas y fáciles de entender, no obstante, es al expandir las ecuaciones en su forma matricial que podemos ver claramente que la ecuación \cref{eq:SSrepresentationX} es un sistema de ecuaciones diferenciales ordinarias:
             
-            \vspace{10pt}
+            \vspace{20pt}
             \begin{align}
                 \begin{bmatrix}
                     \dot{x}_{1}\\
@@ -131,7 +131,7 @@
                     u_{m}\\
                     \end{bmatrix}
             \end{align}
-            \vspace{10pt}
+            \vspace{20pt}
 
             \begin{spacing}{1.5}
 				con: 
@@ -143,3 +143,28 @@
 				$r$: como el numero de salidas
 				
             \end{spacing}
+
+            Para resolver estos sistemas de ecuaciones diferenciales podemos utilizar metodos iterativos como los metodos de Runge-Kuuta.
+
+    \subsection{Modelado de procesos en tiempo discreto}
+
+        Así como para tiempo continuo se utilizan ecuaciones diferenciales, en el tiempo discreto se hace uso de ecuaciones en diferencias, las ecuaciones en diferencias se pueden utilizar para aproximar a las ecuaciones diferenciales, estas primeras se suelen utilizar porque son más fáciles de programar \Parencite{kuo1996sistemas}, debido a esto los procesos pueden ser representados de la siguiente forma:
+        
+        \begin{equation}\label{eq:EqEnDiferencias}
+            y(k+n) + a_{n-1}y(k+n-1) + \cdots + a_1 y(k+1) + a_0 y(k) = f(k) 
+        \end{equation}
+        
+        Asi mismo debido a que la ecuacion \cref{eq:SSrepresentationX} esta compuesta de ecuaciones diferenciales, esta puede ser llevada a una ecuacion en diferencias y ser representada de forma discreta como sigue:
+
+        \begin{align}\label{eq:SSdiscreto}
+            \dot{x}(k+1) &= Ax(k) + Bu(k) \\
+            y(k) &= Cx(k) + Du(k)
+        \end{align}
+
+        \subsubsection{Transformada z}
+		
+			En tiempo discreto se puede modelar un proceso utilizando la transformada z sobre la ecuación en diferencias del proceso para obtener la función de transferencia discreta $H(z)$, la ecuación general para la transformada z es:
+			
+			\begin{equation}\label{eq:Ztransform}
+				F(z)= \sum\limits_{k=0}^{\infty}f(k)z^{-k}
+			\end{equation}
