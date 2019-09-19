@@ -1,35 +1,65 @@
 import controlmdf as ctrl
 import numpy as np
+from numpy import real, imag
 from matplotlib import pyplot as plt
 
-N = 0
-kp = 5
-ki = 5
-kd = 5
+plt.style.use("seaborn-dark-palette")
 
-pid1 = ctrl.tf2ss(ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["font.serif"] = "Times New Roman"
 
-pid2 = ctrl.tf2ss(
-    ctrl.TransferFunction([1], [0.1, 1]) *
-    ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+plt.rcParams["mathtext.rm"] = "serif"
+plt.rcParams["mathtext.it"] = "serif:italic"
+plt.rcParams["mathtext.bf"] = "serif:bold"
+plt.rcParams["mathtext.fontset"] = "custom"
 
-# pid3 = ctrl.tf2ss(
-#     ctrl.TransferFunction([1], [10 / (N*kd), 1]) *
+plt.rc("text", usetex=True)
+plt.rcParams["text.latex.preamble"] = [
+    r"\usepackage{mathptmx} \usepackage{newtxmath} \usepackage{amsmath}"
+]
+
+GsS = ctrl.TransferFunction([1, 2], [1, 2, 3])
+GsI = ctrl.TransferFunction([1, -0.5], [1, -2, 3])
+poles, zeros, ax = ctrl.pzmap(GsS, Plot=True, grid=True, title='Plano complejo', axr=True)
+
+poles, zeros = ctrl.pzmap(GsI, Plot=False)
+
+ax.scatter(real(poles), imag(poles), s=50, marker='x', facecolors='b', edgecolors='k')
+ax.scatter(real(zeros), imag(zeros), s=50, marker='o', facecolors='b', edgecolors='k')
+
+plt.text(-2.5, 0.8, r'$G_1(s) = \frac{s + 2}{s^2 + 2s + 3}$', fontsize=20)
+plt.text(0.7, 0.8, r'$G_2(s) = \frac{s - 0.5}{s^2 - 2s + 3}$', fontsize=20)
+plt.gcf().tight_layout()
+plt.show()
+
+# N = 0
+# kp = 5
+# ki = 5
+# kd = 5
+
+# pid1 = ctrl.tf2ss(ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+
+# pid2 = ctrl.tf2ss(
+#     ctrl.TransferFunction([1], [0.1, 1]) *
 #     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
 
-pid4 = ctrl.tf2ss(
-    ctrl.TransferFunction([
-        10 * kp,
-        N**2 * kd**2 + N*kd*kp + 10*N*kp + 10*ki,
-        N**2*kd * kp + kd*N*ki + 10*N*ki,
-        N**2 * kd * ki
-    ], [10, 10*N + N*kd, N**2 * kd, 0]))
+# # pid3 = ctrl.tf2ss(
+# #     ctrl.TransferFunction([1], [10 / (N*kd), 1]) *
+# #     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
 
-ctrl.bode(pid1)
-ctrl.bode(pid2)
-# ctrl.bode(pid3)
-ctrl.bode(pid4)
-plt.show()
+# pid4 = ctrl.tf2ss(
+#     ctrl.TransferFunction([
+#         10 * kp,
+#         N**2 * kd**2 + N*kd*kp + 10*N*kp + 10*ki,
+#         N**2*kd * kp + kd*N*ki + 10*N*ki,
+#         N**2 * kd * ki
+#     ], [10, 10*N + N*kd, N**2 * kd, 0]))
+
+# ctrl.bode(pid1)
+# ctrl.bode(pid2)
+# # ctrl.bode(pid3)
+# ctrl.bode(pid4)
+# plt.show()
 
 # N = 100
 # kd1 = 1

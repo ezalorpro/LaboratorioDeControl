@@ -117,9 +117,9 @@ def sgrid():
 
 def _final_setup(ax):
     ax.set_xlabel('Real')
-    ax.set_ylabel('Imaginary')
-    ax.axhline(y=0, color='black', lw=1)
-    ax.axvline(x=0, color='black', lw=1)
+    ax.set_ylabel('Imaginario')
+    ax.axhline(y=0, color='black', lw=1, alpha=0.9)
+    ax.axvline(x=0, color='black', lw=1, alpha=0.9)
     plt.axis('equal')
 
 def nogrid():

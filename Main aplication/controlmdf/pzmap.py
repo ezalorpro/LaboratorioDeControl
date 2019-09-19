@@ -50,7 +50,7 @@ __all__ = ['pzmap']
 # TODO: Implement more elegant cross-style axes. See:
 #    http://matplotlib.sourceforge.net/examples/axes_grid/demo_axisline_style.html
 #    http://matplotlib.sourceforge.net/examples/axes_grid/demo_curvelinear_grid.html
-def pzmap(sys, Plot=True, grid=False, title='Pole Zero Map'):
+def pzmap(sys, Plot=True, grid=False, title='Pole Zero Map', axr=None):
     """
     Plot a pole/zero map for a linear system.
 
@@ -90,13 +90,25 @@ def pzmap(sys, Plot=True, grid=False, title='Pole Zero Map'):
 
         # Plot the locations of the poles and zeros
         if len(poles) > 0:
-            ax.scatter(real(poles), imag(poles), s=50, marker='x', facecolors='k')
+            ax.scatter(real(poles),
+                       imag(poles),
+                       s=50,
+                       marker='x',
+                       facecolors='r',
+                       edgecolors='k')
         if len(zeros) > 0:
-            ax.scatter(real(zeros), imag(zeros), s=50, marker='o',
-                        facecolors='none', edgecolors='k')
+            ax.scatter(real(zeros),
+                       imag(zeros),
+                       s=50,
+                       marker='o',
+                       facecolors='r',
+                       edgecolors='k')
 
 
         plt.title(title)
 
     # Return locations of poles and zeros as a tuple
-    return poles, zeros
+    if axr is None:
+        return poles, zeros
+    else:
+        return poles, zeros, ax

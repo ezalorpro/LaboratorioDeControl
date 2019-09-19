@@ -99,7 +99,7 @@
                     u_{2}\\
                     \vdots\\
                     u_{m}\\
-                    \end{bmatrix}\\
+                    \end{bmatrix}\label{eq:FullSSx}\\
                     \begin{bmatrix}
                     y_{1}\\
                     y_{2}\\
@@ -185,7 +185,7 @@
                 &\text{Tustin:}& &s \leftarrow \frac{2}{h} \frac{z-1}{z+1} \label{eq:tustin}
             \end{align}
     
-    \subsection{Integración numérica de sistemas de ecuaciones diferenciales ordinarias}
+    \subsection{Respuesta en el tiempo del modelo en el espacio de estados}
         
         Para poder obtener la respuesta del sistema en el tiempo podemos utilizar varios metodos de resolucion de ODE's o ecuaciones diferenciales ordinarias, solucion exacta, separacion de variables o integracion numerica aproximada, este ultimo es el mejor para realizar por medio de computadoras. Para realizar la integracion numerica y obtener la respuesta del sistema se utilizaran los metodos de Runge-Kutta.
 
@@ -218,7 +218,7 @@
             \end{array}
         \end{equation}
 
-        Adicionalmente existen los metodos de Runge-Kutta embebidos, los cuales consisten en calcular dos metodos de orden $p$ y orden $\hat{p}$ respectivamente, donde $\hat{p}$ es normalmente $p-1$ o $p+1$ \Parencite{horacio1997metodos}. La tabla de butcher para representar los metodos embebidos es la siguiente:
+        Adicionalmente existen los metodos de Runge-Kutta embebidos, los cuales consisten en calcular dos metodos de orden $p$ y orden $\hat{p}$ respectivamente, donde $\hat{p}$ es normalmente $p-1$ o $p+1$ \Parencite{hairer1991solving}. La tabla de butcher para representar los metodos embebidos es la siguiente:
 
         \begin{equation}\label{eq:embebidoButcher}
             \renewcommand\arraystretch{1.2}
@@ -243,24 +243,49 @@
 
         De modo que la integracion para el siguiente paso se continua con $y_1$, el fin de calcular dos metodos en conjunto es para poder estimar el error y poder realizar un cambio en el tamaño de paso, de este modo, se puede incrementar el tamaño de paso si el error es muy bajo o disminuirlo si el error es inaceptable.
         
+        \subsubsection{Runge-Kutta's para ecuaciones de espacio de estados}
+
+            Partiendo de la ecuacion \cref{eq:FullSSx} en donde podemos observar que $\dot{x}(t)$ viene dado por un conjunto de ecuaciones diferenciales ordinarias, por tanto, es posible aplicar los metodos de Runge-Kutta de forma casi directa, \textcite{horacio1997metodos} desarrolla las expresiones para un Runge-Kutta de orden 4 aplicado en el espacio de estados, estas expresiones pueden ser extendidas para generalizar su aplicacion a un numero de escenarios arbitrarios, el vector de estados de forma general se puede expresar como:
+
+            
+            \begin{equation}\label{eq:vectorGeneral}
+                \begin{aligned}
+                    x_1(t) &= f_1(t, x_1, x_2, \dots, x_p) = f_1(t,x)\\
+                    &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
+                    x_p(t) &=  f_p(t,x)
+                \end{aligned}
+            \end{equation}
+
+            Cuyas condiciones iniciales se expresaran como:
+
+            \begin{equation}\label{eq:vectorIniciales}
+                \begin{aligned}
+                    x_1^{(0)} &= \alpha_1\\
+                    &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
+                    x_p^{(0)} &=  \alpha_p
+                \end{aligned}
+            \end{equation}
+            
+            De modo que al sustituir \cref{eq:vectorGeneral,eq:vectorIniciales} en \cref{eq:RKgeneral} se obtenga el nuevo vector de estado, finalmente, el vector de estado es sustituido en \cref{eq:SSrepresentationY} para obtener la salida del proceso. Estos pasos se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar, un tamaño de pequeño genera resultados mas precisos, pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
+
         \subsubsection{Tamaño de paso variable}
 
-            Como ya se menciono antes, se puede realizar una adaptacion del tamaño de paso en funcion del error, esto es posible no solo para los metodos embebidos, sino tambien para los explicitos, \textcite{roganprogramacion} afirma que: \blockquote[p.251]{Los programas adaptativos continuamente monitorean la solución y modifican el paso de
+            Como ya se menciono antes, se puede realizar una adaptacion del tamaño de paso en funcion del error, esto es posible no solo para los metodos embebidos, sino también para los explícitos, \textcite{roganprogramacion} afirma que: \blockquote[p.251]{Los programas adaptativos continuamente monitorean la solución y modifican el paso de
             tiempo para asegurar que se mantenga la precisión especificada por el usuario. Esos programas
             pueden hacer algunos cálculos extras para optimizar la elección de $\tau$ , en muchos casos este
             trabajo extra vale la pena.}
             
-            \paragraph{calculo del error con dos medios pasos}
+            \paragraph{Calculo del error con dos medios pasos}
 
-                Este es un metodo simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo metodo al realizar dos pasos de tamaño $\frac{h}{2}$, de este modo el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|y_{1,h} - y_{2,\frac{h}{2}}\right|$ donde $y_{2,\frac{h}{2}}$ es la salida luego de dos medios pasos.
+                Este es un metodo simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo método al realizar dos pasos de tamaño $\frac{h}{2}$, de este modo el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|y_{1,h} - y_{2,\frac{h}{2}}\right|$ donde $y_{2,\frac{h}{2}}$ es la salida luego de dos medios pasos.
             
-            \paragraph{calculo del error para metodos embebidos} 
+            \paragraph{Calculo del error para metodos embebidos} 
 
-                Los metodos embebidos estan hechos para poder realizar este calculo del error, por tanto, no hay que realizar ningun calculo extra y el error puede ser calculado de forma directa como $\Delta e = \left| y_1 - \hat{y}_1\right|$
+                Los metodos embebidos están hechos para poder realizar este calculo del error, por tanto, no hay que realizar ningún calculo extra y el error puede ser calculado de forma directa como $\Delta e = \left| y_1 - \hat{y}_1\right|$
 
             \paragraph{Nuevo tamaño de paso}
 
-                Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las formulas para el manejo del error con fines de calcular un nuevo tamaño de paso, lo primero es calcular una escala, este es el unico paso que se diferencia entre el metodo de dos medios pasos y el los metodos embebidos, esto es debido a al modo en que se calculan los errores, para dos medios pasos la escala es:
+                Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las formulas para el manejo del error con fines de calcular un nuevo tamaño de paso, lo primero es calcular una escala, este es el único paso que se diferencia entre el método de dos medios pasos y el los metodos embebidos, esto es debido a al modo en que se calculan los errores, para dos medios pasos la escala es:
 
                 \begin{equation}\label{eq:escalaDos}
                     escala = atol + rtol \cdot \frac{\left|y_{1,h}\right| + \left|y_{2,\frac{h}{2}}\right|}{2}
@@ -282,12 +307,69 @@
                 
                 \begin{equation}
                     \begin{cases}
-                        h_{t+1} = h_{t}\cdot max\_step\_increase & ||\Delta e|| = 0\\
-                        h_{t+1} = h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  & ||\Delta e|| \leq 1 \\
-                        h_{t} = h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  & ||\Delta e|| > 1 \ ,\ \text{Se descarta la salida}
+                        h_{t+1} = h_{t}\cdot maxStepIncrease & Si \quad ||\Delta e|| = 0\\
+                        h_{t+1} = h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  & Si \quad ||\Delta e|| \leq 1 \\
+                        h_{t} = h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  & Si \quad ||\Delta e|| > 1 \ ,\ \text{Se descarta la salida}
                     \end{cases}
                 \end{equation}
                 
-                Con $sf_1$ como un factor de seguridad y $q$ como el orden del metodo utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el metodo de menor orden entre $y_1$ y $\hat{y}_1$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso, el proceso se repite hasta que el error se encuentre por debajo de uno.
-
+                Con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del metodo utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el metodo de menor orden entre $y_1$ y $\hat{y}_1$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso, el proceso se repite hasta que el error sea igual o menor que uno.
+    
+    \subsection{Respuesta en el tiempo del modelo en el espacio de estados discreto}
         
+        El calculo de la respuesta en el tiempo para el modelo en el espacio de estados discreto es mucho mas simple, no se requiere ningun metodo de integracion aproximado, esto es debido a que el calculo puede ser realiado se forma directa, esto es debido a que la formula es el algoritmo a seguir \Parencite{haugen2005discrete}. Tomando en consideracion la ecuacion \cref{eq:SSdiscreto}, basta con sustituir el vector de estado para obtener a $x(k+1)$ y la salida $y(k)$
+    
+    \subsection{Sistemas de control}
+		
+		\subsubsection{Sistema en lazo abierto}
+		
+            Un sistema en lazo abierto es aquel cuya salida no es medida en ningún momento en orden de ajustar la entrada, esto provoca que \enquote{las perturbaciones que se presentan en el proceso ocasionen que sus efectos se sientan en la salida del proceso, es decir, en el valor de la variable controlada}\Parencite[p.$\,$350]{maloney2006electronica}. La mayoría de los sistemas en lazo abierto son estables, pero carecen de utilidad practica al no poder mantenerlos en un punto de referencia debido a las perturbaciones.
+            
+            Por otro lado, es importante analisar el comportamiento del sistema en lazo abierto para determinar su comportamiento en lazo cerrado, ademas, nos permite determinar sus caracteristicas con el fin de realizar un modelo matematico aproximado del sistema, este es util para realizar la entonacion de los controladores sin tener que trabajar de forma directa con el proceso, el cual puede ser peligroso o inaccesible. La representacion en diagrama de bloques de un sistema en lazo abierto se puede observar en la \cref{fig:esquemaLazoAbierto}.
+            
+            \begin{figure}[htb]
+				\centering
+				\includegraphics[width=0.5\textwidth]{esquemaLazoAbierto.pdf}
+				\caption[Ejemplo de un sistema en lazo abierto]{\textbf{Sistema en lazo abierto}. Fuente: Elaboración propia.} 
+				\label{fig:esquemaLazoAbierto}
+            \end{figure}
+        
+        \subsubsection{Sistema en lazo cerrado}
+		
+			Los sistemas de lazo cerrado son aquellos cuya salida es realimentada a la entrada del sistema, esta realimentación suele ser negativa para que sea estable, no obstante, existen sistemas que se vuelven inestables con el simple hecho de cerrar el lazo, un ejemplo de sistema realimentado se puede observar en la \cref{fig:esquemaLazoCerrado}.
+			
+			\begin{figure}[htb]
+				\centering
+				\includegraphics[width=0.66\textwidth]{esquemaLazoCerrado.pdf}
+				\caption[Ejemplo de un sistema en lazo cerrado]{\textbf{Sistema en lazo cerrado}. Se observan las principales señales de un sistema en lazo cerrado. Fuente: Elaboración propia.} 
+				\label{fig:esquemaLazoCerrado}
+			\end{figure}
+			
+            En la \cref{fig:esquemaLazoCerrado} se denotan algunas de las señales que componen a un sistema de control, $sp$, que corresponde al set point o valor de referencia, $Vp$, que corresponde a la variable del proceso y es la variable a controlar, las perturbaciones, las cuales son magnitudes físicas que pueden afectar al proceso como la temperatura ambiente, presión, vibraciones, entre otras, y finalmente, $e(t)$, que corresponde a la señal de error la cual viene dada por la diferencia entre el valor de referencia y la variable medida \Parencite{maloney2006electronica}.
+            
+            \begin{equation}\label{eq:Serror}
+				e(t) = sp - Vp
+            \end{equation}
+            
+        \subsubsection{Estabilidad de los sistemas}
+
+            La estabilidad se ve afectada por la estructura del sistema, por tanto, se debe tomar en cuanta cuando se cierra el lazo del sistema. \textcite{ogata2003ingenieria} afirma que, desde el punto de vista de estabilidad, el sistema de control en lazo abierto no es un problema importante. Por otra parte, la estabilidad es un gran problema en el sistema de control en lazo cerrado debido a la posibilidad de que se generen oscilaciones. Esto quiere decir que los análisis de estabilidad se realizan para sistemas en lazo cerrado, esto es principalmente porque los sistemas en lazo abierto tienden a ser estables, además, para realizar el control de un proceso se suele utilizar los sistemas en lazo cerrado
+
+            \paragraph{Análisis de estabilidad en el plano complejo}
+            
+                La estabilidad de un sistema lineal viene dada por la ubicación de sus polos a lo largo del plano complejo s, tomando esto en cuenta se puede determinar si un sistema en lazo cerrado es estable si no posee ninguno polo en el semiplano derecho del plano complejo s incluyendo el eje coordenado $j\omega$ \Parencite{ogata2003ingenieria}. Esto permite que el análisis de estabilidad se pueda realizar de forma analítica y gráfica. En la \cref{fig:pzmap} se puede observar un sistema estable $G_1(s)$ y un sistema inestable $G_2(s)$.
+
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=\textwidth]{pzmap.pdf}
+                    \caption[Ejemplo de analisis de estabilidad en el plano complejo]{\textbf{Analisis de estabilidad en el plano complejo}. Se puede observar como el sistema $G_1(s)$ tiene ubicado sus polos en el semiplano izquierdo del plano complejo, i.e., es estable, por otro lado, el sistema $G_2(s)$ es inestable al poseer polos ubicados en el semiplano derecho del plano complejo. Fuente: Elaboración propia.} 
+                    \label{fig:pzmap}
+                \end{figure}
+            
+            \paragraph{Criterio de estabilidad de Nyquist}
+                
+                El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto, este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales.
+            
+            \paragraph{Análisis de estabilidad con las trazas de Bode}
+
+                Los diagramas de bode son una forma de representar la respuesta en frecuencia de un sistema tomando en cuenta los cambios de amplitud de $H(j\omega)$ y del ángulo de fase de $H(j\omega)$ respecto a la frecuencia \Parencite{nilsson1995circuitos}. Para analizar la estabilidad se utilizan el margen de ganancia y el margen de fase del sistema en un diagrama de Bode a modo de trazas, creando así, zonas claramente delimitadas por estas trazas que determinan la estabilidad relativa del sistema dependiendo de la zona en donde se ubique en función de $\omega$.
