@@ -154,17 +154,140 @@
             y(k+n) + a_{n-1}y(k+n-1) + \cdots + a_1 y(k+1) + a_0 y(k) = f(k) 
         \end{equation}
         
-        Asi mismo debido a que la ecuacion \cref{eq:SSrepresentationX} esta compuesta de ecuaciones diferenciales, esta puede ser llevada a una ecuacion en diferencias y ser representada de forma discreta como sigue:
+        Asi mismo debido a que la ecuacion \cref{eq:SSrepresentationX} esta compuesta de ecuaciones diferenciales, esta puede ser llevada a una ecuacion en diferencias y la representacion del proceso en el espacio de estados queda como sigue:
 
         \begin{align}\label{eq:SSdiscreto}
-            \dot{x}(k+1) &= Ax(k) + Bu(k) \\
-            y(k) &= Cx(k) + Du(k)
+            x(k+1) &= A_d x(k) + B_d u(k) \\
+            y(k) &= C_d x(k) + D_d u(k)
         \end{align}
 
         \subsubsection{Transformada z}
 		
-			En tiempo discreto se puede modelar un proceso utilizando la transformada z sobre la ecuación en diferencias del proceso para obtener la función de transferencia discreta $H(z)$, la ecuación general para la transformada z es:
+			En tiempo discreto se puede modelar un proceso utilizando la transformada z sobre la ecuación en diferencias del proceso para obtener su representacion en el dominio Z, la transformada Z es a las ecuaciones en diferencia lo que la transformada de laplace es las ecuaciones en tiempo continuo, la ecuación general para la transformada z es:
 			
 			\begin{equation}\label{eq:Ztransform}
 				F(z)= \sum\limits_{k=0}^{\infty}f(k)z^{-k}
 			\end{equation}
+
+        \subsubsection{Discretizacion de una funcion de transferencia continua}
+            
+            Existen varios metodos para realizar la discretizacion de una funcion de transferencia continua, el metodo mas simple suele implicar el uso de un muestreador con un retensor de orden zero (ZOH), retensor de orden zero significa que la señal de entrada es retenida constantemente durante el intervalo de muestreo \Parencite{haugen2005discrete}, la formula para realizar la discretizacion con retensor de orden zero es la siguiente:
+
+            \begin{equation}\label{eq:ZOH}
+                H(z) = (1 - z^{-1}) \mathcal{Z} \left[ \mathcal{L}^{-1}\left\lbrace \frac{G(s)}{s}\right\rbrace\Bigr|_{t=kh}\right]
+            \end{equation}
+
+            Existen otros modos de llevar una función de transferencia continua al dominio Z como las aproximaciones de Tustin y Euler, estas consisten en sustituir la variable s por una aproximación en el dominio Z y se sustentan en ser aproximaciones numéricas a integrales en el tiempo, \textcite{haugen2005discrete} afirma que la aproximacion de Tustin es la mas precisa de las tres, no obstante, sugiere que no existe una diferencia notable entre este y Euler hacia atrás, ademas, la mayoría de los controladores comerciales vienen con Euler hacia atrás, por lo que puede considerarse una mejor opción a la hora de escoger un método. Las sustituciones correspondientes son:
+
+            \begin{align}
+                &\text{Euler hacia adelante:}& &s \leftarrow \frac{z - 1}{h} \label{eq:eulerF}\\
+                &\text{Euler hacia atrás:}& &s \leftarrow \frac{z - 1}{hz} \label{eq:eulerB}\\
+                &\text{Tustin:}& &s \leftarrow \frac{2}{h} \frac{z-1}{z+1} \label{eq:tustin}
+            \end{align}
+    
+    \subsection{Integración numérica de sistemas de ecuaciones diferenciales ordinarias}
+        
+        Para poder obtener la respuesta del sistema en el tiempo podemos utilizar varios metodos de resolucion de ODE's o ecuaciones diferenciales ordinarias, solucion exacta, separacion de variables o integracion numerica aproximada, este ultimo es el mejor para realizar por medio de computadoras. Para realizar la integracion numerica y obtener la respuesta del sistema se utilizaran los metodos de Runge-Kutta.
+
+        Los metodos de Runge-Kutta son unos metodos iterativos de resolucion de ODE's, estos se basan en utilizar \blockquote[{\cite[p.31]{horacio1997metodos}}]{indirectamente el algoritmo de Taylor. En general, estos metodos evaluan $f(x,y)$ en mas de un punto en la proximida $(x_n,y_n)$ en lugar de evaluar derivdas de $f(x,y)$}. La formulacion general de los metodos de Runge-Kutta explicitos es:
+        
+        \begin{equation}\label{eq:RKgeneral}
+            \begin{aligned}
+                k_1 &= f(x_0,y_0)\\
+                k_2 &= f(x_0 + c_2 h,y_0 + ha_{21}k_1)\\
+                k_2 &= f(x_0 + c_3 h,y_0 + h(a_{31}k_1 + a_{32}k_2))\\
+                &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
+                k_s &= f(x_0 + c_s h,y_0 + h(a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1}))\\
+                y_1 &= y_0 + h(b_1 k_1 + \cdots + b_s k_s)
+            \end{aligned}
+        \end{equation}
+        
+        Donde $s$ denota el numero de escenarios a utilizar, es comun expresar \cref{eq:RKgeneral} utilizando una tabla de butcher, en honor a John C. Butcher y su articulo de 1964b, por tanto, \cref{eq:RKgeneral} puede representarse de la siguiente forma:
+
+        \begin{equation}\label{eq:explicitoButcher}
+            \renewcommand\arraystretch{1.2}
+            \begin{array}
+            {c|ccccc}
+            0\\
+            c_2 & a_{21}\\
+            c_3 & a_{31} & a_{32}\\
+            \vdots & \vdots & \vdots & \ddots\\
+            c_s & a_{s1} & a_{s2} & \cdots & a_{s,s-1}\\
+            \hline
+            & b_1 & b_2 & \cdots & b_{s-1} &  b_{s}
+            \end{array}
+        \end{equation}
+
+        Adicionalmente existen los metodos de Runge-Kutta embebidos, los cuales consisten en calcular dos metodos de orden $p$ y orden $\hat{p}$ respectivamente, donde $\hat{p}$ es normalmente $p-1$ o $p+1$ \Parencite{horacio1997metodos}. La tabla de butcher para representar los metodos embebidos es la siguiente:
+
+        \begin{equation}\label{eq:embebidoButcher}
+            \renewcommand\arraystretch{1.2}
+            \begin{array}
+            {c|ccccc}
+            0\\
+            c_2 & a_{21}\\
+            c_3 & a_{31} & a_{32}\\
+            \vdots & \vdots & \vdots & \ddots\\
+            c_s & a_{s1} & a_{s2} & \cdots & a_{s,s-1}\\
+            \hline
+            & b_1 & b_2 & \cdots & b_{s-1} &  b_{s}\\
+            \hline
+            & \hat{b}_1 & \hat{b}_2 & \cdots & \hat{b}_{s-1} &  \hat{b}_{s}
+            \end{array}
+        \end{equation}
+
+        \begin{align}
+            y_1 &= y_0 + h(b_1 k_1 + \cdots + b_s k_s) & &\text{Orden $p$}\\
+            \hat{y}_1 &= y_0 + h(\hat{b}_1 k_1 + \cdots +\hat{b}_s k_s) & &\text{Orden $\hat{p} = p-1$ o $p+1$}
+        \end{align}
+
+        De modo que la integracion para el siguiente paso se continua con $y_1$, el fin de calcular dos metodos en conjunto es para poder estimar el error y poder realizar un cambio en el tamaño de paso, de este modo, se puede incrementar el tamaño de paso si el error es muy bajo o disminuirlo si el error es inaceptable.
+        
+        \subsubsection{Tamaño de paso variable}
+
+            Como ya se menciono antes, se puede realizar una adaptacion del tamaño de paso en funcion del error, esto es posible no solo para los metodos embebidos, sino tambien para los explicitos, \textcite{roganprogramacion} afirma que: \blockquote[p.251]{Los programas adaptativos continuamente monitorean la solución y modifican el paso de
+            tiempo para asegurar que se mantenga la precisión especificada por el usuario. Esos programas
+            pueden hacer algunos cálculos extras para optimizar la elección de $\tau$ , en muchos casos este
+            trabajo extra vale la pena.}
+            
+            \paragraph{calculo del error con dos medios pasos}
+
+                Este es un metodo simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo metodo al realizar dos pasos de tamaño $\frac{h}{2}$, de este modo el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|y_{1,h} - y_{2,\frac{h}{2}}\right|$ donde $y_{2,\frac{h}{2}}$ es la salida luego de dos medios pasos.
+            
+            \paragraph{calculo del error para metodos embebidos} 
+
+                Los metodos embebidos estan hechos para poder realizar este calculo del error, por tanto, no hay que realizar ningun calculo extra y el error puede ser calculado de forma directa como $\Delta e = \left| y_1 - \hat{y}_1\right|$
+
+            \paragraph{Nuevo tamaño de paso}
+
+                Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las formulas para el manejo del error con fines de calcular un nuevo tamaño de paso, lo primero es calcular una escala, este es el unico paso que se diferencia entre el metodo de dos medios pasos y el los metodos embebidos, esto es debido a al modo en que se calculan los errores, para dos medios pasos la escala es:
+
+                \begin{equation}\label{eq:escalaDos}
+                    escala = atol + rtol \cdot \frac{\left|y_{1,h}\right| + \left|y_{2,\frac{h}{2}}\right|}{2}
+                \end{equation}
+
+                Para los metodos embebidos:
+
+                \begin{equation}\label{eq:escalaEmbebidos}
+                    escala = atol + rtol \cdot max(\left| y_1\right|,\left| y_0\right|)
+                \end{equation}
+        
+                A partir de aca las formulas son comunes para ambos metodos. Para continuar, se debe realizar el calculo de un error normalizado, para esto se calcula la norma RMS del error dividido por la escala calculada:
+
+                \begin{equation}\label{eq:ErrorNormalizado}
+                    ||\Delta e|| = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(\frac{\Delta e_i}{escala_i}\right)^2}
+                \end{equation}
+
+                Donde i denota el numero de elementos que componen la respuesta, finalmente, el nuevo tamaño de paso viene dado por:
+                
+                \begin{equation}
+                    \begin{cases}
+                        h_{t+1} = h_{t}\cdot max\_step\_increase & ||\Delta e|| = 0\\
+                        h_{t+1} = h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  & ||\Delta e|| \leq 1 \\
+                        h_{t} = h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  & ||\Delta e|| > 1 \ ,\ \text{Se descarta la salida}
+                    \end{cases}
+                \end{equation}
+                
+                Con $sf_1$ como un factor de seguridad, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso, el proceso se repite hasta que el error se encuentre por debajo de uno.
+
+        

@@ -82,7 +82,7 @@ def rk_doble_paso_adaptativo(systema,
             if error_norm == 0:
                 # Incremento maximo dado el bajo error
                 h_est = h_ant * max_step_increase
-            elif error_norm < 1:
+            elif error_norm <= 1:
                 # Incremento normal
                 h_est = h_ant * min(max_step_increase,
                                     max(1, safety_factor * error_norm**(-1 / (ordenq+1))))
@@ -393,7 +393,7 @@ def rk_embebido_adaptativo(systema,
             if error_norm == 0:
                 # Incremento maximo dado el bajo error
                 h_est = h_ant * max_step_increase
-            elif error_norm < 1:
+            elif error_norm <= 1:
                 # Incremento normal
                 h_est = h_ant * min(max_step_increase,
                                     max(1, safety_factor * error_norm**(-1 / (ordenq+1))))
