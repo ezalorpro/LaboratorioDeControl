@@ -19,7 +19,7 @@ plt.rcParams["text.latex.preamble"] = [
 ]
 
 GsS = ctrl.TransferFunction([1, 2], [1, 2, 3])
-GsI = ctrl.TransferFunction([1, -0.5], [1, -2, 3])
+GsI = ctrl.TransferFunction([3, -1.5], [1, -2, 3])
 poles, zeros, ax = ctrl.pzmap(GsS, Plot=True, grid=True, title='Plano complejo', axr=True)
 
 poles, zeros = ctrl.pzmap(GsI, Plot=False)

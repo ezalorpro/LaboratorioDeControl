@@ -195,7 +195,7 @@
             \begin{aligned}
                 k_1 &= f(x_0,y_0)\\
                 k_2 &= f(x_0 + c_2 h,y_0 + ha_{21}k_1)\\
-                k_2 &= f(x_0 + c_3 h,y_0 + h(a_{31}k_1 + a_{32}k_2))\\
+                k_3 &= f(x_0 + c_3 h,y_0 + h(a_{31}k_1 + a_{32}k_2))\\
                 &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
                 k_s &= f(x_0 + c_s h,y_0 + h(a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1}))\\
                 y_1 &= y_0 + h(b_1 k_1 + \cdots + b_s k_s)
@@ -241,7 +241,7 @@
             \hat{y}_1 &= y_0 + h(\hat{b}_1 k_1 + \cdots +\hat{b}_s k_s) & &\text{Orden $\hat{p} = p-1$ o $p+1$}
         \end{align}
 
-        De modo que la integracion para el siguiente paso se continua con $y_1$, el fin de calcular dos metodos en conjunto es para poder estimar el error y poder realizar un cambio en el tamaño de paso, de este modo, se puede incrementar el tamaño de paso si el error es muy bajo o disminuirlo si el error es inaceptable.
+        De modo que la integración para el siguiente paso se continua con $y_1$, el fin de calcular dos metodos en conjunto es para poder estimar el error y poder realizar un cambio en el tamaño de paso, de este modo, se puede incrementar el tamaño de paso si el error es muy bajo o disminuirlo si el error es inaceptable.
         
         \subsubsection{Runge-Kutta's para ecuaciones de espacio de estados}
 
@@ -284,11 +284,11 @@
             \vfill
             \pagebreak
 
-            \noindent se obtenga el nuevo vector de estado como sigue:
+            \noindent se obtenga el nuevo vector de estado:
 
             \begin{equation}\label{eq:RKstate}
                 \begin{aligned}
-                    k_1 &= Ax_n^{(j))} + Bu_m^{(j)}\\
+                    k_1 &= Ax_n^{(j)} + Bu_m^{(j)}\\
                     k_2 &= A(x_n^{(j)} +  ha_{21}k_1) + Bu_m^{(j)}\\
                     k_3 &= A(x_n^{(j)} +  h(a_{31}k_1 + a_{32}k_2)) + Bu_m^{(j)}\\
                     &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
@@ -297,13 +297,13 @@
                 \end{aligned}
             \end{equation}
             
-            Finalmente, el vector de estado obtenido con \cref{eq:RKstate} es sustituido en \cref{eq:SSrepresentationY} para obtener la salida del proceso. 
+            \noindent finalmente, el vector de estado obtenido con \cref{eq:RKstate} sera sustituido en la siguiente iteraciones, para obtener la salida actual se debe sustituir $x_n^{(j)}$  en \cref{eq:SSrepresentationY}. 
             
             \begin{equation}
-				y^{(j+1)} &= Cx_n^{(j+1)} + Du_m^{(j)} \label{eq:SSrepresentationY}
+				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)} \label{eq:SSrepresentationY}
             \end{equation}
             
-            Estos pasos se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar, un tamaño de pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
+            Estos pasos se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar, un tamaño de paso pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
 
         \subsubsection{Tamaño de paso variable}
 
@@ -328,7 +328,7 @@
                     escala = atol + rtol \cdot \frac{\left|y_{1,h}\right| + \left|y_{2,\frac{h}{2}}\right|}{2}
                 \end{equation}
 
-                Para los metodos embebidos:
+                \noindent para los metodos embebidos:
 
                 \begin{equation}\label{eq:escalaEmbebidos}
                     escala = atol + rtol \cdot max(\left| y_1\right|,\left| y_0\right|)
@@ -340,7 +340,7 @@
                     ||\Delta e|| = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(\frac{\Delta e_i}{escala_i}\right)^2}
                 \end{equation}
 
-                Donde i denota el numero de elementos que componen la respuesta, finalmente, el nuevo tamaño de paso viene dado por:
+                \noindent donde i denota el numero de elementos que componen la respuesta, finalmente, el nuevo tamaño de paso viene dado por:
                 
                 \begin{equation}
                     \left\{
@@ -351,7 +351,7 @@
                     \end{aligned}\right.
                 \end{equation}
                 
-                Con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del metodo utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el metodo de menor orden entre $y_1$ y $\hat{y}_1$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso, el proceso se repite hasta que el error sea igual o menor que uno.
+                \noindent con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del metodo utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el metodo de menor orden entre $y_1$ y $\hat{y}_1$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso, el proceso se repite hasta que el error sea igual o menor que uno.
     
     \subsection{Respuesta en el tiempo del modelo en el espacio de estados discreto}
         
@@ -395,7 +395,7 @@
 
             \paragraph{Análisis de estabilidad en el plano complejo}
             
-                La estabilidad de un sistema lineal viene dada por la ubicación de sus polos a lo largo del plano complejo s, tomando esto en cuenta se puede determinar si un sistema en lazo cerrado es estable si no posee ninguno polo en el semiplano derecho del plano complejo s incluyendo el eje coordenado $j\omega$ \Parencite{ogata2003ingenieria}. Esto permite que el análisis de estabilidad se pueda realizar de forma analítica y gráfica. En la \cref{fig:pzmap} se puede observar un sistema estable $G_1(s)$ y un sistema inestable $G_2(s)$.
+                La estabilidad de un sistema lineal viene dada por la ubicación de sus polos a lo largo del plano complejo s, tomando esto en cuenta se puede determinar si un sistema es estable si no posee ninguno polo en el semiplano derecho del plano complejo s incluyendo el eje coordenado $j\omega$ \Parencite{ogata2003ingenieria}. Esto permite que el análisis de estabilidad se pueda realizar de forma analítica y gráfica. En la \cref{fig:pzmap} se puede observar dos sistemas en lazo abierto, $G_1(s)$ que es estable y $G_2(s)$ que es inestable .
 
                 \begin{figure}[htb]
                     \centering
@@ -406,15 +406,25 @@
             
             \paragraph{Criterio de estabilidad de Nyquist}
                 
-                El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto, este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales.
-
-                El criterios establece que si el punto $-1 + j0$ no esta rodeado. En la \cref{fig:pzmap} se puede observar los diagramas de Nyquist para los sistemas presentados en la \cref{fig:pzmap}.
+                El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto, este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales, \textcite{ogata2003ingenieria} define tres criterios: 
+                
+                \begin{enumerate}[leftmargin=\parindent]
+                    \item El punto $-1 + j0$ no esta rodeado. Esto implica que el sistema es estable en lazo cerrado si no hay polos de $G(s)H(s)$ en el semiplano derecho del plano s; de lo contrario, el sistema es inestable.
+                    \item El punto $-1 + j0$ queda rodeado una o varias veces en sentido contrario al de las agujas
+                    del reloj. En este caso, el sistema es estable en lazo cerrado si el número de rodeos en sentido contrario
+                    al de las agujas del reloj es igual al número de polos $G(s)H(s)$ en el semiplano derecho
+                    del plano s; de lo contrario, el sistema es inestable.
+                    \item El punto $-1 + j0$ queda rodeado una o varias veces en el sentido de las agujas del reloj.
+                    En este caso el sistema es inestable en lazo cerrado.
+                \end{enumerate}
+                
+                En la \cref{fig:nyquistPlot} se puede observar los diagramas de Nyquist para los sistemas presentados en la \cref{fig:pzmap}, el sistema $G_1(s)$ debe ser evaluado por el criterio numero 1, al no poseer ninguno polo en el semiplano derecho el sistema sera estable en lazo cerrado asumiendo un $H(s) = 1$, por otro lado, $G_2(s)$ debe ser evaluado por el criterio numero 2, debido a que el numero de rodeos al punto $-1 + j0$ es igual al numero de polos en el semiplano derecho, el sistema sera estable en lazo cerrado asumiendo un $H(s) = 1$, esto a pesar de que en lazo abierto sea inestable.
 
                 \begin{figure}[htb]
                     \centering
-                    \includegraphics[width=\textwidth]{pzmap.pdf}
-                    \caption[Ejemplo de analisis de estabilidad en el plano complejo]{\textbf{Analisis de estabilidad en el plano complejo}. Se puede observar como el sistema $G_1(s)$ tiene ubicado sus polos en el semiplano izquierdo del plano complejo, i.e., es estable, por otro lado, el sistema $G_2(s)$ es inestable al poseer polos ubicados en el semiplano derecho del plano complejo. Fuente: Elaboración propia.} 
-                    \label{fig:pzmap}
+                    \includegraphics[width=0.7\textwidth]{nyquistPlot.pdf}
+                    \caption[Ejemplo de analisis de estabilidad con diagrama de Nyquist]{\textbf{Analisis de estabilidad con diagrama de Nyquist}. El sistema $G_1(s)$ al ser evaluado con el criterio numero 1 se encuentra que es estable en lazo cerrado, a su vez, el sistema $G_2(s)$ al ser evaluado con el criterio numero 2 se encuentra que tambien sera estable en lazo cerrado, en ambos casos se asume un $H(s) = 1$. Fuente: Elaboración propia.} 
+                    \label{fig:nyquistPlot}
                 \end{figure}
 
             
