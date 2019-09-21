@@ -8592,7 +8592,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>223</width>
+               <width>245</width>
                <height>239</height>
               </rect>
              </property>
@@ -8759,7 +8759,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>0.95</string>
+                   <string>0.9</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8897,7 +8897,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>5e-6</string>
+                   <string>3e-6</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

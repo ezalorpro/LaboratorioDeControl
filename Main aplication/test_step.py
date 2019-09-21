@@ -19,16 +19,10 @@ plt.rcParams["text.latex.preamble"] = [
 ]
 
 GsS = ctrl.TransferFunction([1, 2], [1, 2, 3])
-GsI = ctrl.TransferFunction([1, -0.5], [1, -2, 3])
-poles, zeros, ax = ctrl.pzmap(GsS, Plot=True, grid=True, title='Plano complejo', axr=True)
+GsI = ctrl.TransferFunction([3, -1.5], [1, -2, 3])
+ctrl.nyquist_plot(GsS)
+ctrl.nyquist_plot(GsI)
 
-poles, zeros = ctrl.pzmap(GsI, Plot=False)
-
-ax.scatter(real(poles), imag(poles), s=50, marker='x', facecolors='b', edgecolors='k')
-ax.scatter(real(zeros), imag(zeros), s=50, marker='o', facecolors='b', edgecolors='k')
-
-plt.text(-2.5, 0.8, r'$G_1(s) = \frac{s + 2}{s^2 + 2s + 3}$', fontsize=20)
-plt.text(0.7, 0.8, r'$G_2(s) = \frac{s - 0.5}{s^2 - 2s + 3}$', fontsize=20)
 plt.gcf().tight_layout()
 plt.show()
 

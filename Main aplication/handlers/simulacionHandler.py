@@ -311,7 +311,7 @@ def atol_validator(self):
             raise ValueError
     except ValueError:
         self.error_dialog.setInformativeText(
-            "Tolerancia absoluta no valida, debe ser un numero real mayor que cero, se puede expresar en notacion cientifica\n i.g., 5e-6")
+            "Tolerancia absoluta no valida, debe ser un numero real mayor que cero, se puede expresar en notacion cientifica\n i.g., 3e-6")
         self.error_dialog.exec_()
         self.main.atolLineEdit.setFocus()
         return
@@ -735,10 +735,10 @@ def restablecer_configuracion(self):
     self.main.padeOrder.setText('10')
     self.main.solverMethod.setCurrentIndex(8)
     self.main.rtolLineEdit.setText('1e-3')
-    self.main.atolLineEdit.setText('5e-6')
+    self.main.atolLineEdit.setText('3e-6')
     self.main.maxStepIncr.setText('5')
     self.main.minStepDecr.setText('0.2')
-    self.main.safetyFactor.setText('0.95')
+    self.main.safetyFactor.setText('0.9')
 
 
 def accion_esquema_selector(self):

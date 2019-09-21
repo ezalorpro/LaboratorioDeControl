@@ -3,6 +3,7 @@ import control as ctrl
 from matplotlib import pyplot as plt
 from scipy.integrate import RK45
 import time
+import copy
 
 
 def dopri5(ss, x, h, inputValue):
@@ -33,6 +34,8 @@ def dopri5(ss, x, h, inputValue):
                     k4, 125 / 192) + np.dot(k5, -2187 / 6784) + np.dot(k6, 11 / 84))) +
          np.dot(ss.B, inputValue)))
 
+    y5th = ss.C * x + ss.D * inputValue
+
     x5th = x + (np.dot(k1, 35 / 384) + np.dot(k3, 500 / 1113) + np.dot(k4, 125 / 192) +
                 np.dot(k5, -2187 / 6784) + np.dot(k6, 11 / 84))
 
@@ -40,9 +43,8 @@ def dopri5(ss, x, h, inputValue):
                 np.dot(k4, 393 / 640) + np.dot(k5, -92097 / 339200) +
                 np.dot(k6, 187 / 2100) + np.dot(k7, 1 / 40))
 
-    y5th = ss.C * x5th + ss.D * inputValue
-    y4th = ss.C * x4th + ss.D * inputValue
-    return y5th.item(), y4th.item(), x5th, x4th
+
+    return y5th.item(), x5th, x4th
 
 
 def fehlberg45(ss, x, h, inputValue):
@@ -67,15 +69,16 @@ def fehlberg45(ss, x, h, inputValue):
                  np.dot(k4, 1859 / 4104) + np.dot(k5, -11 / 40))) +
          np.dot(ss.B, inputValue)))
 
+    y4th = ss.C * x + ss.D * inputValue
+
     x5th = x + (np.dot(k1, 16 / 135) + np.dot(k3, 6656 / 12825) +
                 np.dot(k4, 28561 / 56430) + np.dot(k5, -9 / 50) + np.dot(k6, 2 / 55))
 
     x4th = x + (np.dot(k1, 25 / 216) + np.dot(k3, 1408 / 2565) + np.dot(k4, 2197 / 4104) +
                 np.dot(k5, -1 / 5))
 
-    y5th = ss.C * x5th + ss.D * inputValue
-    y4th = ss.C * x4th + ss.D * inputValue
-    return y4th.item(), y5th.item(), x4th, x5th
+
+    return y4th.item(), x4th, x5th
 
 
 def bogacki_shampine23(ss, x, h, inputValue):
@@ -89,14 +92,14 @@ def bogacki_shampine23(ss, x, h, inputValue):
                         (x + np.dot(k1, 2/9) + np.dot(k2, 1/3) +
                          np.dot(k3, 4/9))) + np.dot(ss.B, inputValue)))
 
+    y2th = ss.C * x + ss.D * inputValue
+
     x3th = x + (np.dot(k1, 2 / 9) + np.dot(k2, 1 / 3) + np.dot(k3, 4 / 9))
 
     x2th = x + (np.dot(k1, 7/24) + np.dot(k2, 1/4) + np.dot(k3, 1/3) +
                 np.dot(k4, 1/8))
 
-    y3th = ss.C * x3th + ss.D * inputValue
-    y2th = ss.C * x2th + ss.D * inputValue
-    return y2th.item(), y3th.item(), x2th, x3th
+    return y2th.item(), x2th, x3th
 
 def cash_karp(ss, x, h, inputValue):
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
@@ -119,14 +122,14 @@ def cash_karp(ss, x, h, inputValue):
                          np.dot(k3, 575 / 13824) + np.dot(k4, 44275 / 110592) +
                          np.dot(k5, 253 / 4096))) + np.dot(ss.B, inputValue)))
 
+    y4th = ss.C * x + ss.D * inputValue
+
     x5th = x + (np.dot(k1, 37 / 378) + np.dot(k3, 250 / 621) + np.dot(k4, 125 / 594) + np.dot(k6, 512 / 1771))
 
     x4th = x + (np.dot(k1, 2825 / 27648) + np.dot(k3, 18575 / 48384) +
                 np.dot(k4, 13525 / 55296) + np.dot(k5, 277 / 14336) + np.dot(k6, 1 / 4))
 
-    y5th = ss.C * x5th + ss.D * inputValue
-    y4th = ss.C * x4th + ss.D * inputValue
-    return y4th.item(), y5th.item(), x4th, x5th
+    return y4th.item(), x4th, x5th
 
 
 def norm(x):
@@ -134,14 +137,22 @@ def norm(x):
     return np.linalg.norm(x) / x.size**0.5
 
 
-N = 0
+N = 100
 kp = 1
 ki = 1
 kd = 1
 
 # pid = ctrl.tf2ss(
+#     ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
+#                         [1, N, 0]))
+
+# pid = ctrl.tf2ss(
 #     ctrl.TransferFunction([1], [0.1, 1]) *
 #     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
+
+# pid = ctrl.tf2ss(ctrl.TransferFunction([1], [10/(N*kd), 1])*
+#         ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
+#                             [1, N, 0]))
 
 pid = ctrl.tf2ss(
     ctrl.TransferFunction([
@@ -152,30 +163,29 @@ pid = ctrl.tf2ss(
     ], [10, 10*N + N*kd, N**2 * kd, 0]))
 
 x_pidB = np.zeros_like(pid.B)
-x_pidS = np.zeros_like(pid.B)
 
 sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
 vstadosB = np.zeros_like(sistema.B)
-vstadosS = np.zeros_like(sistema.B)
 
 min_step_decrease = 0.2
 max_step_increase = 5
-h_ant = 0.0001
+h_ant = 0.000001
 rtol = 1e-3
-atol = 1e-6
+atol = 3e-6
 tiempo = 0
 tbound = 30
 sp = 1
 salida = [0]
 tiempo_out = [0]
 yb = 0
-sf1 = 0.95
-sf2 = 4
+sf1 = 0.9
 counter = 0
+sc_t = [0]
+error_ac = [0]
 start = time.time()
 # dopri5
 # fehlberg45dot
-RK = dopri5
+RK = fehlberg45
 
 while tiempo < tbound:
     counter += 1
@@ -184,21 +194,23 @@ while tiempo < tbound:
         if tiempo + h_ant >= tbound:
             h_ant = tbound - tiempo
 
-        ypidb, y4th, x_five, x_four = RK(pid, x_pidB, h_ant, error)
+        ypidb, x_five, x_four = RK(pid, copy.deepcopy(x_pidB), h_ant, error)
 
-        scale = atol + np.maximum(np.abs(x_pidB), np.abs(x_five)) * rtol
+        scale = atol + np.maximum(np.abs(x_five), np.abs(x_pidB)) * rtol
         delta1 = np.abs(x_five - x_four)
         error_norm = norm(delta1 / scale)
 
         if error_norm == 0:
             h_est = h_ant * max_step_increase
-        elif error_norm < 1:
+        elif error_norm <= 1:
             h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (4+1))))
         else:
             h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (4+1))))
             continue
 
-        yb, __, vstadosB, _ = RK(sistema, vstadosB, h_ant, ypidb)
+        error_ac.append(error_norm)
+        sc_t.append(ypidb)
+        yb, vstadosB, _ = RK(sistema, copy.deepcopy(vstadosB), h_ant, ypidb)
         break
 
     print(tiempo)
@@ -206,11 +218,26 @@ while tiempo < tbound:
     tiempo += h_ant
     tiempo_out.append(tiempo)
     h_ant = h_est
-    x_pidB = x_five
+    x_pidB = copy.deepcopy(x_five)
 
 print(counter)
 print(len(tiempo_out))
 print(f'{time.time() - start}')
 plt.plot(tiempo_out, salida)
+
+tf = ctrl.tf([1], [1, 1, 1])
+t = np.linspace(0, tbound, 200)
+pid = ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0])
+tf = ctrl.feedback(pid*tf)
+t, y = ctrl.step_response(tf, t)
+plt.plot(t, y)
 plt.grid()
 plt.show()
+
+# plt.plot(tiempo_out, sc_t)
+# plt.grid()
+# plt.show()
+
+# plt.plot(tiempo_out, error_ac)
+# plt.grid()
+# plt.show()

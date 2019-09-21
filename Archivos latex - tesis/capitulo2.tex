@@ -30,7 +30,7 @@
 				F(s) = \mathcal{L}\left[f(t) \right] = \int_{0}^{\infty} f(t)e^{-st}dt
 			\end{equation}
 			
-			Si suponemos que f(t) es un proceso cuya representación dinámica viene dada por una ecuación diferencial de la forma:
+			\noindent si suponemos que f(t) es un proceso cuya representación dinámica viene dada por una ecuación diferencial de la forma:
 			
 			\begin{equation}\label{eq:Diffeq}
 				a_{2}\frac{d^{2}y(t)}{dt^{2}} + a_{1}\frac{dy(t)}{dt} + a_{0}y(t) = b_{0}x(t)
@@ -54,7 +54,7 @@
 			\end{align}
 			
 			\begin{spacing}{1.5}
-				con: 
+				\noindent con: 
 				
 				$A$: como matriz de estado.
 				
@@ -134,7 +134,7 @@
             \vspace{20pt}
 
             \begin{spacing}{1.5}
-				con: 
+				\noindent con: 
 				
 				$n$: como el numero de variables de estado
 				
@@ -250,23 +250,60 @@
             
             \begin{equation}\label{eq:vectorGeneral}
                 \begin{aligned}
-                    x_1(t) &= f_1(t, x_1, x_2, \dots, x_p) = f_1(t,x)\\
+                    x_1(t) &= f_1(t, x_1, x_2, \dots, x_n) = f_1(t,x)\\
                     &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
-                    x_p(t) &=  f_p(t,x)
+                    x_n(t) &=  f_n(t,x)
                 \end{aligned}
             \end{equation}
 
-            Cuyas condiciones iniciales se expresaran como:
+            \noindent cuyas condiciones iniciales se pueden expresar como:
 
             \begin{equation}\label{eq:vectorIniciales}
                 \begin{aligned}
                     x_1^{(0)} &= \alpha_1\\
                     &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
-                    x_p^{(0)} &=  \alpha_p
+                    x_n^{(0)} &=  \alpha_n
                 \end{aligned}
             \end{equation}
             
-            De modo que al sustituir \cref{eq:vectorGeneral,eq:vectorIniciales} en \cref{eq:RKgeneral} se obtenga el nuevo vector de estado, finalmente, el vector de estado es sustituido en \cref{eq:SSrepresentationY} para obtener la salida del proceso. Estos pasos se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar, un tamaño de pequeño genera resultados mas precisos, pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
+            \noindent de modo que al sustituir \cref{eq:vectorGeneral,eq:vectorIniciales} en \cref{eq:RKgeneral} y señalando:
+
+            \vfill 
+
+            \begin{spacing}{1.5}
+				
+				$n$: como el numero de variables de estado
+				
+				$m$: como el numero de entradas
+				
+				$j$: como la iteracion actual
+                
+                $s$: como el numero de escenarios
+            \end{spacing}
+
+            \vfill
+            \pagebreak
+
+            \noindent se obtenga el nuevo vector de estado como sigue:
+
+            \begin{equation}\label{eq:RKstate}
+                \begin{aligned}
+                    k_1 &= Ax_n^{(j))} + Bu_m^{(j)}\\
+                    k_2 &= A(x_n^{(j)} +  ha_{21}k_1) + Bu_m^{(j)}\\
+                    k_3 &= A(x_n^{(j)} +  h(a_{31}k_1 + a_{32}k_2)) + Bu_m^{(j)}\\
+                    &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
+                    k_s &= A(x_n^{(j)} + h(a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1})) + Bu_m^{(j)}\\
+                    x_n^{(j+1)} &= x_n^{(j)} + h(b_1 k_1 + \cdots + b_s k_s)
+                \end{aligned}
+            \end{equation}
+            
+            Finalmente, el vector de estado obtenido con \cref{eq:RKstate} es sustituido en \cref{eq:SSrepresentationY} para obtener la salida del proceso. 
+            
+            \begin{equation}
+				y^{(j+1)} &= Cx_n^{(j+1)} + Du_m^{(j)} \label{eq:SSrepresentationY}
+            \end{equation}
+            
+            Estos pasos se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar, un tamaño de pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
 
         \subsubsection{Tamaño de paso variable}
 
@@ -306,11 +343,12 @@
                 Donde i denota el numero de elementos que componen la respuesta, finalmente, el nuevo tamaño de paso viene dado por:
                 
                 \begin{equation}
-                    \begin{cases}
-                        h_{t+1} = h_{t}\cdot maxStepIncrease & Si \quad ||\Delta e|| = 0\\
-                        h_{t+1} = h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  & Si \quad ||\Delta e|| \leq 1 \\
-                        h_{t} = h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  & Si \quad ||\Delta e|| > 1 \ ,\ \text{Se descarta la salida}
-                    \end{cases}
+                    \left\{
+                    \begin{aligned}
+                        h_{t+1} &= h_{t}\cdot maxStepIncrease &\quad &Si \quad ||\Delta e|| = 0\\
+                        h_{t+1} &= h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  &\quad &Si \quad ||\Delta e|| \leq 1 \\
+                        h_{t} &= h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  &\quad &Si \quad ||\Delta e|| > 1 \ ,\ \text{Se descarta la salida}
+                    \end{aligned}\right.
                 \end{equation}
                 
                 Con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del metodo utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el metodo de menor orden entre $y_1$ y $\hat{y}_1$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso, el proceso se repite hasta que el error sea igual o menor que uno.
@@ -340,7 +378,7 @@
 			
 			\begin{figure}[htb]
 				\centering
-				\includegraphics[width=0.66\textwidth]{esquemaLazoCerrado.pdf}
+				\includegraphics[width=0.6\textwidth]{esquemaLazoCerrado.pdf}
 				\caption[Ejemplo de un sistema en lazo cerrado]{\textbf{Sistema en lazo cerrado}. Se observan las principales señales de un sistema en lazo cerrado. Fuente: Elaboración propia.} 
 				\label{fig:esquemaLazoCerrado}
 			\end{figure}
@@ -369,6 +407,16 @@
             \paragraph{Criterio de estabilidad de Nyquist}
                 
                 El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto, este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales.
+
+                El criterios establece que si el punto $-1 + j0$ no esta rodeado. En la \cref{fig:pzmap} se puede observar los diagramas de Nyquist para los sistemas presentados en la \cref{fig:pzmap}.
+
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=\textwidth]{pzmap.pdf}
+                    \caption[Ejemplo de analisis de estabilidad en el plano complejo]{\textbf{Analisis de estabilidad en el plano complejo}. Se puede observar como el sistema $G_1(s)$ tiene ubicado sus polos en el semiplano izquierdo del plano complejo, i.e., es estable, por otro lado, el sistema $G_2(s)$ es inestable al poseer polos ubicados en el semiplano derecho del plano complejo. Fuente: Elaboración propia.} 
+                    \label{fig:pzmap}
+                \end{figure}
+
             
             \paragraph{Análisis de estabilidad con las trazas de Bode}
 

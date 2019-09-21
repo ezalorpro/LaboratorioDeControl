@@ -772,6 +772,8 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsy
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
+INPUT imagenes\pzmap.pdf
+INPUT .\imagenes\pzmap.pdf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxmi.vf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\txmi.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rntxmi.tfm
