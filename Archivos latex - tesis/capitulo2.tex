@@ -395,7 +395,7 @@
 
             \paragraph{Análisis de estabilidad en el plano complejo}
             
-                La estabilidad de un sistema lineal viene dada por la ubicación de sus polos a lo largo del plano complejo s, tomando esto en cuenta se puede determinar si un sistema es estable si no posee ninguno polo en el semiplano derecho del plano complejo s incluyendo el eje coordenado $j\omega$ \Parencite{ogata2003ingenieria}. Esto permite que el análisis de estabilidad se pueda realizar de forma analítica y gráfica. En la \cref{fig:pzmap} se puede observar dos sistemas en lazo abierto, $G_1(s)$ que es estable y $G_2(s)$ que es inestable .
+                La estabilidad de un sistema lineal viene dada por la ubicación de sus polos a lo largo del plano complejo s, tomando esto en cuenta se puede determinar si un sistema es estable si no posee ninguno polo en el semiplano derecho del plano complejo s incluyendo el eje coordenado $j\omega$ en tiempo continuo \Parencite{ogata2003ingenieria}, en el caso de sistemas discretos, los polos deben encontrarse dentro del circulo unitario, la estabilidad marginal es posible si existen uno o mas polos justo en el circulo unitario, pero no multiples. Esto permite que el análisis de estabilidad se pueda realizar de forma analítica y gráfica. En la \cref{fig:pzmap} se puede observar dos sistemas continuos en lazo abierto, $G_1(s)$ que es estable y $G_2(s)$ que es inestable .
 
                 \begin{figure}[htb]
                     \centering
@@ -406,14 +406,17 @@
             
             \paragraph{Criterio de estabilidad de Nyquist}
                 
-                El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto, este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales, \textcite{ogata2003ingenieria} define tres criterios: 
-                
+                El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto, este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales, \textcite{ogata2003ingenieria} define tres criterios:
+
                 \begin{enumerate}[leftmargin=\parindent]
-                    \item El punto $-1 + j0$ no esta rodeado. Esto implica que el sistema es estable en lazo cerrado si no hay polos de $G(s)H(s)$ en el semiplano derecho del plano s; de lo contrario, el sistema es inestable.
+                    \item El punto $-1 + j0$ no esta rodeado. Esto implica que el sistema es estable en lazo cerrado si no hay polos de $G(s)H(s)$ en el semiplano derecho del plano s\footref{fn:continuevsdiscreto}; de lo contrario, el sistema es inestable.
                     \item El punto $-1 + j0$ queda rodeado una o varias veces en sentido contrario al de las agujas
                     del reloj. En este caso, el sistema es estable en lazo cerrado si el número de rodeos en sentido contrario
                     al de las agujas del reloj es igual al número de polos $G(s)H(s)$ en el semiplano derecho
-                    del plano s; de lo contrario, el sistema es inestable.
+                    del plano s\footref{fn:continuevsdiscreto}; de lo contrario, el sistema es inestable.
+
+                    \footnotetext[1]{En el caso de sistemas discretos se toma en cuenta son los polos fuera del circulo unitario para la evaluacion de los criterios. \label{fn:continuevsdiscreto}}
+
                     \item El punto $-1 + j0$ queda rodeado una o varias veces en el sentido de las agujas del reloj.
                     En este caso el sistema es inestable en lazo cerrado.
                 \end{enumerate}
@@ -430,4 +433,6 @@
             
             \paragraph{Análisis de estabilidad con las trazas de Bode}
 
-                Los diagramas de bode son una forma de representar la respuesta en frecuencia de un sistema tomando en cuenta los cambios de amplitud de $H(j\omega)$ y del ángulo de fase de $H(j\omega)$ respecto a la frecuencia \Parencite{nilsson1995circuitos}. Para analizar la estabilidad se utilizan el margen de ganancia y el margen de fase del sistema en un diagrama de Bode a modo de trazas, creando así, zonas claramente delimitadas por estas trazas que determinan la estabilidad relativa del sistema dependiendo de la zona en donde se ubique en función de $\omega$.
+                Los diagramas de bode son una forma de representar la respuesta en frecuencia de un sistema tomando en cuenta los cambios de amplitud de $H(j\omega)$ y del ángulo de fase de $H(j\omega)$ respecto a la frecuencia \Parencite{nilsson1995circuitos}. Para analizar la estabilidad se utilizan el margen de ganancia y el margen de fase del sistema en un diagrama de Bode a modo de trazas, creando así, zonas claramente delimitadas por estas trazas que determinan la estabilidad relativa del sistema dependiendo de la zona en donde se ubiquen en función de $\omega$.
+
+                

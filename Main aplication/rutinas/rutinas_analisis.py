@@ -223,6 +223,10 @@ def rutina_bode_plot(self, system):
         mticker.FormatStrFormatter("%.1f dB")
     )
 
+    # Transformacion de grados mayores a 180
+    if np.any((phase * 180.0 / np.pi) >= 180):
+        phase = phase - 2*np.pi
+
     # Grafica de fase en grados
     self.main.BodeGraphicsView1.canvas.axes2.clear()
     self.main.BodeGraphicsView1.canvas.axes2.semilogx(omega, phase * 180.0 / np.pi)
@@ -540,19 +544,31 @@ def margenes_ganancias(self, mag, phase, omega):
     gainDb = 20 * np.log10(mag)
     degPhase = phase * 180.0 / np.pi
 
-    indPhase = np.where(gainDb <= 0)[0]
-    indGain = np.where(degPhase <= -180)[0]
+    indPhase = np.diff(1 * (gainDb > 0) != 0)
+    indGain = np.diff(1 * (degPhase > -180) != 0)
 
-    if not indGain.size == 0:
-        omegaGain = omega[indGain[0]]
-        GainMargin = -gainDb[indGain[0]]
+    # Margen de ganancia
+    if len(omega[:-1][indGain]) > 0 and len(omega[:-1][indGain]) < 2:
+        omegaGain = omega[:-1][indGain][0]
+        GainMargin = -gainDb[:-1][indGain][0]
+    elif len(omega[:-1][indGain]) > 0:
+        newGainIndex = min(range(len(gainDb[:-1][indGain])),
+                        key=lambda i: abs(gainDb[:-1][indGain][i] - 0))
+        omegaGain = omega[:-1][indGain][newGainIndex]
+        GainMargin = -gainDb[:-1][indGain][newGainIndex]
     else:
         omegaGain = np.nan
         GainMargin = np.infty
 
-    if not indPhase.size < 2 and gainDb[0] >= 0:
-        omegaPhase = omega[indPhase[1]]
-        PhaseMargin = 180 + degPhase[indPhase[1]]
+    # Margen de Fase
+    if len(omega[:-1][indPhase]) > 0 and len(omega[:-1][indPhase]) < 2:
+        omegaPhase = omega[:-1][indPhase][0]
+        PhaseMargin = 180 + degPhase[:-1][indPhase][0]
+    elif len(omega[:-1][indPhase]) > 0:
+        newPhaIndex = min(range(len(degPhase[:-1][indPhase])),
+                        key=lambda i: abs(degPhase[:-1][indPhase][i] + 180))
+        omegaPhase = omega[:-1][indPhase][newPhaIndex]
+        PhaseMargin = 180 + degPhase[:-1][indPhase][newPhaIndex]
     else:
         omegaPhase = np.nan
         PhaseMargin = np.infty
