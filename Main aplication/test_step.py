@@ -4,48 +4,52 @@ from numpy import real as REAL
 from numpy import imag as IMAG
 from matplotlib import pyplot as plt
 
-system = ctrl.TransferFunction([1], [1, 1, 1])
-w = np.linspace(0, 100 * np.pi, 50000)
-mag, phase, omega = ctrl.bode(system, w)
+a = np.asarray([1, 2, 3, 4])
+a = np.insert(a, 0, 4)
+print(a)
+# system = ctrl.TransferFunction([25], [1, 55.1, 0])
+# w = np.linspace(0, 100 * np.pi, 5000)
+# mag, phase, omega = ctrl.bode(system, w, Plot=True)
+# plt.show()
 
-if np.any(phase * 180.0 / np.pi >= 180):
-    phase = phase - 2 * np.pi
+# if np.any(phase * 180.0 / np.pi >= 180):
+#     phase = phase - 2 * np.pi
 
-gainDb = 20 * np.log10(mag)
-degPhase = phase * 180.0 / np.pi
+# gainDb = 20 * np.log10(mag)
+# degPhase = phase * 180.0 / np.pi
 
-indPhase = np.diff(1 * (gainDb > 0) != 0)
-indGain = np.diff(1 * (degPhase > -180) != 0)
+# indPhase = np.diff(1 * (gainDb > 0) != 0)
+# indGain = np.diff(1 * (degPhase > -180) != 0)
 
-print(omega[:-1][indPhase])
-print(omega[:-1][indGain])
+# print(omega[:-1][indPhase])
+# print(omega[:-1][indGain])
 
-if len(omega[:-1][indGain]) > 0 and len(omega[:-1][indGain]) < 2:
-    omegaGain = omega[:-1][indGain][0]
-    GainMargin = -gainDb[:-1][indGain][0]
-elif len(omega[:-1][indGain]) > 0:
-    newGainIndex = min(range(len(gainDb[:-1][indGain])),
-                      key=lambda i: abs(gainDb[:-1][indGain][i] - 0))
-    omegaGain = omega[:-1][indGain][newGainIndex]
-    GainMargin = -gainDb[:-1][indGain][newGainIndex]
-else:
-    omegaGain = np.nan
-    GainMargin = np.infty
+# if len(omega[:-1][indGain]) > 0 and len(omega[:-1][indGain]) < 2:
+#     omegaGain = omega[:-1][indGain][0]
+#     GainMargin = -gainDb[:-1][indGain][0]
+# elif len(omega[:-1][indGain]) > 0:
+#     newGainIndex = min(range(len(gainDb[:-1][indGain])),
+#                       key=lambda i: abs(gainDb[:-1][indGain][i] - 0))
+#     omegaGain = omega[:-1][indGain][newGainIndex]
+#     GainMargin = -gainDb[:-1][indGain][newGainIndex]
+# else:
+#     omegaGain = np.nan
+#     GainMargin = np.infty
 
-if len(omega[:-1][indPhase]) > 0 and len(omega[:-1][indPhase]) < 2:
-    omegaPhase = omega[:-1][indPhase][0]
-    PhaseMargin = 180 + degPhase[:-1][indPhase][0]
-elif len(omega[:-1][indPhase]) > 0:
-    newPhaIndex = min(range(len(degPhase[:-1][indPhase])),
-                      key=lambda i: abs(degPhase[:-1][indPhase][i] + 180))
-    omegaPhase = omega[:-1][indPhase][newPhaIndex]
-    PhaseMargin = 180 + degPhase[:-1][indPhase][newPhaIndex]
-else:
-    omegaPhase = np.nan
-    PhaseMargin = np.infty
+# if len(omega[:-1][indPhase]) > 0 and len(omega[:-1][indPhase]) < 2:
+#     omegaPhase = omega[:-1][indPhase][0]
+#     PhaseMargin = 180 + degPhase[:-1][indPhase][0]
+# elif len(omega[:-1][indPhase]) > 0:
+#     newPhaIndex = min(range(len(degPhase[:-1][indPhase])),
+#                       key=lambda i: abs(degPhase[:-1][indPhase][i] + 180))
+#     omegaPhase = omega[:-1][indPhase][newPhaIndex]
+#     PhaseMargin = 180 + degPhase[:-1][indPhase][newPhaIndex]
+# else:
+#     omegaPhase = np.nan
+#     PhaseMargin = np.infty
 
 
-print(omegaPhase, PhaseMargin, omegaGain, GainMargin)
+# print(omegaPhase, PhaseMargin, omegaGain, GainMargin)
 
 # plt.style.use("seaborn-dark-palette")
 

@@ -207,11 +207,9 @@ def rutina_bode_plot(self, system):
     """
 
     if ctrl.isdtime(system, strict=True):
-        w = np.linspace(0, 4 * np.pi / self.dt, 50000)
-        mag, phase, omega = ctrl.bode(system, w)
+        mag, phase, omega = ctrl.bode(system)
     else:
-        w = np.linspace(0, 100 * np.pi, 50000)
-        mag, phase, omega = ctrl.bode(system, w)
+        mag, phase, omega = ctrl.bode(system)
 
     # Grafica de amplitud en dB
     bodeDb = 20 * np.log10(mag)
@@ -238,7 +236,7 @@ def rutina_bode_plot(self, system):
     self.main.BodeGraphicsView1.canvas.axes2.set_xlabel("rad/s")
 
     # Calculo y graficacion del margen de ganancia y de fase
-    gm, pm, wg, wp = margenes_ganancias(self, mag, phase, omega)
+    gm, pm, wg, wp = margenes_ganancias(self, system, mag, phase, omega)
 
     self.main.BodeGraphicsView1.canvas.axes1.axhline(
         y=0, color='k', linestyle=':', zorder=-20
@@ -283,11 +281,9 @@ def rutina_nyquist_plot(self, system):
     """
 
     if ctrl.isdtime(system, strict=True):
-        w = np.linspace(0, 10 * np.pi, 5000)
-        real, imag, freq = ctrl.nyquist_plot(system, w)
+        real, imag, freq = ctrl.nyquist_plot(system)
     else:
-        w = np.logspace(-np.pi, 2 * np.pi, 5000)
-        real, imag, freq = ctrl.nyquist_plot(system, w)
+        real, imag, freq = ctrl.nyquist_plot(system)
 
     self.main.NyquistGraphicsView1.canvas.axes.cla()
     self.main.NyquistGraphicsView1.canvas.axes.plot([-1], [0], "r+")
@@ -393,7 +389,6 @@ def rutina_nichols_plot(self, system):
     self.main.nicholsGraphicsView1.canvas.axes.cla()
 
     if ctrl.isdtime(system, strict=True):
-        w = np.linspace(0, 4 * np.pi / self.dt, 5000)
         if (
             self.main.tfdelaycheckBox1.isChecked() and
             self.main.AnalisisstackedWidget.currentIndex() == 0
@@ -404,7 +399,6 @@ def rutina_nichols_plot(self, system):
 
             ctrl.nichols_plot(
                 system,
-                w,
                 figure=self.main.nicholsGraphicsView1,
                 ax=self.main.nicholsGraphicsView1.canvas.axes,
                 delay=True
@@ -412,12 +406,10 @@ def rutina_nichols_plot(self, system):
         else:
             ctrl.nichols_plot(
                 system,
-                w,
                 figure=self.main.nicholsGraphicsView1,
                 ax=self.main.nicholsGraphicsView1.canvas.axes
             )
     else:
-        w = np.linspace(0, 100 * np.pi, 5000)
         if (
             self.main.tfdelaycheckBox1.isChecked() and
             self.main.AnalisisstackedWidget.currentIndex() == 0
@@ -428,7 +420,6 @@ def rutina_nichols_plot(self, system):
 
             ctrl.nichols_plot(
                 system,
-                w,
                 figure=self.main.nicholsGraphicsView1,
                 ax=self.main.nicholsGraphicsView1.canvas.axes,
                 delay=True
@@ -436,7 +427,6 @@ def rutina_nichols_plot(self, system):
         else:
             ctrl.nichols_plot(
                 system,
-                w,
                 figure=self.main.nicholsGraphicsView1,
                 ax=self.main.nicholsGraphicsView1.canvas.axes
             )
@@ -494,7 +484,7 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     Datos += f"Ganancia DC: {real(dcgain):5.3f}\n"
 
     # Calculo del margen de ganancia y de fase
-    gm, pm, wg, wp = margenes_ganancias(self, mag, phase, omega)
+    gm, pm, wg, wp = margenes_ganancias(self, system, mag, phase, omega)
 
     if not gm == np.infty:
         Datos += f"Margen de ganancia: {gm:5.3f} dB\n"
@@ -529,7 +519,7 @@ def rutina_system_info(self, system, T, mag, phase, omega):
     return
 
 
-def margenes_ganancias(self, mag, phase, omega):
+def margenes_ganancias(self, system, mag, phase, omega):
     """
     [Funcion para obtener el margen de ganancia y el margen de fase]
     
@@ -547,13 +537,19 @@ def margenes_ganancias(self, mag, phase, omega):
     indPhase = np.diff(1 * (gainDb > 0) != 0)
     indGain = np.diff(1 * (degPhase > -180) != 0)
 
+    zero_freq_response = ctrl.evalfr(system, 0j)
+
     # Margen de ganancia
+    if np.angle(zero_freq_response)*180/np.pi == 180:
+        omegaGain = omega[0]
+        GainMargin = -gainDb[0]
+    
     if len(omega[:-1][indGain]) > 0 and len(omega[:-1][indGain]) < 2:
         omegaGain = omega[:-1][indGain][0]
         GainMargin = -gainDb[:-1][indGain][0]
-    elif len(omega[:-1][indGain]) > 0:
+    if len(omega[:-1][indGain]) > 0:
         newGainIndex = min(range(len(gainDb[:-1][indGain])),
-                        key=lambda i: abs(gainDb[:-1][indGain][i] - 0))
+                        key=lambda i: abs(gainDb[:-1][indGain][i] + 999999))
         omegaGain = omega[:-1][indGain][newGainIndex]
         GainMargin = -gainDb[:-1][indGain][newGainIndex]
     else:
@@ -566,7 +562,7 @@ def margenes_ganancias(self, mag, phase, omega):
         PhaseMargin = 180 + degPhase[:-1][indPhase][0]
     elif len(omega[:-1][indPhase]) > 0:
         newPhaIndex = min(range(len(degPhase[:-1][indPhase])),
-                        key=lambda i: abs(degPhase[:-1][indPhase][i] + 180))
+                        key=lambda i: abs(np.abs(degPhase[:-1][indPhase][i]) - 180))
         omegaPhase = omega[:-1][indPhase][newPhaIndex]
         PhaseMargin = 180 + degPhase[:-1][indPhase][newPhaIndex]
     else:

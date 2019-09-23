@@ -82,16 +82,25 @@ def nichols_plot(sys_list, omega=None, grid=True, figure=None, ax=None, delay=Fa
     if not getattr(sys_list, '__iter__', False):
         sys_list = (sys_list,)
 
+    if omega is None:
+        omega = default_frequency_range(sys_list)
+
     for sys in sys_list:
-        omega = np.array(omega)
-        if sys.isdtime(True):
+
+        omega = np.asarray(omega)
+
+        if sys.isdtime(strict=True):
             nyquistfrq = 2. * np.pi * 1. / sys.dt / 2.
             omega = omega[omega < nyquistfrq]
 
         # Get the magnitude and phase of the system
         mag_tmp, phase_tmp, omega = sys.freqresp(omega)
         mag = np.squeeze(mag_tmp)
-        phase = np.squeeze(phase_tmp)
+        phase = np.atleast_1d(np.squeeze(phase_tmp))
+        phase = unwrap(phase)
+        
+        if np.any((phase * 180.0 / np.pi) >= 180):
+            phase = phase - 2*np.pi
 
         # Convert to Nichols-plot format (phase in degrees,
         # and magnitude in dB)
@@ -115,6 +124,7 @@ def nichols_plot(sys_list, omega=None, grid=True, figure=None, ax=None, delay=Fa
     if grid:
         nichols_grid(figure=figure, ax=ax, delay=delay)
 
+    return x, y
 
 def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None, ax=None, delay=False):
     """Nichols chart grid

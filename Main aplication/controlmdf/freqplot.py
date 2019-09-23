@@ -140,13 +140,13 @@ def bode_plot(syslist, omega=None, dB=None, Hz=None, deg=None,
             if Hz:
                 omega_limits *= 2. * math.pi
             if omega_num:
-                omega = sp.logspace(np.log10(omega_limits[0]), 
-                                    np.log10(omega_limits[1]), 
-                                    num=omega_num, 
+                omega = sp.logspace(np.log10(omega_limits[0]),
+                                    np.log10(omega_limits[1]),
+                                    num=omega_num,
                                     endpoint=True)
             else:
-                omega = sp.logspace(np.log10(omega_limits[0]), 
-                                    np.log10(omega_limits[1]), 
+                omega = sp.logspace(np.log10(omega_limits[0]),
+                                    np.log10(omega_limits[1]),
                                     endpoint=True)
 
     mags, phases, omegas, nyquistfrqs = [], [], [], []
@@ -261,7 +261,7 @@ def bode_plot(syslist, omega=None, dB=None, Hz=None, deg=None,
 
                     ax_mag.axhline(y=0 if dB else 1, color='k', linestyle=':',
                                    zorder=-20)
-                    ax_phase.axhline(y=phase_limit if deg else math.radians(phase_limit), 
+                    ax_phase.axhline(y=phase_limit if deg else math.radians(phase_limit),
                                      color='k', linestyle=':', zorder=-20)
                     mag_ylim = ax_mag.get_ylim()
                     phase_ylim = ax_phase.get_ylim()
@@ -277,11 +277,11 @@ def bode_plot(syslist, omega=None, dB=None, Hz=None, deg=None,
 
                         if deg:
                             ax_phase.semilogx([Wcp, Wcp],
-                                              [1e5, phase_limit+pm], 
+                                              [1e5, phase_limit+pm],
                                               color='k', linestyle=':',
                                               zorder=-20)
                             ax_phase.semilogx([Wcp, Wcp],
-                                              [phase_limit + pm, phase_limit], 
+                                              [phase_limit + pm, phase_limit],
                                               color='k', zorder=-20)
                         else:
                             ax_phase.semilogx([Wcp, Wcp],
@@ -292,7 +292,7 @@ def bode_plot(syslist, omega=None, dB=None, Hz=None, deg=None,
                             ax_phase.semilogx([Wcp, Wcp],
                                               [math.radians(phase_limit) +
                                                math.radians(pm),
-                                               math.radians(phase_limit)], 
+                                               math.radians(phase_limit)],
                                               color='k', zorder=-20)
 
                     if gm != float('inf') and Wcg != float('nan'):
@@ -325,10 +325,10 @@ def bode_plot(syslist, omega=None, dB=None, Hz=None, deg=None,
 
                     if sisotool:
                         ax_mag.text(0.04, 0.06,
-                                    'G.M.: %.2f %s\nFreq: %.2f %s' % 
+                                    'G.M.: %.2f %s\nFreq: %.2f %s' %
                                     (20*np.log10(gm) if dB else gm,
                                      'dB ' if dB else '',
-                                     Wcg, 'Hz' if Hz else 'rad/s'), 
+                                     Wcg, 'Hz' if Hz else 'rad/s'),
                                     horizontalalignment='left',
                                     verticalalignment='bottom',
                                     transform=ax_mag.transAxes,
@@ -337,16 +337,16 @@ def bode_plot(syslist, omega=None, dB=None, Hz=None, deg=None,
                                       'P.M.: %.2f %s\nFreq: %.2f %s' %
                                       (pm if deg else math.radians(pm),
                                        'deg' if deg else 'rad',
-                                       Wcp, 'Hz' if Hz else 'rad/s'), 
+                                       Wcp, 'Hz' if Hz else 'rad/s'),
                                       horizontalalignment='left',
                                       verticalalignment='bottom',
                                       transform=ax_phase.transAxes,
                                       fontsize=8 if int(matplotlib.__version__[0]) == 1 else 6)
                     else:
-                        plt.suptitle('Gm = %.2f %s(at %.2f %s), Pm = %.2f %s (at %.2f %s)' % 
-                                     (20*np.log10(gm) if dB else gm, 
+                        plt.suptitle('Gm = %.2f %s(at %.2f %s), Pm = %.2f %s (at %.2f %s)' %
+                                     (20*np.log10(gm) if dB else gm,
                                       'dB ' if dB else '\b',
-                                      Wcg, 'Hz' if Hz else 'rad/s', 
+                                      Wcg, 'Hz' if Hz else 'rad/s',
                                       pm if deg else math.radians(pm),
                                       'deg' if deg else 'rad',
                                       Wcp, 'Hz' if Hz else 'rad/s'))
@@ -591,7 +591,7 @@ def gangof4_plot(P, C, omega=None):
 
 
 # Compute reasonable defaults for axes
-def default_frequency_range(syslist, Hz=None, number_of_samples=None, 
+def default_frequency_range(syslist, Hz=None, number_of_samples=None,
                             feature_periphery_decade=None):
     """Compute a reasonable default frequency range for frequency
     domain plots.
@@ -668,7 +668,7 @@ def default_frequency_range(syslist, Hz=None, number_of_samples=None,
                 # * at the origin and real <= 0 & imag==0: log!
                 # * at 1.: would result in omega=0. (logaritmic plot!)
                 features_ = features_[(features_.imag != 0.0) | (features_.real > 0.)]
-                features_ = features_[np.bitwise_not((features_.imag == 0.0) & 
+                features_ = features_[np.bitwise_not((features_.imag == 0.0) &
                                                      (np.abs(features_.real - 1.0) < 1.e-10))]
                 # TODO: improve
                 features__ = np.abs(np.log(features_) / (1.j * sys.dt))
@@ -704,6 +704,10 @@ def default_frequency_range(syslist, Hz=None, number_of_samples=None,
     # Set the range to be an order of magnitude beyond any features
     if number_of_samples:
         omega = sp.logspace(lsp_min, lsp_max, num=number_of_samples, endpoint=True)
+        if np.any(np.abs(syslist[0].pole()) == 0) and not syslist[0].isdtime(strict=True):
+            omega = np.insert(omega, 0, 0.001)
+        else:
+            omega = np.insert(omega, 0, 0)
     else:
         omega = sp.logspace(lsp_min, lsp_max, endpoint=True)
     return omega
