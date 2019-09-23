@@ -483,8 +483,10 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
 
     if ctrl.isdtime(system, strict=True):
         y = y[0]
+        y = np.clip(y, -1e12, 1e12)
         self.main.stepGraphicsView2.curva.setData(t, y[:-1], stepMode=True)
     else:
+        y = np.clip(y, -1e12, 1e12)
         self.main.stepGraphicsView2.curva.setData(t, y, stepMode=False)
 
     return t, y

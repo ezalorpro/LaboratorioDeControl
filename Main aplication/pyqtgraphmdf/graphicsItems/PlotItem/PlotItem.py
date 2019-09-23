@@ -563,8 +563,8 @@ class PlotItem(GraphicsWidget):
         if item in self.dataItems:
             self.dataItems.remove(item)
             
-        if item.scene() is not None:
-            self.vb.removeItem(item)
+        self.vb.removeItem(item)
+        
         if item in self.curves:
             self.curves.remove(item)
             self.updateDecimation()
@@ -924,15 +924,13 @@ class PlotItem(GraphicsWidget):
             
         curves = self.curves[:]
         split = len(curves) - numCurves
-        for i in range(len(curves)):
-            if numCurves == -1 or i >= split:
-                curves[i].show()
-            else:
+        for curve in curves[split:]:
+            if numCurves != -1:
                 if self.ctrl.forgetTracesCheck.isChecked():
-                    curves[i].clear()
+                    curve.clear()
                     self.removeItem(curves[i])
                 else:
-                    curves[i].hide()        
+                    curve.hide()        
       
     def updateAlpha(self, *args):
         (alpha, auto) = self.alphaState()

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ..Qt import QtGui, QtCore
 try:
     from ..Qt import QtOpenGL
@@ -61,6 +62,7 @@ class PlotCurveItem(GraphicsObject):
         self.opts = {
             'shadowPen': None,
             'fillLevel': None,
+            'fillOutline': False,
             'brush': None,
             'stepMode': False,
             'name': None,
@@ -291,7 +293,7 @@ class PlotCurveItem(GraphicsObject):
         self.fillPath = None
         self.invalidateBounds()
         self.update()
-
+        
     def setData(self, *args, **kargs):
         """
         =============== ========================================================
@@ -305,6 +307,8 @@ class PlotCurveItem(GraphicsObject):
                         :func:`mkPen <pyqtgraph.mkPen>` is allowed.
         fillLevel       (float or None) Fill the area 'under' the curve to
                         *fillLevel*
+        fillOutline     (bool) If True, an outline surrounding the *fillLevel*
+                        area is drawn.
         brush           QBrush to use when filling. Any single argument accepted
                         by :func:`mkBrush <pyqtgraph.mkBrush>` is allowed.
         antialias       (bool) Whether to use antialiasing when drawing. This
@@ -394,6 +398,8 @@ class PlotCurveItem(GraphicsObject):
             self.setShadowPen(kargs['shadowPen'])
         if 'fillLevel' in kargs:
             self.setFillLevel(kargs['fillLevel'])
+        if 'fillOutline' in kargs:
+            self.opts['fillOutline'] = kargs['fillOutline']
         if 'brush' in kargs:
             self.setBrush(kargs['brush'])
         if 'antialias' in kargs:
@@ -501,7 +507,7 @@ class PlotCurveItem(GraphicsObject):
             p.setPen(sp)
             p.drawPath(path)
         p.setPen(cp)
-        if self.fillPath is not None:
+        if self.opts['fillOutline'] and self.fillPath is not None:
             p.drawPath(self.fillPath)
         else:
             p.drawPath(path)
@@ -565,7 +571,7 @@ class PlotCurveItem(GraphicsObject):
                 gl.glEnable(gl.GL_BLEND)
                 gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA)
                 gl.glHint(gl.GL_LINE_SMOOTH_HINT, gl.GL_NICEST)
-                gl.glDrawArrays(gl.GL_LINE_STRIP, 0, pos.size / pos.shape[-1])
+                gl.glDrawArrays(gl.GL_LINE_STRIP, 0, int(pos.size / pos.shape[-1]))
             finally:
                 gl.glDisableClientState(gl.GL_VERTEX_ARRAY)
         finally:
@@ -633,4 +639,3 @@ class ROIPlotItem(PlotCurveItem):
     def roiChangedEvent(self):
         d = self.getRoiData()
         self.updateData(d, self.xVals)
-

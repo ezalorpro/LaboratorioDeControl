@@ -138,8 +138,10 @@ def rutina_step_plot(self, system, T):
 
     if ctrl.isdtime(system, strict=True):
         y = y[0]
+        y = np.clip(y, -1e300, 1e300)
         self.main.stepGraphicsView1.canvas.axes.step(t, y, where="mid")
     else:
+        y = np.clip(y, -1e300, 1e300)
         self.main.stepGraphicsView1.canvas.axes.plot(t, y)
 
     self.main.stepGraphicsView1.canvas.axes.grid(color="lightgray")
@@ -181,8 +183,10 @@ def rutina_impulse_plot(self, system, T):
 
     if ctrl.isdtime(system, strict=True):
         y = y[0]
+        y = np.clip(y, -1e300, 1e300)
         self.main.impulseGraphicsView1.canvas.axes.step(t, y, where="mid")
     else:
+        y = np.clip(y, -1e300, 1e300)
         self.main.impulseGraphicsView1.canvas.axes.plot(t, y)
 
     self.main.impulseGraphicsView1.canvas.axes.grid(color="lightgray")
@@ -216,7 +220,7 @@ def rutina_bode_plot(self, system):
     self.main.BodeGraphicsView1.canvas.axes1.clear()
     self.main.BodeGraphicsView1.canvas.axes1.semilogx(omega, bodeDb)
     self.main.BodeGraphicsView1.canvas.axes1.grid(True, which="both", color="lightgray")
-    self.main.BodeGraphicsView1.canvas.axes1.set_title("Amplitud")
+    self.main.BodeGraphicsView1.canvas.axes1.set_title("Magnitud")
     self.main.BodeGraphicsView1.canvas.axes1.yaxis.set_major_formatter(
         mticker.FormatStrFormatter("%.1f dB")
     )
