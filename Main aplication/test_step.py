@@ -4,9 +4,17 @@ from numpy import real as REAL
 from numpy import imag as IMAG
 from matplotlib import pyplot as plt
 
-a = np.asarray([1, 2, 3, 4])
-a = np.insert(a, 0, 4)
-print(a)
+a = np.asarray([-1, 0, 2, 0, -1, 2, 3, 4])
+crossHack1 = np.diff(1 * (a > -190) != 0)
+crossHack2 = np.diff(1 * (a > -170) != 0)
+crossHack = ~crossHack1 * ~crossHack2
+gg = np.diff(1 * (a <= 0) != 0)
+print(~crossHack1)
+print(~crossHack2)
+print(crossHack)
+gg = gg * crossHack
+print(gg)
+print(a[:-1][gg])
 # system = ctrl.TransferFunction([25], [1, 55.1, 0])
 # w = np.linspace(0, 100 * np.pi, 5000)
 # mag, phase, omega = ctrl.bode(system, w, Plot=True)

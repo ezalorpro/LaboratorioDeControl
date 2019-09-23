@@ -534,22 +534,45 @@ def margenes_ganancias(self, system, mag, phase, omega):
     gainDb = 20 * np.log10(mag)
     degPhase = phase * 180.0 / np.pi
 
+    # Transformado la fase a : -360 < phase < 360, para +/- 360  phase -> 0
+    comp_phase = np.copy(degPhase)
+    degPhase = degPhase - (degPhase/360).astype(int) * 360
+
+    # Para evitar la deteccion de cruces al llevar las fases al rango -360 < phase < 360
+    crossHack1 = np.diff(1 * (degPhase > -183) != 0)
+    crossHack2 = np.diff(1 * (degPhase > -177) != 0)
+    crossHack = ~crossHack1 * ~crossHack2
+
+    # Deteccion de cruce
     indPhase = np.diff(1 * (gainDb > 0) != 0)
     indGain = np.diff(1 * (degPhase > -180) != 0)
+    indGain = indGain * crossHack
 
+    # Calculo de la respuesta en frecuencia para omega = 0 rad/s
     zero_freq_response = ctrl.evalfr(system, 0j)
+    omega = np.insert(omega, 0, 0)
+    zeroPhase = np.angle(zero_freq_response)
+    zeroMag = np.abs(zero_freq_response)
+    if zeroPhase * 180.0 / np.pi >= 180:
+        zeroPhase = zeroPhase - 2 * np.pi
+    gainDb = np.insert(gainDb, 0, 20 * np.log10(zeroMag))
+    degPhase = np.insert(degPhase, 0, zeroPhase * 180.0 / np.pi)
+
+    # Verificando "cruze" por -180 grados para omega = 0 rad/s
+    if zeroPhase * 180.0 / np.pi == -180:
+        indGain = np.insert(indGain, 0, True)
+    else:
+        indGain = np.insert(indGain, 0, False)
+
+    # Verificando "cruze" por 0 dB para omega = 0 rad/s
+    if 20 * np.log10(zeroMag) == 0:
+        indPhase = np.insert(indPhase, 0, True)
+    else:
+        indPhase = np.insert(indPhase, 0, False)
 
     # Margen de ganancia
-    if np.angle(zero_freq_response)*180/np.pi == 180:
-        omegaGain = omega[0]
-        GainMargin = -gainDb[0]
-    
-    if len(omega[:-1][indGain]) > 0 and len(omega[:-1][indGain]) < 2:
-        omegaGain = omega[:-1][indGain][0]
-        GainMargin = -gainDb[:-1][indGain][0]
     if len(omega[:-1][indGain]) > 0:
-        newGainIndex = min(range(len(gainDb[:-1][indGain])),
-                        key=lambda i: abs(gainDb[:-1][indGain][i] + 999999))
+        newGainIndex = np.argmin(np.abs(gainDb[:-1][indGain]))
         omegaGain = omega[:-1][indGain][newGainIndex]
         GainMargin = -gainDb[:-1][indGain][newGainIndex]
     else:
@@ -557,10 +580,7 @@ def margenes_ganancias(self, system, mag, phase, omega):
         GainMargin = np.infty
 
     # Margen de Fase
-    if len(omega[:-1][indPhase]) > 0 and len(omega[:-1][indPhase]) < 2:
-        omegaPhase = omega[:-1][indPhase][0]
-        PhaseMargin = 180 + degPhase[:-1][indPhase][0]
-    elif len(omega[:-1][indPhase]) > 0:
+    if len(omega[:-1][indPhase]) > 0:
         newPhaIndex = min(range(len(degPhase[:-1][indPhase])),
                         key=lambda i: abs(np.abs(degPhase[:-1][indPhase][i]) - 180))
         omegaPhase = omega[:-1][indPhase][newPhaIndex]
