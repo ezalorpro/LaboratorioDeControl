@@ -145,7 +145,7 @@
 				\label{fig:ControladorLazoCerrado}
 			\end{figure}
 			
-			En este esquema se observa que el controlador recibe la señal de error producto del comparador entre el setpoint y la variable controlada, este error es utilizado por el controlador para generar una señal de control sc(t). El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.$\,$671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
+			En este esquema se observa que el controlador recibe la señal de error producto del comparador entre el setpoint y la variable controlada, este error es utilizado por el controlador para generar una señal de control $sc(t)$. El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.$\,$671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
 			
 			\begin{equation}\label{eq:pidtiempo}
 				sc(t) = K_{p}e(t)+  K_{i}\int_{0}^{t} e(\tau) d\tau + K_{d} \frac{d}{dt}e(t)

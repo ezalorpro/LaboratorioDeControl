@@ -414,6 +414,8 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\fixltx2e.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\fixltx2e.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\placeins\placeins.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\placeins\placeins.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pgfgantt\pgfgantt.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pgfgantt\pgfgantt.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pgf\frontendlayer\tikz.sty
@@ -800,6 +802,21 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\boondox\zxx
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\txfonts\txr.vf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxptmr.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxr.tfm
+INPUT imagenes\bodeG1.pdf
+INPUT .\imagenes\bodeG1.pdf
+INPUT .\imagenes\bodeG1.pdf
+INPUT .\imagenes\bodeG1.pdf
+INPUT imagenes\bodeG2.pdf
+INPUT .\imagenes\bodeG2.pdf
+INPUT .\imagenes\bodeG2.pdf
+INPUT .\imagenes\bodeG2.pdf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxsy7.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txsys.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txex-bar.tfm
+INPUT imagenes\esquemaPID.pdf
+INPUT .\imagenes\esquemaPID.pdf
+INPUT .\imagenes\esquemaPID.pdf
+INPUT .\imagenes\esquemaPID.pdf
 INPUT capitulo3.tex
 INPUT capitulo3.tex
 INPUT capitulo4.tex

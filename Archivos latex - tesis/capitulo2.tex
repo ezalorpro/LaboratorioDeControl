@@ -432,13 +432,73 @@
             
             \paragraph{Margen de ganancia y Margen de fase}
                 
-                Los margenes de ganancia y de fase son una medida de la estabilidad relativa, se toma en cuenta a la hora de realizar el diseño de un controlador, esto es debido a que los margenes se pueden interpretar de modo que orienten en la cantidad de ganancia que se le puede aplicar al sistema en lazo cerrado, adicionalmente, la estabilidad relativa se puede interpretar como que tan estable es un sistema.
-                    
+                Los margenes de ganancia y de fase son una medida de la estabilidad relativa, se toman en cuenta a la hora de realizar el diseño de un controlador, esto es debido a que los margenes se pueden interpretar de modo que orienten en la cantidad de ganancia que se le puede aplicar al sistema en lazo cerrado, adicionalmente, la estabilidad relativa se puede interpretar como que tan estable es un sistema. \textcite{dorf2011modern} definen el margen de ganancia como: \blockquote[p.655]{[...] el incremento en la ganancia del sistema cuando $fase = -180^\circ$ que resultaria en un sistema marginalmente estable con la interseccion del punto $-1 + j0$ en el diagrama de Nyquist}. Asi mismo, \textcite{dorf2011modern} definen el margen de fase como: \blockquote[p.656]{[...] la cantidad de desplazamiento de fase de $L(j\omega)$ a una unidad de magnitud que resultaria en un sistema marginalmente estable con la intersección del punto $-1 + j0$ en el diagrama de Nyquist. El margen de ganancia y de fase pueden ser facilmente encontrados utilizando un diagrama de Bode.}
+
             \paragraph{Análisis de estabilidad con las trazas de Bode}
 
-                Los diagramas de bode son una forma de representar la respuesta en frecuencia de un sistema tomando en cuenta los cambios de amplitud de $H(j\omega)$ y del ángulo de fase de $H(j\omega)$ respecto a la frecuencia \Parencite{nilsson1995circuitos}. Para analizar la estabilidad se utilizan el margen de ganancia y el margen de fase del sistema en un diagrama de Bode a modo de trazas, creando así, zonas claramente delimitadas por estas trazas que determinan la estabilidad relativa del sistema dependiendo de la zona en donde se ubiquen en función de $\omega$.
+                Los diagramas de bode son una forma de representar la respuesta en frecuencia de un sistema tomando en cuenta los cambios de amplitud de $L(j\omega)$ y del ángulo de fase de $L(j\omega)$ respecto a la frecuencia \Parencite{nilsson1995circuitos}. Para analizar la estabilidad se utilizan el margen de ganancia y el margen de fase del sistema en un diagrama de Bode a modo de trazas, el punto de estabilidad critica en el diagrama de bode pasa a ser su equivalente en $dB$, el cual es $0dB$.
 
-                 
+                Un margen de ganancia positivo y de fase positivos indican que el sistema es estable, si el sistema es de fase no minima, la interpretacion anterior deja de ser valida. Aplicando las deficiones dadas por \textcite{dorf2011modern} podemos obtener el margen de ganancia y de fase para los sistemas $G_1(s)$ y $G_2(s)$ y se presentan como ejemplo en la \cref{fig:bodeG1} y \cref{fig:bodeG2}.
+
+                \begin{itemize}[leftmargin=\parindent]
+                    \item $G_1(s)$: $GM \rightarrow \infty$ y $PM \rightarrow \infty$
+                    \item $G_2(s)$: $GM = -3.509dB$ a $1.409\ rad/sec$ y $PM = -23.719^\circ$ a $0.807\ rad/sec$
+                \end{itemize}
+
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=\textwidth]{bodeG1.pdf}
+                    \caption[Ejemplo 1 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $G_1(s)$}. En el diagrama se puede observar que no existe cruce por $0dB$ en magnitud o cruce por $-180^\circ$ en fase, por tanto, el sistema es estable y acepta incrementos teoricos de ganancia infinitos . Fuente: Elaboración propia.}
+                    \label{fig:bodeG1}
+                \end{figure}
+
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=\textwidth]{bodeG2.pdf}
+                    \caption[Ejemplo 2 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $G_2(s)$}. El sistema $G_2(s)$ es de fase no minima, debido a esto, la interpretacion del margen de ganancia y de fase no es tan simple, aca se puede observar que el margen de ganancia es negativo y aun asi, sabemos por su analisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
+                    \label{fig:bodeG2}
+                \end{figure}
+
+        \subsubsection{Controlador PID}
+
+            El controlador será el elemento dentro del sistema de control que se encargara de llevar al proceso a un valor de referencia deseado, existen varios esquemas de control para el control de procesos, cada uno con sus ventajas y desventajas, el más común es un sistema en lazo cerrado con controlador, este se puede observar en la \cref{fig:esquemaPID}.
+            
+            \clearpage
+
+            \begin{figure}[htb]
+                \centering
+                \includegraphics[width=\textwidth]{esquemaPID.pdf}
+                \caption[Ejemplo de un sistema en lazo cerrado con controlador]{\textbf{Sistema en lazo cerrado con controlador}. El controlador recibe la señal de error y genera una señal de control $sc(t)$. Fuente: Elaboración propia.} 
+                \label{fig:esquemaPID}
+            \end{figure}
+
+            En este esquema se observa que el controlador recibe la señal de error producto del comparador entre el setpoint y la variable controlada, este error es utilizado por el controlador para generar una señal de control $sc(t)$. El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.$\,$671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
+
+            \begin{equation}\label{eq:pidtiempo}
+                sc(t) = K_{p}e(t)+  K_{i}\int_{0}^{t} e(\tau) d\tau + K_{d} \frac{d}{dt}e(t)
+            \end{equation}
+            
+            Y su forma en función de transferencia:
+            
+            \begin{equation}\label{eq:pidcompleja}
+                G_{c}(s) = \frac{sc(s)}{e(s)} = \frac{K_{d}s^{2} + K_{p}s +  K_{i}}{s}
+            \end{equation}
+            
+            \paragraph{Componente proporcional}
+
+				La componente proporcional se obtiene de multiplicar la señal de error por la ganancia proporcional, esto provoca que la señal de control sea proporcional a la señal de error con una relación igual a la ganancia proporcional, si el controlador solo constase de componente proporcional el error en estado estable nunca se eliminaría, dicho de otro modo, el error podría ser muy bajo, pero jamás cero. \enquote{Este error se denomina la desviación permanente u \enquote{offset}. El mismo disminuye si se aumenta el valor de K}\Parencite[p.$\,$54]{nelson1999fundamentos}.
+
+			\paragraph{Componente integral}
+
+				La componente integral viene dada por la sumatoria de la señal del error en el tiempo multiplicada por la ganancia integral, por tanto, se obtiene una acumulación en un periodo determinado, esto implica que mientras exista error, la componente integral seguirá aumentando o disminuyendo dependiendo del signo de la señal de error hasta que el error sea cero, la componente integral se suma con la componente proporcional formando una única señal de control.
+
+				Debido a que la componente integral depende del tiempo, es posible corregir desviaciones de la variable controlada generadas por perturbaciones externas, por otro lado, debido a que eventualmente se conseguirá que el error sea igual a cero la componente proporcional no hará ningún aporte al sistema, y la señal de control pasara a ser totalmente generada por la componente integral hasta que exista un cambio en el setpoint o una alteración en la variable medida.
+
+			\paragraph{Componente derivativa}
+
+				La componente derivativa viene dada por el ritmo de cambio de la señal de error multiplicado por la ganancia derivativa, por tanto, cuando el error permanece constante la componente derivativa es igual a cero, la componente derivativa será tan grande como la velocidad con la que cambie el error, esto ayuda a evitar que se generen sobre pasos en la variable medida respecto a la variable de referencia.
+				
+				La componente derivativa es muy sensible al ruido, es por esto que se debe utilizar solo cuando se requiera un cierto grado de anticipación y no exista ruido \Parencite{smith1985principles}. Es recomendable utilizar filtros en orden de disminuir el posible ruido, a su vez, cuando el proceso a controlar es de respuesta rápida se recomienda no agregar componente derivativa o que su ganancia sea muy pequeña.
 
 
                 

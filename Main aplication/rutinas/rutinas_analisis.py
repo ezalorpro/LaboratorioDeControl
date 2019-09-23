@@ -218,7 +218,7 @@ def rutina_bode_plot(self, system):
     # Grafica de amplitud en dB
     bodeDb = 20 * np.log10(mag)
     self.main.BodeGraphicsView1.canvas.axes1.clear()
-    self.main.BodeGraphicsView1.canvas.axes1.semilogx(omega, bodeDb)
+    self.main.BodeGraphicsView1.canvas.axes1.semilogx(omega, bodeDb, "tab:blue")
     self.main.BodeGraphicsView1.canvas.axes1.grid(True, which="both", color="lightgray")
     self.main.BodeGraphicsView1.canvas.axes1.set_title("Magnitud")
     self.main.BodeGraphicsView1.canvas.axes1.yaxis.set_major_formatter(
@@ -231,7 +231,9 @@ def rutina_bode_plot(self, system):
 
     # Grafica de fase en grados
     self.main.BodeGraphicsView1.canvas.axes2.clear()
-    self.main.BodeGraphicsView1.canvas.axes2.semilogx(omega, phase * 180.0 / np.pi)
+    self.main.BodeGraphicsView1.canvas.axes2.semilogx(omega,
+                                                      phase * 180.0 / np.pi,
+                                                      "tab:blue")
     self.main.BodeGraphicsView1.canvas.axes2.grid(True, which="both", color="lightgray")
     self.main.BodeGraphicsView1.canvas.axes2.set_title("Fase")
     self.main.BodeGraphicsView1.canvas.axes2.yaxis.set_major_formatter(
@@ -562,13 +564,13 @@ def margenes_ganancias(self, system, mag, phase, omega):
     gainDb = np.insert(gainDb, 0, 20 * np.log10(zeroMag))
     degPhase = np.insert(degPhase, 0, zeroPhase * 180.0 / np.pi)
 
-    # Verificando "cruze" por -180 grados para omega = 0 rad/s
+    # Verificando "cruce" por -180 grados para omega = 0 rad/s
     if zeroPhase * 180.0 / np.pi == -180:
         indGain = np.insert(indGain, 0, True)
     else:
         indGain = np.insert(indGain, 0, False)
 
-    # Verificando "cruze" por 0 dB para omega = 0 rad/s
+    # Verificando "cruce" por 0 dB para omega = 0 rad/s
     if 20 * np.log10(zeroMag) == 0:
         indPhase = np.insert(indPhase, 0, True)
     else:
