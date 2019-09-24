@@ -245,7 +245,7 @@
         
         \subsubsection{Runge-Kutta's para ecuaciones de espacio de estados}
 
-            Partiendo de la ecuacion \cref{eq:FullSSx} en donde podemos observar que $\dot{x}(t)$ viene dado por un conjunto de ecuaciones diferenciales ordinarias, por tanto, es posible aplicar los metodos de Runge-Kutta de forma casi directa, \textcite{horacio1997metodos} desarrolla las expresiones para un Runge-Kutta de orden 4 aplicado en el espacio de estados, estas expresiones pueden ser extendidas para generalizar su aplicacion a un numero de escenarios arbitrarios, el vector de estados de forma general se puede expresar como:
+            Partiendo de la ecuación \cref{eq:FullSSx} en donde podemos observar que $\dot{x}(t)$ viene dado por un conjunto de ecuaciones diferenciales ordinarias, por tanto, es posible aplicar los metodos de Runge-Kutta de forma casi directa, \textcite{horacio1997metodos} desarrolla las expresiones para un Runge-Kutta de orden 4 aplicado en el espacio de estados, estas expresiones pueden ser extendidas para generalizar su aplicación a un numero de escenarios arbitrarios, el vector de estados de forma general se puede expresar como:
 
             
             \begin{equation}\label{eq:vectorGeneral}
@@ -276,7 +276,7 @@
 				
 				$m$: como el numero de entradas
 				
-				$j$: como la iteracion actual
+				$j$: como la iteración actual
                 
                 $s$: como el numero de escenarios
             \end{spacing}
@@ -307,14 +307,14 @@
 
         \subsubsection{Tamaño de paso variable}
 
-            Como ya se menciono antes, se puede realizar una adaptacion del tamaño de paso en funcion del error, esto es posible no solo para los metodos embebidos, sino también para los explícitos, \textcite{roganprogramacion} afirma que: \blockquote[p.251]{Los programas adaptativos continuamente monitorean la solución y modifican el paso de
+            Como ya se menciono antes, se puede realizar una adaptación del tamaño de paso en función del error, esto es posible no solo para los metodos embebidos, sino también para los explícitos, \textcite{roganprogramacion} afirma que: \blockquote[p.251]{Los programas adaptativos continuamente monitorean la solución y modifican el paso de
             tiempo para asegurar que se mantenga la precisión especificada por el usuario. Esos programas
             pueden hacer algunos cálculos extras para optimizar la elección de $\tau$ , en muchos casos este
             trabajo extra vale la pena.}
             
             \paragraph{Calculo del error con dos medios pasos}
 
-                Este es un metodo simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo método al realizar dos pasos de tamaño $\frac{h}{2}$, de este modo el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|y_{1,h} - y_{2,\frac{h}{2}}\right|$ donde $y_{2,\frac{h}{2}}$ es la salida luego de dos medios pasos.
+                Este es un método simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo método al realizar dos pasos de tamaño $\frac{h}{2}$, de este modo el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|y_{1,h} - y_{2,\frac{h}{2}}\right|$ donde $y_{2,\frac{h}{2}}$ es la salida luego de dos medios pasos.
             
             \paragraph{Calculo del error para metodos embebidos} 
 
