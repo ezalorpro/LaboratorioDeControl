@@ -472,13 +472,13 @@
                 \label{fig:esquemaPID}
             \end{figure}
 
-            En este esquema se observa que el controlador recibe la señal de error producto del comparador entre el setpoint y la variable controlada, este error es utilizado por el controlador para generar una señal de control $sc(t)$. El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.$\,$671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
+            En este esquema se observa que el controlador recibe la señal de error producto de tomar la diferencia entre el setpoint y la variable del proceso, este error es utilizado por el controlador para generar una señal de control $sc(t)$. El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.$\,$671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
 
             \begin{equation}\label{eq:pidtiempo}
                 sc(t) = K_{p}e(t)+  K_{i}\int_{0}^{t} e(\tau) d\tau + K_{d} \frac{d}{dt}e(t)
             \end{equation}
             
-            Y su forma en función de transferencia:
+            \noindent Y su forma en función de transferencia:
             
             \begin{equation}\label{eq:pidcompleja}
                 G_{c}(s) = \frac{sc(s)}{e(s)} = \frac{K_{d}s^{2} + K_{p}s +  K_{i}}{s}
@@ -498,9 +498,206 @@
 
 				La componente derivativa viene dada por el ritmo de cambio de la señal de error multiplicado por la ganancia derivativa, por tanto, cuando el error permanece constante la componente derivativa es igual a cero, la componente derivativa será tan grande como la velocidad con la que cambie el error, esto ayuda a evitar que se generen sobre pasos en la variable medida respecto a la variable de referencia.
 				
-				La componente derivativa es muy sensible al ruido, es por esto que se debe utilizar solo cuando se requiera un cierto grado de anticipación y no exista ruido \Parencite{smith1985principles}. Es recomendable utilizar filtros en orden de disminuir el posible ruido, a su vez, cuando el proceso a controlar es de respuesta rápida se recomienda no agregar componente derivativa o que su ganancia sea muy pequeña.
+				La componente derivativa es muy sensible al ruido, es por esto que se debe utilizar solo cuando se requiera un cierto grado de anticipación y no exista ruido \Parencite{smith1985principles}. Es recomendable utilizar filtros en orden de disminuir el posible ruido, a su vez, cuando el proceso a controlar es de respuesta rápida se recomienda no agregar componente derivativa o que su ganancia sea muy pequeña. Tomando en cuenta lo anterior, se debe mencionar que la componente derivativa tal como se observa en las ecuaciones \cref{eq:pidtiempo} y \cref{eq:pidcompleja} no es implementable al ser no causal, por tanto, la derivada puede ser implementada utilizando una aproximacion. \blockquote[{\cite[p.220]{aastrom2002control}}]{La aproximacion actua como una derivada para las componentes de la señal de baja frecuencia. La ganancia, sin embargo, esta limitada a $KN$. Esto significa que las medidas de ruido de alta frecuencia son amplificados cuando mucho por un factor $KN$.} La funcion de transferencia de la componente derivativa aproximada es la siguiente:
 
+                \begin{equation}\label{eq:Daproximacion}
+                    D = K_d \frac{N s}{s + N}
+                \end{equation}
 
+        \subsubsection{Entonación por método de Ziegler-Nichols en lazo abierto}
+			
+            El método de Ziegler-Nichols en lazo abierto requiere primero aproximar el modelo del proceso como una función de transferencia de primer orden con tiempo muerto.
+            
+            \begin{equation}\label{eq:firstorderProcess}
+                G(s) = \frac{K}{\tau s + 1} e^{-\alpha s}
+            \end{equation}
+            
+            Los parámetros correspondientes pueden ser obtenidos realizando una prueba al escalón y extrayendo los datos correspondientes de la gráfica de la respuesta, un ejemplo se puede observar en la \cref{fig:ZNtest}. Acá se observa: (a) $t_{0}$ que corresponde al inicio del escalón, (b) $t_{1}$ inicio de la respuesta por parte del proceso al escalón, (c) $t_{2}$ cuando el proceso alcanza el 63\% del cambio total, (d) $\Delta y$ cambio total del proceso ante el escalón y (e) $\Delta u$ magnitud de cambio de la entrada. Los parámetros para aproximar el proceso a un modelo de primer orden con tiempo muerto se calculan como sigue:
+            
+            \begin{align}\label{eq:parametros}
+                K &= \frac{\Delta y}{\Delta u}\\
+                \tau &= t_{2} - t_{1}\\
+                \alpha &= t_{1} - t_{0}
+            \end{align}
+            
+            \begin{figure}[htb]
+                \centering
+                \includegraphics[width=0.85\textwidth]{ZieglerN.pdf}
+                \caption[Modelado por curva de reacción]{\textbf{Modelado por curva de reacción.} Para realizar este modelado se estudia la respuesta del sistema ante la entrada de la función de heaviside u(t), también llamada función escalón unitario, el modelo obtenido a través de este método es una aproximación del sistema. Fuente: Elaboración propia.} 
+                \label{fig:ZNtest}
+            \end{figure}
+            
+            Con estos valores se puede obtener la entonación de un controlador P, PI o PID, los valores de $K_{p}$, $K_{i}$ y $K_{d}$ se pueden obtener sustituyendo los valores en la \cref{tab:ZiglerNichols} correspondiente a la regla de entonación de Ziegler-Nichols. \textcite{ogata2003ingenieria} comenta que: \enquote{Las reglas de sintonía de Ziegler-Nichols [...] se han usado ampliamente para sintonizar controladores PID en sistemas de control de procesos en los que no se conoce con precisión la dinámica de la planta}(p.$\,$572).
+            
+            \begin{table}[htb]
+                \centering
+                \begin{threeparttable}
+                    \renewcommand{\arraystretch}{1.5} 	% Separacion de las filas
+                    %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
+                    \caption[Regla de entonación de Zigler-Nichols]{Regla de entonación de Zigler-Nichols}
+                    \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}ccc}
+                        \toprule
+                        Tipo de controlador & $K_{p}$                               &              $T_{i}$              &         $T_{d}$          \\ \midrule
+                                    P          & $\displaystyle\frac{\tau}{\alpha}$    &       $\displaystyle\infty$       &            0             \\[20pt]
+                                PI          & $0.9\displaystyle\frac{\tau}{\alpha}$ & $\displaystyle\frac{\alpha}{0.3}$ &            0             \\[20pt]
+                                PID         & $1.2\displaystyle\frac{\tau}{\alpha}$ &      $2\displaystyle\alpha$       & $0.5\displaystyle\alpha$ \\ \bottomrule
+                    \end{tabular*}
+                    \label{tab:ZiglerNichols}
+                    \begin{tablenotes}[flushleft]
+                        \item {\footnotesize \textbf{Nota.} Los valores de $K_{i}$ y $K_{d}$ se pueden obtener de la siguiente forma: $K_{i} = K_{p}/T_{i}$ ; $K_{d} = K_{p}T_{d}$. Fuente: \textcite{ogata2003ingenieria}.}
+                    \end{tablenotes}
+                \end{threeparttable}
+            \end{table}
+            
+            Adicionalmente existen otras reglas para la entonacion automatica de los controladore PID, como el metodo de Cohen-Coon, al igual que Ziegler-Nichols, requiere de los parametros del proceso en su aproximacion como proceso de primer orden para ser sustituidos en la \cref{tab:CohenCoon} y obtener las ganancias respectivas.
+
+            \begin{table}[!h]
+                \centering
+                \begin{threeparttable}
+                    \renewcommand{\arraystretch}{1.5} 	% Separacion de las filas
+                    %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
+                    \caption[Regla de entonación de Cohen-Coon]{Regla de entonación de Cohen-Coon}
+                    \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}ccc}
+                        \toprule
+                        Tipo de controlador & $K_{p}$                               &              $T_{i}$              &         $T_{d}$          \\ \midrule \renewcommand{\arraystretch}{3.5}
+                                    P          & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[1 + \displaystyle\frac{1}{3}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$    &       $\displaystyle\infty$       &            0             \\[25pt]
+                                PI          & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[0.9 + \displaystyle\frac{1}{12}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$ & $\alpha\left[ \displaystyle\frac{30 + 3\left(\displaystyle\frac{\alpha}{\tau} \right) }{9 + 20\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$ &            0             \\[25pt]
+                                PD & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[\displaystyle\frac{5}{4} + \displaystyle\frac{1}{6}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$ & $\displaystyle\infty$ & $\alpha\left[ \displaystyle\frac{6 - 2\left(\displaystyle\frac{\alpha}{\tau} \right) }{22 + 3\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$ \\[25pt]
+                                PID         & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[\displaystyle\frac{4}{3} + \displaystyle\frac{1}{4}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$ &      $\alpha\left[ \displaystyle\frac{33 + 6\left(\displaystyle\frac{\alpha}{\tau} \right) }{13 + 8\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$       & $\alpha\left[ \displaystyle\frac{4}{11 + 2\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$ \\ \bottomrule
+                    \end{tabular*}
+                    \label{tab:CohenCoon}
+                    \begin{tablenotes}[flushleft]
+                        \item {\footnotesize \textbf{Nota.} Los valores de $K_{i}$ y $K_{d}$ se pueden obtener de la siguiente forma: $K_{i} = K_{p}/T_{i}$ ; $K_{d} = K_{p}T_{d}$. Fuente: \textcite{apcoCC}.}
+                    \end{tablenotes}
+                \end{threeparttable}
+            \end{table}
+    
+    \subsection{Lógica difusa}
+    
+        La lógica difusa es una extensión matemática de la lógica convencional en donde se asigna un grado de pertenencia a un hecho entre un valor verdadero y uno falso, \enquote{consiste en que los valores verdaderos (en lógica difusa) o valores de pertenencia (en conjuntos difusos) se indican en un número entre [0.0, 1.0], donde 0.0 representa falsedad total y 1.0 significa verdad absoluta}\Parencite[p.$\,$4]{cruz2010inteligencia}.
+        
+        La lógica se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}.
+        
+        \subsubsection{Conjuntos difusos}
+            
+            Un conjunto difuso está compuesto de funciones de membresía, dichas funciones de membresía representan valores para asignar el grado de pertenencia de una variable a un estado en particular, estos estados son identificados con etiquetas lingüísticas descriptivas, como alto, caliente, bajo, negativo, entre otras, en la \cref{fig:FuzzySet} se puede observar un ejemplo de conjunto difuso.
+            
+            \begin{figure}[htb]
+                \centering
+                \includegraphics[width=0.55\textwidth]{FuzzySet.pdf}
+                \caption[Ejemplo de un conjunto difuso]{\textbf{Ejemplo de un conjunto difuso}. Este conjunto difuso corresponde a una variable de temperatura que va desde -10\textdegree C hasta 100\textdegree C. Fuente: Elaboración propia.} 
+                \label{fig:FuzzySet}
+            \end{figure}
+            
+            Las funciones de membresía pueden tomar varias formas y rangos en orden de poder representar de mejor forma los grados de pertenencia de la variable a una etiqueta en particular, sin embargo, las formas triangulares suelen ser las menos pesadas en memoria y en poder de computo \Parencite{riid2003transparent}. La cantidad de etiquetas que se pueden asignar a un conjunto difuso es ilimitada, pero se debe tener en cuenta el nivel de complejidad que se genera a medida que se incrementa su número.
+            
+        \subsubsection{Reglas de inferencia}
+            
+            Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y la salida, la salida puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens, modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente. La tautología para modus ponens y modus tollens se puede observar a modo de tablas de la verdad en la \cref{tab:mponens} y \cref{tab:mtollens} respectivamente.
+            
+            \begin{table}[t]
+                \centering
+                \begin{threeparttable}
+                    \renewcommand{\arraystretch}{1.8} 	% Separacion de las filas
+                    %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
+                    \caption[Tautología para modus ponens]{Tautología para modus ponens}
+                    \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} cccc}
+                        \toprule
+                        A & B  & A$\rightarrow$B & (A$\wedge$(A$\rightarrow$B)) & (A$\wedge$(A$\rightarrow$B))$\rightarrow$B \\ \midrule
+                        0 & 0 &       1        &              0              &                     1                     \\
+                        0 & 1 &       1        &              0              &                     1                     \\
+                        1 & 0 &       0        &              0              &                     1                     \\
+                        1 & 1 &       1        &              1              &                     1                    \\ \bottomrule
+                    \end{tabular*}
+                    \label{tab:mponens}
+                \end{threeparttable}
+            \end{table}
+            
+            \begin{table}[t]
+                \centering
+                \begin{threeparttable}
+                    \renewcommand{\arraystretch}{1.8} 	% Separacion de las filas
+                    %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
+                    \caption[Tautología para modus tollens]{Tautología para modus tollens}
+                    \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} cccc}
+                        \toprule
+                        A & B  & A$\rightarrow$B & (A$\wedge$(A$\rightarrow$B)) & (A$\wedge$(A$\rightarrow$B))$\rightarrow$B \\ \midrule
+                        0 & 0 &       1        &              0              &                     1                     \\
+                        0 & 1 &       0        &              0              &                     1                     \\
+                        1 & 0 &       1        &              0              &                     1                     \\
+                        1 & 1 &       1        &              1              &                     1                    \\ \bottomrule
+                    \end{tabular*}
+                    \label{tab:mtollens}
+                    \begin{tablenotes}[flushleft]
+                        \item {\footnotesize \textbf{Nota.} La tautología para modus ponens y modus tollens es presentada utilizando tablas de la verdad. Fuente: \textcite{cruz2010inteligencia}, p.$\,$70}
+                    \end{tablenotes}
+                \end{threeparttable}
+            \end{table}
+            
+        \subsubsection{Defuzzificación}
+
+            En esta última etapa también llamada desdifusificación, se obtienen los valores reales de salida, \textcite{cruz2010inteligencia} lo describe como el \enquote{[...] mapeo a escala que convierte el rango de valores de las variables de salida a sus universos de discurso correspondientes. La desdifusificación es la herramienta para obtener la acción de control nítida a partir de una acción de control difusa} (p.$\,$73). Este proceso es matemáticamente costoso y existen distintos métodos para realizarlo, el más común es el método de centro de área.
+            
+            \paragraph{Método de centro de área}
+
+                Este método se utiliza para realizar la defuzzificación y obtener las salidas nítidas, consiste en cortar las funciones de membresía $\mu_{n}(x)$ con los valores de entrada $x$ para determinar un área, el área inferior será la que se tome en cuenta para realizar el cálculo, el método de centro de área se puede representar de modo general en su forma discreta de la siguiente forma:
                 
-
+                \begin{equation}\label{eq:Centroide}
+                    Salida = \frac{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)\cdot x}{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)}
+                \end{equation}
+    
+        \subsubsection{Sistemas de control difusos}
+            
+            Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control más común es en lazo cerrado tal como se observa en la \cref{fig:fuzzycontrollerclassic}. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso más común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar estos controladores se suele utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
+                    
+            \begin{figure}[htb]
+                \centering
+                \begin{subfigure}[t]{0.8\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{FuzzyControllerClassic} % el archivo debe estar en la carpeta imágenes
+                    \caption{} 
+                    \label{fig:fuzzycontrollerclassic}
+                \end{subfigure}
+                \hfill
+                \begin{subfigure}[t]{0.8\textwidth}
+                    \centering
+                    \includegraphics[width=\textwidth]{FuzzyControllerAdapt} % el archivo debe estar en la carpeta imágenes
+                    \caption{}
+                    \label{fig:fuzzycontrolleradapt}
+                \end{subfigure}
                 
+                \caption[Esquemas de control difuso]{\textbf{Esquemas de control difuso}. (a) Esquema de control difuso clásico, (b) Esquema de control difuso autosintonizable. Fuente: \textcite{cruz2010inteligencia}, p.$\,$86 y p.$\,$104 respectivamente. \label{fig:FuzzySchems}}
+            \end{figure}
+            
+            Adicionalmente existe el esquema de control difuso con PID autosintonizable, el cual consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargara de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, esto permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint, el esquema de control se puede observar en la \cref{fig:fuzzycontrolleradapt}.
+
+            No existen métodos analíticos claros para la entonación de controladores difusos, por tanto, la entonación se debe realizar bajo la experiencia del diseñador, tomando en cuenta las necesidades de control y las dinámicas del proceso, esto es debido a que el controlador difuso depende enteramente de la estructura de los conjuntos difusos y de la asignación de las reglas de inferencia \Parencite{cruz2010inteligencia}.
+        
+    \subsection{Python}
+        
+        Python es un lenguaje de programación interpretado y multiparadigma ya que soporta programación orientada a objetos, imperativa y en menor medida funcional. \textcite{guido2017tutorial} afirma que Python es un lenguaje de programación potente que puede aprenderse fácilmente. Cuenta con estructuras de datos eficientes y de alto
+        nivel y un enfoque simple pero efectivo a la programación orientada a objetos. La elegante sintaxis de Python y su escritura
+        dinámica, junto con su naturaleza interpretada, hacen de éste un lenguaje ideal para scripting y desarrollo rápido de
+        aplicaciones en diversas áreas y sobre la mayoría de las plataformas.
+        
+        Adicionalmente, Python posee bibliotecas externas para realizar cálculos numéricos complejos, también existen bibliotecas para el análisis de sistemas de control y para el diseño de controladores difusos, por otro lado, existen bibliotecas para salidas gráficas con calidad de publicación, gráficas en tiempo real y en 3D.
+        
+        \subsubsection{Biblioteca NumPy}
+
+            NumPy es una biblioteca para realizar cálculos computacionales científicos y matemáticos, algunas de sus funciones son: cálculo de vectores n-dimensionales, transformada de Fourier, álgebra lineal, entre otras \Parencite{numpy}
+
+        \subsubsection{Biblioteca SciPy}	
+
+            El paquete SciPy es un conjunto de bibliotecas matemáticas, científicas y de ingeniería compuestas por: NumPy, SciPy (biblioteca), SymPy, Matplotlib, IPython y Pandas, la biblioteca SciPy es uno de los núcleos del paquete SciPy. Provee varias rutinas eficientes de uso amigable para el usuario de tipo numérica para realizar integración, interpolación, optimización, álgebra lineal, estadísticas, entre otras \Parencite{scipy}, toda la documentación puede ser conseguida en la página oficial de SciPy.
+            
+        \subsubsection{Biblioteca Matplotlib}
+
+            Matplotlib es una biblioteca para la graficación 2D que produce figuras con calidad de publicación en varios formatos y a través de múltiples ambientes interactivos. Matplotlib puede ser usado en scripting, consolas de comando, IPython, jupyter notebooks y en aplicaciones web \Parencite{Hunter:2007}. La sintaxis para usar Matplotlib es muy similar al sistema de plots de MATLAB, del mismo modo, configurar parámetros de estilos, fuentes, anchos de línea, entre otros, se realiza de manera similar.
+
+        \subsubsection{Biblioteca de control}
+
+            La biblioteca control de python es un conjunto de clases y funciones que implementan las operaciones más comunes en sistemas de control, además, posee un módulo de compatibilidad para usuarios de MATLAB que emula las funciones y sintaxis de este lenguaje \Parencite{pythoncontrol}. Para crear el modelo de un sistema podemos usar ecuaciones de espacio de estado o funciones de transferencia.
+
+        \subsubsection{Biblioteca Scikit-Fuzzy}
+            
+            Scikit-Fuzzy es una colección de algoritmos de lógica difusa con la intención de pertenecer al paquete de herramientas científicas SciPy, esta biblioteca permite diseñar y simular controladores difusos con estructura tipo Mamdani \Parencite{warner2016fuzzy}, no posee un modo para realizar lazos de control o compatibilidad con la biblioteca de control de forma directa, de modo que se tendrían que codificar aparte las rutinas que conformen el lazo cerrado de control.

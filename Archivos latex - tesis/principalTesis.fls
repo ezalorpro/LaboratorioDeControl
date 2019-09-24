@@ -414,8 +414,6 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\fixltx2e.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\fixltx2e.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\placeins\placeins.sty
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\placeins\placeins.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pgfgantt\pgfgantt.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pgfgantt\pgfgantt.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pgf\frontendlayer\tikz.sty
@@ -817,6 +815,30 @@ INPUT imagenes\esquemaPID.pdf
 INPUT .\imagenes\esquemaPID.pdf
 INPUT .\imagenes\esquemaPID.pdf
 INPUT .\imagenes\esquemaPID.pdf
+INPUT imagenes\ZieglerN.pdf
+INPUT .\imagenes\ZieglerN.pdf
+INPUT .\imagenes\ZieglerN.pdf
+INPUT .\imagenes\ZieglerN.pdf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxmi7.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rtxmi7.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rntxmi7.tfm
+INPUT imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\ts1ntxtlf.fd
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\ts1ntxtlf.fd
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\tex-gyre\ts1-qtmr.tfm
+INPUT imagenes\FuzzyControllerClassic.png
+INPUT .\imagenes\FuzzyControllerClassic.png
+INPUT .\imagenes\FuzzyControllerClassic.png
+INPUT .\imagenes\FuzzyControllerClassic.png
+INPUT .\imagenes\FuzzyControllerClassic.png
+INPUT imagenes\FuzzyControllerAdapt.png
+INPUT .\imagenes\FuzzyControllerAdapt.png
+INPUT .\imagenes\FuzzyControllerAdapt.png
+INPUT .\imagenes\FuzzyControllerAdapt.png
+INPUT .\imagenes\FuzzyControllerAdapt.png
 INPUT capitulo3.tex
 INPUT capitulo3.tex
 INPUT capitulo4.tex
@@ -837,6 +859,7 @@ INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\klei
 INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.run.xml
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.run.xml
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\newtx\ntx-ec-tlf.enc
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\tex-gyre\q-ts1.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\newtx\ntx-ot1-tlf.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\base\8r.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi10.pfb
