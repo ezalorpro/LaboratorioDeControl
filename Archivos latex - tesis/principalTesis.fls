@@ -553,6 +553,7 @@ INPUT .\imagenes\unet.jpg
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Regular-tlf-t1.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Bold-tlf-t1.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Bold-tlf-t1.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Regular-tlf-t1.tfm
 INPUT C:\Users\PC\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\FrontContentTesis.aux
 INPUT FrontContentTesis.tex

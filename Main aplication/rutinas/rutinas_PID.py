@@ -49,11 +49,12 @@ def system_creator_tf(self, numerador, denominador):
 
     # En caso de que el sistema sea discreto
     if self.main.tfdiscretocheckBox2.isChecked():
-        pid = ctrl.TransferFunction(
-            [kd + self.dt * kp + ki * self.dt**2, -self.dt * kp - 2*kd, kd],
-            [self.dt, -self.dt, 0],
-            self.dt
-        )
+        pid = ctrl.TransferFunction([
+            2*kd + 2 * self.dt * kp + ki * self.dt**2,
+            -2 * self.dt * kp - 4*kd + ki * self.dt**2,
+            2 * kd
+        ], [2 * self.dt, -2 * self.dt, 0],
+                                    self.dt)
 
         system = ctrl.sample_system(system, self.dt, self.main.tfcomboBox2.currentText())
 
@@ -120,11 +121,12 @@ def system_creator_ss(self, A, B, C, D):
 
     # En caso de que el sistema sea discreto
     if self.main.ssdiscretocheckBox2.isChecked():
-        pid = ctrl.TransferFunction(
-            [kd + self.dt * kp + ki * self.dt**2, -self.dt * kp - 2*kd, kd],
-            [self.dt, -self.dt, 0],
-            self.dt
-        )
+        pid = ctrl.TransferFunction([
+            2*kd + 2 * self.dt * kp + ki * self.dt**2,
+            -2 * self.dt * kp - 4*kd + ki * self.dt**2,
+            2 * kd
+        ], [2 * self.dt, -2 * self.dt, 0],
+                                    self.dt)
 
         system = ctrl.sample_system(system, self.dt, self.main.sscomboBox2.currentText())
 
@@ -197,11 +199,12 @@ def system_creator_tf_tuning(self, numerador, denominador):
 
     # En caso de que el sistema sea discreto
     if self.main.tfdiscretocheckBox2.isChecked():
-        pid = ctrl.TransferFunction(
-            [kd + self.dt * kp + ki * self.dt**2, -self.dt * kp - 2*kd, kd],
-            [self.dt, -self.dt, 0],
-            self.dt
-        )
+        pid = ctrl.TransferFunction([
+            2*kd + 2 * self.dt * kp + ki * self.dt**2,
+            -2 * self.dt * kp - 4*kd + ki * self.dt**2,
+            2 * kd
+        ], [2 * self.dt, -2 * self.dt, 0],
+                                    self.dt)
 
         system = ctrl.sample_system(system, self.dt, self.main.tfcomboBox2.currentText())
 
@@ -267,12 +270,14 @@ def system_creator_ss_tuning(self, A, B, C, D):
     except TypeError:
         raise TypeError('Alfa es muy pequeño')
 
+    # En caso de que el sistema sea discreto
     if self.main.ssdiscretocheckBox2.isChecked():
-        pid = ctrl.TransferFunction(
-            [kd + self.dt * kp + ki * self.dt**2, -self.dt * kp - 2*kd, kd],
-            [self.dt, -self.dt, 0],
-            self.dt
-        )
+        pid = ctrl.TransferFunction([
+            2*kd + 2 * self.dt * kp + ki * self.dt**2,
+            -2 * self.dt * kp - 4*kd + ki * self.dt**2,
+            2 * kd
+        ], [2 * self.dt, -2 * self.dt, 0],
+                                    self.dt)
 
         system = ctrl.sample_system(system, self.dt, self.main.sscomboBox2.currentText())
 

@@ -458,12 +458,16 @@
                     \caption[Ejemplo 2 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $G_2(s)$}. El sistema $G_2(s)$ es de fase no minima, debido a esto, la interpretacion del margen de ganancia y de fase no es tan simple, aca se puede observar que el margen de ganancia es negativo y aun asi, sabemos por su analisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
                     \label{fig:bodeG2}
                 \end{figure}
+            
+            \paragraph{Diagrama de Nichols}
+                
+                El diagrama de Nichols es una grafica del sistema en lazo abierto de tipo magnitud vs fase, en el diagrama se pueden ubicar los margenes de ganancia y fase, para ayudar en el diseño de controladores se suele superponer una rejilla guia de valores de magnitud y angulo constantes, esta rejilla lleva el nombre de carta de Nichols o abaco de Nichols. En el diagrama de nichols el punto critico $-1 + j0$ se convierte en $(0dB, -180^\circ)$
+
+                \clearpage
 
         \subsubsection{Controlador PID}
 
             El controlador será el elemento dentro del sistema de control que se encargara de llevar al proceso a un valor de referencia deseado, existen varios esquemas de control para el control de procesos, cada uno con sus ventajas y desventajas, el más común es un sistema en lazo cerrado con controlador, este se puede observar en la \cref{fig:esquemaPID}.
-            
-            \clearpage
 
             \begin{figure}[htb]
                 \centering
@@ -484,6 +488,18 @@
                 G_{c}(s) = \frac{sc(s)}{e(s)} = \frac{K_{d}s^{2} + K_{p}s +  K_{i}}{s}
             \end{equation}
             
+            El controlador PID tambien puede ser representado de forma discreta, la componente proporcional sigue siendo una constante, la componente integral se puede representar como la sumatoria de todas las muestras multiplicadas por el periodo de muestreo y finalmente la derivada se puede aproximar como una diferencia finita regresiva:
+
+            \begin{equation}\label{eq:pidcdiscreto}
+                sc(k) = K_{p}e(k)+  K_{i}T\left[\sum_{i=0}^{k-1} e(i) + e(k)\right] + K_{d} \frac{e(k)- e(k-1)}{T}
+            \end{equation}
+
+            En el dominio Z, la componente proporcional se mantiene como constante, la componente integral puede ser aproximada con varios metodos numericos para el calculo de area como la integracion trapezoidal \Parencite{kuo1996sistemas}, o lo que es lo mismo, el metodo de Tustin, para el caso de la derivda se parte de su aproximacion como diferencia finita regresiva y se le aplica la transformada Z.
+
+            \begin{equation}\label{eq:pidenZ}
+                G_{c}(z) = K_{p} + \frac{K_{i}T}{2}\left(\frac{z+1}{z-1}\right) + K_{d} \frac{z-1}{Tz}
+            \end{equation}
+
             \paragraph{Componente proporcional}
 
 				La componente proporcional se obtiene de multiplicar la señal de error por la ganancia proporcional, esto provoca que la señal de control sea proporcional a la señal de error con una relación igual a la ganancia proporcional, si el controlador solo constase de componente proporcional el error en estado estable nunca se eliminaría, dicho de otro modo, el error podría ser muy bajo, pero jamás cero. \enquote{Este error se denomina la desviación permanente u \enquote{offset}. El mismo disminuye si se aumenta el valor de K}\Parencite[p.$\,$54]{nelson1999fundamentos}.
@@ -551,7 +567,9 @@
             
             Adicionalmente existen otras reglas para la entonacion automatica de los controladore PID, como el metodo de Cohen-Coon, al igual que Ziegler-Nichols, requiere de los parametros del proceso en su aproximacion como proceso de primer orden para ser sustituidos en la \cref{tab:CohenCoon} y obtener las ganancias respectivas.
 
-            \begin{table}[!h]
+            \clearpage
+            
+            \begin{table}[htb]
                 \centering
                 \begin{threeparttable}
                     \renewcommand{\arraystretch}{1.5} 	% Separacion de las filas
@@ -571,7 +589,7 @@
                     \end{tablenotes}
                 \end{threeparttable}
             \end{table}
-    
+
     \subsection{Lógica difusa}
     
         La lógica difusa es una extensión matemática de la lógica convencional en donde se asigna un grado de pertenencia a un hecho entre un valor verdadero y uno falso, \enquote{consiste en que los valores verdaderos (en lógica difusa) o valores de pertenencia (en conjuntos difusos) se indican en un número entre [0.0, 1.0], donde 0.0 representa falsedad total y 1.0 significa verdad absoluta}\Parencite[p.$\,$4]{cruz2010inteligencia}.

@@ -1167,8 +1167,8 @@ class SimpleThread(QtCore.QThread):
         :param inputValue: [Valor de entrada al sistema]
         :type inputValue: [float]
         """
-        x = np.dot(ss.A, x) + np.dot(ss.B, inputValue)
         y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
+        x = np.dot(ss.A, x) + np.dot(ss.B, inputValue)
         return y, x
 
     def PID_discreto(self, error, ts, s_integral, error_anterior, kp, ki, kd):
