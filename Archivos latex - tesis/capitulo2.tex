@@ -594,7 +594,7 @@
     
         La lógica difusa es una extensión matemática de la lógica convencional en donde se asigna un grado de pertenencia a un hecho entre un valor verdadero y uno falso, \enquote{consiste en que los valores verdaderos (en lógica difusa) o valores de pertenencia (en conjuntos difusos) se indican en un número entre [0.0, 1.0], donde 0.0 representa falsedad total y 1.0 significa verdad absoluta}\Parencite[p.$\,$4]{cruz2010inteligencia}.
         
-        La lógica se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}.
+        La lógica difusa se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}. Continuando con la idea, tambien es posible ver la logica como cuatro procedimientos a realizar en secuencia, las cuales son: fuzzificación, inferencia, agregacion y defuzzificación.
         
         \subsubsection{Conjuntos difusos}
             
@@ -602,13 +602,103 @@
             
             \begin{figure}[htb]
                 \centering
-                \includegraphics[width=0.55\textwidth]{FuzzySet.pdf}
+                \includegraphics[width=0.6\textwidth]{FuzzySet.pdf}
                 \caption[Ejemplo de un conjunto difuso]{\textbf{Ejemplo de un conjunto difuso}. Este conjunto difuso corresponde a una variable de temperatura que va desde -10\textdegree C hasta 100\textdegree C. Fuente: Elaboración propia.} 
                 \label{fig:FuzzySet}
             \end{figure}
             
-            Las funciones de membresía pueden tomar varias formas y rangos en orden de poder representar de mejor forma los grados de pertenencia de la variable a una etiqueta en particular, sin embargo, las formas triangulares suelen ser las menos pesadas en memoria y en poder de computo \Parencite{riid2003transparent}. La cantidad de etiquetas que se pueden asignar a un conjunto difuso es ilimitada, pero se debe tener en cuenta el nivel de complejidad que se genera a medida que se incrementa su número.
+            Las funciones de membresía pueden tomar varias formas y rangos en orden de poder representar de mejor forma los grados de pertenencia de la variable a una etiqueta en particular, sin embargo, las formas triangulares suelen ser las menos pesadas en memoria y en poder de computo \Parencite{riid2003transparent}. La cantidad de etiquetas que se pueden asignar a un conjunto difuso es ilimitada, pero se debe tener en cuenta el nivel de complejidad que se genera a medida que se incrementa su número. A continuacion se muestran algunas formas que pueden tomar las funciones de membresia:
+
+            \paragraph{Funcion de membresia: triangular o trimf}$\quad$
             
+            \begin{equation*}\label{eq:trimf}
+                \mu_n(x) = \left\{
+                    \begin{aligned}
+                        &\quad 0  &\quad &Si \quad & x &\leq a\\
+                        &\frac{x - a}{b - a}  &\quad &Si \quad &  a \le &x \leq b \\
+                        &\frac{c - x}{c - b}  &\quad &Si \quad & b \le &x \leq c \\
+                        &\quad 0  &\quad &Si \quad&  x &\geq c
+                    \end{aligned}\right.
+                    \qquad
+                    \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{FuzzySet.pdf}}
+            \end{equation*}
+            
+            \paragraph{Funcion de membresia: trapezoidal o trapmf}$\quad$
+            
+                \begin{equation*}\label{eq:trapmf}
+                    \mu_n(x) = \left\{
+                        \begin{aligned}
+                            &\quad 0  &\quad &Si \quad &  x &\leq a\\
+                            &\frac{x - a}{b - a}  &\quad &Si \quad &  a \le &x \leq b \\
+                            &\quad 1 &\quad &Si \quad &  b \le &x \leq c \\
+                            &\frac{d - x}{d - c}  &\quad &Si \quad & c \le &x \leq d \\
+                            &\quad 0  &\quad &Si \quad & x &\geq d
+                        \end{aligned}\right.
+                        \qquad
+                        \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{FuzzySet.pdf}}
+                \end{equation*}
+
+            \paragraph{Funcion de membresia: gaussiana o gaussmf}$\quad$
+                
+                \begin{equation*}\label{eq:gaussmf}
+                    \mu_n(x) = e^{-\frac{(x-m)^2}{2\sigma^2}}
+                        \qquad \qquad
+                        \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{FuzzySet.pdf}}
+                \end{equation*}
+                
+            \paragraph{Funcion de membresia: S o smf}$\quad$
+                
+                \begin{equation*}\label{eq:smf}
+                    \mu_n(x) = \left\{
+                        \begin{aligned}
+                            &\quad 0  &\quad &Si \quad & x &\leq a\\
+                            &2\left(\frac{x - a}{b - a}\right)^2  &\quad &Si \quad &  a \leq &x \leq \frac{a+b}{2} \\
+                            &1 - 2\left(\frac{x - b}{b - a}\right)^2  &\quad &Si \quad & \frac{a+b}{2} \leq &x \leq b \\
+                            &\quad 1  &\quad &Si \quad & x &\geq b
+                        \end{aligned}\right.
+                        \qquad
+                        \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{FuzzySet.pdf}}
+                \end{equation*}
+            
+            \paragraph{Funcion de membresia: Z o zmf}$\quad$
+                
+                \begin{equation*}\label{eq:zmf}
+                    \mu_n(x) = \left\{
+                        \begin{aligned}
+                            &\quad 1  &\quad &Si \quad & x &\leq a\\
+                            &1 - 2\left(\frac{x - a}{b - a}\right)^2  &\quad &Si \quad &  a \leq &x \leq \frac{a+b}{2} \\
+                            &2\left(\frac{x - b}{b - a}\right)^2  &\quad &Si \quad & \frac{a+b}{2} \leq &x \leq b \\
+                            &\quad 0  &\quad &Si \quad & x &\geq b
+                        \end{aligned}\right.
+                        \qquad
+                        \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{FuzzySet.pdf}}
+                \end{equation*}
+
+            \paragraph{Funcion de membresia: sigmoidal o sigmf}$\quad$
+                
+                \begin{equation*}\label{eq:sigmf}
+                    \mu_n(x) = \frac{1}{1+e^{-c(x-b)}}
+                        \qquad \qquad
+                        \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{FuzzySet.pdf}}
+                \end{equation*}
+               
+            \paragraph{Funcion de membresia: campana generalizada o gbellmf}$\quad$
+                
+                \begin{equation*}\label{eq:gbellmf}
+                    \mu_n(x) = \frac{1}{1+ \left|\frac{x - c}{a}\right|^{2b}}
+                        \qquad \qquad
+                        \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{FuzzySet.pdf}}
+                \end{equation*}
+
+            Existen otras funciones de membresian que utilizan como base las anteriores mostradas, estas son:
+
+            \begin{itemize}[leftmargin=\parindent]
+                \item gauss2mf: Combinacion de dos funciones gaussianas.
+                \item dsigmf: Valor absoluto de la diferencia de dos funciones sigmoidales.
+                \item psigmf: Producto de dos funciones sigmoidales.
+                \item pimf: Producto de una smf y una zmf.
+            \end{itemize}
+        
         \subsubsection{Reglas de inferencia}
             
             Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y la salida, la salida puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens, modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente. La tautología para modus ponens y modus tollens se puede observar a modo de tablas de la verdad en la \cref{tab:mponens} y \cref{tab:mtollens} respectivamente.

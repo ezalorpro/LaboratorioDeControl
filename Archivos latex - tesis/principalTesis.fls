@@ -553,7 +553,6 @@ INPUT .\imagenes\unet.jpg
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Regular-tlf-t1.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Bold-tlf-t1.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Bold-tlf-t1.tfm
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Regular-tlf-t1.tfm
 INPUT C:\Users\PC\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\FrontContentTesis.aux
 INPUT FrontContentTesis.tex
@@ -830,6 +829,20 @@ INPUT .\imagenes\FuzzySet.pdf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\ts1ntxtlf.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\ts1ntxtlf.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\tex-gyre\ts1-qtmr.tfm
+INPUT imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
+INPUT imagenes\FuzzySet.pdf
+INPUT .\imagenes\FuzzySet.pdf
 INPUT imagenes\FuzzyControllerClassic.png
 INPUT .\imagenes\FuzzyControllerClassic.png
 INPUT .\imagenes\FuzzyControllerClassic.png
