@@ -52,8 +52,8 @@ class FuzzyVariableVisualizer(object):
         else:
             self.fig, self.ax = plt.subplots()
         self.plots = {}
-    
-    def view(self, sim=None, *args, **kwargs):
+
+    def view(self, sim=None, legend=True, *args, **kwargs):
         """
         Visualize this variable and its membership functions with Matplotlib.
 
@@ -79,7 +79,7 @@ class FuzzyVariableVisualizer(object):
             # Create an empty simulation so we can view with default values
             sim = ControlSystemSimulation(ControlSystem())
 
-        self._init_plot()
+        self._init_plot(legend)
 
         crispy = CrispValueCalculator(self.fuzzy_var, sim)
         ups_universe, output_mf, cut_mfs = crispy.find_memberships()
@@ -121,7 +121,7 @@ class FuzzyVariableVisualizer(object):
                              color='k', lw=3, label='crisp value')
 
         return self.fig, self.ax
-    
+
     def view_gui(self, sim=None, legend=True, *args, **kwargs):
         """
         Visualize this variable and its membership functions with Matplotlib.

@@ -39,7 +39,13 @@ plt.plot([-12, 102], [0, 0], "k")
 fig = plt.gcf()
 fig.set_size_inches(11, 8)
 plt.legend(labels=names, prop={"size": 14})
+
 plt.gca().xaxis.set_major_formatter(mticker.FormatStrFormatter(r"%d $^{\circ}$C"))
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['bottom'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+
 plt.xlabel("Temperatura")
 plt.ylabel(r"$\mu\ (x)$", fontsize=14)
 plt.savefig("FuzzySet.pdf", bbox_inches="tight", pad_inches=0.1)
