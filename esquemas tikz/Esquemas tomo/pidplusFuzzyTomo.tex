@@ -1,0 +1,134 @@
+\documentclass[tikz, border=0mm]{standalone}
+
+\usetikzlibrary{shapes,arrows,positioning, calc}
+
+\makeatletter
+
+\pgfdeclareshape{record}{
+\inheritsavedanchors[from={rectangle}]
+\inheritbackgroundpath[from={rectangle}]
+\inheritanchorborder[from={rectangle}]
+\foreach \x in {center,north east,north west,north,south,south east,south west, west, east}{
+\inheritanchor[from={rectangle}]{\x}
+}
+\foregroundpath{
+\pgfpointdiff{\northeast}{\southwest}
+\pgf@xa=\pgf@x \pgf@ya=\pgf@y
+\northeast
+\pgfpathmoveto{\pgfpoint{0}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0}{-0.33\pgf@ya}}
+\pgfpathmoveto{\pgfpoint{0.33\pgf@xa}{0}}
+\pgfpathlineto{\pgfpoint{-0.33\pgf@xa}{0}}
+\pgfpathmoveto{\pgfpointadd{\southwest}{\pgfpoint{-0.33\pgf@xa}{-0.6\pgf@ya}}}
+\pgfpathlineto{\pgfpointadd{\southwest}{\pgfpoint{-0.5\pgf@xa}{-0.6\pgf@ya}}}
+\pgfpathlineto{\pgfpointadd{\northeast}{\pgfpoint{-0.5\pgf@xa}{-0.6\pgf@ya}}}
+\pgfpathlineto{\pgfpointadd{\northeast}{\pgfpoint{-0.33\pgf@xa}{-0.6\pgf@ya}}}
+}
+}
+\makeatother
+
+\makeatletter
+
+\pgfdeclareshape{fuzzyBlock}{
+\inheritsavedanchors[from={rectangle}]
+\inheritbackgroundpath[from={rectangle}]
+\inheritanchorborder[from={rectangle}]
+\foreach \x in {center,north east,north west,north,south,south east,south west, west, east}{
+\inheritanchor[from={rectangle}]{\x}
+}
+\foregroundpath{
+\pgfpointdiff{\northeast}{\southwest}
+\pgf@xa=\pgf@x \pgf@ya=\pgf@y
+\northeast
+
+\pgfpathmoveto{\pgfpoint{0.45\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.45\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0.4\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0.2\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0.2\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.2\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.2\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.4\pgf@xa}{0.33\pgf@ya}}
+}
+}
+\makeatother
+
+\begin{document}
+
+\tikzset{%
+    block1/.style={
+        draw,
+        fill=white, 
+        rectangle, 
+        minimum height=2em, 
+        minimum width=3em,
+        node distance=1cm
+    },
+    input/.style={
+        inner sep=0pt, 
+        node distance=0.6cm
+    },      
+    output/.style={
+        inner sep=0pt, 
+        node distance=0.6cm
+    },      
+    sum/.style = {
+        draw, 
+        fill=white, 
+        circle, 
+        minimum size=2mm, 
+        inner sep=0pt,
+        node distance=0.6cm
+    },
+    pinstyle/.style = {
+        pin edge={to-,thin,black}
+    },
+    branch/.style={
+        fill,
+        circle,
+        minimum size=3pt,
+        outer sep=-1pt,
+        inner sep=0pt, 
+        node distance=0.6cm
+    },
+    EmptyBlock/.style={
+        circle,
+        minimum size=0pt,
+        outer sep=-1pt,
+        inner sep=-1pt, 
+        node distance=2cm
+    }
+}
+
+\begin{tikzpicture}[auto, >=latex']
+
+    \node[input] (input) {};
+    \node [sum, right = of input] (sum) {};
+    \node [branch, node distance=0.5cm, right = of sum] (errorbranch) {};
+    \node [block1, right = of errorbranch] (controlador) {$PID$};
+    \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=0.4cm, draw, above = of controlador] (controller) {};
+    \node [sum, right = of controlador] (sum2) {};
+    \node [block1, right = of sum2] (proceso) {$Proceso$};
+    \node [branch, right = of proceso] (yjoint) {};
+    \node [output, right = of yjoint] (output) {};
+    \coordinate[node distance=0.6cm, below = of proceso] (empty1) {};    
+
+    \draw [->] (input) node[above right] {$sp$} -- (sum);
+    \draw [-] (sum) -- (errorbranch);
+    \draw [->] (errorbranch) -- (controlador) node[pos=0.9, above left] {$e(t)$};
+    \draw [->] (errorbranch) |- (controller);
+    \draw [->] (controller) -| node[pos=0.97, left] {\tiny{$+$}} (sum2);
+    \draw [->] (controlador) -- (sum2);
+    \draw [->] (sum2) -- (proceso) node[pos=1, above left] {$sc(t)$};
+    \draw [->] (proceso) -- (output) node [name=y, above left] {$Vp$};
+    \draw [-] (yjoint.south) |- (empty1);
+    \draw [->] (empty1) -| node[pos=0.97, right] {\tiny{$-$}} (sum);
+
+\end{tikzpicture}
+\end{document}

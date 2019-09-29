@@ -754,7 +754,7 @@
         
         \subsubsection{Agregacion}
 
-            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, conjuncion/disyuncion de premisas y la implicacion, a todos los resultados obtenidos se les aplica un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso que representa a la salida . Todo el proceso hasta este punto puede ser descritos por la siguiente formula:
+            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, conjuncion/disyuncion de premisas y la implicacion, a todos los resultados obtenidos se les aplica un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso que representa a la salida . Todo el proceso hasta este punto puede ser descrito asumiendo conjuncion de premisas por la siguiente formula:
 
             \begin{equation}\label{eq:implicacion}
                 F(y) = \bigcup_{r=1}^{R}\left(\left(\bigcap_{i=1}^{N}\tau_{ir} \right) \cap \gamma_r\right)
@@ -844,7 +844,7 @@
 
             \paragraph{Controlador difuso como programador de ganancias}
                 
-                El esquema de control difuso con programdor de ganancias consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargara de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, esto permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint, el esquema de control se puede observar en la \cref{fig:GainschedulerTomo}.
+                El esquema de control difuso con programdor de ganancias consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargara de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, esto permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint. El esquema de control se puede observar en la \cref{fig:GainschedulerTomo}.
 
                 \begin{figure}[htb]
                     \centering
@@ -852,7 +852,18 @@
                     \caption[Esquema de control: Programador de ganancias]{\textbf{Esquema de control: Programador de ganancias}. Fuente: Elaboración propia.} 
                     \label{fig:GainschedulerTomo}
                 \end{figure}
-        
+            
+            \paragraph{Controlador combinado}
+                
+                Consiste en sumar las salidas de un controlador PID clasico y un controlador difuso, de este modo el controlador PID sera quien gobierne al proceso la mayoria del tiempo, para el caso de un controlador P difuso al generarce un cambio en el setpoint o la carga el controlador difuso procesedera a emitir una salida proporcional y adaptada al cambio. El esquema de control se puede observar en la \cref{fig:pidplusFuzzyTomo}.
+            
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=0.8\textwidth]{pidplusFuzzyTomo.pdf}
+                    \caption[Esquema de control: PID clasico mas difuso]{\textbf{Esquema de control: PID clasico mas difuso}. Fuente: Elaboración propia.} 
+                    \label{fig:pidplusFuzzyTomo}
+                \end{figure}
+
     \subsection{Python}
         
         Python es un lenguaje de programación interpretado y multiparadigma ya que soporta programación orientada a objetos, imperativa y en menor medida funcional. \textcite{guido2017tutorial} afirma que Python es un lenguaje de programación potente que puede aprenderse fácilmente. Cuenta con estructuras de datos eficientes y de alto
@@ -880,4 +891,12 @@
 
         \subsubsection{Biblioteca Scikit-Fuzzy}
             
-            Scikit-Fuzzy es una colección de algoritmos de lógica difusa con la intención de pertenecer al paquete de herramientas científicas SciPy, esta biblioteca permite diseñar y simular controladores difusos con estructura tipo Mamdani \Parencite{warner2016fuzzy}, no posee un modo para realizar lazos de control o compatibilidad con la biblioteca de control de forma directa, de modo que se tendrían que codificar aparte las rutinas que conformen el lazo cerrado de control.
+            Scikit-Fuzzy es una colección de algoritmos de lógica difusa con la intención de pertenecer al paquete de herramientas científicas SciPy, esta biblioteca permite diseñar y simular controladores difusos con estructura tipo Mamdani \Parencite{warner2016fuzzy}, no posee un modo para realizar lazos de control o compatibilidad con la biblioteca de control de forma directa, de modo que se tendrían que codificar aparte las rutinas que conformen un lazo cerrado de control.
+
+        \subsubsection{Biblioteca PySide2}
+
+            PySide2 es una biblioteca que hace de union entre Qt y Python para la creacion de interfacez de usuario. PySide2 es soportado por linux, Mac OS x, windows, entre otros.
+            
+        \subsubsection{Biblioteca PyQtGraph}
+                
+            PyQtGraph es una biblioteca de graficacion especializada en graficas dinamicas y en tiempo real, utiliza de fondo un nucleo Qt, por tanto, requiere el uso de PyQt4, PyQt5, PySide o PySide2.
