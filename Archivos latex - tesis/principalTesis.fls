@@ -857,6 +857,14 @@ INPUT imagenes\gbellmf.pdf
 INPUT .\imagenes\gbellmf.pdf
 INPUT .\imagenes\gbellmf.pdf
 INPUT .\imagenes\gbellmf.pdf
+INPUT imagenes\pFuzzyTomo.pdf
+INPUT .\imagenes\pFuzzyTomo.pdf
+INPUT .\imagenes\pFuzzyTomo.pdf
+INPUT .\imagenes\pFuzzyTomo.pdf
+INPUT imagenes\pdFuzzyTomo.pdf
+INPUT .\imagenes\pdFuzzyTomo.pdf
+INPUT .\imagenes\pdFuzzyTomo.pdf
+INPUT .\imagenes\pdFuzzyTomo.pdf
 INPUT imagenes\FuzzyControllerClassic.png
 INPUT .\imagenes\FuzzyControllerClassic.png
 INPUT .\imagenes\FuzzyControllerClassic.png
@@ -892,6 +900,8 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\newtx\ntx-ot
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\base\8r.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi10.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi7.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi7.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi8.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi8.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr10.pfb

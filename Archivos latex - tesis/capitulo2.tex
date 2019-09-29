@@ -796,9 +796,27 @@
             
             No existen métodos analíticos claros para el diseño de controladores difusos, por tanto, se debe realizar bajo la experiencia del diseñador, tomando en cuenta las necesidades de control y las dinámicas del proceso, esto es debido a que el controlador difuso depende enteramente de la estructura de los conjuntos difusos y de la asignación de las reglas de inferencia \Parencite{cruz2010inteligencia}. Los siguientes esquemas de control fueron tomados de \textcite{cruz2010inteligencia}, \textcite{riid2003transparent}, y \textcite{clavier2017tecnicas}.
 
-            \paragraph{P difuso}
+            \paragraph{Controlador P difuso}
                 
-                Un controaldor P difuso simple puede ser realizado al tomar como entrada la señal de error y como salida la señal de control. El esquema de control se puede observar en la \cref{fig:pfuzzy}
+                Un controaldor P difuso simple puede ser realizado al tomar como entrada la señal de error y como salida la señal de control. El esquema de control se puede observar en la \cref{fig:pFuzzyTomo}.
+
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=0.6\textwidth]{pFuzzyTomo.pdf}
+                    \caption[Esquema de control: P difuso]{\textbf{Esquema de control: P difuso}. Fuente: Elaboración propia.} 
+                    \label{fig:pFuzzyTomo}
+                \end{figure}
+
+            \paragraph{Controlador PD difuso}
+                
+                Un controaldor P difuso simple puede ser realizado al tomar la señal de error y la derivada del error como entradas del controlador y se toma como salida la señal de control. El esquema de control se puede observar en la \cref{fig:pdFuzzyTomo}.
+
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=0.6\textwidth]{pdFuzzyTomo.pdf}
+                    \caption[Esquema de control: PD difuso]{\textbf{Esquema de control: PD difuso}. Fuente: Elaboración propia.} 
+                    \label{fig:pdFuzzyTomo}
+                \end{figure}
 
             \begin{figure}[htb]
                 \centering
