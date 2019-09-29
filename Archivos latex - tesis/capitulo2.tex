@@ -482,7 +482,7 @@
                 sc(t) = K_{p}e(t)+  K_{i}\int_{0}^{t} e(\tau) d\tau + K_{d} \frac{d}{dt}e(t)
             \end{equation}
             
-            \noindent Y su forma en función de transferencia:
+            \noindent y su forma en función de transferencia:
             
             \begin{equation}\label{eq:pidcompleja}
                 G_{c}(s) = \frac{sc(s)}{e(s)} = \frac{K_{d}s^{2} + K_{p}s +  K_{i}}{s}
@@ -744,17 +744,23 @@
             
             Para realizar el proceso de inferencia se debe haber pasado primero por la fuzzificacion, la cual implica tomar los valores de entrada y obtener sus valores de pertenencia para cada funcion de membresia, luego, se aplican las normas triangulares (T-Normas) para el caso de logica AND o las conormas triangulares (T-Conormas) para logica OR, sus formas de aplicacion mas comunes suelen ser el minimo de los valores de pertenencia para las T-Normas y el maximo de los valores de pertenencia para las T-Conormas, de este modo, se obtienen las operaciones de interseccion y union respectivamente, a este proceso tambien se le conoce como conjuncion de premisas para las T-Normas y disyuncion de premisas para las T-Conormas.
             
-            Luego de este proceso se puede seguir con la operacion de implicacion, \blockquote[{\cite[p.16]{riid2003transparent}}]{Usualmente se prefiere la conjuncion (T-Normas)}. Esta viene definida por:
+            Luego de este proceso se debe seguir con la operacion de implicacion, usualmente se realiza y se prefiere con la conjuncion (T-Normas), esta viene definida por:
 
             \begin{equation}\label{eq:implicacion}
-                \mu_n(x) = \frac{1}{1+ \left|\frac{x - c}{a}\right|^{2b}}
+                F_r(y) = \tau_r \cap \gamma_r
             \end{equation}
 
+            Donde $\tau_r$ es la salida del proceso de conjuncion/disyuncion de premisas y $\gamma_r$ es la salida de la funcion de membresia asociada con la $r$-esima regla \Parencite{riid2003transparent}. Una vez realizado este proceso, se puede procedar a realizar la agregacion.
         
-        \subsection{Agregacion}
+        \subsubsection{Agregacion}
 
-            El proceso de agregacion consta de 
+            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, conjuncion/disyuncion de premisas y la implicacion, a todos los resultados obtenidos se les aplica un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso que representa a la salida . Todo el proceso hasta este punto puede ser descritos por la siguiente formula:
 
+            \begin{equation}\label{eq:implicacion}
+                F(y) = \bigcup_{r=1}^{R}\left(\left(\bigcap_{i=1}^{N}\tau_{ir} \right) \cap \gamma_r\right)
+            \end{equation}
+            
+            \noindent sin embargo, esta salida aun no es apta para ser interpretada, por tanto, debe pasar primero por un proceso de defuzzificación en orden de llevar el conjunto difuso de salida a un valor nitido.
 
         \subsubsection{Defuzzificación}
 
@@ -767,7 +773,23 @@
                 \begin{equation}\label{eq:Centroide}
                     Salida = \frac{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)\cdot x}{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)}
                 \end{equation}
-    
+
+            \paragraph{Metodo de bisector de area}
+                
+                Este metodo ubica un punto en el conjunto difuso de salida y sus valores de pertenencia tal que el area resultante quede dividida en dos partes iguales.
+
+            \paragraph{Metodo de la media del maximo}
+                
+                Este metodo obtiene una salida a partir de promediar los valores de pertenencia maximos del conjunto difuso de salida.
+
+            \paragraph{Metodo del primero a la izquierda}
+                
+                Este metodo obtiene una salida a partir de los valores de pertenencia maximos del conjunto difuso de salida, de todos ellos, toma el ubicado mas a la izquierda, o lo que es lo mismo, el menor de ellos.
+            
+            \paragraph{Metodo del primero a la derecha}
+                
+                Este metodo obtiene una salida a partir de los valores de pertenencia maximos del conjunto difuso de salida, de todos ellos, toma el ubicado mas a la derecha, o lo que es lo mismo, el mayor de ellos.
+
         \subsubsection{Sistemas de control difusos}
             
             Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control más común es en lazo cerrado tal como se observa en la \cref{fig:fuzzycontrollerclassic}. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso más común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar estos controladores se suele utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
