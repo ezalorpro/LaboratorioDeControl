@@ -792,20 +792,26 @@
 
         \subsubsection{Sistemas de control difusos}
             
-            Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control más común es en lazo cerrado tal como se observa en la \cref{fig:fuzzycontrollerclassic}. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso más común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar estos controladores se suele utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
-                    
+            Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control más común es en lazo cerrado. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso más común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar estos controladores se puede utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
+            
+            No existen métodos analíticos claros para el diseño de controladores difusos, por tanto, se debe realizar bajo la experiencia del diseñador, tomando en cuenta las necesidades de control y las dinámicas del proceso, esto es debido a que el controlador difuso depende enteramente de la estructura de los conjuntos difusos y de la asignación de las reglas de inferencia \Parencite{cruz2010inteligencia}. Los siguientes esquemas de control fueron tomados de \textcite{cruz2010inteligencia}, \textcite{riid2003transparent}, y \textcite{clavier2017tecnicas}.
+
+            \paragraph{P difuso}
+                
+                Un controaldor P difuso simple puede ser realizado al tomar como entrada la señal de error y como salida la señal de control. El esquema de control se puede observar en la \cref{fig:pfuzzy}
+
             \begin{figure}[htb]
                 \centering
                 \begin{subfigure}[t]{0.8\textwidth}
                     \centering
-                    \includegraphics[width=\textwidth]{FuzzyControllerClassic} % el archivo debe estar en la carpeta imágenes
+                    \includegraphics[width=\textwidth]{FuzzyControllerClassic}
                     \caption{} 
                     \label{fig:fuzzycontrollerclassic}
                 \end{subfigure}
                 \hfill
                 \begin{subfigure}[t]{0.8\textwidth}
                     \centering
-                    \includegraphics[width=\textwidth]{FuzzyControllerAdapt} % el archivo debe estar en la carpeta imágenes
+                    \includegraphics[width=\textwidth]{FuzzyControllerAdapt}
                     \caption{}
                     \label{fig:fuzzycontrolleradapt}
                 \end{subfigure}
@@ -815,7 +821,7 @@
             
             Adicionalmente existe el esquema de control difuso con PID autosintonizable, el cual consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargara de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, esto permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint, el esquema de control se puede observar en la \cref{fig:fuzzycontrolleradapt}.
 
-            No existen métodos analíticos claros para la entonación de controladores difusos, por tanto, la entonación se debe realizar bajo la experiencia del diseñador, tomando en cuenta las necesidades de control y las dinámicas del proceso, esto es debido a que el controlador difuso depende enteramente de la estructura de los conjuntos difusos y de la asignación de las reglas de inferencia \Parencite{cruz2010inteligencia}.
+            
         
     \subsection{Python}
         
