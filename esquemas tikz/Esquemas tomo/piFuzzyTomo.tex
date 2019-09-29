@@ -118,8 +118,8 @@
     \coordinate[node distance=0.2cm, right = of derivada] (empty3) {};
 
     \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=1cm, draw, right = of empty1] (controlador) {};
-
-    \node [block1, right = of controlador] (proceso) {$Proceso$};
+    \node [block1, minimum height=2em, minimum width=1.5em, right = of controlador] (integrador) {$\frac{1}{s}$};
+    \node [block1, right = of integrador] (proceso) {$Proceso$};
     \node [branch, right = of proceso] (yjoint) {};
     \node [output, right = of yjoint] (output) {};
     \coordinate[node distance=1.2cm, below = of proceso] (empty2) {};    
@@ -131,7 +131,8 @@
     \draw [-] (derivada) -- (empty3);
     \draw [->] (empty3) |- ([yshift=-1em]controlador) node[pos=0.4, below right] {$\Delta e(t)$};
     \draw [->] (empty1) -- (controlador) node[pos=0.5, above left] {$e(t)$};
-    \draw [->] (controlador) -- (proceso) node[pos=1, above left] {$sc(t)$};
+    \draw [->] (controlador) -- (integrador) node[pos=1, above left] {$\dot{sc}(t)$};
+    \draw [->] (integrador) -- (proceso) node[pos=1, above left] {$sc(t)$};
     \draw [->] (proceso) -- (output) node [name=y, above left] {$Vp$};
     \draw [-] (yjoint.south) |- (empty2);
     \draw [->] (empty2) -| node[pos=0.97, right] {\tiny{$-$}} (sum);

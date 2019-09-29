@@ -865,16 +865,18 @@ INPUT imagenes\pdFuzzyTomo.pdf
 INPUT .\imagenes\pdFuzzyTomo.pdf
 INPUT .\imagenes\pdFuzzyTomo.pdf
 INPUT .\imagenes\pdFuzzyTomo.pdf
-INPUT imagenes\FuzzyControllerClassic.png
-INPUT .\imagenes\FuzzyControllerClassic.png
-INPUT .\imagenes\FuzzyControllerClassic.png
-INPUT .\imagenes\FuzzyControllerClassic.png
-INPUT .\imagenes\FuzzyControllerClassic.png
-INPUT imagenes\FuzzyControllerAdapt.png
-INPUT .\imagenes\FuzzyControllerAdapt.png
-INPUT .\imagenes\FuzzyControllerAdapt.png
-INPUT .\imagenes\FuzzyControllerAdapt.png
-INPUT .\imagenes\FuzzyControllerAdapt.png
+INPUT imagenes\piFuzzyTomo.pdf
+INPUT .\imagenes\piFuzzyTomo.pdf
+INPUT .\imagenes\piFuzzyTomo.pdf
+INPUT .\imagenes\piFuzzyTomo.pdf
+INPUT imagenes\pidFuzzyTomo.pdf
+INPUT .\imagenes\pidFuzzyTomo.pdf
+INPUT .\imagenes\pidFuzzyTomo.pdf
+INPUT .\imagenes\pidFuzzyTomo.pdf
+INPUT imagenes\GainschedulerTomo.pdf
+INPUT .\imagenes\GainschedulerTomo.pdf
+INPUT .\imagenes\GainschedulerTomo.pdf
+INPUT .\imagenes\GainschedulerTomo.pdf
 INPUT capitulo3.tex
 INPUT capitulo3.tex
 INPUT capitulo4.tex
@@ -906,6 +908,10 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi8.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr10.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr5.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr5.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr7.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr7.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsy5.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmsy5.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\tex-gyre\qtmb.pfb

@@ -798,7 +798,7 @@
 
             \paragraph{Controlador P difuso}
                 
-                Un controaldor P difuso simple puede ser realizado al tomar como entrada la señal de error y como salida la señal de control. El esquema de control se puede observar en la \cref{fig:pFuzzyTomo}.
+                Un controlador P difuso simple puede ser realizado al tomar como entrada la señal de error y como salida la señal de control. El esquema de control se puede observar en la \cref{fig:pFuzzyTomo}.
 
                 \begin{figure}[htb]
                     \centering
@@ -809,37 +809,49 @@
 
             \paragraph{Controlador PD difuso}
                 
-                Un controaldor P difuso simple puede ser realizado al tomar la señal de error y la derivada del error como entradas del controlador y se toma como salida la señal de control. El esquema de control se puede observar en la \cref{fig:pdFuzzyTomo}.
+                Un controlador PD difuso puede ser realizado al tomar la señal de error y la derivada del error como entradas del controlador y se toma como salida la señal de control. El esquema de control se puede observar en la \cref{fig:pdFuzzyTomo}.
 
                 \begin{figure}[htb]
                     \centering
-                    \includegraphics[width=0.6\textwidth]{pdFuzzyTomo.pdf}
+                    \includegraphics[width=0.7\textwidth]{pdFuzzyTomo.pdf}
                     \caption[Esquema de control: PD difuso]{\textbf{Esquema de control: PD difuso}. Fuente: Elaboración propia.} 
                     \label{fig:pdFuzzyTomo}
                 \end{figure}
-
-            \begin{figure}[htb]
-                \centering
-                \begin{subfigure}[t]{0.8\textwidth}
-                    \centering
-                    \includegraphics[width=\textwidth]{FuzzyControllerClassic}
-                    \caption{} 
-                    \label{fig:fuzzycontrollerclassic}
-                \end{subfigure}
-                \hfill
-                \begin{subfigure}[t]{0.8\textwidth}
-                    \centering
-                    \includegraphics[width=\textwidth]{FuzzyControllerAdapt}
-                    \caption{}
-                    \label{fig:fuzzycontrolleradapt}
-                \end{subfigure}
+            
+            \paragraph{Controlador PI difuso}
                 
-                \caption[Esquemas de control difuso]{\textbf{Esquemas de control difuso}. (a) Esquema de control difuso clásico, (b) Esquema de control difuso autosintonizable. Fuente: \textcite{cruz2010inteligencia}, p.$\,$86 y p.$\,$104 respectivamente. \label{fig:FuzzySchems}}
-            \end{figure}
-            
-            Adicionalmente existe el esquema de control difuso con PID autosintonizable, el cual consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargara de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, esto permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint, el esquema de control se puede observar en la \cref{fig:fuzzycontrolleradapt}.
+                Un controlador PI difuso se puede obtener al agregar un integrador a la salida de un PD difuso, de este modo $sc(t) = e(t) + \Delta e(t)$ se transforma en $sc(t) = \int_0^t e(\tau)d\tau + e(t)$ la cual sera tomada como la señal de control. El esquema de control se puede observar en la \cref{fig:piFuzzyTomo}.
 
-            
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=0.7\textwidth]{piFuzzyTomo.pdf}
+                    \caption[Esquema de control: PI difuso]{\textbf{Esquema de control: PI difuso}. Fuente: Elaboración propia.} 
+                    \label{fig:piFuzzyTomo}
+                \end{figure}
+
+            \paragraph{Controlador PID difuso}
+                
+                Un controlador PD difuso puede ser realizado al tomar la señal de error, la derivada del error y la segunda derivada del error como entradas del controlador, la señal de salida es luego integrada de modo que $sc(t) = e(t) + \Delta e(t) + \Delta^2 e(t)$ se transforma en $sc(t) = \int_0^t e(\tau)d\tau + e(t) + \Delta e(t)$ la cual sera tomada como la señal de control. El esquema de control para un PID difuso completo se puede observar en la \cref{fig:pidFuzzyTomo}.
+
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=0.8\textwidth]{pidFuzzyTomo.pdf}
+                    \caption[Esquema de control: PID difuso]{\textbf{Esquema de control: PID difuso}. Fuente: Elaboración propia.} 
+                    \label{fig:pidFuzzyTomo}
+                \end{figure}
+
+                Existen otras formas de obtener un PID difuso, una de estas formas es realizando la suma de las salidas de un PD difuso y PI difuso, por otro lado, tambien se puede realizar haciendo uso de componentes no difusos, i.e., sumar la salida de un PD difuso con la integral del error o sumar la salida de un PI difuso con la derivada del error.
+
+            \paragraph{Controlador difuso como programador de ganancias}
+                
+                El esquema de control difuso con programdor de ganancias consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargara de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, esto permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint, el esquema de control se puede observar en la \cref{fig:GainschedulerTomo}.
+
+                \begin{figure}[htb]
+                    \centering
+                    \includegraphics[width=0.8\textwidth]{GainschedulerTomo.pdf}
+                    \caption[Esquema de control: Programador de ganancias]{\textbf{Esquema de control: Programador de ganancias}. Fuente: Elaboración propia.} 
+                    \label{fig:GainschedulerTomo}
+                \end{figure}
         
     \subsection{Python}
         

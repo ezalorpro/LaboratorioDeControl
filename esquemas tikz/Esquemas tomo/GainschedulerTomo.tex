@@ -110,27 +110,29 @@
 
     \node[input] (input) {};
     \node [sum, right = of input] (sum) {};
-    \node [branch, right = of sum] (errorbranch) {};
-
+    \node [branch, node distance=0.5cm, right = of sum] (errorbranch) {};
     \coordinate[node distance=0.8cm, right = of errorbranch] (empty1) {};
-
-    \node [block1, minimum height=2em, minimum width=2em, node distance=0.6cm, below = of empty1] (derivada) {$\frac{d}{dt}$};
-    \coordinate[node distance=0.2cm, right = of derivada] (empty3) {};
-
-    \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=1cm, draw, right = of empty1] (controlador) {};
-
+    \node [block1, minimum height=2em, minimum width=2em, node distance=0.8cm, above = of empty1] (derivada) {$\frac{d}{dt}$};
+    \node [branch, node distance=0.72cm, right = of empty1] (errorjoint2) {};
+    \node [block1, right = of errorjoint2] (controlador) {$PID$};
+    \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=1.4cm, draw, right = of derivada] (controller) {};
     \node [block1, right = of controlador] (proceso) {$Proceso$};
     \node [branch, right = of proceso] (yjoint) {};
     \node [output, right = of yjoint] (output) {};
-    \coordinate[node distance=1.2cm, below = of proceso] (empty2) {};    
+    \coordinate[node distance=0.6cm, below = of proceso] (empty2) {};    
 
     \draw [->] (input) node[above right] {$sp$} -- (sum);
     \draw [-] (sum) -- (errorbranch);
-    \draw [-] (errorbranch) -- (empty1);
     \draw [->] (errorbranch) |- (derivada);
-    \draw [-] (derivada) -- (empty3);
-    \draw [->] (empty3) |- ([yshift=-1em]controlador) node[pos=0.4, below right] {$\Delta e(t)$};
-    \draw [->] (empty1) -- (controlador) node[pos=0.5, above left] {$e(t)$};
+    \draw [-] (errorbranch) -- (errorjoint2);
+    \draw [->] (errorjoint2) |- ([yshift=-1.2em]controller);
+    \draw [->] (errorjoint2) -- (controlador) node[pos=0.8, above left] {$e(t)$};
+
+    \draw [->] ([xshift=-1em]controller.south) -- node [scale=0.4, right] {$K_p$} ([xshift=-1em]controlador.north);
+    \draw [->] (controller) -- node [scale=0.4, right] {$K_i$} (controlador);
+    \draw [->] ([xshift=1em]controller.south) -- node [scale=0.4, right] {$K_d$} ([xshift=1em]controlador.north);
+
+    \draw [->] (derivada)  -- (controller) node[pos=0.9, above left] {$\Delta e(t)$};
     \draw [->] (controlador) -- (proceso) node[pos=1, above left] {$sc(t)$};
     \draw [->] (proceso) -- (output) node [name=y, above left] {$Vp$};
     \draw [-] (yjoint.south) |- (empty2);

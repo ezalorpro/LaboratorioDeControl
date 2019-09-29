@@ -1,7 +1,7 @@
 PWD c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo
 INPUT C:\Users\PC\AppData\Local\MiKTeX\2.9\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\pdFuzzyTomo.tex
-OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\pdFuzzyTomo.log
+INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\GainschedulerTomo.tex
+OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\GainschedulerTomo.log
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\standalone\standalone.cls
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\standalone\standalone.cls
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\shellesc.sty
@@ -166,9 +166,9 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\pgf\frontendlaye
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarypositioning.code.tex
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarycalc.code.tex
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarycalc.code.tex
-INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\pdFuzzyTomo.aux
-INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\pdFuzzyTomo.aux
-OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\pdFuzzyTomo.aux
+INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\GainschedulerTomo.aux
+INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\GainschedulerTomo.aux
+OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\GainschedulerTomo.aux
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty
@@ -189,9 +189,9 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\etexcmd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty
-OUTPUT pdFuzzyTomo.pdf
+OUTPUT GainschedulerTomo.pdf
 INPUT C:\Users\PC\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
-INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\pdFuzzyTomo.aux
+INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\esquemas tikz\Esquemas tomo\tobedeleted\GainschedulerTomo.aux
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi7.pfb
