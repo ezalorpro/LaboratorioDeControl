@@ -4,7 +4,7 @@
 	
 	\textcite{casallas2005desarrollo}, escribieron para la revista Acción Pedagógica de la Universidad de los Andes un artículo titulado \enquote{Desarrollo básico de un Laboratorio Virtual de Control de Procesos basado en Internet}, fue desarrollado conjuntamente entre la UNET y la ULA para ser usado a través de Internet y cuyo objetivo fue desarrollar un laboratorio virtual de control de procesos para la enseñanza a distancia, permitiendo ser utilizado solo por usuarios registrados y en determinados horarios. Aunque la finalidad de la investigación acá propuesta difiere del objetivo de \citeauthor{casallas2005desarrollo}, esta servirá como ayuda para determinar las funciones más utilizadas en el área de control, así como las necesidades típicas de un laboratorio de control virtual.
 	
-	Adicionalmente, \textcite{salazar2019diseno}, realizó en la Universidad Técnica del Norte, Ecuador, una tesis titulada \enquote{Diseño de un sistema de riego inteligente para cultivos de hortalizas basado en Fuzzy Logic en la granja la pradera de la Universidad Técnica del Norte.} para la implementación del controlador basado en la lógica difusa utilizó, entre otros equipos, un Rasberry PI para la ejecución de Python, específicamente, hizo uso de la biblioteca Scikit-Fuzzy, la cual le permitió definir las funciones de membresía, establecer las reglas difusas, realizar los procesos de fuzzificación y defuzzificación, todo esto para una arquitectura de controlador difuso tipo Mamdani. Esta tesis servirá como referencia para establecer el diseño de controladores difusos utilizando la biblioteca Scikit-Fuzzy.
+	Adicionalmente, \textcite{salazar2019diseno}, realizó en la Universidad Técnica del Norte, Ecuador, una tesis titulada \enquote{Diseño de un sistema de riego inteligente para cultivos de hortalizas basado en Fuzzy Logic en la granja la pradera de la Universidad Técnica del Norte.} para la implementación del controlador basado en la lógica difusa utilizó, entre otros equipos, un Rasberry PI para la ejecución de Python, específicamente, hizo uso de la biblioteca Scikit-Fuzzy, la cual le permitió definir las funciones de membresía, establecer las reglas difusas, realizar los procesos de fuzzificación y defuzzificación, todo lo mencionado sera para una arquitectura de controlador difuso tipo Mamdani. Esta tesis servirá como referencia para establecer el diseño de controladores difusos utilizando la biblioteca Scikit-Fuzzy.
 
 	Por otro lado, \textcite{congo2018aplicaciones} realizó en la Universidad Tecnológica Israel, Ecuador, una tesis titulada \enquote{Aplicaciones del software libre Python para prácticas de laboratorio aplicado a la asignatura de tratamiento digital de señales de la Universidad Tecnológica Israel} cuyo objetivo fue desarrollar por medio del software Python y sus diferentes librerías científicas, la realización de 3 Prácticas de Laboratorio para la asignatura Procesamiento Digital de Señales de la Universidad Tecnológica Israel, al igual que la intención de este trabajo, se realizó una interfaz gráfica con el objetivo de facilitar su uso, en este caso como herramienta para el procesamiento digital de señales. Este trabajo sustenta la viabilidad de realizar una interfaz gráfica con enfoque similar en el campo de la electrónica y se utilizará como guía parcial para establecer su uso en sistemas de control.
 	
@@ -148,7 +148,7 @@
 
     \subsection{Modelado de procesos en tiempo discreto}
 
-        Así como para tiempo continuo se utilizan ecuaciones diferenciales, en el tiempo discreto se hace uso de ecuaciones en diferencias. Las ecuaciones en diferencias se pueden utilizar para aproximar a las ecuaciones diferenciales, estas primeras se suelen utilizar porque son más fáciles de programar \Parencite{kuo1996sistemas}, debido a esto los procesos pueden ser representados de la siguiente forma:
+        Así como para tiempo continuo se utilizan ecuaciones diferenciales, en el tiempo discreto se hace uso de ecuaciones en diferencias. Las ecuaciones en diferencias se pueden utilizar para aproximar a las ecuaciones diferenciales, estas primeras se suelen utilizar porque son más fáciles de programar \Parencite{kuo1996sistemas}, por lo cual los procesos pueden ser representados de la siguiente forma:
         
         \begin{equation}\label{eq:EqEnDiferencias}
             y(k+n) + a_{n-1}y(k+n-1) + \cdots + a_1 y(k+1) + a_0 y(k) = f(k) 
@@ -189,7 +189,7 @@
         
         Para poder obtener la respuesta del sistema en el tiempo podemos utilizar varios metodos de resolucion de ODE's o ecuaciones diferenciales ordinarias, solucion exacta, separacion de variables o integracion numerica aproximada, este ultimo es el mejor para realizar por medio de computadoras. Para realizar la integracion numerica y obtener la respuesta del sistema se utilizaran los metodos de Runge-Kutta.
 
-        Los metodos de Runge-Kutta son unos metodos iterativos de resolucion de ODE's, estos se basan en utilizar \blockquote[{\cite[p.31]{horacio1997metodos}}]{indirectamente el algoritmo de Taylor. En general, estos metodos evaluan $f(x,y)$ en mas de un punto en la proximida $(x_n,y_n)$ en lugar de evaluar derivdas de $f(x,y)$}. La formulacion general de los metodos de Runge-Kutta explicitos es:
+        Los metodos de Runge-Kutta son unos metodos iterativos de resolución de ODE's, los mismos se basan en utilizar \blockquote[{\cite[p.31]{horacio1997metodos}}]{indirectamente el algoritmo de Taylor. En general, estos metodos evalúan $f(x,y)$ en mas de un punto en la proximida $(x_n,y_n)$ en lugar de evaluar derivadas de $f(x,y)$}. La formulación general de los metodos de Runge-Kutta explícitos es:
         
         \begin{equation}\label{eq:RKgeneral}
             \begin{aligned}
@@ -303,11 +303,11 @@
 				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)} \label{eq:SSrepresentationY}
             \end{equation}
             
-            Estos pasos se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar, un tamaño de paso pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
+            Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar, un tamaño de paso pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
 
         \subsubsection{Tamaño de paso variable}
 
-            Como ya se menciono antes, se puede realizar una adaptación del tamaño de paso en función del error, esto es posible no solo para los metodos embebidos, sino también para los explícitos, \textcite{roganprogramacion} afirma que: \blockquote[p.251]{Los programas adaptativos continuamente monitorean la solución y modifican el paso de
+            Como ya se menciono antes, se puede realizar una adaptación del tamaño de paso en función del error y es posible no solo para los metodos embebidos, sino también para los explícitos, \textcite{roganprogramacion} afirma que: \blockquote[p.251]{Los programas adaptativos continuamente monitorean la solución y modifican el paso de
             tiempo para asegurar que se mantenga la precisión especificada por el usuario. Esos programas
             pueden hacer algunos cálculos extras para optimizar la elección de $\tau$ , en muchos casos este
             trabajo extra vale la pena.}
@@ -322,7 +322,7 @@
 
             \paragraph{Nuevo tamaño de paso}
 
-                Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las formulas para el manejo del error con fines de calcular un nuevo tamaño de paso, lo primero es calcular una escala, este es el único paso que se diferencia entre el método de dos medios pasos y el los metodos embebidos, esto es debido a al modo en que se calculan los errores, para dos medios pasos la escala es:
+                Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las formulas para el manejo del error con fines de calcular un nuevo tamaño de paso, lo primero es calcular una escala, este es el único paso que se diferencia entre el método de dos medios pasos y el los metodos embebidos. Para dos medios pasos la escala es:
 
                 \begin{equation}\label{eq:escalaDos}
                     escala = atol + rtol \cdot \frac{\left|y_{1,h}\right| + \left|y_{2,\frac{h}{2}}\right|}{2}
@@ -334,7 +334,7 @@
                     escala = atol + rtol \cdot max(\left| y_1\right|,\left| y_0\right|)
                 \end{equation}
         
-                A partir de aca las formulas son comunes para ambos metodos. Para continuar, se debe realizar el calculo de un error normalizado, para esto se calcula la norma RMS del error dividido por la escala calculada:
+                A partir de aca las formulas son comunes para ambos metodos. Para continuar, se debe realizar el calculo de un error normalizado, por lo cual se calcula la norma RMS del error dividido por la escala calculada:
 
                 \begin{equation}\label{eq:ErrorNormalizado}
                     ||\Delta e|| = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(\frac{\Delta e_i}{escala_i}\right)^2}
@@ -355,13 +355,13 @@
     
     \subsection{Respuesta en el tiempo del modelo en el espacio de estados discreto}
         
-        El calculo de la respuesta en el tiempo para el modelo en el espacio de estados discreto es mucho mas simple, no se requiere ningun metodo de integracion aproximado, esto es debido a que el calculo puede ser realiado se forma directa, esto es debido a que la formula es el algoritmo a seguir \Parencite{haugen2005discrete}. Tomando en consideracion la ecuacion \cref{eq:SSdiscreto}, basta con sustituir el vector de estado para obtener a $x(k+1)$ y la salida $y(k)$
+        El calculo de la respuesta en el tiempo para el modelo en el espacio de estados discreto es mucho mas simple, no se requiere ningún método de integración aproximado, lo cual se debe a que el calculo puede ser realizado se forma directa   ya que la formula es el algoritmo a seguir \Parencite{haugen2005discrete}. Tomando en consideración la ecuación \cref{eq:SSdiscreto}, basta con sustituir el vector de estado para obtener a $x(k+1)$ y la salida $y(k)$
     
     \subsection{Sistemas de control}
 		
 		\subsubsection{Sistema en lazo abierto}
 		
-            Un sistema en lazo abierto es aquel cuya salida no es medida en ningún momento en orden de ajustar la entrada, esto provoca que \enquote{las perturbaciones que se presentan en el proceso ocasionen que sus efectos se sientan en la salida del proceso, es decir, en el valor de la variable controlada}\Parencite[p.$\,$350]{maloney2006electronica}. La mayoría de los sistemas en lazo abierto son estables, pero carecen de utilidad practica al no poder mantenerlos en un punto de referencia debido a las perturbaciones.
+            Un sistema en lazo abierto es aquel cuya salida no es medida en ningún momento en orden de ajustar la entrada, por lo cual provoca que \enquote{las perturbaciones que se presentan en el proceso ocasionen que sus efectos se sientan en la salida del proceso, es decir, en el valor de la variable controlada}\Parencite[p.$\,$350]{maloney2006electronica}. La mayoría de los sistemas en lazo abierto son estables, pero carecen de utilidad practica al no poder mantenerlos en un punto de referencia debido a las perturbaciones.
             
             Por otro lado, es importante analisar el comportamiento del sistema en lazo abierto para determinar su comportamiento en lazo cerrado, ademas, nos permite determinar sus caracteristicas con el fin de realizar un modelo matematico aproximado del sistema, este es util para realizar la entonacion de los controladores sin tener que trabajar de forma directa con el proceso, el cual puede ser peligroso o inaccesible. La representacion en diagrama de bloques de un sistema en lazo abierto se puede observar en la \cref{fig:esquemaLazoAbierto}.
             
@@ -421,7 +421,7 @@
                     En este caso el sistema es inestable en lazo cerrado.
                 \end{enumerate}
                 
-                En la \cref{fig:nyquistPlot} se puede observar los diagramas de Nyquist para los sistemas presentados en la \cref{fig:pzmap}, el sistema $G_1(s)$ debe ser evaluado por el criterio numero 1, al no poseer ninguno polo en el semiplano derecho el sistema sera estable en lazo cerrado asumiendo un $H(s) = 1$, por otro lado, $G_2(s)$ debe ser evaluado por el criterio numero 2, debido a que el numero de rodeos al punto $-1 + j0$ es igual al numero de polos en el semiplano derecho, el sistema sera estable en lazo cerrado asumiendo un $H(s) = 1$, esto a pesar de que en lazo abierto sea inestable.
+                En la \cref{fig:nyquistPlot} se puede observar los diagramas de Nyquist para los sistemas presentados en la \cref{fig:pzmap}, el sistema $G_1(s)$ debe ser evaluado por el criterio numero 1, al no poseer ninguno polo en el semiplano derecho el sistema sera estable en lazo cerrado asumiendo un $H(s) = 1$, por otro lado, $G_2(s)$ debe ser evaluado por el criterio numero 2, debido a que el numero de rodeos al punto $-1 + j0$ es igual al numero de polos en el semiplano derecho el sistema sera estable en lazo cerrado asumiendo un $H(s) = 1$ a pesar de que en lazo abierto sea inestable.
 
                 \begin{figure}[htb]
                     \centering
@@ -432,7 +432,7 @@
             
             \paragraph{Margen de ganancia y Margen de fase}
                 
-                Los margenes de ganancia y de fase son una medida de la estabilidad relativa, se toman en cuenta a la hora de realizar el diseño de un controlador, esto es debido a que los margenes se pueden interpretar de modo que orienten en la cantidad de ganancia que se le puede aplicar al sistema en lazo cerrado, adicionalmente, la estabilidad relativa se puede interpretar como que tan estable es un sistema. \textcite{dorf2011modern} definen el margen de ganancia como: \blockquote[p.655]{[...] el incremento en la ganancia del sistema cuando $fase = -180^\circ$ que resultaria en un sistema marginalmente estable con la interseccion del punto $-1 + j0$ en el diagrama de Nyquist}. Asi mismo, \textcite{dorf2011modern} definen el margen de fase como: \blockquote[p.656]{[...] la cantidad de desplazamiento de fase de $L(j\omega)$ a una unidad de magnitud que resultaria en un sistema marginalmente estable con la intersección del punto $-1 + j0$ en el diagrama de Nyquist. El margen de ganancia y de fase pueden ser facilmente encontrados utilizando un diagrama de Bode.}
+                Los margenes de ganancia y de fase son una medida de la estabilidad relativa, se toman en cuenta a la hora de realizar el diseño de un controlador debido a que los margenes se pueden interpretar de modo que orienten en la cantidad de ganancia que se le puede aplicar al sistema en lazo cerrado, adicionalmente, la estabilidad relativa se puede interpretar como que tan estable es un sistema. \textcite{dorf2011modern} definen el margen de ganancia como: \blockquote[p.655]{[...] el incremento en la ganancia del sistema cuando $fase = -180^\circ$ que resultaria en un sistema marginalmente estable con la interseccion del punto $-1 + j0$ en el diagrama de Nyquist}. Asi mismo, \textcite{dorf2011modern} definen el margen de fase como: \blockquote[p.656]{[...] la cantidad de desplazamiento de fase de $L(j\omega)$ a una unidad de magnitud que resultaria en un sistema marginalmente estable con la intersección del punto $-1 + j0$ en el diagrama de Nyquist. El margen de ganancia y de fase pueden ser facilmente encontrados utilizando un diagrama de Bode.}
 
             \paragraph{Análisis de estabilidad con las trazas de Bode}
 
@@ -455,7 +455,7 @@
                 \begin{figure}[htb]
                     \centering
                     \includegraphics[width=\textwidth]{bodeG2.pdf}
-                    \caption[Ejemplo 2 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $G_2(s)$}. El sistema $G_2(s)$ es de fase no minima, debido a esto, la interpretacion del margen de ganancia y de fase no es tan simple, aca se puede observar que el margen de ganancia es negativo y aun asi, sabemos por su analisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
+                    \caption[Ejemplo 2 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $G_2(s)$}. El sistema $G_2(s)$ es de fase no minima, por tanto, la interpretacion del margen de ganancia y de fase no es tan simple. En la figura se observar que el margen de ganancia es negativo y aun asi, sabemos por su analisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
                     \label{fig:bodeG2}
                 \end{figure}
             
@@ -502,19 +502,19 @@
 
             \paragraph{Componente proporcional}
 
-				La componente proporcional se obtiene de multiplicar la señal de error por la ganancia proporcional, esto provoca que la señal de control sea proporcional a la señal de error con una relación igual a la ganancia proporcional, si el controlador solo constase de componente proporcional el error en estado estable nunca se eliminaría, dicho de otro modo, el error podría ser muy bajo, pero jamás cero. \enquote{Este error se denomina la desviación permanente u \enquote{offset}. El mismo disminuye si se aumenta el valor de K}\Parencite[p.$\,$54]{nelson1999fundamentos}.
+				La componente proporcional se obtiene de multiplicar la señal de error por la ganancia proporcional, lo cual provoca que la señal de control sea proporcional a la señal de error con una relación igual a la ganancia proporcional, si el controlador solo constase de componente proporcional el error en estado estable nunca se eliminaría, dicho de otro modo, el error podría ser muy bajo, pero jamás cero. \enquote{Este error se denomina la desviación permanente u \enquote{offset}. El mismo disminuye si se aumenta el valor de K}\Parencite[p.$\,$54]{nelson1999fundamentos}.
 
 			\paragraph{Componente integral}
 
-				La componente integral viene dada por la sumatoria de la señal del error en el tiempo multiplicada por la ganancia integral, por tanto, se obtiene una acumulación en un periodo determinado, esto implica que mientras exista error, la componente integral seguirá aumentando o disminuyendo dependiendo del signo de la señal de error hasta que el error sea cero, la componente integral se suma con la componente proporcional formando una única señal de control.
+				La componente integral viene dada por la sumatoria de la señal del error en el tiempo multiplicada por la ganancia integral, por tanto, se obtiene una acumulación en un periodo determinado, lo anterior implica que mientras exista error, la componente integral seguirá aumentando o disminuyendo dependiendo del signo de la señal de error hasta que el error sea cero, la componente integral se suma con la componente proporcional formando una única señal de control.
 
 				Debido a que la componente integral depende del tiempo, es posible corregir desviaciones de la variable controlada generadas por perturbaciones externas. Por otro lado, debido a que eventualmente se conseguirá que el error sea igual a cero la componente proporcional no hará ningún aporte al sistema, y la señal de control pasará a ser totalmente generada por la componente integral hasta que exista un cambio en el setpoint o una alteración en la variable medida.
 
 			\paragraph{Componente derivativa}
 
-				La componente derivativa viene dada por el ritmo de cambio de la señal de error multiplicado por la ganancia derivativa, por tanto, cuando el error permanece constante la componente derivativa es igual a cero, la componente derivativa será tan grande como la velocidad con la que cambie el error, esto ayuda a evitar que se generen sobre pasos en la variable medida respecto a la variable de referencia.
+				La componente derivativa viene dada por el ritmo de cambio de la señal de error multiplicado por la ganancia derivativa, por tanto, cuando el error permanece constante la componente derivativa es igual a cero, la componente derivativa será tan grande como la velocidad con la que cambie el error, lo cual ayuda a evitar que se generen sobre pasos en la variable medida respecto a la variable de referencia.
 				
-				La componente derivativa es muy sensible al ruido, es por esto que se debe utilizar solo cuando se requiera un cierto grado de anticipación y no exista ruido \Parencite{smith1985principles}. Es recomendable utilizar filtros en orden de disminuir el posible ruido, a su vez, cuando el proceso a controlar es de respuesta rápida se recomienda no agregar componente derivativa o que su ganancia sea muy pequeña. Tomando en cuenta lo anterior, se debe mencionar que la componente derivativa tal como se observa en las ecuaciones \cref{eq:pidtiempo} y \cref{eq:pidcompleja} no es implementable al ser no causal, por tanto, la derivada puede ser implementada utilizando una aproximacion. \blockquote[{\cite[p.220]{aastrom2002control}}]{La aproximacion actua como una derivada para las componentes de la señal de baja frecuencia. La ganancia, sin embargo, esta limitada a $KN$. Esto significa que las medidas de ruido de alta frecuencia son amplificados cuando mucho por un factor $KN$.} La funcion de transferencia de la componente derivativa aproximada es la siguiente:
+				La componente derivativa es muy sensible al ruido, por tanto, se debe utilizar solo cuando se requiera un cierto grado de anticipación y no exista ruido \Parencite{smith1985principles}. Es recomendable utilizar filtros en orden de disminuir el posible ruido, a su vez, cuando el proceso a controlar es de respuesta rápida se recomienda no agregar componente derivativa o que su ganancia sea muy pequeña. Tomando en cuenta lo anterior, se debe mencionar que la componente derivativa tal como se observa en las ecuaciones \cref{eq:pidtiempo} y \cref{eq:pidcompleja} no es implementable al ser no causal, por tanto, la derivada puede ser implementada utilizando una aproximacion. \blockquote[{\cite[p.220]{aastrom2002control}}]{La aproximacion actua como una derivada para las componentes de la señal de baja frecuencia. La ganancia, sin embargo, esta limitada a $KN$. Esto significa que las medidas de ruido de alta frecuencia son amplificados cuando mucho por un factor $KN$.} La funcion de transferencia de la componente derivativa aproximada es la siguiente:
 
                 \begin{equation}\label{eq:Daproximacion}
                     D = K_d \frac{N s}{s + N}
@@ -543,7 +543,7 @@
                 \label{fig:ZNtest}
             \end{figure}
             
-            Con estos valores se puede obtener la entonación de un controlador P, PI o PID, los valores de $K_{p}$, $K_{i}$ y $K_{d}$ se pueden obtener sustituyendo los valores en la \cref{tab:ZiglerNichols} correspondiente a la regla de entonación de Ziegler-Nichols. \textcite{ogata2003ingenieria} comenta que: \enquote{Las reglas de sintonía de Ziegler-Nichols [...] se han usado ampliamente para sintonizar controladores PID en sistemas de control de procesos en los que no se conoce con precisión la dinámica de la planta}(p.$\,$572).
+            Con los parametros del modelo de primer orden se puede obtener la entonación de un controlador P, PI o PID. Las ganancias $K_{p}$, $K_{i}$ y $K_{d}$ se pueden obtener sustituyendo los mencionados parametros en la \cref{tab:ZiglerNichols} correspondiente a la regla de entonación de Ziegler-Nichols. \textcite{ogata2003ingenieria} comenta que: \enquote{Las reglas de sintonía de Ziegler-Nichols [...] se han usado ampliamente para sintonizar controladores PID en sistemas de control de procesos en los que no se conoce con precisión la dinámica de la planta}(p.$\,$572).
             
             \begin{table}[htb]
                 \centering
@@ -598,7 +598,7 @@
         
         \subsubsection{Conjuntos difusos}
             
-            Un conjunto difuso está compuesto de funciones de membresía, dichas funciones de membresía representan valores para asignar el grado de pertenencia de una variable a un estado en particular, estos estados son identificados con etiquetas lingüísticas descriptivas, como alto, caliente, bajo, negativo, entre otras. En la \cref{fig:FuzzySet} se puede observar un ejemplo de conjunto difuso.
+            Un conjunto difuso está compuesto de funciones de membresía, dichas funciones de membresía representan valores para asignar el grado de pertenencia de una variable a un estado en particular y son identificados con etiquetas lingüísticas descriptivas, como alto, caliente, bajo, negativo, entre otras. En la \cref{fig:FuzzySet} se puede observar un ejemplo de conjunto difuso.
             
             \begin{figure}[htb]
                 \centering
@@ -701,47 +701,8 @@
         
         \subsubsection{Reglas de inferencia}
             
-            Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y salida, la salida puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens. Modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente. La tautología para modus ponens y modus tollens se puede observar a modo de tablas de la verdad en la \cref{tab:mponens} y \cref{tab:mtollens} respectivamente.
-            
-            \begin{table}[t]
-                \centering
-                \begin{threeparttable}
-                    \renewcommand{\arraystretch}{1.8} 	% Separacion de las filas
-                    %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
-                    \caption[Tautología para modus ponens]{Tautología para modus ponens}
-                    \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} cccc}
-                        \toprule
-                        A & B  & A$\rightarrow$B & (A$\wedge$(A$\rightarrow$B)) & (A$\wedge$(A$\rightarrow$B))$\rightarrow$B \\ \midrule
-                        0 & 0 &       1        &              0              &                     1                     \\
-                        0 & 1 &       1        &              0              &                     1                     \\
-                        1 & 0 &       0        &              0              &                     1                     \\
-                        1 & 1 &       1        &              1              &                     1                    \\ \bottomrule
-                    \end{tabular*}
-                    \label{tab:mponens}
-                \end{threeparttable}
-            \end{table}
-            
-            \begin{table}[t]
-                \centering
-                \begin{threeparttable}
-                    \renewcommand{\arraystretch}{1.8} 	% Separacion de las filas
-                    %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
-                    \caption[Tautología para modus tollens]{Tautología para modus tollens}
-                    \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} cccc}
-                        \toprule
-                        A & B  & A$\rightarrow$B & (A$\wedge$(A$\rightarrow$B)) & (A$\wedge$(A$\rightarrow$B))$\rightarrow$B \\ \midrule
-                        0 & 0 &       1        &              1              &                     1                     \\
-                        0 & 1 &       1        &              0              &                     1                     \\
-                        1 & 0 &       0        &              0              &                     1                     \\
-                        1 & 1 &       1        &              0              &                     1                    \\ \bottomrule
-                    \end{tabular*}
-                    \label{tab:mtollens}
-                    \begin{tablenotes}[flushleft]
-                        \item {\footnotesize \textbf{Nota.} La tautología para modus ponens y modus tollens es presentada utilizando tablas de la verdad. Fuente: \textcite{cruz2010inteligencia}, p.$\,$70}
-                    \end{tablenotes}
-                \end{threeparttable}
-            \end{table}
-            
+            Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y salida, la salida puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens. Modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente.
+                        
             Para realizar el proceso de inferencia se debe haber pasado primero por la fuzzificacion, la cual implica tomar los valores de entrada y obtener sus valores de pertenencia para cada funcion de membresia, luego, se aplican las normas triangulares (T-Normas) para el caso de logica AND o las conormas triangulares (T-Conormas) para logica OR, sus formas de aplicacion mas comunes suelen ser el minimo de los valores de pertenencia para las T-Normas y el maximo de los valores de pertenencia para las T-Conormas, de este modo, se obtienen las operaciones de interseccion y union respectivamente, a este proceso tambien se le conoce como conjuncion de premisas para las T-Normas y disyuncion de premisas para las T-Conormas.
             
             Luego de este proceso se debe seguir con la operacion de implicacion, usualmente se realiza y se prefiere con la conjuncion (T-Normas), esta viene definida por:
@@ -792,9 +753,9 @@
 
         \subsubsection{Sistemas de control difusos}
             
-            Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control más común es en lazo cerrado. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso más común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar estos controladores se puede utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
+            Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control más común es en lazo cerrado. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso más común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar los controladores se puede utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
             
-            No existen métodos analíticos claros para el diseño de controladores difusos, por tanto, se debe realizar bajo la experiencia del diseñador, tomando en cuenta las necesidades de control y las dinámicas del proceso, esto es debido a que el controlador difuso depende enteramente de la estructura de los conjuntos difusos y de la asignación de las reglas de inferencia \Parencite{cruz2010inteligencia}. Los siguientes esquemas de control fueron tomados de \textcite{cruz2010inteligencia}, \textcite{riid2003transparent}, y \textcite{clavier2017tecnicas}.
+            No existen métodos analíticos claros para el diseño de controladores difusos, por tanto, se debe realizar bajo la experiencia del diseñador, tomando en cuenta las necesidades de control y las dinámicas del proceso. Lo anterior es debido a que el controlador difuso depende enteramente de la estructura de los conjuntos difusos y de la asignación de las reglas de inferencia \Parencite{cruz2010inteligencia}. Los siguientes esquemas de control fueron tomados de \textcite{cruz2010inteligencia}, \textcite{riid2003transparent}, y \textcite{clavier2017tecnicas}.
 
             \paragraph{Controlador P difuso}
                 
@@ -844,7 +805,7 @@
 
             \paragraph{Controlador difuso como programador de ganancias}
                 
-                El esquema de control difuso con programdor de ganancias consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargará de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, esto permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint. El esquema de control se puede observar en la \cref{fig:GainschedulerTomo}.
+                El esquema de control difuso con programdor de ganancias consiste en dos controladores, uno difuso y un PID clásico, el controlador difuso se encargará de generar las ganancias del PID de forma dinámica en función de las entradas que reciba, a su vez, el PID será quien gobierne al proceso, por lo cual permite adaptar el controlador PID a los cambios de carga y a los cambios del setpoint. El esquema de control se puede observar en la \cref{fig:GainschedulerTomo}.
 
                 \begin{figure}[htb]
                     \centering
