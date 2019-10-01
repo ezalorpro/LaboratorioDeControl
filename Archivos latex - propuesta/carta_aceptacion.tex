@@ -1,12 +1,8 @@
-% Para cuando se tenga la carta firmada, scaneada y en formato PDF
-% \includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
-% 			pagecommand={\thispagestyle{empty}\setcounter{page}{3}}
-% 			]{carta_aceptacion}
-
-% Generacion de la carta
 \begin{titlepage}
-\parskip=7.25pt plus 2pt
 \setcounter{page}{3}
+\setlength{\parindent}{1.5cm}					% Sangría
+\setlength{\parskip}{0pt}						% Espaciado
+
 \begin{flushright}
 	San Cristóbal, \today
 \end{flushright}
@@ -46,15 +42,13 @@
 	
 	\vspace{0.2cm}
 	
-	\parskip=0pt plus 2pt
-    
-    \begin{spacing}{1}    
-        Juan Rafael Vizcaya Rojas
-    
-        C.I. V-7.348.191
-    \end{spacing}
+	Juan Rafael Vizcaya Rojas
+	
+	\setlength{\parskip}{0pt}
+	
+	C.I. V-7.348.191
 \end{center}
 
+%Fecha ------------------------------------------------------
 \vspace{0.5cm}
-
 \end{titlepage}

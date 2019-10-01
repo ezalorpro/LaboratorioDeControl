@@ -1,14 +1,10 @@
-% Para cuando se tenga la carta firmada, scaneada y en formato PDF
-% \includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
-% 			pagecommand={\thispagestyle{empty}\setcounter{page}{4}}
-% 			]{carta_vistobueno}
-
-% Generacion de la carta
 \begin{titlepage}
-\parskip=7.25pt plus 2pt
 \setcounter{page}{4}
+\setlength{\parindent}{1.5cm}					% Sangria
+\setlength{\parskip}{0pt}	
+
 \begin{center}
-	\begin{spacing}{1}
+	\begin{spacing}{1.5}
 	% Logo de la unet --------------------------------------------
 	\includegraphics[width=2cm]{unet.jpg}
 	
@@ -48,17 +44,15 @@
 	
 	\vspace{0.2cm}
 	
-	\parskip=0pt plus 2pt
-    
-    \begin{spacing}{1}
-        Tutor
-    
-        Juan Rafael Vizcaya Rojas
-    
-        C.I. V-7.348.191
-    \end{spacing}
+	Tutor
+	
+	Juan Rafael Vizcaya Rojas
+	
+	\setlength{\parskip}{0pt}
+	
+	C.I. V-7.348.191
 \end{center}
 
+%Fecha ------------------------------------------------------
 \vspace{0.5cm}
-
 \end{titlepage}
