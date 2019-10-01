@@ -1,0 +1,51 @@
+\section{Planteamiento del problema}
+	Desde hace muchos años que el hombre dedicó parte de sus esfuerzos a ofrecer servicios y producir bienes para el consumo de las personas, antaño, los procesos de producción eran fáciles de implementar y de complejidad reducida, por tanto, se podían controlar de forma manual utilizando instrumentos y herramientas simples, pero \citeauthor{creus2010instrumentacion}~(\citeyear{creus2010instrumentacion}) afirma que: \enquote{[...] la gradual complejidad con qué éstos se han ido desarrollando ha exigido su automatización progresiva por medio de los instrumentos de medición y control}(p.$\,$1).
+	
+	Así mismo, la calidad de vida de las personas ha mejorado gracias a que ahora la producción de bienes y servicios se realizan de forma más eficiente. Parte de este incremento de eficiencia se debe a la incorporación de nuevas tecnologías que traen consigo ventajas como rapidez, precisión y mejoras en la automatización. La automatización por medio de controladores analógicos y electrónicos ha desempeñado un papel importante en esta mejora, tanto así, que se ha convertido en parte integra en los sistemas de vehículos espaciales, robóticos, procesos modernos de fabricación y en cualquier operación industrial \Parencite{ogata2003ingenieria}.
+		
+	Siguiendo este orden de ideas, es necesario mencionar que analizar los sistemas de control puede llegar a ser, en ocasiones, una tarea difícil de realizar si no se tienen los conocimientos necesarios o si no se utilizan las herramientas adecuadas, uno de los motivos es que \enquote{[...] los antecedentes matemáticos requeridos incluyen temas tales como la teoría de la variable compleja, ecuaciones diferenciales y en diferencias, transformada de Laplace y transformada z~[...]}\parencite[p.$\,$21]{kuo1996sistemas}.
+	
+	Considerando lo anterior, es natural pensar que un modo de abarcar el análisis, diseño y simulación de sistemas de control es por medio de las computadoras. \citeauthor{ogata2003ingenieria}~(\citeyear{ogata2003ingenieria}) sugiere que gran parte del tiempo dedicado será verificando el comportamiento del sistema mediante un análisis, es por esto que recomienda utilizar un programa de computadora como MATLAB para que realice gran parte del cálculo matemático necesario en los estudios de sistemas de control, no obstante, se debe aclarar que MATLAB es un software que, aunque potente, permanece cerrado y de pago.
+	
+	En adición a lo anterior, se puede pensar en utilizar herramientas libres como Octave y Scilab, que proporcionan un número elevado de funciones matemáticas, pero se requiere de saber programar, además, no ofrecen un entorno gráfico para la entonación de controladores, lo cual puede llegar a ser problemático para algunos ingenieros, por otro lado, suelen ofrecer soluciones aisladas entre sí e integrarlas suele ser tedioso y problemático. \citeauthor{Suarez}~(\citeyear{Suarez}) afirma que: \enquote{Si lograr el dominio de la herramienta computacional es un reto en sí mismo deja de ser una herramienta práctica [...]}(p.$\,$6).
+	
+	Finalmente, se debe tener en cuenta que las herramientas libres y gratuitas no tienen la posibilidad de diseñar controladores a base de lógica difusa de forma intuitiva y sencilla, lo cual puede conllevar un desperdicio de tiempo considerable en comparación con el uso de una interfaz gráfica para el diseño del controlador, es por esto que la mayoría de las herramientas gratuitas están limitadas a usarse, de manera práctica, solo en teoría clásica de control. 
+	
+	En base a la problemática expuesta, surgen las siguientes preguntas: ¿Es posible realizar un laboratorio para el análisis de sistemas de control con software libre?, ¿Cumpliría con los requisitos para analizar, diseñar y simular sistemas de control? y ¿Cómo se desempeñaría en comparación con otras herramientas?, preguntas que se responderán con el desarrollo de esta investigación y que se utilizaran para guiar el rumbo de la misma.
+	
+\section{Objetivos de la investigación}
+	
+	\subsubsection{Objetivo general}
+		
+		Desarrollar un laboratorio virtual de sistemas de control clásicos y difusos utilizando software libre.
+		
+	\subsubsection{Objetivos específicos}
+		
+		\begin{enumerate}[leftmargin=\parindent]
+			
+			\item Estudiar los sistemas de control clásicos.
+			
+			\item Estudiar el diseño de controladores difusos tipo Mamdani.
+			
+			\item Codificar las rutinas de análisis, diseño y simulación de sistemas de control necesarias.
+			
+			\item Realizar la interfaz gráfica de un laboratorio de sistemas de control virtual.
+			
+			\item Comparar los resultados obtenidos con otras herramientas de corte similar.
+		
+	\end{enumerate}
+
+\section{Justificación e importancia}
+	
+	Actualmente hay una dependencia muy alta de MATLAB a la hora de trabajar con cálculo numérico, así mismo, es el software más usado en la UNET para analizar, diseñar y simular sistemas de control, con el desarrollo de un laboratorio de control utilizando software libre se puede eliminar parcialmente dicha dependencia, logrando así que herramientas externas sean usadas solo cuando se den casos más particulares o complejos.
+	
+	Con el desarrollo del laboratorio de control se quiere tener una herramienta que cumpla con los requisitos actuales para el análisis, diseño y simulación de sistemas de control de forma libre, gratuita, rápida y sencilla sin tener que invertir demasiado tiempo en aprender la herramienta, y si en lo que importa, diseñar un sistema de control preciso y confiable.
+	Por otro lado, se espera desarrollar la herramienta de forma que su interfaz gráfica acepte otros módulos, i.e., permitirá a aquel que lo desee expandir las funcionalidades del laboratorio de sistemas de control sin que se tenga que rehacer todo, esto permitirá mantener actualizado y útil la herramienta, además, se estará generando una importancia metodológica al crear la posibilidad de realizar otras investigaciones alrededor de la misma para agregar nuevas funcionalidades y expandir el laboratorio virtual.
+	
+\section{Alcance y limitaciones}
+
+	Con esta investigación se realizará una interfaz gráfica que permita realizar cuatro funciones principales, la primera, análisis de procesos en el dominio del tiempo y en el dominio de la frecuencia como: respuesta al escalón, respuesta al impulso, bode, entre otras, la segunda, entonación de controladores PID de forma manual y automática, la tercera, será el diseño de controladores difusos tipo Mamdani generales y para esquemas específicos de sistemas de control, y finalmente, la simulación de sistemas de control utilizando controladores PID y controladores difusos para esquemas específicos.
+
+	Hay que aclarar que, para modelar los sistemas de control en cada una de las funcionalidades mencionadas se le dará la opción al usuario para representarlos como funciones de transferencia o ecuaciones de espacio de estado y se podrá especificar si el modelo está en tiempo continuo o en tiempo discreto. El análisis de sistemas de control es un tema muy amplio y requiere de una gran cantidad de funciones que se pueden realizar utilizando software libre, no obstante, se considera que con este alcance se estaría logrando cumplir con las necesidades fundamentales. 
+
+	El software que se utilizará para realizar la interfaz gráfica y los cálculos correspondientes será el lenguaje de programación Python junto con su set de bibliotecas externas. Aunque la biblioteca de Python para análisis de sistemas de control es potente y brindan varias herramientas de forma directa, se debe dejar claro que no cumplen con todas las funciones requeridas, por tanto, algunas rutinas de simulación se deberán codificar de cero con ayuda de bibliotecas de cálculo numérico, y otras, harán uso de la biblioteca de control con código complementario.

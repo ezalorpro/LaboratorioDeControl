@@ -1,5 +1,10 @@
 *.*
+build
 virtualenv
+dist
+vtkmodules
+!main.spec
+!*.gitignore
 !*.py
 !*.pdf
 !*.txt
@@ -10,3 +15,7 @@ virtualenv
 !*.png
 !*.vscode
 !*.json
+!*.fls
+!imagenes
+!*.jpg
+esquemas tikz/*.fls

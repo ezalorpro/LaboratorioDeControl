@@ -1,0 +1,49 @@
+% Formato tesis UNET y numerado
+% Autor: Kleiver Carrasco
+% Correo: kleiver615@gmail.com
+
+% Dependencias ---------------------------------------------------------
+\include{dependencias}
+\include{configurationFile}
+
+\begin{document}
+%Portada ---------------------------------------------------------------
+\include{portada}
+\include{FrontContentTesis}
+
+\setcounter{secnumdepth}{0}
+\Centerformat									% Formato principal
+% ---------------------------- inicio --------------------------------
+
+\chapter{El problema}
+	\input{capitulo1}
+
+\chapter{Marco Teórico}
+	\input{capitulo2} 
+
+\chapter{Marco metodológico}
+	\input{capitulo3}
+
+\chapter{Resultados}
+	\input{capitulo4}
+
+\chapter{Conclusiones y recomendaciones}
+	\input{capitulo5}
+
+% ----------------------------- fin ----------------------------------
+
+\FrontBackStyle									% Estilo frontal y final
+\CenterformatBack								% Formato final
+
+% Ajustar para espaciado simétricos en el TOC
+\addtocontents{toc}{\vspace{0.4\normalbaselineskip}}
+
+\begingroup
+	\setstretch{1}
+	% referencias , heading=bibnumbered para numeración
+	\printbibliography[title={Referencias},heading=bibintoc]
+\endgroup
+
+\input{anexos}
+
+\end{document}

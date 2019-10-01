@@ -1,0 +1,141 @@
+\documentclass[tikz, border=0mm]{standalone}
+
+\usetikzlibrary{shapes,arrows,positioning, calc}
+
+\makeatletter
+
+\pgfdeclareshape{record}{
+\inheritsavedanchors[from={rectangle}]
+\inheritbackgroundpath[from={rectangle}]
+\inheritanchorborder[from={rectangle}]
+\foreach \x in {center,north east,north west,north,south,south east,south west, west, east}{
+\inheritanchor[from={rectangle}]{\x}
+}
+\foregroundpath{
+\pgfpointdiff{\northeast}{\southwest}
+\pgf@xa=\pgf@x \pgf@ya=\pgf@y
+\northeast
+\pgfpathmoveto{\pgfpoint{0}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0}{-0.33\pgf@ya}}
+\pgfpathmoveto{\pgfpoint{0.33\pgf@xa}{0}}
+\pgfpathlineto{\pgfpoint{-0.33\pgf@xa}{0}}
+\pgfpathmoveto{\pgfpointadd{\southwest}{\pgfpoint{-0.33\pgf@xa}{-0.6\pgf@ya}}}
+\pgfpathlineto{\pgfpointadd{\southwest}{\pgfpoint{-0.5\pgf@xa}{-0.6\pgf@ya}}}
+\pgfpathlineto{\pgfpointadd{\northeast}{\pgfpoint{-0.5\pgf@xa}{-0.6\pgf@ya}}}
+\pgfpathlineto{\pgfpointadd{\northeast}{\pgfpoint{-0.33\pgf@xa}{-0.6\pgf@ya}}}
+}
+}
+\makeatother
+
+\makeatletter
+
+\pgfdeclareshape{fuzzyBlock}{
+\inheritsavedanchors[from={rectangle}]
+\inheritbackgroundpath[from={rectangle}]
+\inheritanchorborder[from={rectangle}]
+\foreach \x in {center,north east,north west,north,south,south east,south west, west, east}{
+\inheritanchor[from={rectangle}]{\x}
+}
+\foregroundpath{
+\pgfpointdiff{\northeast}{\southwest}
+\pgf@xa=\pgf@x \pgf@ya=\pgf@y
+\northeast
+
+\pgfpathmoveto{\pgfpoint{0.45\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.45\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0.4\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0.2\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0.2\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{0\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.2\pgf@xa}{0.33\pgf@ya}}
+
+\pgfpathmoveto{\pgfpoint{0\pgf@xa}{0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.2\pgf@xa}{-0.33\pgf@ya}}
+\pgfpathlineto{\pgfpoint{-0.4\pgf@xa}{0.33\pgf@ya}}
+}
+}
+\makeatother
+
+\begin{document}
+
+\tikzset{%
+    block1/.style={
+        draw,
+        fill=white, 
+        rectangle, 
+        minimum height=2em, 
+        minimum width=3em,
+        node distance=1cm
+    },
+    input/.style={
+        inner sep=0pt, 
+        node distance=0.6cm
+    },      
+    output/.style={
+        inner sep=0pt, 
+        node distance=0.6cm
+    },      
+    sum/.style = {
+        draw, 
+        fill=white, 
+        circle, 
+        minimum size=2mm, 
+        inner sep=0pt,
+        node distance=0.6cm
+    },
+    pinstyle/.style = {
+        pin edge={to-,thin,black}
+    },
+    branch/.style={
+        fill,
+        circle,
+        minimum size=3pt,
+        outer sep=-1pt,
+        inner sep=0pt, 
+        node distance=0.6cm
+    },
+    EmptyBlock/.style={
+        circle,
+        minimum size=0pt,
+        outer sep=-1pt,
+        inner sep=-1pt, 
+        node distance=2cm
+    }
+}
+
+\begin{tikzpicture}[auto, >=latex']
+
+    \node[input] (input) {};
+    \node [sum, right = of input] (sum) {};
+    \node [branch, right = of sum] (errorbranch) {};
+
+    \coordinate[node distance=0.8cm, right = of errorbranch] (empty1) {};
+
+    \node [block1, minimum height=2em, minimum width=2em, node distance=0.6cm, below = of empty1] (derivada) {$\frac{d}{dt}$};
+    \coordinate[node distance=0.2cm, right = of derivada] (empty3) {};
+
+    \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=1cm, draw, right = of empty1] (controlador) {};
+    \node [block1, minimum height=2em, minimum width=1.5em, right = of controlador] (integrador) {$\frac{1}{s}$};
+    \node [block1, right = of integrador] (proceso) {$Proceso$};
+    \node [branch, right = of proceso] (yjoint) {};
+    \node [output, right = of yjoint] (output) {};
+    \coordinate[node distance=1.2cm, below = of proceso] (empty2) {};    
+
+    \draw [->] (input) node[above right] {$sp$} -- (sum);
+    \draw [-] (sum) -- (errorbranch);
+    \draw [-] (errorbranch) -- (empty1);
+    \draw [->] (errorbranch) |- (derivada);
+    \draw [-] (derivada) -- (empty3);
+    \draw [->] (empty3) |- ([yshift=-1em]controlador) node[pos=0.4, below right] {$\Delta e(t)$};
+    \draw [->] (empty1) -- (controlador) node[pos=0.5, above left] {$e(t)$};
+    \draw [->] (controlador) -- (integrador) node[pos=1, above left] {$\dot{sc}(t)$};
+    \draw [->] (integrador) -- (proceso) node[pos=1, above left] {$sc(t)$};
+    \draw [->] (proceso) -- (output) node [name=y, above left] {$Vp$};
+    \draw [-] (yjoint.south) |- (empty2);
+    \draw [->] (empty2) -| node[pos=0.97, right] {\tiny{$-$}} (sum);
+
+\end{tikzpicture}
+\end{document}
