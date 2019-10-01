@@ -1,39 +1,26 @@
-% Formato tesis UNET y numerado
-% Autor: Kleiver Carrasco
-% Correo: kleiver615@gmail.com
+% Formato tesis unet
 
 \addto\captionsspanish{\renewcommand{\contentsname}%
-	{Índice}%
+	{ÍNDICE}%
 }
 
 \addto\captionsspanish{\renewcommand{\listtablename}%
-	{Índice de tablas}%
+	{ÍNDICE DE TABLAS}%
 }
 
 \addto\captionsspanish{\renewcommand{\listfigurename}%
-	{Índice de figuras}%
+	{ÍNDICE DE FIGURAS}%
 }
 
-\addto\captionsspanish{\renewcommand{\listlistingname}
-	{Índice de códigos}%
+\addto\captionsspanish{\renewcommand{\listoflistingscaption}
+	{ÍNDICE DE CODIGOS}%
 }
 
-
-% Algunas configuraciones generales --------------------------------------
-%\renewcommand{\chaptername}{Etapa}		% para cambiar de nombre los capítulos
-\renewcommand{\thefootnote}{(\arabic{footnote})}
-\renewcommand{\labelitemi}{$\bullet$}
-\setlength{\parindent}{1.5cm}
-\parskip=0pt plus 1pt
-\quotingsetup{leftmargin=\parindent, rightmargin=\parindent}
 
 \crefname{equation}{}{}
 \crefname{listing}{Código}{Códigos}
-\SetupFloatingEnvironment{listing}{name=Código}
 \crefname{table}{\spanishtablename}{\spanishtablename}
 \newcommand{\addperiod}[1]{#1.$\enspace$}
-% ------------------------------------------------------------------------
-
 
 % --------------------------------------------
 % FORMATO UNET -------------------------------
@@ -66,11 +53,11 @@
 	
 	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false, belowskip=0pt}
 	
-	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, textfont=footnotesize}
-
 	\setlength{\textfloatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\floatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\intextsep}{15pt plus 1.0pt minus 2.0pt} 
+	
+	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
 	
 
 	% Configuracion del TOC	
@@ -115,10 +102,8 @@
 		[##1]%
 		\stepcounter{LAnexos}
 		\vspace{10pt}%
-		\leavevmode
-		\end{center}
-		
-	}
+	\end{center}%
+	}%
 }
 
 
@@ -162,11 +147,11 @@
 	
 	\captionsetup[subfigure]{labelsep=period, labelfont=bf, textfont=normal, justification=centering, singlelinecheck=false, belowskip=0pt}
 	
-	\captionsetup[listing]{format=plain, justification=justified, singlelinecheck=false, labelsep=period, textfont=footnotesize}
-
 	\setlength{\textfloatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\floatsep}{15pt plus 1.0pt minus 2.0pt}
 	\setlength{\intextsep}{15pt plus 1.0pt minus 2.0pt}
+	
+	\captionsetup[listing]{format=plain, justification=centering, singlelinecheck=false, labelsep=period, belowskip=10pt, aboveskip=10pt}
 	
 	% Configuracion del TOC
 	\newlength\sectionlenght
@@ -214,7 +199,7 @@
 % --------------------------------------------
 
 
-% Configuracion de capitulos -----------------
+% incio de macro para cambiar chapter al centro
 \newcommand{\Centerformat}{
 	\titleformat{\chapter}[display]
 	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large\MakeUppercase}
@@ -230,11 +215,14 @@
 		{\hfill\contentspage}[\addvspace{7pt}]
 }
 
+% ---------------------------------------------------------------------
+
+% incio de macro para cambiar chapter a la izquierda
 \newcommand{\CenterformatBack}{
 	\titleformat{\chapter}[display]
-	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large\MakeUppercase}
+	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large}
 	\titlespacing{\chapter}
-	{0pt}{-15pt}{30pt}
+	{0pt}{-20pt}{30pt}
 	
 	\titlecontents{chapter}% <section-type>
 		[0pt]% <left>
@@ -244,11 +232,12 @@
 		{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
 }
 
+% incio de macro para cambiar chapter frente
 \newcommand{\CenterformatFront}{
 	\titleformat{\chapter}[display]
-	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large\MakeUppercase}
+	{\large\bfseries\centering}{\MakeUppercase{\chaptertitlename\ \thechapter}}{0pt}{\large}
 	\titlespacing{\chapter}
-	{0pt}{-25pt}{10pt}
+	{0pt}{-10pt}{0pt}
 	
 	\titlecontents{chapter}% <section-type>
 		[0pt]% <left>
@@ -269,13 +258,8 @@
 \BeforeBeginEnvironment{align}{\vspace{-10pt}}
 \AfterEndEnvironment{align}{\vspace{-30pt}\leavevmode}
 
-\newenvironment{longlisting}{\captionsetup{type=listing}}{}
-\tcbuselibrary{breakable}
-\BeforeBeginEnvironment{minted}{\begin{tcolorbox}[colback=colorcodes,breakable]}
-\AfterEndEnvironment{minted}{\end{tcolorbox}}
-
-\BeforeBeginEnvironment{longlisting}{\vspace*{9pt}}
-\AfterEndEnvironment{longlisting}{\vspace*{-3pt}}
+\BeforeBeginEnvironment{minted}{\vspace*{-7pt}}
+\AfterEndEnvironment{minted}{\vspace*{-30pt}\leavevmode}
 
 % ---------------------------------------------------------------------
 
@@ -305,12 +289,26 @@
 % para modificar el ambiente " qoute "
 %\AtBeginEnvironment{quote}{\addtolength\leftmargini{1.25cm}}
 
-% Para modificar el Y en las referencias y bibliografia y agregar ., antes del Y
+% Para modificar el Y en las referencias y bibliografia
+\DeclareDelimFormat*{finalnamedelim}
+{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace y \space}
+
+% the bibliography also needs another conditional, so we can't wrap
+% everything up with just the two lines above
+\DeclareDelimFormat[bib,biblist]{finalnamedelim}{%
+	\ifthenelse{\value{listcount}>\maxprtauth}
+	{}
+	{\ifthenelse{\value{liststop}>2}
+		{\finalandcomma\addspace y \space}
+		{\addspace y \space}}}
+
+% this is a special delimiter to solve the bugs reported in
+% https://tex.stackexchange.com/q/417648/35864
 \DeclareDelimFormat*{finalnamedelim:apa:family-given}{%
 	\ifthenelse{\value{listcount}>\maxprtauth}
 	{}
-	{,\addspace y \addspace}}
-	
+	{\finalandcomma\addspace y\space}}
+
 \DeclareCaptionLabelSeparator*{spaced}{.\\}
 \DeclareCaptionLabelFormat{numero}{\textbf{#1 #2}}
 
@@ -410,31 +408,40 @@
 	}
 }
 
-% \addtocontents{toc}{~\hfill\par}
+\addtocontents{toc}{~\hfill\par}
 \addtocontents{toc}{~\hfill Pág.\par}
 \addtocontents{toc}{~\hfill\par}
 %\addtocontents{toc}{\protect\afterpage{~\hfill Pág.\par\medskip}}
 
-% \addtocontents{lof}{~\hfill\par}
-\addtocontents{lof}{\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
+\addtocontents{lof}{~\hfill\par}
+\addtocontents{lof}{FIGURA~\hfill Pág.\par}
 \addtocontents{lof}{~\hfill\par}
 %\addtocontents{lof}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
-% \addtocontents{lot}{~\hfill\par}
-\addtocontents{lot}{\hspace{-1.5cm}TABLA~\hfill Pág.\par}
+\addtocontents{lot}{~\hfill\par}
+\addtocontents{lot}{TABLA~\hfill Pág.\par}
 \addtocontents{lot}{~\hfill\par}
 %\addtocontents{lot}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
-% \addtocontents{lol}{~\hfill\par}
-\addtocontents{lol}{\hspace{-1.5cm}CÓDIGO~\hfill Pág.\par}
+\addtocontents{lol}{~\hfill\par}
+\addtocontents{lol}{CÓDIGO~\hfill Pág.\par}
 \addtocontents{lol}{~\hfill\par}
 %\addtocontents{lol}{\protect\afterpage{~\hfill Pag.\par\medskip}}
 
+\renewcommand{\listoflistings}{%
+	\cleardoublepage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\protect\listoflistingscaption}%
+	\listof{listing}{\listoflistingscaption}%
+	\newpage
+	
+}
 
 \newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
 \addtocontents{lof}{\protect\noaddvspace}
 \addtocontents{lot}{\protect\noaddvspace}
-\addtocontents{lol}{\protect\noaddvspace}
+\let\Chapter\chapter
+\def\chapter{\addtocontents{lol}{\protect\addvspace{0pt}}\Chapter}
 
 
 % Para arreglar el spacing en el ambiente quoting
@@ -451,66 +458,11 @@
 }
 \makeatother
 
-% Para la separacion de ecuaciones
-\makeatletter
-\g@addto@macro\normalsize{\setlength\abovedisplayshortskip{0pt}}
-\g@addto@macro\normalsize{\setlength\belowdisplayshortskip{0pt}}
-\g@addto@macro\normalsize{\setlength\abovedisplayskip{17pt}}
-\g@addto@macro\normalsize{\setlength\belowdisplayskip{12pt}}
-\makeatother
+% \addto\captionsspanish{%
+%   \renewcommand\appendixname{Anexo}
+%   \renewcommand\appendixpagename{Anexos}
+% }
 
-% Para mostrar correctamente el showframe con landscape
-\makeatletter
-\newcommand*{\gmshow@textheight}{\textheight}
-\newdimen\gmshow@@textheight
-\g@addto@macro\landscape{%
-  \gmshow@@textheight=\hsize
-  \renewcommand*{\gmshow@textheight}{\gmshow@@textheight}%
-}
-\def\Gm@vrule{%
-  \vrule width 0.2pt height\gmshow@textheight depth\z@
-}%
-\makeatother
-
-% Ambiente para el resumen (abstract)
-\newcommand\abstractname{Abstract}  %%% here
-\makeatletter
-% \if@titlepage
-%   \newenvironment{abstract}{%
-%       \titlepage
-%       \null\vfil
-%       \@beginparpenalty\@lowpenalty
-%       \begin{center}%
-%         \bfseries \abstractname
-%         \@endparpenalty\@M
-%       \end{center}}%
-%      {\par\vfil\null\endtitlepage}
-% \else
-  \newenvironment{abstract}{%
-      \if@twocolumn
-        \section*{\abstractname}%
-      \else
-        \small
-        \begin{center}%
-          {\bfseries {\large RESUMEN}\vspace{10pt}}%
-        \end{center}%
-		\begin{spacing}{1}
-			\parskip=0pt plus 1pt
-      \fi}
-		{\if@twocolumn\else\end{spacing}\fi}
-% \fi
-\makeatother
-
-% Keywords command
-\providecommand{\keywords}[1]
-{	
-	\vspace{10pt}
-  	{\small	
-  	\noindent\textbf{\textit{Descriptores: }} #1
-  	}
-}
-
-% ACTIVACION DEL HEADER O FOTTER -----------------------------------------
 %\Addheadfoot
 %\AddheadOnly
 \noAddheadfoot

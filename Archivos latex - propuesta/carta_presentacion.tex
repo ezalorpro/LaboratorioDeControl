@@ -1,12 +1,8 @@
-% Para cuando se tenga la carta firmada, scaneada y en formato PDF
-% \includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
-% 			pagecommand={\thispagestyle{empty}\setcounter{page}{2}}
-% 			]{carta_presentacion}
-
-%Generacion de la carta
 \begin{titlepage}
-\parskip=7.25pt plus 2pt
 \setcounter{page}{2}
+\setlength{\parindent}{1.5cm}					% Sangria
+\setlength{\parskip}{0pt}						% Espaciado
+
 \begin{flushright}
 	San Cristóbal, \today
 \end{flushright}
@@ -47,15 +43,13 @@
 	
 	\vspace{0.2cm}
 	
-	\parskip=0pt plus 2pt
-    
-    \begin{spacing}{1}    
-        Kleiver Jesús Carrasco Márquez
-    
-        C.I. V-24.743.884
-    \end{spacing}
+	Kleiver Jesús Carrasco Márquez
+	
+	\setlength{\parskip}{0pt}
+	
+	C.I. V-24.743.884
 \end{center}
 
+%Fecha ------------------------------------------------------
 \vspace{0.5cm}
-
 \end{titlepage}

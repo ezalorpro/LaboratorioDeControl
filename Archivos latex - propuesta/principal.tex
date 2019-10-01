@@ -1,0 +1,54 @@
+% Dependencias ---------------------------------------------------------
+\include{dependencias}
+\include{MacrosTesis}
+
+\begin{document}
+%Portada ---------------------------------------------------------------
+\include{portada}
+
+\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
+			pagecommand={\thispagestyle{empty}\setcounter{page}{2}}
+			]{carta_presentacion}
+
+\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
+			pagecommand={\thispagestyle{empty}\setcounter{page}{3}}
+			]{carta_aceptacion}
+
+\includepdf[pages=-, fitpaper, templatesize={\paperwidth}{\paperheight},
+			pagecommand={\thispagestyle{empty}\setcounter{page}{4}}
+			]{carta_vistobueno}
+
+\include{Preambulo}
+\include{FrontContent}
+\mainmatter
+\setcounter{page}{1} % la cantidad necesaria en función de las paginas previas
+\Centerformat									% Capítulos al centro
+% ---------------------------- inicio --------------------------------
+
+\chapter{El problema}
+	\input{capitulo1}
+
+\chapter{Marco Teórico}
+	\input{capitulo2} 
+
+\chapter{Marco metodológico}
+	\input{capitulo3}
+
+% ----------------------------- fin ----------------------------------
+
+%\backmatter
+\FrontBackStyle
+\CenterformatBack
+\addtocontents{toc}{\vspace{0.4\normalbaselineskip}}
+
+%\newpage
+%\CenterformatFront
+\singlespacing
+\printbibliography[title={REFERENCIAS},heading=bibintoc]	% referencias , heading=bibnumbered para numeración
+
+\input{anexos}
+
+%\spacing{1.5}
+%\chapter{ANEXOS}
+
+\end{document}
