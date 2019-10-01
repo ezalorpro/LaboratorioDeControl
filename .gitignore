@@ -1,4 +1,5 @@
 *.*
+virtualenv
 !*.py
 !*.pdf
 !*.txt
