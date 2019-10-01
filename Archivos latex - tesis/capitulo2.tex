@@ -388,7 +388,18 @@
             \begin{equation}\label{eq:Serror}
 				e(t) = sp - Vp
             \end{equation}
+        
+        \subsubsection{Lugar de las raíces}
             
+            El lugar de las raíces es un método sencillo de diseño que se basa en conocer y manipular la ubicación de los polos del sistema en función de un parámetro de ganancia. Un ajuste en la ganancia puede provocar que los polos cambien de posicion en el plano complejo y se ubiquen en una posicion deseada o indeseada. \textcite{ogata2003ingenieria} considera que: \blockquote[p.270]{Al diseñar un sistema de control lineal, encontramos que el método del lugar de las raíces resulta muy útil, debido a que indica la forma en la que deben modificarse los polos y ceros en lazo abierto [...]}. En la \cref{fig:rootLocus} se observa un ejemplo de la grafica del lugar de las raices.
+
+            \begin{figure}[htb]
+                \centering
+                \includegraphics[width=0.8\textwidth]{rootLocus.pdf}
+                \caption[Ejemplo de grafica del lugar de las raices]{\textbf{Grafica del lugar de las raices}. Se puede observar la grafica del lugar de las raices para un sistema $G_1(s) = \frac{s + 2}{s^2 + 2s + 3}$, el cual tiene ubicado sus polos en el semiplano izquierdo del plano complejo. Fuente: Elaboración propia.} 
+                \label{fig:rootLocus}
+            \end{figure}
+
         \subsubsection{Estabilidad de los sistemas}
 
             La estabilidad se ve afectada por la estructura del sistema, por tanto, se debe tomar en cuanta cuando se cierra el lazo del sistema. \textcite{ogata2003ingenieria} afirma que, desde el punto de vista de estabilidad, el sistema de control en lazo abierto no es un problema importante. Por otra parte, la estabilidad es un gran problema en el sistema de control en lazo cerrado debido a la posibilidad de que se generen oscilaciones. En consecuencia, los análisis de estabilidad se realizan para sistemas en lazo cerrado, el motivo principal es porque los sistemas en lazo abierto tienden a ser estables, además, para realizar el control de un proceso se suele utilizar los sistemas en lazo cerrado
@@ -399,7 +410,7 @@
 
                 \begin{figure}[htb]
                     \centering
-                    \includegraphics[width=\textwidth]{pzmap.pdf}
+                    \includegraphics[width=0.9\textwidth]{pzmap.pdf}
                     \caption[Ejemplo de analisis de estabilidad en el plano complejo]{\textbf{Analisis de estabilidad en el plano complejo}. Se puede observar como el sistema $G_1(s)$ tiene ubicado sus polos en el semiplano izquierdo del plano complejo, i.e., es estable, por otro lado, el sistema $G_2(s)$ es inestable al poseer polos ubicados en el semiplano derecho del plano complejo. Fuente: Elaboración propia.} 
                     \label{fig:pzmap}
                 \end{figure}
@@ -445,25 +456,23 @@
                     \item $G_2(s)$: $GM = -3.509dB$ a $1.409\ rad/sec$ y $PM = -23.719^\circ$ a $0.807\ rad/sec$
                 \end{itemize}
 
-                \begin{figure}[htb]
+                \begin{figure}[!h]
                     \centering
                     \includegraphics[width=\textwidth]{bodeG1.pdf}
-                    \caption[Ejemplo 1 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $G_1(s)$}. En el diagrama se puede observar que no existe cruce por $0dB$ en magnitud o cruce por $-180^\circ$ en fase, por tanto, el sistema es estable y acepta incrementos teoricos de ganancia infinitos . Fuente: Elaboración propia.}
+                    \caption[Ejemplo 1 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $\pmb{G_1(s)}$}. En el diagrama se puede observar que no existe cruce por $0dB$ en magnitud o cruce por $-180^\circ$ en fase, por tanto, el sistema es estable y acepta incrementos teoricos de ganancia infinitos . Fuente: Elaboración propia.}
                     \label{fig:bodeG1}
                 \end{figure}
 
-                \begin{figure}[htb]
+                \begin{figure}[!h]
                     \centering
                     \includegraphics[width=\textwidth]{bodeG2.pdf}
-                    \caption[Ejemplo 2 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $G_2(s)$}. El sistema $G_2(s)$ es de fase no minima, por tanto, la interpretacion del margen de ganancia y de fase no es tan simple. En la figura se observar que el margen de ganancia es negativo y aun asi, sabemos por su analisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
+                    \caption[Ejemplo 2 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $\pmb{G_2(s)}$}. El sistema $G_2(s)$ es de fase no minima, por tanto, la interpretacion del margen de ganancia y de fase no es tan simple. En la figura se observar que el margen de ganancia es negativo y aun asi, sabemos por su analisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
                     \label{fig:bodeG2}
                 \end{figure}
-            
+
             \paragraph{Diagrama de Nichols}
                 
                 El diagrama de Nichols es una grafica del sistema en lazo abierto de tipo magnitud vs fase, en el diagrama se pueden ubicar los margenes de ganancia y fase, para ayudar en el diseño de controladores se suele superponer una rejilla guia de valores de magnitud y angulo constantes, esta rejilla lleva el nombre de carta de Nichols o abaco de Nichols. En el diagrama de nichols el punto critico $-1 + j0$ se convierte en $(0dB, -180^\circ)$
-
-                \clearpage
 
         \subsubsection{Controlador PID}
 
@@ -594,7 +603,7 @@
     
         La lógica difusa es una extensión matemática de la lógica convencional en donde se asigna un grado de pertenencia a un hecho entre un valor verdadero y uno falso, \enquote{consiste en que los valores verdaderos (en lógica difusa) o valores de pertenencia (en conjuntos difusos) se indican en un número entre [0.0, 1.0], donde 0.0 representa falsedad total y 1.0 significa verdad absoluta}\Parencite[p.$\,$4]{cruz2010inteligencia}.
         
-        La lógica difusa se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}. Continuando con la idea, tambien es posible ver la logica como cuatro procedimientos a realizar en secuencia, las cuales son: fuzzificación, inferencia, agregacion y defuzzificación.
+        La lógica difusa se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}. En estas tres etapas ocurren cinco procesos: fuzzificacion, conjuncion/disyuncion de premisas, implicacion, agregacion y defuzzificación. 
         
         \subsubsection{Conjuntos difusos}
             
@@ -701,31 +710,38 @@
         
         \subsubsection{Reglas de inferencia}
             
-            Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y salida, la salida puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens. Modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente.
+            Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y la salida, la cual puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens. Modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente.
                         
-            Para realizar el proceso de inferencia se debe haber pasado primero por la fuzzificacion, la cual implica tomar los valores de entrada y obtener sus valores de pertenencia para cada funcion de membresia, luego, se aplican las normas triangulares (T-Normas) para el caso de logica AND o las conormas triangulares (T-Conormas) para logica OR, sus formas de aplicacion mas comunes suelen ser el minimo de los valores de pertenencia para las T-Normas y el maximo de los valores de pertenencia para las T-Conormas, de este modo, se obtienen las operaciones de interseccion y union respectivamente, a este proceso tambien se le conoce como conjuncion de premisas para las T-Normas y disyuncion de premisas para las T-Conormas.
-            
-            Luego de este proceso se debe seguir con la operacion de implicacion, usualmente se realiza y se prefiere con la conjuncion (T-Normas), esta viene definida por:
-
-            \begin{equation}\label{eq:implicacion}
-                F_r(y) = \tau_r \cap \gamma_r
-            \end{equation}
-
-            Donde $\tau_r$ es la salida del proceso de conjuncion/disyuncion de premisas y $\gamma_r$ es la salida de la funcion de membresia asociada con la $r$-esima regla \Parencite{riid2003transparent}. Una vez realizado este proceso, se puede procedar a realizar la agregacion.
+            Para realizar el proceso de inferencia se aplican las normas triangulares (T-Normas) para el caso de logica AND o las conormas triangulares (T-Conormas) para logica OR. Sus formas de aplicacion mas comunes suelen ser el minimo de los valores de pertenencia para las T-Normas y el maximo de los valores de pertenencia para las T-Conormas, de este modo, se obtienen las operaciones de interseccion y union respectivamente.
         
+        \subsubsection{Fuzzificacion}
+            
+            El proceso de fuzzificacion es el primer paso para obtener la salida de un controlador difuso. La entrada es evaluada para determinar sus valores de pertenencia a cada una de las etiquetas lingüísticas establecidas con el fin de obtener una representacion difusa de la entrada nitida.
+
+        \subsubsection{Operacion de premisas}
+            
+            Debido a que pueden existir N entradas, tambien pueden existir N premisas en una regla, las cuales pueden relacionarce entre si por medio de operaicones AND u operaciones OR, las mismas se pueden realizar con T-Normas y T-Conormas respectivamente.
+
+        \subsubsection{Implicacion}
+
+            La implicacion se encarga de relacionar el conjunto de premisas con los concecuentes. Normalmente se prefiere utilizar conjuncion por medio de las T-Normas para realizar la implicacion.
+
         \subsubsection{Agregacion}
 
-            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, conjuncion/disyuncion de premisas y la implicacion, a todos los resultados obtenidos se les aplica un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso que representa a la salida . Todo el proceso hasta este punto puede ser descrito asumiendo conjuncion de premisas por la siguiente formula:
+            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, conjuncion/disyuncion de premisas y la implicacion, a todos los resultados obtenidos se les aplica un operador OR por medio de una T-Conorma, de este modo, se obtiene una salida difusa. Todo el proceso hasta este punto puede ser descrito por las siguientes formulas:
 
-            \begin{equation}\label{eq:implicacion}
-                F(y) = \bigcup_{r=1}^{R}\left(\left(\bigcap_{i=1}^{N}\tau_{ir} \right) \cap \gamma_r\right)
-            \end{equation}
-            
-            \noindent sin embargo, esta salida aun no es apta para ser interpretada, por tanto, debe pasar primero por un proceso de defuzzificación en orden de llevar el conjunto difuso de salida a un valor nitido.
+            \vspace{10pt}
+            \begin{align}
+                &\text{Con conjuncion de premisas:} & F(y) &= \bigcup_{r=1}^{R}\left(\left(\bigcap_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_r\right) \label{eq:fconjuncion} \\
+                &\text{Con disyuncion de premisas:} & F(y) &= \bigcup_{r=1}^{R}\left(\left(\bigcup_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_r\right) \label{eq:fdisyuncion}
+            \end{align}
+            \vspace{10pt}
+
+            \noindent donde R es el numero de reglas, N el numero de entradas, $\mu_{ir}(x_i)$ es la representacion difusa de la $i$-esima entrada para la $r$-esima regla y $\gamma_r$ es la salida de la funcion de membresia asociada con la $r$-esima regla \Parencite{riid2003transparent}. Sin embargo, esta salida aun no es apta para ser interpretada, por tanto, debe pasar primero por un proceso de defuzzificación en orden de llevar la salida difusa a una salida nitida.
 
         \subsubsection{Defuzzificación}
 
-            En esta última etapa también llamada desdifusificación, se obtienen los valores reales de salida, \textcite{cruz2010inteligencia} lo describe como el \enquote{[...] mapeo a escala que convierte el rango de valores de las variables de salida a sus universos de discurso correspondientes. La desdifusificación es la herramienta para obtener la acción de control nítida a partir de una acción de control difusa} (p.$\,$73). Este proceso es matemáticamente costoso y existen distintos métodos para realizarlo, el más común es el método de centro de área.
+            En esta última etapa también llamada desdifusificación, se obtienen los valores reales de salida. \textcite{cruz2010inteligencia} lo describe como el \enquote{[...] mapeo a escala que convierte el rango de valores de las variables de salida a sus universos de discurso correspondientes. La desdifusificación es la herramienta para obtener la acción de control nítida a partir de una acción de control difusa} (p.$\,$73). Este proceso es matemáticamente costoso y existen distintos métodos para realizarlo, el más común es el método de centro de área.
             
             \paragraph{Método de centro de área}
 

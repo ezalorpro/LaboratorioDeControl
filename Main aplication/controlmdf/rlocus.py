@@ -139,7 +139,7 @@ def root_locus(sys, kvect=None, xlim=None, ylim=None, plotstr='b' if int(matplot
         if ylim:
             ax.set_ylim(ylim)
         ax.set_xlabel('Real')
-        ax.set_ylabel('Imaginary')
+        ax.set_ylabel('Imaginario')
         if grid and sisotool:
             _sgrid_func(f)
         elif grid:
