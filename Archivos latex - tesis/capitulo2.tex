@@ -456,14 +456,14 @@
                     \item $G_2(s)$: $GM = -3.509dB$ a $1.409\ rad/sec$ y $PM = -23.719^\circ$ a $0.807\ rad/sec$
                 \end{itemize}
 
-                \begin{figure}[!h]
+                \begin{figure}[htb]
                     \centering
                     \includegraphics[width=\textwidth]{bodeG1.pdf}
                     \caption[Ejemplo 1 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $\pmb{G_1(s)}$}. En el diagrama se puede observar que no existe cruce por $0dB$ en magnitud o cruce por $-180^\circ$ en fase, por tanto, el sistema es estable y acepta incrementos teoricos de ganancia infinitos . Fuente: Elaboración propia.}
                     \label{fig:bodeG1}
                 \end{figure}
 
-                \begin{figure}[!h]
+                \begin{figure}[htb]
                     \centering
                     \includegraphics[width=\textwidth]{bodeG2.pdf}
                     \caption[Ejemplo 2 margenes de ganancia y fase]{\textbf{Margenes de ganancia y fase de $\pmb{G_2(s)}$}. El sistema $G_2(s)$ es de fase no minima, por tanto, la interpretacion del margen de ganancia y de fase no es tan simple. En la figura se observar que el margen de ganancia es negativo y aun asi, sabemos por su analisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
@@ -547,7 +547,7 @@
             
             \begin{figure}[htb]
                 \centering
-                \includegraphics[width=0.85\textwidth]{ZieglerN.pdf}
+                \includegraphics[width=0.75\textwidth]{ZieglerN.pdf}
                 \caption[Modelado por curva de reacción]{\textbf{Modelado por curva de reacción.} Para realizar este modelado se estudia la respuesta del sistema ante la entrada de la función de heaviside u(t), también llamada función escalón unitario, el modelo obtenido a través de este método es una aproximación del sistema. Fuente: Elaboración propia.} 
                 \label{fig:ZNtest}
             \end{figure}
@@ -575,8 +575,6 @@
             \end{table}
             
             Adicionalmente existen otras reglas para la entonacion automatica de los controladore PID, como el metodo de Cohen-Coon, al igual que Ziegler-Nichols, requiere de los parametros del proceso en su aproximacion como proceso de primer orden para ser sustituidos en la \cref{tab:CohenCoon} y obtener las ganancias respectivas.
-
-            \clearpage
             
             \begin{table}[htb]
                 \centering
@@ -603,7 +601,7 @@
     
         La lógica difusa es una extensión matemática de la lógica convencional en donde se asigna un grado de pertenencia a un hecho entre un valor verdadero y uno falso, \enquote{consiste en que los valores verdaderos (en lógica difusa) o valores de pertenencia (en conjuntos difusos) se indican en un número entre [0.0, 1.0], donde 0.0 representa falsedad total y 1.0 significa verdad absoluta}\Parencite[p.$\,$4]{cruz2010inteligencia}.
         
-        La lógica difusa se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}. En estas tres etapas ocurren cinco procesos: fuzzificacion, conjuncion/disyuncion de premisas, implicacion, agregacion y defuzzificación. 
+        La lógica difusa se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}. 
         
         \subsubsection{Conjuntos difusos}
             
@@ -712,23 +710,44 @@
             
             Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y la salida, la cual puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens. Modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente.
                         
-            Para realizar el proceso de inferencia se aplican las normas triangulares (T-Normas) para el caso de logica AND o las conormas triangulares (T-Conormas) para logica OR. Sus formas de aplicacion mas comunes suelen ser el minimo de los valores de pertenencia para las T-Normas y el maximo de los valores de pertenencia para las T-Conormas, de este modo, se obtienen las operaciones de interseccion y union respectivamente.
+            Para realizar el proceso de inferencia se necesitan las normas triangulares (T-Normas) para el caso de logica AND o las conormas triangulares (T-Conormas) para logica OR. Sus formas de aplicacion mas comunes suelen ser el minimo de los valores de pertenencia para las T-Normas y el maximo de los valores de pertenencia para las T-Conormas, de este modo, se obtienen las operaciones de interseccion y union respectivamente. El proceso de inferencia consta de 6 pasos: fuzzificacion, pareo de proposiciones,  conjuncion/disyuncion de premisas, implicacion, agregacion y defuzzificación.
         
         \subsubsection{Fuzzificacion}
             
-            El proceso de fuzzificacion es el primer paso para obtener la salida de un controlador difuso. La entrada es evaluada para determinar sus valores de pertenencia a cada una de las etiquetas lingüísticas establecidas con el fin de obtener una representacion difusa de la entrada nitida.
+            El proceso de fuzzificacion es el primer paso para obtener la salida de un controlador difuso. La entrada es evaluada para determinar sus valores de pertenencia a cada una de las etiquetas lingüísticas establecidas con el fin de obtener una representacion difusa de la entrada. La forma mas comun de fuzzificacion para la entrada es el uso de un singleton.
+            
+        \subsubsection{Pareo de proposiciones}
+            
+            \textcite{riid2003transparent} sugiere que en orden de evaluar la proposicion de premisas en terminos numericos los valores de de membresia $\mu_{ir}$ respecto a x deben ser hayados para poder realizar el el pareo de proposiciones. El pareo de proposiciones es la relacion que existe entre la entrada y una etiqueta lingüística. \textcite{riid2003transparent} afirma que: \blockquote[p.16]{Como el singleton difuso puede considerarse solo una representación diferente de un número nítido, por lo tanto, con fuzzificación singleton, el procedimiento de fuzzificación es incrustado en el pareo de proposiciones}. Utilizando fuzzificacion singleton el pareo de proposiciones puede representarse como:
 
+            \begin{equation}\label{eq:preposiciones}
+                \tau_{ir} = \mu_{ir}(x_i)
+            \end{equation}
+
+            \noindent donde i es la i-esima entrada al controlador difuso y r es la r-esima regla.
+            
         \subsubsection{Operacion de premisas}
             
-            Debido a que pueden existir N entradas, tambien pueden existir N premisas en una regla, las cuales pueden relacionarce entre si por medio de operaicones AND u operaciones OR, las mismas se pueden realizar con T-Normas y T-Conormas respectivamente.
+            Debido a que pueden existir N entradas, tambien pueden existir N premisas en una regla, las cuales, pueden relacionarce entre si por medio de operaicones AND en cuyo caso se denomina conjuncion de premisas, por otro lado, tambien es posible relacionar las premisas utilizando las operaciones OR y se denomina disyuncion de premisas. Para realizar estas operaciones se pueden utilizar las T-Normas y las T-Conormas en el caso conjuncion y disyuncion respectivamente.
+
+            \begin{align}
+                &\text{Conjuncion de premisas:} & \tau_{r} &= \bigcap_{i=1}^{N}\tau_{ir} \label{eq:conjP} \\
+                &\text{Disyuncion de premisas:} & \tau_{r} &= \bigcup_{i=1}^{N}\tau_{ir} \label{eq:disyP}
+            \end{align}
 
         \subsubsection{Implicacion}
 
-            La implicacion se encarga de relacionar el conjunto de premisas con los concecuentes. Normalmente se prefiere utilizar conjuncion por medio de las T-Normas para realizar la implicacion.
+            La implicacion se encarga de relacionar las premisas con los concecuentes. Normalmente se prefiere utilizar conjuncion por medio de las T-Normas para realizar la implicacion.
+
+            \begin{equation}\label{eq:implicacion}
+                F_r(y) = \tau_{r} \cap \gamma_r
+            \end{equation}
+
+            \noindent donde $\gamma_r$ es la salida de la funcion de membresia asociada con la $r$-esima regla \Parencite{riid2003transparent}.
 
         \subsubsection{Agregacion}
 
-            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, conjuncion/disyuncion de premisas y la implicacion, a todos los resultados obtenidos se les aplica un operador OR por medio de una T-Conorma, de este modo, se obtiene una salida difusa. Todo el proceso hasta este punto puede ser descrito por las siguientes formulas:
+            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, pareo de proposiciones, conjuncion/disyuncion de premisas y la implicacion, a todos los resultados obtenidos de cada una de las reglas son unificados aplicando un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso por cada salida del controlador. Todo el proceso hasta este punto puede ser descrito por las siguientes formulas:
 
             \vspace{10pt}
             \begin{align}
@@ -737,7 +756,7 @@
             \end{align}
             \vspace{10pt}
 
-            \noindent donde R es el numero de reglas, N el numero de entradas, $\mu_{ir}(x_i)$ es la representacion difusa de la $i$-esima entrada para la $r$-esima regla y $\gamma_r$ es la salida de la funcion de membresia asociada con la $r$-esima regla \Parencite{riid2003transparent}. Sin embargo, esta salida aun no es apta para ser interpretada, por tanto, debe pasar primero por un proceso de defuzzificación en orden de llevar la salida difusa a una salida nitida.
+            \noindent donde R es el numero total de reglas y N el numero total de entradas. Sin embargo, esta salida aun no es apta para ser interpretada, por tanto, debe pasar primero por un proceso de defuzzificación en orden de llevar la salida difusa a una salida nitida.
 
         \subsubsection{Defuzzificación}
 
