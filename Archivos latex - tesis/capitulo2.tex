@@ -714,11 +714,11 @@
         
         \subsubsection{Fuzzificacion}
             
-            El proceso de fuzzificacion es el primer paso para obtener la salida de un controlador difuso. La entrada es evaluada para determinar sus valores de pertenencia a cada una de las etiquetas lingüísticas establecidas con el fin de obtener una representacion difusa de la entrada. La forma mas comun de fuzzificacion para la entrada es el uso de un singleton.
+            El proceso de fuzzificacion es el primer paso para obtener la salida de un controlador difuso. La entrada nitida transformada en una representacion difusa, esto se debe a que las operaciones subsiguientes se realizan entre conjuntos difusos. La forma mas comun de fuzzificacion para la entrada es el uso de un singleton.
             
         \subsubsection{Pareo de proposiciones}
             
-            \textcite{riid2003transparent} sugiere que en orden de evaluar la proposicion de premisas en terminos numericos los valores de de membresia $\mu_{ir}$ respecto a x deben ser hayados para poder realizar el el pareo de proposiciones. El pareo de proposiciones es la relacion que existe entre la entrada y una etiqueta lingüística. \textcite{riid2003transparent} afirma que: \blockquote[p.16]{Como el singleton difuso puede considerarse solo una representación diferente de un número nítido, por lo tanto, con fuzzificación singleton, el procedimiento de fuzzificación es incrustado en el pareo de proposiciones}. Utilizando fuzzificacion singleton el pareo de proposiciones puede representarse como:
+            \textcite{riid2003transparent} sugiere que en orden de evaluar la proposicion de premisas en terminos numericos los valores de membresia $\mu_{ir}$ respecto a x deben ser hayados para poder realizar el pareo de proposiciones. El pareo de proposiciones es la relacion que existe entre la entrada y una etiqueta lingüística. \textcite{riid2003transparent} afirma que \blockquote[p.16]{[...] el singleton difuso puede considerarse solo una representación diferente de un número nítido, por lo tanto, con fuzzificación singleton, el procedimiento de fuzzificación es incrustado en el pareo de proposiciones}. Utilizando fuzzificacion singleton el pareo de proposiciones puede representarse como:
 
             \begin{equation}\label{eq:preposiciones}
                 \tau_{ir} = \mu_{ir}(x_i)
@@ -728,7 +728,7 @@
             
         \subsubsection{Operacion de premisas}
             
-            Debido a que pueden existir N entradas, tambien pueden existir N premisas en una regla, las cuales, pueden relacionarce entre si por medio de operaicones AND en cuyo caso se denomina conjuncion de premisas, por otro lado, tambien es posible relacionar las premisas utilizando las operaciones OR y se denomina disyuncion de premisas. Para realizar estas operaciones se pueden utilizar las T-Normas y las T-Conormas en el caso conjuncion y disyuncion respectivamente.
+            Debido a que pueden existir N entradas, tambien pueden existir N premisas en una regla, las cuales, pueden relacionarce entre si por medio de operaicones AND en cuyo caso se denomina conjuncion de premisas. Por otro lado, tambien es posible relacionar las premisas utilizando las operaciones OR y se denomina disyuncion de premisas. Para realizar estas operaciones se pueden utilizar las T-Normas y las T-Conormas en el caso conjuncion y disyuncion respectivamente.
 
             \begin{align}
                 &\text{Conjuncion de premisas:} & \tau_{r} &= \bigcap_{i=1}^{N}\tau_{ir} \label{eq:conjP} \\
@@ -737,26 +737,26 @@
 
         \subsubsection{Implicacion}
 
-            La implicacion se encarga de relacionar las premisas con los concecuentes. Normalmente se prefiere utilizar conjuncion por medio de las T-Normas para realizar la implicacion.
+            La implicacion se encarga de relacionar las premisas con los concecuentes. Normalmente se prefiere utilizar conjuncion por medio de las T-Normas para realizar la implicacion, la cual viene descrita como sigue:
 
             \begin{equation}\label{eq:implicacion}
-                F_r(y) = \tau_{r} \cap \gamma_r
+                F_r(y) = W_r \tau_{r} \cap \gamma_r
             \end{equation}
 
-            \noindent donde $\gamma_r$ es la salida de la funcion de membresia asociada con la $r$-esima regla \Parencite{riid2003transparent}.
+            \noindent donde $\gamma_r$ es la salida de la funcion de membresia asociada con la $r$-esima regla y $W_r$ es el peso asociado a la r-esima regla \Parencite{riid2003transparent}.
 
         \subsubsection{Agregacion}
 
-            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, pareo de proposiciones, conjuncion/disyuncion de premisas y la implicacion, a todos los resultados obtenidos de cada una de las reglas son unificados aplicando un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso por cada salida del controlador. Todo el proceso hasta este punto puede ser descrito por las siguientes formulas:
+            El proceso de agregacion se realiza luego de haber pasado por la fuzzificacion, pareo de proposiciones, conjuncion/disyuncion de premisas y la implicacion. Todos los resultados obtenidos de cada una de las reglas son unificados aplicando un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso por cada salida del controlador. Todo el proceso hasta este punto puede ser descrito por las siguientes formulas:
 
             \vspace{10pt}
             \begin{align}
-                &\text{Con conjuncion de premisas:} & F(y) &= \bigcup_{r=1}^{R}\left(\left(\bigcap_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_r\right) \label{eq:fconjuncion} \\
-                &\text{Con disyuncion de premisas:} & F(y) &= \bigcup_{r=1}^{R}\left(\left(\bigcup_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_r\right) \label{eq:fdisyuncion}
+                &\text{Con conjuncion de premisas:} & F(y) &= \bigcup_{r=1}^{R}\left(W_r \left(\bigcap_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_r\right) \label{eq:fconjuncion} \\
+                &\text{Con disyuncion de premisas:} & F(y) &= \bigcup_{r=1}^{R}\left(W_r \left(\bigcup_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_r\right) \label{eq:fdisyuncion}
             \end{align}
             \vspace{10pt}
 
-            \noindent donde R es el numero total de reglas y N el numero total de entradas. Sin embargo, esta salida aun no es apta para ser interpretada, por tanto, debe pasar primero por un proceso de defuzzificación en orden de llevar la salida difusa a una salida nitida.
+            \noindent donde R es el numero total de reglas y N el numero total de entradas. Sin embargo, esta salida aun debe pasar primero por un proceso de defuzzificación en orden de llevar la salida difusa a una salida nitida.
 
         \subsubsection{Defuzzificación}
 
@@ -764,10 +764,10 @@
             
             \paragraph{Método de centro de área}
 
-                Este método se utiliza para realizar la defuzzificación y obtener las salidas nítidas, consiste en cortar las funciones de membresía $\mu_{n}(x)$ con los valores de entrada $x$ para determinar un área. El área inferior será la que se tome en cuenta para realizar el cálculo, el método de centro de área se puede representar de modo general en su forma discreta de la siguiente forma:
+                Consiste en cortar los conjuntos difusos de salida $F(y_q)$ con los valores de salida $y_q$ para determinar un área utilizando los $Q$ elementos que la componen. El método de centro de área se puede representar de modo general en su forma discreta de la siguiente forma:
                 
                 \begin{equation}\label{eq:Centroide}
-                    Salida = \frac{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)\cdot x}{\displaystyle\sum\limits_{x=a}^{b}\mu_{n}(x)}
+                    Salida = \frac{\displaystyle\sum\limits_{q=1}^{Q}F(y_q)\cdot y_q}{\displaystyle\sum\limits_{q=1}^{Q}F(y_q)}
                 \end{equation}
 
             \paragraph{Metodo de bisector de area}
