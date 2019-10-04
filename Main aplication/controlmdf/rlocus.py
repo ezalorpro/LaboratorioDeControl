@@ -63,7 +63,7 @@ __all__ = ['root_locus', 'rlocus']
 
 # Main function: compute a root locus diagram
 def root_locus(sys, kvect=None, xlim=None, ylim=None, plotstr='b' if int(matplotlib.__version__[0]) == 1 else 'C0', Plot=True,
-               PrintGain=True, grid=False, **kwargs):
+               PrintGain=True, grid=True, **kwargs):
 
     """Root locus plot
 
@@ -501,6 +501,11 @@ def _sgrid_func(fig=None, ax=None, zeta=None, wn=None):
                 linestyle='dashed', linewidth=0.5)
         ax.plot([0, xlocator()[0]], [0, -yp * xlocator()[0]], color='gray',
                 linestyle='dashed', linewidth=0.5)
+        ax.plot([0, -xlocator()[0]], [0, yp*xlocator()[0]], color='gray',
+                linestyle='dashed', linewidth=0.5)
+        ax.plot([0, -xlocator()[0]], [0, -yp * xlocator()[0]], color='gray',
+                linestyle='dashed', linewidth=0.5)
+        
         an = "%.2f" % zeta[index]
         if yp < 0:
             xtext_pos = 1/yp * ylim[1]
@@ -510,6 +515,7 @@ def _sgrid_func(fig=None, ax=None, zeta=None, wn=None):
             else:
                 ytext_pos = ytext_pos_lim
             ax.annotate(an, textcoords='data', xy=[xtext_pos, ytext_pos], fontsize=8)
+            ax.annotate("-"+ an, textcoords='data', xy=[-xtext_pos, ytext_pos], fontsize=8)
         index += 1
     ax.plot([0, 0], [ylim[0], ylim[1]], color='gray', linestyle='dashed', linewidth=0.5)
 
@@ -523,8 +529,11 @@ def _sgrid_func(fig=None, ax=None, zeta=None, wn=None):
             xp = -np.cos(angules)*np.abs(om)
             ax.plot(xp, yp, color='gray',
                     linestyle='dashed', linewidth=0.5)
+            ax.plot(-xp, yp, color='gray',
+                    linestyle='dashed', linewidth=0.5)
             an = "%.2f" % -om
             ax.annotate(an, textcoords='data', xy=[om, 0], fontsize=8)
+            ax.annotate(an, textcoords='data', xy=[-om, 0], fontsize=8)
 
 
 def _default_zetas(xlim, ylim):

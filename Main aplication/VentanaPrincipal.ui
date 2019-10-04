@@ -496,7 +496,7 @@
                    <string/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>0.1</string>
                   </property>
                   <property name="placeholderText">
                    <string>Periodo de muestreo</string>
@@ -722,6 +722,9 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
                   </property>
                   <property name="placeholderText">
                    <string>Delay en segundos</string>
@@ -1281,6 +1284,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="text">
+                 <string>1</string>
+                </property>
                 <property name="placeholderText">
                  <string>Delay en segundos</string>
                 </property>
@@ -1309,6 +1315,9 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>0.1</string>
                 </property>
                 <property name="placeholderText">
                  <string>Periodo de muestreo</string>
@@ -7887,7 +7896,7 @@
                    <string/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>0.1</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -7918,6 +7927,9 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -8592,7 +8604,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>245</width>
+               <width>223</width>
                <height>239</height>
               </rect>
              </property>

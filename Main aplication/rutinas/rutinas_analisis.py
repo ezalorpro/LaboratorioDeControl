@@ -376,8 +376,7 @@ def rutina_root_locus_plot(self, system):
     else:
         t, y = ctrl.root_locus(system, figure=self.main.rlocusGraphicsView1, ax=self.main.rlocusGraphicsView1.canvas.axes)
 
-    self.main.rlocusGraphicsView1.canvas.axes.grid(color="lightgray")
-    self.main.rlocusGraphicsView1.canvas.axes.set_title("Lugar de las raicez")
+    self.main.rlocusGraphicsView1.canvas.axes.set_title("Lugar de las raices")
     self.main.rlocusGraphicsView1.canvas.draw()
     self.main.rlocusGraphicsView1.toolbar.update()
 

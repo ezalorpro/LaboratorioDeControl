@@ -218,7 +218,7 @@
             \end{array}
         \end{equation}
 
-        Adicionalmente existen los metodos de Runge-Kutta embebidos, los cuales consisten en calcular dos metodos de orden $p$ y orden $\hat{p}$ respectivamente, donde $\hat{p}$ es normalmente $p-1$ o $p+1$ \Parencite{hairer1991solving}. La tabla de butcher para representar los metodos embebidos es la siguiente:
+        Adicionalmente existen los metodos de Runge-Kutta embebidos, los cuales consisten en calcular dos metodos de Runge-Kutta, uno de orden $p$ y otro de orden $\hat{p}$, donde $\hat{p}$ es normalmente $p-1$ o $p+1$ \Parencite{hairer1991solving}. La tabla de butcher para representar los metodos embebidos es la siguiente:
 
         \begin{equation}\label{eq:embebidoButcher}
             \renewcommand\arraystretch{1.2}
@@ -241,7 +241,7 @@
             \hat{y}_1 &= y_0 + h(\hat{b}_1 k_1 + \cdots +\hat{b}_s k_s) & &\text{Orden $\hat{p} = p-1$ o $p+1$}
         \end{align}
 
-        De modo que la integración para el siguiente paso se continua con $y_1$, el fin de calcular dos metodos en conjunto es para poder estimar el error y poder realizar un cambio en el tamaño de paso, de este modo, se puede incrementar el tamaño de paso si el error es muy bajo o disminuirlo si el error es inaceptable.
+        De modo que la integración para el siguiente paso se continua con $y_1$. El objetivo de calcular dos metodos en conjunto es para poder estimar el error y poder realizar un cambio en el tamaño de paso, de este modo, se puede incrementar el tamaño de paso si el error es muy bajo o disminuirlo si el error es inaceptable.
         
         \subsubsection{Runge-Kutta's para ecuaciones de espacio de estados}
 
@@ -297,13 +297,13 @@
                 \end{aligned}
             \end{equation}
             
-            \noindent finalmente, el vector de estado obtenido con \cref{eq:RKstate} sera sustituido en la siguiente iteraciones, para obtener la salida actual se debe sustituir $x_n^{(j)}$  en \cref{eq:SSrepresentationY}. 
+            \noindent finalmente, el vector de estado obtenido con \cref{eq:RKstate} sera sustituido en la siguiente iteración. Para obtener la salida actual se debe sustituir $x_n^{(j)}$  en \cref{eq:rkrepresentationY}. 
             
             \begin{equation}
-				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)} \label{eq:SSrepresentationY}
+				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)} \label{eq:rkrepresentationY}
             \end{equation}
             
-            Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar, un tamaño de paso pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
+            Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar. Un tamaño de paso pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, por tanto, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
 
         \subsubsection{Tamaño de paso variable}
 
@@ -322,7 +322,7 @@
 
             \paragraph{Nuevo tamaño de paso}
 
-                Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las formulas para el manejo del error con fines de calcular un nuevo tamaño de paso, lo primero es calcular una escala, este es el único paso que se diferencia entre el método de dos medios pasos y el los metodos embebidos. Para dos medios pasos la escala es:
+                Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las formulas para el manejo del error a fin de calcular un nuevo tamaño de paso. Lo primero es calcular una escala, este es el único paso que se diferencia entre el método de dos medios pasos y el los metodos embebidos. Para dos medios pasos la escala es:
 
                 \begin{equation}\label{eq:escalaDos}
                     escala = atol + rtol \cdot \frac{\left|y_{1,h}\right| + \left|y_{2,\frac{h}{2}}\right|}{2}
@@ -351,7 +351,7 @@
                     \end{aligned}\right.
                 \end{equation}
                 
-                \noindent con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del metodo utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el metodo de menor orden entre $y_1$ y $\hat{y}_1$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso, el proceso se repite hasta que el error sea igual o menor que uno.
+                \noindent con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del método utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el método de menor orden entre $y_1$ y $\hat{y}_1$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso. El proceso se repite hasta que el error sea igual o menor que uno.
     
     \subsection{Respuesta en el tiempo del modelo en el espacio de estados discreto}
         
@@ -714,7 +714,7 @@
         
         \subsubsection{Fuzzificacion}
             
-            El proceso de fuzzificacion es el primer paso para obtener la salida de un controlador difuso. La entrada nitida transformada en una representacion difusa, esto se debe a que las operaciones subsiguientes se realizan entre conjuntos difusos. La forma mas comun de fuzzificacion para la entrada es el uso de un singleton.
+            El proceso de fuzzificacion es el primer paso para obtener la salida de un controlador difuso. La entrada nitida es transformada en una representacion difusa, esto se debe a que las operaciones subsiguientes se realizan entre conjuntos difusos. La forma mas comun de fuzzificacion para la entrada es el uso de un singleton.
             
         \subsubsection{Pareo de proposiciones}
             
