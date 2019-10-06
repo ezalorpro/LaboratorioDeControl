@@ -528,6 +528,8 @@ def margenes_ganancias(self, system, mag, phase, omega):
     """
     [Funcion para obtener el margen de ganancia y el margen de fase]
     
+    :param system: [Representación del sistema]
+    :type system: [LTI]
     :param mag: [Magnitud de la respuesta en frecuencia]
     :type mag: [numpyArray]
     :param phase: [Fase de la respuesta en frecuencia]

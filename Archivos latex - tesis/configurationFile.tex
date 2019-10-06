@@ -104,16 +104,18 @@
 
 	% Comando para agregar anexos en formato UNET
 	\newcounter{LAnexos} % contador
-	\setcounter{LAnexos}{1} % contador en 1
-	\def\thecontaAnexos{\Alph{LAnexos}}%
+	\newcounter{contaAnexos} % contador
+	\renewcommand{\theLAnexos}{\Alph{LAnexos}}
+	\renewcommand{\thecontaAnexos}{[Anexo~\Alph{contaAnexos}]}
 
 	\newcommand{\AgregarAnexo}[1]{%
 		\clearpage%
 		\newpage%
 		\begin{center}%
-		[Anexo~\thecontaAnexos]\par%
+		\stepcounter{LAnexos}%
+		\refstepcounter{contaAnexos}%
+		\thecontaAnexos\label{anexo:\theLAnexos}\par%
 		[##1]%
-		\stepcounter{LAnexos}
 		\vspace{10pt}%
 		\leavevmode
 		\end{center}
@@ -257,16 +259,18 @@
 
 	% Comando para agregar anexos en formato UNET
 	\newcounter{LAnexos} % contador
-	\setcounter{LAnexos}{1} % contador en 1
-	\def\thecontaAnexos{\Alph{LAnexos}}%
-
+	\newcounter{contaAnexos} % contador
+	\renewcommand{\theLAnexos}{\Alph{LAnexos}}
+	\renewcommand{\thecontaAnexos}{[Anexo~\Alph{contaAnexos}]}
+	
 	\newcommand{\AgregarAnexo}[1]{%
 		\clearpage%
 		\newpage%
 		\begin{center}%
-		[Anexo~\thecontaAnexos]\par%
+		\stepcounter{LAnexos}%
+		\refstepcounter{contaAnexos}%
+		\thecontaAnexos\label{anexo:\theLAnexos}\par%
 		[##1]%
-		\stepcounter{LAnexos}
 		\vspace{10pt}%
 		\leavevmode
 		\end{center}

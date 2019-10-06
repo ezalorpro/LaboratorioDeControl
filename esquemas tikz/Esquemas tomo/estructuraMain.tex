@@ -1,90 +1,36 @@
-\documentclass[tikz, border=0mm]{standalone}
-
-\usetikzlibrary{shapes,arrows,positioning, calc}
+\documentclass[border=0pt,tikz]{standalone}
+\usepackage[edges]{forest}
+\usetikzlibrary{fit}
 
 \begin{document}
-
-\tikzset{%
-    block1/.style={
+\begin{forest}
+    for tree={
+        grow'=east,
+        parent anchor=east, child anchor=west,
         draw,
-        fill=white, 
-        rectangle, 
-        minimum height=2em, 
-        minimum width=3em,
-        node distance=0.9cm
+        anchor=west,
+        text height=1.4ex, text depth=0.2ex
     },
-    input/.style={
-        inner sep=0pt, 
-        node distance=0.6cm
-    },      
-    output/.style={
-        inner sep=0pt, 
-        node distance=0.6cm
-    },      
-    sum/.style = {
-        draw, 
-        fill=white, 
-        circle, 
-        minimum size=2mm, 
-        inner sep=0pt,
-        node distance=0.6cm
-    },
-    pinstyle/.style = {
-        pin edge={to-,thin,black}
-    },
-    branch/.style={
-        fill,
-        circle,
-        minimum size=3pt,
-        outer sep=-1pt,
-        inner sep=0pt, 
-        node distance=0.6cm
-    },
-    EmptyBlock/.style={
-        circle,
-        minimum size=0pt,
-        outer sep=-1pt,
-        inner sep=-1pt, 
-        node distance=2cm
-    }
-}
-
-\begin{tikzpicture}[auto, >=latex']
-    \node [block1] (main) {$Main$};
-    \coordinate[node distance=0.5cm, below = of main] (empty2e) {};
-    \coordinate[node distance=1.5cm, left = of empty2e] (empty2) {};
-    \coordinate[node distance=1.5cm, left = of empty2] (empty1e) {};
-    \coordinate[node distance=1.5cm, left = of empty1e] (empty1) {};
-    \coordinate[node distance=1.5cm, right = of empty2e] (empty3) {};
-    \coordinate[node distance=1.5cm, right = of empty3] (empty3e) {};
-    \coordinate[node distance=1.5cm, right = of empty3e] (empty4) {};
-    \coordinate[node distance=1cm, right = of empty4] (empty4e) {};
-    
-    \node [block1, below = of empty1] (analisis) {$AnalisisHandler$};
-    \node [block1, node distance=3cm, below = of empty1e] (rutinaA) {$rutinas\_analisis$};
-
-    \node [block1, below = of empty2] (tuning) {$TuningHandler$};
-    \node [block1, node distance=3cm, below = of empty2e] (rutinaPID) {$rutinas\_analisis$};
-    \node [block1, below = of rutinaPID] (rutinaCSV) {$rutinas\_CSV$};
-
-    \node [block1, below = of empty3] (fuzzy) {$FuzzyHandler$};
-    \node [block1, node distance=3cm, below = of empty3e] (rutinaFuzzy) {$rutinas\_fuzzy$};
-    \node [block1, below = of rutinaFuzzy] (modificadormf) {$modificadorMf$};
-    
-
-    \node [block1, below = of empty4] (simulacion) {$SimulacionHandler$};
-    \node [block1, node distance=3cm, below = of empty4e] (rutinaSim) {$rutinas\_simulacion$};
-    \node [block1, below = of rutinaSim] (rutinaRK) {$rutinas\_rk$};
-
-
-    \draw [-] (main) |- (empty1);
-    \draw [-] (main) |- (empty2);
-    \draw [-] (main) |- (empty3);
-    \draw [-] (main) |- (empty4);
-    \draw [->] (empty1) -- (analisis);
-    \draw [->] (empty2) -- (tuning);
-    \draw [->] (empty3) -- (fuzzy);
-    \draw [->] (empty4) -- (simulacion);
-
-\end{tikzpicture}
+    forked edges,
+    [Main
+        [Analisis
+            [rutinas analisis, tier=this]
+        ]
+        
+        [Entonacion
+            [rutinas PID, tier=this]
+            [rutinas CSV, tier=this]
+        ]
+        [Logica difusa
+            [rutinas fuzzy, tier=this]
+            [modificador de mf, tier=this]
+        ]
+        [Simulacion
+            [rutinas simulacion, tier=this]
+            [rutinas rk, tier=this]
+            [rutinas fuzzy, tier=this]
+        ]
+    ]
+  \node [draw, fit=(current bounding box.south east) (current bounding box.north west)] {};
+\end{forest}
 \end{document}
