@@ -4,7 +4,7 @@
 
     \begin{figure}[htb]
         \centering
-        \includegraphics[width=0.6\textwidth]{estructuraMain.pdf}
+        \includegraphics[width=0.8\textwidth]{estructuraMain.pdf}
         \caption[Diagrama general de la aplicación]{\textbf{Diagrama general de la aplicación}. La estructura general de la aplicación, la segunda columna representa a los archivos handler mientras que la tercera son los archivos de rutinas  Fuente: Elaboración propia.} 
         \label{fig:estructuraMain}
     \end{figure}
@@ -42,6 +42,8 @@
         \end{minted}
     \end{longlisting}
 
+    Inicialmente se valida cada una de las entradas del usuario y se chequea si el botón para realizar los cálculos fue presionado. Una vez presionado el botón de calcular se procede a verificar la representación del sistema y a crearlo para a continuación ejecutar las rutinas de análisis.
+
     \subsection{Definición del proceso}
 
         Un proceso deberá ser ingresado para poder realizar el análisis, la entonación o la simulación del mismo. El sistema puede ser definido con los coeficientes del numerador y el denominador de la función de transferencia o puede ser definido ingresando las matrices A, B, C y D de la ecuación de espacio de estados. En ambos casos se deben cumplir con los principios matemáticos que correspondan, i.g., las función de transferencia no puede ser impropia.
@@ -55,21 +57,83 @@
             \item Retensor de primer orden (FOH)
             \item Euler hacia atrás (backward\_diff)
             \item Euler hacia adelante (Euler)
-            \item Transformacion trapezoidal (tustin)
-            \item Transformacion matched (matched)
-            \item Transformacion de impulso (impulse)
+            \item Transformación bilineal (tustin)
+            \item Transformación directa de polos y ceros (matched)
+            \item Transformación del impulso invariante (impulse)
         \end{enumerate}
 
     \subsubsection{Proceso con atraso o delay}
         
         A los procesos ingresados se les puede agregar un atraso, este atraso es manejado de forma distinta dependiendo de la funcionalidad. Para el caso de la funcionalidad de análisis, el delay fue implementado para la respuesta escalón y la respuesta impulso como un desplazamiento en el tiempo equivalente al delay ingresado, para la respuesta en frecuencia se multiplico $e^{-j\omega \alpha}$ a cada una de las evaluaciones de frecuencia con $\alpha$ como el delay ingresado por el usuario. Para el caso del lugar de las raíces, el delay es implementado utilizando una aproximación por PADE de orden 10.
 
-    \subsection{Respuesta al escalón y al impulso}
+        Si el proceso es definido en tiempo discreto el mismo es multiplicado por $z^{-\alpha/T}$ con la idea de retrasar las muestras en un numero equivalente al delay deseado, de este modo, no hay casos especiales dependiendo del tipo de análisis.
+
+    \subsection{Respuesta al escalón}
         
-        La respuesta al escalón, al igual que el resto de análisis implementados, fue realizado utilizando la librería de control para Python. La respuesta impulso se realizo del mismo modo, siendo la entrada al proceso la única diferencia respecto a la respuesta escalón.
+        Se obtiene la respuesta en el tiempo del sistema en lazo abierto ante una entrada escalón de amplitud uno, con los datos de la respuesta se realiza la gráfica correspondiente.
+    
+    \subsection{Respuesta al impulso}
+        
+        Se obtiene la respuesta en el tiempo del sistema en lazo abierto ante un impulso como entrad al sistema, con los datos de la respuesta se realiza la gráfica correspondiente.
 
     \subsection{Diagrama de Bode}
         
-        El diagrama de Bode es realizado también con la librería de control, adicionalmente, fue implementado el calculo de los margenes de ganancia y de fase. La implementación fue realizada desde cero debido a los resultados inaceptables obtenidos con la implementación de la librería de control. El código para el calculo de los margenes de ganancia y fase se puede observar en el \ref{anexo:A}.
+        Se obtiene la respuesta en frecuencia del sistema, con los datos de la respuesta en frecuencia se realiza las gráficas de magnitud y fase. Adicional a las gráficas fue implementado el calculo de los margenes de ganancia y de fase, la implementación fue realizada desde cero debido a los resultados inaceptables obtenidos con la implementación de la librería de control. El código para el calculo de los margenes de ganancia y fase se puede observar en el \ref{anexo:A}.
+    
+    \subsection{Diagrama de Nyquist}
         
+        El diagrama de Nyquist también fue realizado utilizando la librería de control, en el mismo se señala la dirección de la gráfica y el punto $-1 + j0$. Las frecuencias utilizadas son las mismas utilizadas para el diagrama de Bode dado que las mismas son calculadas de manera automática por la librería de control en ambos casos.
+    
+    \subsection{Gráfica del lugar de las raíces}
         
+        La gráfica es realizada utilizando la librería de control, una de las funciones que posee es poder seleccionar cualquier punto en la gráfica y obtener la ganancia y el damping que le corresponden. Para el caso de sistemas discretos se grafica el circulo unitario.
+    
+    \subsection{Diagrama de Nichols}
+        
+        A diferencia del diagrama de Nyquist aca se señala el punto $(0dB, -180^\circ)$, la librería de controla ya viene con la opción para superponer una rejilla que representa a la Carta de Nichols.
+
+    \subsection{Despliegue de datos}
+        
+        Los datos obtenidos se muestran de forma escrita, los datos a desplegar son: el sistema ingresado, los datos de la respuesta al escalón, los margenes de ganancia y fase, los valores eigen y su respectivo damping.
+
+\section{Entonación de controladores PID}
+
+    Esta función fue dividida en dos apartados, el primero, es la entonacion de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando los metodos de Ziegler-Nichols y Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID.
+    
+    \begin{longlisting}
+        \caption{Pseudo código para la entonación de controladores PID}
+        \label{code:entonacion}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1]{text}
+            |\bf{WHILE}| True: # Ciclo principal
+                |$\vdots$|
+                |\bf{IF}| validaciones_entradas_análisis:
+                    validar_entradas_análisis()
+                
+                |\bf{IF}| usuario_presiona_calcular:
+                    |\bf{CASO 1}| entonación_automática:
+                        chequeo_TF_SS()
+                        creación_proceso()
+                        entonación()
+                        escalón()
+                    |\bf{CASO 2}| entonación_manual:
+                        chequeo_TF_SS()
+                        creación_proceso()
+                        escalón()
+                    |\bf{CASO 3}| entonación_CSV:
+                        procesar_CSV()
+                        entonación()
+                        graficacion()
+                |$\vdots$|
+        \end{minted}
+    \end{longlisting}
+
+    El sistema de definición de procesos presentado en la funcionalidad de análisis de sistemas de control es reutilizada para esta sección. Al igual que para el análisis de sistemas de control, inicialmente se valida cada una de las entradas del usuario y se chequea si el botón para realizar los cálculos fue presionado. Una vez presionado el botón de calcular se procede a verificar que tipo de calculo se va a realizar.
+
+    \subsection{Entonación de sistema en lazo cerrado con PID}
+    \subsection{Entonación utilizando un archivo CSV}

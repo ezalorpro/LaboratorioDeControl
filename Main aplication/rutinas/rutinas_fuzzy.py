@@ -675,24 +675,30 @@ class FuzzyController:
                     pen={
                         'width': 2, 'color': pg.mkColor(self.colors[color])
                     }))
-
+                
                 under_plot = window.outgraphs[i].plotwidget.plot(
                     ups_universe,
                     zeros,
                     pen={
                         'width': 0.1, 'color': pg.mkColor(self.colors[color] + '6A')
                     })
-
-                over_plot = window.outgraphs[i].plotwidget.plot(
-                    ups_universe,
-                    cut_mfs[key],
-                    pen={
-                        'width': 0.1, 'color': pg.mkColor(self.colors[color] + '6A')
-                    })
-
+                if key in cut_mfs:
+                    over_plot = window.outgraphs[i].plotwidget.plot(
+                        ups_universe,
+                        cut_mfs[key],
+                        pen={
+                            'width': 0.1, 'color': pg.mkColor(self.colors[color] + '6A')
+                        })
+                else:
+                    over_plot = window.outgraphs[i].plotwidget.plot(
+                        ups_universe,
+                        zeros,
+                        pen={
+                            'width': 0.1, 'color': pg.mkColor(self.colors[color] + '6A')
+                        })
                 fillItem = pg.FillBetweenItem(under_plot,
-                                              over_plot,
-                                              brush=pg.mkColor(self.colors[color] + '6A'))
+                                            over_plot,
+                                            brush=pg.mkColor(self.colors[color] + '6A'))
 
                 window.outgraphs[i].plotwidget.addItem(fillItem)
                 areas.append(copy.copy([under_plot, over_plot]))
@@ -722,8 +728,20 @@ class FuzzyController:
 
                 else:
                     crisp_value = 0
+                    crispPlot = window.outgraphs[i].plotwidget.plot([crisp_value] * 2,
+                                                                    np.asarray([0, 0]),
+                                                                    pen={
+                                                                        'width': 6,
+                                                                        'color': 'k'
+                                                                    })
             else:
                 crisp_value = 0
+                crispPlot = window.outgraphs[i].plotwidget.plot([crisp_value] * 2,
+                                                                    np.asarray([0, 0]),
+                                                                    pen={
+                                                                        'width': 6,
+                                                                        'color': 'k'
+                                                                    })
 
             self.outvalues.append(crispPlot)
             self.outlabelsplot.append(copy.copy(salidas))
@@ -786,7 +804,10 @@ class FuzzyController:
                     self.fuzz_outputs[i].terms[label['nombre']].mf)
                 under_plot, over_plot = self.outareas[i][etiq]
                 under_plot.setData(ups_universe, zeros)
-                over_plot.setData(ups_universe, cut_mfs[label['nombre']])
+                if label['nombre'] in cut_mfs:
+                    over_plot.setData(ups_universe, cut_mfs[label['nombre']])
+                else:
+                    over_plot.setData(ups_universe, zeros)
 
             # Codigo tomado de la funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph
             if len(cut_mfs) > 0 and not all(output_mf == 0):
@@ -804,14 +825,14 @@ class FuzzyController:
                         y = 1.
 
                     self.outvalues[i].setData([crisp_value] * 2, np.asarray([0, y]))
-
+                    window.outtestlabels[i].setText(window.OutputList[i]['nombre'] +
+                                            f': {np.around(crisp_value, 3)}')
                 else:
                     crisp_value = 0
             else:
                 crisp_value = 0
-
-            window.outtestlabels[i].setText(window.OutputList[i]['nombre'] +
-                                            f': {np.around(crisp_value, 3)}')
+                window.outtestlabels[i].setText(window.OutputList[i]['nombre'] +
+                                                f': error, faltan reglas')
 
     def graficar_respuesta_2d(self, window, inrange, no):
         """
@@ -922,8 +943,10 @@ class FuzzyController:
             value = np.clip(value, np.min(self.fuzz_inputs[i].universe), np.max(self.fuzz_inputs[i].universe))
 
             self.Controlador.input[self.fuzz_inputs[i].label] = value
-
-        self.Controlador.compute()
+        try:
+            self.Controlador.compute()
+        except:
+            return [0]*len(outputs)
 
         for o in range(len(outputs)):
             outputs[o] = self.Controlador.output[self.fuzz_outputs[o].label]

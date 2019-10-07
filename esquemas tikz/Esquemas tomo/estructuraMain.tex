@@ -1,6 +1,6 @@
-\documentclass[border=0pt,tikz]{standalone}
+\documentclass[tikz, border=0mm]{standalone}
 \usepackage[edges]{forest}
-\usetikzlibrary{fit}
+\usetikzlibrary{shapes,arrows,positioning, calc, fit}
 
 \begin{document}
 \begin{forest}
@@ -31,6 +31,5 @@
             [rutinas fuzzy, tier=this]
         ]
     ]
-  \node [draw, fit=(current bounding box.south east) (current bounding box.north west)] {};
 \end{forest}
 \end{document}
