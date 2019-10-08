@@ -98,7 +98,7 @@
 
 \section{Entonación de controladores PID}
 
-    Esta función fue dividida en dos apartados, el primero, es la entonacion de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando los metodos de Ziegler-Nichols y Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID.
+    Esta función fue dividida en dos apartados, el primero, es la entonacion de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando el método de Ziegler-Nichols o Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID.
     
     \begin{longlisting}
         \caption{Pseudo código para la entonación de controladores PID}
@@ -116,12 +116,12 @@
                     validar_entradas_análisis()
                 
                 |\bf{IF}| usuario_presiona_calcular:
-                    |\bf{CASO 1}| entonación_automática:
+                    |\bf{CASO 1}| entonación_manual:
                         chequeo_TF_SS()
                         creación_proceso()
                         entonación()
                         escalón()
-                    |\bf{CASO 2}| entonación_manual:
+                    |\bf{CASO 2}| entonación_automática:
                         chequeo_TF_SS()
                         creación_proceso()
                         escalón()
@@ -133,7 +133,8 @@
         \end{minted}
     \end{longlisting}
 
-    El sistema de definición de procesos presentado en la funcionalidad de análisis de sistemas de control es reutilizada para esta sección. Al igual que para el análisis de sistemas de control, inicialmente se valida cada una de las entradas del usuario y se chequea si el botón para realizar los cálculos fue presionado. Una vez presionado el botón de calcular se procede a verificar que tipo de calculo se va a realizar.
+    El forma de definición de procesos presentado en la funcionalidad de análisis de sistemas de control es reutilizada para esta sección. Al igual que para el análisis de sistemas de control, inicialmente se valida cada una de las entradas del usuario y se chequea si el botón para realizar los cálculos fue presionado, una vez presionado el botón de calcular se procede a verificar que tipo de calculo se va a realizar entre: entonación manual, entonación automática o entonación con archivo CSV.
 
     \subsection{Entonación de sistema en lazo cerrado con PID}
+        
     \subsection{Entonación utilizando un archivo CSV}

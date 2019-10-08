@@ -6,7 +6,7 @@
 	
 	Adicionalmente, \textcite{salazar2019diseno}, realizó en la Universidad Técnica del Norte, Ecuador, una tesis titulada \enquote{Diseño de un sistema de riego inteligente para cultivos de hortalizas basado en Fuzzy Logic en la granja la pradera de la Universidad Técnica del Norte.} para la implementación del controlador basado en la lógica difusa utilizó, entre otros equipos, un Rasberry PI para la ejecución de Python, específicamente, hizo uso de la biblioteca Scikit-Fuzzy, la cual le permitió definir las funciones de membresía, establecer las reglas difusas, realizar los procesos de fuzzificación y defuzzificación, todo lo mencionado sera para una arquitectura de controlador difuso tipo Mamdani. Esta tesis servirá como referencia para establecer el diseño de controladores difusos utilizando la biblioteca Scikit-Fuzzy.
 
-	Por otro lado, \textcite{congo2018aplicaciones} realizó en la Universidad Tecnológica Israel, Ecuador, una tesis titulada \enquote{Aplicaciones del software libre Python para prácticas de laboratorio aplicado a la asignatura de tratamiento digital de señales de la Universidad Tecnológica Israel} cuyo objetivo fue desarrollar por medio del software Python y sus diferentes librerías científicas, la realización de 3 Prácticas de Laboratorio para la asignatura Procesamiento Digital de Señales de la Universidad Tecnológica Israel, al igual que la intención de este trabajo, se realizó una interfaz gráfica con el objetivo de facilitar su uso, en este caso como herramienta para el procesamiento digital de señales. Este trabajo sustenta la viabilidad de realizar una interfaz gráfica con enfoque similar en el campo de la electrónica y se utilizará como guía parcial para establecer su uso en sistemas de control.
+    Por otro lado, \textcite{congo2018aplicaciones} realizó en la Universidad Tecnológica Israel, Ecuador, una tesis titulada \enquote{Aplicaciones del software libre Python para prácticas de laboratorio aplicado a la asignatura de tratamiento digital de señales de la Universidad Tecnológica Israel} cuyo objetivo fue desarrollar por medio del software Python y sus diferentes librerías científicas, la realización de 3 Prácticas de Laboratorio para la asignatura Procesamiento Digital de Señales de la Universidad Tecnológica Israel, al igual que la intención de este trabajo, se realizó una interfaz gráfica con el objetivo de facilitar su uso, en este caso como herramienta para el procesamiento digital de señales. Este trabajo sustenta la viabilidad de realizar una interfaz gráfica con enfoque similar en el campo de la electrónica y se utilizará como guía parcial para establecer su uso en sistemas de control.
 	
 	Finalmente, \textcite{cadavid2009toolbox} redactó para la revista Educación en Ingeniería de Colombia, un artículo titulado \enquote{Toolbox didáctico para el diseño y análisis de sistemas de control lineal}, cuyo objetivo es describir un toolbox realizado en MATLAB para el análisis de sistemas de control lineales, este toolbox consiste de una interfaz gráfica que permite realizar pruebas a sistemas de control como respuesta escalón, respuesta en frecuencia, análisis de estabilidad, diseño de controladores, entre otras funciones. Este artículo será de utilidad para establecer la interfaz gráfica que se pretende realizar, además, sirvió como punto de partida para determinar las funciones que debería tener un laboratorio virtual de sistemas de control, como punto adicional se puede resaltar que reafirma la utilidad de esta investigación. 
 	
@@ -184,10 +184,18 @@
                 &\text{Euler hacia atrás:}& &s \leftarrow \frac{z - 1}{hz} \label{eq:eulerB}\\
                 &\text{Tustin:}& &s \leftarrow \frac{2}{h} \frac{z-1}{z+1} \label{eq:tustin}
             \end{align}
+
+            Existen mas métodos de discretizacion como el de la invarianza de la respuesta impulso, el cual consiste en hacer coincidir la respuesta impulso en tiempo continuo con la respuesta impulso en tiempo discreto, util cuando la respuesta impulso es importante \Parencite{fernandez2013control}. Tambien existe la transformación directa de los polos y ceros del sistema, con este metodo la funcion de transferencia continua es factorizada para obtener los polos y ceros que seran mapeados al plano discreto \Parencite{hori1992matched}. Las ecuaciones para representar ambos métodos son:
+
+            \begin{align}
+                &\text{Transformación del impulso invariante:}& H(z) &= \sum_{i=1}^{n}\mathcal{Z} \left[ \mathcal{L}^{-1}\left\lbrace G^{i}(s)\right\rbrace\Bigr|_{t=kh}\right] \label{eq:impulsinal}\\[15pt]
+                &\text{Transformación directa:}& H(z) &=  k \frac{(z-1)^e\displaystyle\prod_m (z-z_d)}{\displaystyle\prod_n (z-p_d)} \label{eq:directa}
+            \end{align}
+
     
     \subsection{Respuesta en el tiempo del modelo en el espacio de estados}
         
-        Para poder obtener la respuesta del sistema en el tiempo podemos utilizar varios metodos de resolucion de ODE's o ecuaciones diferenciales ordinarias, solucion exacta, separacion de variables o integracion numerica aproximada, este ultimo es el mejor para realizar por medio de computadoras. Para realizar la integracion numerica y obtener la respuesta del sistema se utilizaran los metodos de Runge-Kutta.
+        Para poder obtener la respuesta del sistema en el tiempo podemos utilizar varios métodos de resolución de ODE's o ecuaciones diferenciales ordinarias, solución exacta, separacion de variables o integración numerica aproximada, este ultimo es el mejor para realizar por medio de computadoras. Para realizar la integración numérica y obtener la respuesta del sistema se utilizaran los métodos de Runge-Kutta.
 
         Los metodos de Runge-Kutta son unos metodos iterativos de resolución de ODE's, los mismos se basan en utilizar \blockquote[{\cite[p.31]{horacio1997metodos}}]{indirectamente el algoritmo de Taylor. En general, estos metodos evalúan $f(x,y)$ en mas de un punto en la proximida $(x_n,y_n)$ en lugar de evaluar derivadas de $f(x,y)$}. La formulación general de los metodos de Runge-Kutta explícitos es:
         
@@ -219,6 +227,8 @@
         \end{equation}
 
         Adicionalmente existen los metodos de Runge-Kutta embebidos, los cuales consisten en calcular dos metodos de Runge-Kutta, uno de orden $p$ y otro de orden $\hat{p}$, donde $\hat{p}$ es normalmente $p-1$ o $p+1$ \Parencite{hairer1991solving}. La tabla de butcher para representar los metodos embebidos es la siguiente:
+        
+        \pagebreak
 
         \begin{equation}\label{eq:embebidoButcher}
             \renewcommand\arraystretch{1.2}
@@ -245,7 +255,7 @@
         
         \subsubsection{Runge-Kutta's para ecuaciones de espacio de estados}
 
-            Partiendo de la ecuación \cref{eq:FullSSx} en donde podemos observar que $\dot{x}(t)$ viene dado por un conjunto de ecuaciones diferenciales ordinarias, por tanto, es posible aplicar los metodos de Runge-Kutta de forma casi directa, \textcite{horacio1997metodos} desarrolla las expresiones para un Runge-Kutta de orden 4 aplicado en el espacio de estados, estas expresiones pueden ser extendidas para generalizar su aplicación a un numero de escenarios arbitrarios, el vector de estados de forma general se puede expresar como:
+            Partiendo de la ecuación \cref{eq:FullSSx} en donde podemos observar que $\dot{x}(t)$ viene dado por un conjunto de ecuaciones diferenciales ordinarias, por tanto, es posible aplicar los metodos de Runge-Kutta de forma casi directa, \textcite{horacio1997metodos} desarrolla las expresiones para un Runge-Kutta de orden 4 aplicado en el espacio de estados, estas expresiones pueden ser extendidas para generalizar su aplicación a un numero de escenarios arbitrarios. El vector de estado de forma general se puede expresar como:
 
             
             \begin{equation}\label{eq:vectorGeneral}
@@ -256,7 +266,7 @@
                 \end{aligned}
             \end{equation}
 
-            \noindent cuyas condiciones iniciales se pueden expresar como:
+            \noindent y cuyas condiciones iniciales se pueden expresar como:
 
             \begin{equation}\label{eq:vectorIniciales}
                 \begin{aligned}
@@ -266,25 +276,7 @@
                 \end{aligned}
             \end{equation}
             
-            \noindent de modo que al sustituir \cref{eq:vectorGeneral,eq:vectorIniciales} en \cref{eq:RKgeneral} y señalando:
-
-            \vfill 
-
-            \begin{spacing}{1.5}
-				
-				$n$: como el numero de variables de estado
-				
-				$m$: como el numero de entradas
-				
-				$j$: como la iteración actual
-                
-                $s$: como el numero de escenarios
-            \end{spacing}
-
-            \vfill
-            \pagebreak
-
-            \noindent se obtenga el nuevo vector de estado:
+            \noindent de modo que al sustituir \cref{eq:vectorGeneral,eq:vectorIniciales} en \cref{eq:RKgeneral} se obtenga el nuevo vector de estado:
 
             \begin{equation}\label{eq:RKstate}
                 \begin{aligned}
@@ -297,6 +289,19 @@
                 \end{aligned}
             \end{equation}
             
+            \noindent con:
+
+            \begin{spacing}{1.5}
+				
+				$n$: como el numero de variables de estado
+				
+				$m$: como el numero de entradas
+				
+				$j$: como la iteración actual
+                
+                $s$: como el numero de escenarios
+            \end{spacing}
+
             \noindent finalmente, el vector de estado obtenido con \cref{eq:RKstate} sera sustituido en la siguiente iteración. Para obtener la salida actual se debe sustituir $x_n^{(j)}$  en \cref{eq:rkrepresentationY}. 
             
             \begin{equation}
@@ -395,7 +400,7 @@
 
             \begin{figure}[htb]
                 \centering
-                \includegraphics[width=0.8\textwidth]{rootLocus.pdf}
+                \includegraphics[width=0.75\textwidth]{rootLocus.pdf}
                 \caption[Ejemplo de grafica del lugar de las raices]{\textbf{Grafica del lugar de las raices}. Se puede observar la grafica del lugar de las raices para un sistema $G_1(s) = \frac{s + 2}{s^2 + 2s + 3}$, el cual tiene ubicado sus polos en el semiplano izquierdo del plano complejo. Fuente: Elaboración propia.} 
                 \label{fig:rootLocus}
             \end{figure}
@@ -410,7 +415,7 @@
 
                 \begin{figure}[htb]
                     \centering
-                    \includegraphics[width=0.9\textwidth]{pzmap.pdf}
+                    \includegraphics[width=0.8\textwidth]{pzmap.pdf}
                     \caption[Ejemplo de analisis de estabilidad en el plano complejo]{\textbf{Analisis de estabilidad en el plano complejo}. Se puede observar como el sistema $G_1(s)$ tiene ubicado sus polos en el semiplano izquierdo del plano complejo, i.e., es estable, por otro lado, el sistema $G_2(s)$ es inestable al poseer polos ubicados en el semiplano derecho del plano complejo. Fuente: Elaboración propia.} 
                     \label{fig:pzmap}
                 \end{figure}
@@ -474,6 +479,8 @@
                 
                 El diagrama de Nichols es una grafica del sistema en lazo abierto de tipo magnitud vs fase, en el diagrama se pueden ubicar los margenes de ganancia y fase, para ayudar en el diseño de controladores se suele superponer una rejilla guia de valores de magnitud y angulo constantes, esta rejilla lleva el nombre de carta de Nichols o abaco de Nichols. En el diagrama de nichols el punto critico $-1 + j0$ se convierte en $(0dB, -180^\circ)$
 
+                \clearpage
+
         \subsubsection{Controlador PID}
 
             El controlador será el elemento dentro del sistema de control que se encargará de llevar al proceso a un valor de referencia deseado, existen varios esquemas de control para el control de procesos, cada uno con sus ventajas y desventajas, el más común es un sistema en lazo cerrado con controlador, este se puede observar en la \cref{fig:esquemaPID}.
@@ -494,7 +501,7 @@
             \noindent y su forma en función de transferencia:
             
             \begin{equation}\label{eq:pidcompleja}
-                G_{c}(s) = \frac{sc(s)}{e(s)} = \frac{K_{d}s^{2} + K_{p}s +  K_{i}}{s}
+                G_{c}(s) = \frac{sc(s)}{e(s)} = K_p + \frac{K_i}{s} + K_d s
             \end{equation}
             
             El controlador PID tambien puede ser representado de forma discreta, la componente proporcional sigue siendo una constante, la componente integral se puede representar como la sumatoria de todas las muestras multiplicadas por el periodo de muestreo y finalmente la derivada se puede aproximar como una diferencia finita regresiva:
@@ -547,7 +554,7 @@
             
             \begin{figure}[htb]
                 \centering
-                \includegraphics[width=0.75\textwidth]{ZieglerN.pdf}
+                \includegraphics[width=0.9\textwidth]{ZieglerN.pdf}
                 \caption[Modelado por curva de reacción]{\textbf{Modelado por curva de reacción.} Para realizar este modelado se estudia la respuesta del sistema ante la entrada de la función de heaviside u(t), también llamada función escalón unitario, el modelo obtenido a través de este método es una aproximación del sistema. Fuente: Elaboración propia.} 
                 \label{fig:ZNtest}
             \end{figure}
@@ -576,6 +583,8 @@
             
             Adicionalmente existen otras reglas para la entonacion automatica de los controladore PID, como el metodo de Cohen-Coon, al igual que Ziegler-Nichols, requiere de los parametros del proceso en su aproximacion como proceso de primer orden para ser sustituidos en la \cref{tab:CohenCoon} y obtener las ganancias respectivas.
             
+            \clearpage
+
             \begin{table}[htb]
                 \centering
                 \begin{threeparttable}
@@ -609,7 +618,7 @@
             
             \begin{figure}[htb]
                 \centering
-                \includegraphics[width=0.6\textwidth]{FuzzySet.pdf}
+                \includegraphics[width=0.7\textwidth]{FuzzySet.pdf}
                 \caption[Ejemplo de un conjunto difuso]{\textbf{Ejemplo de un conjunto difuso}. Este conjunto difuso corresponde a una variable de temperatura que va desde -10\textdegree C hasta 100\textdegree C. Fuente: Elaboración propia.} 
                 \label{fig:FuzzySet}
             \end{figure}
@@ -765,6 +774,8 @@
             \paragraph{Método de centro de área}
 
                 Consiste en cortar los conjuntos difusos de salida $F(y_q)$ con los valores de salida $y_q$ para determinar un área utilizando los $Q$ elementos que la componen. El método de centro de área se puede representar de modo general en su forma discreta de la siguiente forma:
+
+                \pagebreak
                 
                 \begin{equation}\label{eq:Centroide}
                     Salida = \frac{\displaystyle\sum\limits_{q=1}^{Q}F(y_q)\cdot y_q}{\displaystyle\sum\limits_{q=1}^{Q}F(y_q)}
@@ -798,7 +809,7 @@
 
                 \begin{figure}[htb]
                     \centering
-                    \includegraphics[width=0.6\textwidth]{pFuzzyTomo.pdf}
+                    \includegraphics[width=0.9\textwidth]{pFuzzyTomo.pdf}
                     \caption[Esquema de control: P difuso]{\textbf{Esquema de control: P difuso}. Fuente: Elaboración propia.} 
                     \label{fig:pFuzzyTomo}
                 \end{figure}
@@ -809,7 +820,7 @@
 
                 \begin{figure}[htb]
                     \centering
-                    \includegraphics[width=0.7\textwidth]{pdFuzzyTomo.pdf}
+                    \includegraphics[width=0.9\textwidth]{pdFuzzyTomo.pdf}
                     \caption[Esquema de control: PD difuso]{\textbf{Esquema de control: PD difuso}. Fuente: Elaboración propia.} 
                     \label{fig:pdFuzzyTomo}
                 \end{figure}
@@ -820,10 +831,12 @@
 
                 \begin{figure}[htb]
                     \centering
-                    \includegraphics[width=0.7\textwidth]{piFuzzyTomo.pdf}
+                    \includegraphics[width=0.9\textwidth]{piFuzzyTomo.pdf}
                     \caption[Esquema de control: PI difuso]{\textbf{Esquema de control: PI difuso}. Fuente: Elaboración propia.} 
                     \label{fig:piFuzzyTomo}
                 \end{figure}
+
+                \pagebreak
 
             \paragraph{Controlador PID difuso}
                 
@@ -831,7 +844,7 @@
 
                 \begin{figure}[htb]
                     \centering
-                    \includegraphics[width=0.8\textwidth]{pidFuzzyTomo.pdf}
+                    \includegraphics[width=0.9\textwidth]{pidFuzzyTomo.pdf}
                     \caption[Esquema de control: PID difuso]{\textbf{Esquema de control: PID difuso}. Fuente: Elaboración propia.} 
                     \label{fig:pidFuzzyTomo}
                 \end{figure}

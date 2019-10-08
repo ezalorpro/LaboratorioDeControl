@@ -772,6 +772,10 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsy
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
+INPUT imagenes\pzmap.pdf
+INPUT .\imagenes\pzmap.pdf
+INPUT .\imagenes\pzmap.pdf
+INPUT .\imagenes\pzmap.pdf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxmi.vf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\txmi.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rntxmi.tfm
@@ -812,10 +816,6 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\boondox\zxx
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\txfonts\txr.vf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxptmr.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxr.tfm
-INPUT imagenes\pzmap.pdf
-INPUT .\imagenes\pzmap.pdf
-INPUT .\imagenes\pzmap.pdf
-INPUT .\imagenes\pzmap.pdf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Regular-tlf-t1.tfm
 INPUT imagenes\nyquistPlot.pdf
 INPUT .\imagenes\nyquistPlot.pdf
@@ -926,10 +926,10 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\t1ntxtt.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\t1xtt.tfm
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.pyg
 INPUT .\tobedeleted\principalTesis.pyg
-INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\_minted-principalTesis\7A993017EE13F5CC4A80885B224760392006DD731FD6FAF559ABDC4D555BC951.pygtex
-INPUT tobedeleted\_minted-principalTesis\7A993017EE13F5CC4A80885B224760392006DD731FD6FAF559ABDC4D555BC951.pygtex
-INPUT tobedeleted\_minted-principalTesis\7A993017EE13F5CC4A80885B224760392006DD731FD6FAF559ABDC4D555BC951.pygtex
-INPUT tobedeleted\_minted-principalTesis\7A993017EE13F5CC4A80885B224760392006DD731FD6FAF559ABDC4D555BC951.pygtex
+INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\_minted-principalTesis\A465F81FD51EA30B147746D802A7CE672006DD731FD6FAF559ABDC4D555BC951.pygtex
+INPUT tobedeleted\_minted-principalTesis\A465F81FD51EA30B147746D802A7CE672006DD731FD6FAF559ABDC4D555BC951.pygtex
+INPUT tobedeleted\_minted-principalTesis\A465F81FD51EA30B147746D802A7CE672006DD731FD6FAF559ABDC4D555BC951.pygtex
+INPUT tobedeleted\_minted-principalTesis\A465F81FD51EA30B147746D802A7CE672006DD731FD6FAF559ABDC4D555BC951.pygtex
 INPUT capitulo5.tex
 INPUT capitulo5.tex
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Italic-tlf-t1.tfm
