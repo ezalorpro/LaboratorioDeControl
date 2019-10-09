@@ -137,4 +137,14 @@
 
     \subsection{Entonación de sistema en lazo cerrado con PID}
         
+        Para el calculo de la respuesta al escalón se utiliza la librería de control, el esquema implementado es el presentado en la \cref{fig:esquemaPID}. El controlador PID fue definido utilizando \cref{eq:pidcompleja} y sustituyendo la componente derivativa por \cref{eq:Daproximacion}. Si el sistema es representado en tiempo discreto se utiliza \cref{eq:pidenZ} para definir al controlador PID.
+        
+        Asi mismo, para la entonación automática se realiza una prueba escalón en lazo abierto con el propósito de calcular \cref{eq:parametroK}, \cref{eq:parametroTau} y \cref{eq:parametroAlfa}, luego, se sustituyen los valores en la \cref{tab:ZiglerNichols,tab:CohenCoon} con el fin de realizar una entonación por el método Ziegler-Nichols y Cohen-Coon según la selección del usuario.
+
     \subsection{Entonación utilizando un archivo CSV}
+
+        Como ya se menciono, con esta opción se permite cargar un archivo CSV que contenga la data de respuesta a un escalon con la finalidad de obtener su aproximacion de primer orden con tiempo muerto y poder realizar una entonacion utilizando el método de Zigler-Nichols o Cohen-Coon. El usuario debe ingresar el limite superior e inferior de la variable del proceso (Vp) y de la entrada al sistema, normalmente, la señal del elemento final de control (EFC), adiocionalmente, debe ingresar el separador del archivo CSV cuyo valor por defecto es una coma (,).
+
+        El algoritmo aproximara los parametros de un modelo de primer orden con tiempo muerto utilizando el punto de maxima pendiente para trazar una recta, este punto quedara como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automatico no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.e., como la observada en la \cref{fig:ZNtest}.
+
+        El archivo CSV debera contener un formato de encabezados especifico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentara buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV valido se puede observar en el \ref{anexo:B}.

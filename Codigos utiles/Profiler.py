@@ -1,4 +1,11 @@
 import cProfile
-from rk4adaptativo import ejecutar
+from fuzzRuleProfile import ejecutar
 
-cProfile.runctx('''ejecutar()''', globals(), locals(), 'myProfilingFile.pstats')
+Controlador, error, derror = ejecutar()
+
+cProfile.runctx(
+    '''for valores in zip(error, derror):
+        Controlador.calcular_valor(valores)''',
+    globals(),
+    locals(),
+    'myProfilingFile.pstats')

@@ -546,10 +546,10 @@
             
             Los parámetros correspondientes pueden ser obtenidos realizando una prueba al escalón y extrayendo los datos correspondientes de la gráfica de la respuesta, un ejemplo se puede observar en la \cref{fig:ZNtest}. Acá se observa: (a) $t_{0}$ que corresponde al inicio del escalón, (b) $t_{1}$ inicio de la respuesta por parte del proceso al escalón, (c) $t_{2}$ cuando el proceso alcanza el 63\% del cambio total, (d) $\Delta y$ cambio total del proceso ante el escalón y (e) $\Delta u$ magnitud de cambio de la entrada. Los parámetros para aproximar el proceso a un modelo de primer orden con tiempo muerto se calculan como sigue:
             
-            \begin{align}\label{eq:parametros}
-                K &= \frac{\Delta y}{\Delta u}\\
-                \tau &= t_{2} - t_{1}\\
-                \alpha &= t_{1} - t_{0}
+            \begin{align}
+                K &= \frac{\Delta y}{\Delta u}\label{eq:parametroK}\\
+                \tau &= t_{2} - t_{1}\label{eq:parametroTau}\\
+                \alpha &= t_{1} - t_{0}\label{eq:parametroAlfa}
             \end{align}
             
             \begin{figure}[htb]
@@ -864,12 +864,12 @@
             
             \paragraph{Controlador combinado}
                 
-                Consiste en sumar las salidas de un controlador PID clasico y un controlador difuso, de este modo el controlador PID sera quien gobierne al proceso la mayoria del tiempo, para el caso de un controlador P difuso al generarce un cambio en el setpoint o la carga el controlador difuso procesedera a emitir una salida proporcional y adaptada al cambio. El esquema de control se puede observar en la \cref{fig:pidplusFuzzyTomo}.
+                Consiste en sumar las salidas de un controlador PID clasico y un controlador difuso, de este modo el controlador PID sera quien gobierne al proceso la mayor parte del tiempo. En el caso de utilizar un controlador P difuso y de generarce un cambio en el setpoint o la carga, el controlador difuso procesedera a emitir una salida proporcional y adaptada al cambio. El esquema de control se puede observar en la \cref{fig:pidplusFuzzyTomo}.
             
                 \begin{figure}[htb]
                     \centering
                     \includegraphics[width=0.8\textwidth]{pidplusFuzzyTomo.pdf}
-                    \caption[Esquema de control: PID clasico mas difuso]{\textbf{Esquema de control: PID clasico mas difuso}. Fuente: Elaboración propia.} 
+                    \caption[Esquema de control: PID clasico mas P difuso]{\textbf{Esquema de control: PID clasico mas P difuso}. Fuente: Elaboración propia.} 
                     \label{fig:pidplusFuzzyTomo}
                 \end{figure}
 
