@@ -737,7 +737,7 @@
             
         \subsubsection{Operacion de premisas}
             
-            Debido a que pueden existir N entradas, tambien pueden existir N premisas en una regla, las cuales, pueden relacionarce entre si por medio de operaicones AND en cuyo caso se denomina conjuncion de premisas. Por otro lado, tambien es posible relacionar las premisas utilizando las operaciones OR y se denomina disyuncion de premisas. Para realizar estas operaciones se pueden utilizar las T-Normas y las T-Conormas en el caso conjuncion y disyuncion respectivamente.
+            Debido a que pueden existir N entradas, tambien pueden existir N premisas en una regla, las cuales, pueden relacionarce entre si por medio de operaciones AND en cuyo caso se denomina conjuncion de premisas. Por otro lado, tambien es posible relacionar las premisas utilizando las operaciones OR y se denomina disyuncion de premisas. Para realizar estas operaciones se pueden utilizar las T-Normas y las T-Conormas en el caso conjuncion y disyuncion respectivamente.
 
             \begin{align}
                 &\text{Conjuncion de premisas:} & \tau_{r} &= \bigcap_{i=1}^{N}\tau_{ir} \label{eq:conjP} \\
@@ -749,10 +749,10 @@
             La implicacion se encarga de relacionar las premisas con los concecuentes. Normalmente se prefiere utilizar conjuncion por medio de las T-Normas para realizar la implicacion, la cual viene descrita como sigue:
 
             \begin{equation}\label{eq:implicacion}
-                F_r(y) = W_r \tau_{r} \cap \gamma_r
+                F_r(y) = W_r \tau_{r} \cap \gamma_{jr}
             \end{equation}
 
-            \noindent donde $\gamma_r$ es la salida de la funcion de membresia asociada con la $r$-esima regla y $W_r$ es el peso asociado a la r-esima regla \Parencite{riid2003transparent}.
+            \noindent donde $\gamma_{jr}$ es la j-esima funcion de membresia de salida asociada con la $r$-esima regla y $W_r$ es el peso asociado a la r-esima regla \Parencite{riid2003transparent}.
 
         \subsubsection{Agregacion}
 
@@ -760,8 +760,8 @@
 
             \vspace{10pt}
             \begin{align}
-                &\text{Con conjuncion de premisas:} & F(y) &= \bigcup_{r=1}^{R}\left(W_r \left(\bigcap_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_r\right) \label{eq:fconjuncion} \\
-                &\text{Con disyuncion de premisas:} & F(y) &= \bigcup_{r=1}^{R}\left(W_r \left(\bigcup_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_r\right) \label{eq:fdisyuncion}
+                &\text{Con conjuncion de premisas:} & F(y_j) &= \bigcup_{r=1}^{R}\left(W_r \left(\bigcap_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_{jr}\right) \label{eq:fconjuncion} \\
+                &\text{Con disyuncion de premisas:} & F(y_j) &= \bigcup_{r=1}^{R}\left(W_r \left(\bigcup_{i=1}^{N}\mu_{ir}(x_i) \right) \cap \gamma_{jr}\right) \label{eq:fdisyuncion}
             \end{align}
             \vspace{10pt}
 
@@ -773,7 +773,7 @@
             
             \paragraph{Método de centro de área}
 
-                Consiste en cortar los conjuntos difusos de salida $F(y_q)$ con los valores de salida $y_q$ para determinar un área utilizando los $Q$ elementos que la componen. El método de centro de área se puede representar de modo general en su forma discreta de la siguiente forma:
+                Consiste en calcular el centro de gravedad del conjunto difuso de salida $F(y)$ utilizando los valores $y_q$ del universo de discurso de la salida, para lo cual se utiliza un total de $Q$ elementos para el calculo y asi obtener un valor de salida nitido. El método de centro de área se puede representar en su forma discreta con la siguiente ecuacion:
 
                 \pagebreak
                 
