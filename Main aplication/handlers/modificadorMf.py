@@ -4,7 +4,7 @@
     old_mf  ->  trimf
     trimf   ->  new_mf
     
-De este modo se reduce el numero de casos a codificar, adicionalmente, se agrego la funcion para realizar
+De este modo se reduce el numero de casos a codificar. Por otro lado,  tambien contiene la funcion para realizar
 la validacion de las definiciones ingresadas por el usuario] 
 """
 

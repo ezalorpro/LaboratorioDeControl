@@ -187,22 +187,29 @@
     
     \subsection{Controladores difusos}
 
-        Los controladores difusos fueron divididos para su diseño en dos categorías, genéricos y basados en un esquema.
+        Los controladores difusos fueron divididos para su diseño en dos categorías, genéricos y basados en un esquema de control especifico.
         
         \subsubsection{Controladores genericos}
 
-            Los controladores genéricos pueden tener un numero arbitrario de entradas y salidas con un máximo de diez entradas o salidas, al ser genéricos, no se garantiza que puedan ser utilizados en la funcionalidad de simulación de sistemas de control, por tanto, sirve para diseñar cualquier sistema de inferencia difuso con o sin el proposito de utilizarce como controlador.
+            Los controladores genéricos pueden tener un numero arbitrario de entradas y salidas con un máximo de diez entradas o salidas, al ser genéricos, no se garantiza que puedan ser utilizados en la funcionalidad de simulación de sistemas de control, por tanto, sirve para diseñar cualquier sistema de inferencia difuso con o sin el propósito de utilizarle como controlador.
 
             \paragraph{Funciones de membresia}
 
-                Scikit-Fuzzy posee todas las funciones de membresías descritas por las ecuaciónes \cref{eq:trimf} a la \cref{eq:gbellmf} junto con las funciones compuestas: gauss2mf, dsigmf, psigmf y pimf. Para poder cambiar entre funciones de membresía se codificaron transformaciones aproximadamente equivalente entre las definiciones de las mismas, se llamo definición a los valores necesarios para poder definir la función de membresía. El código para realizar las transformaciones se puede observar en el \ref{anexo:C}
-
-            \paragraph{Reglas de inferencia}
-
-                asd
+                Scikit-Fuzzy posee todas las funciones de membresías descritas por las ecuaciónes \cref{eq:trimf} a la \cref{eq:gbellmf} junto con las funciones compuestas: gauss2mf, dsigmf, psigmf y pimf. Para poder cambiar entre funciones de membresía se codificaron transformaciones aproximadamente equivalente entre las definiciones de las mismas, se llamo definición a los valores necesarios para poder definir la función de membresía. El código para realizar las transformaciones se puede observar en el \ref{anexo:C}.
 
             \paragraph{Defuzzificacion}
 
                 Todos los métodos de defuzzificacion descritos en \cref{secc:defuzzificacion} son utilizables con Scikit-Fuzzy y pueden ser asignados de forma individual a cada salida del controlador difuso, i.e., cada salida puede utilizar un método de defuzzificacion distinto.
 
+            \paragraph{Reglas de inferencia}
+
+                Las reglas pueden plantearse utilizando conjunción de premisas o disyunción de premisas, i.e., lógica AND o lógica OR, a su vez, cada una de las premisas pueden ser negadas. A las salidas se les puede asignar un peso de forma individual, de modo que cada salida puede ser ponderada de forma distinta, las salidas no pueden ser negadas.
+
+            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma especifica con el laboratorio virtual de sistemas de control. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:D}.
+
+        \subsubsection{Controladores basados en esquemas}
+
+            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el numero de entradas, el numero de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control especifico que debe cumplir con un numero de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:E}.
+
     \subsection{Archivos FIS}
+

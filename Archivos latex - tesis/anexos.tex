@@ -19,7 +19,7 @@
 % Para agregar anexos a la tesis
 \AgregarAnexo{Codigo de los margenes de ganancia y fase}
     \begin{longlisting}
-        \caption{Función para el calculo de los margenes de ganancia y fase}
+        \caption[Calculo de los margenes de ganancia y fase]{Función para el calculo de los margenes de ganancia y fase}
         \label{code:1}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -157,7 +157,7 @@
 
  \AgregarAnexo{Codigo de transformacion equivalente entre funciones de membresia}
     \begin{longlisting}
-        \caption{Función para la transformación equivalente entre funciones de membresía}
+        \caption[Transformación equivalente entre funciones de membresía]{Función para la transformación equivalente entre funciones de membresía}
         \label{code:1}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -300,6 +300,241 @@
                     nb = c
                     nc = c + abs(a / c)
                     return [na, nb, nc], '[a, b, c] con: a <= b <= c'
-
         \end{minted}
     \end{longlisting}
+
+\AgregarAnexo{Formato interno para guardar controlador por medio de un archivo .JSON}
+    \begin{longlisting}
+        \caption[Formato para guardar controlador]{Formato para un controlador con una entrada, una salida y tres reglas. Las reglas son: una simple, una regla con premisa negada y una regla con salida ponderada en 0.25}
+        \label{code:1}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1,
+			breaklines]{python}
+            [
+                [
+                    {
+                        "nombre": "entrada1",
+                        "numeroE": 3,
+                        "etiquetas": [
+                            {
+                                "nombre": "etiqueta1",
+                                "mf": "trimf",
+                                "definicion": [
+                                    -20.0,
+                                    -10.0,
+                                    0.0
+                                ]
+                            },
+                            {
+                                "nombre": "etiqueta2",
+                                "mf": "trapmf",
+                                "definicion": [
+                                    -10.0,
+                                    -5.0,
+                                    5.0,
+                                    10.0
+                                ]
+                            },
+                            {
+                                "nombre": "etiqueta3",
+                                "mf": "gaussmf",
+                                "definicion": [
+                                    2.5,
+                                    10.0
+                                ]
+                            }
+                        ],
+                        "rango": [
+                            -10,
+                            10
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "nombre": "salida1",
+                        "numeroE": 3,
+                        "etiquetas": [
+                            {
+                                "nombre": "etiqueta1",
+                                "mf": "gauss2mf",
+                                "definicion": [
+                                    1.25,
+                                    -15.0,
+                                    1.25,
+                                    -5.0
+                                ]
+                            },
+                            {
+                                "nombre": "etiqueta2",
+                                "mf": "dsigmf",
+                                "definicion": [
+                                    1.0,
+                                    -5.0,
+                                    1.0,
+                                    5.0
+                                ]
+                            },
+                            {
+                                "nombre": "etiqueta3",
+                                "mf": "pimf",
+                                "definicion": [
+                                    0.0,
+                                    5.0,
+                                    15.0,
+                                    20.0
+                                ]
+                            }
+                        ],
+                        "rango": [
+                            -10,
+                            10
+                        ],
+                        "metodo": "centroid"
+                    }
+                ],
+                [
+                    [
+                        [
+                            [
+                                "etiqueta1",
+                                0,
+                                false
+                            ]
+                        ],
+                        [
+                            [
+                                "etiqueta1",
+                                0,
+                                1.0
+                            ]
+                        ],
+                        true
+                    ],
+                    [
+                        [
+                            [
+                                "etiqueta2",
+                                0,
+                                true
+                            ]
+                        ],
+                        [
+                            [
+                                "etiqueta2",
+                                0,
+                                1.0
+                            ]
+                        ],
+                        false
+                    ],
+                    [
+                        [
+                            [
+                                "etiqueta3",
+                                0,
+                                false
+                            ]
+                        ],
+                        [
+                            [
+                                "etiqueta3",
+                                0,
+                                0.24999999999999933
+                            ]
+                        ],
+                        false
+                    ]
+                ]
+            ]
+        \end{minted}
+    \end{longlisting}
+
+\AgregarAnexo{Esquemas de control difuso}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pdDifuso.pdf}
+        \caption[Esquema de control implementado: PD difuso]{\textbf{Esquema de control implementado: PD difuso}. Fuente: Elaboración propia.} 
+        \label{fig:pdDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{piDifuso.pdf}
+        \caption[Esquema de control implementado: PI difuso]{\textbf{Esquema de control implementado: PI difuso}. Fuente: Elaboración propia.} 
+        \label{fig:piDifuso}
+    \end{figure}
+
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pidDifuso.pdf}
+        \caption[Esquema de control implementado: PID difuso]{\textbf{Esquema de control implementado: PID difuso}. Fuente: Elaboración propia.} 
+        \label{fig:pidDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \pagebreak
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pipdDifuso.pdf}
+        \caption[Esquema de control implementado: PD difuos mas PI difuso]{\textbf{Esquema de control implementado: PD difuos mas PI difuso}. Fuente: Elaboración propia.} 
+        \label{fig:pipdDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{piplusDDifuso.pdf}
+        \caption[Esquema de control implementado: PI difuso mas derivada]{\textbf{Esquema de control implementado: PI difuso mas derivada}. Fuente: Elaboración propia.} 
+        \label{fig:piplusDDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pdplusIDifuso.pdf}
+        \caption[Esquema de control implementado: PD difuso mas integrador]{\textbf{Esquema de control implementado: PD difuso mas integrador}. Fuente: Elaboración propia.} 
+        \label{fig:pdplusIDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \pagebreak
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{GainScheduler.pdf}
+        \caption[Esquema de control implementado: Programador de ganancias]{\textbf{Esquema de control implementado: Programador de ganancias}. Fuente: Elaboración propia.} 
+        \label{fig:GainScheduler}
+    \end{figure}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pidplusDifuso.pdf}
+        \caption[Esquema de control implementado: PID clasico mas P difuso]{\textbf{Esquema de control implementado: PID clasico mas P difuso}. Fuente: Elaboración propia.} 
+        \label{fig:pidplusDifuso}
+    \end{figure}
+    
+    \vfill
