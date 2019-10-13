@@ -26,7 +26,7 @@
             |\bf{WHILE}| True: # Ciclo principal
                 |$\vdots$|
                 |\bf{IF}| validaciones_entradas_análisis:
-                    validar_entradas_análisis()
+                    validar_entrada_análisis()
                 
                 |\bf{IF}| usuario_presiona_calcular:
                     chequeo_TF_SS()
@@ -98,7 +98,7 @@
 
 \section{Entonación de controladores PID}
 
-    Esta función fue dividida en dos apartados, el primero, es la entonacion de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando el método de Ziegler-Nichols o Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID.
+    Esta función fue dividida en dos apartados, el primero, es la entonación de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando el método de Ziegler-Nichols o Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID.
     
     \begin{longlisting}
         \caption{Pseudo código para la entonación de controladores PID}
@@ -112,8 +112,8 @@
             baselinestretch=1]{text}
             |\bf{WHILE}| True: # Ciclo principal
                 |$\vdots$|
-                |\bf{IF}| validaciones_entradas_análisis:
-                    validar_entradas_análisis()
+                |\bf{IF}| validaciones_entradas_entonación:
+                    validar_entrada_entonación()
                 
                 |\bf{IF}| usuario_presiona_calcular:
                     |\bf{CASO 1}| entonación_manual:
@@ -145,11 +145,64 @@
 
         Como ya se menciono, con esta opción se permite cargar un archivo CSV que contenga la data de respuesta a un escalon con la finalidad de obtener su aproximacion de primer orden con tiempo muerto y poder realizar una entonacion utilizando el método de Zigler-Nichols o Cohen-Coon. El usuario debe ingresar el limite superior e inferior de la variable del proceso (Vp) y de la entrada al sistema, normalmente, la señal del elemento final de control (EFC), adiocionalmente, debe ingresar el separador del archivo CSV cuyo valor por defecto es una coma (,).
 
-        El algoritmo aproximara los parametros de un modelo de primer orden con tiempo muerto utilizando el punto de maxima pendiente para trazar una recta, este punto quedara como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automatico no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.e., como la observada en la \cref{fig:ZNtest}.
+        El algoritmo aproximara los parámetros de un modelo de primer orden con tiempo muerto utilizando el punto de máxima pendiente para trazar una recta, este punto quedara como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automático no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.g., como la observada en la \cref{fig:ZNtest}.
 
-        El archivo CSV debera contener un formato de encabezados especifico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentara buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV valido se puede observar en el \ref{anexo:B}.
+        El archivo CSV deberá contener un formato de encabezados especifico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentara buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV valido se puede observar en el \ref{anexo:B}.
 
 \section{Diseño de controladores difusos}
+    
+    Para el diseño de controladores difusos se utiliza de fondo la librería Scikit-Fuzzy, la cual permite por medio de código Python diseñar controladores difusos tipo Mamdani, graficar las funciones de membresía y realizar el proceso de inferencia para el controlador diseñado. La mayoría de la funcionalidad consiste en ser un intermediario entre las entradas del usuario por medio de la interfaz gráfica y el código que requiere Scikit-Fuzzy para poder definir un controlador. Adicional a lo anterior, se implemento la posibilidad de cargar y exportar archivos FIS con ciertas limitaciones tanto en la importación como en la exportación. El \cref{code:fuzzylogic} muestra un pseudo código de la funcionalidad de diseño de controladores difusos.
+    
+    \pagebreak
 
-    \subsection{Esquemas difusos}
+    \begin{longlisting}
+        \caption{Pseudo código para el diseño de controladores difusos}
+        \label{code:fuzzylogic}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1]{text}
+            |\bf{WHILE}| True: # Ciclo principal
+                |$\vdots$|
+                |\bf{IF}| validaciones_entradas_fuzzy:
+                    validar_entrada_fuzzy()
+                
+                |\bf{IF}| usuario_presiona_generar:
+                    |\bf{IF}| esquemas == True:
+                        empezar_diseño_esquema()
+                    |\bf{ELSE}|
+                        empezar_diseño_genérico()
+                
+                |\bf{IF}| usuario_presiona_crear:
+                    crear_controlador()
+                    prueba_entradas()
+                    |\bf{IF}| entradas == 1 |\bf{OR}| entradas == 2:
+                        superficie_respuesta()
+                |$\vdots$|
+        \end{minted}
+    \end{longlisting}
+    
+    \subsection{Controladores difusos}
+
+        Los controladores difusos fueron divididos para su diseño en dos categorías, genéricos y basados en un esquema.
+        
+        \subsubsection{Controladores genericos}
+
+            Los controladores genéricos pueden tener un numero arbitrario de entradas y salidas con un máximo de diez entradas o salidas, al ser genéricos, no se garantiza que puedan ser utilizados en la funcionalidad de simulación de sistemas de control, por tanto, sirve para diseñar cualquier sistema de inferencia difuso con o sin el proposito de utilizarce como controlador.
+
+            \paragraph{Funciones de membresia}
+
+                Scikit-Fuzzy posee todas las funciones de membresías descritas por las ecuaciónes \cref{eq:trimf} a la \cref{eq:gbellmf} junto con las funciones compuestas: gauss2mf, dsigmf, psigmf y pimf. Para poder cambiar entre funciones de membresía se codificaron transformaciones aproximadamente equivalente entre las definiciones de las mismas, se llamo definición a los valores necesarios para poder definir la función de membresía. El código para realizar las transformaciones se puede observar en el \ref{anexo:C}
+
+            \paragraph{Reglas de inferencia}
+
+                asd
+
+            \paragraph{Defuzzificacion}
+
+                Todos los métodos de defuzzificacion descritos en \cref{secc:defuzzificacion} son utilizables con Scikit-Fuzzy y pueden ser asignados de forma individual a cada salida del controlador difuso, i.e., cada salida puede utilizar un método de defuzzificacion distinto.
+
     \subsection{Archivos FIS}

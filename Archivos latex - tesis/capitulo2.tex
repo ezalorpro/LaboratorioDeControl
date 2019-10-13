@@ -627,7 +627,7 @@
 
             \paragraph{Funcion de membresia: triangular o trimf}$\quad$
             
-            \begin{equation*}\label{eq:trimf}
+            \begin{equation}\label{eq:trimf}
                 \mu_n(x) = \left\{
                     \begin{aligned}
                         &\quad 0  &\quad &Si \quad & x &\leq a\\
@@ -637,11 +637,11 @@
                     \end{aligned}\right.
                     \qquad
                     \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{trimf.pdf}}
-            \end{equation*}
+            \end{equation}
             
             \paragraph{Funcion de membresia: trapezoidal o trapmf}$\quad$
             
-                \begin{equation*}\label{eq:trapmf}
+                \begin{equation}\label{eq:trapmf}
                     \mu_n(x) = \left\{
                         \begin{aligned}
                             &\quad 0  &\quad &Si \quad &  x &\leq a\\
@@ -652,33 +652,33 @@
                         \end{aligned}\right.
                         \qquad
                         \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{trapmf.pdf}}
-                \end{equation*}
+                \end{equation}
 
             \paragraph{Funcion de membresia: gaussiana o gaussmf}$\quad$
                 
-                \begin{equation*}\label{eq:gaussmf}
+                \begin{equation}\label{eq:gaussmf}
                     \mu_n(x) = e^{-\frac{(x-m)^2}{2\sigma^2}}
                         \qquad \qquad
                         \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{gaussmf.pdf}}
-                \end{equation*}
+                \end{equation}
                 
             \paragraph{Funcion de membresia: S o smf}$\quad$
                 
-                \begin{equation*}\label{eq:smf}
+                \begin{equation}\label{eq:smf}
                     \mu_n(x) = \left\{
                         \begin{aligned}
-                            &\quad 0  &\quad &Si \quad & x &\leq a\\
-                            &2\left(\frac{x - a}{b - a}\right)^2  &\quad &Si \quad &  a \leq &x \leq \frac{a+b}{2} \\
-                            &1 - 2\left(\frac{x - b}{b - a}\right)^2  &\quad &Si \quad & \frac{a+b}{2} \leq &x \leq b \\
+                            &\quad 0  &\quad &Si \quad & x &\leq a\\[-4pt]
+                            &2\left(\frac{x - a}{b - a}\right)^2  &\quad &Si \quad &  a \leq &x \leq \frac{a+b}{2} \\[-1pt]
+                            &1 - 2\left(\frac{x - b}{b - a}\right)^2  &\quad &Si \quad & \frac{a+b}{2} \leq &x \leq b \\[-4pt]
                             &\quad 1  &\quad &Si \quad & x &\geq b
                         \end{aligned}\right.
-                        \qquad
-                        \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{smf.pdf}}
-                \end{equation*}
+                        \quad
+                        \raisebox{-15mm}{\includegraphics[width=0.27\linewidth]{smf.pdf}}
+                \end{equation}
             
             \paragraph{Funcion de membresia: Z o zmf}$\quad$
                 
-                \begin{equation*}\label{eq:zmf}
+                \begin{equation}\label{eq:zmf}
                     \mu_n(x) = \left\{
                         \begin{aligned}
                             &\quad 1  &\quad &Si \quad & x &\leq a\\
@@ -688,23 +688,23 @@
                         \end{aligned}\right.
                         \qquad
                         \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{zmf.pdf}}
-                \end{equation*}
+                \end{equation}
 
             \paragraph{Funcion de membresia: sigmoidal o sigmf}$\quad$
                 
-                \begin{equation*}\label{eq:sigmf}
+                \begin{equation}\label{eq:sigmf}
                     \mu_n(x) = \frac{1}{1+e^{-c(x-b)}}
                         \qquad \qquad
                         \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{sigmf.pdf}}
-                \end{equation*}
+                \end{equation}
                
             \paragraph{Funcion de membresia: campana generalizada o gbellmf}$\quad$
                 
-                \begin{equation*}\label{eq:gbellmf}
+                \begin{equation}\label{eq:gbellmf}
                     \mu_n(x) = \frac{1}{1+ \left|\frac{x - c}{a}\right|^{2b}}
                         \qquad \qquad
                         \raisebox{-15mm}{\includegraphics[width=0.28\linewidth]{gbellmf.pdf}}
-                \end{equation*}
+                \end{equation}
 
             Existen otras funciones de membresian que utilizan como base las anteriores mostradas, estas son:
 
@@ -767,7 +767,7 @@
 
             \noindent donde R es el numero total de reglas y N el numero total de entradas. Sin embargo, esta salida aun debe pasar primero por un proceso de defuzzificación en orden de llevar la salida difusa a una salida nitida.
 
-        \subsubsection{Defuzzificación}
+        \subsubsection{Defuzzificación}\label{secc:defuzzificacion}
 
             En esta última etapa también llamada desdifusificación, se obtienen los valores reales de salida. \textcite{cruz2010inteligencia} lo describe como el \enquote{[...] mapeo a escala que convierte el rango de valores de las variables de salida a sus universos de discurso correspondientes. La desdifusificación es la herramienta para obtener la acción de control nítida a partir de una acción de control difusa} (p.$\,$73). Este proceso es matemáticamente costoso y existen distintos métodos para realizarlo, el más común es el método de centro de área.
             

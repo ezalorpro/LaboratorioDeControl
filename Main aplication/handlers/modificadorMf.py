@@ -11,7 +11,7 @@ la validacion de las definiciones ingresadas por el usuario]
 
 def update_definicionmf(self, old_mf, definicion, new_mf):
     """
-    [summary]
+    [Funcion para la transformacion equivalente entre funciones de membresia]
     
     :param old_mf: [Nombre de la antigua funcion de membresia]
     :type old_mf: [str]
