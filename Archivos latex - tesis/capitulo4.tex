@@ -205,11 +205,25 @@
 
                 Las reglas pueden plantearse utilizando conjunción de premisas o disyunción de premisas, i.e., lógica AND o lógica OR, a su vez, cada una de las premisas pueden ser negadas. A las salidas se les puede asignar un peso de forma individual, de modo que cada salida puede ser ponderada de forma distinta, las salidas no pueden ser negadas.
 
-            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma especifica con el laboratorio virtual de sistemas de control. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:D}.
-
         \subsubsection{Controladores basados en esquemas}
 
-            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el numero de entradas, el numero de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control especifico que debe cumplir con un numero de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:E}.
+            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el numero de entradas, el numero de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control especifico que debe cumplir con un numero de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:D}.
 
-    \subsection{Archivos FIS}
+    \subsection{Guardado de controladores difusos}
+
+        \subsubsection{Archivos JSON}
+        
+            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma especifica con el laboratorio virtual de sistemas de control, los archivos JSON guardan datos que luego pueden ser cargados de forma directa con la librería JSON de Python. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:E}.
+
+        \subsubsection{Archivos FIS}
+
+            Los archivos FIS son otra forma de cargar el controlador difuso o exportarlo, existen ciertas limitaciones en la carga y en el exportado de archivos FIS producto de las posibilidades que ofrece Scikit-Fuzzy.
+
+            \paragraph{Cargar controlador}
+            
+                 Para la carga del controlador se utiliza una versión modificada del parsin de archivos FIS de YAPFLM (Yet Another Python Fuzzy Logic Module) de \textcite{sputnick1124} para extraer los datos del archivo FIS, luego, otro código es utilizado para llevar los datos extraídos a la estructura presentada en los archivos .JSON. Debido a que Scikit-Fuzzy no permite salidas negadas en las reglas se genera un error en caso de que alguna de las salidas en las reglas se encuentre negada.
+            
+            \paragraph{Exportar controlador}
+
+                Para realizar el exportado del controlador difuso se realiza un parsin entre la estructura presentado en los archivos .JSON y la de un archivo FIS. En caso de que alguna regla posea pesos diferentes para cada salida solo se tomara en cuenta el peso asociado a la primera salida, esto es debido a que los archivos FIS no permiten pesos individuales por cada salida, lo mismo aplica al método de defuzzificacion, se toma el asignado a la primera salida. El código para realizar la carga y el exportado de archivos FIS se puede observar en el \ref{anexo:F}.
 

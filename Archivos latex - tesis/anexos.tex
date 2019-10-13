@@ -303,6 +303,90 @@
         \end{minted}
     \end{longlisting}
 
+\AgregarAnexo{Esquemas de control difuso}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pdDifuso.pdf}
+        \caption[Esquema de control implementado: PD difuso]{\textbf{Esquema de control implementado: PD difuso}. Fuente: Elaboración propia.} 
+        \label{fig:pdDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{piDifuso.pdf}
+        \caption[Esquema de control implementado: PI difuso]{\textbf{Esquema de control implementado: PI difuso}. Fuente: Elaboración propia.} 
+        \label{fig:piDifuso}
+    \end{figure}
+
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pidDifuso.pdf}
+        \caption[Esquema de control implementado: PID difuso]{\textbf{Esquema de control implementado: PID difuso}. Fuente: Elaboración propia.} 
+        \label{fig:pidDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \pagebreak
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pipdDifuso.pdf}
+        \caption[Esquema de control implementado: PD difuos mas PI difuso]{\textbf{Esquema de control implementado: PD difuos mas PI difuso}. Fuente: Elaboración propia.} 
+        \label{fig:pipdDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{piplusDDifuso.pdf}
+        \caption[Esquema de control implementado: PI difuso mas derivada]{\textbf{Esquema de control implementado: PI difuso mas derivada}. Fuente: Elaboración propia.} 
+        \label{fig:piplusDDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pdplusIDifuso.pdf}
+        \caption[Esquema de control implementado: PD difuso mas integrador]{\textbf{Esquema de control implementado: PD difuso mas integrador}. Fuente: Elaboración propia.} 
+        \label{fig:pdplusIDifuso}
+    \end{figure}
+    
+    \vfill
+
+    \pagebreak
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{GainScheduler.pdf}
+        \caption[Esquema de control implementado: Programador de ganancias]{\textbf{Esquema de control implementado: Programador de ganancias}. Fuente: Elaboración propia.} 
+        \label{fig:GainScheduler}
+    \end{figure}
+    
+    \vfill
+
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{pidplusDifuso.pdf}
+        \caption[Esquema de control implementado: PID clasico mas P difuso]{\textbf{Esquema de control implementado: PID clasico mas P difuso}. Fuente: Elaboración propia.} 
+        \label{fig:pidplusDifuso}
+    \end{figure}
+    
+    \vfill
+
 \AgregarAnexo{Formato interno para guardar controlador por medio de un archivo .JSON}
     \begin{longlisting}
         \caption[Formato para guardar controlador]{Formato para un controlador con una entrada, una salida y tres reglas. Las reglas son: una simple, una regla con premisa negada y una regla con salida ponderada en 0.25}
@@ -455,86 +539,361 @@
         \end{minted}
     \end{longlisting}
 
-\AgregarAnexo{Esquemas de control difuso}
-    
-    \vfill
+\AgregarAnexo{Codigo para el manejo de archivos FIS}
+    \begin{longlisting}
+        \caption[Codigo para el manejo de archivos FIS]{Codigo para cargar y exportar controladores difusos por medio de archivos FIS}
+        \label{code:1}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1,
+			breaklines]{python}
+            class FISParser:
+                """
+                [Clase para cargar y exportar archivos .fis, para cargar los archivos FIS las funciones get_system, get_vars, get_var y get_rules fueron tomadas de yapflm (Yet Another Python Fuzzy Logic Module) para obtener los datos necesarias del .fis, de alli, se aplica la funcion fis_to_json para completar el parsin.
+                
+                En el caso de la exportancion, se realiza utilizando la funcion json_to_fis]
+                """
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=\textwidth]{pdDifuso.pdf}
-        \caption[Esquema de control implementado: PD difuso]{\textbf{Esquema de control implementado: PD difuso}. Fuente: Elaboración propia.} 
-        \label{fig:pdDifuso}
-    \end{figure}
-    
-    \vfill
+                def __init__(self, file, InputList=None, OutputList=None, RuleEtiquetas=None):
+                    """
+                    [Constructor de la clase, inicializa las variables a utilizar y selecciona entre cargar el fis o exportarlo dependiendo de las variables con las que se cree el objeto]
+                    
+                    :param file: [Direccion del archivo a cargar o exportar]
+                    :type file: [str]
+                    :param inputlist: [Lista de variables de entrada], defaults to None
+                    :type inputlist: [list], optional
+                    :param OutputList: [Lista de variables de entrada], defaults to None
+                    :type OutputList: [list], optional
+                    :param RuleEtiquetas: [Lista con la informacion necesaria para crear las reglas], defaults to None
+                    :type RuleEtiquetas: [list], optional
+                    """
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=\textwidth]{piDifuso.pdf}
-        \caption[Esquema de control implementado: PI difuso]{\textbf{Esquema de control implementado: PI difuso}. Fuente: Elaboración propia.} 
-        \label{fig:piDifuso}
-    \end{figure}
+                    # Cargar archivo .fis
+                    if InputList is None and OutputList is None and RuleEtiquetas is None:
+                        with open(file, 'r') as infis:
+                            self.rawlines = infis.readlines()
+                        self.systemList = 0
+                        self.InputList = []
+                        self.OutputList = []
+                        self.RuleList = []
+                        self.get_system()
+                        self.get_vars()
+                        self.get_rules()
+                    else:
+                        # Exportar archivo .fis
+                        self.file = file
+                        self.InputList = InputList
+                        self.OutputList = OutputList
+                        self.RuleEtiquetas = RuleEtiquetas
+                        self.json_to_fis()
 
-    \vfill
+                def get_system(self):
+                    """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+                    
+                    end_sysblock = self.rawlines.index('\n')
+                    systemblock = self.rawlines[1:end_sysblock]
+                    fisargs = map(lambda x: parse('{arg}={val}', x), systemblock)
+                    fissys = {f['arg'].lower(): f['val'].strip("'") for f in fisargs}
+                    self.numinputs = int(fissys['numinputs'])
+                    self.numoutputs = int(fissys['numoutputs'])
+                    self.numrules = int(fissys['numrules'])
+                    self.start_varblocks = end_sysblock + 1
+                    self.systemList = fissys
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=\textwidth]{pidDifuso.pdf}
-        \caption[Esquema de control implementado: PID difuso]{\textbf{Esquema de control implementado: PID difuso}. Fuente: Elaboración propia.} 
-        \label{fig:pidDifuso}
-    \end{figure}
-    
-    \vfill
+                def get_var(self, vartype, varnum, start_line, end_line):
+                    """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+                    
+                    varblock = self.rawlines[start_line:end_line]
+                    fisargs = map(lambda x: parse('{arg}={val}', x), varblock)
+                    fisvar = {f['arg'].lower(): f['val'].strip("'") for f in fisargs}
 
-    \pagebreak
-    
-    \vfill
+                    if 'input' in vartype:
+                        self.InputList.append(fisvar)
+                    elif 'output' in vartype:
+                        self.OutputList.append(fisvar)
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=\textwidth]{pipdDifuso.pdf}
-        \caption[Esquema de control implementado: PD difuos mas PI difuso]{\textbf{Esquema de control implementado: PD difuos mas PI difuso}. Fuente: Elaboración propia.} 
-        \label{fig:pipdDifuso}
-    \end{figure}
-    
-    \vfill
+                def get_vars(self):
+                    """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+                    
+                    start_ruleblock = self.rawlines.index('[Rules]\n')
+                    var_lines = []
+                    var_types = []
+                    flag = 0
+                    for i, line in enumerate(self.rawlines[self.start_varblocks - 1:start_ruleblock]):
+                        if flag:
+                            flag = 0
+                            vt = parse('[{type}{num:d}]', line)
+                            var_types.append((vt['type'].lower(), vt['num']))
+                        if line == '\n':
+                            var_lines.append(i + self.start_varblocks - 1)
+                            flag = 1
+                    for i, l in enumerate(var_lines[:-1]):
+                        if 'input' in var_types[i][0]:
+                            self.get_var('input', var_types[i][1] - 1, l + 2, var_lines[i + 1])
+                        elif 'output' in var_types[i][0]:
+                            self.get_var('output', var_types[i][1] - 1, l + 2, var_lines[i + 1])
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=\textwidth]{piplusDDifuso.pdf}
-        \caption[Esquema de control implementado: PI difuso mas derivada]{\textbf{Esquema de control implementado: PI difuso mas derivada}. Fuente: Elaboración propia.} 
-        \label{fig:piplusDDifuso}
-    \end{figure}
-    
-    \vfill
+                def get_rules(self):
+                    """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+                    
+                    start_ruleblock = self.rawlines.index('[Rules]\n')
+                    ruleblock = self.rawlines[start_ruleblock + 1:]
+                    antecedents = (('{a%d:d} ' * self.numinputs) %
+                                tuple(range(self.numinputs))).strip()
+                    consequents = ('{c%d:d} ' * self.numoutputs) % tuple(range(self.numoutputs))
+                    p = antecedents + ', ' + consequents + '({w:d}) : {c:d}'
+                    for rule in ruleblock:
+                        try:
+                            p = antecedents + ', ' + consequents + '({w:d}) : {c:d}'
+                            rp = parse(p, rule)
+                            r = []
+                            for inp in range(self.numinputs):
+                                rpar = rp['a%d' % inp]
+                                rval = rpar if rpar != 0 else None
+                                r.append(rval)
+                            for outp in range(self.numoutputs):
+                                rpar = rp['c%d' % outp]
+                                rval = rpar if rpar != 0 else None
+                                r.append(rval)
+                            r += [rp['w'], rp['c'] - 1]
+                            self.RuleList.append(r)
+                        except:
+                            p = antecedents + ', ' + consequents + '({w:f}) : {c:d}'
+                            rp = parse(p, rule)
+                            r = []
+                            for inp in range(self.numinputs):
+                                rpar = rp['a%d' % inp]
+                                rval = rpar if rpar != 0 else None
+                                r.append(rval)
+                            for outp in range(self.numoutputs):
+                                rpar = rp['c%d' % outp]
+                                rval = rpar if rpar != 0 else None
+                                r.append(rval)
+                            r += [rp['w'], rp['c'] - 1]
+                            self.RuleList.append(r)
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=\textwidth]{pdplusIDifuso.pdf}
-        \caption[Esquema de control implementado: PD difuso mas integrador]{\textbf{Esquema de control implementado: PD difuso mas integrador}. Fuente: Elaboración propia.} 
-        \label{fig:pdplusIDifuso}
-    \end{figure}
-    
-    \vfill
+                def fis_to_json(self):
+                    """ [Funcion para completar la creacion del controlador a partir de un archivo .fis] """
+                    
+                    # Datos del controlador
+                    ni = int(self.systemList['numinputs'])
+                    no = int(self.systemList['numoutputs'])
+                    nr = int(self.systemList['numrules'])
 
-    \pagebreak
-    
-    \vfill
+                    InputList = [0] * ni
+                    OutputList = [0] * no
+                    RuleEtiquetas = []
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=\textwidth]{GainScheduler.pdf}
-        \caption[Esquema de control implementado: Programador de ganancias]{\textbf{Esquema de control implementado: Programador de ganancias}. Fuente: Elaboración propia.} 
-        \label{fig:GainScheduler}
-    \end{figure}
-    
-    \vfill
+                    # Creacion de las variables de entrada
+                    for i in range(ni):
+                        InputList[i] = {
+                            "nombre":
+                                self.InputList[i]['name'],
+                            "numeroE":
+                                int(self.InputList[i]['nummfs']),
+                            "etiquetas": [0] * int(self.InputList[i]['nummfs']),
+                            "rango":
+                                ast.literal_eval(
+                                    re.sub("\s+", ",", self.InputList[i]['range'].strip()))
+                        }
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=\textwidth]{pidplusDifuso.pdf}
-        \caption[Esquema de control implementado: PID clasico mas P difuso]{\textbf{Esquema de control implementado: PID clasico mas P difuso}. Fuente: Elaboración propia.} 
-        \label{fig:pidplusDifuso}
-    \end{figure}
-    
-    \vfill
+                        for ne in range(int(self.InputList[i]['nummfs'])):
+                            temp_etiqueta = self.InputList[0]['mf' + str(ne + 1)].replace(
+                                "'", '').split(':')
+                            temp2 = temp_etiqueta[1].split(',')
+                            InputList[i]['etiquetas'][ne] = {
+                                "nombre": temp_etiqueta[0],
+                                "mf": temp2[0],
+                                "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
+                            }
+
+                    # Creacion de las variables de salida
+                    for i in range(no):
+                        OutputList[i] = {
+                            "nombre":
+                                self.OutputList[i]['name'],
+                            "numeroE":
+                                int(self.OutputList[i]['nummfs']),
+                            "etiquetas": [0] * int(self.OutputList[i]['nummfs']),
+                            "rango":
+                                ast.literal_eval(
+                                    re.sub("\s+", ",", self.OutputList[i]['range'].strip())),
+                            "metodo":
+                                self.systemList['defuzzmethod']
+                        }
+
+                        for ne in range(int(self.OutputList[i]['nummfs'])):
+                            temp_etiqueta = self.OutputList[i]['mf' + str(ne + 1)].replace(
+                                "'", '').split(':')
+                            temp2 = temp_etiqueta[1].split(',')
+                            OutputList[i]['etiquetas'][ne] = {
+                                "nombre": temp_etiqueta[0],
+                                "mf": temp2[0],
+                                "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
+                            }
+                            
+                    # Creacion de las reglas
+                    for numeror, i in enumerate(self.RuleList):
+                        ril = []
+                        rol = []
+
+                        for j in range(ni):
+                            if i[j] is not None:
+                                nombre = InputList[j]['etiquetas'][abs(i[j]) - 1]['nombre']
+                                numero = j
+                                negacion = False if i[j] > 0 else True
+                                ril.append([nombre, numero, negacion])
+
+                        for j in range(ni, no + ni):
+                            if i[j] is not None:
+                                if i[j] < 0:
+                                    raise TypeError('No se permiten salidas negadas')
+                                nombre = OutputList[j - ni]['etiquetas'][abs(i[j]) - 1]['nombre']
+                                numero = j - ni
+                                peso = float(i[no + ni])
+                                rol.append([nombre, numero, peso])
+
+                        and_condition = True if i[ni + no + 1] == 0 else False
+                        RuleEtiquetas.append(copy.deepcopy([ril, rol, and_condition]))
+
+                    return copy.deepcopy(InputList), copy.deepcopy(OutputList), copy.deepcopy(RuleEtiquetas)
+
+                def json_to_fis(self):
+                    """ [Funcion para exportar el controlador en formato .fis] """
+                    
+                    # Datos del controlador
+                    ni = len(self.InputList)
+                    no = len(self.OutputList)
+                    nr = len(self.RuleEtiquetas)
+
+                    with open(self.file, 'w') as f:
+                        
+                        # Informacion general del controlador
+                        f.write(f"[System]\n")
+                        f.write(f"Name='{self.file.split('/')[-1].split('.')[0]}'\n")
+                        f.write(f"Type='mamdani'\n")
+                        f.write(f"Version=2.0\n")
+                        f.write(f"NumInputs={ni}\n")
+                        f.write(f"NumOutputs={no}\n")
+                        f.write(f"NumRules={nr}\n")
+                        f.write(f"AndMethod='min'\n")
+                        f.write(f"OrMethod='max'\n")
+                        f.write(f"ImpMethod='min'\n")
+                        f.write(f"AggMethod='max'\n")
+                        f.write(f"DefuzzMethod='{self.OutputList[0]['metodo']}'\n")
+                        f.write(f"\n")
+
+                        # Parsin de las entradas del controlador
+                        for i in range(ni):
+                            f.write(f"[Input" + str(i + 1) + "]\n")
+                            f.write(f"Name='{self.InputList[i]['nombre']}'\n")
+                            string_temp = re.sub('\s+', '',
+                                                str(self.InputList[i]['rango'])).replace(',', ' ')
+                            f.write(f"Range={string_temp}\n")
+                            f.write(f"NumMFs={self.InputList[i]['numeroE']}\n")
+
+                            for ne in range(self.InputList[i]['numeroE']):
+                                string_temp = re.sub(
+                                    '\s+', '',
+                                    str(self.InputList[i]['etiquetas'][ne]['definicion'])).replace(
+                                        ',', ' ')
+                                f.write(
+                                    f"MF{ne+1}='{self.InputList[i]['etiquetas'][ne]['nombre']}':'{self.InputList[i]['etiquetas'][ne]['mf']}',{string_temp}\n"
+                                )
+
+                            f.write(f"\n")
+
+                        # Parsin de las salidas del controlador
+                        for i in range(no):
+                            f.write(f"[Output" + str(i + 1) + "]\n")
+                            f.write(f"Name='{self.OutputList[i]['nombre']}'\n")
+                            string_temp = re.sub('\s+', '',
+                                                str(self.OutputList[i]['rango'])).replace(',', ' ')
+                            f.write(f"Range={string_temp}\n")
+                            f.write(f"NumMFs={self.OutputList[i]['numeroE']}\n")
+
+                            for ne in range(self.OutputList[i]['numeroE']):
+                                string_temp = re.sub(
+                                    '\s+', '',
+                                    str(self.OutputList[i]['etiquetas'][ne]['definicion'])).replace(
+                                        ',', ' ')
+                                f.write(
+                                    f"MF{ne+1}='{self.OutputList[i]['etiquetas'][ne]['nombre']}':'{self.OutputList[i]['etiquetas'][ne]['mf']}',{string_temp}\n"
+                                )
+
+                            f.write(f"\n")
+
+                        # Parsin de las reglas del controlador
+                        rules_no_format = []
+                        for i, rule in enumerate(self.RuleEtiquetas):
+
+                            inner_rules = []
+                            
+                            # set de entradas
+                            for nir in range(ni):
+                                for inputrule in rule[0]:
+                                    if nir == inputrule[1]:
+                                        if not inputrule[2]:
+                                            for ner, etiqueta in enumerate(self.InputList[nir]['etiquetas']):
+                                                if etiqueta['nombre'] == inputrule[0]:
+                                                    inner_rules.append(ner + 1)
+                                                    break
+                                        else:
+                                            for ner, etiqueta in enumerate(self.InputList[nir]['etiquetas']):
+                                                if etiqueta['nombre'] == inputrule[0]:
+                                                    inner_rules.append(-ner - 1)
+                                                    break
+
+                                        break
+                                    else:
+                                        continue
+                                else:
+                                    inner_rules.append(0)
+                                    break
+                            
+                            # set de salidas
+                            for nor in range(no):
+                                for outputtrule in rule[1]:
+                                    if nor == outputtrule[1]:
+                                        for ner, etiqueta in enumerate(self.OutputList[nor]['etiquetas']):
+                                            if etiqueta['nombre'] == outputtrule[0]:
+                                                inner_rules.append(ner + 1)
+                                                break
+                                        break
+                                    else:
+                                        continue
+                                else:
+                                    inner_rules.append(0)
+
+                            inner_rules.append(rule[1][0][2])
+
+                            if rule[2]:
+                                inner_rules.append(1)
+                            else:
+                                inner_rules.append(2)
+
+                            rules_no_format.append(copy.deepcopy(inner_rules))
+
+                        f.write(f"[Rules]\n")
+
+                        # Escribiendo las reglas en el archivo
+                        for i in range(nr):
+                            rule_str = ""
+                            for j in range(ni):
+                                if not j == ni-1:
+                                    rule_str += str(rules_no_format[i][j]) + " "
+                                else:
+                                    rule_str += str(rules_no_format[i][j])
+                            rule_str += ", "
+                            for j in range(ni, ni + no):
+                                rule_str += str(rules_no_format[i][j]) + " "
+                            rule_str += f"({str(rules_no_format[i][ni+no])})" + " "
+                            rule_str += f": {str(rules_no_format[i][ni+no+1])}\n"
+                            f.write(rule_str)
+                    return
+        \end{minted}
+    \end{longlisting}

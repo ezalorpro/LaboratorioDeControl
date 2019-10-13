@@ -982,12 +982,6 @@ INPUT tobedeleted\_minted-principalTesis\7DCABB676527E6341C5A41047DB997C1FC7D727
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\ts1ntxtt.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\ts1ntxtt.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\tcxtt.tfm
-OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.pyg
-INPUT .\tobedeleted\principalTesis.pyg
-INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\_minted-principalTesis\F32EE7CC6B55D073B8E01D76B2C40599FC7D727240977648714AFC6841A6D2A0.pygtex
-INPUT tobedeleted\_minted-principalTesis\F32EE7CC6B55D073B8E01D76B2C40599FC7D727240977648714AFC6841A6D2A0.pygtex
-INPUT tobedeleted\_minted-principalTesis\F32EE7CC6B55D073B8E01D76B2C40599FC7D727240977648714AFC6841A6D2A0.pygtex
-INPUT tobedeleted\_minted-principalTesis\F32EE7CC6B55D073B8E01D76B2C40599FC7D727240977648714AFC6841A6D2A0.pygtex
 INPUT imagenes\pdDifuso.pdf
 INPUT .\imagenes\pdDifuso.pdf
 INPUT .\imagenes\pdDifuso.pdf
@@ -1020,6 +1014,18 @@ INPUT imagenes\pidplusDifuso.pdf
 INPUT .\imagenes\pidplusDifuso.pdf
 INPUT .\imagenes\pidplusDifuso.pdf
 INPUT .\imagenes\pidplusDifuso.pdf
+OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.pyg
+INPUT .\tobedeleted\principalTesis.pyg
+INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\_minted-principalTesis\F32EE7CC6B55D073B8E01D76B2C40599FC7D727240977648714AFC6841A6D2A0.pygtex
+INPUT tobedeleted\_minted-principalTesis\F32EE7CC6B55D073B8E01D76B2C40599FC7D727240977648714AFC6841A6D2A0.pygtex
+INPUT tobedeleted\_minted-principalTesis\F32EE7CC6B55D073B8E01D76B2C40599FC7D727240977648714AFC6841A6D2A0.pygtex
+INPUT tobedeleted\_minted-principalTesis\F32EE7CC6B55D073B8E01D76B2C40599FC7D727240977648714AFC6841A6D2A0.pygtex
+OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.pyg
+INPUT .\tobedeleted\principalTesis.pyg
+INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\_minted-principalTesis\910C8879829BC9B5FE7D4A16483B5863FC7D727240977648714AFC6841A6D2A0.pygtex
+INPUT tobedeleted\_minted-principalTesis\910C8879829BC9B5FE7D4A16483B5863FC7D727240977648714AFC6841A6D2A0.pygtex
+INPUT tobedeleted\_minted-principalTesis\910C8879829BC9B5FE7D4A16483B5863FC7D727240977648714AFC6841A6D2A0.pygtex
+INPUT tobedeleted\_minted-principalTesis\910C8879829BC9B5FE7D4A16483B5863FC7D727240977648714AFC6841A6D2A0.pygtex
 INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.aux
 INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\portada.aux
 INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\portada.aux
