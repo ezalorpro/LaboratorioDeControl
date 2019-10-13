@@ -20,7 +20,7 @@
 \AgregarAnexo{Codigo de los margenes de ganancia y fase}
     \begin{longlisting}
         \caption[Calculo de los margenes de ganancia y fase]{Función para el calculo de los margenes de ganancia y fase}
-        \label{code:1}				
+        \label{code:anexoA}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
             autogobble=true,
@@ -158,7 +158,7 @@
  \AgregarAnexo{Codigo de transformacion equivalente entre funciones de membresia}
     \begin{longlisting}
         \caption[Transformación equivalente entre funciones de membresía]{Función para la transformación equivalente entre funciones de membresía}
-        \label{code:1}				
+        \label{code:anexoC}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
             autogobble=true,
@@ -390,7 +390,7 @@
 \AgregarAnexo{Formato interno para guardar controlador por medio de un archivo .JSON}
     \begin{longlisting}
         \caption[Formato para guardar controlador]{Formato para un controlador con una entrada, una salida y tres reglas. Las reglas son: una simple, una regla con premisa negada y una regla con salida ponderada en 0.25}
-        \label{code:1}				
+        \label{code:anexoE}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
             autogobble=true,
@@ -541,8 +541,8 @@
 
 \AgregarAnexo{Codigo para el manejo de archivos FIS}
     \begin{longlisting}
-        \caption[Codigo para el manejo de archivos FIS]{Codigo para cargar y exportar controladores difusos por medio de archivos FIS}
-        \label{code:1}				
+        \caption[Codigo para el manejo de archivos FIS - YAPFLM]{Codigo para extraer datos del archivo FIS de YAPFLM}
+        \label{code:anexoF1}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
             autogobble=true,
@@ -675,225 +675,254 @@
                                 r.append(rval)
                             r += [rp['w'], rp['c'] - 1]
                             self.RuleList.append(r)
+        \end{minted}
+    \end{longlisting}
 
-                def fis_to_json(self):
-                    """ [Funcion para completar la creacion del controlador a partir de un archivo .fis] """
-                    
-                    # Datos del controlador
-                    ni = int(self.systemList['numinputs'])
-                    no = int(self.systemList['numoutputs'])
-                    nr = int(self.systemList['numrules'])
+    \begin{longlisting}
+        \caption[Codigo para el procesado de los datos del FIS]{Codigo para el procesado de los datos del FIS, esta funcion pertenece a la clase FISParser}
+        \label{code:anexoF2}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1,
+            breaklines]{python}
+            def fis_to_json(self):
+                """ [Funcion para completar la creacion del controlador a partir de un archivo .fis] """
+                
+                # Datos del controlador
+                ni = int(self.systemList['numinputs'])
+                no = int(self.systemList['numoutputs'])
+                nr = int(self.systemList['numrules'])
 
-                    InputList = [0] * ni
-                    OutputList = [0] * no
-                    RuleEtiquetas = []
+                InputList = [0] * ni
+                OutputList = [0] * no
+                RuleEtiquetas = []
 
-                    # Creacion de las variables de entrada
-                    for i in range(ni):
-                        InputList[i] = {
-                            "nombre":
-                                self.InputList[i]['name'],
-                            "numeroE":
-                                int(self.InputList[i]['nummfs']),
-                            "etiquetas": [0] * int(self.InputList[i]['nummfs']),
-                            "rango":
-                                ast.literal_eval(
-                                    re.sub("\s+", ",", self.InputList[i]['range'].strip()))
+                # Creacion de las variables de entrada
+                for i in range(ni):
+                    InputList[i] = {
+                        "nombre":
+                            self.InputList[i]['name'],
+                        "numeroE":
+                            int(self.InputList[i]['nummfs']),
+                        "etiquetas": [0] * int(self.InputList[i]['nummfs']),
+                        "rango":
+                            ast.literal_eval(
+                                re.sub("\s+", ",", self.InputList[i]['range'].strip()))
+                    }
+
+                    for ne in range(int(self.InputList[i]['nummfs'])):
+                        temp_etiqueta = self.InputList[0]['mf' + str(ne + 1)].replace(
+                            "'", '').split(':')
+                        temp2 = temp_etiqueta[1].split(',')
+                        InputList[i]['etiquetas'][ne] = {
+                            "nombre": temp_etiqueta[0],
+                            "mf": temp2[0],
+                            "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                         }
 
-                        for ne in range(int(self.InputList[i]['nummfs'])):
-                            temp_etiqueta = self.InputList[0]['mf' + str(ne + 1)].replace(
-                                "'", '').split(':')
-                            temp2 = temp_etiqueta[1].split(',')
-                            InputList[i]['etiquetas'][ne] = {
-                                "nombre": temp_etiqueta[0],
-                                "mf": temp2[0],
-                                "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
-                            }
+                # Creacion de las variables de salida
+                for i in range(no):
+                    OutputList[i] = {
+                        "nombre":
+                            self.OutputList[i]['name'],
+                        "numeroE":
+                            int(self.OutputList[i]['nummfs']),
+                        "etiquetas": [0] * int(self.OutputList[i]['nummfs']),
+                        "rango":
+                            ast.literal_eval(
+                                re.sub("\s+", ",", self.OutputList[i]['range'].strip())),
+                        "metodo":
+                            self.systemList['defuzzmethod']
+                    }
 
-                    # Creacion de las variables de salida
-                    for i in range(no):
-                        OutputList[i] = {
-                            "nombre":
-                                self.OutputList[i]['name'],
-                            "numeroE":
-                                int(self.OutputList[i]['nummfs']),
-                            "etiquetas": [0] * int(self.OutputList[i]['nummfs']),
-                            "rango":
-                                ast.literal_eval(
-                                    re.sub("\s+", ",", self.OutputList[i]['range'].strip())),
-                            "metodo":
-                                self.systemList['defuzzmethod']
+                    for ne in range(int(self.OutputList[i]['nummfs'])):
+                        temp_etiqueta = self.OutputList[i]['mf' + str(ne + 1)].replace(
+                            "'", '').split(':')
+                        temp2 = temp_etiqueta[1].split(',')
+                        OutputList[i]['etiquetas'][ne] = {
+                            "nombre": temp_etiqueta[0],
+                            "mf": temp2[0],
+                            "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                         }
-
-                        for ne in range(int(self.OutputList[i]['nummfs'])):
-                            temp_etiqueta = self.OutputList[i]['mf' + str(ne + 1)].replace(
-                                "'", '').split(':')
-                            temp2 = temp_etiqueta[1].split(',')
-                            OutputList[i]['etiquetas'][ne] = {
-                                "nombre": temp_etiqueta[0],
-                                "mf": temp2[0],
-                                "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
-                            }
-                            
-                    # Creacion de las reglas
-                    for numeror, i in enumerate(self.RuleList):
-                        ril = []
-                        rol = []
-
-                        for j in range(ni):
-                            if i[j] is not None:
-                                nombre = InputList[j]['etiquetas'][abs(i[j]) - 1]['nombre']
-                                numero = j
-                                negacion = False if i[j] > 0 else True
-                                ril.append([nombre, numero, negacion])
-
-                        for j in range(ni, no + ni):
-                            if i[j] is not None:
-                                if i[j] < 0:
-                                    raise TypeError('No se permiten salidas negadas')
-                                nombre = OutputList[j - ni]['etiquetas'][abs(i[j]) - 1]['nombre']
-                                numero = j - ni
-                                peso = float(i[no + ni])
-                                rol.append([nombre, numero, peso])
-
-                        and_condition = True if i[ni + no + 1] == 0 else False
-                        RuleEtiquetas.append(copy.deepcopy([ril, rol, and_condition]))
-
-                    return copy.deepcopy(InputList), copy.deepcopy(OutputList), copy.deepcopy(RuleEtiquetas)
-
-                def json_to_fis(self):
-                    """ [Funcion para exportar el controlador en formato .fis] """
-                    
-                    # Datos del controlador
-                    ni = len(self.InputList)
-                    no = len(self.OutputList)
-                    nr = len(self.RuleEtiquetas)
-
-                    with open(self.file, 'w') as f:
                         
-                        # Informacion general del controlador
-                        f.write(f"[System]\n")
-                        f.write(f"Name='{self.file.split('/')[-1].split('.')[0]}'\n")
-                        f.write(f"Type='mamdani'\n")
-                        f.write(f"Version=2.0\n")
-                        f.write(f"NumInputs={ni}\n")
-                        f.write(f"NumOutputs={no}\n")
-                        f.write(f"NumRules={nr}\n")
-                        f.write(f"AndMethod='min'\n")
-                        f.write(f"OrMethod='max'\n")
-                        f.write(f"ImpMethod='min'\n")
-                        f.write(f"AggMethod='max'\n")
-                        f.write(f"DefuzzMethod='{self.OutputList[0]['metodo']}'\n")
+                # Creacion de las reglas
+                for numeror, i in enumerate(self.RuleList):
+                    ril = []
+                    rol = []
+
+                    for j in range(ni):
+                        if i[j] is not None:
+                            nombre = InputList[j]['etiquetas'][abs(i[j]) - 1]['nombre']
+                            numero = j
+                            negacion = False if i[j] > 0 else True
+                            ril.append([nombre, numero, negacion])
+
+                    for j in range(ni, no + ni):
+                        if i[j] is not None:
+                            if i[j] < 0:
+                                raise TypeError('No se permiten salidas negadas')
+                            nombre = OutputList[j - ni]['etiquetas'][abs(i[j]) - 1]['nombre']
+                            numero = j - ni
+                            peso = float(i[no + ni])
+                            rol.append([nombre, numero, peso])
+
+                    and_condition = True if i[ni + no + 1] == 0 else False
+                    RuleEtiquetas.append(copy.deepcopy([ril, rol, and_condition]))
+
+                return copy.deepcopy(InputList), copy.deepcopy(OutputList), copy.deepcopy(RuleEtiquetas)
+        \end{minted}
+    \end{longlisting}
+
+    \begin{longlisting}
+        \caption[Codigo para exportar archivo FIS]{Codigo para exportar archivo FIS, esta funcion pertenece a la clase FISParser}
+        \label{code:anexoF3}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1,
+            breaklines=true,
+            breakbytokenanywhere=true]{python}
+            def json_to_fis(self):
+                """ [Funcion para exportar el controlador en formato .fis] """
+
+                # Datos del controlador
+                ni = len(self.InputList)
+                no = len(self.OutputList)
+                nr = len(self.RuleEtiquetas)
+
+                with open(self.file, 'w') as f:
+
+                    # Informacion general del controlador
+                    f.write(f"[System]\n")
+                    f.write(f"Name='{self.file.split('/')[-1].split('.')[0]}'\n")
+                    f.write(f"Type='mamdani'\n")
+                    f.write(f"Version=2.0\n")
+                    f.write(f"NumInputs={ni}\n")
+                    f.write(f"NumOutputs={no}\n")
+                    f.write(f"NumRules={nr}\n")
+                    f.write(f"AndMethod='min'\n")
+                    f.write(f"OrMethod='max'\n")
+                    f.write(f"ImpMethod='min'\n")
+                    f.write(f"AggMethod='max'\n")
+                    f.write(f"DefuzzMethod='{self.OutputList[0]['metodo']}'\n")
+                    f.write(f"\n")
+
+                    # Parsin de las entradas del controlador
+                    for i in range(ni):
+                        f.write(f"[Input" + str(i + 1) + "]\n")
+                        f.write(f"Name='{self.InputList[i]['nombre']}'\n")
+                        string_temp = re.sub('\s+', '',
+                                            str(self.InputList[i]['rango'])).replace(',', ' ')
+                        f.write(f"Range={string_temp}\n")
+                        f.write(f"NumMFs={self.InputList[i]['numeroE']}\n")
+
+                        for ne in range(self.InputList[i]['numeroE']):
+                            string_temp = re.sub(
+                                '\s+', '',
+                                str(self.InputList[i]['etiquetas'][ne]['definicion'])).replace(
+                                    ',', ' ')
+                            f.write(
+                                f"MF{ne+1}='{self.InputList[i]['etiquetas'][ne]['nombre']}"
+                                f"':'{self.InputList[i]['etiquetas'][ne]['mf']}',{string_temp}\n"
+                            )
+
                         f.write(f"\n")
 
-                        # Parsin de las entradas del controlador
-                        for i in range(ni):
-                            f.write(f"[Input" + str(i + 1) + "]\n")
-                            f.write(f"Name='{self.InputList[i]['nombre']}'\n")
-                            string_temp = re.sub('\s+', '',
-                                                str(self.InputList[i]['rango'])).replace(',', ' ')
-                            f.write(f"Range={string_temp}\n")
-                            f.write(f"NumMFs={self.InputList[i]['numeroE']}\n")
+                    # Parsin de las salidas del controlador
+                    for i in range(no):
+                        f.write(f"[Output" + str(i + 1) + "]\n")
+                        f.write(f"Name='{self.OutputList[i]['nombre']}'\n")
+                        string_temp = re.sub('\s+', '',
+                                            str(self.OutputList[i]['rango'])).replace(',', ' ')
+                        f.write(f"Range={string_temp}\n")
+                        f.write(f"NumMFs={self.OutputList[i]['numeroE']}\n")
 
-                            for ne in range(self.InputList[i]['numeroE']):
-                                string_temp = re.sub(
-                                    '\s+', '',
-                                    str(self.InputList[i]['etiquetas'][ne]['definicion'])).replace(
-                                        ',', ' ')
-                                f.write(
-                                    f"MF{ne+1}='{self.InputList[i]['etiquetas'][ne]['nombre']}':'{self.InputList[i]['etiquetas'][ne]['mf']}',{string_temp}\n"
-                                )
+                        for ne in range(self.OutputList[i]['numeroE']):
+                            string_temp = re.sub(
+                                '\s+', '',
+                                str(self.OutputList[i]['etiquetas'][ne]['definicion'])).replace(
+                                    ',', ' ')
+                            f.write(
+                                f"MF{ne+1}='{self.OutputList[i]['etiquetas'][ne]['nombre']}"
+                                f"':'{self.OutputList[i]['etiquetas'][ne]['mf']}',{string_temp}\n"
+                            )
 
-                            f.write(f"\n")
+                        f.write(f"\n")
 
-                        # Parsin de las salidas del controlador
-                        for i in range(no):
-                            f.write(f"[Output" + str(i + 1) + "]\n")
-                            f.write(f"Name='{self.OutputList[i]['nombre']}'\n")
-                            string_temp = re.sub('\s+', '',
-                                                str(self.OutputList[i]['rango'])).replace(',', ' ')
-                            f.write(f"Range={string_temp}\n")
-                            f.write(f"NumMFs={self.OutputList[i]['numeroE']}\n")
+                    # Parsin de las reglas del controlador
+                    rules_no_format = []
+                    for i, rule in enumerate(self.RuleEtiquetas):
 
-                            for ne in range(self.OutputList[i]['numeroE']):
-                                string_temp = re.sub(
-                                    '\s+', '',
-                                    str(self.OutputList[i]['etiquetas'][ne]['definicion'])).replace(
-                                        ',', ' ')
-                                f.write(
-                                    f"MF{ne+1}='{self.OutputList[i]['etiquetas'][ne]['nombre']}':'{self.OutputList[i]['etiquetas'][ne]['mf']}',{string_temp}\n"
-                                )
+                        inner_rules = []
 
-                            f.write(f"\n")
-
-                        # Parsin de las reglas del controlador
-                        rules_no_format = []
-                        for i, rule in enumerate(self.RuleEtiquetas):
-
-                            inner_rules = []
-                            
-                            # set de entradas
-                            for nir in range(ni):
-                                for inputrule in rule[0]:
-                                    if nir == inputrule[1]:
-                                        if not inputrule[2]:
-                                            for ner, etiqueta in enumerate(self.InputList[nir]['etiquetas']):
-                                                if etiqueta['nombre'] == inputrule[0]:
-                                                    inner_rules.append(ner + 1)
-                                                    break
-                                        else:
-                                            for ner, etiqueta in enumerate(self.InputList[nir]['etiquetas']):
-                                                if etiqueta['nombre'] == inputrule[0]:
-                                                    inner_rules.append(-ner - 1)
-                                                    break
-
-                                        break
-                                    else:
-                                        continue
-                                else:
-                                    inner_rules.append(0)
-                                    break
-                            
-                            # set de salidas
-                            for nor in range(no):
-                                for outputtrule in rule[1]:
-                                    if nor == outputtrule[1]:
-                                        for ner, etiqueta in enumerate(self.OutputList[nor]['etiquetas']):
-                                            if etiqueta['nombre'] == outputtrule[0]:
+                        # set de entradas
+                        for nir in range(ni):
+                            for inputrule in rule[0]:
+                                if nir == inputrule[1]:
+                                    if not inputrule[2]:
+                                        for ner, etiqueta in enumerate(self.InputList[nir]['etiquetas']):
+                                            if etiqueta['nombre'] == inputrule[0]:
                                                 inner_rules.append(ner + 1)
                                                 break
-                                        break
                                     else:
-                                        continue
+                                        for ner, etiqueta in enumerate(self.InputList[nir]['etiquetas']):
+                                            if etiqueta['nombre'] == inputrule[0]:
+                                                inner_rules.append(-ner - 1)
+                                                break
+
+                                    break
                                 else:
-                                    inner_rules.append(0)
-
-                            inner_rules.append(rule[1][0][2])
-
-                            if rule[2]:
-                                inner_rules.append(1)
+                                    continue
                             else:
-                                inner_rules.append(2)
+                                inner_rules.append(0)
+                                break
 
-                            rules_no_format.append(copy.deepcopy(inner_rules))
-
-                        f.write(f"[Rules]\n")
-
-                        # Escribiendo las reglas en el archivo
-                        for i in range(nr):
-                            rule_str = ""
-                            for j in range(ni):
-                                if not j == ni-1:
-                                    rule_str += str(rules_no_format[i][j]) + " "
+                        # set de salidas
+                        for nor in range(no):
+                            for outputtrule in rule[1]:
+                                if nor == outputtrule[1]:
+                                    for ner, etiqueta in enumerate(self.OutputList[nor]['etiquetas']):
+                                        if etiqueta['nombre'] == outputtrule[0]:
+                                            inner_rules.append(ner + 1)
+                                            break
+                                    break
                                 else:
-                                    rule_str += str(rules_no_format[i][j])
-                            rule_str += ", "
-                            for j in range(ni, ni + no):
+                                    continue
+                            else:
+                                inner_rules.append(0)
+
+                        inner_rules.append(rule[1][0][2])
+
+                        if rule[2]:
+                            inner_rules.append(1)
+                        else:
+                            inner_rules.append(2)
+
+                        rules_no_format.append(copy.deepcopy(inner_rules))
+
+                    f.write(f"[Rules]\n")
+
+                    # Escribiendo las reglas en el archivo
+                    for i in range(nr):
+                        rule_str = ""
+                        for j in range(ni):
+                            if not j == ni - 1:
                                 rule_str += str(rules_no_format[i][j]) + " "
-                            rule_str += f"({str(rules_no_format[i][ni+no])})" + " "
-                            rule_str += f": {str(rules_no_format[i][ni+no+1])}\n"
-                            f.write(rule_str)
-                    return
+                            else:
+                                rule_str += str(rules_no_format[i][j])
+                        rule_str += ", "
+                        for j in range(ni, ni + no):
+                            rule_str += str(rules_no_format[i][j]) + " "
+                        rule_str += f"({str(rules_no_format[i][ni+no])})" + " "
+                        rule_str += f": {str(rules_no_format[i][ni+no+1])}\n"
+                        f.write(rule_str)
+                return
         \end{minted}
     \end{longlisting}
