@@ -210,7 +210,7 @@
             \end{aligned}
         \end{equation}
         
-        Donde $s$ denota el numero de escenarios a utilizar, es comun expresar \cref{eq:RKgeneral} utilizando una tabla de butcher, en honor a John C. Butcher y su articulo de \citeyear{butcher1964runge}, por tanto, \cref{eq:RKgeneral} puede representarse de la siguiente forma:
+        Donde $s$ denota el numero de escenarios a utilizar, es comun expresar \cref{eq:RKgeneral} utilizando una tabla de Butcher, en honor a John C. Butcher y su articulo de \citeyear{butcher1964runge}, por tanto, \cref{eq:RKgeneral} puede representarse de la siguiente forma:
 
         \begin{equation}\label{eq:explicitoButcher}
             \renewcommand\arraystretch{1.2}
@@ -226,7 +226,7 @@
             \end{array}
         \end{equation}
 
-        Adicionalmente existen los metodos de Runge-Kutta embebidos, los cuales consisten en calcular dos metodos de Runge-Kutta, uno de orden $p$ y otro de orden $\hat{p}$, donde $\hat{p}$ es normalmente $p-1$ o $p+1$ \Parencite{hairer1991solving}. La tabla de butcher para representar los metodos embebidos es la siguiente:
+        Adicionalmente existen los metodos de Runge-Kutta embebidos, los cuales consisten en calcular dos metodos de Runge-Kutta, uno de orden $p$ y otro de orden $\hat{p}$, donde $\hat{p}$ es normalmente $p-1$ o $p+1$ \Parencite{hairer1991solving}. La tabla de Butcher para representar los metodos embebidos es la siguiente:
         
         \pagebreak
 
@@ -797,7 +797,7 @@
                 
                 Este metodo obtiene una salida a partir de los valores de pertenencia maximos del conjunto difuso de salida, de todos ellos, toma el ubicado mas a la derecha, o lo que es lo mismo, el mayor de ellos.
 
-        \subsubsection{Sistemas de control difusos}
+        \subsubsection{Sistemas de control difusos}\label{sec:esquemasFuzzy}
             
             Un controlador difuso es cualquier tipo de controlador que utilice en su interior alguna forma de lógica difusa, al igual que con los controladores clásicos el esquema de control más común es en lazo cerrado. El controlador difuso a su vez puede contener todo tipo de metodologías de control, de hecho, el uso más común es realizar un controlador P, PI, PD o PID, todos difusos. Para realizar los controladores se puede utilizar la estructura Mamdani, la cual asigna conjuntos difusos para las entradas y para las salidas, por tanto, es necesario el proceso de defuzzificación, comúnmente con el método de centro de área.
             

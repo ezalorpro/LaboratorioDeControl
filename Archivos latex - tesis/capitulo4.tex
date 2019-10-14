@@ -229,3 +229,80 @@
 
 \section{Simulación de sistemas de control}
 
+    Esta funcionalidad permite simular sistemas de control en lazo cerrado con un controlador PID clásico, difuso o ambos, adicional al controlador se permite agregar bloques adicionales como accionador, saturador del accionador y/o sensor. Para la simulación se utilizan un método de Runge-Kutta como solucionador y obtener la respuesta en el tiempo del sistema, los esquemas simulables están predefinidos. El \cref{code:simulacion} muestra un pseudo código de la funcionalidad de simulación de sistemas de control.
+
+    \begin{longlisting}
+        \caption{Pseudo código para la simulación de sistemas de control}
+        \label{code:simulacion}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1]{text}
+            |\bf{WHILE}| True: # Ciclo principal
+                |$\vdots$|
+                |\bf{IF}| validaciones_entradas_simulación:
+                    validar_entrada_simulación()
+                
+                |\bf{IF}| usuario_presiona_calcular:
+                    chequeo_esquema()
+                    datos = recolección_datos()
+                    hilo_de_simulación(datos)
+                |$\vdots$|
+            
+            |\bf{FUNCION}| hilo_de_simulación(datos):
+                procesar_datos(datos)
+                resultados = simular_esquema(método_rk)
+                return resultados
+        \end{minted}
+    \end{longlisting}
+
+    Al igual que para la funcionalidad de análisis de sistemas de control y entonación de controladores PID se reutiliza la forma de ingresar el proceso, por lo que también se realiza la validación de entradas y se monitorea si el usuario presiona el botón de calcular, cuando el usuario presiona calcular, se procede a realizar la simulación del esquema de control seleccionado en un hilo distinto al de la aplicación principal debido a que los tiempos de simulación para los esquemas difusos pueden ser de varios segundos y presentaría un comportamiento de bloqueo para la ventana de la aplicación.
+
+    En caso de que la simulación sea realizada para tiempo discreto, se evaluá \cref{eq:SSdiscreto} en cada iteración para obtener la salida del sistema. Si es el esquema seleccionado es el del PID clásico el controlador implementado es el descrito por \cref{eq:pidcdiscreto}. Si el sistema es continuo, la respuesta del sistema y del controlador es calculada utilizando el método de Runge-Kutta seleccionado.
+
+    \subsection{Esquemas de simulación}
+
+        Para la simulación de sistemas de control se implementaron los esquemas de control presentados en el \cref{sec:esquemasFuzzy} y otros esquemas que se encuentran compuestos de la combinación de los mismos. Como ya se menciono, los esquemas de control se pueden observar en el \ref{anexo:D} y se listan a continuación:
+
+        \begin{enumerate}[leftmargin=\parindent]
+            \item PID clásico
+            \item PID difuso
+            \item PI difuso
+            \item PD difuso
+            \item PD difuso + PI difuso
+            \item PI difuso + Derivada clásica
+            \item PD difuso + Integrador clásico
+            \item Programador de ganancias
+            \item PID clásico + Difuso simple (P)
+        \end{enumerate}
+
+        A la derivada de aquellos esquemas que requieran su calculo se les fue agregado una funcion de transferencia en serie con la misma para limitar la respuesta a las altas frecuencias, esto es debido a que las simulaciones se van a realizar con un método de Runge-Kutta que requeriría un tamaño de paso muy pequeño para poder aproximar de forma correcta incluso a una derivada aproximada dada por \cref{eq:Daproximacion}, y un incremento en el numero de pasos provocaría, a su vez, un incremento en los tiempos de simulación para los esquemas con controladores difusos, y en consecuencia, volviendo la herramienta impráctica.
+
+    \subsection{Solución por Runge-Kutta}
+
+        Como ya se menciono, la simulación se llevara acabo utilizando un método de Runge-Kutta, para ello se implementaron múltiples métodos, el usuario puede seleccionar cualquiera de ellos para realizar la simulación. En total se implementaron nueve Runge-Kutta's explícitos y cuatro embebidos. Las tablas de Butcher para cada uno de los métodos implementados se pueden observar en el \ref{anexo:G}, a continuación, se presenta una lista de los métodos implementados:
+
+        \begin{itemize}[leftmargin=\parindent]
+            \item Explícitos:
+                \begin{enumerate}
+                    \item Runge-Kutta de orden 2
+                    \item Runge-Kutta de orden 3
+                    \item Ralston de orden 3
+                    \item Heun de orden 3
+                    \item Strong Stability Preserving Runge-Kutta (SSPRK) de orden 3
+                    \item Runge-Kutta de orden 4
+                    \item Runge-Kutta 3/8 de orden 4
+                    \item Ralston con minimo error de truncamiento de orden 4
+                    \item Runge-Kutta de orden 5
+                \end{enumerate}
+            \item Embebidos:
+                \begin{enumerate}
+                    \item Bogacki-Shampine de orden 2(3)
+                    \item Fehlberg  de orden 4(5)
+                    \item Cash-Karp de orden 4(5)
+                    \item Dormand-Prince de orden 5(4)
+                \end{enumerate}
+        \end{itemize}
