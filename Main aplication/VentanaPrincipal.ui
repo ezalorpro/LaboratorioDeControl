@@ -8604,7 +8604,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>223</width>
+               <width>245</width>
                <height>239</height>
               </rect>
              </property>
@@ -8725,7 +8725,7 @@
                   </item>
                   <item>
                    <property name="text">
-                    <string>Bogacki-Shampine 2(3)</string>
+                    <string>Bogacki-Shampine 3(2)</string>
                    </property>
                   </item>
                   <item>

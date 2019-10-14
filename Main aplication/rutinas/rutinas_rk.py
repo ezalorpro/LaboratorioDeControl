@@ -409,7 +409,7 @@ def rk_embebido_adaptativo(systema,
 
 def bogacki_shampine23(ss, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Bogacki-Shampine 2(3), la integracion se continua con la salida de orden 2, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta embebido de Bogacki-Shampine 3(2), la integracion se continua con la salida de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
     
     :param ss: [Representacion del sistema]
     :type ss: [LTI]
@@ -436,7 +436,7 @@ def bogacki_shampine23(ss, x, h, inputValue):
     x2th = x + (np.dot(k1, 7 / 24) + np.dot(k2, 1 / 4) + np.dot(k3, 1 / 3) +
                 np.dot(k4, 1 / 8))
 
-    return y2th.item(), x2th, x3th
+    return y2th.item(), x3th, x2th
 
 
 def fehlberg45(ss, x, h, inputValue):
