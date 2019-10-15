@@ -711,7 +711,7 @@ def configuration_data(self):
         ordenq = 5
     elif self.main.solverMethod.currentIndex() == 9:
         rk_metodo = bogacki_shampine23
-        rk_base = runge_kutta2
+        rk_base = ralston3
         ordenq = 2
     elif self.main.solverMethod.currentIndex() == 10:
         rk_metodo = fehlberg45

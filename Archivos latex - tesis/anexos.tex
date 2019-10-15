@@ -19,7 +19,7 @@
 % Para agregar anexos a la tesis
 \AgregarAnexo{Codigo de los margenes de ganancia y fase}
     \begin{longlisting}
-        \caption[Calculo de los margenes de ganancia y fase]{Función para el calculo de los margenes de ganancia y fase}
+        \caption[Calculo de los margenes de ganancia y fase]{Función para el calculo de los margenes de ganancia y fase.}
         \label{code:anexoA}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -157,7 +157,7 @@
 
  \AgregarAnexo{Codigo de transformacion equivalente entre funciones de membresia}
     \begin{longlisting}
-        \caption[Transformación equivalente entre funciones de membresía]{Función para la transformación equivalente entre funciones de membresía}
+        \caption[Transformación equivalente entre funciones de membresía]{Función para la transformación equivalente entre funciones de membresía.}
         \label{code:anexoC}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -389,7 +389,7 @@
 
 \AgregarAnexo{Formato interno para guardar controlador por medio de un archivo .JSON}
     \begin{longlisting}
-        \caption[Formato para guardar controlador]{Formato para un controlador con una entrada, una salida y tres reglas. Las reglas son: una simple, una regla con premisa negada y una regla con salida ponderada en 0.25}
+        \caption[Formato para guardar controlador]{Formato para un controlador con una entrada, una salida y tres reglas. Las reglas son: una simple, una regla con premisa negada y una regla con salida ponderada en 0.25.}
         \label{code:anexoE}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -541,7 +541,7 @@
 
 \AgregarAnexo{Codigos para el manejo de archivos FIS}
     \begin{longlisting}
-        \caption[Codigo para extraer datos del archivo FIS de YAPFLM]{Codigo para extraer datos del archivo FIS de YAPFLM}
+        \caption[Extraccion de datos del archivo FIS - YAPFLM]{Extraccion de datos del archivo FIS - YAPFLM.}
         \label{code:anexoF1}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -679,7 +679,7 @@
     \end{longlisting}
 
     \begin{longlisting}
-        \caption[Codigo para el procesado de los datos del FIS]{Codigo para el procesado de los datos del FIS, esta funcion pertenece a la clase FISParser}
+        \caption[Procesado de los datos del FIS]{Procesado de los datos del FIS, esta funcion pertenece a la clase FISParser.}
         \label{code:anexoF2}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -778,7 +778,7 @@
     \end{longlisting}
 
     \begin{longlisting}
-        \caption[Codigo para exportar archivos FIS]{Codigo para exportar archivos FIS, esta funcion pertenece a la clase FISParser}
+        \caption[Exportar archivos FIS]{Exportar archivos FIS, esta funcion pertenece a la clase FISParser.}
         \label{code:anexoF3}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -1038,6 +1038,20 @@
             \end{array}
         \end{equation}
     
+    \subsection{Ralston con minimo error de truncamiento de orden 4}
+    \vspace{-10pt}
+        \begin{equation}\label{eq:ralston4}
+            \renewcommand\arraystretch{1.2}
+            \begin{array}{c|cccc}
+            0\\
+            0.4 & 0.4\\
+            0.45573725 & 0.29697761 & 0.15875964\\
+            1 & 0.21810040 & -3.05096516 & 3.83286476\\
+            \hline
+            & 0.17476028 & -0.55148066 & 1.20553560 & 0.17118478
+            \end{array}
+        \end{equation}
+
     \subsection{Runge-Kutta de orden 5}
     \vspace{-10pt}
         \begin{equation}\label{eq:rk5}
@@ -1051,20 +1065,6 @@
             1 & -3/7 & 2/7 & 12/7 & -12/7 & 8/7 \\
             \hline
             & 7/90 & 0 & 32/90 & 12/90 & 32/90 & 7/90
-            \end{array}
-        \end{equation}
-
-    \subsection{Ralston con minimo error de truncamiento de orden 4}
-    \vspace{-10pt}
-        \begin{equation}\label{eq:ralston4}
-            \renewcommand\arraystretch{1.2}
-            \begin{array}{c|cccc}
-            0\\
-            0.4 & 0.4\\
-            0.45573725 & 0.29697761 & 0.15875964\\
-            1 & 0.21810040 & -3.05096516 & 3.83286476\\
-            \hline
-            & 0.17476028 & -0.55148066 & 1.20553560 & 0.17118478
             \end{array}
         \end{equation}
     
@@ -1110,7 +1110,196 @@
                 \end{array}
             \end{equation}
     
-    
     \vfill
     
     \pagebreak
+
+    \subsection{Cash-Karp de orden 4(5)}
+    \vspace{-10pt}
+        \begin{equation}\label{eq:cashkarp45}
+            \arraycolsep=2.2pt
+            \renewcommand\arraystretch{1.2}
+            \begin{array}{c|cccccc}
+            0\\
+            1/5 & 1/5\\
+            3/10 & 3/40 & 9/40\\
+            3/5 & 3/10 & -9/10 & 6/5\\
+            1 & -11/54 & 5/2 & -70/27 & 35/27\\
+            7/8 & 1631/55296 & 175/512 & 575/13824 & 44275/110592 & 253/4096\\
+            \hline
+            & 2825/27648 & 0 & 18575/48384 & 13525/55296 & 277/14336 & 1/4\\
+            \hline
+            & 37/378 & 0 & 250/621 & 125/594 & 0 & 512/1771
+            \end{array}
+        \end{equation}
+    
+    
+    \vfill
+
+    \subsection{Dormand-Prince de orden 5(4)}
+    \vspace{-10pt}
+        \begin{equation}\label{eq:dopri54}
+            \arraycolsep=1.65pt
+            \renewcommand\arraystretch{1.2}
+            \begin{array}{c|cccccc}
+            0\\
+            1/5 & 1/5\\
+            3/10 & 3/40 & 9/40\\
+            4/5 & 44/45 & -56/15 & 32/9\\
+            8/9 & 19372/6561 & -25360/2187 & 64448/6561 & -212/729\\
+            1 & 9017/3168 & -355/33 & 46732/5247 & 49/176 & -5103/18656\\
+            1 & 35/384 & 0 & 500/1113 & 125/192 & -2187/6784 & 11/84\\
+            \hline
+            & 35/384 & 0 & 500/1113 & 125/192 & -2187/6784 & 11/84\\
+            \hline
+            & 5179/576000 & 0 & 7571/16695 & 393/640 & -92097/339200 & 187/2100
+            \end{array}
+        \raisetag{3cm}
+        \end{equation}
+
+\AgregarAnexo{Codigos para el tamaño de paso variable}
+    
+    \begin{longlisting}
+        \caption[Tamaño de paso variable para Runke-Kutta explicitos]{Tamaño de paso variable para Runke-Kutta explicitos.}
+        \label{code:anexoF3}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1,
+            breaklines=true,
+            breakanywhere=true]{python}
+            def rk_doble_paso_adaptativo(systema,
+                                         h_ant,
+                                         tiempo,
+                                         tbound,
+                                         xVectB,
+                                         entrada,
+                                         metodo,
+                                         ordenq,
+                                         rtol,
+                                         atol,
+                                         max_step_increase,
+                                         min_step_decrease,
+                                         safety_factor):
+
+                while True:
+                    # Para asegurar el tiempo maximo
+                    if tiempo + h_ant >= tbound:
+                        h_ant = tbound - tiempo
+                        yS, xVectSn = metodo(systema, xVectB, h_ant, entrada)
+                        h_est = h_ant
+                    else:
+                        # Paso de tamaño regular
+                        yB, xVectBn = metodo(systema, xVectB, h_ant, entrada)
+
+                        # Dos pasos de tamaño medio
+                        yS, xVectSn = metodo(systema, xVectB, h_ant / 2, entrada)
+                        yS, xVectSn = metodo(systema, xVectSn, h_ant / 2, entrada)
+
+                        # Ajuste del tamaño de paso
+                        scale = atol + rtol * (np.abs(xVectBn) + np.abs(xVectSn)) / 2
+                        delta1 = np.abs(xVectBn - xVectSn)
+                        error_norm = norm(delta1 / scale)
+
+                        if error_norm == 0:
+                            # Incremento maximo dado el bajo error
+                            h_est = h_ant * max_step_increase
+                        elif error_norm <= 1:
+                            # Incremento normal
+                            h_est = h_ant * min(max_step_increase,
+                                                max(1, safety_factor * error_norm**(-1 / (ordenq+1))))
+                        else:
+                            # Decremento normal y se vuelve a calcular la salida
+                            h_ant = h_ant * min(
+                                1,
+                                max(min_step_decrease, safety_factor * error_norm**(-1 / (ordenq+1))))
+                            continue
+                    break
+                return h_ant, h_est, yS, xVectSn
+        \end{minted}
+    \end{longlisting}
+
+    \begin{longlisting}
+        \caption[Tamaño de paso variable para Runke-Kutta embebidos]{Tamaño de paso variable para Runke-Kutta embebidos.}
+        \label{code:anexoF3}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1,
+            breaklines=true,
+            breakanywhere=true]{python}
+            def rk_embebido_adaptativo(systema,
+                                       h_ant,
+                                       tiempo,
+                                       tbound,
+                                       xVectr,
+                                       entrada,
+                                       metodo,
+                                       ordenq,
+                                       rtol,
+                                       atol,
+                                       max_step_increase,
+                                       min_step_decrease,
+                                       safety_factor):
+                
+                while True:
+                    # Para asegurar el tiempo maximo
+                    if tiempo + h_ant >= tbound:
+                        h_ant = tbound - tiempo
+                        yr, xr, xtemp = metodo(systema, xVectr, h_ant, entrada)
+                        h_est = h_ant
+                    else:
+                        # Metodo embebido, la integracion se continua con yr y xr
+                        yr, xr, xtemp = metodo(systema, xVectr, h_ant, entrada)
+
+                        # Ajuste del tamaño de paso
+                        scale = atol + np.maximum(np.abs(xVectr), np.abs(xr)) * rtol
+                        delta1 = np.abs(xr - xtemp)
+                        error_norm = norm(delta1 / scale)
+
+                        if error_norm == 0:
+                            # Incremento maximo dado el bajo error
+                            h_est = h_ant * max_step_increase
+                        elif error_norm <= 1:
+                            # Incremento normal
+                            h_est = h_ant * min(max_step_increase,
+                                                max(1, safety_factor * error_norm**(-1 / (ordenq+1))))
+                        else:
+                            # Decremento normal y se vuelve a calcular la salida
+                            h_ant = h_ant * min(
+                                1,
+                                max(min_step_decrease, safety_factor * error_norm**(-1 / (ordenq+1))))
+                            continue
+                    break
+                return h_ant, h_est, yr, xr
+        \end{minted}
+    \end{longlisting}
+
+    \begin{longlisting}
+        \caption[Funcion para calcular la norma RMS]{Funcion para calcular la norma RMS.}
+        \label{code:anexoF3}				
+        \begin{minted}[escapeinside=||,
+            mathescape=true,
+            autogobble=true,
+            fontsize=\footnotesize,
+            obeytabs=true,
+            tabsize=4,
+            baselinestretch=1,
+            breaklines=true,
+            breakanywhere=true]{python}
+            def norm(x):
+                """
+                [Funcion para calcular la norma RMS de un vector]
+                
+                :param x: [Vector]
+                :type x: [numpyArray]
+                """
+                return np.linalg.norm(x) / x.size**0.5
+        \end{minted}
+    \end{longlisting}

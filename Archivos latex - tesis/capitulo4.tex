@@ -14,7 +14,7 @@
     Con esta función se quiso dar la posibilidad de realizar los análisis en el tiempo y en frecuencia típicos para un proceso ingresado por el usuario, los análisis típicos son: respuesta al escalón, respuesta al impulso, diagrama de bode, diagrama de Nyquist, lugar de las raíces y diagrama de Nichols. El \cref{code:analisis} muestra un pseudo código de la funcionalidad de análisis de sistemas de control.
 
     \begin{longlisting}
-        \caption{Pseudo código para el análisis de sistemas de control}
+        \caption[Pseudo código - Análisis de sistemas de control]{Pseudo código para el análisis de sistemas de control}
         \label{code:analisis}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -101,7 +101,7 @@
     Esta función fue dividida en dos apartados, el primero, es la entonación de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando el método de Ziegler-Nichols o Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID.
     
     \begin{longlisting}
-        \caption{Pseudo código para la entonación de controladores PID}
+        \caption[Pseudo código - Entonación de controladores PID]{Pseudo código para la entonación de controladores PID}
         \label{code:entonacion}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -156,7 +156,7 @@
     \pagebreak
 
     \begin{longlisting}
-        \caption{Pseudo código para el diseño de controladores difusos}
+        \caption[Pseudo código - Diseño de controladores difusos]{Pseudo código para el diseño de controladores difusos}
         \label{code:fuzzylogic}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -232,7 +232,7 @@
     Esta funcionalidad permite simular sistemas de control en lazo cerrado con un controlador PID clásico, difuso o ambos, adicional al controlador se permite agregar bloques adicionales como accionador, saturador del accionador y/o sensor. Para la simulación se utilizan un método de Runge-Kutta como solucionador y obtener la respuesta en el tiempo del sistema, los esquemas simulables están predefinidos. El \cref{code:simulacion} muestra un pseudo código de la funcionalidad de simulación de sistemas de control.
 
     \begin{longlisting}
-        \caption{Pseudo código para la simulación de sistemas de control}
+        \caption[Pseudo código - Simulación de sistemas de control]{Pseudo código para la simulación de sistemas de control}
         \label{code:simulacion}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -306,3 +306,77 @@
                     \item Dormand-Prince de orden 5(4)
                 \end{enumerate}
         \end{itemize}
+
+        Con el fin mejorar la precision y mantener el numero de pasos al minimo se implemento un algoritmo de ajuste del tamaño de paso para los metodos de Runge-Kutta, para el caso de los Runge-Kutta explicitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo codigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los codigos en Python se pueden observar en el \ref{anexo:H}.
+
+        El calculo del tamaño de paso se realiza con el bloque que presente mayores variaciones y requiera la mayor presicion, i.e., el menor tamaño de paso, en la mayoria de los casos este bloque es o incluye a la componente derivativa. Para el resto de bloques que requieran ser calculados, se utiliza un Runge-Kutta explicito con tamaño de paso igual al calculado, el Runge-Kutta utilizado varia segun el metodo utilizado.
+
+        \pagebreak
+
+        \begin{longlisting}
+            \caption[Pseudo código - Runge-Kutta explicitos]{Pseudo código para el ajuste del tamaño de paso de los Runge-Kutta explicitos.}
+            \label{code:stepexplicito}				
+            \begin{minted}[escapeinside=||,
+                mathescape=true,
+                autogobble=true,
+                fontsize=\footnotesize,
+                obeytabs=true,
+                tabsize=4,
+                baselinestretch=1]{text}
+                |\bf{FUNCION}| Tamaño_de_paso_variable(parametros):
+                    |\bf{WHILE}| True:
+                        |$y_{h}$|, |$x_{h}$| = calculo_rk(h, |$x$|)
+                        _, |$x_{h/2}$| = calculo_rk(h/2, |$x$|)
+                        |$y_{h/2}$|, |$x_{h/2}$| = calculo_rk(h/2, |$x_{h/2}$|)
+                        escala = atol + rtol*(|$\lvert x_{h}\rvert + \lvert x_{h/2}\rvert$|)/2
+                        error_norm = norma_rms(|$\lvert x_{h} - x_{h/2}\rvert$|/escala)
+                        
+                        |\bf{CASO 1}| error_norm == 0:
+                            h = h * maxStepIncrease
+                        
+                        |\bf{CASO 2}| error_norm <= 1:
+                            h = h * min(maxStepIncrease,
+                                        max(1, sf*error_norm|$^{(-1 / (ordenq+1))}$|))
+                        
+                        |\bf{CASO 2}| error_norm > 1:
+                            h = h * min(1, max(minStepDecrease, 
+                                               sf*error_norm|$^{(-1 / (ordenq+1))}$|))
+                            continue
+                        break
+                    return |$y_{h/2}$|, |$x_{h/2}$|, h
+            \end{minted}
+        \end{longlisting}
+
+        \begin{longlisting}
+            \caption[Pseudo código - Runge-Kutta embebidos]{Pseudo código para el ajuste del tamaño de paso de los Runge-Kutta embebidos.}
+            \label{code:stepembebido}				
+            \begin{minted}[escapeinside=||,
+                mathescape=true,
+                autogobble=true,
+                fontsize=\footnotesize,
+                obeytabs=true,
+                tabsize=4,
+                baselinestretch=1]{text}
+                |\bf{FUNCION}| Tamaño_de_paso_variable(parametros):
+                    |\bf{WHILE}| True:
+                        |$y$|, |$x_{p}$|, |$x_{\hat{p}}$| = calculo_rk(h, |$x$|)
+                        escala = atol + rtol*max(|$\lvert x_{p}\rvert, \lvert x\rvert$|)
+                        error_norm = norma_rms(|$\lvert x_{p} - x_{\hat{p}}\rvert$|/escala)
+                        
+                        |\bf{CASO 1}| error_norm == 0:
+                            h = h * maxStepIncrease
+                        
+                        |\bf{CASO 2}| error_norm <= 1:
+                            h = h * min(maxStepIncrease,
+                                        max(1, sf*error_norm|$^{(-1 / (ordenq+1))}$|))
+                        
+                        |\bf{CASO 2}| error_norm > 1:
+                            h = h * min(1, max(minStepDecrease, 
+                                               sf*error_norm|$^{(-1 / (ordenq+1))}$|))
+                            continue
+                        break
+                    return |$y$|, |$x_{p}$|, h
+            \end{minted}
+        \end{longlisting}
+
+\section{Interfaz grafica}

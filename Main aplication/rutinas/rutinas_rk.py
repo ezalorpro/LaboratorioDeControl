@@ -75,7 +75,7 @@ def rk_doble_paso_adaptativo(systema,
             yS, xVectSn = metodo(systema, xVectSn, h_ant / 2, entrada)
 
             # Ajuste del tamaño de paso
-            scale = atol + rtol * (np.abs(xVectBn) + np.abs(xVectB)) / 2
+            scale = atol + rtol * (np.abs(xVectBn) + np.abs(xVectSn)) / 2
             delta1 = np.abs(xVectBn - xVectSn)
             error_norm = norm(delta1 / scale)
 
