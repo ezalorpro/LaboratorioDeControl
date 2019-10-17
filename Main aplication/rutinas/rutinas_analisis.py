@@ -145,7 +145,7 @@ def rutina_step_plot(self, system, T):
         self.main.stepGraphicsView1.canvas.axes.plot(t, y)
 
     self.main.stepGraphicsView1.canvas.axes.grid(color="lightgray")
-    self.main.stepGraphicsView1.canvas.axes.set_title("Respuesta escalon")
+    self.main.stepGraphicsView1.canvas.axes.set_title("Respuesta escalón")
     self.main.stepGraphicsView1.canvas.axes.xaxis.set_major_formatter(
         mticker.FormatStrFormatter("%.2f s")
     )
