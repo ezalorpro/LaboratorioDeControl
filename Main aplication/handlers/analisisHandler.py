@@ -70,7 +70,7 @@ def tfdelay_validator(self):
         if _ < 0:
             raise ValueError
     except ValueError:
-        self.error_dialog.setInformativeText("Delay no valido, debe ser un numero real mayor o igual que cero")
+        self.error_dialog.setInformativeText("Delay no valido, debe ser un número real mayor o igual que cero")
         self.error_dialog.exec_()
         self.main.tfdelayEdit1.setFocus()
         return

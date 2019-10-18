@@ -37,7 +37,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.main.setupUi(self)
         self.showMaximized()
 
-        # Establcimiento del icono de la aplicacion
+        # Estableciendo del icono de la aplicacion
         icon = QtGui.QIcon()
         image_path = self.resource_path("icono.ico")
         icon.addPixmap(QtGui.QPixmap(image_path), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -72,7 +72,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         error_dialog = QtWidgets.QMessageBox.question(
             self,
             "Laboratorio Virtual",
-            '¿Cerrar el programa? Los cambios no guardados se perderan',
+            '¿Cerrar el programa? Los cambios no guardados se perderán',
             QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel
         )
 

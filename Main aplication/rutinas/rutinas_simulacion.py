@@ -517,10 +517,10 @@ class SimpleThread(QtCore.QThread):
                         h, h_new2, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
                                                             max_tiempo[setpoint_window], x_derivada2, error, *self.solver_configuration)
 
-                        h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
+                        htemp, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                             max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
-                        h_new = h_new2
-                        # h_new = min(h_new1, h_new2)
+                        h = min(h, htemp)
+                        h_new = min(h_new1, h_new2)
                     else:
                         d_error = 0
                         d2_error = 0

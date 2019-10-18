@@ -423,7 +423,7 @@
       </property>
       <widget class="QWidget" name="analisisTab">
        <attribute name="title">
-        <string>Analisis</string>
+        <string>Análisis</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
@@ -539,7 +539,7 @@
                 <item row="6" column="0">
                  <widget class="QLabel" name="tfMetodoLabel1">
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -628,7 +628,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Coeficientes de la funcion de transferencia</string>
+                   <string>Coeficientes de la función de transferencia</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -877,7 +877,7 @@
                 <item row="7" column="0">
                  <widget class="QLabel" name="ssMetodoLabel1">
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -1045,7 +1045,7 @@
             </property>
             <widget class="QWidget" name="stepTab">
              <attribute name="title">
-              <string>Step</string>
+              <string>Escalón</string>
              </attribute>
              <layout class="QGridLayout" name="gridLayout_2">
               <item row="0" column="0">
@@ -1141,7 +1141,7 @@
       </widget>
       <widget class="QWidget" name="PIDTab">
        <attribute name="title">
-        <string>PID Tuning</string>
+        <string>Entonación</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
@@ -1330,7 +1330,7 @@
                  <bool>true</bool>
                 </property>
                 <property name="text">
-                 <string>Metodo</string>
+                 <string>Método</string>
                 </property>
                </widget>
               </item>
@@ -1393,7 +1393,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>Auto-Tuning</string>
+                 <string>Autotuning</string>
                 </property>
                </widget>
               </item>
@@ -1493,7 +1493,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>slider - resolucion</string>
+                   <string>slider - resolución</string>
                   </property>
                  </widget>
                 </item>
@@ -1719,7 +1719,7 @@
               <item row="7" column="0">
                <widget class="QLabel" name="ssMetodoLabel2">
                 <property name="text">
-                 <string>Metodo</string>
+                 <string>Método</string>
                 </property>
                </widget>
               </item>
@@ -1777,7 +1777,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>Auto-Tuning</string>
+                 <string>Autotuning</string>
                 </property>
                </widget>
               </item>
@@ -1925,7 +1925,7 @@
               <item row="0" column="0">
                <widget class="QLabel" name="direccionCSVLabel">
                 <property name="text">
-                 <string>Direccion del archivo CSV</string>
+                 <string>Dirección del archivo CSV</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -2011,7 +2011,7 @@
                      </size>
                     </property>
                     <property name="text">
-                     <string>Limite inferior de VP</string>
+                     <string>Límite inferior de VP</string>
                     </property>
                    </widget>
                   </item>
@@ -2036,7 +2036,7 @@
                      <enum>QFrame::Plain</enum>
                     </property>
                     <property name="text">
-                     <string>Limite superior de VP</string>
+                     <string>Límite superior de VP</string>
                     </property>
                    </widget>
                   </item>
@@ -2055,7 +2055,7 @@
                      </size>
                     </property>
                     <property name="text">
-                     <string>Limite inferior de EFC</string>
+                     <string>Límite inferior de EFC</string>
                     </property>
                    </widget>
                   </item>
@@ -2074,7 +2074,7 @@
                      </size>
                     </property>
                     <property name="text">
-                     <string>Limite superior de EFC</string>
+                     <string>Límite superior de EFC</string>
                     </property>
                    </widget>
                   </item>
@@ -2204,7 +2204,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -2790,7 +2790,7 @@
       </widget>
       <widget class="QWidget" name="fuzzyTab">
        <attribute name="title">
-        <string>Logica difusa</string>
+        <string>Lógica difusa</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_16">
         <item row="0" column="0">
@@ -3131,28 +3131,28 @@
                    <item row="2" column="0">
                     <widget class="QLabel" name="label_36">
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Los diseños pueden ser cargados en formato .json y .fis, los diseños realizados en formato .fis no podran poseer salidas negadas debido a su incompatibilidad con Scikit-Fuzzy&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Los diseños pueden ser cargados en formato .json y .fis, los diseños realizados en formato .fis no podrán poseer salidas negadas debido a su incompatibilidad con Scikit-Fuzzy &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_34">
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- El boton generar inicializa la creacion de los controladores difusos, se pueden diseñar a partir del numero de entradas y salidas o de un esquema especifico, utilizar&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; un esquema garantiza que sera simulable.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- El botón generar inicializa la creación de los controladores difusos, se pueden diseñar a partir del número de entradas y salidas o de un esquema especifico, utilizar&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;un esquema garantiza que será simulable.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_35">
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;- Para realizar las pruebas y observar la superficie de respuesta ( uno y dos entradas ), se debe utilizar el boton &amp;quot;crear&amp;quot; en la pestaña de reglas, el controlador debera estar minimamente definido.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Para realizar las pruebas y observar la superficie de respuesta (uno y dos entradas), se debe utilizar el botón &amp;quot;crear&amp;quot; en la pestaña de reglas, el controlador deberá &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;estar mínimamente definido. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="0">
                     <widget class="QLabel" name="label_37">
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Los diseños pueden guardarse en .json o ser exportados a .fis, en caso de ser exportados, todos los pesos de las salidas de una misma regla deberan ser iguales, esto es&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; debido a las limitaciones de los .fis que no permiten pesos individuales.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Los diseños pueden guardarse en .json o ser exportados a .fis, en caso de ser exportados, todos los pesos de las salidas de una misma regla deberán ser iguales, esto es &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;debido a las limitaciones de los .fis que no permiten pesos individuales. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -3423,7 +3423,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Titulo de la entrada</string>
+                     <string>Título de la entrada</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3604,7 +3604,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Nombre de eitqueta</string>
+                     <string>Nombre de etiqueta</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3620,7 +3620,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Funcion de membresia</string>
+                     <string>Función de membresía</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3636,7 +3636,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Definicion</string>
+                     <string>Definición</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3858,7 +3858,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Nombre de eitqueta</string>
+                     <string>Nombre de etiqueta</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3874,7 +3874,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Funcion de membresia</string>
+                     <string>Función de membresía</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3890,7 +3890,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Definicion</string>
+                     <string>Definición</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4079,7 +4079,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Titulo de la salida</string>
+                     <string>Título de la salida</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4396,7 +4396,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>160</height>
+                   <height>262</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -5756,7 +5756,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>545</width>
                    <height>2962</height>
                   </rect>
                  </property>
@@ -6508,7 +6508,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>545</width>
                    <height>2632</height>
                   </rect>
                  </property>
@@ -7338,7 +7338,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>525</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -7644,7 +7644,7 @@
       </widget>
       <widget class="QWidget" name="controlSimulacion">
        <attribute name="title">
-        <string>Simulacion</string>
+        <string>Simulación</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_109">
         <item row="0" column="1">
@@ -7681,7 +7681,7 @@
                   </sizepolicy>
                  </property>
                  <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;-- Bloques adicionales, solo formaran parte del sistema si son explicitamente habilitados&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;-- Bloques adicionales, solo formaran parte del sistema si son explícitamente habilitados&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                 </widget>
                </item>
@@ -7720,7 +7720,7 @@
           </widget>
           <widget class="QWidget" name="tab">
            <attribute name="title">
-            <string>Simulacion</string>
+            <string>Simulación</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_98">
             <item row="0" column="0">
@@ -7946,7 +7946,7 @@
                 <item>
                  <widget class="QLabel" name="tfMetodoLabel4">
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -8054,7 +8054,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>Coeficientes de la funcion de transferencia</string>
+                 <string>Coeficientes de la función de transferencia</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -8082,7 +8082,7 @@
                 <item>
                  <widget class="QLabel" name="ssMetodoLabel4">
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -8396,7 +8396,7 @@
                <normaloff>:/iconos/arrow.ico</normaloff>:/iconos/arrow.ico</iconset>
              </attribute>
              <attribute name="label">
-              <string>Configuracion general</string>
+              <string>Configuración general</string>
              </attribute>
              <layout class="QGridLayout" name="gridLayout_99">
               <property name="leftMargin">
@@ -8566,7 +8566,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>setpoint avazado</string>
+                   <string>setpoint avanzado</string>
                   </property>
                  </widget>
                 </item>
@@ -8613,7 +8613,7 @@
                <normaloff>:/iconos/arrow.ico</normaloff>:/iconos/arrow.ico</iconset>
              </attribute>
              <attribute name="label">
-              <string>Configuracion avanzada (continuo)</string>
+              <string>Configuración avanzada (continuo)</string>
              </attribute>
              <layout class="QGridLayout" name="gridLayout_111">
               <item row="0" column="0">
@@ -8696,7 +8696,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -8827,7 +8827,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Tolerancia Absoluta</string>
+                   <string>Tolerancia absoluta</string>
                   </property>
                  </widget>
                 </item>
@@ -8978,7 +8978,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Restablecer configuracion por defecto</string>
+                   <string>Restablecer configuración por defecto</string>
                   </property>
                  </widget>
                 </item>
@@ -9003,8 +9003,8 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>0</y>
-               <width>228</width>
+               <y>-69</y>
+               <width>245</width>
                <height>249</height>
               </rect>
              </property>
@@ -9224,7 +9224,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>212</width>
+               <width>245</width>
                <height>356</height>
               </rect>
              </property>
