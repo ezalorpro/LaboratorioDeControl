@@ -68,6 +68,7 @@ class SimpleThread(QtCore.QThread):
         self.rk_base = self.list_info[10]
         self.metodo_adaptativo = self.list_info[11]
         self.solver_configuration = self.list_info[12]
+        self.flag_filtro = self.list_info[13]
 
     def stop(self):
         """ [Funcion para detener el hilo] """
@@ -212,15 +213,25 @@ class SimpleThread(QtCore.QThread):
             salida2 = deque([0])
 
         if self.N*kd == 0:
-            # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion de transferencia
-            # a ecuaciones de espacio de estados
+            # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion de transferencia a ecuaciones de espacio de estados
+            # Controlador PID con la forma:
+            #    PID = kp + ki/s + (kd*N*s/(s + N))
+            
             self.N = 50
             kd = 0
             pid = ctrl.tf2ss(ctrl.TransferFunction(
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
+        
+        elif not self.flag_filtro:
+            # Controlador PID con la forma:
+            #    PID = kp + ki/s + (kd*N*s/(s + N))
+            
+            pid = ctrl.tf2ss(ctrl.TransferFunction(
+                    [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
+        
         else:
             # Controlador PID con la forma:
-            #    PID = s*kp + ki/s + (kd*N*s/(s + N))*(1/(10/(N*kd) + 1))
+            #    PID = kp + ki/s + (kd*N*s/(s + N))*(1/(10/(N*kd) + 1))
 
             pid = ctrl.tf2ss(
                 ctrl.TransferFunction([
@@ -450,7 +461,7 @@ class SimpleThread(QtCore.QThread):
         # Particularizacion por cada esquema
         if self.esquema == 1:  # PID difuso
 
-            if not self.N == 0:
+            if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
@@ -463,7 +474,19 @@ class SimpleThread(QtCore.QThread):
                     ctrl.TransferFunction([self.N, 0], [1, self.N]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
                 x_derivada2 = np.zeros_like(derivada2.B)
+            
+            elif not self.N == 0 and not self.flag_filtro:
+                # Para la derivada del error
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
 
+                # Para la segunda derivada del error
+                derivada2 = ctrl.tf2ss(
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]) *
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada2 = np.zeros_like(derivada2.B)
+                
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -496,8 +519,8 @@ class SimpleThread(QtCore.QThread):
 
                         h, h_new1, d_error, x_derivada = PIDf(derivada, h, tiempo,
                                                             max_tiempo[setpoint_window], x_derivada, error, *self.solver_configuration)
-
-                        h_new = min(h_new1, h_new2)
+                        h_new = h_new2
+                        # h_new = min(h_new1, h_new2)
                     else:
                         d_error = 0
                         d2_error = 0
@@ -549,13 +572,19 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 2:  # PI difuso
 
-            if not self.N == 0:
+            if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
                 x_derivada = np.zeros_like(derivada.B)
-
+                
+            elif not self.N == 0 and not self.flag_filtro:
+                # Para la derivada del error
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
+                
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -632,13 +661,19 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 3:  # PD difuso
 
-            if not self.N == 0:
+            if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
                 x_derivada = np.zeros_like(derivada.B)
-
+                
+            elif not self.N == 0 and not self.flag_filtro:
+                # Para la derivada del error
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
+            
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -717,13 +752,19 @@ class SimpleThread(QtCore.QThread):
 
             spi = 0
 
-            if not self.N == 0:
+            if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
                 x_derivada = np.zeros_like(derivada.B)
-
+                
+            elif not self.N == 0 and not self.flag_filtro:
+                # Para la derivada del error
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
+            
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -804,13 +845,19 @@ class SimpleThread(QtCore.QThread):
 
             spi = 0
 
-            if not self.N == 0:
+            if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
                 x_derivada = np.zeros_like(derivada.B)
-
+                
+            elif not self.N == 0 and not self.flag_filtro:
+                # Para la derivada del error
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
+            
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -891,13 +938,19 @@ class SimpleThread(QtCore.QThread):
 
             spi = 0
 
-            if not self.N == 0:
+            if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
                 x_derivada = np.zeros_like(derivada.B)
-
+                
+            elif not self.N == 0 and not self.flag_filtro:
+                # Para la derivada del error
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
+            
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -979,13 +1032,19 @@ class SimpleThread(QtCore.QThread):
 
             spi = 0
 
-            if not self.N == 0:
+            if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
                 x_derivada = np.zeros_like(derivada.B)
-
+                
+            elif not self.N == 0 and not self.flag_filtro:
+                # Para la derivada del error
+                derivada = ctrl.tf2ss(
+                    ctrl.TransferFunction([self.N, 0], [1, self.N]))
+                x_derivada = np.zeros_like(derivada.B)
+            
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -1067,21 +1126,33 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 8:  # PID clasico + difuso simple
 
             if self.N*kd == 0:
+                # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion de transferencia a ecuaciones de espacio de estados
+                # Controlador PID con la forma:
+                #    PID = kp + ki/s + (kd*N*s/(s + N))
+                
                 self.N = 50
                 kd = 0
                 pid = ctrl.tf2ss(ctrl.TransferFunction(
                         [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
+            
+            elif not self.flag_filtro:
+                # Controlador PID con la forma:
+                #    PID = kp + ki/s + (kd*N*s/(s + N))
+                
+                pid = ctrl.tf2ss(ctrl.TransferFunction(
+                        [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
+            
             else:
-                # En caso de que N sea igual a cero
+                # Controlador PID con la forma:
+                #    PID = kp + ki/s + (kd*N*s/(s + N))*(1/(10/(N*kd) + 1))
+
                 pid = ctrl.tf2ss(
-                    ctrl.TransferFunction(
-                        [
-                            10 * kp,
-                            self.N**2 * kd**2 + self.N * kd * kp + 10 * self.N * kp +
-                            10*ki,
-                            self.N**2 * kd * kp + kd * self.N * ki + 10 * self.N * ki,
-                            self.N**2 * kd * ki
-                        ], [10, 10 * self.N + self.N * kd, self.N**2 * kd, 0]))
+                    ctrl.TransferFunction([
+                        10 * kp,
+                        self.N**2 * kd**2 + self.N * kd * kp + 10 * self.N * kp + 10*ki,
+                        self.N**2 * kd * kp + kd * self.N * ki + 10 * self.N * ki,
+                        self.N**2 * kd * ki
+                    ], [10, 10 * self.N + self.N * kd, self.N**2 * kd, 0]))
 
             x_pid = np.zeros_like(pid.B)
 

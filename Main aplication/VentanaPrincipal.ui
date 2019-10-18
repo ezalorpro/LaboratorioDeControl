@@ -8605,7 +8605,7 @@
                <x>0</x>
                <y>0</y>
                <width>245</width>
-               <height>239</height>
+               <height>268</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8615,11 +8615,11 @@
              <attribute name="label">
               <string>Configuracion avanzada (continuo)</string>
              </attribute>
-             <layout class="QGridLayout" name="gridLayout_115">
-              <item row="5" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_55">
+             <layout class="QGridLayout" name="gridLayout_111">
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_51">
                 <item>
-                 <widget class="QLabel" name="label_31">
+                 <widget class="QLabel" name="label_30">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -8627,12 +8627,12 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Max. incre. de paso</string>
+                   <string>Orden del pade</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="maxStepIncr">
+                 <widget class="QLineEdit" name="padeOrder">
                   <property name="maximumSize">
                    <size>
                     <width>86</width>
@@ -8640,7 +8640,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>5</string>
+                   <string>10</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8650,6 +8650,42 @@
                </layout>
               </item>
               <item row="1" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_23">
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="labelFiltroCheck">
+                  <property name="text">
+                   <string>Filtro para limitar la derivada</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="filtroCheck">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
                <layout class="QHBoxLayout" name="horizontalLayout_52">
                 <item>
                  <widget class="QLabel" name="label_27">
@@ -8747,39 +8783,6 @@
                 </item>
                </layout>
               </item>
-              <item row="7" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_57">
-                <item>
-                 <widget class="QLabel" name="label_33">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Factor de seguridad</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="safetyFactor">
-                  <property name="maximumSize">
-                   <size>
-                    <width>86</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>0.9</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
               <item row="3" column="0">
                <layout class="QHBoxLayout" name="horizontalLayout_53">
                 <item>
@@ -8813,10 +8816,10 @@
                 </item>
                </layout>
               </item>
-              <item row="0" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_51">
+              <item row="4" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_54">
                 <item>
-                 <widget class="QLabel" name="label_30">
+                 <widget class="QLabel" name="label_29">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -8824,12 +8827,12 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Orden del pade</string>
+                   <string>Tolerancia Absoluta</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="padeOrder">
+                 <widget class="QLineEdit" name="atolLineEdit">
                   <property name="maximumSize">
                    <size>
                     <width>86</width>
@@ -8837,7 +8840,40 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>10</string>
+                   <string>3e-6</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="5" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_55">
+                <item>
+                 <widget class="QLabel" name="label_31">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Max. incre. de paso</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="maxStepIncr">
+                  <property name="maximumSize">
+                   <size>
+                    <width>86</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>5</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8885,10 +8921,10 @@
                 </item>
                </layout>
               </item>
-              <item row="4" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_54">
+              <item row="7" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_57">
                 <item>
-                 <widget class="QLabel" name="label_29">
+                 <widget class="QLabel" name="label_33">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -8896,12 +8932,12 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Tolerancia Absoluta</string>
+                   <string>Factor de seguridad</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="atolLineEdit">
+                 <widget class="QLineEdit" name="safetyFactor">
                   <property name="maximumSize">
                    <size>
                     <width>86</width>
@@ -8909,7 +8945,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>3e-6</string>
+                   <string>0.9</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

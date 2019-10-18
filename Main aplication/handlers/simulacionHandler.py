@@ -619,7 +619,8 @@ def calcular_simulacion(self):
         ], [self.main.pathController1.text(), self.main.pathController2.text()],
         rk_base,
         metodo_adaptativo,
-        solver_config
+        solver_config,
+        self.main.filtroCheck.isChecked()
     ]
 
     # Instanciacion del objeto QThread
@@ -733,6 +734,7 @@ def restablecer_configuracion(self):
     """ [Funcion para restablecer la configuracion avanzada por defecto] """
 
     self.main.padeOrder.setText('10')
+    self.main.filtroCheck.setChecked(True)
     self.main.solverMethod.setCurrentIndex(8)
     self.main.rtolLineEdit.setText('1e-3')
     self.main.atolLineEdit.setText('3e-6')
