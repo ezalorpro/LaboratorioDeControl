@@ -108,13 +108,13 @@
 	\renewcommand{\theLAnexos}{\Alph{LAnexos}}
 	\renewcommand{\thecontaAnexos}{[Anexo~\Alph{contaAnexos}]}
 
-	\newcommand{\AgregarAnexo}[1]{%
+	\newcommand{\AgregarAnexo}[2]{%
 		\clearpage%
 		\newpage%
 		\begin{center}%
 		\stepcounter{LAnexos}%
 		\refstepcounter{contaAnexos}%
-		\thecontaAnexos\label{anexo:\theLAnexos}\par%
+		\thecontaAnexos\label{##2}\par%
 		[##1]%
 		\vspace{10pt}%
 		\leavevmode
@@ -263,13 +263,13 @@
 	\renewcommand{\theLAnexos}{\Alph{LAnexos}}
 	\renewcommand{\thecontaAnexos}{[Anexo~\Alph{contaAnexos}]}
 	
-	\newcommand{\AgregarAnexo}[1]{%
+	\newcommand{\AgregarAnexo}[2]{%
 		\clearpage%
 		\newpage%
 		\begin{center}%
 		\stepcounter{LAnexos}%
 		\refstepcounter{contaAnexos}%
-		\thecontaAnexos\label{anexo:\theLAnexos}\par%
+		\thecontaAnexos\label{##2}\par%
 		[##1]%
 		\vspace{10pt}%
 		\leavevmode

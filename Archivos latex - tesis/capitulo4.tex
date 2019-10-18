@@ -11,7 +11,7 @@
 
 \section{Análisis de sistemas de control}
     
-    Con esta función se quiso dar la posibilidad de realizar los análisis en el tiempo y en frecuencia típicos para un proceso ingresado por el usuario, los análisis típicos son: respuesta al escalón, respuesta al impulso, diagrama de bode, diagrama de Nyquist, lugar de las raíces y diagrama de Nichols. El \cref{code:analisis} muestra un pseudo código de la funcionalidad de análisis de sistemas de control.
+    Con esta función se quiso dar la posibilidad de realizar los análisis en el tiempo y en frecuencia típicos para un proceso ingresado por el usuario, los análisis típicos son: respuesta al escalón, respuesta al impulso, diagrama de bode, diagrama de Nyquist, lugar de las raíces y diagrama de Nichols. El \cref{code:analisis} muestra un pseudo código de la funcionalidad de análisis de sistemas de control y la interfaz grafica correspondiente se puede observar en el \ref{anexo:interfazAnalisis}.
 
     \begin{longlisting}
         \caption[Pseudo código - Análisis de sistemas de control]{Pseudo código para el análisis de sistemas de control}
@@ -78,7 +78,7 @@
 
     \subsection{Diagrama de Bode}
         
-        Se obtiene la respuesta en frecuencia del sistema, con los datos de la respuesta en frecuencia se realiza las gráficas de magnitud y fase. Adicional a las gráficas fue implementado el calculo de los margenes de ganancia y de fase, la implementación fue realizada desde cero debido a los resultados inaceptables obtenidos con la implementación de la librería de control. El código para el calculo de los margenes de ganancia y fase se puede observar en el \ref{anexo:A}.
+        Se obtiene la respuesta en frecuencia del sistema, con los datos de la respuesta en frecuencia se realiza las gráficas de magnitud y fase. Adicional a las gráficas fue implementado el calculo de los margenes de ganancia y de fase, la implementación fue realizada desde cero debido a los resultados inaceptables obtenidos con la implementación de la librería de control. El código para el calculo de los margenes de ganancia y fase se puede observar en el \ref{anexo:margenes}.
     
     \subsection{Diagrama de Nyquist}
         
@@ -98,7 +98,7 @@
 
 \section{Entonación de controladores PID}
 
-    Esta función fue dividida en dos apartados, el primero, es la entonación de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando el método de Ziegler-Nichols o Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID.
+    Esta función fue dividida en dos apartados, el primero, es la entonación de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando el método de Ziegler-Nichols o Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID y la interfaz grafica correspondiente se puede observar en el \ref{anexo:interfazentonacion}.
     
     \begin{longlisting}
         \caption[Pseudo código - Entonación de controladores PID]{Pseudo código para la entonación de controladores PID}
@@ -147,7 +147,7 @@
 
         El algoritmo aproximara los parámetros de un modelo de primer orden con tiempo muerto utilizando el punto de máxima pendiente para trazar una recta, este punto quedara como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automático no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.g., como la observada en la \cref{fig:ZNtest}.
 
-        El archivo CSV deberá contener un formato de encabezados especifico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentara buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV valido se puede observar en el \ref{anexo:B}.
+        El archivo CSV deberá contener un formato de encabezados especifico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentara buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV valido se puede observar en el \ref{anexo:csv}.
 
 \section{Diseño de controladores difusos}
     
@@ -195,7 +195,7 @@
 
             \paragraph{Funciones de membresia}
 
-                Scikit-Fuzzy posee todas las funciones de membresías descritas por las ecuaciónes \cref{eq:trimf} a la \cref{eq:gbellmf} junto con las funciones compuestas: gauss2mf, dsigmf, psigmf y pimf. Para poder cambiar entre funciones de membresía se codificaron transformaciones aproximadamente equivalente entre las definiciones de las mismas, se llamo definición a los valores necesarios para poder definir la función de membresía. El código para realizar las transformaciones se puede observar en el \ref{anexo:C}.
+                Scikit-Fuzzy posee todas las funciones de membresías descritas por las ecuaciónes \cref{eq:trimf} a la \cref{eq:gbellmf} junto con las funciones compuestas: gauss2mf, dsigmf, psigmf y pimf. Para poder cambiar entre funciones de membresía se codificaron transformaciones aproximadamente equivalente entre las definiciones de las mismas, se llamo definición a los valores necesarios para poder definir la función de membresía. El código para realizar las transformaciones se puede observar en el \ref{anexo:mfequivalencia}.
 
             \paragraph{Defuzzificacion}
 
@@ -207,13 +207,13 @@
 
         \subsubsection{Controladores basados en esquemas}
 
-            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el numero de entradas, el numero de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control especifico que debe cumplir con un numero de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:D}.
+            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el numero de entradas, el numero de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control especifico que debe cumplir con un numero de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:esquemas}.
 
     \subsection{Guardado de controladores difusos}
 
         \subsubsection{Archivos JSON}
         
-            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma especifica con el laboratorio virtual de sistemas de control, los archivos JSON guardan datos que luego pueden ser cargados de forma directa con la librería JSON de Python. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:E}.
+            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma especifica con el laboratorio virtual de sistemas de control, los archivos JSON guardan datos que luego pueden ser cargados de forma directa con la librería JSON de Python. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:json}.
 
         \subsubsection{Archivos FIS}
 
@@ -225,7 +225,7 @@
             
             \paragraph{Exportar controlador}
 
-                Para realizar el exportado del controlador difuso se realiza un parsin entre la estructura presentado en los archivos .JSON y la de un archivo FIS. En caso de que alguna regla posea pesos diferentes para cada salida solo se tomara en cuenta el peso asociado a la primera salida, esto es debido a que los archivos FIS no permiten pesos individuales por cada salida, lo mismo aplica al método de defuzzificacion, se toma el asignado a la primera salida. El código para realizar la carga y el exportado de archivos FIS se puede observar en el \ref{anexo:F}.
+                Para realizar el exportado del controlador difuso se realiza un parsin entre la estructura presentado en los archivos .JSON y la de un archivo FIS. En caso de que alguna regla posea pesos diferentes para cada salida solo se tomara en cuenta el peso asociado a la primera salida, esto es debido a que los archivos FIS no permiten pesos individuales por cada salida, lo mismo aplica al método de defuzzificacion, se toma el asignado a la primera salida. El código para realizar la carga y el exportado de archivos FIS se puede observar en el \ref{anexo:codefis}.
 
 \section{Simulación de sistemas de control}
 
@@ -265,7 +265,7 @@
 
     \subsection{Esquemas de simulación}
 
-        Para la simulación de sistemas de control se implementaron los esquemas de control presentados en el \cref{sec:esquemasFuzzy} y otros esquemas que se encuentran compuestos de la combinación de los mismos. Como ya se menciono, los esquemas de control se pueden observar en el \ref{anexo:D} y se listan a continuación:
+        Para la simulación de sistemas de control se implementaron los esquemas de control presentados en el \cref{sec:esquemasFuzzy} y otros esquemas que se encuentran compuestos de la combinación de los mismos. Como ya se menciono, los esquemas de control se pueden observar en el \ref{anexo:esquemas} y se listan a continuación:
 
         \begin{enumerate}[leftmargin=\parindent]
             \item PID clásico
@@ -283,7 +283,7 @@
 
     \subsection{Solución por Runge-Kutta}
 
-        Como ya se menciono, la simulación se llevara acabo utilizando un método de Runge-Kutta, para ello se implementaron múltiples métodos, el usuario puede seleccionar cualquiera de ellos para realizar la simulación. En total se implementaron nueve Runge-Kutta's explícitos y cuatro embebidos. Las tablas de Butcher para cada uno de los métodos implementados se pueden observar en el \ref{anexo:G}, a continuación, se presenta una lista de los métodos implementados:
+        Como ya se menciono, la simulación se llevara acabo utilizando un método de Runge-Kutta, para ello se implementaron múltiples métodos, el usuario puede seleccionar cualquiera de ellos para realizar la simulación. En total se implementaron nueve Runge-Kutta's explícitos y cuatro embebidos. Las tablas de Butcher para cada uno de los métodos implementados se pueden observar en el \ref{anexo:butcher}, a continuación, se presenta una lista de los métodos implementados:
 
         \begin{itemize}[leftmargin=\parindent]
             \item Explícitos:
@@ -307,7 +307,7 @@
                 \end{enumerate}
         \end{itemize}
 
-        Con el fin mejorar la precision y mantener el numero de pasos al minimo se implemento un algoritmo de ajuste del tamaño de paso para los metodos de Runge-Kutta, para el caso de los Runge-Kutta explicitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo codigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los codigos en Python se pueden observar en el \ref{anexo:H}.
+        Con el fin mejorar la precision y mantener el numero de pasos al minimo se implemento un algoritmo de ajuste del tamaño de paso para los metodos de Runge-Kutta, para el caso de los Runge-Kutta explicitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo codigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los codigos en Python se pueden observar en el \ref{anexo:stepsize}.
 
         El calculo del tamaño de paso se realiza con el bloque que presente mayores variaciones y requiera la mayor presicion, i.e., el menor tamaño de paso, en la mayoria de los casos este bloque es o incluye a la componente derivativa. Para el resto de bloques que requieran ser calculados, se utiliza un Runge-Kutta explicito con tamaño de paso igual al calculado, el Runge-Kutta utilizado varia segun el metodo utilizado.
 
@@ -378,23 +378,3 @@
                     return |$y$|, |$x_{p}$|, h
             \end{minted}
         \end{longlisting}
-
-\section{Interfaz grafica}
-    
-    \begin{figure}[htb]
-        \centering
-        \begin{subfigure}[t]{\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{analisis.pdf}
-            \caption{}
-            \label{fig:labelA}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[t]{0.25\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{analisisSS.pdf}
-            \caption{}
-            \label{fig:labelB}
-        \end{subfigure}
-        \caption[Interfaz grafica para el analisis de sistemas de control]{\textbf{Interfaz grafica para el analisis de sistemas de control}. (a) Interfaz grafica general representando al sistema con funcion de transferencia (b) Cambios presentes si utiliza la representacion con ecuaciones de espacio de estados. Fuente: Elaboración propia. \label{fig:analisisinterfaz}}
-    \end{figure}

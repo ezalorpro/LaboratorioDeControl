@@ -17,7 +17,79 @@
 \addcontentsline{toc}{chapter}{Anexos}  % Para evitar problemas TOC
 
 % Para agregar anexos a la tesis
-\AgregarAnexo{Codigo de los margenes de ganancia y fase}
+\AgregarAnexo{Interfaz grafica de la funcion de analisis de sistemas de control}{anexo:interfazAnalisis}
+    \begin{figure}[htb]
+        \centering
+        \begin{subfigure}[t]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{analisis.pdf}
+            \caption{}
+            \label{fig:interfazAnalisistf}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{0.25\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{analisisSS.pdf}
+            \caption{}
+            \label{fig:interfazAnalisisSS}
+        \end{subfigure}
+        \caption[Interfaz grafica para el analisis de sistemas de control]{\textbf{Interfaz grafica para el analisis de sistemas de control}. (a) Interfaz grafica general representando al sistema con funcion de transferencia (b) Cambios presentes si utiliza la representacion con ecuaciones de espacio de estados. Fuente: Elaboración propia. \label{fig:interfazAnalisis}}
+    \end{figure}
+    
+    \begin{multicols}{2}
+        \begin{enumerate}[leftmargin=20pt]
+            \item Pestañas de funciones
+            \item Selector de representación
+            \item Coeficientes de la función de transferencia
+            \item Agregado de Delay
+            \item Discretizacion del proceso
+            \item Datos del analisis
+            \item Boton para realizar el analisis
+            \item Pestañas de graficas
+            \item Grafica con Matplotlib
+            \item Barra de herramientas de la grafica
+            \item Matrices de estados
+        \end{enumerate}
+    \end{multicols}
+
+\AgregarAnexo{Interfaz grafica de la funcion de entonacion de controladores PID}{anexo:interfazentonacion}
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[t]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{entonacionPID.pdf}
+            \caption{}
+            \label{fig:interfazentonacionPID}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{entonacionCSV.pdf}
+            \caption{}
+            \label{fig:interfazentonacionCSV}
+        \end{subfigure}
+        \caption[Interfaz grafica para el analisis de sistemas de control]{\textbf{Interfaz grafica para el analisis de sistemas de control}. (a) Interfaz grafica general para la entonación de controladores PID (b) Interfaz grafica para la entonación utilizando un archivo CSV. Fuente: Elaboración propia. \label{fig:interfazentonacion}}
+    \end{figure}
+    
+    \begin{multicols}{2}
+        \begin{enumerate}[leftmargin=20pt]
+            \item Función de entonación automática
+            \item Resolución de los sliders
+            \item Sliders de ganancias
+            \item Sliders de tiempo y coeficiente N
+            \item Gráfica con PyQtGraph
+            \item Carga del archivo CSV
+            \item Separador del archivo CSV
+            \item SPAN de la variable del proceso
+            \item SPAN de la entrada al proceso (EFC)
+            \item Slider para ajustar $t_1$
+            \item Gráfica de la variable del proceso
+            \item Gráfica de la entrad al proceso (EFC)
+        \end{enumerate}
+    \end{multicols}
+
+
+\AgregarAnexo{Codigo de los margenes de ganancia y fase}{anexo:margenes}
     \begin{longlisting}
         \caption[Calculo de los margenes de ganancia y fase]{Función para el calculo de los margenes de ganancia y fase.}
         \label{code:anexoA}				
@@ -105,7 +177,7 @@
         \end{minted}
     \end{longlisting}
 
-\AgregarAnexo{Ejemplo de un archivo CSV valido para la entonacion}
+\AgregarAnexo{Ejemplo de un archivo CSV valido para la entonacion}{anexo:csv}
     \begin{longlisting}				
         \begin{minted}[escapeinside=||,
             mathescape=true,
@@ -155,7 +227,7 @@
 
     Esta data es valida porque posee tres o mas columnas, de las cuales, tres poseen un encabezado con las palabras claves necesarias (VP, EFC y TIME), se esta utilizando un separador valido (;), el formato de tiempo es correcto (hh:mm:ss) y la respuesta de la variable del proceso es ascendente.
 
- \AgregarAnexo{Codigo de transformacion equivalente entre funciones de membresia}
+ \AgregarAnexo{Codigo de transformacion equivalente entre funciones de membresia}{anexo:mfequivalencia}
     \begin{longlisting}
         \caption[Transformación equivalente entre funciones de membresía]{Función para la transformación equivalente entre funciones de membresía.}
         \label{code:anexoC}				
@@ -303,7 +375,7 @@
         \end{minted}
     \end{longlisting}
 
-\AgregarAnexo{Esquemas de control difuso}
+\AgregarAnexo{Esquemas de control difuso}{anexo:esquemas}
     
     \vfill
 
@@ -387,7 +459,7 @@
     
     \vfill
 
-\AgregarAnexo{Formato interno para guardar controlador por medio de un archivo .JSON}
+\AgregarAnexo{Formato interno para guardar controlador por medio de un archivo .JSON}{anexo:json}
     \begin{longlisting}
         \caption[Formato para guardar controlador]{Formato para un controlador con una entrada, una salida y tres reglas. Las reglas son: una simple, una regla con premisa negada y una regla con salida ponderada en 0.25.}
         \label{code:anexoE}				
@@ -539,7 +611,7 @@
         \end{minted}
     \end{longlisting}
 
-\AgregarAnexo{Codigos para el manejo de archivos FIS}
+\AgregarAnexo{Codigos para el manejo de archivos FIS}{anexo:codefis}
     \begin{longlisting}
         \caption[Extraccion de datos del archivo FIS - YAPFLM]{Extraccion de datos del archivo FIS - YAPFLM.}
         \label{code:anexoF1}				
@@ -927,7 +999,7 @@
         \end{minted}
     \end{longlisting}
 
-\AgregarAnexo{Tablas de Butcher para los metodos de Runge-Kutta}
+\AgregarAnexo{Tablas de Butcher para los metodos de Runge-Kutta}{anexo:butcher}
 
     \vspace{-10pt}
 
@@ -1157,7 +1229,7 @@
         \raisetag{3cm}
         \end{equation}
 
-\AgregarAnexo{Codigos para el tamaño de paso variable}
+\AgregarAnexo{Codigos para el tamaño de paso variable}{anexo:stepsize}
     
     \begin{longlisting}
         \caption[Tamaño de paso variable para Runke-Kutta explicitos]{Tamaño de paso variable para Runke-Kutta explicitos.}
