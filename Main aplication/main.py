@@ -13,7 +13,7 @@ import os
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     """
-    [Clase principal del programa, esta clase hereda de QMainWindow y Ui_MainWindow, la primera es la clase base de ventanas que ofrece Qt mientras que la segunda es la clase que se crea a partir de qtdesigner y quien posee toda la definicion de toda la interfaz grafica. Desde aca se ejecutan los archivos Handler, quienes son los manejadores de cada una de las funcionalidades del laboratorio virtual, estos Handlers se tratan como si fueran una extension de esta clase, por tanto, se les envia self y se recibe self y se sigue tratando como si fueran parte de la clase]
+    [Clase principal del programa, esta clase hereda de QMainWindow y Ui_MainWindow, la primera es la clase base de ventanas que ofrece Qt mientras que la segunda es la clase que se crea a partir de qtdesigner y quien posee toda la definicion de toda la interfaz grafica. Desde aca se ejecutan los archivos Handler, quienes son los manejadores de cada una de las funcionalidades del laboratorio virtual, estos Handlers se tratan como si fueran una extension de esta clase, por tanto, se les envia self y se recibe self y se sigue tratando como si fuera parte de la clase]
     
     :param QtWidgets: [Clase base de ventana ofrecida por Qt]
     :type QtWidgets: [ObjectType]

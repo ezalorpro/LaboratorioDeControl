@@ -1,11 +1,13 @@
 import cProfile
 from fuzzRuleProfile import ejecutar
-
+import time
 Controlador, error, derror = ejecutar()
 
 cProfile.runctx(
-    '''for valores in zip(error, derror):
-        Controlador.calcular_valor(valores)''',
+    '''start = time.time()
+for valores in zip(error, derror):
+    Controlador.calcular_valor(valores)
+print(f"Total time: {time.time() - start}")''',
     globals(),
     locals(),
     'myProfilingFile.pstats')

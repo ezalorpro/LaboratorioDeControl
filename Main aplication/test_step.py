@@ -1,48 +1,130 @@
-import controlmdf as ctrl
+from skfuzzymdf import control as ctrl
 import numpy as np
-from numpy import real as REAL
-from numpy import imag as IMAG
-from matplotlib import pyplot as plt
-from skfuzzymdf import control as fuzzy
-from skfuzzymdf.membership import generatemf
 
-plt.style.use("seaborn-dark-palette")
 
-plt.rcParams["font.family"] = "serif"
-plt.rcParams["font.serif"] = "Times New Roman"
+class ControladorFuzzy:
+    # Creando controlador
+    def __init__(self):
+        # Creacion del controlador difuso    ---------------------------------------------------------------------------
+        # Variables
 
-plt.rcParams["mathtext.rm"] = "serif"
-plt.rcParams["mathtext.it"] = "serif:italic"
-plt.rcParams["mathtext.bf"] = "serif:bold"
-plt.rcParams["mathtext.fontset"] = "custom"
+        self.e_entrada = ctrl.Antecedent(np.linspace(-2500, 2500, 15), 'e_entrada')  # Entrada error
+        self.de_entrada = ctrl.Antecedent(np.linspace(-2500, 2500, 15), 'de_entrada')  # Entrada desviacion de error
 
-plt.rc("text", usetex=True)
-plt.rcParams["text.latex.preamble"] = [
-    r"\usepackage{mathptmx} \usepackage{newtxmath} \usepackage{amsmath}"
-]
+        self.fKp = ctrl.Consequent(np.linspace(0.5, 2, 25), 'fKp')       # Ganancia Kp
+        self.fKi = ctrl.Consequent(np.linspace(5, 100, 25), 'fKi')       # Ganancia Ki
+        self.fKd = ctrl.Consequent(np.linspace(0, 0.01, 25), 'fKd')      # Ganancia Kd
 
-antecedente = fuzzy.Antecedent(np.linspace(-10, 10, 1000), 'e_entrada')
-mfvalues = generatemf.gbellmf(antecedente.universe, 1.7, 1.3, 0)
-antecedente['etiqueta'] = mfvalues
-fig, ax = fuzzy.visualization.FuzzyVariableVisualizer(antecedente).view(legend=False)
+        # Funciones de membresia ( triangulares )
 
-zeros = np.zeros_like(antecedente.universe)
-ax.fill_between(antecedente.universe, zeros, mfvalues, alpha=0.4)
+        self.e_entrada.automf(3, names=["negativo", "cero", "positivo"])
+        self.de_entrada.automf(3, names=["negativa", "cero", "positiva"])
 
-# ax.text(-5.2, 1.02, r'$a$', fontsize=18)
-# ax.text(4.83, -0.05, r'$b$', fontsize=18)
-# ax.text(2.33, 1.02, r'$c$', fontsize=18)
-# ax.text(4.8, -0.05, r'$d$', fontsize=18)
-ax.legend(['gbellmf'], fontsize=18)
+        self.fKp.automf(3, names=["cero", "alto", "muy alto"])
+        self.fKi.automf(3, names=["cero", "alto", "muy alto"])
+        self.fKd.automf(3, names=["cero", "alto", "muy alto"])
 
-ax.get_xaxis().set_ticks([])
-ax.get_yaxis().set_ticks([])
-ax.spines['top'].set_visible(False)
-ax.spines['right'].set_visible(False)
-ax.spines['left'].set_visible(False)
+        # Reglas -------------------------------------------------------------------------------------------------------
 
-fig.tight_layout()
-plt.show()
+        rule1 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['negativa'],
+                            consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['alto']])
+        rule2 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['cero'],
+                            consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['alto']])
+        rule3 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['positiva'],
+                            consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['alto']])
+
+        rule4 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['negativa'],
+                            consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['cero']])
+        rule5 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['cero'],
+                            consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['cero']])
+        rule6 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['positiva'],
+                            consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['cero']])
+
+        rule7 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['negativa'],
+                            consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['muy alto']])
+        rule8 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['cero'],
+                            consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['alto']])
+        rule9 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['positiva'],
+                            consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['alto']])
+
+        ganancia_control = ctrl.ControlSystem([rule1, rule2, rule3,
+                                                rule4, rule5, rule6,
+                                                rule7, rule8, rule9 ])
+
+        self.ganancia_final = ctrl.ControlSystemSimulation(ganancia_control, flush_after_run=20000)
+
+    def calcular_valor(self, valores):
+        self.ganancia_final.input['e_entrada'] = valores[0]
+        self.ganancia_final.input['de_entrada'] = valores[1]
+        self.ganancia_final.compute()
+
+def ejecutar():
+    # Crea el controlador
+    Controlador = ControladorFuzzy()
+    error = np.linspace(-2500, 2500, 1000)
+    derror = np.linspace(-2500, 2500, 1000)
+    return Controlador, error, derror
+
+if __name__ == '__main__':
+
+    import cProfile
+    import time
+    Controlador, error, derror = ejecutar()
+
+    cProfile.runctx(
+        '''start = time.time()
+for valores in zip(error, derror):
+    Controlador.calcular_valor(valores)
+print(f"Total time: {time.time() - start}")''',
+        globals(),
+        locals(),
+        'myProfilingFile.pstats')
+
+# import controlmdf as ctrl
+# import numpy as np
+# from numpy import real as REAL
+# from numpy import imag as IMAG
+# from matplotlib import pyplot as plt
+# from skfuzzymdf import control as fuzzy
+# from skfuzzymdf.membership import generatemf
+
+# plt.style.use("seaborn-dark-palette")
+
+# plt.rcParams["font.family"] = "serif"
+# plt.rcParams["font.serif"] = "Times New Roman"
+
+# plt.rcParams["mathtext.rm"] = "serif"
+# plt.rcParams["mathtext.it"] = "serif:italic"
+# plt.rcParams["mathtext.bf"] = "serif:bold"
+# plt.rcParams["mathtext.fontset"] = "custom"
+
+# plt.rc("text", usetex=True)
+# plt.rcParams["text.latex.preamble"] = [
+#     r"\usepackage{mathptmx} \usepackage{newtxmath} \usepackage{amsmath}"
+# ]
+
+# antecedente = fuzzy.Antecedent(np.linspace(-10, 10, 1000), 'e_entrada')
+# mfvalues = generatemf.gbellmf(antecedente.universe, 1.7, 1.3, 0)
+# antecedente['etiqueta'] = mfvalues
+# fig, ax = fuzzy.visualization.FuzzyVariableVisualizer(antecedente).view(legend=False)
+
+# zeros = np.zeros_like(antecedente.universe)
+# ax.fill_between(antecedente.universe, zeros, mfvalues, alpha=0.4)
+
+# # ax.text(-5.2, 1.02, r'$a$', fontsize=18)
+# # ax.text(4.83, -0.05, r'$b$', fontsize=18)
+# # ax.text(2.33, 1.02, r'$c$', fontsize=18)
+# # ax.text(4.8, -0.05, r'$d$', fontsize=18)
+# ax.legend(['gbellmf'], fontsize=18)
+
+# ax.get_xaxis().set_ticks([])
+# ax.get_yaxis().set_ticks([])
+# ax.spines['top'].set_visible(False)
+# ax.spines['right'].set_visible(False)
+# ax.spines['left'].set_visible(False)
+
+# fig.tight_layout()
+# plt.show()
 
 # pid = ctrl.TransferFunction([1, 0],[1])
 # pid = ctrl.sample_system(pid, 0.1)

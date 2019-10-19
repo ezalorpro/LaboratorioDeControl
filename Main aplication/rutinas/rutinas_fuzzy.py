@@ -956,7 +956,7 @@ class FuzzyController:
 
 class FISParser:
     """
-    [Clase para cargar y exportar archivos .fis, para cargar los archivos FIS las funciones get_system, get_vars, get_var y get_rules fueron tomadas de yapflm (Yet Another Python Fuzzy Logic Module) para obtener los datos necesarias del .fis, de alli, se aplica la funcion fis_to_json para completar el parsin.
+    [Clase para cargar y exportar archivos .fis, para cargar los archivos FIS las funciones get_system, get_vars, get_var y get_rules fueron tomadas de yapflm (Yet Another Python Fuzzy Logic Module: https://github.com/sputnick1124/yapflm) para obtener los datos necesarias del .fis, de alli, se aplica la funcion fis_to_json para completar el parsin.
     
     En el caso de la exportancion, se realiza utilizando la funcion json_to_fis]
     """

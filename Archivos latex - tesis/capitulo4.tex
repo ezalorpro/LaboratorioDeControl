@@ -285,7 +285,7 @@
 
         Como ya se menciono, la simulación se llevara acabo utilizando un método de Runge-Kutta, para ello se implementaron múltiples métodos, el usuario puede seleccionar cualquiera de ellos para realizar la simulación. En total se implementaron nueve Runge-Kutta's explícitos y cuatro embebidos. Las tablas de Butcher para cada uno de los métodos implementados se pueden observar en el \ref{anexo:butcher}, a continuación, se presenta una lista de los métodos implementados:
 
-        \begin{itemize}[leftmargin=\parindent]
+        \begin{enumerate}[leftmargin=\parindent]
             \item Explícitos:
                 \begin{enumerate}
                     \item Runge-Kutta de orden 2
@@ -305,7 +305,7 @@
                     \item Cash-Karp de orden 4(5)
                     \item Dormand-Prince de orden 5(4)
                 \end{enumerate}
-        \end{itemize}
+        \end{enumerate}
 
         Con el fin mejorar la precision y mantener el numero de pasos al minimo se implemento un algoritmo de ajuste del tamaño de paso para los metodos de Runge-Kutta, para el caso de los Runge-Kutta explicitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo codigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los codigos en Python se pueden observar en el \ref{anexo:stepsize}.
 
