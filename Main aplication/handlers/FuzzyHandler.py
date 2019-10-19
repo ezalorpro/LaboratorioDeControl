@@ -360,6 +360,7 @@ def cargar_esquema(self):
 
     self.main.inputNombre.setReadOnly(True)
     self.main.outputNombre.setReadOnly(True)
+    self.current_file = ""
 
     # Habilitar guardado de archivos
     self.main.guardarFuzzButton.setEnabled(True)
