@@ -1,6 +1,7 @@
 *.*
 build
 virtualenv
+virtualenvqt
 dist
 vtkmodules
 !main.spec
