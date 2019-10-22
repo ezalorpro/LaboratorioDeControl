@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1426</width>
-    <height>695</height>
+    <height>784</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -258,15 +258,6 @@
            </color>
           </brush>
          </colorrole>
-         <colorrole role="PlaceholderText">
-          <brush brushstyle="NoBrush">
-           <color alpha="128">
-            <red>0</red>
-            <green>0</green>
-            <blue>0</blue>
-           </color>
-          </brush>
-         </colorrole>
         </active>
         <inactive>
          <colorrole role="WindowText">
@@ -320,15 +311,6 @@
             <red>255</red>
             <green>255</green>
             <blue>255</blue>
-           </color>
-          </brush>
-         </colorrole>
-         <colorrole role="PlaceholderText">
-          <brush brushstyle="NoBrush">
-           <color alpha="128">
-            <red>0</red>
-            <green>0</green>
-            <blue>0</blue>
            </color>
           </brush>
          </colorrole>
@@ -388,15 +370,6 @@
            </color>
           </brush>
          </colorrole>
-         <colorrole role="PlaceholderText">
-          <brush brushstyle="NoBrush">
-           <color alpha="128">
-            <red>0</red>
-            <green>0</green>
-            <blue>0</blue>
-           </color>
-          </brush>
-         </colorrole>
         </disabled>
        </palette>
       </property>
@@ -430,8 +403,14 @@
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_7">
-            <item>
+            <item alignment="Qt::AlignHCenter">
              <widget class="QGroupBox" name="groupBox1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="title">
                <string/>
               </property>
@@ -449,12 +428,25 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
+               <item row="0" column="2">
                 <widget class="QRadioButton" name="ssradioButton1">
                  <property name="text">
                   <string>SS</string>
                  </property>
                 </widget>
+               </item>
+               <item row="0" column="1">
+                <spacer name="horizontalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </widget>
@@ -648,10 +640,16 @@
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="6" column="1" alignment="Qt::AlignLeft">
                  <widget class="QComboBox" name="tfcomboBox1">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
                   <property name="editable">
                    <bool>false</bool>
@@ -758,10 +756,16 @@
                 <item row="9" column="0" colspan="2">
                  <widget class="QPlainTextEdit" name="ssdatosTextEdit1">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>214</width>
+                    <height>16777215</height>
+                   </size>
                   </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
@@ -825,10 +829,16 @@
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
+                <item row="7" column="1" alignment="Qt::AlignLeft">
                  <widget class="QComboBox" name="sscomboBox1">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
                   <property name="currentText">
                    <string notr="true">zoh</string>
@@ -919,7 +929,7 @@
                    <string/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>0.1</string>
                   </property>
                   <property name="placeholderText">
                    <string>Periodo de muestreo</string>
@@ -1007,6 +1017,15 @@
                  <widget class="QLineEdit" name="ssdelayEdit1">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
                   </property>
                   <property name="placeholderText">
                    <string>Delay en segundos</string>
@@ -1146,8 +1165,14 @@
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_5">
-          <item>
+          <item alignment="Qt::AlignHCenter">
            <widget class="QGroupBox" name="groupBox2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="title">
              <string/>
             </property>
@@ -1158,7 +1183,14 @@
              <bool>true</bool>
             </property>
             <layout class="QGridLayout" name="gridLayout_14">
-             <item row="0" column="1">
+             <item row="0" column="4">
+              <widget class="QRadioButton" name="csvradioButton2">
+               <property name="text">
+                <string>CSV</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
               <widget class="QRadioButton" name="ssradioButton2">
                <property name="text">
                 <string>SS</string>
@@ -1175,12 +1207,37 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
-              <widget class="QRadioButton" name="csvradioButton2">
-               <property name="text">
-                <string>CSV</string>
+             <item row="0" column="1">
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
                </property>
-              </widget>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>10</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="3">
+              <spacer name="horizontalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>10</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -1334,10 +1391,16 @@
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
+              <item row="5" column="1" alignment="Qt::AlignLeft">
                <widget class="QComboBox" name="tfcomboBox2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <property name="currentText">
                  <string notr="true">zoh</string>
@@ -1397,10 +1460,16 @@
                 </property>
                </widget>
               </item>
-              <item row="6" column="1">
+              <item row="6" column="1" alignment="Qt::AlignLeft">
                <widget class="QComboBox" name="tfAutoTuningcomboBox2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <item>
                  <property name="text">
@@ -1442,7 +1511,7 @@
               <item row="8" column="0" colspan="2">
                <widget class="QPlainTextEdit" name="tfdatosTextEdit2">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -1682,6 +1751,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="text">
+                 <string>1</string>
+                </property>
                 <property name="placeholderText">
                  <string>Delay en segundos</string>
                 </property>
@@ -1709,7 +1781,7 @@
                  <string/>
                 </property>
                 <property name="text">
-                 <string/>
+                 <string>0.1</string>
                 </property>
                 <property name="placeholderText">
                  <string>Periodo de muestreo</string>
@@ -1723,10 +1795,16 @@
                 </property>
                </widget>
               </item>
-              <item row="7" column="1">
+              <item row="7" column="1" alignment="Qt::AlignLeft">
                <widget class="QComboBox" name="sscomboBox2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <property name="currentText">
                  <string notr="true">zoh</string>
@@ -1781,10 +1859,16 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="1">
+              <item row="8" column="1" alignment="Qt::AlignLeft">
                <widget class="QComboBox" name="ssAutoTuningcomboBox2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <item>
                  <property name="text">
@@ -1826,7 +1910,7 @@
               <item row="10" column="0" colspan="2">
                <widget class="QPlainTextEdit" name="ssdatosTextEdit2">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -2214,7 +2298,7 @@
                    <bool>true</bool>
                   </property>
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -2819,6 +2903,12 @@
             </item>
             <item row="1" column="1">
              <widget class="QComboBox" name="estrucNumberOutputs">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <item>
                <property name="text">
                 <string>1</string>
@@ -2972,6 +3062,17 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>8</pointsize>
+               </font>
+              </property>
               <item>
                <property name="text">
                 <string>PID difuso</string>
@@ -3014,6 +3115,12 @@
             </item>
             <item row="0" column="1">
              <widget class="QComboBox" name="estrucNumberInputs">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="currentIndex">
                <number>1</number>
               </property>
@@ -4216,8 +4323,14 @@
                     </property>
                    </widget>
                   </item>
-                  <item>
+                  <item alignment="Qt::AlignRight">
                    <widget class="QComboBox" name="defuzzMethodOut">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
                     <item>
                      <property name="text">
                       <string>centroid</string>
@@ -4395,8 +4508,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>2034</width>
-                   <height>262</height>
+                   <width>2074</width>
+                   <height>300</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -5090,9 +5203,6 @@
                            <property name="singleStep">
                             <double>0.010000000000000</double>
                            </property>
-                           <property name="stepType">
-                            <enum>QAbstractSpinBox::DefaultStepType</enum>
-                           </property>
                            <property name="value">
                             <double>1.000000000000000</double>
                            </property>
@@ -5756,8 +5866,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>545</width>
-                   <height>2962</height>
+                   <width>540</width>
+                   <height>2924</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_55">
@@ -5770,7 +5880,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -5843,7 +5953,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -5916,7 +6026,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -5989,7 +6099,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6062,7 +6172,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6135,7 +6245,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6208,7 +6318,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6281,7 +6391,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6427,7 +6537,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6508,8 +6618,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>545</width>
-                   <height>2632</height>
+                   <width>539</width>
+                   <height>2642</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_54">
@@ -6522,7 +6632,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6570,7 +6680,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6618,7 +6728,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6666,7 +6776,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6714,7 +6824,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6762,7 +6872,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6810,7 +6920,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6858,7 +6968,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6906,7 +7016,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6954,7 +7064,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -7010,7 +7120,7 @@
                  <enum>QFrame::NoFrame</enum>
                 </property>
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="page">
                  <layout class="QGridLayout" name="gridLayout_92">
@@ -7028,7 +7138,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>601</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -7338,7 +7448,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>525</height>
+                       <height>113</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -7758,10 +7868,10 @@
             </property>
            </widget>
           </item>
-          <item>
+          <item alignment="Qt::AlignHCenter">
            <widget class="QGroupBox" name="groupBox1_2">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -7782,7 +7892,7 @@
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item row="1" column="0">
+             <item row="1" column="0" alignment="Qt::AlignHCenter">
               <widget class="QRadioButton" name="tfradioButton4">
                <property name="text">
                 <string>TF</string>
@@ -7792,17 +7902,30 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
+             <item row="1" column="2" alignment="Qt::AlignHCenter">
               <widget class="QRadioButton" name="ssradioButton4">
                <property name="text">
                 <string>SS</string>
                </property>
               </widget>
              </item>
+             <item row="1" column="1">
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </widget>
           </item>
-          <item>
+          <item alignment="Qt::AlignHCenter">
            <widget class="QStackedWidget" name="SimulacionstackedWidget">
             <property name="enabled">
              <bool>true</bool>
@@ -8270,7 +8393,7 @@
                    <string/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>0.1</string>
                   </property>
                   <property name="placeholderText">
                    <string>Periodo de muestreo</string>
@@ -8332,6 +8455,9 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
                   <property name="placeholderText">
                    <string>Delay en segundos</string>
                   </property>
@@ -8366,7 +8492,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>262</width>
+              <width>291</width>
               <height>300</height>
              </size>
             </property>
@@ -8387,7 +8513,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
+               <width>291</width>
                <height>180</height>
               </rect>
              </property>
@@ -8604,8 +8730,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>245</width>
-               <height>268</height>
+               <width>278</width>
+               <height>332</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -9003,9 +9129,9 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-69</y>
-               <width>245</width>
-               <height>249</height>
+               <y>0</y>
+               <width>278</width>
+               <height>309</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -9224,8 +9350,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>245</width>
-               <height>356</height>
+               <width>278</width>
+               <height>414</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -9709,7 +9835,7 @@
      <x>0</x>
      <y>0</y>
      <width>1426</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
