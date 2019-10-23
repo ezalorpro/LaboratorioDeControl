@@ -448,7 +448,7 @@ def _RLFeedbackClicksPoint(event,sys,fig,ax_rlocus,sisotool=False):
         # # Display the parameters in the output window and figure
         # print("Clicked at %10.4g%+10.4gj gain %10.4g damp %10.4g" %
         #       (s.real, s.imag, K.real, -1 * s.real / abs(s)))
-        ax_rlocus.set_title("Clicked at: %10.4g%+10.4gj  gain: %10.4g  damp: %10.4g" %
+        ax_rlocus.set_title("Punto: %10.4g%+10.4gj  ganancia: %10.4g  damp: %10.4g" %
                      (s.real, s.imag, K.real, -1 * s.real / abs(s)), fontsize = 12)
 
         # Remove the previous line

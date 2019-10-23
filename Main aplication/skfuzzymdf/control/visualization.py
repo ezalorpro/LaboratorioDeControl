@@ -227,7 +227,7 @@ class FuzzyVariableVisualizer(object):
 
         # Label the axes
         if legend:
-            self.ax.set_ylabel('Membership')
+            self.ax.set_ylabel('Pertenencia')
             self.ax.set_xlabel(self.fuzzy_var.label)
 
 

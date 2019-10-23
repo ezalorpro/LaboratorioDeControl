@@ -452,6 +452,11 @@ def nyquist_plot(syslist, omega=None, Plot=True, color=None,
             # TODO: Add MIMO nyquist plots.
             raise NotImplementedError("Nyquist is currently only implemented for SISO systems.")
         else:
+            
+            if sys.isdtime(strict=True):
+                nyquistfrq = 2. * np.pi * 1. / sys.dt / 2.
+                omega = omega[omega < nyquistfrq]
+
             # Get the magnitude and phase of the system
             mag_tmp, phase_tmp, omega = sys.freqresp(omega)
             mag = np.squeeze(mag_tmp)

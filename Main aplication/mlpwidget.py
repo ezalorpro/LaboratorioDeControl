@@ -21,7 +21,7 @@ class MlpWidget(QGraphicsView):
 
     def __init__(self, parent=None):
         super(MlpWidget, self).__init__(parent)
-        self.canvas = FigureCanvas(Figure(tight_layout=True))
+        self.canvas = FigureCanvas(Figure())
 
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(self.canvas)
@@ -30,6 +30,12 @@ class MlpWidget(QGraphicsView):
 
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         self.canvas.figure.tight_layout()
+        self.canvas.figure.subplots_adjust(top=0.95,
+                                          bottom=0.095,
+                                          left=0.1,
+                                          right=0.97,
+                                          hspace=0.2,
+                                          wspace=0.2)
         self.canvas.axes.grid()
         self.setLayout(vertical_layout)
 
