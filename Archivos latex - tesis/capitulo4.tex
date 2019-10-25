@@ -114,7 +114,6 @@
                 |$\vdots$|
                 |\bf{IF}| validaciones_entradas_entonación:
                     validar_entrada_entonación()
-                
                 |\bf{IF}| usuario_presiona_calcular:
                     |\bf{CASO 1}| entonación_manual:
                         chequeo_TF_SS()
@@ -151,9 +150,7 @@
 
 \section{Diseño de controladores difusos}
     
-    Para el diseño de controladores difusos se utiliza de fondo la librería Scikit-Fuzzy, la cual permite por medio de código Python diseñar controladores difusos tipo Mamdani, graficar las funciones de membresía y realizar el proceso de inferencia para el controlador diseñado. La mayoría de la funcionalidad consiste en ser un intermediario entre las entradas del usuario por medio de la interfaz gráfica y el código que requiere Scikit-Fuzzy para poder definir un controlador. Adicional a lo anterior, se implemento la posibilidad de cargar y exportar archivos FIS con ciertas limitaciones tanto en la importación como en la exportación. El \cref{code:fuzzylogic} muestra un pseudo código de la funcionalidad de diseño de controladores difusos.
-    
-    \pagebreak
+    Para el diseño de controladores difusos se utiliza de fondo la librería Scikit-Fuzzy, la cual permite por medio de código Python diseñar controladores difusos tipo Mamdani, graficar las funciones de membresía y realizar el proceso de inferencia para el controlador diseñado. La mayoría de la funcionalidad consiste en ser un intermediario entre las entradas del usuario por medio de la interfaz gráfica y el código que requiere Scikit-Fuzzy para poder definir un controlador. Adicional a lo anterior, se implemento la posibilidad de cargar y exportar archivos FIS con ciertas limitaciones tanto en la importación como en la exportación. El \cref{code:fuzzylogic} muestra un pseudo código de la funcionalidad de diseño de controladores difusos y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazFuzzy}.
 
     \begin{longlisting}
         \caption[Pseudo código - Diseño de controladores difusos]{Pseudo código para el diseño de controladores difusos}

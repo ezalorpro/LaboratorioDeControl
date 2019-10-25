@@ -90,6 +90,112 @@
     \end{multicols}
 
 
+\AgregarAnexo{Interfaz grafica de la funcion de diseño de controladores difusos}{anexo:interfazFuzzy}
+    
+    \vfill
+    
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=\textwidth]{FuzzyFront.pdf}
+        \caption[Interfaz grafica - difusa - estructura]{\textbf{Interfaz grafica - difusa}. Pestaña de estructura. Fuente: Elaboración propia.} 
+        \label{fig:FuzzyFront}
+    \end{figure}
+    
+    \vfill
+
+    \begin{multicols}{2}
+        \begin{enumerate}[leftmargin=20pt]
+            \item Numero de entradas y salidas
+            \item Seleccion de esquema de control
+            \item Boton para iniciar el diseño
+            \item Boton para cargar un diseño
+            \item Botones para salvar los diseños
+            \item Boton para exportar el diseño a FIS
+            \item Pestañas para el diseño
+            \item Informacion general
+            \item Estructura de entradas y salidas
+            \item Esquema de control
+        \end{enumerate}
+    \end{multicols}
+
+    \vfill
+
+    \pagebreak
+    
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[width=0.9\textwidth]{FuzzyIO.pdf}
+        \caption[Interfaz grafica - difusa - entradas/salidas]{\textbf{Interfaz grafica - difusa}. Pestaña de salidas, la única diferencia respecto a la pestaña de entradas es que esta segunda no posee método de defuzzificacion. Fuente: Elaboración propia.} 
+        \label{fig:FuzzyIO}
+    \end{figure}
+
+    \begin{multicols}{2}
+        \begin{enumerate}[leftmargin=20pt]
+            \item Numero de entrada/salida
+            \item Nombre de la entrada/salida
+            \item Numero de etiquetas
+            \item Rango de la entrada/salida
+            \item Método de defuzzificacion
+            \item Numero de etiqueta
+            \item Nombre de la etiqueta
+            \item Tipo de funcion de membresia
+            \item Definicion de la funcion de membresia
+            \item Grafica de las funciones de membresia
+        \end{enumerate}
+    \end{multicols}
+
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[width=0.9\textwidth]{FuzzyRules.pdf}
+        \caption[Interfaz grafica - difusa - reglas]{\textbf{Interfaz grafica - difusa}. Pestaña de reglas. Fuente: Elaboración propia.} 
+        \label{fig:FuzzyRules}
+    \end{figure}
+
+    \begin{multicols}{2}
+        \begin{enumerate}[leftmargin=20pt]
+            \item Lista de reglas
+            \item Lógica de las premisas
+            \item Etiquetas de las entradas
+            \item Opción para negar la entrada
+            \item Etiquetas de las salidas
+            \item Peso de la salida
+            \item Boton para agregar una regla
+            \item Boton para cambiar una regla
+            \item Boton para eliminar una regla
+            \item Boton para crear el controlador y realizar pruebas
+        \end{enumerate}
+    \end{multicols}
+
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[t]{\textwidth}
+            \centering
+            \includegraphics[width=0.75\textwidth]{FuzzyPrueba.pdf}
+            \caption{}
+            \label{fig:FuzzyPrueba}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{\textwidth}
+            \centering
+            \includegraphics[width=0.75\textwidth]{FuzzyRespuesta.pdf}
+            \caption{}
+            \label{fig:FuzzyRespuesta}
+        \end{subfigure}
+        \caption[Interfaz grafica - difusa - prueba y respuesta]{\textbf{Interfaz grafica - difusa}. (a) Pestaña para pruebas del controlador, (b) Pestaña para observar la respuesta del controlador, solo visible para controladores con una o dos entradas. Fuente: Elaboración propia. \label{fig:interfazFuzzyCrear}}
+    \end{figure}
+
+    \begin{multicols}{2}
+        \begin{enumerate}[leftmargin=20pt]
+            \item Activación de reglas de forma grafica para las entradas
+            \item Slider para asignar entrada
+            \item Valor de entrada
+            \item Activación de reglas de forma grafica para las salidas
+            \item Valor de salida
+            \item Respuesta del controlador
+            \item Barra indicadora de altura (para dos entradas)
+        \end{enumerate}
+    \end{multicols}
+
 \AgregarAnexo{Codigo de los margenes de ganancia y fase}{anexo:margenes}
     \begin{longlisting}
         \caption[Calculo de los margenes de ganancia y fase]{Función para el calculo de los margenes de ganancia y fase.}
