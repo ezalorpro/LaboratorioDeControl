@@ -916,9 +916,9 @@ def plot_final_results(self, result):
         self.main.simulacionGraph.canvas.axes1.step(result[0],
                                                     result[1],
                                                     where="mid",
-                                                    label='y(t)')
+                                                    label='Vp')
     else:
-        self.main.simulacionGraph.canvas.axes1.plot(result[0], result[1], label='y(t)')
+        self.main.simulacionGraph.canvas.axes1.plot(result[0], result[1], label='Vp')
 
     # Setpoint
     self.main.simulacionGraph.canvas.axes1.plot(result[0],
