@@ -54,9 +54,9 @@ def system_creator_tf(self, numerador, denominador):
         if ctrl.isdtime(system, strict=True):
             T = np.arange(0, 2 * np.max(t), self.dt)
         else:
-            T = np.arange(0, 2 * np.max(t), 0.05)
+            T = np.arange(0, 2 * np.max(t), 0.01)
     except ValueError:
-        T = np.arange(0, 100, 0.05)
+        T = np.arange(0, 100, 0.01)
 
     return system, T, system_delay
 
@@ -108,9 +108,9 @@ def system_creator_ss(self, A, B, C, D):
         if ctrl.isdtime(system, strict=True):
             T = np.arange(0, 2 * np.max(t), self.dt)
         else:
-            T = np.arange(0, 2 * np.max(t), 0.05)
+            T = np.arange(0, 2 * np.max(t), 0.01)
     except ValueError:
-        T = np.arange(0, 100, 0.05)
+        T = np.arange(0, 100, 0.01)
 
     return system, T, system_delay, system_ss
 
@@ -130,7 +130,7 @@ def rutina_step_plot(self, system, T):
 
     # Desplazamiento en el tiempo en caso de delay
     if system.delay:
-        U[:int(system.delay / 0.05) + 1] = 0
+        U[:int(system.delay / 0.01) + 1] = 0
 
     t, y, _ = ctrl.forced_response(system, T, U)
 
@@ -170,15 +170,26 @@ def rutina_impulse_plot(self, system, T):
 
     U = np.zeros_like(T)
 
+    # Tomado de la libreria de control
+    if ctrl.isdtime(system, strict=True):
+        U[0] = 1/self.dt
+        new_X0 = 0
+    else:
+        temp_sys = ctrl.tf2ss(system)
+        n_states = temp_sys.A.shape[0]
+        X0 = ctrl.timeresp._check_convert_array(0, [(n_states,), (n_states, 1)],
+                              'Parameter ``X0``: \n', squeeze=True)
+        B = np.asarray(temp_sys.B).squeeze()
+        new_X0 = B + X0
+
+    t, y, _ = ctrl.forced_response(system, T, U, X0=new_X0)
+
     # Desplazamiento en el tiempo en caso de delay
     if system.delay:
-        U[:int(system.delay / 0.05) + 1] = 0
-        U[int(system.delay / 0.05) + 1] = 1
-    else:
-        U[0] = 1
-
-    t, y, _ = ctrl.forced_response(system, T, U)
-
+        y_delay = np.zeros(int(system.delay / 0.01)).tolist()
+        y_delay.extend(y[:-int(system.delay / 0.01)].tolist())
+        y = y_delay
+        
     self.main.impulseGraphicsView1.canvas.axes.clear()
 
     if ctrl.isdtime(system, strict=True):

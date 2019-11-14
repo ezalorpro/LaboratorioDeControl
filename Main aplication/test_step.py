@@ -1,84 +1,106 @@
-from skfuzzymdf import control as ctrl
+import control as ctrl
 import numpy as np
+from matplotlib import pyplot as plt
+
+dt = 0.01 # dont work
+# dt = 0.1 # it work
+
+delay_value = 1
+
+Gs = ctrl.tf([3.5],[10, 1])
+Gs = ctrl.sample_system(Gs, dt)
+
+delay = [0] * (int(delay_value / dt) + 1)
+delay[0] = 1
+
+system_delay = Gs * ctrl.TransferFunction([1], delay, dt)
+print(system_delay)
+
+ctrl.root_locus(system_delay)
+plt.show()
 
 
-class ControladorFuzzy:
-    # Creando controlador
-    def __init__(self):
-        # Creacion del controlador difuso    ---------------------------------------------------------------------------
-        # Variables
+# from skfuzzymdf import control as ctrl
+# import numpy as np
 
-        self.e_entrada = ctrl.Antecedent(np.linspace(-2500, 2500, 15), 'e_entrada')  # Entrada error
-        self.de_entrada = ctrl.Antecedent(np.linspace(-2500, 2500, 15), 'de_entrada')  # Entrada desviacion de error
 
-        self.fKp = ctrl.Consequent(np.linspace(0.5, 2, 25), 'fKp')       # Ganancia Kp
-        self.fKi = ctrl.Consequent(np.linspace(5, 100, 25), 'fKi')       # Ganancia Ki
-        self.fKd = ctrl.Consequent(np.linspace(0, 0.01, 25), 'fKd')      # Ganancia Kd
+# class ControladorFuzzy:
+#     # Creando controlador
+#     def __init__(self):
+#         # Creacion del controlador difuso    ---------------------------------------------------------------------------
+#         # Variables
 
-        # Funciones de membresia ( triangulares )
+#         self.e_entrada = ctrl.Antecedent(np.linspace(-2500, 2500, 15), 'e_entrada')  # Entrada error
+#         self.de_entrada = ctrl.Antecedent(np.linspace(-2500, 2500, 15), 'de_entrada')  # Entrada desviacion de error
 
-        self.e_entrada.automf(3, names=["negativo", "cero", "positivo"])
-        self.de_entrada.automf(3, names=["negativa", "cero", "positiva"])
+#         self.fKp = ctrl.Consequent(np.linspace(0.5, 2, 25), 'fKp')       # Ganancia Kp
+#         self.fKi = ctrl.Consequent(np.linspace(5, 100, 25), 'fKi')       # Ganancia Ki
+#         self.fKd = ctrl.Consequent(np.linspace(0, 0.01, 25), 'fKd')      # Ganancia Kd
 
-        self.fKp.automf(3, names=["cero", "alto", "muy alto"])
-        self.fKi.automf(3, names=["cero", "alto", "muy alto"])
-        self.fKd.automf(3, names=["cero", "alto", "muy alto"])
+#         # Funciones de membresia ( triangulares )
 
-        # Reglas -------------------------------------------------------------------------------------------------------
+#         self.e_entrada.automf(3, names=["negativo", "cero", "positivo"])
+#         self.de_entrada.automf(3, names=["negativa", "cero", "positiva"])
 
-        rule1 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['negativa'],
-                            consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['alto']])
-        rule2 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['cero'],
-                            consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['alto']])
-        rule3 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['positiva'],
-                            consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['alto']])
+#         self.fKp.automf(3, names=["cero", "alto", "muy alto"])
+#         self.fKi.automf(3, names=["cero", "alto", "muy alto"])
+#         self.fKd.automf(3, names=["cero", "alto", "muy alto"])
 
-        rule4 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['negativa'],
-                            consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['cero']])
-        rule5 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['cero'],
-                            consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['cero']])
-        rule6 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['positiva'],
-                            consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['cero']])
+#         # Reglas -------------------------------------------------------------------------------------------------------
 
-        rule7 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['negativa'],
-                            consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['muy alto']])
-        rule8 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['cero'],
-                            consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['alto']])
-        rule9 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['positiva'],
-                            consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['alto']])
+#         rule1 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['negativa'],
+#                             consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['alto']])
+#         rule2 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['cero'],
+#                             consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['alto']])
+#         rule3 = ctrl.Rule(self.e_entrada['negativo'] & self.de_entrada['positiva'],
+#                             consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['alto']])
 
-        ganancia_control = ctrl.ControlSystem([rule1, rule2, rule3,
-                                                rule4, rule5, rule6,
-                                                rule7, rule8, rule9 ])
+#         rule4 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['negativa'],
+#                             consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['cero']])
+#         rule5 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['cero'],
+#                             consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['cero']])
+#         rule6 = ctrl.Rule(self.e_entrada['cero'] & self.de_entrada['positiva'],
+#                             consequent=[self.fKp['alto'], self.fKi['alto'], self.fKd['cero']])
 
-        self.ganancia_final = ctrl.ControlSystemSimulation(ganancia_control, flush_after_run=20000)
+#         rule7 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['negativa'],
+#                             consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['muy alto']])
+#         rule8 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['cero'],
+#                             consequent=[self.fKp['muy alto'], self.fKi['muy alto'], self.fKd['alto']])
+#         rule9 = ctrl.Rule(self.e_entrada['positivo'] & self.de_entrada['positiva'],
+#                             consequent=[self.fKp['cero'], self.fKi['cero'], self.fKd['alto']])
 
-    def calcular_valor(self, valores):
-        self.ganancia_final.input['e_entrada'] = valores[0]
-        self.ganancia_final.input['de_entrada'] = valores[1]
-        self.ganancia_final.compute()
+#         ganancia_control = ctrl.ControlSystem([rule1, rule2, rule3,
+#                                                 rule4, rule5, rule6,
+#                                                 rule7, rule8, rule9 ])
 
-def ejecutar():
-    # Crea el controlador
-    Controlador = ControladorFuzzy()
-    error = np.linspace(-2500, 2500, 1000)
-    derror = np.linspace(-2500, 2500, 1000)
-    return Controlador, error, derror
+#         self.ganancia_final = ctrl.ControlSystemSimulation(ganancia_control, flush_after_run=20000)
 
-if __name__ == '__main__':
+#     def calcular_valor(self, valores):
+#         self.ganancia_final.input['e_entrada'] = valores[0]
+#         self.ganancia_final.input['de_entrada'] = valores[1]
+#         self.ganancia_final.compute()
 
-    import cProfile
-    import time
-    Controlador, error, derror = ejecutar()
+# def ejecutar():
+#     # Crea el controlador
+#     Controlador = ControladorFuzzy()
+#     error = np.linspace(-2500, 2500, 1000)
+#     derror = np.linspace(-2500, 2500, 1000)
+#     return Controlador, error, derror
 
-    cProfile.runctx(
-        '''start = time.time()
-for valores in zip(error, derror):
-    Controlador.calcular_valor(valores)
-print(f"Total time: {time.time() - start}")''',
-        globals(),
-        locals(),
-        'myProfilingFile.pstats')
+# if __name__ == '__main__':
+
+#     import cProfile
+#     import time
+#     Controlador, error, derror = ejecutar()
+
+#     cProfile.runctx(
+#         '''start = time.time()
+# for valores in zip(error, derror):
+#     Controlador.calcular_valor(valores)
+# print(f"Total time: {time.time() - start}")''',
+#         globals(),
+#         locals(),
+#         'myProfilingFile.pstats')
 
 # import controlmdf as ctrl
 # import numpy as np

@@ -634,7 +634,7 @@ class TransferFunction(LTI):
         if isdtime(self, strict=True):
             dt = timebase(self)
             slist = np.array([exp(1.j * w * dt) for w in omega])
-            slist2=1
+            slist2 = 1
             if max(omega) * dt > pi:
                 warn("freqresp: frequency evaluation above Nyquist frequency")
         else:

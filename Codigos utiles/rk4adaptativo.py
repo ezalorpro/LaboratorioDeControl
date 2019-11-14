@@ -130,11 +130,11 @@ def ejecutar():
     N = 100
     kp = 1
     ki = 1
-    kd = 0
+    kd = 1
 
-    # pid = ctrl.tf2ss(
-    # ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
-    #                     [1, N, 0]))
+    pid = ctrl.tf2ss(
+    ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
+                        [1, N, 0]))
 
     # pid = ctrl.tf2ss(ctrl.TransferFunction([1], [10/(N*kd), 1])*
     #     ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
@@ -145,13 +145,13 @@ def ejecutar():
     #         [kp, N**2 * kd + 2*N*kp + ki, N**2 * kp + 2*N*ki, N**2 * ki],
     #         [1, 2 * N, N**2, 0]))
 
-    pid = ctrl.tf2ss(
-        ctrl.TransferFunction([
-            10 * kp,
-            N**2 * kd**2 + N*kd*kp + 10*N*kp + 10*ki,
-            N**2*kd * kp + kd*N*ki + 10*N*ki,
-            N**2 * kd * ki
-        ], [10, 10*N + N*kd, N**2 * kd, 0]))
+    # pid = ctrl.tf2ss(
+    #     ctrl.TransferFunction([
+    #         10 * kp,
+    #         N**2 * kd**2 + N*kd*kp + 10*N*kp + 10*ki,
+    #         N**2*kd * kp + kd*N*ki + 10*N*ki,
+    #         N**2 * kd * ki
+    #     ], [10, 10*N + N*kd, N**2 * kd, 0]))
 
     print(pid)
     x_pidB = np.zeros_like(pid.B)
@@ -166,8 +166,8 @@ def ejecutar():
     min_step_decrease = 0.2
     max_step_increase = 5
     h_ant = 0.000001
-    rtol = 1e-3
-    atol = 3e-6
+    rtol = 1e-6
+    atol = 1e-6
     tiempo = 0
     tbound = 30
     sp = 1
