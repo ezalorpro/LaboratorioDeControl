@@ -141,7 +141,7 @@ class SimpleThread(QtCore.QThread):
         else:
             # Escalon avanzado
             it = iter(self.escalon)
-            u_value = [0]
+            u_value = deque([0])
             max_tiempo = []
             for i, valor in enumerate(it):
                 max_tiempo.append(next(it))
@@ -150,7 +150,10 @@ class SimpleThread(QtCore.QThread):
             max_tiempo.append(tiempo_total)
 
             # Necesario para evitar tamaños de paso excesivos dado el algoritmo adaptativo
-            tiempo += max_tiempo[0] - 0.0000011
+            if ctrl.isdtime(self.system, strict=True):
+                tiempo += max_tiempo[0] - self.dt - self.dt/10
+            else:
+                tiempo += max_tiempo[0] - 0.0000011
 
         # Representacion del 20% de la simulacion
         twenty_percent = int(tiempo_total * 20 / 100)
