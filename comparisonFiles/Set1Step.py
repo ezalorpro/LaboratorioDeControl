@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S1Step', squeeze_me=True)
 
 pointsBig = 800
-t1 = np.linspace(0, 20, 350)
+t1 = np.linspace(0, 20, 1000)
 t2 = MatFile['S1Step_t']
 
 Gs1 = ctrl.tf([1], [1, 1, 1])
@@ -24,31 +24,37 @@ Y1 = funcion(T2)
 indice = np.argmax(np.abs(Y2 - Y1))
 print(f'{"Tiempo de diferencia maxima: ":<38}{T2[indice]:.4f}')
 
-fig, ax = plt.subplots()
-ax.plot(T2, Y1, color="#001C7F", label='MATLAB', linewidth=2)
+fig, ax = plt.subplots(figsize=(5.1, 4.2))
+ax.plot(T2, Y2, color="#001C7F", label='MATLAB', linewidth=2)
 ax.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label='Diferencia maxima')
-ax.plot(T2, Y2, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
+ax.plot(T2, Y1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
 ax.fill_between(T2, Y1, Y2, alpha=0.4, color="#001C7F", label='Area de diferencia')
 ax.set_xlabel('tiempo')
 ax.set_title('Respuesta escalon para el Set 1')
-ax.legend(loc='best', bbox_to_anchor=(0.55, 0.55, 0.4, 0.4))
+ax.legend(loc=7, bbox_to_anchor=(0.97, 0.65))
 ax.grid()
 
 axins = ax.inset_axes([0.55, 0.1, 0.4, 0.4])
-axins.plot(T2, Y1, color="#001C7F", label='MATLAB', linewidth=2)
+axins.plot(T2, Y2, color="#001C7F", label='MATLAB', linewidth=2)
 axins.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label='Diferencia maxima')
-axins.plot(T2, Y2, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
+axins.plot(T2, Y1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
 axins.fill_between(T2, Y1, Y2, alpha=0.4, color="#001C7F", label='Area de diferencia')
+# axins.xaxis.major.formatter.set_powerlimits((0, 0))
+# axins.yaxis.major.formatter.set_powerlimits((0, 0))
 
-x1, x2 = T2[indice] - T2[indice] * 0.007, T2[indice] + T2[indice] * 0.007
-y1, y2 = Y2[indice] - Y2[indice] * 0.01, Y2[indice] + Y2[indice] * 0.01
+x1, x2 = T2[indice] - np.abs(Y1[indice] - Y2[indice])*20, T2[indice] + np.abs(Y1[indice] - Y2[indice])*20
+
+if Y2[indice] >= Y1[indice]:
+    y1, y2 = Y1[indice] - np.abs(Y1[indice] - Y2[indice]), Y2[indice] + np.abs(Y1[indice] - Y2[indice])
+else:
+    y1, y2 = Y2[indice] - np.abs(Y1[indice] - Y2[indice]), Y1[indice] + np.abs(Y1[indice] - Y2[indice])
+
 axins.set_xlim(x1, x2)
 axins.set_ylim(y1, y2)
-# axins.set_xticklabels('')
-# axins.set_yticklabels('')
 ax.indicate_inset_zoom(axins)
 axins.grid()
 
+fig.tight_layout()
 plt.show()
 
 print(f'{"Error absoluto: ":<38}{np.abs(Y2[indice]-Y1[indice]):.7f}')

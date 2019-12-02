@@ -19,4 +19,7 @@ vtkmodules
 !*.fls
 !imagenes
 !*.jpg
+!*.m
+!*.mat
+readMeta.m
 esquemas tikz/*.fls
