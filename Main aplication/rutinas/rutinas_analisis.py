@@ -566,8 +566,35 @@ def margenes_ganancias(self, system, mag, phase, omega):
     indGain = np.diff(1 * (degPhase > -180) != 0)
     indGain = indGain * crossHack
 
-    # Calculo de la respuesta en frecuencia para omega = 0 rad/s
-    zero_freq_response = ctrl.evalfr(system, 0j)
+    # Calculo de la respuesta en frecuencia para omega = 0 rad/s y pi en caso de ser discreto
+    if ctrl.isdtime(system, strict=True):
+        zero_freq_response = ctrl.evalfr(system, 1)
+        
+        nyquist_freq_response = ctrl.evalfr(system, np.exp(np.pi*1j))
+        nyquistMag = np.abs(nyquist_freq_response)
+        nyquistPhase = np.angle(nyquist_freq_response)
+        
+        if nyquistPhase * 180.0 / np.pi >= 180:
+            nyquistPhase = nyquistPhase - 2 * np.pi
+        
+        omega = np.insert(omega, len(omega), np.pi/self.dt)
+        gainDb = np.insert(gainDb, len(gainDb), 20 * np.log10(nyquistMag))
+        degPhase = np.insert(degPhase, len(degPhase), nyquistPhase * 180.0 / np.pi)
+        
+        # Verificando "cruce" por -180 grados para la frecuencia de Nyquist
+        if np.isclose(nyquistPhase * 180.0 / np.pi, -180):
+            indGain = np.insert(indGain, len(indGain), True)
+        else:
+            indGain = np.insert(indGain, len(indGain), False)
+        
+        # Verificando "cruce" por 0 dB para la frecuencia de Nyquist
+        if np.isclose(20 * np.log10(nyquistMag), 0):
+            indPhase = np.insert(indPhase, len(indPhase), True)
+        else:
+            indPhase = np.insert(indPhase, len(indPhase), False)
+    else:
+        zero_freq_response = ctrl.evalfr(system, 0j)
+    
     omega = np.insert(omega, 0, 0)
     zeroPhase = np.angle(zero_freq_response)
     zeroMag = np.abs(zero_freq_response)
@@ -577,13 +604,13 @@ def margenes_ganancias(self, system, mag, phase, omega):
     degPhase = np.insert(degPhase, 0, zeroPhase * 180.0 / np.pi)
 
     # Verificando "cruce" por -180 grados para omega = 0 rad/s
-    if zeroPhase * 180.0 / np.pi == -180:
+    if np.isclose(zeroPhase * 180.0 / np.pi, -180):
         indGain = np.insert(indGain, 0, True)
     else:
         indGain = np.insert(indGain, 0, False)
 
     # Verificando "cruce" por 0 dB para omega = 0 rad/s
-    if 20 * np.log10(zeroMag) == 0:
+    if np.isclose(20 * np.log10(zeroMag), 0):
         indPhase = np.insert(indPhase, 0, True)
     else:
         indPhase = np.insert(indPhase, 0, False)
