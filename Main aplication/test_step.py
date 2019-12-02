@@ -1,22 +1,16 @@
 import control as ctrl
 import numpy as np
 from matplotlib import pyplot as plt
+from scipy import real, imag
 
-dt = 0.01 # dont work
-# dt = 0.1 # it work
 
-delay_value = 1
+Gs = ctrl.tf([3, -1.5],[1, -2, 3])
 
-Gs = ctrl.tf([3.5],[10, 1])
-Gs = ctrl.sample_system(Gs, dt)
+_, y = ctrl.root_locus(Gs)
 
-delay = [0] * (int(delay_value / dt) + 1)
-delay[0] = 1
+for index, col in enumerate(y.T):
+    plt.plot(real(col), imag(col))
 
-system_delay = Gs * ctrl.TransferFunction([1], delay, dt)
-print(system_delay)
-
-ctrl.root_locus(system_delay)
 plt.show()
 
 

@@ -7,16 +7,16 @@ import control as ctrl
 from scipy import io
 from matplotlib import pyplot as plt
 import matplotlib.ticker as mtick
+import pickle
 
-MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S4Step', squeeze_me=True)
+MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S3Imp', squeeze_me=True)
 
-t1 = np.linspace(0, 100, 1000)
-t2 = MatFile['S4Step_t']
+with open('comparisonFiles/Data LVSCCD/Analisis/Set3Imp.pkl', 'rb') as f:
+    T1, Y1 = pickle.load(f)
 
-Gs1 = ctrl.tf([1, 2, 0.5], [1, 0.5, 3, 0.2])
+t2 = MatFile['S3Step_t']
 
-T1, Y1 = ctrl.step_response(Gs1, t1)
-T2, Y2 = MatFile['S4Step_t'], MatFile['S4Step_y']
+T2, Y2 = MatFile['S3Step_t'], MatFile['S3Step_y']
 
 funcion = interp1d(T1, Y1)
 Y1 = funcion(T2)
@@ -30,19 +30,19 @@ ax.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label=
 ax.plot(T2, Y1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
 ax.fill_between(T2, Y1, Y2, alpha=0.4, color="#001C7F", label='Area de diferencia')
 ax.set_xlabel('tiempo')
-ax.set_title('Respuesta escalon para el Set 2')
+ax.set_title('Respuesta escalon para el Sistema 3')
 ax.legend(loc=7, bbox_to_anchor=(0.97, 0.75))
 ax.grid()
 
-axins = ax.inset_axes([0.55, 0.1, 0.4, 0.37])
+axins = ax.inset_axes([0.55, 0.1, 0.4, 0.33])
 axins.plot(T2, Y2, color="#001C7F", label='MATLAB', linewidth=2)
 axins.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label='Diferencia maxima')
 axins.plot(T2, Y1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
 axins.fill_between(T2, Y1, Y2, alpha=0.4, color="#001C7F", label='Area de diferencia')
-axins.xaxis.major.formatter.set_powerlimits((0, 0))
-axins.yaxis.major.formatter.set_powerlimits((0, 0))
+# axins.xaxis.major.formatter.set_powerlimits((0, 0))
+# axins.yaxis.major.formatter.set_powerlimits((0, 0))
 
-x1, x2 = T2[indice] - np.abs(Y1[indice] - Y2[indice])*20, T2[indice] + np.abs(Y1[indice] - Y2[indice])*20
+x1, x2 = T2[indice] - np.abs(Y1[indice] - Y2[indice])*7, T2[indice] + np.abs(Y1[indice] - Y2[indice])*7
 
 if Y2[indice] >= Y1[indice]:
     y1, y2 = Y1[indice] - np.abs(Y1[indice] - Y2[indice]), Y2[indice] + np.abs(Y1[indice] - Y2[indice])
@@ -59,9 +59,9 @@ axins.grid()
 fig.tight_layout()
 plt.show()
 
-print(f'{"Error absoluto maximo: ":<38}{np.abs(Y2[indice]-Y1[indice]):.7f}')
-print(f'{"Error porcentual maximo: ":<38}{np.abs(Y2[indice]-Y1[indice])*100/Y2[indice]:.7f} %')
-print(f'{"Distancia de energia: ":<38}{energy_distance(Y1, Y2):.7f}')
-print(f'{"Diferencia de areas: ":<38}{np.abs(cumtrapz(Y1, T2)[-1] - cumtrapz(Y2, T2)[-1]):.7f}')
-print(f'{"Raiz del Error cuadratico medio: ":<38}{np.sqrt((np.subtract(Y1, Y2)**2).mean()):.7f}')
-print(f'{"Distancia euclidiana: ":<38}{np.linalg.norm(Y1-Y2):.7f}')
+print(f'{"Error absoluto: ":<38}{np.abs(Y2[indice]-Y1[indice]):.3E}')
+print(f'{"Error porcentual maximo: ":<38}{np.abs(Y2[indice]-Y1[indice])*100/Y2[indice]:.3E} %')
+print(f'{"Distancia de energia: ":<38}{energy_distance(Y1, Y2):.3E}')
+print(f'{"Diferencia de areas: ":<38}{np.abs(cumtrapz(Y1, T2)[-1] - cumtrapz(Y2, T2)[-1]):.3E}')
+print(f'{"Raiz del Error cuadratico medio: ":<38}{np.sqrt((np.subtract(Y1, Y2)**2).mean()):.3E}')
+print(f'{"Distancia euclidiana: ":<38}{np.linalg.norm(Y1-Y2):.3E}')
