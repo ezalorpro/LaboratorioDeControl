@@ -1,7 +1,8 @@
-numerador = [0.004833 0.004675];
-denominador = [1 -1.895 0.9048];
+numerador = [1];
+denominador = [1 1 1];
 
-Gs = tf(numerador, denominador, 0.1);
+Gs = tf(numerador, denominador);
+Gs = c2d(Gs, 0.1);
 
 [Step_y, Step_t] = step(Gs, 20);
 [Impulse_y, Impulse_t] = impulse(Gs, 20);

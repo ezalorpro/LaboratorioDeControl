@@ -1,7 +1,7 @@
 sistema1: num=[1] ; dem=[1, 1, 1], dt=0.1, ZOH
 
 
-sistema4: num=[3] ; dem=[10, 1], dt=0.3, tustin
+sistema4: num=[3] ; dem=[10, 1], dt=0.3, ZOH
 
 
 
@@ -12,4 +12,4 @@ sistema2: 	A = [ [-0.5, -3, -0.2], [1,  0, 0],[0, 1, 0] ]
 		B = [ [1], [0], [0] ]
 		C = [ [1, 2, 0.5] ]
 		D = [[0.]]
-		dt= 0.2 ; ZOH
+		dt= 0.2 ; tustin
