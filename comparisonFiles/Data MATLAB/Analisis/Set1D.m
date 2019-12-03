@@ -13,7 +13,7 @@ Gs = tf(numerador, denominador, 0.1);
 
 
 GM = mag2db(GM);
-Mag = mag2db(MagB);
+MagB = mag2db(MagB);
 MagN = mag2db(MagN);
 
 figure(1)

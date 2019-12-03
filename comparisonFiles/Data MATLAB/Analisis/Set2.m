@@ -27,7 +27,7 @@ Gs = ss(A,B,C,D);
 
 
 GM = mag2db(GM);
-Mag = mag2db(MagB);
+MagB = mag2db(MagB);
 MagN = mag2db(MagN);
 
 figure(1)

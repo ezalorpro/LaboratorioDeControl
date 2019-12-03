@@ -13,7 +13,7 @@ Gs = tf(numerador, denominador);
 
 
 GM = mag2db(GM);
-Mag = mag2db(MagB);
+MagB = mag2db(MagB);
 MagN = mag2db(MagN);
 
 figure(1)
@@ -49,13 +49,6 @@ hold off
 figure(7)
 plot(squeeze(PhaN), squeeze(MagN))
 grid()
-
-[Impulse_y, Impulse_t] = impulse(Gs, 20);
-[MagB, PhaB, FreqB] = bode(Gs);
-[GM, GP, Wg, Wp] = margin(Gs);
-[Re,Img,FreqN] = nyquist(Gs);
-[r, k] = rlocus(Gs);
-[MagN, PhaN, WN] = nichols(Gs);
 
 set = 'S1';
 save(strcat(set,'Step'),'Step_t','Step_y')

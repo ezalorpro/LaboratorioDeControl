@@ -5,6 +5,7 @@ Gs = tf(numerador, denominador, 0.05, 'InputDelay', 1.5/0.05);
 
 [Step_y, Step_t] = step(Gs, 35);
 [Impulse_y, Impulse_t] = impulse(Gs, 35);
+[MagB, PhaB, FreqB] = bode(Gs);
 [GM, GP, Wg, Wp] = margin(Gs);
 [Re,Img,FreqN] = nyquist(Gs);
 [r, k] = rlocus(Gsx);
@@ -12,7 +13,7 @@ Gs = tf(numerador, denominador, 0.05, 'InputDelay', 1.5/0.05);
 
 
 GM = mag2db(GM);
-Mag = mag2db(MagB);
+MagB = mag2db(MagB);
 MagN = mag2db(MagN);
 
 figure(1)
