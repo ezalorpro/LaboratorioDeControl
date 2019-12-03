@@ -3,7 +3,6 @@ from scipy.interpolate import interp1d
 from scipy.signal import correlate
 from scipy.stats import energy_distance
 from scipy.integrate import cumtrapz
-import control as ctrl
 from scipy import io
 from matplotlib import pyplot as plt
 import matplotlib.ticker as mtick
@@ -14,9 +13,9 @@ MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S4Imp', squeeze_me=Tr
 with open('comparisonFiles/Data LVSCCD/Analisis/Set4Imp.pkl', 'rb') as f:
     T1, Y1 = pickle.load(f)
 
-t2 = MatFile['S4Step_t']
+t2 = MatFile['Impulse_t']
 
-T2, Y2 = MatFile['S4Step_t'], MatFile['S4Step_y']
+T2, Y2 = MatFile['Impulse_t'], MatFile['Impulse_y']
 
 funcion = interp1d(T1, Y1)
 Y1 = funcion(T2)
@@ -30,11 +29,11 @@ ax.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label=
 ax.plot(T2, Y1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
 ax.fill_between(T2, Y1, Y2, alpha=0.4, color="#001C7F", label='Area de diferencia')
 ax.set_xlabel('tiempo')
-ax.set_title('Respuesta escalon para el Sistema 4')
-ax.legend(loc=7, bbox_to_anchor=(0.97, 0.75))
+ax.set_title('Respuesta impulso para el Sistema 4')
+ax.legend(loc=7, bbox_to_anchor=(0.97, 0.19))
 ax.grid()
 
-axins = ax.inset_axes([0.55, 0.13, 0.4, 0.37])
+axins = ax.inset_axes([0.54, 0.57, 0.41, 0.33])
 axins.plot(T2, Y2, color="#001C7F", label='MATLAB', linewidth=2)
 axins.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label='Diferencia maxima')
 axins.plot(T2, Y1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
@@ -44,7 +43,7 @@ axins.fill_between(T2, Y1, Y2, alpha=0.4, color="#001C7F", label='Area de difere
 axins.xaxis.set_major_locator(plt.MaxNLocator(2))
 axins.yaxis.major.formatter.set_powerlimits((0, 0))
 
-x1, x2 = T2[indice] - np.abs(Y1[indice] - Y2[indice])*20, T2[indice] + np.abs(Y1[indice] - Y2[indice])*20
+x1, x2 = T2[indice] - np.abs(Y1[indice] - Y2[indice])*10, T2[indice] + np.abs(Y1[indice] - Y2[indice])*20
 
 if Y2[indice] >= Y1[indice]:
     y1, y2 = Y1[indice] - np.abs(Y1[indice] - Y2[indice]), Y2[indice] + np.abs(Y1[indice] - Y2[indice])

@@ -3,15 +3,56 @@ denominador = [1 -1.968 0.9753];
 
 Gs = tf(numerador, denominador, 0.05, 'InputDelay', 1.5/0.05);
 
-Gs
+[Step_y, Step_t] = step(Gs, 35);
+[Impulse_y, Impulse_t] = impulse(Gs, 35);
+[GM, GP, Wg, Wp] = margin(Gs);
+[Re,Img,FreqN] = nyquist(Gs);
+[r, k] = rlocus(Gsx);
+[MagN, PhaN, WN] = nichols(Gs);
 
-[S3DStep_y, S3DStep_t] = step(Gs, 35);
-[S3DImpulse_y, S3DImpulse_t] = impulse(Gs, 35);
+
+GM = mag2db(GM);
+Mag = mag2db(MagB);
+MagN = mag2db(MagN);
 
 figure(1)
-stairs(S3DStep_t, S3DStep_y)
+stairs(Step_t, Step_y)
 grid()
 
 figure(2)
-plot(S3DImpulse_t, S3DImpulse_y)
+stairs(Impulse_t, Impulse_y)
 grid()
+
+figure(3)
+semilogx(FreqB, squeeze(MagB))
+grid()
+
+figure(4)
+semilogx(FreqB, squeeze(PhaB))
+grid()
+
+figure(5)
+plot(squeeze(Re), squeeze(Img),squeeze(Re), squeeze(-Img))
+grid()
+
+figure(6)
+index = size(r);
+for i=1:index(1)
+    plot(real(r(i,:)), imag(r(i,:)))
+    hold on
+end
+grid()
+hold off
+
+figure(7)
+plot(squeeze(PhaN), squeeze(MagN))
+grid()
+
+set = 'S3D';
+save(strcat(set,'Step'),'Step_t','Step_y')
+save(strcat(set,'Imp'),'Impulse_y','Impulse_t')
+save(strcat(set,'Bode'),'MagB','PhaB','FreqB')
+save(strcat(set,'Margin'),'GM','GP','Wg','Wp')
+save(strcat(set,'Nyquist'),'Re','Img','FreqN')
+save(strcat(set,'Rlocus'),'r','k')
+save(strcat(set,'Nichols'),'MagN','PhaN','WN')

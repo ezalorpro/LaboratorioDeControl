@@ -13,9 +13,9 @@ MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S1Step', squeeze_me=T
 with open('comparisonFiles/Data LVSCCD/Analisis/Set1Step.pkl', 'rb') as f:
     T1, Y1 = pickle.load(f)
 
-t2 = MatFile['S1Step_t']
+t2 = MatFile['Step_t']
 
-T2, Y2 = MatFile['S1Step_t'], MatFile['S1Step_y']
+T2, Y2 = MatFile['Step_t'], MatFile['Step_y']
 
 funcion = interp1d(T1, Y1)
 Y1 = funcion(T2)
