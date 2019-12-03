@@ -1,10 +1,24 @@
-numerador = [3];
-denominador = [10 1];
+numerador = [1, 2, 0.5];
+denominador = [1 0.5 3, 0.2];
 
-Gs = tf(numerador, denominador);
+[A,B,C,D] = tf2ss(numerador, denominador);
+Gs = ss(A,B,C,D);
 
-[Step_y, Step_t] = step(Gs, 80);
-[Impulse_y, Impulse_t] = impulse(Gs, 80);
+% A = [[-0.5 -3.  -0.2]
+%  [ 1.   0.   0. ]
+%  [ 0.   1.   0. ]]
+% 
+% B = [[1.]
+%  [0.]
+%  [0.]]
+% 
+% C = [[1.  2.  0.5]]
+% 
+% D = [[0.]]
+
+
+[Step_y, Step_t] = step(Gs, 100);
+[Impulse_y, Impulse_t] = impulse(Gs, 100);
 [MagB, PhaB, FreqB] = bode(Gs);
 [GM, GP, Wg, Wp] = margin(Gs);
 [Re,Img,FreqN] = nyquist(Gs);

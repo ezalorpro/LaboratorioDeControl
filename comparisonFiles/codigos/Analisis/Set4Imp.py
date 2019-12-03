@@ -8,9 +8,9 @@ from matplotlib import pyplot as plt
 import matplotlib.ticker as mtick
 import pickle
 
-MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S4Imp', squeeze_me=True)
+MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S2Imp', squeeze_me=True)
 
-with open('comparisonFiles/Data LVSCCD/Analisis/Set4Imp.pkl', 'rb') as f:
+with open('comparisonFiles/Data LVSCCD/Analisis/Set2Imp.pkl', 'rb') as f:
     T1, Y1 = pickle.load(f)
 
 t2 = MatFile['Impulse_t']
@@ -29,7 +29,7 @@ ax.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label=
 ax.plot(T2, Y1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
 ax.fill_between(T2, Y1, Y2, alpha=0.4, color="#001C7F", label='Area de diferencia')
 ax.set_xlabel('tiempo')
-ax.set_title('Respuesta impulso para el Sistema 4')
+ax.set_title('Respuesta impulso para el Sistema 2')
 ax.legend(loc=7, bbox_to_anchor=(0.97, 0.19))
 ax.grid()
 

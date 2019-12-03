@@ -1,24 +1,10 @@
+numerador = [3];
+denominador = [10 1];
 
-A = [[ 0.84900356 -0.5634196  -0.03730587];
- [ 0.18652935  0.94226823 -0.00383155];
- [ 0.01915773  0.19610822  0.99974142];];
+Gs = tf(numerador, denominador);
 
-%[ [-0.5, -3, -0.2], [1,  0, 0],[0,1,0] ]
-%[ [1], [0],[0] ]
-%[ [1, 2, 0.5] ]
-
-B = [[0.18652935];
- [0.01915773];
- [0.00129292];];
-
-C = [[1.  2.  0.5]];
-
-D = [[0.]];
-
-Gs = ss(A,B,C,D, 0.2)
-
-[Step_y, Step_t] = step(Gs, 100);
-[Impulse_y, Impulse_t] = impulse(Gs, 100);
+[Step_y, Step_t] = step(Gs, 80);
+[Impulse_y, Impulse_t] = impulse(Gs, 80);
 [MagB, PhaB, FreqB] = bode(Gs);
 [GM, GP, Wg, Wp] = margin(Gs);
 [Re,Img,FreqN] = nyquist(Gs);
@@ -31,11 +17,11 @@ Mag = mag2db(MagB);
 MagN = mag2db(MagN);
 
 figure(1)
-stairs(Step_t, Step_y)
+plot(Step_t, Step_y)
 grid()
 
 figure(2)
-stairs(Impulse_t, Impulse_y)
+plot(Impulse_t, Impulse_y)
 grid()
 
 figure(3)
@@ -63,7 +49,7 @@ figure(7)
 plot(squeeze(PhaN), squeeze(MagN))
 grid()
 
-set = 'S4D';
+set = 'S2';
 save(strcat(set,'Step'),'Step_t','Step_y')
 save(strcat(set,'Imp'),'Impulse_y','Impulse_t')
 save(strcat(set,'Bode'),'MagB','PhaB','FreqB')

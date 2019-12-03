@@ -1,10 +1,24 @@
-numerador = [0.04433 0.04433];
-denominador = [1 -0.9704];
 
-Gs = tf(numerador, denominador, 0.3);
+A = [[ 0.85150898 -0.55915571 -0.03703018];
+ [ 0.1851509   0.94408443 -0.00370302];
+ [ 0.01851509  0.19440844  0.9996297 ];];
 
-[Step_y, Step_t] = step(Gs, 80);
-[Impulse_y, Impulse_t] = impulse(Gs, 80);
+%[ [-0.5, -3, -0.2], [1,  0, 0],[0,1,0] ]
+%[ [1], [0],[0] ]
+%[ [1, 2, 0.5] ]
+
+B = [[0.1851509 ];
+ [0.01851509];
+ [0.00185151];];
+
+C =  [[1.11553416 1.71310868 0.47768932]];
+
+D = [[0.11155342]];
+
+Gs = ss(A,B,C,D, 0.2)
+
+[Step_y, Step_t] = step(Gs, 100);
+[Impulse_y, Impulse_t] = impulse(Gs, 100);
 [MagB, PhaB, FreqB] = bode(Gs);
 [GM, GP, Wg, Wp] = margin(Gs);
 [Re,Img,FreqN] = nyquist(Gs);
