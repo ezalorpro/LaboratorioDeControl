@@ -69,6 +69,8 @@ plt.show()
 print(f'{"Error absoluto: ":<38}{np.abs(imag2[indice]-imag1[indice]):.3E}')
 print(f'{"Error porcentual maximo: ":<38}{np.abs(np.abs(imag2[indice]-imag1[indice])*100/imag2[indice]):.3E} %')
 print(f'{"Distancia de energia: ":<38}{energy_distance(imag1, imag2):.3E}')
-print(f'{"Diferencia de areas: ":<38}{np.abs(cumtrapz(imag1, real1)[-1] - cumtrapz(imag2, real1)[-1]):.3E}')
+print(
+    f'{"Diferencia de areas: ":<38}{np.abs(cumtrapz(real1, imag1)[-1] - cumtrapz(real1, imag2)[-1]):.3E}'
+)
 print(f'{"Raiz del Error cuadratico medio: ":<38}{np.sqrt((np.subtract(imag1, imag2)**2).mean()):.3E}')
 print(f'{"Distancia euclidiana: ":<38}{np.linalg.norm(imag1-imag2):.3E}')

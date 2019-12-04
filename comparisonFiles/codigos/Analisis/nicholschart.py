@@ -1,132 +1,14 @@
-"""nichols.py
-
-Functions for plotting Black-Nichols charts.
-
-Routines in this module:
-
-nichols.nichols_plot aliased as nichols.nichols
-nichols.nichols_grid
-"""
-
-# nichols.py - Nichols plot
-#
-# Contributed by Allan McInnes <Allan.McInnes@canterbury.ac.nz>
-#
-# This file contains some standard control system plots: Bode plots,
-# Nyquist plots, Nichols plots and pole-zero diagrams
-#
-# Copyright (c) 2010 by California Institute of Technology
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-#
-# 1. Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-#
-# 2. Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-#
-# 3. Neither the name of the California Institute of Technology nor
-#    the names of its contributors may be used to endorse or promote
-#    products derived from this software without specific prior
-#    written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-# FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CALTECH
-# OR THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
-# USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
-# OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-# SUCH DAMAGE.
-#
-# $Id: freqplot.py 139 2011-03-30 16:19:59Z murrayrm $
-
-import scipy as sp
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
-from .ctrlutil import unwrap
-from .freqplot import default_frequency_range
-
-__all__ = ['nichols_plot', 'nichols', 'nichols_grid']
+import scipy as sp
 
 
-def nichols_plot(sys_list, omega=None, grid=True, figure=None, ax=None, delay=False):
-    """Nichols plot for a system
-
-    Plots a Nichols plot for the system over a (optional) frequency range.
-
-    Parameters
-    ----------
-    sys_list : list of LTI, or LTI
-        List of linear input/output systems (single system is OK)
-    omega : array_like
-        Range of frequencies (list or bounds) in rad/sec
-    grid : boolean, optional
-        True if the plot should include a Nichols-chart grid. Default is True.
-
-    Returns
-    -------
-    None
-    """
-
-    # If argument was a singleton, turn it into a list
-    if not getattr(sys_list, '__iter__', False):
-        sys_list = (sys_list,)
-
-    if omega is None:
-        omega = default_frequency_range(sys_list)
-
-    for sys in sys_list:
-
-        omega = np.asarray(omega)
-
-        if sys.isdtime(strict=True):
-            nyquistfrq = 2. * np.pi * 1. / sys.dt / 2.
-            omega = omega[omega < nyquistfrq]
-
-        # Get the magnitude and phase of the system
-        mag_tmp, phase_tmp, omega = sys.freqresp(omega)
-        mag = np.squeeze(mag_tmp)
-        phase = np.atleast_1d(np.squeeze(phase_tmp))
-        phase = unwrap(phase)
-        
-        if np.any((phase * 180.0 / np.pi) >= 180):
-            phase = phase - 2*np.pi
-
-        # Convert to Nichols-plot format (phase in degrees,
-        # and magnitude in dB)
-        x = unwrap(sp.degrees(phase), 360)
-        y = 20*sp.log10(mag)
-
-        # Generate the plot
-        ax.plot(x, y)
-
-        ax.xaxis.set_major_formatter(mticker.FormatStrFormatter("%.1f °"))
-        ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%.1f dB"))
-
-    ax.set_xlabel('Fase (deg)')
-    ax.set_ylabel('Magnitud (dB)')
-    ax.set_title('Nichols Plot')
-
-    # Mark the -180 point
-    ax.plot([-180], [0], 'r+')
-
-    # Add grid
-    if grid:
-        nichols_grid(figure=figure, ax=ax, delay=delay)
-
-    return x, y, omega
-
-def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None, ax=None, delay=False):
+def nichols_grid(cl_mags=None,
+                 cl_phases=None,
+                 line_style='dotted',
+                 figure=None,
+                 ax=None,
+                 delay=False,
+                 offsetP=0):
     """Nichols chart grid
 
     Plots a Nichols chart grid on the current axis, or creates a new chart
@@ -165,15 +47,30 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None,
         # Default chart magnitudes
         # The key set of magnitudes are always generated, since this
         # guarantees a recognizable Nichols chart grid.
-        key_cl_mags = np.array([-40.0, -20.0, -12.0, -6.0, -3.0, -1.0, -0.5, 0.0,
-                                0.25, 0.5, 1.0, 3.0, 6.0, 12.0])
+        key_cl_mags = np.array([
+            -40.0,
+            -20.0,
+            -12.0,
+            -6.0,
+            -3.0,
+            -1.0,
+            -0.5,
+            0.0,
+            0.25,
+            0.5,
+            1.0,
+            3.0,
+            6.0,
+            12.0
+        ])
         # Extend the range of magnitudes if necessary. The extended arange
         # will end up empty if no extension is required. Assumes that closed-loop
         # magnitudes are approximately aligned with open-loop magnitudes beyond
         # the value of np.min(key_cl_mags)
         cl_mag_step = -20.0  # dB
         extended_cl_mags = np.arange(np.min(key_cl_mags),
-                                     ol_mag_min + cl_mag_step, cl_mag_step)
+                                     ol_mag_min + cl_mag_step,
+                                     cl_mag_step)
         cl_mags = np.concatenate((extended_cl_mags, key_cl_mags))
 
     # N-circle phases (should be in the range -360 to 0)
@@ -191,12 +88,12 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None,
 
     # Find the M-contours
     m = m_circles(cl_mags, phase_min=np.min(cl_phases), phase_max=np.max(cl_phases))
-    m_mag = 20*sp.log10(np.abs(m))
+    m_mag = 20 * sp.log10(np.abs(m))
     m_phase = sp.mod(sp.degrees(sp.angle(m)), -360.0)  # Unwrap
 
     # Find the N-contours
     n = n_circles(cl_phases, mag_min=np.min(cl_mags), mag_max=np.max(cl_mags))
-    n_mag = 20*sp.log10(np.abs(n))
+    n_mag = 20 * sp.log10(np.abs(n))
     n_phase = sp.mod(sp.degrees(sp.angle(n)), -360.0)  # Unwrap
 
     # Plot the contours behind other plot elements.
@@ -205,18 +102,24 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None,
     # over the range -360 < phase < 0. Given the range
     # the base chart is computed over, the phase offset should be 0
     # for -360 < ol_phase_min < 0.
-    phase_offset_min = 360.0*np.ceil(ol_phase_min/360.0)
-    phase_offset_max = 360.0*np.ceil(ol_phase_max/360.0)
+    phase_offset_min = 360.0 * np.ceil(ol_phase_min / 360.0)
+    phase_offset_max = 360.0 * np.ceil(ol_phase_max / 360.0) + offsetP
     if phase_offset_min == phase_offset_max:
         phase_offset_max += 360
     phase_offsets = np.arange(phase_offset_min, phase_offset_max, 360.0)
 
     for phase_offset in phase_offsets:
         # Draw M and N contours
-        ax.plot(m_phase + phase_offset, m_mag, color='lightgray',
-                 linestyle=line_style, zorder=0)
-        ax.plot(n_phase + phase_offset, n_mag, color='lightgray',
-                 linestyle=line_style, zorder=0)
+        ax.plot(m_phase + phase_offset,
+                m_mag,
+                color='lightgray',
+                linestyle=line_style,
+                zorder=0)
+        ax.plot(n_phase + phase_offset,
+                n_mag,
+                color='lightgray',
+                linestyle=line_style,
+                zorder=0)
 
         # Add magnitude labels
         for x, y, m in zip(m_phase[:][-1] + phase_offset, m_mag[:][-1], cl_mags):
@@ -224,8 +127,13 @@ def nichols_grid(cl_mags=None, cl_phases=None, line_style='dotted', figure=None,
             ax.text(x, y, str(m) + ' dB', size='small', ha=align, color='gray')
 
     # Fit axes to generated chart
-    ax.axis([phase_offset_min - 360.0, phase_offset_max - 360.0,
-              np.min(cl_mags), np.max([ol_mag_max, default_ol_mag_max])])
+    ax.axis([
+        phase_offset_min - 360.0,
+        phase_offset_max - 360.0,
+        np.min(cl_mags),
+        np.max([ol_mag_max, default_ol_mag_max])
+    ])
+
 
 #
 # Utility functions
@@ -255,10 +163,10 @@ def closed_loop_contours(Gcl_mags, Gcl_phases):
     # Compute the contours in Gcl-space. Since we're given closed-loop
     # magnitudes and phases, this is just a case of converting them into
     # a complex number.
-    Gcl = Gcl_mags*sp.exp(1.j*Gcl_phases)
+    Gcl = Gcl_mags * sp.exp(1.j * Gcl_phases)
 
     # Invert Gcl = Gol/(1+Gol) to map the contours into the open-loop space
-    return Gcl/(1.0 - Gcl)
+    return Gcl / (1.0-Gcl)
 
 
 def m_circles(mags, phase_min=-359.75, phase_max=-0.25):
@@ -283,7 +191,7 @@ def m_circles(mags, phase_min=-359.75, phase_max=-0.25):
     # Convert magnitudes and phase range into a grid suitable for
     # building contours
     phases = sp.radians(sp.linspace(phase_min, phase_max, 2000))
-    Gcl_mags, Gcl_phases = sp.meshgrid(10.0**(mags/20.0), phases)
+    Gcl_mags, Gcl_phases = sp.meshgrid(10.0**(mags / 20.0), phases)
     return closed_loop_contours(Gcl_mags, Gcl_phases)
 
 
@@ -308,10 +216,6 @@ def n_circles(phases, mag_min=-40.0, mag_max=12.0):
     """
     # Convert phases and magnitude range into a grid suitable for
     # building contours
-    mags = sp.linspace(10**(mag_min/20.0), 10**(mag_max/20.0), 2000)
+    mags = sp.linspace(10**(mag_min / 20.0), 10**(mag_max / 20.0), 2000)
     Gcl_phases, Gcl_mags = sp.meshgrid(sp.radians(phases), mags)
     return closed_loop_contours(Gcl_mags, Gcl_phases)
-
-
-# Function aliases
-nichols = nichols_plot
