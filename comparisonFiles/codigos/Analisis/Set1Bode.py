@@ -20,10 +20,10 @@ Mag2, Pha2, Freq2 = MatFile['MagB'], MatFile['PhaB'], MatFile['FreqB']
 MatFile2 = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S1Margin', squeeze_me=True)
 GM2, GP2, WM2, WP2 = MatFile2['GM'], MatFile2['GP'], MatFile2['Wg'], MatFile2['Wp']
 
-mask = Freq1 >= 0.01
-Freq1 = Freq1[mask]
-Mag1 = Mag1[mask]
-Pha1 = Pha1[mask]
+mask = Freq2 >= min(Freq1)
+Freq2 = Freq2[mask]
+Mag2 = Mag2[mask]
+Pha2 = Pha2[mask]
 
 funcionMag = interp1d(Freq1, Mag1)
 Mag1 = funcionMag(Freq2)

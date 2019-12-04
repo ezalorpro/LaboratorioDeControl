@@ -8,23 +8,23 @@ from matplotlib import pyplot as plt
 import matplotlib.ticker as mtick
 import pickle
 
-
-with open('comparisonFiles/Data LVSCCD/Analisis/Set2Margin.pkl', 'rb') as f:
+with open('comparisonFiles/Data LVSCCD/Analisis/Set1DMargin.pkl', 'rb') as f:
     GM1, GP1, WM1, WP1 = pickle.load(f)
 
-with open('comparisonFiles/Data LVSCCD/Analisis/Set2Bode.pkl', 'rb') as f:
+with open('comparisonFiles/Data LVSCCD/Analisis/Set1DBode.pkl', 'rb') as f:
     Freq1, Mag1, Pha1 = pickle.load(f)
 
-MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S2Bode', squeeze_me=True)
+MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S1DBode', squeeze_me=True)
 Mag2, Pha2, Freq2 = MatFile['MagB'], MatFile['PhaB'], MatFile['FreqB']
 
-MatFile2 = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S2Margin', squeeze_me=True)
+MatFile2 = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S1DMargin', squeeze_me=True)
 GM2, GP2, WM2, WP2 = MatFile2['GM'], MatFile2['GP'], MatFile2['Wg'], MatFile2['Wp']
 
-mask = Freq2 >= min(Freq1)
-Freq2 = Freq2[mask]
-Mag2 = Mag2[mask]
-Pha2 = Pha2[mask]
+mask1 = Freq2 >= min(Freq1)
+mask2 = Freq2[mask1] <= max(Freq1)
+Freq2 = Freq2[mask1][mask2]
+Mag2 = Mag2[mask1][mask2]
+Pha2 = Pha2[mask1][mask2]
 
 funcionMag = interp1d(Freq1, Mag1)
 Mag1 = funcionMag(Freq2)
@@ -49,11 +49,11 @@ ax1.plot(Freq2, Mag1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth
 ax1.fill_between(Freq2, Mag1, Mag2, alpha=0.4, color="#001C7F", label='Area de diferencia')
 ax1.set_xscale('log')
 ax1.yaxis.set_major_formatter(mtick.FormatStrFormatter("%.1f dB"))
-ax1.set_title('Bode para el Sistema 2')
-ax1.legend(loc=7, bbox_to_anchor=(0.54, 0.75))
+ax1.set_title('Bode para el Sistema 1')
+# ax1.legend(loc=7, bbox_to_anchor=(0.54, 0.75))
 ax1.grid()
 
-axins1 = ax1.inset_axes([0.12, 0.12, 0.4, 0.4])
+axins1 = ax1.inset_axes([0.2, 0.2, 0.4, 0.4])
 axins1.plot(Freq2, Mag2, color="#001C7F", label='MATLAB', linewidth=2)
 axins1.plot([Freq2[indiceMag]]*2, [Mag1[indiceMag], Mag2[indiceMag]], color='k', linewidth=3, label='Diferencia maxima')
 axins1.plot(Freq2, Mag1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
@@ -90,10 +90,10 @@ ax2.fill_between(Freq2,
 ax2.set_xlabel('rad/s')
 ax2.set_xscale('log')
 ax2.yaxis.set_major_formatter(mtick.FormatStrFormatter("%.1f °"))
-# ax2.legend(loc=7, bbox_to_anchor=(0.97, 0.75))
+ax2.legend(loc=7, bbox_to_anchor=(1, 0.82))
 ax2.grid()
 
-axins2 = ax2.inset_axes([0.16, 0.12, 0.4, 0.4])
+axins2 = ax2.inset_axes([0.2, 0.15, 0.36, 0.4])
 axins2.plot(Freq2, Pha2, color="#001C7F", label='MATLAB', linewidth=2)
 axins2.plot([Freq2[indicePha]] * 2, [Pha1[indicePha], Pha2[indicePha]],
             color='k',

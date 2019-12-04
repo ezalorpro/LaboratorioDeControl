@@ -3,7 +3,7 @@ denominador = [1 0.5 3];
 
 Gs = tf(numerador, denominador, 'InputDelay', 1.5);
 Gs = c2d(Gs, 0.05, 'foh');
-Gs
+Gsx = pade(Gs,4);
 
 [Step_y, Step_t] = step(Gs, 35);
 [Impulse_y, Impulse_t] = impulse(Gs, 35);

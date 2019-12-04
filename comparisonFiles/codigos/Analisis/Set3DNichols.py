@@ -8,9 +8,9 @@ from matplotlib import pyplot as plt
 import matplotlib.ticker as mtick
 import pickle
 
-MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S3Nichols', squeeze_me=True)
+MatFile = io.loadmat('comparisonFiles/Data MATLAB/Analisis/S3DNichols', squeeze_me=True)
 
-with open('comparisonFiles/Data LVSCCD/Analisis/Set3Nichols.pkl', 'rb') as f:
+with open('comparisonFiles/Data LVSCCD/Analisis/Set3DNichols.pkl', 'rb') as f:
     Pha1, Db1, WN1 = pickle.load(f)
 
 Db2, Pha2, WN2 = MatFile['MagN'], MatFile['PhaN'], MatFile['WN']
@@ -39,14 +39,14 @@ ax.set_title('Diagrama de Nichols para el Sistema 3')
 ax.xaxis.set_major_locator(plt.MaxNLocator(4))
 ax.xaxis.set_major_formatter(mtick.FormatStrFormatter("%.1f °"))
 ax.yaxis.set_major_formatter(mtick.FormatStrFormatter("%.1f dB"))
-ax.legend(loc=7, bbox_to_anchor=(0.55, 0.8))
+ax.legend(loc=7, bbox_to_anchor=(0.5, 0.7))
 ax.grid()
 
 # from nicholschart import nichols_grid
 
 # nichols_grid(figure=fig, ax=ax)
 
-axins = ax.inset_axes([0.12, 0.25, 0.4, 0.3])
+axins = ax.inset_axes([0.55, 0.1, 0.35, 0.3])
 axins.plot(Pha1, Db2, color="#001C7F", label='MATLAB', linewidth=2)
 axins.plot([Pha1[indice]]*2, [Db1[indice], Db2[indice]], color='k', linewidth=3, label='Diferencia maxima')
 axins.plot(Pha1, Db1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
@@ -54,7 +54,7 @@ axins.fill_between(Pha1, Db1, Db2, alpha=0.4, color="#001C7F", label='Area de di
 axins.xaxis.set_major_locator(plt.MaxNLocator(2))
 # axins.yaxis.major.formatter.set_powerlimits((0, 0))
 
-x1, x2 = Pha1[indice] - np.abs(Db1[indice] - Db2[indice])*40, Pha2[indice] + np.abs(Db1[indice] - Db2[indice])*40
+x1, x2 = Pha1[indice] - np.abs(Db1[indice] - Db2[indice])*50, Pha2[indice] + np.abs(Db1[indice] - Db2[indice])*50
 
 if Db2[indice] >= Db1[indice]:
     y1, y2 = Db1[indice] - np.abs(Db1[indice] - Db2[indice]), Db2[indice] + np.abs(Db1[indice] - Db2[indice])
