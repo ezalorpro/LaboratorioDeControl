@@ -80,7 +80,6 @@ for index, _ in enumerate(Img1):
 
 ax.set_xlim(-1, 0)
 ax.set_ylim(-10, 10)
-ax.set_xlabel('tiempo')
 ax.set_title('Lugar de las raíces para el sistema 1')
 ax.legend()
 ax.grid()

@@ -35,7 +35,6 @@ ax.plot([real1[indice]]*2, [imag1[indice], imag2[indice]], color='k', linewidth=
 ax.plot(real1, imag1, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
 ax.plot(real1, -imag1, 'r', dashes=[1, 2], linewidth=3)
 ax.fill_between(real1, imag1, imag2, alpha=0.4, color="#001C7F", label='Area de diferencia')
-ax.set_xlabel('tiempo')
 ax.set_title('Diagrama de Nyquist para el Sistema 1')
 ax.legend(loc=7, bbox_to_anchor=(0.77, 0.7))
 ax.grid()

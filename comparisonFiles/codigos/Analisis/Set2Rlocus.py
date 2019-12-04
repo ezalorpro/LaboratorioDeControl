@@ -79,7 +79,6 @@ for index, _ in enumerate(Img1):
         ax.plot(Re1[index], Img1[index], 'r', dashes=[1, 2], linewidth=3)
 
 ax.set_xlim(-10, 1)
-ax.set_xlabel('tiempo')
 ax.set_title('Lugar de las raíces para el sistema 2')
 ax.legend()
 ax.grid()
