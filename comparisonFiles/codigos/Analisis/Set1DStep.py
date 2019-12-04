@@ -3,7 +3,6 @@ from scipy.interpolate import interp1d
 from scipy.signal import correlate
 from scipy.stats import energy_distance
 from scipy.integrate import cumtrapz
-import control as ctrl
 from scipy import io
 from matplotlib import pyplot as plt
 import pickle
@@ -30,10 +29,10 @@ ax.step(T2, Y1, 'r', where='mid', dashes=[1, 2], label='Laboratorio Virtual', li
 ax.fill_between(T2, Y1, Y2, step="mid", alpha=0.4, color="#001C7F", label='Area de diferencia')
 ax.set_xlabel('tiempo')
 ax.set_title('Respuesta escalon para el Sistema 1')
-ax.legend(loc=7, bbox_to_anchor=(0.5, 0.50, 0.4, 0.4), prop={'size': 8})
+ax.legend(loc=7, bbox_to_anchor=(0.97, 0.65))
 ax.grid()
 
-axins = ax.inset_axes([0.55, 0.13, 0.4, 0.4])
+axins = ax.inset_axes([0.55, 0.13, 0.4, 0.28])
 axins.step(T2, Y2, where='mid', color="#001C7F", label='MATLAB', linewidth=2)
 axins.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label='Diferencia maxima')
 axins.step(T2, Y1, 'r', where='mid', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)

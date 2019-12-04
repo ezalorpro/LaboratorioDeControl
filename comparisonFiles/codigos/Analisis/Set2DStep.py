@@ -3,7 +3,6 @@ from scipy.interpolate import interp1d
 from scipy.signal import correlate
 from scipy.stats import energy_distance
 from scipy.integrate import cumtrapz
-import control as ctrl
 from scipy import io
 from matplotlib import pyplot as plt
 import pickle

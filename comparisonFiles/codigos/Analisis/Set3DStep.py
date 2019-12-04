@@ -3,7 +3,6 @@ from scipy.interpolate import interp1d
 from scipy.signal import correlate
 from scipy.stats import energy_distance
 from scipy.integrate import cumtrapz
-import control as ctrl
 from scipy import io
 from matplotlib import pyplot as plt
 import pickle
@@ -41,7 +40,7 @@ axins.fill_between(T2, Y1, Y2, step="mid", alpha=0.4, color="#001C7F", label='Ar
 axins.xaxis.set_major_locator(plt.MaxNLocator(2))
 # axins.yaxis.major.formatter.set_powerlimits((0, 0))
 
-x1, x2 = T2[indice] - np.abs(Y1[indice] - Y2[indice])*200, T2[indice] + np.abs(Y1[indice] - Y2[indice])*200
+x1, x2 = T2[indice] - np.abs(Y1[indice] - Y2[indice])*10, T2[indice] + np.abs(Y1[indice] - Y2[indice])*10
 
 if Y2[indice] >= Y1[indice]:
     y1, y2 = Y1[indice] - np.abs(Y1[indice] - Y2[indice]), Y2[indice] + np.abs(Y1[indice] - Y2[indice])
