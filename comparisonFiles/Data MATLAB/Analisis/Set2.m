@@ -63,6 +63,10 @@ figure(7)
 plot(squeeze(PhaN), squeeze(MagN))
 grid()
 
+SciFreqB = FreqB;
+SciFreqN = FreqN;
+SciWN = WN;
+
 set = 'S2';
 save(strcat(set,'Step'),'Step_t','Step_y')
 save(strcat(set,'Imp'),'Impulse_y','Impulse_t')
@@ -71,3 +75,4 @@ save(strcat(set,'Margin'),'GM','GP','Wg','Wp')
 save(strcat(set,'Nyquist'),'Re','Img','FreqN')
 save(strcat(set,'Rlocus'),'r','k')
 save(strcat(set,'Nichols'),'MagN','PhaN','WN')
+save(strcat(set,'Freq'),'SciFreqB', 'SciFreqN', 'SciWN')
