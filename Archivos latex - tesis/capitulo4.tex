@@ -422,7 +422,7 @@
         \setlength\LTright{0pt}
         \scriptsize
         \centering
-        \renewcommand{\arraystretch}{0.92}
+        \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{l @{\extracolsep{\fill}} ccccc}
         \caption[Comparacion de analisis - tiempo continuo]{Comparacion de analisis para los sistemas en tiempo continuo} \label{tab:AnalisisStepC} \\
         \toprule
@@ -450,106 +450,114 @@
             Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
             & & & & & \\
             Bode - Magnitud 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
+            Diferencia absoluta          & \num{3.072E-05} & \num{7.125E-04} & \num{4.807E-04} & \num{3.072E-05} & \num{7.125E-04}  \\
+            Diferencia porcentual        & -- & \num{7.032E-03} & \num{5.047E-03} & -- & \num{7.032E-03}  \\
+            RECM                         & \num{1.204E-05} & \num{1.339E-04} & \num{1.072E-04} & \num{1.204E-05} & \num{1.339E-04}  \\
+            Diferencia de area           & \num{1.259E-03} & \num{2.379E-03} & \num{1.179E-03} & \num{1.259E-03} & \num{2.379E-03}  \\
+            Distancia de energia         & \num{5.439E-04} & \num{1.118E-03} & \num{1.224E-03} & \num{5.439E-04} & \num{1.118E-03}  \\
                                 &                &           &   &   &  \\
             Bode - Fase 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
+            Diferencia absoluta          & \num{2.525E-04} & \num{9.020E-03} & \num{3.272E-03} & \num{2.525E-04} & \num{9.020E-03}  \\
+            Diferencia porcentual        & \num{2.062E-04} & \num{1.161E-02} & \num{1.287E-03} & \num{2.062E-04} & \num{1.161E-02}  \\
+            RECM                         & \num{6.375E-05} & \num{1.276E-03} & \num{7.010E-04} & \num{6.375E-05} & \num{1.276E-03}  \\
+            Diferencia de area           & \num{5.777E-04} & \num{2.603E-05} & \num{1.509E-04} & \num{5.777E-04} & \num{2.603E-05}  \\
+            Distancia de energia         & \num{9.920E-04} & \num{2.885E-03} & \num{3.068E-03} & \num{9.920E-04} & \num{2.885E-03}  \\
+            &                &           &   &   &  \\
+            Margen de ganancia 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            Diferencia absoluta          & NaN & NaN & \num{1.625E-02} & NaN & NaN  \\
+            Diferencia porcentual        & NaN & NaN & \num{1.689E-01} & NaN & NaN  \\
+            &                &           &   &   &  \\
+            Margen de fase 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{1.760E-01} & \num{5.918E-02} & \num{2.926E-01} & \num{1.760E-01} & \num{5.793E-02}  \\
+            Diferencia porcentual        & \num{1.955E-01} & \num{8.494E-02} & \num{2.577E-01} & \num{1.955E-01} & \num{8.315E-02}  \\
             & & & & & \\
             Nyquist 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
+            Diferencia absoluta          & \num{2.283E-03} & \num{1.466E-02} & \num{6.922E-02} & \num{2.283E-03} & \num{1.466E-02}  \\
+            Diferencia porcentual        & \num{1.662E+00} & \num{2.053E+00} & \num{2.687E+02} & \num{1.662E+00} & \num{2.053E+00}  \\
+            RECM                         & \num{4.593E-04} & \num{2.131E-03} & \num{1.333E-02} & \num{4.593E-04} & \num{2.131E-03}  \\
+            Diferencia de area           & \num{8.741E-04} & \num{1.253E-02} & \num{8.024E-02} & \num{8.741E-04} & \num{1.253E-02}  \\
+            Distancia de energia         & \num{4.725E-04} & \num{6.415E-03} & \num{8.350E-03} & \num{4.725E-04} & \num{6.415E-03}  \\
                                 &                &           &   &   &  \\
             Lugar de las raicez 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
+            Distancia de energia         & \num{4.268E-01} & \num{4.136E-01} & \num{1.379E-01} & -- & --  \\
             &                &           &   &   &  \\
             Nichols 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\ \bottomrule
+            Diferencia absoluta          & \num{1.037E+00} & \num{8.484E-02} & \num{7.789E-02} & \num{1.037E+00} & \num{8.484E-02}  \\
+            Diferencia porcentual        & \num{1.414E+00} & \num{1.023E+00} & \num{1.068E+00} & \num{1.414E+00} & \num{1.023E+00}  \\
+            RECM                         & \num{2.092E-01} & \num{1.641E-02} & \num{1.846E-02} & \num{2.092E-01} & \num{1.641E-02}  \\
+            Diferencia de area           & \num{4.596E-01} & \num{1.418E+00} & \num{1.597E+02} & \num{4.596E-01} & \num{1.418E+00}  \\
+            Distancia de energia         & \num{2.369E-02} & \num{3.587E-03} & \num{3.421E-03} & \num{2.369E-02} & \num{3.587E-03}  \\ \bottomrule
         \end{longtable}}
         
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
         \scriptsize
         \centering
-        \renewcommand{\arraystretch}{0.92}
-        \begin{longtable}{l @{\extracolsep{\fill}} ccccc}
+        \renewcommand{\arraystretch}{0.89}
+        \begin{longtable}{l @{\extracolsep{\fill}} cccc}
         \caption[Comparacion de analisis - tiempo discreto]{Comparacion de analisis para los sistemas en tiempo discreto} \label{tab:AnalisisStepC} \\
         \toprule
-        &    \multicolumn{3}{c}{MATLAB}     & \multicolumn{2}{c}{SciLab} \\ \cmidrule{2-4}\cmidrule{5-6}
-        Sistema 					 & 1               &     2      & 3  & 1  & 2 \\ 
-        & & & & & \\
+        &    \multicolumn{3}{c}{MATLAB}     & \multicolumn{1}{c}{SciLab} \\ \cmidrule{2-4}\cmidrule{5-5}
+        Sistema 					 & 1               &     2      & 3  & 1 \\ 
+        & & & &\\
         \endfirsthead
         \toprule
-        &    \multicolumn{3}{c}{MATLAB}     & \multicolumn{2}{c}{SciLab} \\ \cmidrule{2-4}\cmidrule{5-6}
-        Sistema 					 & 1               &     2      & 3  & 1  & 2 \\ 
-        & & & & & \\
+        &    \multicolumn{3}{c}{MATLAB}     & \multicolumn{1}{c}{SciLab} \\ \cmidrule{2-4}\cmidrule{5-5}
+        Sistema 					 & 1               &     2      & 3  & 1 \\ 
+        & & & &\\
         \endhead
-            Respuesta escalon 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{9.271E-06} & \num{2.159E-05} & \num{6.380E-03} & \num{3.030E-12} & \num{4.457E-09}  \\
-            Diferencia porcentual        & \num{5.865E-02} & \num{1.620E-03} & \num{1.738E+00} & \num{2.877E-10} & \num{1.867E-07}  \\
-            RECM                         & \num{1.409E-06} & \num{2.052E-06} & \num{1.278E-03} & \num{1.142E-12} & \num{1.364E-09}  \\
-            Diferencia de area           & \num{4.224E-07} & \num{9.102E-06} & \num{3.154E-03} & \num{1.862E-12} & \num{8.108E-08}  \\
-            Distancia de energia         & \num{9.796E-05} & \num{4.379E-05} & \num{2.346E-03} & \num{2.892E-08} & \num{4.225E-07}  \\
-            & & & & & \\
-            Respuesta impulso 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
-            & & & & & \\
-            Bode - Magnitud 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
-                                &                &           &   &   &  \\
-            Bode - Fase 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
-            & & & & & \\
-            Nyquist 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
-                                &                &           &   &   &  \\
-            Lugar de las raicez 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
-            &                &           &   &   &  \\
-            Nichols 					 &                &           &   &   &  \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
-            Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
-            RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
-            Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\ \bottomrule
+            Respuesta escalon  & & & & \\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{8.438E-15} & \num{6.457E-13} & \num{5.895E-14} & \num{1.021E-14}  \\
+            Diferencia porcentual        & \num{8.437E-13} & \num{2.592E-11} & \num{6.456E-12} & \num{1.008E-12}  \\
+            RECM                         & \num{3.472E-15} & \num{4.229E-13} & \num{2.053E-14} & \num{4.687E-15}  \\
+            Diferencia de area           & \num{0.000E+00} & \num{3.939E-11} & \num{5.009E-13} & \num{3.553E-15}  \\
+            Distancia de energia         & \num{5.361E-09} & \num{3.983E-08} & \num{6.870E-09} & \num{6.034E-09}  \\
+            & & & &\\
+            Respuesta impulso & & & & \\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{1.832E-15} & \num{3.916E-14} & \num{3.331E-14} & \num{1.832E-15}  \\
+            Diferencia porcentual        & \num{5.258E-13} & \num{2.352E-11} & \num{2.784E-12} & \num{5.258E-13}  \\
+            RECM                         & \num{5.464E-16} & \num{8.837E-15} & \num{9.464E-15} & \num{5.485E-16}  \\
+            Diferencia de area           & \num{2.220E-16} & \num{5.289E-13} & \num{1.354E-14} & \num{2.220E-16}  \\
+            Distancia de energia         & \num{1.759E-09} & \num{4.588E-09} & \num{3.871E-09} & \num{1.769E-09}  \\
+            & & & &\\
+            Bode - Magnitud  & & & & \\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{3.893E-03} & \num{3.378E-01} & \num{2.067E-02} & \num{3.893E-03}  \\
+            Diferencia porcentual        & \num{5.135E-03} & \num{5.775E-01} & \num{3.383E-02} & \num{5.135E-03}  \\
+            RECM                         & \num{6.899E-04} & \num{3.636E-02} & \num{3.492E-03} & \num{6.899E-04}  \\
+            Diferencia de area           & \num{7.633E-03} & \num{3.772E-02} & \num{3.476E-02} & \num{7.633E-03}  \\
+            Distancia de energia         & \num{2.480E-03} & \num{1.036E-02} & \num{4.893E-03} & \num{2.480E-03}  \\
+            & & & &\\
+            Bode - Fase & & & &\\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{4.406E-01} & \num{9.114E-03} & \num{5.692E-01} & \num{4.406E-01}  \\
+            Diferencia porcentual        & \num{1.958E-01} & \num{1.164E-02} & \num{1.039E-02} & \num{1.958E-01}  \\
+            RECM                         & \num{5.350E-02} & \num{1.775E-03} & \num{7.215E-02} & \num{5.350E-02}  \\
+            Diferencia de area           & \num{1.140E-01} & \num{8.149E-04} & \num{3.163E-01} & \num{1.140E-01}  \\
+            Distancia de energia         & \num{1.446E-02} & \num{3.770E-03} & \num{1.847E-02} & \num{1.446E-02}  \\
+            & & & &\\
+            Margen de ganancia & & & & \\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{6.090E-02} & \num{NaN} & \num{1.624E-02} & \num{5.524E-02}  \\
+            Diferencia porcentual        & \num{2.326E-01} & \num{NaN} & \num{1.688E-01} & \num{2.110E-01}  \\
+            & & & &\\
+            Margen de fase & & & & \\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{1.231E-01} & \num{1.454E-01} & \num{4.178E-03} & \num{1.314E-01}  \\
+            Diferencia porcentual        & \num{1.411E-01} & \num{2.087E-01} & \num{3.680E-03} & \num{1.508E-01}  \\
+            & & & &\\
+            Nyquist & & & &\\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{2.284E-03} & \num{1.493E-02} & \num{5.538E-02} & \num{2.284E-03}  \\
+            Diferencia porcentual        & \num{2.026E+00} & \num{2.128E+00} & \num{3.310E+02} & \num{2.026E+00}  \\
+            RECM                         & \num{4.328E-04} & \num{2.066E-03} & \num{1.184E-02} & \num{4.328E-04}  \\
+            Diferencia de area           & \num{9.357E-04} & \num{1.303E-02} & \num{6.475E-02} & \num{9.357E-04}  \\
+            Distancia de energia         & \num{4.358E-04} & \num{1.323E-03} & \num{8.612E-03} & \num{4.358E-04}  \\
+            & & & &\\
+            Lugar de las raicez & & & & \\ \cmidrule{1-1}
+            Distancia de energia         & \num{2.601E-01} & \num{2.076E-02} & \num{6.991E-01} & --  \\
+            & & & &\\
+            Nichols & & & & \\ \cmidrule{1-1}
+            Diferencia absoluta          & \num{9.413E-02} & \num{5.167E-01} & \num{1.346E-01} & \num{9.413E-02}  \\
+            Diferencia porcentual        & \num{1.302E-01} & \num{1.147E+00} & \num{2.610E-01} & \num{1.302E-01}  \\
+            RECM                         & \num{1.643E-02} & \num{2.490E-02} & \num{1.891E-02} & \num{1.643E-02}  \\
+            Diferencia de area           & \num{1.907E+00} & \num{1.093E+00} & \num{4.307E+00} & \num{1.907E+00}  \\
+            Distancia de energia         & \num{2.518E-03} & \num{3.993E-03} & \num{3.392E-03} & \num{2.518E-03} \\  \bottomrule
         \end{longtable}}
 
         % % Plantilla para subfigure
