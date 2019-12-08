@@ -57,7 +57,7 @@
             \item Retensor de primer orden (FOH)
             \item Euler hacia atrás (backward\_diff)
             \item Euler hacia adelante (Euler)
-            \item Transformación bilineal (tustin)
+            \item Transformación bilineal (Tustin)
             \item Transformación directa de polos y ceros (matched)
             \item Transformación del impulso invariante (impulse)
         \end{enumerate}
@@ -378,9 +378,135 @@
 
 \section{Comparacion con MATLAB y SciLab}
 
-    \begin{figure}[htb]
-        \centering
-        \includegraphics[width=0.4\textwidth]{Scilab/Set2Imp.png}
-        \caption[bla bla bla]{\textbf{Diagrama general de la aplicación}. La estructura general de la aplicación, la segunda columna representa a los archivos handler mientras que la tercera son los archivos de rutinas. Fuente: Elaboración propia.} 
-        \label{fig:estructuraMain}
-    \end{figure}
+    \subsection{Funcion de analisis de sistemas de control}
+        
+        Para realizar la comparacion entre el Laboratorio Virtual, MATLAB y SciLab se seleccionaron tres sistemas distintos, los sistemas fueron seleccionados de modo que abarcaran la mayoria de funciones disponibles. En la \cref{tab:AnalisisSistemas} se puede observar los sistemas a utilizar, los sistemas discretos se obtuvieron utilizando un ZOH, transformacion Tustin y un FOH respectivamente, con periodos de muestreo de 0.1s, 0.2s y 0.05s en cada caso.
+
+        \begin{table}[htb]
+            \centering 
+            \begin{threeparttable}
+                %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
+                \setlength{\arraycolsep}{1.5pt}
+                \renewcommand{\arraystretch}{2.5}
+                \caption[Sistemas para la comparacion de analisis de sistemas de control]{Sistemas para la comparacion de analisis de sistemas de control}
+                \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}c}
+                    \toprule
+                            Continuo & Discreto \\ \midrule \renewcommand{\arraystretch}{4}
+                $\dfrac{1}{s^2 + s + 1} $ & $\dfrac{0.004833 z+0.004675}{z^2 - 1.895 z + 0.9048} $  \\[20pt]
+                \begin{tabular}[x]{@{}c@{}c} \renewcommand{\arraystretch}{1} $A=\begin{bmatrix} -0.5 & -3 & -0.2 \\
+                    1 & 0 & 0 \\
+                    0 & 1 & 0 
+                \end{bmatrix} $ &  \renewcommand{\arraystretch}{1}
+                $B=\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$ \\ \renewcommand{\arraystretch}{1}
+                $C=\begin{bmatrix} 1 & 2 & 0.5 \end{bmatrix}$ & \renewcommand{\arraystretch}{1}
+                $D=\begin{bmatrix} 0 \end{bmatrix}$ \end{tabular} & \begin{tabular}[x]{@{}c@{}c} \renewcommand{\arraystretch}{1} $A=\begin{bmatrix} 851.5 & -559.2 & -37.03 \\
+                    185.2 & 944.1 & -3.703 \\
+                    18.52 & 194.4 & 999.6 
+                \end{bmatrix}_{10^{-3}} $ &  \renewcommand{\arraystretch}{1}
+                $B=\begin{bmatrix} 185.2 \\ 18.52 \\ 1.852 \end{bmatrix}_{10^{-3}}$ \\ \renewcommand{\arraystretch}{1}
+                $C=\begin{bmatrix} 1.116 & 1.713 & 0.4777 \end{bmatrix}$ & \renewcommand{\arraystretch}{1}
+                $D=\begin{bmatrix} 0.1116 \end{bmatrix}$ \end{tabular} \\[35pt] 
+                $\dfrac{s + 2}{s^2 + 0.5s + 3}e^{-1.5s} $ & $z^{-30}\left(\dfrac{0.02561 z^2 + 0.003084  z - 0.02375}{z^2 - 1.968 z + 0.9753}\right)$\\[8pt] \bottomrule
+                \end{tabular*}
+                \label{tab:AnalisisSistemas}
+                \begin{tablenotes}[flushleft]
+                    \item {\footnotesize \textbf{Nota.} Los valores de $K_{i}$ y $K_{d}$ se pueden obtener de la siguiente forma: $K_{i} = K_{p}/T_{i}$ ; $K_{d} = K_{p}T_{d}$. Fuente: \textcite{ogata2003ingenieria}.}
+                \end{tablenotes}
+            \end{threeparttable}
+        \end{table}
+
+        Para poder realizar los calculos numericos de error, area y distancia se realizo una interpolacion con el fin de ajustar el numero de muestras entre los vectores de tiempo y en frecuencia y los valores correspondientes, i.g., que ambos vectores de salida tengan un valor de salida para t=0.5s. En el caso de MATLAB, la funciones de analisis de sistemas de control crean su propio vector de tiempo y frecuencia segun sea el caso, por otro lado, en SciLab se deben asignar los valores de forma explicita, por tanto, se utilizo el vector de tiempo del Laboratoio Virtual y el vector de frecuencia de MATLAB. Con las consideraciones anteriores se realizo la comparacion respectiva y se obtuvieron los resultados observados en las siguientes tablas:
+        
+        \begin{table}[htb]
+            \centering
+            \begin{threeparttable}
+                \scriptsize
+                \renewcommand{\arraystretch}{1} 	% Separacion de las filas
+                %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
+                \caption[Comparacion de analisis - respuesta escalon - tiempo continuo]{Comparacion de la respuesta escalon para los sistemas en tiempo continuo}
+                \begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} ccccc}
+                	\toprule
+                	                             &    \multicolumn{3}{c}{MATLAB}     & \multicolumn{2}{c}{SciLab} \\
+                    \cmidrule{2-4}\cmidrule{5-6}
+                    Sistema 					 & 1               &     2      & 3  & 1  & 2 \\
+                	Diferencia absoluta          & \num{9.271E-06} & \num{2.159E-05} & \num{6.380E-03} & \num{3.030E-12} & \num{4.457E-09}  \\
+                	Diferencia porcentual        & \num{5.865E-02} & \num{1.620E-03} & \num{1.738E+00} & \num{2.877E-10} & \num{1.867E-07}  \\
+                	RECM                         & \num{1.409E-06} & \num{2.052E-06} & \num{1.278E-03} & \num{1.142E-12} & \num{1.364E-09}  \\
+                	Diferencia de area           & \num{4.224E-07} & \num{9.102E-06} & \num{3.154E-03} & \num{1.862E-12} & \num{8.108E-08}  \\
+                	Distancia de energia         & \num{9.796E-05} & \num{4.379E-05} & \num{2.346E-03} & \num{2.892E-08} & \num{4.225E-07}  \\ \bottomrule
+                \end{tabular*}
+                \label{tab:AnalisisStepC}
+            \end{threeparttable}
+        \end{table}
+
+        \begin{table}[!h]
+            \centering
+            \begin{threeparttable}
+                \scriptsize
+                \renewcommand{\arraystretch}{1} 	% Separacion de las filas
+                %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
+                \caption[Comparacion de analisis - respuesta impulso - tiempo continuo]{Comparacion de la respuesta impulso para los sistemas en tiempo continuo}
+                \begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} ccccc}
+                	\toprule
+                	                             &    \multicolumn{3}{c}{MATLAB}     & \multicolumn{2}{c}{SciLab} \\
+                    \cmidrule{2-4}\cmidrule{5-6}
+                    Sistema 					 & 1               &     2      & 3  & 1  & 2 \\
+                	Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
+                	Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
+                	RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
+                	Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
+                	Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\ \bottomrule
+                \end{tabular*}
+                \label{tab:AnalisisImpC}
+            \end{threeparttable}
+        \end{table}
+
+        \begin{table}[htb]
+            \centering
+            \begin{threeparttable}
+                \scriptsize
+                \renewcommand{\arraystretch}{1} 	% Separacion de las filas
+                %\setlength{\tabcolsep}{6pt}			% Separacion de columnas
+                \caption[Comparacion de analisis - Bode - tiempo continuo]{Comparacion de Bode para los sistemas en tiempo continuo}
+                \begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} ccccc}
+                	\toprule
+                	                             &    \multicolumn{3}{c}{MATLAB}     & \multicolumn{2}{c}{SciLab} \\
+                    \cmidrule{2-4}\cmidrule{5-6}
+                    Sistema 					 & 1               &     2      & 3  & 1  & 2 \\
+                    Magnitud 					 &                &           &   &   &  \\ \cmidrule{1-1}
+                	Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
+                	Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
+                	RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
+                	Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
+                    Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
+                     					 &                &           &   &   &  \\
+                    Fase 					 &                &           &   &   &  \\ \cmidrule{1-1}
+                	Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
+                	Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
+                	RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
+                	Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
+                	Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\\bottomrule
+                \end{tabular*}
+                \label{tab:AnalisisBodeC}
+            \end{threeparttable}
+        \end{table}
+
+        % % Plantilla para subfigure
+        % \begin{figure}[!h]
+        %     \centering
+        %     \begin{subfigure}[t]{0.99\textwidth}
+        %         \centering
+        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Step.png}
+        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Imp.png}
+        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Bode.png}
+        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Nyquist.png}
+        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Rlocus.png}
+        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Nichols.png}
+        %         \label{fig:Set1sub}
+        %     \end{subfigure}
+        %     \caption[Comparacion de analisis - respuesta escalon]{\textbf{Respuesta escalon para el sistema 1}. a) Sistema continuo, b) Sistema discreto \label{fig:Set1}}
+        % \end{figure}
+
+            
+            
+            
