@@ -64,7 +64,7 @@
 
     \subsubsection{Proceso con atraso o delay}
         
-        A los procesos ingresados se les puede agregar un atraso, este atraso es manejado de forma distinta dependiendo de la funcionalidad. Para el caso de la funcionalidad de análisis, el delay fue implementado para la respuesta escalón y la respuesta impulso como un desplazamiento en el tiempo equivalente al delay ingresado, para la respuesta en frecuencia se multiplico $e^{-j\omega \alpha}$ a cada una de las evaluaciones de frecuencia con $\alpha$ como el delay ingresado por el usuario. Para el caso del lugar de las raíces, el delay es implementado utilizando una aproximación por PADE de orden 10.
+        A los procesos ingresados se les puede agregar un atraso, este atraso es manejado de forma distinta dependiendo de la funcionalidad. Para el caso de la funcionalidad de análisis, el delay fue implementado para la respuesta escalón y la respuesta impulso como un desplazamiento en el tiempo equivalente al delay ingresado, para la respuesta en frecuencia se multiplico $e^{-j\omega \alpha}$ a cada una de las evaluaciones de frecuencia con $\alpha$ como el delay ingresado por el usuario. Para el caso del lugar de las raíces, el delay es implementado utilizando una aproximación por PADE.
 
         Si el proceso es definido en tiempo discreto el mismo es multiplicado por $z^{-\alpha/T}$ con la idea de retrasar las muestras en un numero equivalente al delay deseado, de este modo, no hay casos especiales dependiendo del tipo de análisis.
 
@@ -380,7 +380,7 @@
 
     \subsection{Funcion de analisis de sistemas de control}
         
-        Para realizar la comparacion entre el Laboratorio Virtual, MATLAB y SciLab se seleccionaron tres sistemas distintos, los sistemas fueron seleccionados de modo que abarcaran la mayoria de funciones disponibles. En la \cref{tab:AnalisisSistemas} se puede observar los sistemas a utilizar, los sistemas discretos se obtuvieron utilizando un ZOH, transformacion Tustin y un FOH respectivamente, con periodos de muestreo de 0.1s, 0.2s y 0.05s en cada caso.
+        Para realizar la comparacion entre el Laboratorio Virtual, MATLAB y SciLab se seleccionaron tres sistemas distintos, los sistemas fueron seleccionados de modo que abarcaran la mayor parte de las funciones disponibles. En la \cref{tab:AnalisisSistemas} se puede observar los sistemas a utilizar, los sistemas discretos se obtuvieron a partir de los continuos utilizando un ZOH, transformacion Tustin y un FOH respectivamente, con periodos de muestreo de 0.1s, 0.2s y 0.05s en cada caso.
 
         \begin{table}[htb]
             \centering 
@@ -410,13 +410,10 @@
                 3&$\dfrac{s + 2}{s^2 + 0.5s + 3}e^{-1.5s} $ & $z^{-30}\left(\dfrac{0.02561 z^2 + 0.003084  z - 0.02375}{z^2 - 1.968 z + 0.9753}\right)$\\[8pt] \bottomrule
                 \end{tabular*}
                 \label{tab:AnalisisSistemas}
-                % \begin{tablenotes}[flushleft]
-                %     \item {\footnotesize \textbf{Nota.} Los valores de $K_{i}$ y $K_{d}$ se pueden obtener de la siguiente forma: $K_{i} = K_{p}/T_{i}$ ; $K_{d} = K_{p}T_{d}$. Fuente: \textcite{ogata2003ingenieria}.}
-                % \end{tablenotes}
             \end{threeparttable}
         \end{table}
 
-        Para poder realizar los calculos numericos de error, area y distancia se realizo una interpolacion con el fin de ajustar el numero de muestras entre los vectores de tiempo y en frecuencia y los valores correspondientes, i.g., que ambos vectores de salida tengan un valor de salida para t=0.5s. En el caso de MATLAB, la funciones de analisis de sistemas de control crean su propio vector de tiempo y frecuencia segun sea el caso, por otro lado, en SciLab se deben asignar los valores de forma explicita, por tanto, se utilizo el vector de tiempo del Laboratoio Virtual y el vector de frecuencia de MATLAB. Con las consideraciones anteriores se realizo la comparacion respectiva y se obtuvieron los resultados observados en las siguientes tablas:
+        Para poder realizar los calculos numericos de error, diferencia de area y distancia se realizo una interpolacion con el fin de ajustar el numero de muestras entre los vectores de tiempo/frecuencia y los valores correspondientes, i.g., que ambos vectores de salida tengan un valor de salida para t=0.5s. En el caso de MATLAB, la funciones de analisis de sistemas de control crean su propio vector de tiempo y frecuencia segun sea el caso, por otro lado, en SciLab se deben asignar los valores de forma explicita, por tanto, se utilizo el vector de tiempo del Laboratoio Virtual y el vector de frecuencia de MATLAB. Con las consideraciones anteriores se realizaron las comparaciones respectivas y se obtuvieron los resultados observados en las \cref{tab:AnalisisStepC,tab:AnalisisStepD}:
         
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
@@ -435,53 +432,53 @@
         Sistema 					 & 1               &     2      & 3  & 1  & 2 \\ 
         & & & & & \\
         \endhead
-            Respuesta escalon 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            Respuesta escalon  &  &  &  &  &  \\ \cmidrule{1-1}
             Diferencia absoluta          & \num{9.271E-06} & \num{2.159E-05} & \num{6.380E-03} & \num{3.030E-12} & \num{4.457E-09}  \\
             Diferencia porcentual        & \num{5.865E-02} & \num{1.620E-03} & \num{1.738E+00} & \num{2.877E-10} & \num{1.867E-07}  \\
             RECM                         & \num{1.409E-06} & \num{2.052E-06} & \num{1.278E-03} & \num{1.142E-12} & \num{1.364E-09}  \\
             Diferencia de area           & \num{4.224E-07} & \num{9.102E-06} & \num{3.154E-03} & \num{1.862E-12} & \num{8.108E-08}  \\
             Distancia de energia         & \num{9.796E-05} & \num{4.379E-05} & \num{2.346E-03} & \num{2.892E-08} & \num{4.225E-07}  \\
             & & & & & \\
-            Respuesta impulso 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            Respuesta impulso &  &  &  &  &  \\ \cmidrule{1-1}
             Diferencia absoluta          & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
             Diferencia porcentual        & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
             RECM                         & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
             Diferencia de area           & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
             Distancia de energia         & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
             & & & & & \\
-            Bode - Magnitud 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            Bode - Magnitud  &  &  &  &  &  \\ \cmidrule{1-1}
             Diferencia absoluta          & \num{3.072E-05} & \num{7.125E-04} & \num{4.807E-04} & \num{3.072E-05} & \num{7.125E-04}  \\
             Diferencia porcentual        & -- & \num{7.032E-03} & \num{5.047E-03} & -- & \num{7.032E-03}  \\
             RECM                         & \num{1.204E-05} & \num{1.339E-04} & \num{1.072E-04} & \num{1.204E-05} & \num{1.339E-04}  \\
             Diferencia de area           & \num{1.259E-03} & \num{2.379E-03} & \num{1.179E-03} & \num{1.259E-03} & \num{2.379E-03}  \\
             Distancia de energia         & \num{5.439E-04} & \num{1.118E-03} & \num{1.224E-03} & \num{5.439E-04} & \num{1.118E-03}  \\
-                                &                &           &   &   &  \\
-            Bode - Fase 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            & & & & & \\
+            Bode - Fase &  &  &  &  &  \\ \cmidrule{1-1}
             Diferencia absoluta          & \num{2.525E-04} & \num{9.020E-03} & \num{3.272E-03} & \num{2.525E-04} & \num{9.020E-03}  \\
             Diferencia porcentual        & \num{2.062E-04} & \num{1.161E-02} & \num{1.287E-03} & \num{2.062E-04} & \num{1.161E-02}  \\
             RECM                         & \num{6.375E-05} & \num{1.276E-03} & \num{7.010E-04} & \num{6.375E-05} & \num{1.276E-03}  \\
             Diferencia de area           & \num{5.777E-04} & \num{2.603E-05} & \num{1.509E-04} & \num{5.777E-04} & \num{2.603E-05}  \\
             Distancia de energia         & \num{9.920E-04} & \num{2.885E-03} & \num{3.068E-03} & \num{9.920E-04} & \num{2.885E-03}  \\
-            &                &           &   &   &  \\
-            Margen de ganancia 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            & & & & & \\
+            Margen de ganancia &  &  &  &  &  \\ \cmidrule{1-1}
             Diferencia absoluta          & NaN & NaN & \num{1.625E-02} & NaN & NaN  \\
             Diferencia porcentual        & NaN & NaN & \num{1.689E-01} & NaN & NaN  \\
-            &                &           &   &   &  \\
-            Margen de fase 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            & & & & & \\
+            Margen de fase  &  &  &  &  &  \\ \cmidrule{1-1}
             Diferencia absoluta          & \num{1.760E-01} & \num{5.918E-02} & \num{2.926E-01} & \num{1.760E-01} & \num{5.793E-02}  \\
             Diferencia porcentual        & \num{1.955E-01} & \num{8.494E-02} & \num{2.577E-01} & \num{1.955E-01} & \num{8.315E-02}  \\
             & & & & & \\
-            Nyquist 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            Nyquist  &  &  &  &  &  \\ \cmidrule{1-1}
             Diferencia absoluta          & \num{2.283E-03} & \num{1.466E-02} & \num{6.922E-02} & \num{2.283E-03} & \num{1.466E-02}  \\
             Diferencia porcentual        & \num{1.662E+00} & \num{2.053E+00} & \num{2.687E+02} & \num{1.662E+00} & \num{2.053E+00}  \\
             RECM                         & \num{4.593E-04} & \num{2.131E-03} & \num{1.333E-02} & \num{4.593E-04} & \num{2.131E-03}  \\
             Diferencia de area           & \num{8.741E-04} & \num{1.253E-02} & \num{8.024E-02} & \num{8.741E-04} & \num{1.253E-02}  \\
             Distancia de energia         & \num{4.725E-04} & \num{6.415E-03} & \num{8.350E-03} & \num{4.725E-04} & \num{6.415E-03}  \\
-                                &                &           &   &   &  \\
-            Lugar de las raicez 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            & & & & & \\
+            Lugar de las raíces  &  &  &  &  &  \\ \cmidrule{1-1}
             Distancia de energia         & \num{4.268E-01} & \num{4.136E-01} & \num{1.379E-01} & -- & --  \\
-            &                &           &   &   &  \\
-            Nichols 					 &                &           &   &   &  \\ \cmidrule{1-1}
+            & & & & & \\
+            Nichols &  &  &  &  &  \\ \cmidrule{1-1}
             Diferencia absoluta          & \num{1.037E+00} & \num{8.484E-02} & \num{7.789E-02} & \num{1.037E+00} & \num{8.484E-02}  \\
             Diferencia porcentual        & \num{1.414E+00} & \num{1.023E+00} & \num{1.068E+00} & \num{1.414E+00} & \num{1.023E+00}  \\
             RECM                         & \num{2.092E-01} & \num{1.641E-02} & \num{1.846E-02} & \num{2.092E-01} & \num{1.641E-02}  \\
@@ -495,7 +492,7 @@
         \centering
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{l @{\extracolsep{\fill}} cccc}
-        \caption[Comparacion de analisis - tiempo discreto]{Comparacion de analisis para los sistemas en tiempo discreto} \label{tab:AnalisisStepC} \\
+        \caption[Comparacion de analisis - tiempo discreto]{Comparacion de analisis para los sistemas en tiempo discreto} \label{tab:AnalisisStepD} \\
         \toprule
         &    \multicolumn{3}{c}{MATLAB}     & \multicolumn{1}{c}{SciLab} \\ \cmidrule{2-4}\cmidrule{5-5}
         Sistema 					 & 1               &     2      & 3  & 1 \\ 
@@ -535,8 +532,8 @@
             Distancia de energia         & \num{1.446E-02} & \num{3.770E-03} & \num{1.847E-02} & \num{1.446E-02}  \\
             & & & &\\
             Margen de ganancia & & & & \\ \cmidrule{1-1}
-            Diferencia absoluta          & \num{6.090E-02} & \num{NaN} & \num{1.624E-02} & \num{5.524E-02}  \\
-            Diferencia porcentual        & \num{2.326E-01} & \num{NaN} & \num{1.688E-01} & \num{2.110E-01}  \\
+            Diferencia absoluta          & \num{6.090E-02} & NaN & \num{1.624E-02} & \num{5.524E-02}  \\
+            Diferencia porcentual        & \num{2.326E-01} & NaN & \num{1.688E-01} & \num{2.110E-01}  \\
             & & & &\\
             Margen de fase & & & & \\ \cmidrule{1-1}
             Diferencia absoluta          & \num{1.231E-01} & \num{1.454E-01} & \num{4.178E-03} & \num{1.314E-01}  \\
@@ -549,7 +546,7 @@
             Diferencia de area           & \num{9.357E-04} & \num{1.303E-02} & \num{6.475E-02} & \num{9.357E-04}  \\
             Distancia de energia         & \num{4.358E-04} & \num{1.323E-03} & \num{8.612E-03} & \num{4.358E-04}  \\
             & & & &\\
-            Lugar de las raicez & & & & \\ \cmidrule{1-1}
+            Lugar de las raíces & & & & \\ \cmidrule{1-1}
             Distancia de energia         & \num{2.601E-01} & \num{2.076E-02} & \num{6.991E-01} & --  \\
             & & & &\\
             Nichols & & & & \\ \cmidrule{1-1}
@@ -560,21 +557,33 @@
             Distancia de energia         & \num{2.518E-03} & \num{3.993E-03} & \num{3.392E-03} & \num{2.518E-03} \\  \bottomrule
         \end{longtable}}
 
-        % % Plantilla para subfigure
-        % \begin{figure}[!h]
-        %     \centering
-        %     \begin{subfigure}[t]{0.99\textwidth}
-        %         \centering
-        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Step.png}
-        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Imp.png}
-        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Bode.png}
-        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Nyquist.png}
-        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Rlocus.png}
-        %         \includegraphics[width=0.4\textwidth,valign=c]{MATLAB/Set1Nichols.png}
-        %         \label{fig:Set1sub}
-        %     \end{subfigure}
-        %     \caption[Comparacion de analisis - respuesta escalon]{\textbf{Respuesta escalon para el sistema 1}. a) Sistema continuo, b) Sistema discreto \label{fig:Set1}}
-        % \end{figure}
+        Los datos y sistemas faltantes en las tablas mostradas se debe a limitaciones tecnicas de SciLab o la imposibilidad de realizar los calculos. Ante las limitaciones tecnicas de SciLab se opto por descartar la comparacion bajo la premisa que la facilidad de implementacion es un factor a tener en cuenta en estas comparativas, a continuacion se presenta una lista con las razones especificas:
+
+        \begin{itemize}
+            \item SciLab no posee funciones directas para implementar sistemas con atrasos o aproximarlos con PADE.
+            \item La diferencia maxima se encontraba en un valor de cero (0), por lo que no se puede calcular la diferencia porcentual.
+            \item NaN indica que el margen de ganancia para ese sistema es infinito.
+            \item La funcion evans de SciLab, la cual se encarga de generar el lugar de las raíces no devuelve ningun tipo de data, por cual no se puede realizar una comparacion numerica o grafica.
+            \item Cuando se realizaron los calculos para el lugar de las raíces se observo que existia una pobre alineacion entre los valores de salida, por tanto, realizar un calculo de error arrojaba valores no confiables. El problema tambien fue dectado al realizar la graficacion del area entre una respuesta y la otra en donde se observaban areas entre tramos separados del lugar de las raíces.
+            \item La funcion para discretizar sistemas continuos de SciLab no permite seleccionar un metodo en particular y utiliza, por defecto, ZOH.
+        \end{itemize}
+
+        De las \cref{tab:AnalisisStepC,tab:AnalisisStepD} se puede extraer que existentes diferencias minimas  entre el Laboratorio Virtual y MATLAB/SciLab en terminos de presicion, a su vez, se logra percibir la gran dependencia que existe del vector de tiempo y frecuencia. Las metricas de analisis de frecuencia dieron iguales o muy parecidas tanto para MATLAB como para SciLab, esto se debe a que se utilizo el mismo vector de frecuencia para ambos, de modo similar, para la respuesta escalon e impulso se obtuvieron diferencias minimas entre el Laboratorio Virtual y SciLab por el uso del mismo vector de tiempo, lo anterior tambien es observable para los sistemas discretos dado que los vectores de tiempo son gobernados por el periodo de muestreo. La comparacion grafica con MATLAB se puede observar a modo de ejemplo en la \cref{fig:Set1} para el sistema continuo uno (1), para observar la comparacion grafica de los demas sistemas ir al \ref{anexo:CAnalisis}.
+
+        \begin{figure}[htb]
+            \centering
+            \begin{subfigure}[t]{0.99\textwidth}
+                \centering
+                \includegraphics[width=0.49\textwidth,valign=c]{MATLAB/Set1Step.png}
+                \includegraphics[width=0.49\textwidth,valign=c]{MATLAB/Set1Imp.png}
+                \includegraphics[width=0.49\textwidth,valign=c]{MATLAB/Set1Bode.png}
+                \includegraphics[width=0.49\textwidth,valign=c]{MATLAB/Set1Nyquist.png}
+                \includegraphics[width=0.49\textwidth,valign=c]{MATLAB/Set1Rlocus.png}
+                \includegraphics[width=0.49\textwidth,valign=c]{MATLAB/Set1Nichols.png}
+                \label{fig:Set1sub}
+            \end{subfigure}
+            \caption[Comparacion de analisis/MATLAB - sistema continuo 1]{\textbf{Comparacion de analisis/MATLAB - sistema continuo 1}. Fuente: Elaboración propia. \label{fig:Set1}}
+        \end{figure}
 
             
             
