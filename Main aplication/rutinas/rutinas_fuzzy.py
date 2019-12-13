@@ -831,10 +831,26 @@ class FuzzyController:
                     crisp_value = 0
             else:
                 try:
-                    print(len(cut_mfs))
-                    print(output_mf)
                     crisp_value = self.fuzz_outputs[i].output[self.Controlador]
-                    print(crisp_value)
+                    if crisp_value is not None:
+                        y = 0.
+                        for key, term in self.fuzz_outputs[i].terms.items():
+                            if key in cut_mfs:
+                                y = max(
+                                    y,
+                                    interp_membership(self.fuzz_outputs[i].universe,
+                                                    term.mf,
+                                                    crisp_value))
+                        if y < 0.1:
+                            y = 1.
+
+                        self.outvalues[i].setData([crisp_value] * 2, np.asarray([0, y]))
+                        window.outtestlabels[i].setText(window.OutputList[i]['nombre'] +
+                                                f': {np.around(crisp_value, 3)}')
+                    else:
+                        crisp_value = 0
+                        window.outtestlabels[i].setText(window.OutputList[i]['nombre'] +
+                                                    f': error, faltan reglas')
                 except:
                     crisp_value = 0
                     window.outtestlabels[i].setText(window.OutputList[i]['nombre'] +
