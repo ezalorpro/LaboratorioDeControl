@@ -378,7 +378,7 @@
 
 \section{Comparacion con MATLAB y SciLab}
 
-    \subsection{Funcion de analisis de sistemas de control}
+    \subsection{Analisis de sistemas de control}
         
         Para realizar la comparacion entre el Laboratorio Virtual, MATLAB y SciLab se seleccionaron tres sistemas distintos, los sistemas fueron seleccionados de modo que abarcaran la mayor parte de las funciones disponibles. En la \cref{tab:AnalisisSistemas} se puede observar los sistemas a utilizar, los sistemas discretos se obtuvieron a partir de los continuos utilizando un ZOH, transformacion Tustin y un FOH respectivamente, con periodos de muestreo de 0.1s, 0.2s y 0.05s en cada caso.
 
@@ -569,6 +569,8 @@
         \end{itemize}
 
         De las \cref{tab:AnalisisStepC,tab:AnalisisStepD} se puede extraer que existentes diferencias minimas  entre el Laboratorio Virtual y MATLAB/SciLab en terminos de presicion, a su vez, se logra percibir la gran dependencia que existe del vector de tiempo y frecuencia. Las metricas de analisis de frecuencia dieron iguales o muy parecidas tanto para MATLAB como para SciLab, esto se debe a que se utilizo el mismo vector de frecuencia para ambos, de modo similar, para la respuesta escalon e impulso se obtuvieron diferencias minimas entre el Laboratorio Virtual y SciLab por el uso del mismo vector de tiempo, lo anterior tambien es observable para los sistemas discretos dado que los vectores de tiempo son gobernados por el periodo de muestreo. La comparacion grafica con MATLAB se puede observar a modo de ejemplo en la \cref{fig:Set1} para el sistema continuo uno (1), para observar la comparacion grafica de los demas sistemas ir al \ref{anexo:CAnalisis}.
+        
+        \pagebreak
 
         \begin{figure}[htb]
             \centering
@@ -585,6 +587,19 @@
             \caption[Comparacion de analisis/MATLAB - sistema continuo 1]{\textbf{Comparacion de analisis/MATLAB - sistema continuo 1}. Fuente: Elaboración propia. \label{fig:Set1}}
         \end{figure}
 
-            
-            
+        \clearpage
+
+        La anterior comparativa es basada en presicion utilizando las funciones de MATLAB y SciLab a base de codigo, no obstante, el Laboratorio Virtual permite realizar los analisis con solo definir el sistema a analizar, este metodo de analisis tambien se puede realizar en MATLAB con la aplicacion (app) Linear System Analyzer, la cual permite realizar las mismas funciones, en el caso de SciLab no existe una aplicacion similar.
+
+    \subsection{Entonación de controladores PID}
+        
+        Para la funcion de entonacion de controladores PID no se realizo una comparacion numerica dado que los resultados seran los ya vistos en la funcion de analisis, por tanto, la comparacion se enfocara en la funcion per se y su forma de uso.
+
+        El Laboratorio Virtual permite ajustar las ganancias del controlador PID con solo deslizar los sliders correspondientes, permitiendo visualizar los efectos del aumento de cada una de los componentes del controlador PID, a su vez, permite habilitar y deshabilitar cada componente de forma sencilla permitiendo asi, una forma visual de entonacion rapida y sin complicaciones. En el caso de MATLAB, existen varias herramientas de entonacion, la que presenta mayor similitud es el PID Tuner, el cual permite entonar el controlador basado en el tiempo de respuesta y en el transitorio, no permite ajustar de forma individual cada ganancia, pero si contiene otras funciones no disponibles en el Laboratorio Virtual. En el caso de SciLab, no existe ninguna herramienta que cumpla con la funcion de entonar controladores PID.
+
+        En ambos casos, tanto el Laboratorio Virtual como el PID Tuner de MATLAB permite realizar una entonacion automatica y realizar ajustes finales de forma manual, el Laboratorio Virtual utiliza los metodos de Ziegler-Nichols y Cohen-Coon, en el caso de MATLAB no se conoce que metodo es utilizado. Para la identificacion y entonacion de sistemas a partir de data recolectada, MALTAB posee la aplicacion System Identification, la cual tiene una gran cantidad de opciones superiores al Laboratorio Virtual en lo que a identifiacion de sistemas respecta, no obstante, el Laboratorio Virtual tiene la ventaja de poseer una entonacion automatica al mismo tiempo que se realiza la identificacion. Nuevamente, SciLab no posee herramientas que puedan realizar identificacion de sistemas a partir de la data recolectada, si bien, las anteriores funciones pueden ser implementadas a codigo, el problema recae en el usuario.
+
+    \subsection{Diseño de controladores difusos}
+
+        
             

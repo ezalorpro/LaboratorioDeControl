@@ -81,7 +81,7 @@ class FuzzyController:
 
         vector = []
         for i, ins in enumerate(inputlist):
-            temp_in = fuzz.Antecedent(np.linspace(*ins['rango'], 200), ins['nombre'])
+            temp_in = fuzz.Antecedent(np.linspace(*ins['rango'], 501), ins['nombre'])
             vector.append(temp_in)
         return vector
 
@@ -95,7 +95,7 @@ class FuzzyController:
 
         vector = []
         for i, ins in enumerate(outputlist):
-            temp_in = fuzz.Consequent(np.linspace(*ins['rango'], 200),
+            temp_in = fuzz.Consequent(np.linspace(*ins['rango'], 501),
                                       ins['nombre'],
                                       ins['metodo'])
             vector.append(temp_in)
@@ -238,7 +238,7 @@ class FuzzyController:
         """
 
         self.fuzz_inputs[i].universe = np.asarray(np.linspace(*inputlist[i]['rango'],
-                                                              200))
+                                                              501))
         self.graficar_mf_in(window, i)
 
     def update_rango_output(self, window, outputlist, o):
@@ -254,7 +254,7 @@ class FuzzyController:
         """
 
         self.fuzz_outputs[o].universe = np.asarray(
-            np.linspace(*outputlist[o]['rango'], 200))
+            np.linspace(*outputlist[o]['rango'], 501))
         self.graficar_mf_out(window, o)
 
     def cambiar_metodo(self, window, o, metodo):
@@ -830,9 +830,15 @@ class FuzzyController:
                 else:
                     crisp_value = 0
             else:
-                crisp_value = 0
-                window.outtestlabels[i].setText(window.OutputList[i]['nombre'] +
-                                                f': error, faltan reglas')
+                try:
+                    print(len(cut_mfs))
+                    print(output_mf)
+                    crisp_value = self.fuzz_outputs[i].output[self.Controlador]
+                    print(crisp_value)
+                except:
+                    crisp_value = 0
+                    window.outtestlabels[i].setText(window.OutputList[i]['nombre'] +
+                                                    f': error, faltan reglas')
 
     def graficar_respuesta_2d(self, window, inrange, no):
         """
