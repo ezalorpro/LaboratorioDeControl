@@ -69,7 +69,7 @@ axins.grid()
 # ax.set_xlim(-900, 0)
 fig.tight_layout()
 fig.subplots_adjust(right=0.95, left=0.15)
-plt.savefig('comparisonFiles/plots/Analisis/MATLAB/Set3Nichols.png', dpi=500)
+plt.savefig('comparisonFiles/plots/Analisis/MATLAB/Set3Nichols.png', dpi=200)
 plt.show()
 
 print(f'{"Error absoluto: ":<38}{np.abs(Db2[indice]-Db1[indice]):.3E}')

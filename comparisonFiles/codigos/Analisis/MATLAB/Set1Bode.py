@@ -123,7 +123,7 @@ axins2.grid()
 
 fig.tight_layout()
 fig.subplots_adjust(hspace=0, bottom=0.1, top=0.95, left=0.16)
-plt.savefig('comparisonFiles/plots/Analisis/MATLAB/Set1Bode.png', dpi=500)
+plt.savefig('comparisonFiles/plots/Analisis/MATLAB/Set1Bode.png', dpi=200)
 plt.show()
 
 print('Magnitud')

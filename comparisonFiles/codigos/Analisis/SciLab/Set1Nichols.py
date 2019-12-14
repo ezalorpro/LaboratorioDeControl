@@ -67,7 +67,7 @@ axins.grid()
 
 fig.tight_layout()
 fig.subplots_adjust(right=0.95)
-plt.savefig('comparisonFiles/plots/Analisis/SciLab/ScSet1Nichols.png', dpi=500)
+plt.savefig('comparisonFiles/plots/Analisis/SciLab/ScSet1Nichols.png', dpi=200)
 plt.show()
 
 print(f'{"Error absoluto: ":<38}{np.abs(Db2[indice]-Db1[indice]):.3E}')

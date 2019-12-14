@@ -117,7 +117,7 @@ ax.indicate_inset_zoom(axins)
 axins.grid()
 
 fig.tight_layout()
-plt.savefig('comparisonFiles/plots/Analisis/MATLAB/Set3DRlocus.png', dpi=500)
+plt.savefig('comparisonFiles/plots/Analisis/MATLAB/Set3DRlocus.png', dpi=200)
 plt.show()
 
 print(f'{"Error absoluto: ":<38}{np.abs(tempImg2[indice]-tempImg1[indice]):.3E}')

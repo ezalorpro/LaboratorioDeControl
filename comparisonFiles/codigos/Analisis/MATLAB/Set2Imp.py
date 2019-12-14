@@ -58,7 +58,7 @@ ax.indicate_inset_zoom(axins)
 axins.grid()
 
 fig.tight_layout()
-plt.savefig('comparisonFiles/plots/Analisis/MATLAB/Set2Imp.png', dpi=500)
+plt.savefig('comparisonFiles/plots/Analisis/MATLAB/Set2Imp.png', dpi=200)
 plt.show()
 
 print(f'{"Error absoluto: ":<38}{np.abs(Y2[indice]-Y1[indice]):.3E}')
