@@ -707,7 +707,7 @@
         \bottomrule
         \end{longtable}}
 
-        Para el controlador 1 la \cref{tab:C1Difuso} muestra que la diferencia entre respuestas es despreciable, el error promedio porcentual entre el Laboratorio Virtual y MATLAB/SciLab fue en ambos casos de \num{1.10E-01}. Las graficas de respuesta del controlador 1 para las tres herramientas se pueden observar en la \cref{fig:respuestaC1}. En el caso del controlador 2, MATLAB presenta resultados dispares respecto al Laboratorio Virtual y Scilab, esto se debe a que MATLAB no aplica la definicion del metodo de defuzzificacion del primero a la izquierda como deberia ser y esto provoca que sus resultados sean erroneos e impredecibles, en concecuencia, no se realizo calculo del error dado que carece de sentido con MATLAB por lo ya descrito, y con SciLab el error es de cero. Las superficies de respuesta para el controlador 2 se pueden observar en las \cref{fig:respuestaC2LV,fig:respuestaC2MATLAB,fig:respuestaC2SciLab}.
+        Para el controlador 1 la \cref{tab:C1Difuso} muestra que la diferencia entre respuestas es despreciable, la diferencia porcentual promedio entre el Laboratorio Virtual y MATLAB/SciLab fue en ambos casos de \num{1.10E-01}. Las graficas de respuesta del controlador 1 para las tres herramientas se pueden observar en la \cref{fig:respuestaC1}. En el caso del controlador 2, MATLAB presenta resultados dispares respecto al Laboratorio Virtual y Scilab, esto se debe a que MATLAB no aplica la definicion del metodo de defuzzificacion del primero a la izquierda como deberia ser y esto provoca que sus resultados sean erroneos e impredecibles, en concecuencia, no se realizo calculo de diferencia dado que carece de sentido con MATLAB por lo ya descrito, y con SciLab la diferencia es de cero. Las superficies de respuesta para el controlador 2 se pueden observar en las \cref{fig:respuestaC2LV,fig:respuestaC2MATLAB,fig:respuestaC2SciLab}.
 
         En terminos de la interfaz para el diseño de controladores difusos las tres herramientas presentan un enfoque similar con solo pequeñas variaciones sin mucho impacto, por el lado de funciones disponibles, las variaciones tampoco son grandes, aunque MATLAB y SciLab permiten diseñar controladores Larsen y Tagaki-Sugeno-Khan, estos se encuentran fuera del alcanze de este trabajo. Algo a resaltar es la posibilidad del Laboratorio Virtual de asignar metodos de defuzzificacion individuales a cada salida, ademas, permite asignar ponderaciones individuales a cada salida de cada regla, esta funcion es gracias a las capacidades de Scikit-Fuzzy.
 
@@ -797,29 +797,3 @@
         \clearpage
 
     \subsection{Simulacion de sistemas de control}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        

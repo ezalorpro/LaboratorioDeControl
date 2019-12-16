@@ -23,5 +23,7 @@ vtkmodules
 !*.mat
 !*.pkl
 !*.xlsx
+!*.slx
+!*.fis
 readMeta.m
 esquemas tikz/*.fls

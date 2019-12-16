@@ -131,6 +131,10 @@ def FuzzyHandler(self):
         slider.valueChanged.connect(lambda: prueba_input(self))
 
 
+def remover_prueba(self):
+    self.main.fuzzyTabWidget.removeTab(5)
+    self.main.fuzzyTabWidget.removeTab(4)
+
 def imagen_entradas(self):
     """ [Funcion para establecer la imagen del numero de entradas] """
 
