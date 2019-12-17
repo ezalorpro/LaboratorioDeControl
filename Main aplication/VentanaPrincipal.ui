@@ -258,6 +258,15 @@
            </color>
           </brush>
          </colorrole>
+         <colorrole role="PlaceholderText">
+          <brush brushstyle="NoBrush">
+           <color alpha="128">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
         </active>
         <inactive>
          <colorrole role="WindowText">
@@ -314,6 +323,15 @@
            </color>
           </brush>
          </colorrole>
+         <colorrole role="PlaceholderText">
+          <brush brushstyle="NoBrush">
+           <color alpha="128">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
         </inactive>
         <disabled>
          <colorrole role="WindowText">
@@ -367,6 +385,15 @@
             <red>255</red>
             <green>255</green>
             <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="PlaceholderText">
+          <brush brushstyle="NoBrush">
+           <color alpha="128">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
            </color>
           </brush>
          </colorrole>
@@ -4508,8 +4535,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>2074</width>
-                   <height>300</height>
+                   <width>2034</width>
+                   <height>160</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -5866,8 +5893,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>540</width>
-                   <height>2924</height>
+                   <width>111</width>
+                   <height>2944</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_55">
@@ -6618,8 +6645,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>539</width>
-                   <height>2642</height>
+                   <width>109</width>
+                   <height>2612</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_54">
@@ -7138,7 +7165,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>601</height>
+                       <height>109</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -7448,7 +7475,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>113</height>
+                       <height>109</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -8730,8 +8757,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>278</width>
-               <height>332</height>
+               <width>274</width>
+               <height>268</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8805,7 +8832,7 @@
                    <string/>
                   </property>
                   <property name="checked">
-                   <bool>true</bool>
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -8835,7 +8862,7 @@
                    </sizepolicy>
                   </property>
                   <property name="currentIndex">
-                   <number>8</number>
+                   <number>0</number>
                   </property>
                   <property name="maxVisibleItems">
                    <number>20</number>
@@ -8933,7 +8960,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>1e-3</string>
+                   <string>1e-5</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8966,7 +8993,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>3e-6</string>
+                   <string>1e-6</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -9130,8 +9157,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>278</width>
-               <height>309</height>
+               <width>228</width>
+               <height>249</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -9350,8 +9377,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>278</width>
-               <height>414</height>
+               <width>212</width>
+               <height>356</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -9835,7 +9862,7 @@
      <x>0</x>
      <y>0</y>
      <width>1426</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

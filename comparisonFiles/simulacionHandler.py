@@ -11,13 +11,14 @@ from PySide2 import QtGui, QtWidgets
 import numpy as np
 
 import json
+import pickle
 
 
 def SimulacionHandler(self):
     """
     [Funcion principal para el manejo de la funcionalida de simulacion de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
     """
-
+    self.conteo = 1
     self.main.progressBar.hide()
     self.main.controller1Frame.hide()
     self.main.controller2Frame.hide()
@@ -734,10 +735,10 @@ def restablecer_configuracion(self):
     """ [Funcion para restablecer la configuracion avanzada por defecto] """
 
     self.main.padeOrder.setText('10')
-    self.main.filtroCheck.setChecked(False)
-    self.main.solverMethod.setCurrentIndex(0)
-    self.main.rtolLineEdit.setText('1e-5')
-    self.main.atolLineEdit.setText('1e-6')
+    self.main.filtroCheck.setChecked(True)
+    self.main.solverMethod.setCurrentIndex(8)
+    self.main.rtolLineEdit.setText('1e-3')
+    self.main.atolLineEdit.setText('3e-6')
     self.main.maxStepIncr.setText('5')
     self.main.minStepDecr.setText('0.2')
     self.main.safetyFactor.setText('0.9')
@@ -955,3 +956,8 @@ def plot_final_results(self, result):
     self.main.progressBar.hide()
     self.main.principalTab.setEnabled(True)
     self.main.tabSimulation.setCurrentIndex(1)
+    
+    with open('Controlador' + str(self.conteo) + '.pkl', 'wb', ) as f:
+        pickle.dump(result, f)
+        
+    self.conteo += 1

@@ -8757,7 +8757,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>223</width>
+               <width>274</width>
                <height>268</height>
               </rect>
              </property>
@@ -8832,7 +8832,7 @@
                    <string/>
                   </property>
                   <property name="checked">
-                   <bool>true</bool>
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -8862,7 +8862,7 @@
                    </sizepolicy>
                   </property>
                   <property name="currentIndex">
-                   <number>8</number>
+                   <number>0</number>
                   </property>
                   <property name="maxVisibleItems">
                    <number>20</number>
@@ -8960,7 +8960,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>1e-3</string>
+                   <string>1e-5</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8993,7 +8993,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>3e-6</string>
+                   <string>1e-6</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
