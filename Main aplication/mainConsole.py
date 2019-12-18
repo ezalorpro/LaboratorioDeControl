@@ -3,10 +3,10 @@
 
 from handlers.jupyterConsoleHandler import jupyterConsoleHandler
 from handlers.simulacionHandler import SimulacionHandler
+from Ui_VentanaPrincipalConsole import Ui_MainWindow
 from handlers.analisisHandler import AnalisisHandler
 from handlers.TuningHandler import TuningHandler
 from handlers.FuzzyHandler import FuzzyHandler
-from Ui_VentanaPrincipalConsole import Ui_MainWindow
 from PySide2 import QtGui, QtWidgets
 
 import os

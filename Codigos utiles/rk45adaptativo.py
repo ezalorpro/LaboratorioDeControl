@@ -2,53 +2,34 @@ import numpy as np
 import control as ctrl
 from matplotlib import pyplot as plt
 from scipy.integrate import RK45
+from my_module import dopri5
+# from numba.pycc import CC
 import time
 from numba import jit
 import copy
 
+# cc = CC('my_module')
 
-@jit
-def dopri5(ss, x, h, inputValue):
-    k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
-    k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 5))) + np.dot(ss.B, inputValue)))
-    k3 = np.dot(h,
-                (np.dot(ss.A, (x + np.dot(k1, 3 / 40) + np.dot(k2, 9 / 40))) +
-                 np.dot(ss.B, inputValue)))
-    k4 = np.dot(
-        h,
-        (np.dot(ss.A,
-                (x + np.dot(k1, 44 / 45) + np.dot(k2, -56 / 15) + np.dot(k3, 32 / 9))) +
-         np.dot(ss.B, inputValue)))
-    k5 = np.dot(h,
-                (np.dot(ss.A,
-                        (x + np.dot(k1, 19372 / 6561) + np.dot(k2, -25360 / 2187) +
-                         np.dot(k3, 64448 / 6561) + np.dot(k4, -212 / 729))) +
-                 np.dot(ss.B, inputValue)))
-    k6 = np.dot(h,
-                (np.dot(ss.A,
-                        (x + np.dot(k1, 9017 / 3168) + np.dot(k2, -355 / 33) +
-                         np.dot(k3, 46732 / 5247) + np.dot(k4, 49 / 176) +
-                         np.dot(k5, -5103 / 18656))) + np.dot(ss.B, inputValue)))
-    k7 = np.dot(
-        h,
-        (np.dot(ss.A,
-                (x + np.dot(k1, 35 / 384) + np.dot(k3, 500 / 1113) + np.dot(
-                    k4, 125 / 192) + np.dot(k5, -2187 / 6784) + np.dot(k6, 11 / 84))) +
-         np.dot(ss.B, inputValue)))
+# @cc.export('dopri5', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
+# def dopri5(A, B, C, D, x, h, inputValue):
+#     k1 = h*(np.dot(A, x) + B*inputValue)
+#     k2 = h*(np.dot(A, x + k1/5) + B*inputValue)
+#     k3 = h*(np.dot(A, x + k1*3/40 + k2*9/40) + B*inputValue)
+#     k4 = h*(np.dot(A, x + k1*44/45 - k2*56/15 + k3*32/9) + B*inputValue)
+#     k5 = h*(np.dot(A, x + k1*19372/6561 - k2*25360/2187 + k3*64448/6561 - k4*212/729) +
+#          B*inputValue)
+#     k6 = h*(np.dot(A, x + k1*9017/3168 - k2*355/33 + k3*46732/5247 + k4*49/176 -
+#          k5*5103/18656) + B*inputValue)
+#     k7 = h*(np.dot(A, x + k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84) +
+#          B*inputValue)
 
-    y5th = ss.C * x + ss.D * inputValue
+#     y5th = np.dot(C, x) + D * inputValue
+#     x5th = x + (k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84)
+#     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 + k6*187/2100 + k7/40)
 
-    x5th = x + (np.dot(k1, 35 / 384) + np.dot(k3, 500 / 1113) + np.dot(k4, 125 / 192) +
-                np.dot(k5, -2187 / 6784) + np.dot(k6, 11 / 84))
-
-    x4th = x + (np.dot(k1, 5179 / 57600) + np.dot(k3, 7571 / 16695) +
-                np.dot(k4, 393 / 640) + np.dot(k5, -92097 / 339200) +
-                np.dot(k6, 187 / 2100) + np.dot(k7, 1 / 40))
+#     return y5th, x5th, x4th
 
 
-    return y5th.item(), x5th, x4th
-
-@jit
 def fehlberg45(A, B , C, D, x, h, inputValue):
     k1 = np.dot(h, (np.dot(A, x) + np.dot(B, inputValue)))
     k2 = np.dot(h, (np.dot(A, (x + np.dot(k1, 1 / 4))) + np.dot(B, inputValue)))
@@ -136,24 +117,21 @@ def cash_karp(ss, x, h, inputValue):
     return y4th.item(), x4th, x5th
 
 
-@jit
 def norm(x):
     """Compute RMS norm."""
     return np.linalg.norm(x) / x.size**0.5
 
 
 def ejecutar():
-    N = 100
-    kp = 1
-    ki = 1
-    kd = 1
+    N = 100.0
+    kp = 1.0
+    ki = 1.0
+    kd = 1.0
 
-    pid = ctrl.tf2ss(
-        ctrl.TransferFunction([N * kd + kp, N * kp + ki, N * ki],
-                            [1, N, 0]))
+    pid = ctrl.tf2ss(ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1.0, N, 0.0]))
 
     # pid = ctrl.tf2ss(
-    #     ctrl.TransferFunction([1], [0.1, 1]) *
+    #     ctrl.TransferFunction([1], [0.01, 1]) *
     #     ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0]))
 
     # pid = ctrl.tf2ss(ctrl.TransferFunction([1], [10/(N*kd), 1])*
@@ -168,32 +146,32 @@ def ejecutar():
     #         N**2 * kd * ki
     #     ], [10, 10*N + N*kd, N**2 * kd, 0]))
 
-    x_pidB = np.zeros_like(pid.B)
+    x_pidB = np.zeros_like(pid.B).astype('float64')
+    A2, B2, C2, D2 = pid.A.astype('float64'), pid.B.astype('float64'), pid.C.astype('float64'), pid.D.astype('float64')
 
     sistema = ctrl.tf2ss(ctrl.TransferFunction([1], [1, 1, 1]))
-    vstadosB = np.zeros_like(sistema.B)
+    A1, B1, C1, D1 = sistema.A.astype('float64'), sistema.B.astype('float64'), sistema.C.astype('float64'), sistema.D.astype('float64')
+    vstadosB = np.zeros_like(sistema.B).astype('float64')
 
     min_step_decrease = 0.2
     max_step_increase = 5
     h_ant = 0.000001
-    rtol = 1e-8
-    atol = 1e-8
-    tiempo = 0
+    rtol = 1e-15
+    atol = 1e-15
+    tiempo = 0.0
     tbound = 30
     sp = 1
     salida = [0]
     tiempo_out = [0]
     yb = 0
     sf1 = 0.9
-    counter = 0
+    counter = 0.0
     sc_t = [0]
     error_ac = [0]
     # dopri5
     # fehlberg45dot
-    RK = fehlberg45
-    print(type(sistema.A))
-    print(type(h_ant))
-    print(type(sp-yb))
+    RK = dopri5
+
     start = time.time()
     while tiempo < tbound:
         counter += 1
@@ -202,26 +180,27 @@ def ejecutar():
             if tiempo + h_ant >= tbound:
                 h_ant = tbound - tiempo
 
-            ypidb, x_five, x_four = RK(pid.A, pid.B, pid.C, pid.D, copy.deepcopy(x_pidB), h_ant, error)
+            ypidb, x_five, x_four = RK(A2, B2, C2, D2, x_pidB, h_ant, error)
 
             scale = atol + np.maximum(np.abs(x_five), np.abs(x_pidB)) * rtol
+            # scale = atol + rtol * (np.abs(x_five) + np.abs(x_pidB)) / 2
             delta1 = np.abs(x_five - x_four)
             error_norm = norm(delta1 / scale)
 
             if error_norm == 0:
                 h_est = h_ant * max_step_increase
             elif error_norm <= 1:
-                h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (4+1))))
+                h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (5+1))))
             else:
-                h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (4+1))))
+                h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (5+1))))
                 continue
 
             error_ac.append(error_norm)
             sc_t.append(ypidb)
-            yb, vstadosB, _ = RK(sistema.A, sistema.B, sistema.C, sistema.D, copy.deepcopy(vstadosB), h_ant, ypidb)
+            yb, vstadosB, _ = RK(A1, B1, C1, D1, vstadosB, h_ant, ypidb)
             break
 
-        print(tiempo)
+        # print(tiempo)
         salida.append(yb)
         tiempo += h_ant
         tiempo_out.append(tiempo)
@@ -234,13 +213,13 @@ def ejecutar():
     print(transcurrido)
     plt.plot(tiempo_out, salida)
 
-    tf = ctrl.tf([1], [1, 1, 1])
-    t = np.linspace(0, tbound, 200)
-    pid = ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0])
-    tf = ctrl.feedback(pid*tf)
-    t, y = ctrl.step_response(tf, t)
-    plt.plot(t, y)
-    plt.grid()
+    # tf = ctrl.tf([1], [1, 1, 1])
+    # t = np.linspace(0, tbound, 200)
+    # pid = ctrl.TransferFunction([N*kd + kp, N*kp + ki, N * ki], [1, N, 0])
+    # tf = ctrl.feedback(pid*tf)
+    # t, y = ctrl.step_response(tf, t)
+    # plt.plot(t, y)
+    # plt.grid()
     plt.show()
 
     # plt.plot(tiempo_out, sc_t)
@@ -251,4 +230,6 @@ def ejecutar():
     # plt.grid()
     # plt.show()
 
+
 ejecutar()
+# cc.compile()
