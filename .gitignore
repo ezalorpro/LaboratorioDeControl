@@ -26,5 +26,6 @@ vtkmodules
 !*.slx
 !*.fis
 !*.pyd
+!*.ico
 readMeta.m
 esquemas tikz/*.fls
