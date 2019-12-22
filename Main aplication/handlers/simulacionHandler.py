@@ -291,6 +291,7 @@ def pade_validator(self):
         self.main.padeOrder.setFocus()
         return
 
+
 def rtol_validator(self):
     """ [Validacion de la tolerancia relativa] """
 
@@ -304,6 +305,7 @@ def rtol_validator(self):
         self.error_dialog.exec_()
         self.main.rtolLineEdit.setFocus()
         return
+
 
 def atol_validator(self):
     """ [Validacion de la tolerancia absoluta] """

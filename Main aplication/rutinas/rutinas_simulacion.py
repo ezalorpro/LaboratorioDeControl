@@ -5,7 +5,7 @@
 
 from rutinas.rutinas_fuzzy import FuzzyController
 from rutinas.rutinas_fuzzy import FISParser
-from rutinas.discreto_sim import ss_discreta
+from rutinas.discreto_sim import ss_discreta, PID_discreto, derivadas_discretas
 from collections import deque
 from PySide2 import QtCore
 
@@ -114,17 +114,17 @@ class SimpleThread(QtCore.QThread):
         if self.window.main.kpCheck.isChecked():
             kp = float(self.kp)
         else:
-            kp = 0
+            kp = 0.0
 
         if self.window.main.kiCheck.isChecked():
             ki = float(self.ki)
         else:
-            ki = 0
+            ki = 0.0
 
         if self.window.main.kdCheck.isChecked():
             kd = float(self.kd)
         else:
-            kd = 0
+            kd = 0.0
 
         # Transformando a ecuaciones de espacio de estados en caso de que sea funcion de transferencia
         if isinstance(self.system, ctrl.TransferFunction):
@@ -132,6 +132,7 @@ class SimpleThread(QtCore.QThread):
 
         x = np.zeros_like(self.system.B).astype('float64')
         system = self.system.A.astype('float64'), self.system.B.astype('float64'), self.system.C.astype('float64'), self.system.D.astype('float64')
+        
         tiempo_total = self.Tiempo
         tiempo = 0
 
@@ -164,18 +165,18 @@ class SimpleThread(QtCore.QThread):
         h = 0.000001  # Tamaño de paso inicial
         salida = deque([0])  # Lista de salida, se utiliza deque para mejorar la velocidad
         sc_f = deque([0])  # Lista de la señal de control, se utiliza deque para mejorar la velocidad
-        sc_t = 0  # Señal de control cambiante
-        si_t = 0  # Acumulador de la señal integral
+        sc_t = 0.0  # Señal de control cambiante
+        si_t = 0.0  # Acumulador de la señal integral
 
         # Distincion entre continuo y discreto
         if ctrl.isdtime(self.system, strict=True):
-            error_a = deque([0] * 2)
+            error_a = np.asarray([0.0, 0.0])
             solve = ss_discreta
-            PIDf = self.PID_discreto
+            PIDf = PID_discreto
             h_new = self.dt
             h = self.dt
         else:
-            error_a = deque([0] * 2)
+            error_a = np.asarray([0.0, 0.0])
             solve = self.rk_base
             PIDf = self.metodo_adaptativo
 
@@ -229,7 +230,7 @@ class SimpleThread(QtCore.QThread):
             #    PID = kp + ki/s + (kd*N*s/(s + N))
 
             self.N = 50
-            kd = 0
+            kd = 0.0
             pid = ctrl.tf2ss(ctrl.TransferFunction(
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
 
@@ -272,7 +273,7 @@ class SimpleThread(QtCore.QThread):
 
             # Calculo del error
             error = u - salida[i]
-
+            
             # Distincion de PID entre continuo y discreto
             if ctrl.isdtime(self.system, strict=True):
                 sc_t, si_t, error_a = PIDf(error, h, si_t, error_a, kp, ki, kd)
@@ -327,17 +328,17 @@ class SimpleThread(QtCore.QThread):
         if self.window.main.kpCheck.isChecked():
             kp = float(self.kp)
         else:
-            kp = 0
+            kp = 0.0
 
         if self.window.main.kiCheck.isChecked():
             ki = float(self.ki)
         else:
-            ki = 0
+            ki = 0.0
 
         if self.window.main.kdCheck.isChecked():
             kd = float(self.kd)
         else:
-            kd = 0
+            kd = 0.0
 
         # Creacion del controlador difuso
         if len(self.fuzzy_path1) > 1 and self.esquema in [1, 2, 3, 4, 5, 6, 7, 8]:
@@ -394,7 +395,7 @@ class SimpleThread(QtCore.QThread):
         else:
             # Escalon avanzado
             it = iter(self.escalon)
-            u_value = [0]
+            u_value = deque([0])
             max_tiempo = []
             for i, valor in enumerate(it):
                 max_tiempo.append(next(it))
@@ -403,7 +404,10 @@ class SimpleThread(QtCore.QThread):
             max_tiempo.append(tiempo_total)
 
             # Necesario para evitar tamaños de paso excesivos dado el algoritmo adaptativo
-            tiempo += max_tiempo[0] - 0.0000011
+            if ctrl.isdtime(self.system, strict=True):
+                tiempo += max_tiempo[0] - self.dt - self.dt/10
+            else:
+                tiempo += max_tiempo[0] - 0.0000011
 
         # Representacion del 20% de la simulacion
         porcentajeBar = int(tiempo_total * 20 / 100)
@@ -413,18 +417,18 @@ class SimpleThread(QtCore.QThread):
         h = 0.000001  # Tamaño de paso inicial
         salida = deque([0])  # Lista de salida, se utiliza deque para mejorar la velocidad
         sc_f = deque([0])  # Lista de la señal de control, se utiliza deque para mejorar la velocidad
-        sc_t = 0  # Señal de control cambiante
-        si_t = 0  # Acumulador de la señal integral
+        sc_t = 0.0  # Señal de control cambiante
+        si_t = 0.0  # Acumulador de la señal integral
 
         # Distincion entre continuo y discreto
         if ctrl.isdtime(self.system, strict=True):
-            error_a = deque([0] * 2)
+            error_a = np.asarray([0.0, 0.0])
             solve = ss_discreta
-            PIDf = self.PID_discreto
+            PIDf = PID_discreto
             h_new = self.dt
             h = self.dt
         else:
-            error_a = deque([0] * 2)
+            error_a = np.asarray([0.0, 0.0])
             solve = self.rk_base
             PIDf = self.metodo_adaptativo
 
@@ -536,7 +540,7 @@ class SimpleThread(QtCore.QThread):
 
                 # Distincion entre continuo y discreto
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
+                    d_error, d2_error, error_a = derivadas_discretas(error, h, error_a)
                 else:
                     if self.N != 0:
                         h, h_new2, d2_error, x_derivada2 = PIDf(derivada2, h, tiempo,
@@ -636,7 +640,7 @@ class SimpleThread(QtCore.QThread):
 
                 # Distincion entre continuo y discreto
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
+                    d_error, d2_error, error_a = derivadas_discretas(error, h, error_a)
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
@@ -729,7 +733,7 @@ class SimpleThread(QtCore.QThread):
 
                 # Distincion entre continuo y discreto
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
+                    d_error, d2_error, error_a = derivadas_discretas(error, h, error_a)
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
@@ -824,7 +828,7 @@ class SimpleThread(QtCore.QThread):
 
                 # Distincion entre continuo y discreto
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
+                    d_error, d2_error, error_a = derivadas_discretas(error, h, error_a)
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
@@ -921,7 +925,7 @@ class SimpleThread(QtCore.QThread):
 
                 # Distincion entre continuo y discreto
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
+                    d_error, d2_error, error_a = derivadas_discretas(error, h, error_a)
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
@@ -1018,7 +1022,7 @@ class SimpleThread(QtCore.QThread):
 
                 # Distincion entre continuo y discreto
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
+                    d_error, d2_error, error_a = derivadas_discretas(error, h, error_a)
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
@@ -1116,7 +1120,7 @@ class SimpleThread(QtCore.QThread):
 
                 # Distincion entre continuo y discreto
                 if ctrl.isdtime(self.system, strict=True):
-                    d_error, d2_error, error_a = self.derivadas_discretas(error, h, error_a)
+                    d_error, d2_error, error_a = derivadas_discretas(error, h, error_a)
                 else:
                     if self.N != 0:
                         h, h_new, d_error, x_derivada = PIDf(derivada, h, tiempo,
@@ -1180,7 +1184,7 @@ class SimpleThread(QtCore.QThread):
                 #    PID = kp + ki/s + (kd*N*s/(s + N))
 
                 self.N = 50
-                kd = 0
+                kd = 0.0
                 pid = ctrl.tf2ss(ctrl.TransferFunction(
                         [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
 
@@ -1273,51 +1277,6 @@ class SimpleThread(QtCore.QThread):
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
-
-
-    def PID_discreto(self, error, ts, s_integral, error_anterior, kp, ki, kd):
-        """
-        [Funcion para calcular el PID en forma discreta]
-        
-        :param error: [Señal de error]
-        :type error: [float]
-        :param ts: [Periodo de muestreo]
-        :type ts: [float]
-        :param s_integral: [Acumulador de la señal integral]
-        :type s_integral: [float]
-        :param error_anterior: [deque con el error anterior]
-        :type error_anterior: [deque Object]
-        :param kp: [Ganancia proporcional]
-        :type kp: [float]
-        :param ki: [Ganancia integral]
-        :type ki: [float]
-        :param kd: [Ganancia derivativa]
-        :type kd: [float]
-        """
-        s_proporcional = error
-        s_integral = s_integral + error*ts
-        s_derivativa = (error - error_anterior[0]) / ts
-        s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
-        error_anterior.pop()
-        error_anterior.appendleft(error)
-        return s_control, s_integral, error_anterior
-
-    def derivadas_discretas(self, error, ts, error_anterior):
-        """
-        [Funcion para calcular la derivada del error y la segunda derivada del error]
-        
-        :param error: [Señal de error]
-        :type error: [float]
-        :param ts: [Periodo de muestreo]
-        :type ts: [float]
-        :param error_anterior: [deque con el error anterior]
-        :type error_anterior: [deque Object]
-        """
-        s_derivativa = (error-error_anterior[0]) / ts
-        s_derivativa2 = (error - 2 * error_anterior[0] + error_anterior[1]) / (ts**2)
-        error_anterior.pop()
-        error_anterior.appendleft(error)
-        return s_derivativa, s_derivativa2, error_anterior
 
 
 def system_creator_tf(self, numerador, denominador):

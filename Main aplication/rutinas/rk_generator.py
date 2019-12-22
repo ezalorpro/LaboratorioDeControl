@@ -52,7 +52,7 @@ def dopri54(A, B, C, D, x, h, inputValue):
     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 +
                 k6*187/2100 + k7/40)
 
-    return y5th, x5th, x4th
+    return y5th[0,0], x5th, x4th
 
 
 @cc.export('cash_karp45', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -88,7 +88,7 @@ def cash_karp45(A, B, C, D, x, h, inputValue):
     x5th = x + (k1*37/378 + k3*250/621 + k4*125/594 + k6*512/1771)
     x4th = x + (k1*2825/27648 + k3*18575/48384 + k4*13525/55296 + k5*277/14336 + k6/4)
 
-    return y4th, x4th, x5th
+    return y4th[0, 0], x4th, x5th
 
 
 @cc.export('fehlberg45', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -124,7 +124,7 @@ def fehlberg45(A, B, C, D, x, h, inputValue):
     x5th = x + (k1*16/135 + k3*6656/12825 + k4*28561/56430 - k5*9/50 + k6*2/55)
     x4th = x + (k1*25/216 + k3*1408/2565 + k4*2197/4104 - k5/5)
 
-    return y4th, x4th, x5th
+    return y4th[0, 0], x4th, x5th
 
 
 @cc.export('bogacki_shampine23', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -157,7 +157,7 @@ def bogacki_shampine23(A, B, C, D, x, h, inputValue):
     x3th = x + (k1*2/9 + k2/3 + k3*4/9)
     x2th = x + (k1*7/24 + k2/4 + k3/3 + k4/8)
 
-    return y2th, x3th, x2th
+    return y2th[0,0], x3th, x2th
 
 
 @cc.export('runge_kutta5', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -172,7 +172,7 @@ def runge_kutta5(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1*7/90 + k3*32/90 + k4*12/90 + k5*32/90 + k6*7/90)
 
-    return y, x
+    return y[0,0], x
 
 
 @cc.export('ralston4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -204,7 +204,7 @@ def ralston4(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1*0.17476028 - k2*0.55148066 + k3*1.20553560 + k4*0.17118478)
 
-    return y, x
+    return y[0,0], x
 
 
 @cc.export('tres_octavos4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -236,7 +236,7 @@ def tres_octavos4(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/8 + k2*3/8 + k3*3/8 + k4/8)
 
-    return y, x
+    return y[0,0], x
 
 
 @cc.export('runge_kutta4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -268,7 +268,7 @@ def runge_kutta4(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2/3 + k3/3 + k4/6)
 
-    return y, x
+    return y[0,0], x
 
 
 @cc.export('SSPRK3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -298,7 +298,7 @@ def SSPRK3(A, B, C, D, x, h, inputValue):
 
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2/6 + k3*2/3)
-    return y, x
+    return y[0,0], x
 
 
 @cc.export('ralston3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -328,7 +328,7 @@ def ralston3(A, B, C, D, x, h, inputValue):
 
     y = np.dot(C, x) + D*inputValue
     x = x + (k1*2/9 + k2/3 + k3*4/9)
-    return y, x
+    return y[0,0], x
 
 
 @cc.export('heun3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -359,7 +359,7 @@ def heun3(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/4 + k3*3/4)
 
-    return y, x
+    return y[0,0], x
 
 
 @cc.export('runge_kutta3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -390,7 +390,7 @@ def runge_kutta3(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2*2/3 + k3/6)
 
-    return y, x
+    return y[0,0], x
 
 
 @cc.export('runge_kutta2', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -420,7 +420,7 @@ def runge_kutta2(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + k2
 
-    return y, x
+    return y[0,0], x
 
 
 if __name__ == '__main__':
