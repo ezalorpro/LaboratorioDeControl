@@ -5,6 +5,7 @@
 
 from rutinas.rutinas_fuzzy import FuzzyController
 from rutinas.rutinas_fuzzy import FISParser
+from rutinas.discreto_sim import ss_discreta
 from collections import deque
 from PySide2 import QtCore
 
@@ -129,8 +130,8 @@ class SimpleThread(QtCore.QThread):
         if isinstance(self.system, ctrl.TransferFunction):
             self.system = ctrl.tf2ss(self.system)
 
-        x = np.zeros_like(self.system.B)
-
+        x = np.zeros_like(self.system.B).astype('float64')
+        system = self.system.A.astype('float64'), self.system.B.astype('float64'), self.system.C.astype('float64'), self.system.D.astype('float64')
         tiempo_total = self.Tiempo
         tiempo = 0
 
@@ -156,9 +157,9 @@ class SimpleThread(QtCore.QThread):
                 tiempo += max_tiempo[0] - 0.0000011
 
         # Representacion del 20% de la simulacion
-        twenty_percent = int(tiempo_total * 20 / 100)
-        if twenty_percent == 0:
-            twenty_percent = 1
+        porcentajeBar = int(tiempo_total * 33 / 100)
+        if porcentajeBar == 0:
+            porcentajeBar = 1
 
         h = 0.000001  # Tamaño de paso inicial
         salida = deque([0])  # Lista de salida, se utiliza deque para mejorar la velocidad
@@ -169,7 +170,7 @@ class SimpleThread(QtCore.QThread):
         # Distincion entre continuo y discreto
         if ctrl.isdtime(self.system, strict=True):
             error_a = deque([0] * 2)
-            solve = self.ss_discreta
+            solve = ss_discreta
             PIDf = self.PID_discreto
             h_new = self.dt
             h = self.dt
@@ -179,10 +180,11 @@ class SimpleThread(QtCore.QThread):
             PIDf = self.metodo_adaptativo
 
         # En caso de que se habilite el accionador
-        if self.window.main.accionadorCheck.isChecked():
+        if self.accionador_flag:
             acc_num = json.loads(self.window.main.numAccionador.text())
             acc_dem = json.loads(self.window.main.demAccionador.text())
-            acc_system = ctrl.tf2ss(ctrl.TransferFunction(acc_num, acc_dem, delay=0))
+            acc_system = ctrl.TransferFunction(acc_num, acc_dem, delay=0)
+            
             if ctrl.isdtime(
                     self.system, strict=True
             ) and self.window.main.SimulacionstackedWidget.currentIndex() == 0:
@@ -192,46 +194,52 @@ class SimpleThread(QtCore.QThread):
                 acc_system = ctrl.sample_system(
                     acc_system, self.dt, self.window.main.sscomboBox4.currentText())
 
-            acc_x = np.zeros_like(acc_system.B)
+            acc_system = ctrl.tf2ss(acc_system)
+            acc_x = np.zeros_like(acc_system.B).astype('float64')
+            acc_system = acc_system.A.astype('float64'), acc_system.B.astype('float64'), acc_system.C.astype('float64'), acc_system.D.astype('float64')
 
         # En caso de que se habilite el saturador
-        if self.window.main.saturadorCheck.isChecked():
+        if self.saturador_flag:
             lim_inferior = float(self.window.main.inferiorSaturador.text())
             lim_superior = float(self.window.main.superiorSaturador.text())
 
         # En caso de que se habilite el sensor
-        if self.window.main.sensorCheck.isChecked():
+        if self.sensor_flag:
             sensor_num = json.loads(self.window.main.numSensor.text())
             sensor_dem = json.loads(self.window.main.demSensor.text())
-            sensor_system = ctrl.tf2ss(ctrl.TransferFunction(sensor_num, sensor_dem, delay=0))
+            sensor_system = ctrl.TransferFunction(sensor_num, sensor_dem, delay=0)
+            
             if ctrl.isdtime(
                     self.system, strict=True
             ) and self.window.main.SimulacionstackedWidget.currentIndex() == 0:
-                acc_system = ctrl.sample_system(
+                sensor_system = ctrl.sample_system(
                     sensor_system, self.dt, self.window.main.tfcomboBox4.currentText())
             elif ctrl.isdtime(self.system, strict=True):
-                acc_system = ctrl.sample_system(
+                sensor_system = ctrl.sample_system(
                     sensor_system, self.dt, self.window.main.sscomboBox4.currentText())
-            sensor_x = np.zeros_like(sensor_system.B)
+            
+            sensor_system = ctrl.tf2ss(sensor_system)
+            sensor_x = np.zeros_like(sensor_system.B).astype('float64')
+            sensor_system = sensor_system.A.astype('float64'), sensor_system.B.astype('float64'), sensor_system.C.astype('float64'), sensor_system.D.astype('float64')
             salida2 = deque([0])
 
         if self.N*kd == 0:
             # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion de transferencia a ecuaciones de espacio de estados
             # Controlador PID con la forma:
             #    PID = kp + ki/s + (kd*N*s/(s + N))
-            
+
             self.N = 50
             kd = 0
             pid = ctrl.tf2ss(ctrl.TransferFunction(
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
-        
+
         elif not self.flag_filtro:
             # Controlador PID con la forma:
             #    PID = kp + ki/s + (kd*N*s/(s + N))
-            
+
             pid = ctrl.tf2ss(ctrl.TransferFunction(
                     [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
-        
+
         else:
             # Controlador PID con la forma:
             #    PID = kp + ki/s + (kd*N*s/(s + N))*(1/(10/(N*kd) + 1))
@@ -244,7 +252,8 @@ class SimpleThread(QtCore.QThread):
                     self.N**2 * kd * ki
                 ], [10, 10 * self.N + self.N * kd, self.N**2 * kd, 0]))
 
-        x_pid = np.zeros_like(pid.B)
+        x_pid = np.zeros_like(pid.B).astype('float64')
+        pid = pid.A.astype('float64'), pid.B.astype('float64'), pid.C.astype('float64'), pid.D.astype('float64')
 
         i = 0
         setpoint_window = 0
@@ -271,29 +280,29 @@ class SimpleThread(QtCore.QThread):
                 h, h_new, sc_t, x_pid = PIDf(pid, h, tiempo, max_tiempo[setpoint_window], x_pid, error, *self.solver_configuration)
 
             # En caso de que se habilite el accionador
-            if self.window.main.accionadorCheck.isChecked():
-                sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+            if self.accionador_flag:
+                sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
             # En caso de que se habilite el saturador
-            if self.window.main.saturadorCheck.isChecked():
+            if self.saturador_flag:
                 sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
             # Salida del sistema
-            y, x = solve(self.system, x, h, sc_t)
+            y, x = solve(*system, x, h, sc_t)
 
             # Acumulacion de la señal de control
             sc_f.append(sc_t)
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida2.append(y)
-                y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
             # Acumulacion de la salida
             salida.append(y)
 
             # Actualizacion de la barra de progreso cada 20% de avance
-            if int(tiempo) % twenty_percent == 0:
+            if int(tiempo) % porcentajeBar == 0:
                 self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
 
             # Acumulacion del setpoint
@@ -306,7 +315,7 @@ class SimpleThread(QtCore.QThread):
             i +=1
 
         # En caso de que se habilite el sensor
-        if self.window.main.sensorCheck.isChecked():
+        if self.sensor_flag:
             salida = salida2
 
         return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
@@ -372,7 +381,8 @@ class SimpleThread(QtCore.QThread):
         if isinstance(self.system, ctrl.TransferFunction):
             self.system = ctrl.tf2ss(self.system)
 
-        x = np.zeros_like(self.system.B)
+        x = np.zeros_like(self.system.B).astype('float64')
+        system = self.system.A.astype('float64'), self.system.B.astype('float64'), self.system.C.astype('float64'), self.system.D.astype('float64')
 
         tiempo_total = self.Tiempo
         tiempo = 0
@@ -396,9 +406,9 @@ class SimpleThread(QtCore.QThread):
             tiempo += max_tiempo[0] - 0.0000011
 
         # Representacion del 20% de la simulacion
-        twenty_percent = int(tiempo_total * 20 / 100)
-        if twenty_percent == 0:
-            twenty_percent = 1
+        porcentajeBar = int(tiempo_total * 20 / 100)
+        if porcentajeBar == 0:
+            porcentajeBar = 1
 
         h = 0.000001  # Tamaño de paso inicial
         salida = deque([0])  # Lista de salida, se utiliza deque para mejorar la velocidad
@@ -409,7 +419,7 @@ class SimpleThread(QtCore.QThread):
         # Distincion entre continuo y discreto
         if ctrl.isdtime(self.system, strict=True):
             error_a = deque([0] * 2)
-            solve = self.ss_discreta
+            solve = ss_discreta
             PIDf = self.PID_discreto
             h_new = self.dt
             h = self.dt
@@ -419,7 +429,7 @@ class SimpleThread(QtCore.QThread):
             PIDf = self.metodo_adaptativo
 
         # En caso de que se habilite el accionador
-        if self.window.main.accionadorCheck.isChecked():
+        if self.accionador_flag:
             acc_num = json.loads(self.window.main.numAccionador.text())
             acc_dem = json.loads(self.window.main.demAccionador.text())
             acc_system = ctrl.tf2ss(ctrl.TransferFunction(acc_num, acc_dem, delay=0))
@@ -432,15 +442,16 @@ class SimpleThread(QtCore.QThread):
                 acc_system = ctrl.sample_system(
                     acc_system, self.dt, self.window.main.sscomboBox4.currentText())
 
-            acc_x = np.zeros_like(acc_system.B)
+            acc_x = np.zeros_like(acc_system.B).astype('float64')
+            acc_system = acc_system.A.astype('float64'), acc_system.B.astype('float64'), acc_system.C.astype('float64'), acc_system.D.astype('float64')
 
         # En caso de que se habilite el saturador
-        if self.window.main.saturadorCheck.isChecked():
+        if self.saturador_flag:
             lim_inferior = float(self.window.main.inferiorSaturador.text())
             lim_superior = float(self.window.main.superiorSaturador.text())
 
         # En caso de que se habilite el sensor
-        if self.window.main.sensorCheck.isChecked():
+        if self.sensor_flag:
             sensor_num = json.loads(self.window.main.numSensor.text())
             sensor_dem = json.loads(self.window.main.demSensor.text())
             sensor_system = ctrl.tf2ss(
@@ -448,12 +459,15 @@ class SimpleThread(QtCore.QThread):
             if ctrl.isdtime(
                     self.system, strict=True
             ) and self.window.main.SimulacionstackedWidget.currentIndex() == 0:
-                acc_system = ctrl.sample_system(
+                sensor_system = ctrl.sample_system(
                     sensor_system, self.dt, self.window.main.tfcomboBox4.currentText())
             elif ctrl.isdtime(self.system, strict=True):
-                acc_system = ctrl.sample_system(
+                sensor_system = ctrl.sample_system(
                     sensor_system, self.dt, self.window.main.sscomboBox4.currentText())
-            sensor_x = np.zeros_like(sensor_system.B)
+            
+            sensor_x = np.zeros_like(sensor_system.B).astype('float64')
+            sensor_system = sensor_system.A.astype('float64'), sensor_system.B.astype('float64'), sensor_system.C.astype('float64'), sensor_system.D.astype('float64')
+            
             salida2 = deque([0])
 
         i = 0
@@ -469,27 +483,35 @@ class SimpleThread(QtCore.QThread):
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
+                
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
 
                 # Para la segunda derivada del error
                 derivada2 = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada2 = np.zeros_like(derivada2.B)
-            
+                
+                x_derivada2 = np.zeros_like(derivada2.B).astype('float64')
+                derivada2 = derivada2.A.astype('float64'), derivada2.B.astype('float64'), derivada2.C.astype('float64'), derivada2.D.astype('float64')
+
             elif not self.N == 0 and not self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
+                
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
 
                 # Para la segunda derivada del error
                 derivada2 = ctrl.tf2ss(
                     ctrl.TransferFunction([self.N, 0], [1, self.N]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada2 = np.zeros_like(derivada2.B)
                 
+                x_derivada2 = np.zeros_like(derivada2.B).astype('float64')
+                derivada2 = derivada2.A.astype('float64'), derivada2.B.astype('float64'), derivada2.C.astype('float64'), derivada2.D.astype('float64')
+
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -533,29 +555,29 @@ class SimpleThread(QtCore.QThread):
                                                       [0] * 1)[0] * h
 
                 # En caso de que se habilite el accionador
-                if self.window.main.accionadorCheck.isChecked():
-                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                if self.accionador_flag:
+                    sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
                 # En caso de que se habilite el saturador
-                if self.window.main.saturadorCheck.isChecked():
+                if self.saturador_flag:
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 # Salida del sistema
-                y, x = solve(self.system, x, h, sc_t)
+                y, x = solve(*system, x, h, sc_t)
 
                 # Acumulacion de la señal de control
                 sc_f.append(sc_t)
 
                 # En caso de que se habilite el sensor
-                if self.window.main.sensorCheck.isChecked():
+                if self.sensor_flag:
                     salida2.append(y)
-                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                    y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
                 # Acumulacion de la salida
                 salida.append(y)
 
                 # Actualizacion de la barra de progreso cada 20% de avance
-                if int(tiempo) % twenty_percent == 0:
+                if int(tiempo) % porcentajeBar == 0:
                     self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
 
                 # Acumulacion del setpoint
@@ -568,7 +590,7 @@ class SimpleThread(QtCore.QThread):
                 i +=1
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
@@ -580,14 +602,18 @@ class SimpleThread(QtCore.QThread):
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
                 
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             elif not self.N == 0 and not self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
                 
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -622,29 +648,29 @@ class SimpleThread(QtCore.QThread):
                 sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
 
                 # En caso de que se habilite el accionador
-                if self.window.main.accionadorCheck.isChecked():
-                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                if self.accionador_flag:
+                    sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
                 # En caso de que se habilite el saturador
-                if self.window.main.saturadorCheck.isChecked():
+                if self.saturador_flag:
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 # Salida del sistema
-                y, x = solve(self.system, x, h, sc_t)
+                y, x = solve(*system, x, h, sc_t)
 
                 # Acumulacion de la señal de control
                 sc_f.append(sc_t)
 
                 # En caso de que se habilite el sensor
-                if self.window.main.sensorCheck.isChecked():
+                if self.sensor_flag:
                     salida2.append(y)
-                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                    y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
                 # Acumulacion de la salida
                 salida.append(y)
 
                 # Actualizacion de la barra de progreso cada 20% de avance
-                if int(tiempo) % twenty_percent == 0:
+                if int(tiempo) % porcentajeBar == 0:
                     self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
 
                 # Acumulacion del setpoint
@@ -657,7 +683,7 @@ class SimpleThread(QtCore.QThread):
                 i +=1
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
@@ -669,14 +695,18 @@ class SimpleThread(QtCore.QThread):
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
                 
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             elif not self.N == 0 and not self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
-            
+                
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -711,29 +741,29 @@ class SimpleThread(QtCore.QThread):
                 sc_t = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
 
                 # En caso de que se habilite el accionador
-                if self.window.main.accionadorCheck.isChecked():
-                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                if self.accionador_flag:
+                    sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
                 # En caso de que se habilite el saturador
-                if self.window.main.saturadorCheck.isChecked():
+                if self.saturador_flag:
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 # Salida del sistema
-                y, x = solve(self.system, x, h, sc_t)
+                y, x = solve(*system, x, h, sc_t)
 
                 # Acumulacion de la señal de control
                 sc_f.append(sc_t)
 
                 # En caso de que se habilite el sensor
-                if self.window.main.sensorCheck.isChecked():
+                if self.sensor_flag:
                     salida2.append(y)
-                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                    y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
                 # Acumulacion de la salida
                 salida.append(y)
 
                 # Actualizacion de la barra de progreso cada 20% de avance
-                if int(tiempo) % twenty_percent == 0:
+                if int(tiempo) % porcentajeBar == 0:
                     self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
 
                 # Acumulacion del setpoint
@@ -746,7 +776,7 @@ class SimpleThread(QtCore.QThread):
                 i +=1
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
@@ -760,14 +790,18 @@ class SimpleThread(QtCore.QThread):
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
                 
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             elif not self.N == 0 and not self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
-            
+                
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -804,29 +838,29 @@ class SimpleThread(QtCore.QThread):
                 sc_t = spi + spd
 
                 # En caso de que se habilite el accionador
-                if self.window.main.accionadorCheck.isChecked():
-                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                if self.accionador_flag:
+                    sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
                 # En caso de que se habilite el saturador
-                if self.window.main.saturadorCheck.isChecked():
+                if self.saturador_flag:
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 # Salida del sistema
-                y, x = solve(self.system, x, h, sc_t)
+                y, x = solve(*system, x, h, sc_t)
 
                 # Acumulacion de la señal de control
                 sc_f.append(sc_t)
 
                 # En caso de que se habilite el sensor
-                if self.window.main.sensorCheck.isChecked():
+                if self.sensor_flag:
                     salida2.append(y)
-                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                    y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
                 # Acumulacion de la salida
                 salida.append(y)
 
                 # Actualizacion de la barra de progreso cada 20% de avance
-                if int(tiempo) % twenty_percent == 0:
+                if int(tiempo) % porcentajeBar == 0:
                     self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
 
                 # Acumulacion del setpoint
@@ -839,7 +873,7 @@ class SimpleThread(QtCore.QThread):
                 i +=1
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
@@ -853,14 +887,18 @@ class SimpleThread(QtCore.QThread):
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
                 
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             elif not self.N == 0 and not self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
-            
+                
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -896,29 +934,29 @@ class SimpleThread(QtCore.QThread):
                 sc_t = spi + d_error*kd
 
                 # En caso de que se habilite el accionador
-                if self.window.main.accionadorCheck.isChecked():
-                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                if self.accionador_flag:
+                    sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
                 # En caso de que se habilite el saturador
-                if self.window.main.saturadorCheck.isChecked():
+                if self.saturador_flag:
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 # Salida del sistema
-                y, x = solve(self.system, x, h, sc_t)
+                y, x = solve(*system, x, h, sc_t)
 
                 # Acumulacion de la señal de control
                 sc_f.append(sc_t)
 
                 # En caso de que se habilite el sensor
-                if self.window.main.sensorCheck.isChecked():
+                if self.sensor_flag:
                     salida2.append(y)
-                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                    y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
                 # Acumulacion de la salida
                 salida.append(y)
 
                 # Actualizacion de la barra de progreso cada 20% de avance
-                if int(tiempo) % twenty_percent == 0:
+                if int(tiempo) % porcentajeBar == 0:
                     self.update_progresBar.emit(self.window,
                                                 int(tiempo) * 100 / tiempo_total)
 
@@ -932,7 +970,7 @@ class SimpleThread(QtCore.QThread):
                 i += 1
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
@@ -946,14 +984,18 @@ class SimpleThread(QtCore.QThread):
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
                 
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             elif not self.N == 0 and not self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
-            
+                
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -990,29 +1032,29 @@ class SimpleThread(QtCore.QThread):
                 sc_t = spi*ki + spd
 
                 # En caso de que se habilite el accionador
-                if self.window.main.accionadorCheck.isChecked():
-                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                if self.accionador_flag:
+                    sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
                 # En caso de que se habilite el saturador
-                if self.window.main.saturadorCheck.isChecked():
+                if self.saturador_flag:
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 # Salida del sistema
-                y, x = solve(self.system, x, h, sc_t)
+                y, x = solve(*system, x, h, sc_t)
 
                 # Acumulacion de la señal de control
                 sc_f.append(sc_t)
 
                 # En caso de que se habilite el sensor
-                if self.window.main.sensorCheck.isChecked():
+                if self.sensor_flag:
                     salida2.append(y)
-                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                    y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
                 # Acumulacion de la salida
                 salida.append(y)
 
                 # Actualizacion de la barra de progreso cada 20% de avance
-                if int(tiempo) % twenty_percent == 0:
+                if int(tiempo) % porcentajeBar == 0:
                     self.update_progresBar.emit(self.window,
                                                 int(tiempo) * 100 / tiempo_total)
 
@@ -1026,7 +1068,7 @@ class SimpleThread(QtCore.QThread):
                 i += 1
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
@@ -1040,14 +1082,18 @@ class SimpleThread(QtCore.QThread):
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([1], [10 / self.N, 1]) *
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
                 
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             elif not self.N == 0 and not self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
                     ctrl.TransferFunction([self.N, 0], [1, self.N]))
-                x_derivada = np.zeros_like(derivada.B)
-            
+                
+                x_derivada = np.zeros_like(derivada.B).astype('float64')
+                derivada = derivada.A.astype('float64'), derivada.B.astype('float64'), derivada.C.astype('float64'), derivada.D.astype('float64')
+
             else:
                 # En caso de que N sea igual a cero
                 derivada = ctrl.tf2ss(ctrl.TransferFunction([0], [1]))
@@ -1085,29 +1131,29 @@ class SimpleThread(QtCore.QThread):
                 sc_t = spi*ki + d_error*kd + error*kp
 
                 # En caso de que se habilite el accionador
-                if self.window.main.accionadorCheck.isChecked():
-                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                if self.accionador_flag:
+                    sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
                 # En caso de que se habilite el saturador
-                if self.window.main.saturadorCheck.isChecked():
+                if self.saturador_flag:
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 # Salida del sistema
-                y, x = solve(self.system, x, h, sc_t)
+                y, x = solve(*system, x, h, sc_t)
 
                 # Acumulacion de la señal de control
                 sc_f.append(sc_t)
 
                 # En caso de que se habilite el sensor
-                if self.window.main.sensorCheck.isChecked():
+                if self.sensor_flag:
                     salida2.append(y)
-                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                    y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
                 # Acumulacion de la salida
                 salida.append(y)
 
                 # Actualizacion de la barra de progreso cada 20% de avance
-                if int(tiempo) % twenty_percent == 0:
+                if int(tiempo) % porcentajeBar == 0:
                     self.update_progresBar.emit(self.window,
                                                 int(tiempo) * 100 / tiempo_total)
 
@@ -1121,7 +1167,7 @@ class SimpleThread(QtCore.QThread):
                 i += 1
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
@@ -1132,19 +1178,19 @@ class SimpleThread(QtCore.QThread):
                 # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion de transferencia a ecuaciones de espacio de estados
                 # Controlador PID con la forma:
                 #    PID = kp + ki/s + (kd*N*s/(s + N))
-                
+
                 self.N = 50
                 kd = 0
                 pid = ctrl.tf2ss(ctrl.TransferFunction(
                         [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
-            
+
             elif not self.flag_filtro:
                 # Controlador PID con la forma:
                 #    PID = kp + ki/s + (kd*N*s/(s + N))
-                
+
                 pid = ctrl.tf2ss(ctrl.TransferFunction(
                         [self.N * kd + kp, self.N * kp + ki, self.N * ki], [1, self.N, 0]))
-            
+
             else:
                 # Controlador PID con la forma:
                 #    PID = kp + ki/s + (kd*N*s/(s + N))*(1/(10/(N*kd) + 1))
@@ -1157,7 +1203,8 @@ class SimpleThread(QtCore.QThread):
                         self.N**2 * kd * ki
                     ], [10, 10 * self.N + self.N * kd, self.N**2 * kd, 0]))
 
-            x_pid = np.zeros_like(pid.B)
+            x_pid = np.zeros_like(pid.B).astype('float64')
+            pid = pid.A.astype('float64'), pid.B.astype('float64'), pid.C.astype('float64'), pid.D.astype('float64')
 
             # Inicio de la simulacion
             while tiempo < tiempo_total:
@@ -1186,29 +1233,29 @@ class SimpleThread(QtCore.QThread):
                 sc_t = s_pid + s_fuzzy
 
                 # En caso de que se habilite el accionador
-                if self.window.main.accionadorCheck.isChecked():
-                    sc_t, acc_x = solve(acc_system, acc_x, h, sc_t)
+                if self.accionador_flag:
+                    sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
 
                 # En caso de que se habilite el saturador
-                if self.window.main.saturadorCheck.isChecked():
+                if self.saturador_flag:
                     sc_t = min(max(sc_t, lim_inferior), lim_superior)
 
                 # Salida del sistema
-                y, x = solve(self.system, x, h, sc_t)
+                y, x = solve(*system, x, h, sc_t)
 
                 # Acumulacion de la señal de control
                 sc_f.append(sc_t)
 
                 # En caso de que se habilite el sensor
-                if self.window.main.sensorCheck.isChecked():
+                if self.sensor_flag:
                     salida2.append(y)
-                    y, sensor_x = solve(sensor_system, sensor_x, h, salida2[-1])
+                    y, sensor_x = solve(*sensor_system, sensor_x, h, salida2[-1])
 
                 # Acumulacion de la salida
                 salida.append(y)
 
                 # Actualizacion de la barra de progreso cada 20% de avance
-                if int(tiempo) % twenty_percent == 0:
+                if int(tiempo) % porcentajeBar == 0:
                     self.update_progresBar.emit(self.window,
                                                 int(tiempo) * 100 / tiempo_total)
 
@@ -1222,28 +1269,11 @@ class SimpleThread(QtCore.QThread):
                 i += 1
 
             # En caso de que se habilite el sensor
-            if self.window.main.sensorCheck.isChecked():
+            if self.sensor_flag:
                 salida = salida2
 
             return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
-
-    def ss_discreta(self, ss, x, _, inputValue):
-        """
-        [Funcion para calcular la respuesta del sistema por medio de la representacion discreta de las ecuaciones de espacio de estados]
-        
-        :param ss: [Representacion del sistema]
-        :type ss: [LTI]
-        :param x: [Vector de estado]
-        :type x: [numpyArray]
-        :param _: [No importa]
-        :type _: [float]
-        :param inputValue: [Valor de entrada al sistema]
-        :type inputValue: [float]
-        """
-        y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
-        x = np.dot(ss.A, x) + np.dot(ss.B, inputValue)
-        return y, x
 
     def PID_discreto(self, error, ts, s_integral, error_anterior, kp, ki, kd):
         """
@@ -1379,7 +1409,7 @@ def controlador_validator(self, esquema, InputList, OutputList, RuleEtiquetas):
     :param RuleEtiquetas: [Lista con set de reglas]
     :type RuleEtiquetas: [list]
     """
-    
+
     if esquema == 1: # PID difuso
         if len(InputList) == 3 and len(OutputList) == 1 and len(RuleEtiquetas) != 0:
             return

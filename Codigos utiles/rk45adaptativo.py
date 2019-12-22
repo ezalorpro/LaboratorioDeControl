@@ -2,32 +2,34 @@ import numpy as np
 import control as ctrl
 from matplotlib import pyplot as plt
 from scipy.integrate import RK45
-from my_module import dopri5
+# from my_module import dopri5
 # from numba.pycc import CC
 import time
 from numba import jit
+import numba
 import copy
 
 # cc = CC('my_module')
 
 # @cc.export('dopri5', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
-# def dopri5(A, B, C, D, x, h, inputValue):
-#     k1 = h*(np.dot(A, x) + B*inputValue)
-#     k2 = h*(np.dot(A, x + k1/5) + B*inputValue)
-#     k3 = h*(np.dot(A, x + k1*3/40 + k2*9/40) + B*inputValue)
-#     k4 = h*(np.dot(A, x + k1*44/45 - k2*56/15 + k3*32/9) + B*inputValue)
-#     k5 = h*(np.dot(A, x + k1*19372/6561 - k2*25360/2187 + k3*64448/6561 - k4*212/729) +
-#          B*inputValue)
-#     k6 = h*(np.dot(A, x + k1*9017/3168 - k2*355/33 + k3*46732/5247 + k4*49/176 -
-#          k5*5103/18656) + B*inputValue)
-#     k7 = h*(np.dot(A, x + k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84) +
-#          B*inputValue)
+@jit
+def dopri5(A, B, C, D, x, h, inputValue):
+    k1 = h*(np.dot(A, x) + B*inputValue)
+    k2 = h*(np.dot(A, x + k1/5) + B*inputValue)
+    k3 = h*(np.dot(A, x + k1*3/40 + k2*9/40) + B*inputValue)
+    k4 = h*(np.dot(A, x + k1*44/45 - k2*56/15 + k3*32/9) + B*inputValue)
+    k5 = h*(np.dot(A, x + k1*19372/6561 - k2*25360/2187 + k3*64448/6561 - k4*212/729) +
+         B*inputValue)
+    k6 = h*(np.dot(A, x + k1*9017/3168 - k2*355/33 + k3*46732/5247 + k4*49/176 -
+         k5*5103/18656) + B*inputValue)
+    k7 = h*(np.dot(A, x + k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84) +
+         B*inputValue)
 
-#     y5th = np.dot(C, x) + D * inputValue
-#     x5th = x + (k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84)
-#     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 + k6*187/2100 + k7/40)
-
-#     return y5th, x5th, x4th
+    x5th = x + (k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84)
+    x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 + k6*187/2100 + k7/40)
+    y5th = np.dot(C, x) + D*inputValue
+    
+    return y5th, x5th, x4th
 
 
 def fehlberg45(A, B , C, D, x, h, inputValue):
@@ -117,12 +119,15 @@ def cash_karp(ss, x, h, inputValue):
     return y4th.item(), x4th, x5th
 
 
+# @jit
 def norm(x):
     """Compute RMS norm."""
-    return np.linalg.norm(x) / x.size**0.5
+    x = np.asarray(x)
+    x = x.ravel()
+    return np.sqrt(np.dot(x,x)) / x.size**0.5
 
 
-def ejecutar():
+def ejecutar(orden=5):
     N = 100.0
     kp = 1.0
     ki = 1.0
@@ -156,8 +161,8 @@ def ejecutar():
     min_step_decrease = 0.2
     max_step_increase = 5
     h_ant = 0.000001
-    rtol = 1e-15
-    atol = 1e-15
+    rtol = 1e-3
+    atol = 1e-6
     tiempo = 0.0
     tbound = 30
     sp = 1
@@ -185,14 +190,14 @@ def ejecutar():
             scale = atol + np.maximum(np.abs(x_five), np.abs(x_pidB)) * rtol
             # scale = atol + rtol * (np.abs(x_five) + np.abs(x_pidB)) / 2
             delta1 = np.abs(x_five - x_four)
-            error_norm = norm(delta1 / scale)
+            error_norm = norm(delta1/scale)
 
             if error_norm == 0:
                 h_est = h_ant * max_step_increase
             elif error_norm <= 1:
-                h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (5+1))))
+                h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (orden+1))))
             else:
-                h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (5+1))))
+                h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (orden+1))))
                 continue
 
             error_ac.append(error_norm)
@@ -205,7 +210,7 @@ def ejecutar():
         tiempo += h_ant
         tiempo_out.append(tiempo)
         h_ant = h_est
-        x_pidB = copy.deepcopy(x_five)
+        x_pidB = x_five
 
     print(counter)
     print(len(tiempo_out))
@@ -220,7 +225,7 @@ def ejecutar():
     # t, y = ctrl.step_response(tf, t)
     # plt.plot(t, y)
     # plt.grid()
-    plt.show()
+    # plt.show()
 
     # plt.plot(tiempo_out, sc_t)
     # plt.grid()
@@ -231,5 +236,8 @@ def ejecutar():
     # plt.show()
 
 
-ejecutar()
-# cc.compile()
+if __name__ == '__main__':
+    for i in range(4):
+        ejecutar(orden=i+2)
+    plt.show()
+    # cc.compile()

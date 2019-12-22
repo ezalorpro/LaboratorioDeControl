@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 from numba import jit
 import time
 from math import factorial
+import pickle
 
 
 
@@ -32,8 +33,19 @@ def runge_kutta2(A, B, C, D, x, h, inputValue):
 
     y = np.dot(C, x) + D*inputValue
     x = x + k2
+
     return y, x
 
+
+@jit(nopython=True)
+def runge_kutta2a(A, B, C, D, x, h, inputValue):
+    k1 = h * (np.dot(A, x) + B*inputValue)
+    k2 = h * (np.dot(A + k1/2, x + k1/2) + B*inputValue)
+
+    y = np.dot(C, x) + D*inputValue
+    x = x + k2
+
+    return y, x
 
 def runge_kutta3(ss, x, h, inputValue):
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
@@ -46,56 +58,46 @@ def runge_kutta3(ss, x, h, inputValue):
 
     return y.item(), x
 
-def runge_kutta4(ss, x, h, inputValue):
-    k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
-    k2 = np.dot(h, (np.dot(ss.A, (x + np.dot(k1, 1 / 2))) + np.dot(ss.B, inputValue)))
-    k3 = np.dot(h, (np.dot(ss.A, (x + np.dot(k2, 1 / 2))) + np.dot(ss.B, inputValue)))
-    k4 = np.dot(h, (np.dot(ss.A, (x + k3)) + np.dot(ss.B, inputValue)))
 
-    y = np.dot(ss.C, x) + np.dot(ss.D, inputValue)
-    x = x + (np.dot(k1, 1 / 6) + np.dot(k2, 1 / 3) + np.dot(k3, 1 / 3) +
-                np.dot(k4, 1 / 6))
+def runge_kutta4(A, B, C, D, x, h, inputValue):
+    k1 = h*(np.dot(A, x) + B * inputValue)
+    k2 = h*(np.dot(A, x + k1/4) + B * inputValue)
+    k3 = h*(np.dot(A, x + k2/4) + B * inputValue)
+    k4 = h*(np.dot(A, x + k3/2) + B * inputValue)
 
-    return y.item(), x
+    y = np.dot(C, x) + D*inputValue
+    x = x + (k1/12 + k2/6 + k3/6 + k4/12)
+    return y, x
+
 
 @jit(nopython=True)
 def runge_kutta5(A, B, C, D, x, h, inputValue):  # Mejor: rtol = 1e-3, atol = 5e-6
     k1 = h*(np.dot(A, x) + B*inputValue)
-    k2 = h*(np.dot(A, x + k1/ 4) + B*inputValue)
+    k2 = h*(np.dot(A, x + k1/4) + B*inputValue)
     k3 = h*(np.dot(A, x + k1/8 + k2/8) + B*inputValue)
     k4 = h*(np.dot(A, x - k2/2 + k3) + B*inputValue)
-    k5 = h*(np.dot(A, x - k1*3/ 16 + k4*9 / 16) + B*inputValue)
-    k6 = h*(np.dot(A, x + -k1*3 / 7 + k2*2 / 7 + k3*12/7 - k4*12/7 + k5*8/ 7) +
+    k5 = h*(np.dot(A, x + k1*3/ 16 + k4*9 / 16) + B*inputValue)
+    k6 = h*(np.dot(A, x - k1*3 / 7 + k2*2 / 7 + k3*12/7 - k4*12/7 + k5*8/ 7) +
             B*inputValue)
+
     y = np.dot(C, x) + D*inputValue
     x = x + (k1*7 / 90 + k3*32/90 + k4*12/90 +
                 k5*32/90 + k6*7/90)
-
     return y, x
 
+@jit(nopython=True)
 def runge_kutta5a(A, B, C, D, x, h, inputValue):  # Mejor: rtol = 1e-3, atol = 5e-6
-    k1 = np.dot(h, (np.dot(A, x) + np.dot(B, inputValue)))
-    k2 = np.dot(h, (np.dot(A, (x + np.dot(k1, 1 / 4))) + np.dot(B, inputValue)))
-    k3 = np.dot(h,
-                (np.dot(A, (x + np.dot(k1, 1 / 8) + np.dot(k2, 1 / 8))) +
-                    np.dot(B, inputValue)))
-    k4 = np.dot(h,
-                (np.dot(A,
-                        (x + np.dot(k2, -1 / 2) + k3)) + np.dot(B, inputValue)))
-    k5 = np.dot(h,
-                (np.dot(A, (x + np.dot(k1, -3 / 16) + np.dot(k4, 9 / 16))) +
-                    np.dot(B, inputValue)))
-    k6 = np.dot(
-        h,
-        (np.dot(A,
-                (x + np.dot(k1, -3 / 7) + np.dot(k2, 2 / 7) + np.dot(k3, 12 / 7) +
-                    np.dot(k4, -12 / 7) + np.dot(k5, 8 / 7))) +
-            np.dot(B, inputValue)))
-    y = np.dot(C, x) + np.dot(D, inputValue)
-    x = x + (np.dot(k1, 7 / 90) + np.dot(k3, 32 / 90) + np.dot(k4, 12 / 90) +
-                np.dot(k5, 32 / 90) + np.dot(k6, 7 / 90))
+    k1 = h*(np.dot(A, x) + B*inputValue)
+    k2 = h*(np.dot(A, x + k1/2) + B*inputValue)
+    k3 = h*(np.dot(A, x + k2/2) + B*inputValue)
+    k4 = h*(np.dot(A, x + k3*3/4) + B*inputValue)
+    k5 = h*(np.dot(A, x + k4*4/5) + B*inputValue)
+    k6 = h*(np.dot(A, x + k5*5/6) + B*inputValue)
 
-    return y.item(), x
+    y = np.dot(C, x) + D*inputValue
+    x = x + (k1*7 / 90 + k3*32/90 + k4*12/90 +
+                k5*32/90 + k6*7/90)
+    return y, x
 
 def heun3(ss, x, h, inputValue):
     k1 = np.dot(h, (np.dot(ss.A, x) + np.dot(ss.B, inputValue)))
@@ -145,8 +147,8 @@ def SSPRK3(ss, x, h, inputValue):
     return y.item(), x
 
 
-def ejecutar(figindex=0, kp=2.25, ki=2.25, kd=2.25):
-    
+def ejecutar(figindex=0, kp=1, ki=1, kd=1, metodo=runge_kutta2, orden=2):
+
     N = 100
 
     pid = ctrl.tf2ss(
@@ -174,8 +176,8 @@ def ejecutar(figindex=0, kp=2.25, ki=2.25, kd=2.25):
     x_pidS = np.zeros_like(pid.B).astype('float64')
     A2, B2, C2, D2 = pid.A.astype('float64'), pid.B.astype('float64'), pid.C.astype('float64'), pid.D.astype('float64')
 
-    num = [1, 1]
-    dem = [1, 1, 1, 1]
+    num = [1]
+    dem = [1, 1, 1]
 
     sistema = ctrl.tf2ss(ctrl.TransferFunction(num, dem))
     A1, B1, C1, D1 = sistema.A.astype('float64'), sistema.B.astype('float64'), sistema.C.astype('float64'), sistema.D.astype('float64')
@@ -183,9 +185,9 @@ def ejecutar(figindex=0, kp=2.25, ki=2.25, kd=2.25):
 
     min_step_decrease = 0.2
     max_step_increase = 5
-    h_ant = 0.000001
-    rtol = 1e-9
-    atol = 1e-9
+    h_ant = 0.0000001
+    rtol = 1e-3
+    atol = 1e-6
     tiempo = 0
     tbound = 30
     sp = 1
@@ -197,8 +199,9 @@ def ejecutar(figindex=0, kp=2.25, ki=2.25, kd=2.25):
     sc_t = [0]
     start = time.time()
     counter = 0
+    error = sp - yb
 
-    RK = runge_kutta5
+    RK = metodo
 
     while tiempo < tbound:
         error = sp - yb
@@ -214,28 +217,28 @@ def ejecutar(figindex=0, kp=2.25, ki=2.25, kd=2.25):
 
                 scale = atol + rtol * (np.abs(x_pidSn) + np.abs(x_pidBn)) / 2
                 delta1 = np.abs(x_pidBn - x_pidSn)
-                error_norm = norm(100*delta1 / scale)
+                error_norm = np.max(delta1 / scale)
 
                 if error_norm == 0:
                     h_est = h_ant * max_step_increase
                 elif error_norm <= 1:
-                    h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (5+1))))
+                    h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (orden+1))))
                 else:
-                    h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (5+1))))
+                    h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (orden+1))))
                     continue
 
             # error_ac.append(error_norm)
             # sc_t.append(ypids)
 
-            error_ac.extend([error_norm])
+            error_ac.extend([error])
             sc_t.extend([ypids])
             yb, vstadosB = RK(A1, B1, C1, D1, vstadosB, h_ant, ypids)
             break
 
         # salida.append(yb)
         # tiempo_out.append(tiempo)
-        # print(tiempo)
-        salida.extend([yb])
+        print(tiempo)
+        salida.extend([np.hstack(yb)])
         tiempo_out.extend([tiempo])
         tiempo += h_ant
 
@@ -246,11 +249,14 @@ def ejecutar(figindex=0, kp=2.25, ki=2.25, kd=2.25):
         input_a1 = error
         input_a2 = ypids
 
-    # print(counter)
-    # print(len(tiempo_out))
+    print(counter)
+    print(len(tiempo_out))
     print(f'Tiempo:{time.time() - start}')
     # plt.figure(figindex)
     plt.plot(tiempo_out, salida)
+
+    # with open('dataDormand.pkl', 'wb', ) as f:
+    #     pickle.dump([tiempo_out, sc_t, error_ac], f)
 
     # tf = ctrl.tf(num, dem)
     # t = np.linspace(0, tbound, 200)
@@ -270,5 +276,5 @@ def ejecutar(figindex=0, kp=2.25, ki=2.25, kd=2.25):
     # plt.show()
 
 if __name__ == "__main__":
-    ejecutar()
+    ejecutar(metodo=runge_kutta2, orden=2)
     plt.show()

@@ -2,6 +2,9 @@
 [Archivo para el manejo de la funcion de simulacion de sistemas de control, sirve de intermediario entre la interfaz grafica y la clase creada para manejar la simulacion en una hilo distinto, esto es debido al tiempo que puede llegar a tomar cada simulacion] 
 """
 
+from rutinas.metodos_RK import (runge_kutta2, runge_kutta3, runge_kutta4, runge_kutta5,
+                                heun3, ralston3, SSPRK3, ralston4, tres_octavos4,
+                                bogacki_shampine23, fehlberg45, cash_karp45, dopri54, norm)
 
 from rutinas.rutinas_fuzzy import FuzzyController
 from rutinas.rutinas_simulacion import *
