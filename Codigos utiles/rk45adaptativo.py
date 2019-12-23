@@ -29,7 +29,7 @@ def dopri5(A, B, C, D, x, h, inputValue):
     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 + k6*187/2100 + k7/40)
     y5th = np.dot(C, x) + D*inputValue
     
-    return y5th, x5th, x4th
+    return y5th[0,0], x5th, x4th
 
 
 def fehlberg45(A, B , C, D, x, h, inputValue):
@@ -161,18 +161,18 @@ def ejecutar(orden=5):
     min_step_decrease = 0.2
     max_step_increase = 5
     h_ant = 0.000001
-    rtol = 1e-3
+    rtol = 1e-6
     atol = 1e-6
     tiempo = 0.0
     tbound = 30
     sp = 1
-    salida = [0]
-    tiempo_out = [0]
+    salida = []
+    tiempo_out = []
     yb = 0
     sf1 = 0.9
     counter = 0.0
-    sc_t = [0]
-    error_ac = [0]
+    sc_t = []
+    error_ac = []
     # dopri5
     # fehlberg45dot
     RK = dopri5
@@ -186,8 +186,9 @@ def ejecutar(orden=5):
                 h_ant = tbound - tiempo
 
             ypidb, x_five, x_four = RK(A2, B2, C2, D2, x_pidB, h_ant, error)
-
-            scale = atol + np.maximum(np.abs(x_five), np.abs(x_pidB)) * rtol
+            print(x_five)
+            # scale = atol + np.maximum(np.abs(x_five), np.abs(x_pidB)) * rtol
+            scale = atol + np.abs(x_five) * rtol
             # scale = atol + rtol * (np.abs(x_five) + np.abs(x_pidB)) / 2
             delta1 = np.abs(x_five - x_four)
             error_norm = norm(delta1/scale)
@@ -237,7 +238,6 @@ def ejecutar(orden=5):
 
 
 if __name__ == '__main__':
-    for i in range(4):
-        ejecutar(orden=i+2)
+    ejecutar(orden=5)
     plt.show()
     # cc.compile()

@@ -201,12 +201,12 @@
         
         \begin{equation}\label{eq:RKgeneral}
             \begin{aligned}
-                k_1 &= f(x_0,y_0)\\
-                k_2 &= f(x_0 + c_2 h,y_0 + ha_{21}k_1)\\
-                k_3 &= f(x_0 + c_3 h,y_0 + h(a_{31}k_1 + a_{32}k_2))\\
+                k_1 &= hf(t^{(j)},\,x^{(j)})\\
+                k_2 &= hf(t^{(j)} + c_2 h,\,x^{(j)} + a_{21}k_1)\\
+                k_3 &= hf(t^{(j)} + c_3 h,\,x^{(j)} + a_{31}k_1 + a_{32}k_2)\\
                 &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
-                k_s &= f(x_0 + c_s h,y_0 + h(a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1}))\\
-                y_1 &= y_0 + h(b_1 k_1 + \cdots + b_s k_s)
+                k_s &= hf(t^{(j)} + c_s h,\,x^{(j)} + a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1})\\
+                x^{(j+1)} &= x^{(j)} + (b_1 k_1 + \cdots + b_s k_s)
             \end{aligned}
         \end{equation}
         
@@ -247,11 +247,11 @@
         \end{equation}
 
         \begin{align}
-            y_1 &= y_0 + h(b_1 k_1 + \cdots + b_s k_s) & &\text{Orden $p$}\\
-            \hat{y}_1 &= y_0 + h(\hat{b}_1 k_1 + \cdots +\hat{b}_s k_s) & &\text{Orden $\hat{p} = p-1$ o $p+1$}
+            x^{(j+1)} &= x^{(j)} + (b_1 k_1 + \cdots + b_s k_s) & &\text{Orden $p$}\\
+            \hat{x}^{(j+1)} &= x^{(j)} + (\hat{b}_1 k_1 + \cdots +\hat{b}_s k_s) & &\text{Orden $\hat{p} = p-1$ o $p+1$}
         \end{align}
 
-        De modo que la integración para el siguiente paso se continua con $y_1$. El objetivo de calcular dos metodos en conjunto es para poder estimar el error y poder realizar un cambio en el tamaño de paso, de este modo, se puede incrementar el tamaño de paso si el error es muy bajo o disminuirlo si el error es inaceptable.
+        De modo que la integración para el siguiente paso se continua con $x^{(j+1)}$. El objetivo de calcular dos metodos en conjunto es para poder estimar el error y poder realizar un cambio en el tamaño de paso, de este modo, se puede incrementar el tamaño de paso si el error es muy bajo o disminuirlo si el error es inaceptable.
         
         \subsubsection{Runge-Kutta's para ecuaciones de espacio de estados}
 
@@ -280,12 +280,12 @@
 
             \begin{equation}\label{eq:RKstate}
                 \begin{aligned}
-                    k_1 &= Ax_n^{(j)} + Bu_m^{(j)}\\
-                    k_2 &= A(x_n^{(j)} +  ha_{21}k_1) + Bu_m^{(j)}\\
-                    k_3 &= A(x_n^{(j)} +  h(a_{31}k_1 + a_{32}k_2)) + Bu_m^{(j)}\\
+                    k_1 &= h(Ax_n^{(j)} + Bu_m^{(j)}(t))\\
+                    k_2 &= h(A(x_n^{(j)} +  a_{21}k_1) + Bu_m^{(j)}(t + c_2 h))\\
+                    k_3 &= h(A(x_n^{(j)} +  a_{31}k_1 + a_{32}k_2) + Bu_m^{(j)}(t  + c_3 h))\\
                     &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
-                    k_s &= A(x_n^{(j)} + h(a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1})) + Bu_m^{(j)}\\
-                    x_n^{(j+1)} &= x_n^{(j)} + h(b_1 k_1 + \cdots + b_s k_s)
+                    k_s &= h(A(x_n^{(j)} + a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1}) + Bu_m^{(j)}(t  + c_s h))\\
+                    x_n^{(j+1)} &= x_n^{(j)} + (b_1 k_1 + \cdots + b_s k_s)
                 \end{aligned}
             \end{equation}
             
@@ -305,7 +305,7 @@
             \noindent finalmente, el vector de estado obtenido con \cref{eq:RKstate} sera sustituido en la siguiente iteración. Para obtener la salida actual se debe sustituir $x_n^{(j)}$  en \cref{eq:SSrepresentationY}. 
             
             \begin{equation}
-				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)} \label{eq:rkrepresentationY}
+				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)(t)} \label{eq:rkrepresentationY}
             \end{equation}
             
             Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar. Un tamaño de paso pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, por tanto, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
@@ -319,24 +319,24 @@
             
             \paragraph{Calculo del error con dos medios pasos}
 
-                Este es un método simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo método al realizar dos pasos de tamaño $\frac{h}{2}$, de este modo el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|y_{1,h} - y_{2,\frac{h}{2}}\right|$ donde $y_{2,\frac{h}{2}}$ es la salida luego de dos medios pasos.
+                Este es un método simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo método al realizar dos pasos de tamaño $\frac{h}{2}$, de este modo el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|x_{n,h}^{(j+1)} - x_{n,\frac{h}{2}}^{(j+1)}\right|$ donde $x_{n,\frac{h}{2}}^{(j+1)}$ es la salida luego de dos medios pasos.
             
             \paragraph{Calculo del error para metodos embebidos} 
 
-                Los metodos embebidos están hechos para poder realizar este calculo del error, por tanto, no hay que realizar ningún calculo extra y el error puede ser calculado de forma directa como $\Delta e = \left| y_1 - \hat{y}_1\right|$
+                Los metodos embebidos están hechos para poder realizar este calculo del error, por tanto, no hay que realizar ningún calculo extra y el error puede ser calculado de forma directa como $\Delta e = \left| x_n^{(j+1)} - \hat{x}_n^{(j+1)}\right|$
 
             \paragraph{Nuevo tamaño de paso}
 
                 Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las formulas para el manejo del error a fin de calcular un nuevo tamaño de paso. Lo primero es calcular una escala, este es el único paso que se diferencia entre el método de dos medios pasos y el los metodos embebidos. Para dos medios pasos la escala es:
 
                 \begin{equation}\label{eq:escalaDos}
-                    escala = atol + rtol \cdot \frac{\left|y_{1,h}\right| + \left|y_{2,\frac{h}{2}}\right|}{2}
+                    escala = atol + rtol \cdot \frac{\left|x_{n,h}^{(j+1)}\right| + \left|x_{n,\frac{h}{2}}^{(j+1)}\right|}{2}
                 \end{equation}
 
                 \noindent para los metodos embebidos:
 
                 \begin{equation}\label{eq:escalaEmbebidos}
-                    escala = atol + rtol \cdot max(\left| y_1\right|,\left| y_0\right|)
+                    escala = atol + rtol \cdot max\left(\left| x_n^{(j+1)}\right|,\left| x_n^{(j)}\right|\right)
                 \end{equation}
         
                 A partir de aca las formulas son comunes para ambos metodos. Para continuar, se debe realizar el calculo de un error normalizado, por lo cual se calcula la norma RMS del error dividido por la escala calculada:
@@ -345,7 +345,7 @@
                     ||\Delta e|| = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(\frac{\Delta e_i}{escala_i}\right)^2}
                 \end{equation}
 
-                \noindent donde i denota el numero de elementos que componen la respuesta, finalmente, el nuevo tamaño de paso viene dado por:
+                \noindent donde n denota el numero de elementos que componen la respuesta. Finalmente, el nuevo tamaño de paso viene dado por:
                 
                 \begin{equation}\label{eq:casosStep}
                     \left\{
@@ -356,7 +356,7 @@
                     \end{aligned}\right.
                 \end{equation}
                 
-                \noindent con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del método utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el método de menor orden entre $y_1$ y $\hat{y}_1$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso. El proceso se repite hasta que el error sea igual o menor que uno.
+                \noindent con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del método utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el método de menor orden entre $x_n$ y $\hat{x}_n$, notese que si el error se encuentra por arriba de uno, la salida es descartada y se repite el calculo con un nuevo tamaño de paso. El proceso se repite hasta que el error sea igual o menor que uno.
     
     \subsection{Respuesta en el tiempo del modelo en el espacio de estados discreto}
         
