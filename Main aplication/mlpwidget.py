@@ -1,5 +1,7 @@
 """ 
-[Archivo para definir las clases MlpWidget, MlpWidgetNoToolbar, MlpWidgetSubplot y MlpWidget3D, estas clases son utilizadas por qtdesigner para promocionar un QGraphicsView a las clases aca definidas en orden de mostrar las graficas en un QGraphicsView]
+[Archivo para definir las clases MlpWidget, MlpWidgetNoToolbar, MlpWidgetSubplot y MlpWidget3D, estas clases son
+ utilizadas por qtdesigner para promocionar un QGraphicsView a las clases aca definidas en orden de mostrar las 
+ graficas en un QGraphicsView]
 """
 
 

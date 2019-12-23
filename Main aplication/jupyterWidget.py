@@ -1,5 +1,8 @@
 """ 
-[Archivo para definir la clase JupyterConsolePgraphWidget, estas clase es utilizada por qtdesigner para promocionar un QGraphicsView a la clase aca definida en orden de incrustar una consola jupyter en un QGraphicsView, actualmente solo funciona si el codigo es ejecutado utilizando el Python del usuario, i.e., no sirve al distribuir la aplicacion en .exe con Pyinstaller]
+[Archivo para definir la clase JupyterConsolePgraphWidget, estas clase es utilizada por qtdesigner para
+ promocionar un QGraphicsView a la clase aca definida en orden de incrustar una consola jupyter en un 
+ QGraphicsView, actualmente solo funciona si el codigo es ejecutado utilizando el Python del usuario, i.e., no 
+ sirve al distribuir la aplicacion en .exe con Pyinstaller]
 """
 
 

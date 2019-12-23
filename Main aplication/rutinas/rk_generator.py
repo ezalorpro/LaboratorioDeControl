@@ -19,7 +19,8 @@ def norm(x):
 @cc.export('dopri54', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def dopri54(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Dormand-Prince 5(4), la integracion se continua con la salida de orden 5, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta embebido de Dormand-Prince 5(4), la integracion se continua con la salida de orden 5, en el
+     metodo se asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -58,7 +59,8 @@ def dopri54(A, B, C, D, x, h, inputValue):
 @cc.export('cash_karp45', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def cash_karp45(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Cash-Karp 4(5), la integracion se continua con la salida de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta embebido de Cash-Karp 4(5), la integracion se continua con la salida de orden 4, en el metodo se
+     asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -94,7 +96,8 @@ def cash_karp45(A, B, C, D, x, h, inputValue):
 @cc.export('fehlberg45', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def fehlberg45(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Fehlberg 4(5), la integracion se continua con la salida de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta embebido de Fehlberg 4(5), la integracion se continua con la salida de orden 4, en el metodo se
+     asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -130,7 +133,8 @@ def fehlberg45(A, B, C, D, x, h, inputValue):
 @cc.export('bogacki_shampine23', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def bogacki_shampine23(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Bogacki-Shampine 3(2), la integracion se continua con la salida de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta embebido de Bogacki-Shampine 3(2), la integracion se continua con la salida de orden 3, en el
+     metodo se asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -178,7 +182,8 @@ def runge_kutta5(A, B, C, D, x, h, inputValue):
 @cc.export('ralston4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def ralston4(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta Ralston con minimo error de truncamiento de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta Ralston con minimo error de truncamiento de orden 4, en el metodo se asumio entrada constante,
+     por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -210,7 +215,7 @@ def ralston4(A, B, C, D, x, h, inputValue):
 @cc.export('tres_octavos4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def tres_octavos4(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta 3/8 de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta 3/8 de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -242,7 +247,7 @@ def tres_octavos4(A, B, C, D, x, h, inputValue):
 @cc.export('runge_kutta4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def runge_kutta4(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -274,7 +279,8 @@ def runge_kutta4(A, B, C, D, x, h, inputValue):
 @cc.export('SSPRK3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def SSPRK3(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta con preservado de estabilidad fuerte de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta con preservado de estabilidad fuerte de orden 3, en el metodo se asumio entrada constante, por
+     lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -304,7 +310,7 @@ def SSPRK3(A, B, C, D, x, h, inputValue):
 @cc.export('ralston3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def ralston3(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta Ralston de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta Ralston de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -334,7 +340,7 @@ def ralston3(A, B, C, D, x, h, inputValue):
 @cc.export('heun3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def heun3(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta Heun de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta Heun de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -365,7 +371,7 @@ def heun3(A, B, C, D, x, h, inputValue):
 @cc.export('runge_kutta3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def runge_kutta3(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]
@@ -396,7 +402,7 @@ def runge_kutta3(A, B, C, D, x, h, inputValue):
 @cc.export('runge_kutta2', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def runge_kutta2(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta de orden 2, en el metodo se asumio entrada constante, por lo que se descarta t + h*ai]
+    [Runge-Kutta de orden 2, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
     
     :param A: [Matriz de estados]
     :type A: [float64, 2d, F]

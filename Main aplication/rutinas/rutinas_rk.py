@@ -23,8 +23,8 @@ def rk_doble_paso_adaptativo(systema,
                              safety_factor):
     """
     [Funcion para definir y manejar el ajuste del tamaño de paso por el metodo de doble paso para Runge-kutta's
-	explicitos, la funcion esta realizada de forma especifica para trabajar con sistemas de control representados
-	con ecuaciones de espacio de estados]
+     explicitos, la funcion esta realizada de forma especifica para trabajar con sistemas de control 
+     representados con ecuaciones de espacio de estados]
     
     :param systema: [Representacion del sistema de control]
     :type systema: [LTI]
@@ -104,8 +104,9 @@ def rk_embebido_adaptativo(systema,
                            min_step_decrease,
                            safety_factor):
     """
-    [Funcion para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la funcion esta realizada
-	de forma especifica para trabajar con sistemas de control representados con ecuaciones de espacio de estados]
+    [Funcion para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la funcion esta
+     realizada de forma especifica para trabajar con sistemas de control representados con ecuaciones de espacio 
+     de estados]
     
     :param systema: [Representacion del sistema de control]
     :type systema: [LTI]
