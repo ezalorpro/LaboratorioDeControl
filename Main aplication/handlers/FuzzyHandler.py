@@ -1,5 +1,6 @@
 """ 
-[Archivo para el manejo de la funcion de diseño de controladores difusos, sirve de intermediario entre la interfaz grafica y la clase creada para manejar el controlador difuso definida en rutinas_fuzzy.py] 
+[Archivo para el manejo de la funcion de diseño de controladores difusos, sirve de intermediario entre la
+ interfaz grafica y la clase creada para manejar el controlador difuso definida en rutinas_fuzzy.py] 
 """
 
 
@@ -16,7 +17,8 @@ import json
 
 def FuzzyHandler(self):
     """
-    [Funcion principal para el manejo de diseño de controladores difusos, se crean las señales a ejecutar cuando se interactua con los widgets]
+    [Funcion principal para el manejo de diseño de controladores difusos, se crean las señales a ejecutar cuando
+     se interactua con los widgets]
     """
 
     self.EntradasTab = self.main.fuzzyTabWidget.widget(1)
@@ -1091,7 +1093,10 @@ def seleccion_mf_in(self):
 
 
 def definicion_in(self):
-    """ [Funcion para manejar el cambio de definicion de la funcion de membresia correspondiente a la etiqueta actual] """
+    """ 
+    [Funcion para manejar el cambio de definicion de la funcion de membresia correspondiente a la etiqueta
+     actual] 
+     """
 
     try:
         deinificion_in_validator(self)
@@ -1159,7 +1164,10 @@ def seleccion_mf_out(self):
 
 
 def definicion_out(self):
-    """ [Funcion para manejar el cambio de definicion de la funcion de membresia correspondiente a la etiqueta actual] """
+    """ 
+    [Funcion para manejar el cambio de definicion de la funcion de membresia correspondiente a la etiqueta
+     actual] 
+    """
 
     try:
         deinificion_out_validator(self)
@@ -1249,7 +1257,9 @@ def rule_list_visualizacion(self):
 
 
 def seleccionar_etiquetas(self):
-    """ [Funcion para seleccionar las etiquetas correspodientes a cada entrada/salida de la regla seleccionada] """
+    """ 
+    [Funcion para seleccionar las etiquetas correspodientes a cada entrada/salida de la regla seleccionada] 
+    """
 
     if len(self.RuleEtiquetas) > 0:
         ni = len(self.InputList)
@@ -1298,7 +1308,9 @@ def seleccionar_etiquetas(self):
 
 
 def rule_list_agregar(self):
-    """ [Funcion para crear una nueva regla a partir de las etiquetas seleccionadas para cada entrada y salida] """
+    """ 
+    [Funcion para crear una nueva regla a partir de las etiquetas seleccionadas para cada entrada y salida] 
+    """
 
     self.main.fuzzyTabWidget.removeTab(5)
     self.main.fuzzyTabWidget.removeTab(4)
@@ -1413,7 +1425,10 @@ def rule_list_cambiar(self):
 
 def crear_controlador(self):
     """ 
-    [Funcion para crear el controlador a partir de toda la informacion recolectada, esta creacion se realiza con el fin de realizar la prueba del controlador y observar la superficie de respuesta del controlador en caso de poseer una o dos entradas]"""
+    [Funcion para crear el controlador a partir de toda la informacion recolectada, esta creacion se realiza con
+     el fin de realizar la prueba del controlador y observar la superficie de respuesta del controlador en caso 
+     de poseer una o dos entradas]
+    """
 
     if self.main.rulelistWidget.count():
         self.fuzzController = self.fuzzInitController(

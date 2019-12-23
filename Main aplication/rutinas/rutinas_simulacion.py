@@ -1,5 +1,8 @@
 """ 
-[Archivo que contiene la clase SimpleThread la cual ejecuta la simulacion de sistemas de control en hilo diferente al principal, esto se realiza de esta forma debido a que la simulacion puede tardar en algunos casos varios segundos, de ejecutarse en el hilo principal presentaria un comportamiento de bloqueo en la ventana principal] 
+[Archivo que contiene la clase SimpleThread la cual ejecuta la simulacion de sistemas de control en hilo
+ diferente al principal, esto se realiza de esta forma debido a que la simulacion puede tardar en algunos
+ casos varios segundos, de ejecutarse en el hilo principal presentaria un comportamiento de bloqueo en la
+ ventana principal] 
 """
 
 
@@ -225,7 +228,8 @@ class SimpleThread(QtCore.QThread):
             salida2 = deque([0])
 
         if self.N*kd == 0:
-            # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion de transferencia a ecuaciones de espacio de estados
+            # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion
+			# de transferencia a ecuaciones de espacio de estados
             # Controlador PID con la forma:
             #    PID = kp + ki/s + (kd*N*s/(s + N))
 
@@ -1179,7 +1183,8 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 8:  # PID clasico + difuso simple
 
             if self.N*kd == 0:
-                # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion de transferencia a ecuaciones de espacio de estados
+                # N debe mantenerce debido al algoritmo utilizado por la libreria de control para llevar de funcion
+				# de transferencia a ecuaciones de espacio de estados
                 # Controlador PID con la forma:
                 #    PID = kp + ki/s + (kd*N*s/(s + N))
 
@@ -1317,7 +1322,8 @@ def system_creator_tf(self, numerador, denominador):
 
 def system_creator_ss(self, A, B, C, D):
     """
-    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados]
+    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida
+	 y la matriz de transmision directa la ecuacion de espacio de estados]
     
     :param A: [Matriz de estados]
     :type A: list

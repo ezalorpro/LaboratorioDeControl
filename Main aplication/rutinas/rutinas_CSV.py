@@ -1,4 +1,7 @@
-""" [Archivo que contiene todas las rutinas necesarias para la funcionalidad de identificacion de modelo y tunning con csv] """
+""" 
+[Archivo que contiene todas las rutinas necesarias para la funcionalidad de identificacion de modelo y
+ tunning con csv] 
+"""
 
 
 import matplotlib.ticker as mticker
@@ -8,7 +11,9 @@ import numpy as np
 
 def procesar_csv(self, csv_data):
     """
-    [Funcion para procesar la data del archivo csv, se crea una nueva data en un diccionario, se normalizan las escalas con el span y se transforma el tiempo a segundos. Para la transformacion de tiempo a segundos los formatos aceptados son:
+    [Funcion para procesar la data del archivo csv, se crea una nueva data en un diccionario, se normalizan las
+     escalas con el span y se transforma el tiempo a segundos. Para la transformacion de tiempo a segundos los 
+     formatos aceptados son:
         hh:mm:ss
            mm:ss
               ss
@@ -132,7 +137,8 @@ def calcular_modelo(self,
 
 def entonar_y_graficar(self, dict_data, Kc, tau, y1, y2, t0, t1, t2):
     """
-    [Funcion para calcular el controlador PID a partir de los datos del modelo de primer orden, ademas, se grafica la data del csv junto con algunos parametros de la identificacion del modelo]
+    [Funcion para calcular el controlador PID a partir de los datos del modelo de primer orden, ademas, se
+     grafica la data del csv junto con algunos parametros de la identificacion del modelo]
     
     :param dict_data: [Diccionario con la data procesada del csv]
     :type dict_data: [dict]
@@ -140,7 +146,8 @@ def entonar_y_graficar(self, dict_data, Kc, tau, y1, y2, t0, t1, t2):
     :type Kc: [float]
     :param tau: [Constante de tiempo del proceso]
     :type tau: [float]
-    :param y1: [Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al tiempo]
+    :param y1: [Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al
+     tiempo]
     :type y1: [float]
     :param y2: [Punto y2 de la recta de identificacion]
     :type y2: [float]
@@ -221,7 +228,9 @@ def entonar_y_graficar(self, dict_data, Kc, tau, y1, y2, t0, t1, t2):
 
 def calculos_manual(self, GraphObjets, Kc, t0, t1, t2, slop, y1):
     """
-    [Funcion para recalcular el controlador PID a partir de los datos del modelo de primer orden con el nueto tiempo t1, ademas, se grafica la data del csv junto con algunos parametros de la identificacion del modelo y la nueva recta]
+    [Funcion para recalcular el controlador PID a partir de los datos del modelo de primer orden con el nueto
+     tiempo t1, ademas, se grafica la data del csv junto con algunos parametros de la identificacion del modelo y 
+     la nueva recta]
     
     :param GraphObjets: [Lista de objetos de graficacion]
     :type GraphObjets: [list]
@@ -235,7 +244,8 @@ def calculos_manual(self, GraphObjets, Kc, t0, t1, t2, slop, y1):
     :type t2: [float]
     :param slop: [Pendiente de la recta de identificacion]
     :type slop: [float]
-    :param y1: [Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al tiempo]
+    :param y1: [Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al
+     tiempo]
     :type y1: [float]
     """
     kp, ki, kd = auto_tuning_method_csv(self, Kc, t2-t1, t1-t0, self.main.csvMetodo.currentText())
@@ -284,7 +294,9 @@ def actualizar_Datos(self, Kc, t0, t1, t2, kp, ki, kd):
 
 def auto_tuning_method_csv(self, k_proceso, tau, alpha, metodo):
     """
-    [Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una respuesta escalon en lazo abierto]
+    [Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden
+     obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una 
+     respuesta escalon en lazo abierto]
     
     :param k_proceso: [Ganancia del proceso]
     :type k_proceso: [float]

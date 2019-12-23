@@ -1,5 +1,6 @@
 """ 
-[Archivo que contiene las clases FuzzyController y FISParser, para administrar el controlador difuso y cargar y exportar archivos .fis respectivamente] 
+[Archivo que contiene las clases FuzzyController y FISParser, para administrar el controlador difuso y cargar y
+ exportar archivos .fis respectivamente] 
 """
 
 
@@ -21,12 +22,16 @@ import re
 
 class FuzzyController:
     """
-    [Clase para administrar el controlador difuso, a partir de la misma se puede crear el controlador difuso e ir creandolo de forma programatica por medio de la interfaz grafica definida en Ui_VentanaPrincipal.py y manejada en FuzzyHandler.py]
+    [Clase para administrar el controlador difuso, a partir de la misma se puede crear el controlador difuso e
+     ir creandolo de forma programatica por medio de la interfaz grafica definida en Ui_VentanaPrincipal.py y 
+     manejada en FuzzyHandler.py]
     """
 
     def __init__(self, inputlist, outputlist, rulelist=[]):
         """
-        [Se utiliza para inicializar el controlador con las entradas y salidas del mismo, en caso de que se envie el parametro opcional, rulelist, se crea el controlador a partir de las reglas suministradas y queda listo para usar]
+        [Se utiliza para inicializar el controlador con las entradas y salidas del mismo, en caso de que se
+         envie el parametro opcional, rulelist, se crea el controlador a partir de las reglas suministradas y 
+         queda listo para usar]
         
         :param inputlist: [Lista de variables de entrada]
         :type inputlist: [list]
@@ -354,9 +359,13 @@ class FuzzyController:
 
     def crear_reglas(self, rulelistC):
         """
-        [Funcion para crear las reglas a partir de una lista que contiene toda la informacion necesaria, esta lista es creada en FuzzyHandler.py:
+        [Funcion para crear las reglas a partir de una lista que contiene toda la informacion necesaria, esta
+         lista es creada en FuzzyHandler.py:
         
-        Cada posicion en la lista contiene un set de entradas, salidas y la logica a utilizar (AND o OR), a su vez, cada set es una lista que posee en cada posicion otra lista con la etiqueta, el numero de entrada/salida y si esta o no negada para el caso de las entradas, en caso de ser salida contiene el peso asignado]
+         Cada posicion en la lista contiene un set de entradas, salidas y la logica a utilizar (AND o OR), a su
+         vez, cada set es una lista que posee en cada posicion otra lista con la etiqueta, el numero de 
+         entrada/salida y si esta o no negada para el caso de las entradas, en caso de ser salida contiene el 
+         peso asignado]
         
         :param rulelistC: [Lista con la informacion necesaria para crear las reglas]
         :type rulelistC: [list]
@@ -567,7 +576,9 @@ class FuzzyController:
 
     def crear_plots_in(self, window, ni):
         """
-        [Funcion para crear los objetos de graficacion de PyQtGraph de la entrada, el codigo para la obtencion de los valores de salida y el graficado es una version altamente modificada de la funcion .view() de Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph]
+        [Funcion para crear los objetos de graficacion de PyQtGraph de la entrada, el codigo para la obtencion
+         de los valores de salida y el graficado es una version altamente modificada de la funcion .view() de 
+         Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph]
         
         :param window: [Objeto que contiene a la ventana principal]
         :type window: [object]
@@ -648,7 +659,9 @@ class FuzzyController:
 
     def crear_plots_out(self, window, no):
         """
-        [Funcion para crear los objetos de graficacion de PyQtGraph de la salida, el codigo para la obtencion de los valores de salida y el graficado es una version altamente modificada de la funcion .view() de Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph]
+        [Funcion para crear los objetos de graficacion de PyQtGraph de la salida, el codigo para la obtencion de
+         los valores de salida y el graficado es una version altamente modificada de la funcion .view() de 
+         Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph]
         
         :param window: [Objeto que contiene a la ventana principal]
         :type window: [object]
@@ -749,7 +762,8 @@ class FuzzyController:
 
     def graficar_prueba_pyqtgraph(self, window, ni, no):
         """
-        [Funcion para actualizar la grafica en funcion de las nuevas entradas, codigo tomado y modificado de la funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph]
+        [Funcion para actualizar la grafica en funcion de las nuevas entradas, codigo tomado y modificado de la
+         funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph]
         
         :param window: [Objeto que contiene a la ventana principal]
         :type window: [object]
@@ -952,7 +966,8 @@ class FuzzyController:
 
     def calcular_valor(self, inputs, outputs):
         """
-        [Funcion para calcular las salidas del controlador dado sus entradas, esta funcion se utiliza en la funcionalidad de simulacion de sistemas de control]
+        [Funcion para calcular las salidas del controlador dado sus entradas, esta funcion se utiliza en la
+         funcionalidad de simulacion de sistemas de control]
         
         :param inputs: [Lista con los valores de entrada]
         :type inputs: [list]
@@ -978,14 +993,21 @@ class FuzzyController:
 
 class FISParser:
     """
-    [Clase para cargar y exportar archivos .fis, para cargar los archivos FIS las funciones get_system, get_vars, get_var y get_rules fueron tomadas de yapflm (Yet Another Python Fuzzy Logic Module: https://github.com/sputnick1124/yapflm) para obtener los datos necesarias del .fis, de alli, se aplica la funcion fis_to_json para completar el parsin.
+    [Clase para cargar y exportar archivos .fis, para cargar los archivos FIS las funciones get_system, get_vars,
+     get_var y get_rules fueron tomadas de yapflm: 
+     
+     Yet Another Python Fuzzy Logic Module: https://github.com/sputnick1124/yapflm 
+     
+     para obtener los datos necesarias del .fis, de alli, se aplica la funcion fis_to_json para completar el 
+     parsin.
     
-    En el caso de la exportancion, se realiza utilizando la funcion json_to_fis]
+     En el caso de la exportancion, se realiza utilizando la funcion json_to_fis]
     """
 
     def __init__(self, file, InputList=None, OutputList=None, RuleEtiquetas=None):
         """
-        [Constructor de la clase, inicializa las variables a utilizar y selecciona entre cargar el fis o exportarlo dependiendo de las variables con las que se cree el objeto]
+        [Constructor de la clase, inicializa las variables a utilizar y selecciona entre cargar el fis o
+         exportarlo dependiendo de las variables con las que se cree el objeto]
         
         :param file: [Direccion del archivo a cargar o exportar]
         :type file: [str]

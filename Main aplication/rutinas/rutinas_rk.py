@@ -1,5 +1,6 @@
 """ 
-[Archivo para definir los metodos de Runge-kutta explicitos y embebidos, en todos los casos se utiliza un algoritmo para el ajuste del tamaño de paso, en el caso de los metodos explicitos se utiliza el metodo de doble paso] 
+[Archivo para definir los algoritmos de ajusto del tamaño de paso para los Runge-kutta explicitos y
+ embebidos, en el caso de los metodos explicitos se utiliza el metodo de doble paso] 
 """
 
 
@@ -21,7 +22,9 @@ def rk_doble_paso_adaptativo(systema,
                              min_step_decrease,
                              safety_factor):
     """
-    [Funcion para definir y manejar el ajuste del tamaño de paso por el metodo de doble paso para Runge-kutta's explicitos, la funcion esta realizada de forma especifica para trabajar con sistemas de control representados con ecuaciones de espacio de estados]
+    [Funcion para definir y manejar el ajuste del tamaño de paso por el metodo de doble paso para Runge-kutta's
+	explicitos, la funcion esta realizada de forma especifica para trabajar con sistemas de control representados
+	con ecuaciones de espacio de estados]
     
     :param systema: [Representacion del sistema de control]
     :type systema: [LTI]
@@ -101,7 +104,8 @@ def rk_embebido_adaptativo(systema,
                            min_step_decrease,
                            safety_factor):
     """
-    [Funcion para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la funcion esta realizada de forma especifica para trabajar con sistemas de control representados con ecuaciones de espacio de estados]
+    [Funcion para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la funcion esta realizada
+	de forma especifica para trabajar con sistemas de control representados con ecuaciones de espacio de estados]
     
     :param systema: [Representacion del sistema de control]
     :type systema: [LTI]

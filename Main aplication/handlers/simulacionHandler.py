@@ -1,5 +1,7 @@
 """ 
-[Archivo para el manejo de la funcion de simulacion de sistemas de control, sirve de intermediario entre la interfaz grafica y la clase creada para manejar la simulacion en una hilo distinto, esto es debido al tiempo que puede llegar a tomar cada simulacion] 
+[Archivo para el manejo de la funcion de simulacion de sistemas de control, sirve de intermediario entre la 
+ interfaz grafica y la clase creada para manejar la simulacion en una hilo distinto, esto es debido al tiempo 
+ que puede llegar a tomar cada simulacion] 
 """
 
 from rutinas.metodos_RK import (runge_kutta2, runge_kutta3, runge_kutta4, runge_kutta5,
@@ -18,7 +20,8 @@ import json
 
 def SimulacionHandler(self):
     """
-    [Funcion principal para el manejo de la funcionalida de simulacion de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
+    [Funcion principal para el manejo de la funcionalida de simulacion de sistemas de control, se crean las
+     señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
     """
 
     self.main.progressBar.hide()
@@ -877,7 +880,8 @@ def update_progresBar_function(self, value):
 
 def error_gui(self, error):
     """
-    [Funcion para mostrar los errores que pudiesen ocurrir durante la simulacion, esta funcion es utilizada por el QThread]
+    [Funcion para mostrar los errores que pudiesen ocurrir durante la simulacion, esta funcion es utilizada
+     por el QThread]
     
     :param error: [Indicador del error]
     :type error: [int]
@@ -911,11 +915,11 @@ def plot_final_results(self, result):
     """
 
     self.main.simulacionGraph.canvas.axes1.clear()
-    
+
     # Limitando los resultados para evitar problemas con matplotlib
     result[1] = np.clip(result[1], -1e300, 1e300)
     result[2] = np.clip(result[2], -1e300, 1e300)
-    
+
     # Distincion entre continuo y discreto para y(t)
     if result[4]:
         self.main.simulacionGraph.canvas.axes1.step(result[0],
@@ -955,7 +959,7 @@ def plot_final_results(self, result):
     self.main.simulacionGraph.canvas.axes2.legend()
     self.main.simulacionGraph.canvas.draw()
     self.main.simulacionGraph.toolbar.update()
-    
+
     self.main.progressBar.setValue(0)
     self.main.progressBar.hide()
     self.main.principalTab.setEnabled(True)

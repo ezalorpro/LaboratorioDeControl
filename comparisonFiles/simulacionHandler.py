@@ -1,7 +1,12 @@
 """ 
-[Archivo para el manejo de la funcion de simulacion de sistemas de control, sirve de intermediario entre la interfaz grafica y la clase creada para manejar la simulacion en una hilo distinto, esto es debido al tiempo que puede llegar a tomar cada simulacion] 
+[Archivo para el manejo de la funcion de simulacion de sistemas de control, sirve de intermediario entre la 
+ interfaz grafica y la clase creada para manejar la simulacion en una hilo distinto, esto es debido al tiempo 
+ que puede llegar a tomar cada simulacion] 
 """
 
+from rutinas.metodos_RK import (runge_kutta2, runge_kutta3, runge_kutta4, runge_kutta5,
+                                heun3, ralston3, SSPRK3, ralston4, tres_octavos4,
+                                bogacki_shampine23, fehlberg45, cash_karp45, dopri54, norm)
 
 from rutinas.rutinas_fuzzy import FuzzyController
 from rutinas.rutinas_simulacion import *
@@ -9,15 +14,17 @@ from rutinas.rutinas_rk import *
 from PySide2 import QtGui, QtWidgets
 
 import numpy as np
-
-import json
+from time import time
 import pickle
+import json
 
 
 def SimulacionHandler(self):
     """
-    [Funcion principal para el manejo de la funcionalida de simulacion de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
+    [Funcion principal para el manejo de la funcionalida de simulacion de sistemas de control, se crean las
+     señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
     """
+
     self.conteo = 1
     self.main.progressBar.hide()
     self.main.controller1Frame.hide()
@@ -289,6 +296,7 @@ def pade_validator(self):
         self.main.padeOrder.setFocus()
         return
 
+
 def rtol_validator(self):
     """ [Validacion de la tolerancia relativa] """
 
@@ -302,6 +310,7 @@ def rtol_validator(self):
         self.error_dialog.exec_()
         self.main.rtolLineEdit.setFocus()
         return
+
 
 def atol_validator(self):
     """ [Validacion de la tolerancia absoluta] """
@@ -508,6 +517,7 @@ def N_validator(self):
 
 
 def calcular_simulacion(self):
+    self.start = time()
 
     num = json.loads(self.main.numSensor.text())
     dem = json.loads(self.main.demSensor.text())
@@ -735,10 +745,10 @@ def restablecer_configuracion(self):
     """ [Funcion para restablecer la configuracion avanzada por defecto] """
 
     self.main.padeOrder.setText('10')
-    self.main.filtroCheck.setChecked(True)
-    self.main.solverMethod.setCurrentIndex(8)
-    self.main.rtolLineEdit.setText('1e-3')
-    self.main.atolLineEdit.setText('3e-6')
+    self.main.filtroCheck.setChecked(False)
+    self.main.solverMethod.setCurrentIndex(0)
+    self.main.rtolLineEdit.setText('1e-5')
+    self.main.atolLineEdit.setText('1e-6')
     self.main.maxStepIncr.setText('5')
     self.main.minStepDecr.setText('0.2')
     self.main.safetyFactor.setText('0.9')
@@ -873,7 +883,8 @@ def update_progresBar_function(self, value):
 
 def error_gui(self, error):
     """
-    [Funcion para mostrar los errores que pudiesen ocurrir durante la simulacion, esta funcion es utilizada por el QThread]
+    [Funcion para mostrar los errores que pudiesen ocurrir durante la simulacion, esta funcion es utilizada
+     por el QThread]
     
     :param error: [Indicador del error]
     :type error: [int]
@@ -907,11 +918,11 @@ def plot_final_results(self, result):
     """
 
     self.main.simulacionGraph.canvas.axes1.clear()
-    
+
     # Limitando los resultados para evitar problemas con matplotlib
     result[1] = np.clip(result[1], -1e300, 1e300)
     result[2] = np.clip(result[2], -1e300, 1e300)
-    
+
     # Distincion entre continuo y discreto para y(t)
     if result[4]:
         self.main.simulacionGraph.canvas.axes1.step(result[0],
@@ -951,13 +962,15 @@ def plot_final_results(self, result):
     self.main.simulacionGraph.canvas.axes2.legend()
     self.main.simulacionGraph.canvas.draw()
     self.main.simulacionGraph.toolbar.update()
-    
+
     self.main.progressBar.setValue(0)
     self.main.progressBar.hide()
     self.main.principalTab.setEnabled(True)
     self.main.tabSimulation.setCurrentIndex(1)
+
+    print(f'Tiempo: {time()-self.start}')
     
     with open('Controlador' + str(self.conteo) + '.pkl', 'wb', ) as f:
         pickle.dump(result, f)
-        
+    
     self.conteo += 1

@@ -16,7 +16,8 @@ ctrl.step_info = step_info
 
 def system_creator_tf(self, numerador, denominador):
     """
-    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia]
+    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la
+     funcion de transferencia]
     
     :param numerador: [Coeficientes del numerador]
     :type numerador: [list]
@@ -84,7 +85,8 @@ def system_creator_tf(self, numerador, denominador):
 
 def system_creator_ss(self, A, B, C, D):
     """
-    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados]
+    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y
+     la matriz de transmision directa la ecuacion de espacio de estados]
     
     :param A: [Matriz de estados]
     :type A: list
@@ -161,7 +163,9 @@ def system_creator_ss(self, A, B, C, D):
 
 def system_creator_tf_tuning(self, numerador, denominador):
     """
-    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia, adicionalmente se realiza el auto tuning utilizando el metodo escojido por le usuario]
+    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la
+     funcion de transferencia, adicionalmente se realiza el auto tuning utilizando el metodo escojido por le 
+     usuario]
     
     :param A: [Matriz de estados]
     :type A: list
@@ -234,7 +238,9 @@ def system_creator_tf_tuning(self, numerador, denominador):
 
 def system_creator_ss_tuning(self, A, B, C, D):
     """
-    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados, adicionalmente se realiza el auto tuning utilizando el metodo escojido por le usuario]
+    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y
+     la matriz de transmision directa la ecuacion de espacio de estados, adicionalmente se realiza el auto tuning 
+     utilizando el metodo escojido por le usuario]
     
     :param A: [Matriz de estados]
     :type A: list
@@ -309,7 +315,8 @@ def system_creator_ss_tuning(self, A, B, C, D):
 
 def model_method(self, t, y, dc_gain):
     """
-    [Funcion para obtener los parametros del modelo de primer orden de un sistema a partir de su respuesta escalon]
+    [Funcion para obtener los parametros del modelo de primer orden de un sistema a partir de su respuesta
+     escalon]
     
     :param t: [Vector de tiempo]
     :type t: [numpyArray]
@@ -345,7 +352,9 @@ def model_method(self, t, y, dc_gain):
 
 def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
     """
-    [Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una respuesta escalon en lazo abierto]
+    [Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden
+     obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una 
+     respuesta escalon en lazo abierto]
     
     :param k_proceso: [Ganancia del proceso]
     :type k_proceso: [float]
@@ -439,7 +448,8 @@ def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
 
 def rutina_step_plot(self, system, T, kp, ki, kd):
     """
-    [Funcion para obtener la respuesta escalon del sistema en lazo cerrado en combinacion con un controlador PID y su respectiva graficacion]
+    [Funcion para obtener la respuesta escalon del sistema en lazo cerrado en combinacion con un controlador PID
+     y su respectiva graficacion]
     
     :param system: [Representacion del sistema]
     :type system: [LTI]

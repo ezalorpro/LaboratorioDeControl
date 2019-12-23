@@ -1,5 +1,7 @@
 """ 
-[Archivo para el manejo de la funcion de Tunning, sirve de intermediario entre la interfaz grafica y las rutinas de entonacion de controladores PID y la identificacion de modelos a partir de un archivo CSV y entonacion de PID para el mismo] 
+[Archivo para el manejo de la funcion de Tunning, sirve de intermediario entre la interfaz grafica y las rutinas
+ de entonacion de controladores PID y la identificacion de modelos a partir de un archivo CSV y entonacion de PID 
+ para el mismo] 
 """
 
 
@@ -14,7 +16,8 @@ import json
 
 def TuningHandler(self):
     """
-    [Funcion principal para el manejo de la funcionalida de Tunning, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
+    [Funcion principal para el manejo de la funcionalida de Tunning, se crean las señales a ejecutar cuando se
+     interactua con los widgets incluyendo las validaciones de entradas]
     """
 
     self.GraphObjets = 0
@@ -248,8 +251,9 @@ def chequeo_de_accion(self):
 
 def calcular_PID(self):
     """
-    [Funcion para realizar el los calculos necesarios para la funcionalidad de entonacion de controaldores PID, 
-    el llamado a esta funcion se realizar por medio del boton calcular o cada vez que se modifique alguno de los sliders]
+    [Funcion para realizar el los calculos necesarios para la funcionalidad de entonacion de controaldores PID,
+     el llamado a esta funcion se realizar por medio del boton calcular o cada vez que se modifique alguno de los 
+     sliders]
     """
 
     system_ss = 0
@@ -308,8 +312,9 @@ def calcular_PID(self):
 
 def calcular_autotuning(self):
     """
-    [Funcion para realizar el los calculos necesarios para la funcionalidad de entonacion de controaldores PID con auto tunning, 
-    el llamado a esta funcion se realizar por medio del boton calcular si previamente se habilito la funcionalidad de auto tunning]
+    [Funcion para realizar el los calculos necesarios para la funcionalidad de entonacion de controaldores PID
+     con auto tunning, el llamado a esta funcion se realizar por medio del boton calcular si previamente se 
+     habilito la funcionalidad de auto tunning]
     """
 
     system_ss = 0
@@ -386,7 +391,8 @@ def calcular_autotuning(self):
 
 def calcular_csv(self):
     """
-    [Funcion para realizar el los calculos necesarios para la funcionalidad de identificacion de modelos y entonacion de controlador PID, el llamado a esta funcion se realizar por medio del boton calcular]
+    [Funcion para realizar el los calculos necesarios para la funcionalidad de identificacion de modelos y
+     entonacion de controlador PID, el llamado a esta funcion se realizar por medio del boton calcular]
     """
 
     try:
@@ -472,7 +478,8 @@ def UEFC_validator(self):
 
 def ajustar_atraso_manual(self):
     """
-    [Funcion para ajutar el tiempo t1, despues de realizar el calculo para un archivo csv, se utiliza en caso de que la estimacion automatica no sea lo suficientemente buena]
+    [Funcion para ajutar el tiempo t1, despues de realizar el calculo para un archivo csv, se utiliza en caso de
+     que la estimacion automatica no sea lo suficientemente buena]
     """
 
     Kc, t0, t1, t2 , y2, y1, anclaT, anclaY = self.model_info
@@ -606,7 +613,8 @@ def actualizar_sliders_ss(self):
 
 def update_gain_labels(self, kp=0, ki=0, kd=0, autotuning=False, resolution=50):
     """
-    [Funcion para actualizar los labels que representan las ganancias, se ejecuta cada vez que un slider de ganancias cambia]
+    [Funcion para actualizar los labels que representan las ganancias, se ejecuta cada vez que un slider de
+     ganancias cambia]
     
     :param kp: [Ganancia proporcional], defaults to 0
     :type kp: [float], optional

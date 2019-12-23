@@ -18,7 +18,8 @@ ctrl.step_info = step_info
 
 def system_creator_tf(self, numerador, denominador):
     """
-    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia]
+    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la
+     funcion de transferencia]
     
     :param numerador: [Coeficientes del numerador]
     :type numerador: [list]
@@ -63,7 +64,8 @@ def system_creator_tf(self, numerador, denominador):
 
 def system_creator_ss(self, A, B, C, D):
     """
-    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados]
+    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida
+     y la matriz de transmision directa la ecuacion de espacio de estados]
     
     :param A: [Matriz de estados]
     :type A: list
@@ -291,7 +293,8 @@ def rutina_bode_plot(self, system):
 
 def rutina_nyquist_plot(self, system):
     """
-    [Funcion para obtener la respuesta en frecuencia del sistema y su respectiva graficacion en diagrama de Nyquist]
+    [Funcion para obtener la respuesta en frecuencia del sistema y su respectiva graficacion en diagrama de
+     Nyquist]
     
     :param system: [Representacion del sistema]
     :type system: [LTI]
@@ -353,7 +356,9 @@ def rutina_nyquist_plot(self, system):
 
 def rutina_root_locus_plot(self, system):
     """
-    [Funcion para obtener el lugar de la raices del sistema y su respectiva graficacion, la graficacion se realizo de forma interna en la libreria de control, para esto se moodifico la funcion root_locus para poder enviar el axis y la figura]
+    [Funcion para obtener el lugar de la raices del sistema y su respectiva graficacion, la graficacion se
+     realizo de forma interna en la libreria de control, para esto se moodifico la funcion root_locus para poder 
+     enviar el axis y la figura]
     
     :param system: [Representacion del sistema]
     :type system: [LTI]
@@ -396,7 +401,10 @@ def rutina_root_locus_plot(self, system):
 
 def rutina_nichols_plot(self, system):
     """
-    [Funcion para obtener el diagram de nichols del sistema y su respectiva graficacion, la graficacion se realizo de forma interna en la libreria de control, para esto se moodifico la funcion nichols_plot para poder enviar el axis y la figura, adicionalmente se realizaron algunas modificaciones para una mejor presentacion de la grafica]
+    [Funcion para obtener el diagram de nichols del sistema y su respectiva graficacion, la graficacion se
+     realizo de forma interna en la libreria de control, para esto se moodifico la funcion nichols_plot para 
+     poder enviar el axis y la figura, adicionalmente se realizaron algunas modificaciones para una mejor 
+     presentacion de la grafica]
     
     :param system: [Representacion del sistema]
     :type system: [LTI]
