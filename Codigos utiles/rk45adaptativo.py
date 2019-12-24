@@ -28,7 +28,7 @@ def dopri5(A, B, C, D, x, h, inputValue):
     x5th = x + (k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84)
     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 + k6*187/2100 + k7/40)
     y5th = np.dot(C, x) + D*inputValue
-    
+
     return y5th[0,0], x5th, x4th
 
 
@@ -161,7 +161,7 @@ def ejecutar(orden=5):
     min_step_decrease = 0.2
     max_step_increase = 5
     h_ant = 0.000001
-    rtol = 1e-6
+    rtol = 1e-3
     atol = 1e-6
     tiempo = 0.0
     tbound = 30
@@ -173,6 +173,7 @@ def ejecutar(orden=5):
     counter = 0.0
     sc_t = []
     error_ac = []
+    error_norm_ant = 0
     # dopri5
     # fehlberg45dot
     RK = dopri5
@@ -186,7 +187,6 @@ def ejecutar(orden=5):
                 h_ant = tbound - tiempo
 
             ypidb, x_five, x_four = RK(A2, B2, C2, D2, x_pidB, h_ant, error)
-            print(x_five)
             # scale = atol + np.maximum(np.abs(x_five), np.abs(x_pidB)) * rtol
             scale = atol + np.abs(x_five) * rtol
             # scale = atol + rtol * (np.abs(x_five) + np.abs(x_pidB)) / 2
@@ -196,9 +196,19 @@ def ejecutar(orden=5):
             if error_norm == 0:
                 h_est = h_ant * max_step_increase
             elif error_norm <= 1:
-                h_est = h_ant * min(max_step_increase, max(1, sf1 * error_norm**(-1 / (orden+1))))
+                h_est = h_ant * min(
+                    max_step_increase,
+                    max(
+                        1,
+                        sf1 * error_norm**(-1 / (orden+1)) * h_ant*
+                        (error_norm_ant / error_norm)**(1 / (orden+1))))
             else:
-                h_ant = h_ant * min(1, max(min_step_decrease, sf1 * error_norm**(-1 / (orden+1))))
+                h_ant = h_ant * min(
+                    1,
+                    max(
+                        min_step_decrease,
+                        sf1 * error_norm**(-1 / (orden+1)) * h_ant *
+                        (error_norm_ant / error_norm)**(1 / (orden+1))))
                 continue
 
             error_ac.append(error_norm)
@@ -206,12 +216,13 @@ def ejecutar(orden=5):
             yb, vstadosB, _ = RK(A1, B1, C1, D1, vstadosB, h_ant, ypidb)
             break
 
-        # print(tiempo)
+        print(tiempo)
         salida.append(yb)
         tiempo += h_ant
         tiempo_out.append(tiempo)
         h_ant = h_est
         x_pidB = x_five
+        error_norm_ant = error_norm
 
     print(counter)
     print(len(tiempo_out))
@@ -238,6 +249,6 @@ def ejecutar(orden=5):
 
 
 if __name__ == '__main__':
-    ejecutar(orden=5)
+    ejecutar(orden=4)
     plt.show()
     # cc.compile()

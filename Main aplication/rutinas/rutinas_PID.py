@@ -9,10 +9,6 @@ import numpy as np
 
 import json
 
-# Monkey patch de la funcion step_info, necesario para obtener la informacion del step en tiempo discreto
-from rutinas.MonkeyPatch_stepinfo import step_info
-ctrl.step_info = step_info
-
 
 def system_creator_tf(self, numerador, denominador):
     """
@@ -527,7 +523,21 @@ def rutina_system_info(self, system, T, y, kp=0, ki=0, kd=0, autotuning=False):
     :type autotuning: [bool], optional
     """
 
-    info = ctrl.step_info(system, T=T, yout=y)
+    # Informacion del step
+    try:
+        info = ctrl.step_info(system, T=T, yout=y)
+    except:
+        info = {
+            'RiseTime':np.NaN,
+            'SettlingTime':np.NaN,
+            'SettlingMax': np.NaN,
+            'SettlingMin': np.NaN,
+            'Overshoot': np.NaN,
+            'Undershoot': np.NaN,
+            'Peak': np.NaN,
+            'PeakTime': np.NaN,
+            'SteadyStateValue': np.NaN
+        }
 
     Datos = ""
 

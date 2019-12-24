@@ -169,8 +169,7 @@ def _check_convert_array(in_obj, legal_shapes, err_msg_start, squeeze=False,
 
 
 # Forced response of a linear system
-def forced_response(sys, T=None, U=0., X0=0., transpose=False,
-                    interpolate=False):
+def forced_response(sys, T=None, U=0., X0=0., transpose=False, interpolate=True):
     """Simulate the output of a linear system.
 
     As a convenience for parameters `U`, `X0`:
@@ -352,7 +351,7 @@ def forced_response(sys, T=None, U=0., X0=0., transpose=False,
         # Use signal processing toolbox for the discrete time simulation
         # Transpose the input to match toolbox convention 
         tout, yout, xout = sp.signal.dlsim(dsys, np.transpose(U), T, X0)
-
+        
         if not interpolate:
             # If dt is different from sys.dt, resample the output
             inc = int(round(dt / sys.dt))
@@ -468,7 +467,7 @@ def step_response(sys, T=None, X0=0., input=None, output=None,
 
     return T, yout
 
-def step_info(sys, T=None, SettlingTimeThreshold=0.02, RiseTimeLimits=(0.1,0.9)):
+def step_info(sys, T=None, yout=None, SettlingTimeThreshold=0.02, RiseTimeLimits=(0.1,0.9)):
     '''
     Step response characteristics (Rise time, Settling Time, Peak and others).
 
@@ -517,8 +516,16 @@ def step_info(sys, T=None, SettlingTimeThreshold=0.02, RiseTimeLimits=(0.1,0.9))
             tvec = _default_response_times(sys.A, 1000)
             T = range(int(np.ceil(max(tvec))))
 
-    T, yout = step_response(sys, T)
-
+    if yout is None:
+        T, yout = step_response(sys, T)
+        if isdtime(sys, strict=True):
+            yout = yout[0]
+    else:
+        T = np.array(T)
+        yout = np.array(yout)
+            
+    
+    
     # Steady state value
     InfValue = yout[-1]
 
@@ -531,11 +538,13 @@ def step_info(sys, T=None, SettlingTimeThreshold=0.02, RiseTimeLimits=(0.1,0.9))
     sup_margin = (1. + SettlingTimeThreshold) * InfValue
     inf_margin = (1. - SettlingTimeThreshold) * InfValue
     # find Steady State looking for the first point out of specified limits
-    for i in reversed(range(T.size)):
+    for i in reversed(range(T.size-1)):
         if((yout[i] <= inf_margin) | (yout[i] >= sup_margin)):
-            SettlingTime = T[i + 1]
+            SettlingTime = T[i+1]
             break
-
+    else:
+        SettlingTime = np.nan
+    
     # Peak
     PeakIndex = np.abs(yout).argmax()
     PeakValue = yout[PeakIndex]
