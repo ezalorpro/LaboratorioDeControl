@@ -104,7 +104,7 @@
                     y_{1}\\
                     y_{2}\\
                     \vdots\\
-                    y_{n}\\
+                    y_{r}\\
                     \end{bmatrix}&=
                     \begin{bmatrix}
                     c_{11} & c_{12} & \cdots & c_{1n}\\
@@ -305,7 +305,7 @@
             \noindent finalmente, el vector de estado obtenido con \cref{eq:RKstate} sera sustituido en la siguiente iteración. Para obtener la salida actual se debe sustituir $x_n^{(j)}$  en \cref{eq:SSrepresentationY}. 
             
             \begin{equation}
-				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)(t)} \label{eq:rkrepresentationY}
+				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)}(t) \label{eq:rkrepresentationY}
             \end{equation}
             
             Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar. Un tamaño de paso pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, por tanto, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.
