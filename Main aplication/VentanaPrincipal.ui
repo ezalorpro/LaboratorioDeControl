@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1426</width>
+    <width>1345</width>
     <height>784</height>
    </rect>
   </property>
@@ -3622,7 +3622,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="inputNombre">
+                   <widget class="FocusLineEdit" name="inputNombre">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3668,7 +3668,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="inputEtiquetasNum">
+                   <widget class="FocusLineEdit" name="inputEtiquetasNum">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3687,7 +3687,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="inputRange">
+                   <widget class="FocusLineEdit" name="inputRange">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3809,7 +3809,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="etiquetaNombreIn">
+                   <widget class="FocusLineEdit" name="etiquetaNombreIn">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3902,7 +3902,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="etiquetaDefinicionIn">
+                   <widget class="FocusLineEdit" name="etiquetaDefinicionIn">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4063,7 +4063,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="etiquetaNombreOut">
+                   <widget class="FocusLineEdit" name="etiquetaNombreOut">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4156,7 +4156,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="etiquetaDefinicionOut">
+                   <widget class="FocusLineEdit" name="etiquetaDefinicionOut">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4294,7 +4294,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="outputNombre">
+                   <widget class="FocusLineEdit" name="outputNombre">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4313,7 +4313,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="outputEtiquetasNum">
+                   <widget class="FocusLineEdit" name="outputEtiquetasNum">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4332,7 +4332,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="outputRange">
+                   <widget class="FocusLineEdit" name="outputRange">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4536,7 +4536,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>160</height>
+                   <height>304</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -5893,7 +5893,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
+                   <width>505</width>
                    <height>2944</height>
                   </rect>
                  </property>
@@ -6645,7 +6645,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>109</width>
+                   <width>504</width>
                    <height>2612</height>
                   </rect>
                  </property>
@@ -7165,7 +7165,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>614</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -7475,7 +7475,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>109</height>
+                       <height>614</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -8757,7 +8757,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>274</width>
+               <width>223</width>
                <height>268</height>
               </rect>
              </property>
@@ -9861,7 +9861,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1426</width>
+     <width>1345</width>
      <height>21</height>
     </rect>
    </property>
@@ -9885,29 +9885,34 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MlpWidget</class>
-   <extends>QGraphicsView</extends>
-   <header>mlpwidget</header>
-  </customwidget>
-  <customwidget>
-   <class>MlpWidgetSubplot</class>
-   <extends>QGraphicsView</extends>
-   <header>mlpwidget</header>
-  </customwidget>
-  <customwidget>
-   <class>PgraphWidget</class>
-   <extends>QGraphicsView</extends>
-   <header>pyqtgraphWidget</header>
+   <class>FocusLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>promociones.focusLineEdit</header>
   </customwidget>
   <customwidget>
    <class>PgraphWidgetpid</class>
    <extends>QGraphicsView</extends>
-   <header>pyqtgraphWidget</header>
+   <header>promociones.pyqtgraphWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>PgraphWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>promociones.pyqtgraphWidget</header>
   </customwidget>
   <customwidget>
    <class>MlpWidget3D</class>
    <extends>QGraphicsView</extends>
-   <header>mlpwidget</header>
+   <header>promociones.mlpwidget</header>
+  </customwidget>
+  <customwidget>
+   <class>MlpWidgetSubplot</class>
+   <extends>QGraphicsView</extends>
+   <header>promociones.mlpwidget</header>
+  </customwidget>
+  <customwidget>
+   <class>MlpWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>promociones.mlpwidget</header>
   </customwidget>
  </customwidgets>
  <tabstops>
