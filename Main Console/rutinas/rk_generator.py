@@ -1,3 +1,10 @@
+""" 
+[Archivo para compilar los Runge-kutta explicitos y embebidos utilizando numba, los metodos quedan
+ guardados en el archivo: metodos_RK.cp37-win32.pyd y pueden ser importados desde el archivo como 
+ una funcion de un modulo] 
+"""
+
+
 from numba.pycc import CC
 import numpy as np
 
@@ -53,7 +60,7 @@ def dopri54(A, B, C, D, x, h, inputValue):
     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 +
                 k6*187/2100 + k7/40)
 
-    return y5th[0,0], x5th, x4th
+    return y5th[0, 0], x5th, x4th
 
 
 @cc.export('cash_karp45', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -161,7 +168,7 @@ def bogacki_shampine23(A, B, C, D, x, h, inputValue):
     x3th = x + (k1*2/9 + k2/3 + k3*4/9)
     x2th = x + (k1*7/24 + k2/4 + k3/3 + k4/8)
 
-    return y2th[0,0], x3th, x2th
+    return y2th[0, 0], x3th, x2th
 
 
 @cc.export('runge_kutta5', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -176,7 +183,7 @@ def runge_kutta5(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1*7/90 + k3*32/90 + k4*12/90 + k5*32/90 + k6*7/90)
 
-    return y[0,0], x
+    return y[0, 0], x
 
 
 @cc.export('ralston4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -209,7 +216,7 @@ def ralston4(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1*0.17476028 - k2*0.55148066 + k3*1.20553560 + k4*0.17118478)
 
-    return y[0,0], x
+    return y[0, 0], x
 
 
 @cc.export('tres_octavos4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -241,7 +248,7 @@ def tres_octavos4(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/8 + k2*3/8 + k3*3/8 + k4/8)
 
-    return y[0,0], x
+    return y[0, 0], x
 
 
 @cc.export('runge_kutta4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -273,7 +280,7 @@ def runge_kutta4(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2/3 + k3/3 + k4/6)
 
-    return y[0,0], x
+    return y[0, 0], x
 
 
 @cc.export('SSPRK3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -304,7 +311,8 @@ def SSPRK3(A, B, C, D, x, h, inputValue):
 
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2/6 + k3*2/3)
-    return y[0,0], x
+    
+    return y[0, 0], x
 
 
 @cc.export('ralston3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -334,7 +342,8 @@ def ralston3(A, B, C, D, x, h, inputValue):
 
     y = np.dot(C, x) + D*inputValue
     x = x + (k1*2/9 + k2/3 + k3*4/9)
-    return y[0,0], x
+    
+    return y[0, 0], x
 
 
 @cc.export('heun3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -365,7 +374,7 @@ def heun3(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/4 + k3*3/4)
 
-    return y[0,0], x
+    return y[0, 0], x
 
 
 @cc.export('runge_kutta3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -396,7 +405,7 @@ def runge_kutta3(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2*2/3 + k3/6)
 
-    return y[0,0], x
+    return y[0, 0], x
 
 
 @cc.export('runge_kutta2', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
@@ -426,7 +435,7 @@ def runge_kutta2(A, B, C, D, x, h, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = x + k2
 
-    return y[0,0], x
+    return y[0, 0], x
 
 
 if __name__ == '__main__':

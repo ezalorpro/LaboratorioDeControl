@@ -1,17 +1,25 @@
-import control as ctrl
-import numpy as np
-from matplotlib import pyplot as plt
-from scipy import real, imag
+# import control as ctrl
+# import numpy as np
+# from matplotlib import pyplot as plt
+# from scipy import real, imag
 
+# a = np.matrix(
+#     '''
+#     1 2 3 4;
+#     5 6 7 8;
+#     9 10 11 12 ; 13 14 15 16
+#     '''
+#     )
 
-Gs = ctrl.tf([3, -1.5],[1, -2, 3])
+# print(a@a)
+# Gs = ctrl.tf([3, -1.5],[1, -2, 3])
 
-_, y = ctrl.root_locus(Gs)
+# _, y = ctrl.root_locus(Gs)
 
-for index, col in enumerate(y.T):
-    plt.plot(real(col), imag(col))
+# for index, col in enumerate(y.T):
+#     plt.plot(real(col), imag(col))
 
-plt.show()
+# plt.show()
 
 
 # from skfuzzymdf import control as ctrl

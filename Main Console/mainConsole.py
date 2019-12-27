@@ -1,5 +1,6 @@
 """ [Archivo principal, en orden de ejecutar la aplicacion, este es el archivo a ejecutar] """
 
+
 from handlers.jupyterConsoleHandler import jupyterConsoleHandler
 from handlers.simulacionHandler import SimulacionHandler
 from Ui_VentanaPrincipalConsole import Ui_MainWindow

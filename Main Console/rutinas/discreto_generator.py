@@ -1,3 +1,10 @@
+""" 
+[Archivo para compilar las funciones encargadas de la simulacion en tiempo discreto utilizando numba, las
+ funciones quedan guardadas en el archivo: discreto_sim.cp37-win32.pyd y pueden ser importadas desde el 
+ archivo como una funcion de un modulo] 
+"""
+ 
+
 from numba.pycc import CC
 import numpy as np
 
@@ -23,7 +30,7 @@ def ss_discreta(A, B, C, D, x, _, inputValue):
     y = np.dot(C, x) + D*inputValue
     x = np.dot(A, x) + B*inputValue
 
-    return y[0,0], x
+    return y[0, 0], x
 
 
 @cc.export('PID_discreto', '(f8, f8, f8, f8[::1], f8, f8, f8)')
@@ -51,6 +58,7 @@ def PID_discreto(error, ts, s_integral, error_anterior, kp, ki, kd):
     s_derivativa = (error - error_anterior[0]) / ts
     s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
     error_anterior[0] = error
+    
     return s_control, s_integral, error_anterior
 
 
@@ -70,6 +78,7 @@ def derivadas_discretas(error, ts, error_anterior):
     s_derivativa2 = (error - 2 * error_anterior[0] + error_anterior[1]) / (ts**2)
     error_anterior[1] = error_anterior[0]
     error_anterior[0] = error
+    
     return s_derivativa, s_derivativa2, error_anterior
 
 
