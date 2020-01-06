@@ -157,7 +157,7 @@ axins.plot(t_comun, yout_sci1, color="#12711C", dashes=[2, 2], label='SciLab/BDF
 axins.plot(t_comun, yout_sci, color="#12711C", alpha=0.4, dashes=[2, 2], label='SciLab/LSODAR', linewidth=2)
 
 axins.grid()
-axins.set_xlim(t_comun[index_max] - 0.5, t_comun[index_min] + 0.3)
+axins.set_xlim(t_comun[index_max] - 0.4, t_comun[index_min] + 0.2)
 axins.set_ylim(YMIN[index_min] - 0.06,
                YMAX[index_max] + 0.06)
 

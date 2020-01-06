@@ -179,7 +179,7 @@ axins.plot(t_comun, yout_lv, 'r', dashes=[1, 2], linewidth=3)
 axins.plot(t_comun, yout_lvf, 'orange', alpha=0.4, dashes=[1, 2], linewidth=3)
 axins.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], linewidth=2)
 axins.grid()
-axins.set_xlim(t_comun[index_max] - 0.01, t_comun[index_min] + 0.01)
+axins.set_xlim(t_comun[index_max] - 0.1, t_comun[index_min] + 0.1)
 axins.set_ylim(YMIN[index_min] - 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2,
                YMAX[index_max] + 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2)
 
