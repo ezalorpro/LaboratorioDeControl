@@ -7,10 +7,10 @@ from scipy import io
 from matplotlib import pyplot as plt
 import pickle
 
-MatFileMATLAB = io.loadmat('comparisonFiles/Data MATLAB/Simulacion/PIc2', squeeze_me=True)
-MatFileSciLab = io.loadmat('comparisonFiles/Data SciLab/Simulacion/PIc2', squeeze_me=True)
+MatFileMATLAB = io.loadmat('comparisonFiles/Data MATLAB/Simulacion/PIDdf4', squeeze_me=True)
+MatFileSciLab = io.loadmat('comparisonFiles/Data SciLab/Simulacion/PIDdf4', squeeze_me=True)
 
-with open('comparisonFiles/Data LVSCCD/Simulacion/Controlador2.pkl', 'rb') as f:
+with open('comparisonFiles/Data LVSCCD/Simulacion/ControladorD4.pkl', 'rb') as f:
     t_lv, yout_lv, yc_lv, set_point, _ = pickle.load(f)
 
 t_lv = np.asarray(t_lv)
@@ -68,6 +68,9 @@ if len(t_mat) > len(t_sci) and len(t_mat) > len(t_lv):
 
     funcion2 = interp1d(t_sci, yout_sci)
     yout_sci = funcion2(t_mat)
+    
+    funcion3 = interp1d(t_lv, set_point)
+    set_point = funcion3(t_mat)
 
     t_comun = t_mat
 
@@ -106,23 +109,16 @@ elif index_temp3 == 1:
 else:
     YMIN = yout_sci
 
+
 fig, ax = plt.subplots(figsize=(5.1, 4.2))
-ax.plot(t_comun, yout_mat, color="#001C7F", label='MATLAB/ode45', linewidth=2)
-ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/RK2', linewidth=3)
-ax.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], label='SciLab/BDF-Newton', linewidth=2)
-ax.set_title('Controlador PI mas delay de 2s en el proceso', fontsize=11)
-ax.legend(loc=2)
+ax.plot(t_comun, yout_mat, color="#001C7F", label='MATLAB', linewidth=2)
+ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
+ax.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], label='SciLab', linewidth=2)
+ax.plot(t_comun, set_point, 'k', linestyle='-.', label='SetPoint', linewidth=2)
+ax.set_title('Controlador PID difuso con setpoint variable')
+ax.set_ylim([-0.1, 1.7])
+ax.legend(loc=1)
 ax.grid()
 
-axins = ax.inset_axes([0.15, 0.12, 0.4, 0.33])
-axins.plot(t_comun, yout_mat, color="#001C7F", linewidth=2)
-axins.plot(t_comun, yout_lv, 'r', dashes=[1, 2], linewidth=3)
-axins.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], linewidth=2)
-axins.grid()
-axins.set_xlim(t_comun[index_min] - 0.4, t_comun[index_max])
-axins.set_ylim(YMIN[index_min] - 5,
-               YMAX[index_max] + 0.5)
-
-ax.indicate_inset_zoom(axins)
 fig.tight_layout()
 plt.show()

@@ -7,10 +7,10 @@ from scipy import io
 from matplotlib import pyplot as plt
 import pickle
 
-MatFileMATLAB = io.loadmat('comparisonFiles/Data MATLAB/Simulacion/PIc2', squeeze_me=True)
-MatFileSciLab = io.loadmat('comparisonFiles/Data SciLab/Simulacion/PIc2', squeeze_me=True)
+MatFileMATLAB = io.loadmat('comparisonFiles/Data MATLAB/Simulacion/PDmasIdf7', squeeze_me=True)
+MatFileSciLab = io.loadmat('comparisonFiles/Data SciLab/Simulacion/PDmasIdf7', squeeze_me=True)
 
-with open('comparisonFiles/Data LVSCCD/Simulacion/Controlador2.pkl', 'rb') as f:
+with open('comparisonFiles/Data LVSCCD/Simulacion/ControladorD7.pkl', 'rb') as f:
     t_lv, yout_lv, yc_lv, set_point, _ = pickle.load(f)
 
 t_lv = np.asarray(t_lv)
@@ -26,50 +26,21 @@ t_sci = MatFileSciLab['t']
 yout_sci = MatFileSciLab['yout']
 yc_sci = MatFileSciLab['yc']
 
-if len(t_sci) > len(t_mat) and len(t_sci) > len(t_lv):
-    mask1 = t_sci <= max(t_mat)
-    mask2 = t_sci[mask1] <= max(t_lv)
 
-    t_sci = t_sci[mask1][mask2]
-    yout_sci = yout_sci[mask1][mask2]
+mask1 = t_lv <= max(t_mat)
+mask2 = t_lv[mask1] <= max(t_sci)
 
-    funcion1 = interp1d(t_mat, yout_mat)
-    yout_mat = funcion1(t_sci)
+t_lv = t_lv[mask1][mask2]
+yout_lv = yout_lv[mask1][mask2]
+set_point = set_point[mask1][mask2]
 
-    funcion2 = interp1d(t_lv, yout_lv)
-    yout_lv = funcion2(t_sci)
+funcion1 = interp1d(t_mat, yout_mat)
+yout_mat = funcion1(t_lv)
 
-    t_comun = t_sci
+funcion2 = interp1d(t_sci, yout_sci)
+yout_sci = funcion2(t_lv)
 
-if len(t_lv) > len(t_mat) and len(t_lv) > len(t_sci):
-    mask1 = t_lv <= max(t_mat)
-    mask2 = t_lv[mask1] <= max(t_sci)
-
-    t_lv = t_lv[mask1][mask2]
-    yout_lv = yout_lv[mask1][mask2]
-
-    funcion1 = interp1d(t_mat, yout_mat)
-    yout_mat = funcion1(t_lv)
-
-    funcion2 = interp1d(t_sci, yout_sci)
-    yout_sci = funcion2(t_lv)
-
-    t_comun = t_lv
-
-if len(t_mat) > len(t_sci) and len(t_mat) > len(t_lv):
-    mask1 = t_mat <= max(t_sci)
-    mask2 = t_mat[mask1] <= max(t_lv)
-
-    t_mat = t_mat[mask1][mask2]
-    yout_mat = yout_mat[mask1][mask2]
-
-    funcion1 = interp1d(t_lv, yout_lv)
-    yout_lv = funcion1(t_mat)
-
-    funcion2 = interp1d(t_sci, yout_sci)
-    yout_sci = funcion2(t_mat)
-
-    t_comun = t_mat
+t_comun = t_lv
 
 index_m = np.argmax([abs(yout_lv - yout_mat), abs(yout_lv - yout_sci)], axis=1)
 index_temp = np.argmax([
@@ -106,22 +77,25 @@ elif index_temp3 == 1:
 else:
     YMIN = yout_sci
 
+
 fig, ax = plt.subplots(figsize=(5.1, 4.2))
 ax.plot(t_comun, yout_mat, color="#001C7F", label='MATLAB/ode45', linewidth=2)
-ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/RK2', linewidth=3)
+ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/RK2 sin filtro', linewidth=3)
 ax.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], label='SciLab/BDF-Newton', linewidth=2)
-ax.set_title('Controlador PI mas delay de 2s en el proceso', fontsize=11)
-ax.legend(loc=2)
+ax.plot(t_comun, set_point, 'k', linestyle='-.', label='SetPoint', linewidth=2)
+ax.set_title('Controlador PD difuso mas integral con setpoint variable', fontsize=11)
+ax.legend(loc=8, bbox_to_anchor=(0.37, 0))
 ax.grid()
 
-axins = ax.inset_axes([0.15, 0.12, 0.4, 0.33])
+axins = ax.inset_axes([0.42, 0.65, 0.25, 0.25])
 axins.plot(t_comun, yout_mat, color="#001C7F", linewidth=2)
 axins.plot(t_comun, yout_lv, 'r', dashes=[1, 2], linewidth=3)
 axins.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], linewidth=2)
+axins.plot(t_comun, set_point, 'k', linestyle='-.', linewidth=2)
 axins.grid()
-axins.set_xlim(t_comun[index_min] - 0.4, t_comun[index_max])
-axins.set_ylim(YMIN[index_min] - 5,
-               YMAX[index_max] + 0.5)
+axins.set_xlim(t_comun[index_max] - 0.1, t_comun[index_min] + 0.1)
+axins.set_ylim(YMIN[index_min] - 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2,
+               YMAX[index_max] + 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2)
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()
