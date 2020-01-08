@@ -822,27 +822,27 @@
         \endhead
         \bottomrule
         \endfoot
-         P                          & RK2       & \num{1E-05} & \num{1E-06} & $K_p=1$ \\
-         PI                         & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=1$, delay=2s \\
+         P                          & RK2       & \num{1E-05} & \num{1E-06} & $K_p=1$                                   \\
+         PI                         & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=1$, delay=2s                     \\
          &&&& \\[-3pt]
-         \multirow{2}{*}{PID}       & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, con filtro \\
-                                    & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, sin filtro \\
+         \multirow{2}{*}{PID}       & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, con filtro               \\
+                                    & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, sin filtro               \\
          &&&& \\[-3pt]
-         \multirow{3}{*}{PID difuso}& DOPRI5(4) & \num{1E-07} & \num{1E-07} & - \\
-                                    & DOPRI5(4) & \num{1E-07} & \num{1E-07} & - \\
-                                    & ralston4  & \num{1E-06} & \num{1E-06} & - \\
+         \multirow{3}{*}{PID difuso}& DOPRI5(4) & \num{1E-07} & \num{1E-07} & Con filtro                                \\
+                                    & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Sin filtro                                \\
+                                    & ralston4  & \num{1E-06} & \num{1E-06} & Sin filtro                                \\
          &&&& \\[-3pt]
-         PID difuso                 & RK2       & \num{1E-05} & \num{1E-06} & SetPoint Avanzado \\
+         PID difuso                 & RK2       & \num{1E-05} & \num{1E-06} & Setpoint variable, con filtro             \\
          &&&& \\[-3pt]
-         \multirow{2}{*}{PI difuso} & DOPRI5(4) & \num{1E-07} & \num{1E-07} & - \\
-                                    & RK2       & \num{1E-05} & \num{1E-06} & - \\
-        %  &&&& \\[-5pt]
-         PI difuso                  & RK2       & \num{1E-05} & \num{1E-06} & delay=0.5s \\
-         PI difuso + D              & RK2       & \num{1E-05} & \num{1E-06} & $K_d=0.8$, SetPoint Avanzado \\
-         PD difuso + I              & RK2       & \num{1E-05} & \num{1E-06} & $K_i=1$, SetPoint Avanzado \\
-         PDG difuso                 & SSPRK3    & \num{1E-06} & \num{1E-06} & - \\
-         PDG difuso                 & RK2       & \num{1E-05} & \num{1E-06} & Saturador [0, 20] \\
-         PID mas difuso             & RK2       & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$ \\
+         \multirow{2}{*}{PI difuso} & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Sin filtro                                \\
+                                    & RK2       & \num{1E-05} & \num{1E-06} & Sin filtro                                \\
+        %  &&&& \\[-3pt]  
+         PI difuso                  & RK2       & \num{1E-05} & \num{1E-06} & Delay=0.5s, con filtro                    \\
+         PI difuso + D              & RK2       & \num{1E-05} & \num{1E-06} & $K_d=0.8$, setpoint variable, sin filtro  \\
+         PD difuso + I              & RK2       & \num{1E-05} & \num{1E-06} & $K_i=1$, setpoint variable, sin filtro    \\
+         PDG difuso                 & SSPRK3    & \num{1E-06} & \num{1E-06} & Con filtro                                \\
+         PDG difuso                 & RK2       & \num{1E-05} & \num{1E-06} & Saturador [0, 20], sin filtro             \\
+         PID mas difuso             & RK2       & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$                      \\
         \end{longtable}}
 
         {\setlength\LTleft{0pt}
@@ -852,7 +852,7 @@
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{l @{\extracolsep{\fill}} cccc}
         \caption[Parametros para MATLAB en tiempo continuo]{Parametros para MATLAB en tiempo continuo} 
-        \label{tab:parametrosLVc} \\
+        \label{tab:parametrosMATLABc} \\
         \toprule
         Controlador  & solver & rtol & atol & Otros       \\ \midrule
         \endfirsthead
@@ -868,13 +868,46 @@
          \multirow{2}{*}{PID difuso}& Auto(ode45)   &     Auto      & Auto          & -                             \\
                                     & ode23tb       & \num{1E-06}   & \num{1E-06}   & -                             \\
          &&&& \\[-3pt]  
-         PID difuso                 & Auto(ode45)   & Auto          & Auto          & SetPoint Avanzado             \\
+         PID difuso                 & Auto(ode45)   & Auto          & Auto          & Setpoint variable             \\
          PI difuso                  & ode23tb       & \num{1E-06}   & \num{1E-06}   & -                             \\
-         PI difuso                  & Auto(ode45)   & Auto          & Auto          & delay=0.5s                    \\
-         PI difuso + D              & Auto(ode45)   & Auto          & Auto          & $K_d=0.8$, SetPoint Avanzado  \\
-         PD difuso + I              & Auto(ode45)   & Auto          & Auto          & $K_i=1$, SetPoint Avanzado    \\
+         PI difuso                  & Auto(ode45)   & Auto          & Auto          & Delay=0.5s                    \\
+         PI difuso + D              & Auto(ode45)   & Auto          & Auto          & $K_d=0.8$, setpoint variable  \\
+         PD difuso + I              & Auto(ode45)   & Auto          & Auto          & $K_i=1$, setpoint variable    \\
          PDG difuso                 & Auto(ode45)   & Auto          & Auto          & -                             \\
          PDG difuso                 & ode23tb       & \num{1E-06}   & \num{1E-06}   & Saturador [0, 20]             \\
          PID mas difuso             & Auto(ode45)   & Auto          & Auto          & $K_p=0.2, K_i=K_d=1$          \\
+        \end{longtable}}
+
+        {\setlength\LTleft{0pt}
+        \setlength\LTright{0pt}
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{0.89}
+        \begin{longtable}{l @{\extracolsep{\fill}} cccc}
+        \caption[Parametros para SciLab en tiempo continuo]{Parametros para SciLab en tiempo continuo} 
+        \label{tab:parametrosSciLabc} \\
+        \toprule
+        Controlador  & solver & rtol & atol & Otros       \\ \midrule
+        \endfirsthead
+        \toprule
+        Controlador  & solver & rtol & atol & Otros       \\ \midrule
+        \endhead
+        \bottomrule
+        \endfoot
+         P                          & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_p=1$                       \\
+         PI                         & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_p=K_i=1$, delay=2s         \\
+         PID                        & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_p=K_i=K_d=1$               \\
+         &&&& \\[-3pt]        
+         \multirow{2}{*}{PID difuso}& BDF-Newton   & \num{1E-06}   & \num{1E-06}          & -                             \\
+                                    & LSODAR       & \num{1E-06}   & \num{1E-06}          & -                             \\
+        %  &&&& \\[-3pt]  
+         PID difuso                 & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & Setpoint variable             \\
+         PI difuso                  & LSODAR       & \num{1E-06}   & \num{1E-06}          & -                             \\
+         PI difuso                  & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & Delay=0.5s                    \\
+         PI difuso + D              & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_d=0.8$, setpoint variable  \\
+         PD difuso + I              & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_i=1$, setpoint variable    \\
+         PDG difuso                 & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & -                             \\
+         PDG difuso                 & LSODAR       & \num{1E-06}   & \num{1E-06}          & Saturador [0, 20]             \\
+         PID mas difuso             & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_p=0.2, K_i=K_d=1$          \\
         \end{longtable}}
 
