@@ -413,7 +413,7 @@
             \end{threeparttable}
         \end{table}
 
-        Para poder realizar los calculos numericos de error, diferencia de area y distancia se realizo una interpolacion con el fin de ajustar el numero de muestras entre los vectores de tiempo/frecuencia y los valores correspondientes, i.g., que ambos vectores de salida tengan un valor de salida para t=0.5s. En el caso de MATLAB, la funciones de analisis de sistemas de control crean su propio vector de tiempo y frecuencia segun sea el caso, por otro lado, en SciLab se deben asignar los valores de forma explicita, por tanto, se utilizo el vector de tiempo del Laboratorio Virtual y el vector de frecuencia de MATLAB. Con las consideraciones anteriores se realizaron las comparaciones respectivas y se obtuvieron los resultados observados en las \cref{tab:AnalisisStepC,tab:AnalisisStepD}:
+        Para poder realizar los calculos numericos de diferencia absoluta y diferencia de area se realizo una interpolacion con el fin de ajustar el numero de muestras entre los vectores de tiempo/frecuencia y los valores correspondientes, i.g., que ambos vectores de salida tengan un valor de salida para t=0.5s. En el caso de MATLAB, la funciones de analisis de sistemas de control crean su propio vector de tiempo y frecuencia segun sea el caso, por otro lado, en SciLab se deben asignar los valores de forma explicita, por tanto, se utilizo el vector de tiempo del Laboratorio Virtual y el vector de frecuencia de MATLAB. Con las consideraciones anteriores se realizaron las comparaciones respectivas y se obtuvieron los resultados observados en las \cref{tab:AnalisisStepC,tab:AnalisisStepD}:
         
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
@@ -802,7 +802,7 @@
 
     \subsection{Simulacion de sistemas de control}
         
-        Para la comparacion de simulacion de sistemas de control se selecciono el sistema numero uno (1) de la \cref{tab:AnalisisSistemas}, los controladores difusos utilizados en cada caso son inadecuados para el control de procesos, i.e., no fueron diseñados con la finalidad de obtener una buena respuesta, la premisa para esta desicion se basa es que la respuesta obtenida debe ser parecida a la obtenida con MATLAB o SciLab, si dicha respuesta es oscilatoria se espera que el Laboratorio Virtual tambien responda del mismo modo, por tanto, la calidad de los controladores se consideró irrelevante. Los archivos FIS para los controladores utilizados se pueden observar en el anexo tales.
+        Para la comparacion de simulacion de sistemas de control se selecciono el sistema numero uno (1) de la \cref{tab:AnalisisSistemas}, los controladores difusos utilizados en cada caso son inadecuados para el control de procesos, i.e., no fueron diseñados con la finalidad de obtener una buena respuesta, la premisa para esta desicion se basa es que la respuesta obtenida debe ser parecida a la obtenida con MATLAB o SciLab, si dicha respuesta es oscilatoria se espera que el Laboratorio Virtual tambien responda del mismo modo, por tanto, la calidad de los controladores se consideró irrelevante. Los archivos FIS para los controladores utilizados se pueden observar en el \ref{anexo:ComparacionFISim}.
 
         Los parametros bajo los que se realizaron las simulaciones como el setpoint, activacion o no del filtro de la derivada y/o bloques adiciones, fueron seleccionados de forma arbitraria con la finalidad de probar distintas funciones y obtener respuestas variadas, a su vez, se alterno el uso de de distintos solvers para cada herramienta con el fin de observar como afectaban la presicion. A continuacion, se presentan las tablas con los parametros de cada simulacion para cada herramienta.
 
@@ -822,27 +822,27 @@
         \endhead
         \bottomrule
         \endfoot
-         P                          & RK2       & \num{1E-05} & \num{1E-06} & $K_p=1$                                   \\
-         PI                         & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=1$, delay=2s                     \\
-         &&&& \\[-3pt]
-         \multirow{2}{*}{PID}       & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, con filtro               \\
-                                    & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, sin filtro               \\
-         &&&& \\[-3pt]
-         \multirow{3}{*}{PID difuso}& DOPRI5(4) & \num{1E-07} & \num{1E-07} & Con filtro                                \\
-                                    & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Sin filtro                                \\
-                                    & ralston4  & \num{1E-06} & \num{1E-06} & Sin filtro                                \\
-         &&&& \\[-3pt]
-         PID difuso                 & RK2       & \num{1E-05} & \num{1E-06} & Setpoint variable, con filtro             \\
-         &&&& \\[-3pt]
-         \multirow{2}{*}{PI difuso} & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Sin filtro                                \\
-                                    & RK2       & \num{1E-05} & \num{1E-06} & Sin filtro                                \\
-        %  &&&& \\[-3pt]  
-         PI difuso                  & RK2       & \num{1E-05} & \num{1E-06} & Delay=0.5s, con filtro                    \\
-         PI difuso + D              & RK2       & \num{1E-05} & \num{1E-06} & $K_d=0.8$, setpoint variable, sin filtro  \\
-         PD difuso + I              & RK2       & \num{1E-05} & \num{1E-06} & $K_i=1$, setpoint variable, sin filtro    \\
-         PDG difuso                 & SSPRK3    & \num{1E-06} & \num{1E-06} & Con filtro                                \\
-         PDG difuso                 & RK2       & \num{1E-05} & \num{1E-06} & Saturador [0, 20], sin filtro             \\
-         PID mas difuso             & RK2       & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$                      \\
+         P                           & RK2       & \num{1E-05} & \num{1E-06} & $K_p=1$                                   \\
+         PI                          & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=1$, delay=2s                     \\
+                                     &           &             &             &                                           \\[-3pt] 
+         \multirow{2}{*}{PID}        & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, con filtro               \\
+                                     & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, sin filtro               \\
+                                     &           &             &             &                                           \\[-3pt]  
+         \multirow{3}{*}{PID difuso} & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Con filtro                                \\
+                                     & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Sin filtro                                \\
+                                     & ralston4  & \num{1E-06} & \num{1E-06} & Sin filtro                                \\
+                                     &           &             &             &                                           \\[-3pt]  
+         PID difuso                  & RK2       & \num{1E-05} & \num{1E-06} & Setpoint variable, con filtro             \\
+                                     &           &             &             &                                           \\[-3pt]  
+         \multirow{2}{*}{PI difuso}  & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Sin filtro                                \\
+                                     & RK2       & \num{1E-05} & \num{1E-06} & Sin filtro                                \\
+                                    %  &           &             &             &                                           \\[-3pt]    
+         PI difuso                   & RK2       & \num{1E-05} & \num{1E-06} & Delay=0.5s, con filtro                    \\
+         PI difuso + D               & RK2       & \num{1E-05} & \num{1E-06} & $K_d=0.8$, setpoint variable, sin filtro  \\
+         PD difuso + I               & RK2       & \num{1E-05} & \num{1E-06} & $K_i=1$, setpoint variable, sin filtro    \\
+         PDG difuso                  & SSPRK3    & \num{1E-06} & \num{1E-06} & Con filtro                                \\
+         PDG difuso                  & RK2       & \num{1E-05} & \num{1E-06} & Saturador [0, 20], sin filtro             \\
+         PID mas difuso              & RK2       & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$                      \\
         \end{longtable}}
 
         {\setlength\LTleft{0pt}
@@ -861,21 +861,21 @@
         \endhead
         \bottomrule
         \endfoot
-         P                          & Auto(ode45)   &     Auto      & Auto          & $K_p=1$                       \\
-         PI                         & Auto(ode45)   &     Auto      & Auto          & $K_p=K_i=1$, delay=2s         \\
-         PID                        & Auto(ode45)   &     Auto      & Auto          & $K_p=K_i=K_d=1$               \\
-         &&&& \\[-3pt]        
-         \multirow{2}{*}{PID difuso}& Auto(ode45)   &     Auto      & Auto          & -                             \\
-                                    & ode23tb       & \num{1E-06}   & \num{1E-06}   & -                             \\
-         &&&& \\[-3pt]  
-         PID difuso                 & Auto(ode45)   & Auto          & Auto          & Setpoint variable             \\
-         PI difuso                  & ode23tb       & \num{1E-06}   & \num{1E-06}   & -                             \\
-         PI difuso                  & Auto(ode45)   & Auto          & Auto          & Delay=0.5s                    \\
-         PI difuso + D              & Auto(ode45)   & Auto          & Auto          & $K_d=0.8$, setpoint variable  \\
-         PD difuso + I              & Auto(ode45)   & Auto          & Auto          & $K_i=1$, setpoint variable    \\
-         PDG difuso                 & Auto(ode45)   & Auto          & Auto          & -                             \\
-         PDG difuso                 & ode23tb       & \num{1E-06}   & \num{1E-06}   & Saturador [0, 20]             \\
-         PID mas difuso             & Auto(ode45)   & Auto          & Auto          & $K_p=0.2, K_i=K_d=1$          \\
+         P                           & Auto(ode45) &     Auto    &    Auto     & $K_p=1$                       \\
+         PI                          & Auto(ode45) &     Auto    &    Auto     & $K_p=K_i=1$, delay=2s         \\
+         PID                         & Auto(ode45) &     Auto    &    Auto     & $K_p=K_i=K_d=1$               \\
+                                     &             &             &             &                               \\[-3pt]      
+         \multirow{2}{*}{PID difuso} & Auto(ode45) &     Auto    &    Auto     & -                             \\
+                                     & ode23tb     & \num{1E-06} & \num{1E-06} & -                             \\
+                                     &             &             &             &                               \\[-3pt]
+         PID difuso                  & Auto(ode45) &     Auto    &    Auto     & Setpoint variable             \\
+         PI difuso                   & ode23tb     & \num{1E-06} & \num{1E-06} & -                             \\
+         PI difuso                   & Auto(ode45) &     Auto    &    Auto     & Delay=0.5s                    \\
+         PI difuso + D               & Auto(ode45) &     Auto    &    Auto     & $K_d=0.8$, setpoint variable  \\
+         PD difuso + I               & Auto(ode45) &     Auto    &    Auto     & $K_i=1$, setpoint variable    \\
+         PDG difuso                  & Auto(ode45) &     Auto    &    Auto     & -                             \\
+         PDG difuso                  & ode23tb     & \num{1E-06} & \num{1E-06} & Saturador [0, 20]             \\
+         PID mas difuso              & Auto(ode45) &     Auto    &    Auto     & $K_p=0.2, K_i=K_d=1$          \\
         \end{longtable}}
 
         {\setlength\LTleft{0pt}
@@ -894,20 +894,45 @@
         \endhead
         \bottomrule
         \endfoot
-         P                          & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_p=1$                       \\
-         PI                         & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_p=K_i=1$, delay=2s         \\
-         PID                        & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_p=K_i=K_d=1$               \\
-         &&&& \\[-3pt]        
-         \multirow{2}{*}{PID difuso}& BDF-Newton   & \num{1E-06}   & \num{1E-06}          & -                             \\
-                                    & LSODAR       & \num{1E-06}   & \num{1E-06}          & -                             \\
-        %  &&&& \\[-3pt]  
-         PID difuso                 & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & Setpoint variable             \\
-         PI difuso                  & LSODAR       & \num{1E-06}   & \num{1E-06}          & -                             \\
-         PI difuso                  & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & Delay=0.5s                    \\
-         PI difuso + D              & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_d=0.8$, setpoint variable  \\
-         PD difuso + I              & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_i=1$, setpoint variable    \\
-         PDG difuso                 & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & -                             \\
-         PDG difuso                 & LSODAR       & \num{1E-06}   & \num{1E-06}          & Saturador [0, 20]             \\
-         PID mas difuso             & BDF-Newton   & \num{1E-06}   & \num{1E-06}          & $K_p=0.2, K_i=K_d=1$          \\
+         P                          & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_p=1$                       \\
+         PI                         & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_p=K_i=1$, delay=2s         \\
+         PID                        & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_p=K_i=K_d=1$               \\
+                                    &            &             &             &                               \\[-3pt]        
+         \multirow{2}{*}{PID difuso}& BDF-Newton & \num{1E-06} & \num{1E-06} & -                             \\
+                                    & LSODAR     & \num{1E-06} & \num{1E-06} & -                             \\
+                                    % &            &             &             &                               \\[-3pt]  
+         PID difuso                 & BDF-Newton & \num{1E-06} & \num{1E-06} & Setpoint variable             \\
+         PI difuso                  & LSODAR     & \num{1E-06} & \num{1E-06} & -                             \\
+         PI difuso                  & BDF-Newton & \num{1E-06} & \num{1E-06} & Delay=0.5s                    \\
+         PI difuso + D              & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_d=0.8$, setpoint variable  \\
+         PD difuso + I              & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_i=1$, setpoint variable    \\
+         PDG difuso                 & BDF-Newton & \num{1E-06} & \num{1E-06} & -                             \\
+         PDG difuso                 & LSODAR     & \num{1E-06} & \num{1E-06} & Saturador [0, 20]             \\
+         PID mas difuso             & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$          \\
         \end{longtable}}
+
+        A continuacion se observan las respuestas de las simulaciones que presentaron resultados notables, el resto de figuras se pueden observar en el anexo tales2. Las graficas de la simulacion para el controlador PID difuso se pueden observar en la \cref{fig:PIDcf}. La simulacion genero resultados interesantes dependiendo de los parametros y la herramienta empleada, en el caso de MATLAB, se obtuvo una respuesta oscilante que difiere en gran medida del resto al utilizar parametros por defecto del solver, a su vez, al cambiar el solver a ode23tb para problemas stiff y fijar un valor para la tolerancia relativa y absoluta se corrigio la respuesta, obteniendo asi, una salida muy parecida al resto.
+
+        \begin{figure}[htb]
+            \centering
+            \begin{subfigure}[t]{0.49\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{LV/PIDcf1.pdf}
+                \caption{}
+                \label{fig:PIDcf1}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[t]{0.49\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{LV/PIDcf2.pdf}
+                \caption{}
+                \label{fig:PIDcf2}
+            \end{subfigure}
+            \caption[Simulacion del controlador PID difuso en tiempo continuo]{\textbf{Simulacion del controlador PID difuso en tiempo continuo}. (a) PID difuso con setpoint basico y multiples solvers, (b) PID difuso con setpoint variable. Fuente: Elaboración propia. \label{fig:PIDcf}}
+        \end{figure}
+
+        En el caso del Laboratorio Virtual, es claro que ninguna de sus respuestas es la mas precisa, pero mantiene la forma de la respuesta para DOPRI5(4), por otro lado, tambien se observa los efectos del filtro para la derivada, su uso genera una mejor respuesta debido a la alta dependencia de las derivadas para este controlador, lo anterior es notable al comparar la salida del metodo explicito ralston4 sin filtro en la \cref{fig:PIDcf1} y la salida del metodo explicito RK2 con filtro de la \cref{fig:PIDcf2}. Los solvers de SciLab son los que presentan la mejor respuesta, de hecho, ambas respuestas se superponen a simple vista, esto es debido a que BDF-Newton es acto para problemas stiff y LSODAR posee una deteccion automatica entre problemas stiff y no stiff.
+
+        
+
 

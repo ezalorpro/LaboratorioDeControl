@@ -151,14 +151,14 @@
         Así como para tiempo continuo se utilizan ecuaciones diferenciales, en el tiempo discreto se hace uso de ecuaciones en diferencias. Las ecuaciones en diferencias se pueden utilizar para aproximar a las ecuaciones diferenciales, estas primeras se suelen utilizar porque son más fáciles de programar \Parencite{kuo1996sistemas}, por lo cual los procesos pueden ser representados de la siguiente forma:
         
         \begin{equation}\label{eq:EqEnDiferencias}
-            y(k+n) + a_{n-1}y(k+n-1) + \cdots + a_1 y(k+1) + a_0 y(k) = f(k) 
+            y[k+n] + a_{n-1}y[k+n-1] + \cdots + a_1 y[k+1] + a_0 y[k] = f[k] 
         \end{equation}
         
         Asi mismo debido a que la ecuacion \cref{eq:SSrepresentationX} esta compuesta de ecuaciones diferenciales, esta puede ser llevada a una ecuacion en diferencias y la representacion del proceso en el espacio de estados queda como sigue:
 
         \begin{align}\label{eq:SSdiscreto}
-            x(k+1) &= A_d x(k) + B_d u(k) \\
-            y(k) &= C_d x(k) + D_d u(k)
+            x[k+1] &= A_d x[k] + B_d u[k] \\
+            y[k] &= C_d x[k] + D_d u[k]
         \end{align}
 
         \subsubsection{Transformada z}
@@ -166,7 +166,7 @@
 			En tiempo discreto se puede modelar un proceso utilizando la transformada z sobre la ecuación en diferencias del proceso para obtener su representacion en el dominio Z, la transformada Z es a las ecuaciones en diferencia lo que la transformada de laplace es las ecuaciones en tiempo continuo, la ecuación general para la transformada z es:
 			
 			\begin{equation}\label{eq:Ztransform}
-				F(z)= \sum\limits_{k=0}^{\infty}f(k)z^{-k}
+				F(z)= \sum\limits_{k=0}^{\infty}f[k]z^{-k}
 			\end{equation}
 
         \subsubsection{Discretizacion de una funcion de transferencia continua}
@@ -360,7 +360,7 @@
     
     \subsection{Respuesta en el tiempo del modelo en el espacio de estados discreto}
         
-        El calculo de la respuesta en el tiempo para el modelo en el espacio de estados discreto es mucho mas simple, no se requiere ningún método de integración aproximado, lo cual se debe a que el calculo puede ser realizado se forma directa   ya que la formula es el algoritmo a seguir \Parencite{haugen2005discrete}. Tomando en consideración la ecuación \cref{eq:SSdiscreto}, basta con sustituir el vector de estado para obtener a $x(k+1)$ y la salida $y(k)$
+        El calculo de la respuesta en el tiempo para el modelo en el espacio de estados discreto es mucho mas simple, no se requiere ningún método de integración aproximado, lo cual se debe a que el calculo puede ser realizado se forma directa   ya que la formula es el algoritmo a seguir \Parencite{haugen2005discrete}. Tomando en consideración la ecuación \cref{eq:SSdiscreto}, basta con sustituir el vector de estado para obtener a $x[k+1]$ y la salida $y[k]$
     
     \subsection{Sistemas de control}
 		
@@ -504,13 +504,13 @@
                 G_{c}(s) = \frac{sc(s)}{e(s)} = K_p + \frac{K_i}{s} + K_d s
             \end{equation}
             
-            El controlador PID tambien puede ser representado de forma discreta, la componente proporcional sigue siendo una constante, la componente integral se puede representar como la sumatoria de todas las muestras multiplicadas por el periodo de muestreo y finalmente la derivada se puede aproximar como una diferencia finita regresiva:
+            El controlador PID tambien puede ser representado de forma discreta, la componente proporcional sigue siendo una constante, la componente integral puede ser aproximada con varios metodos numericos para el calculo de area como la integracion trapezoidal \Parencite{kuo1996sistemas}. Por ultimo, la derivada se puede aproximar como una diferencia finita regresiva:
 
             \begin{equation}\label{eq:pidcdiscreto}
-                sc(k) = K_{p}e(k)+  K_{i}T\left[\sum_{i=0}^{k-1} e(i) + e(k)\right] + K_{d} \frac{e(k)- e(k-1)}{T}
+                sc[k] = K_{p}e[k]+  \dfrac{K_{i}T}{2}\sum_{i=1}^{k}\left(e[i] + e[i-1]\right) + K_{d} \frac{e[k]- e[k-1]}{T}
             \end{equation}
 
-            En el dominio Z, la componente proporcional se mantiene como constante, la componente integral puede ser aproximada con varios metodos numericos para el calculo de area como la integracion trapezoidal \Parencite{kuo1996sistemas}, o lo que es lo mismo, el metodo de Tustin, para el caso de la derivda se parte de su aproximacion como diferencia finita regresiva y se le aplica la transformada Z.
+            En el dominio Z, la componente proporcional se mantiene como constante, la componente integral se lleva al dominio Z utilizando la transformacion de tustin dada por \cref{eq:tustin} y obtener la representacion en el dominio Z de la integracion trapezoidal, para el caso de la derivada se utiliza \cref{eq:eulerB} para obtener la representacion en el dominio Z de la diferencia finita regresiva.
 
             \begin{equation}\label{eq:pidenZ}
                 G_{c}(z) = K_{p} + \frac{K_{i}T}{2}\left(\frac{z+1}{z-1}\right) + K_{d} \frac{z-1}{Tz}

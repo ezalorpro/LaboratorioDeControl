@@ -486,6 +486,8 @@ class SimpleThread(QtCore.QThread):
         # Particularizacion por cada esquema
         if self.esquema == 1:  # PID difuso
 
+            f_signal_anterior = 0
+            
             if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
@@ -559,8 +561,10 @@ class SimpleThread(QtCore.QThread):
                         d2_error = 0
 
                 # Calculo del controaldor difuso
-                sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error, d2_error],
-                                                      [0] * 1)[0] * h
+                f_signal = fuzzy_c1.calcular_valor([error, d_error, d2_error],
+                                                   [0] * 1)[0]
+                sc_t = sc_t + (f_signal + f_signal_anterior)*h/2
+                f_signal_anterior = f_signal
 
                 # En caso de que se habilite el accionador
                 if self.accionador_flag:
@@ -605,6 +609,8 @@ class SimpleThread(QtCore.QThread):
 
         if self.esquema == 2:  # PI difuso
 
+            f_signal_anterior = 0
+            
             if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
                 derivada = ctrl.tf2ss(
@@ -653,8 +659,10 @@ class SimpleThread(QtCore.QThread):
                         d_error = 0
 
                 # Calculo del controlador difuso
-                sc_t = sc_t + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
-
+                f_signal = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
+                sc_t = sc_t + (f_signal + f_signal_anterior)*h/2
+                f_signal_anterior = f_signal
+                
                 # En caso de que se habilite el accionador
                 if self.accionador_flag:
                     sc_t, acc_x = solve(*acc_system, acc_x, h, sc_t)
@@ -792,6 +800,7 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 4:  # PI difuso + PD difuso
 
             spi = 0
+            f_signal_anterior = 0
 
             if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
@@ -841,7 +850,10 @@ class SimpleThread(QtCore.QThread):
                         d_error = 0
 
                 # Calculo de los controaldores difusos
-                spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
+                f_signal = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
+                spi = spi + (f_signal + f_signal_anterior) * h/2
+                f_signal_anterior = f_signal
+                
                 spd = fuzzy_c2.calcular_valor([error, d_error], [0] * 1)[0]
                 sc_t = spi + spd
 
@@ -889,6 +901,7 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 5:  # PI difuso + D clasico
 
             spi = 0
+            f_signal_anterior = 0
 
             if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
@@ -938,7 +951,10 @@ class SimpleThread(QtCore.QThread):
                         d_error = 0
 
                 # Calculo del controlador difuso
-                spi = spi + fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0] * h
+                f_signal = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
+                spi = spi + (f_signal + f_signal_anterior) * h/2
+                f_signal_anterior = f_signal
+                
                 sc_t = spi + d_error*kd
 
                 # En caso de que se habilite el accionador
@@ -986,6 +1002,7 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 6:  # PD difuso + I Clasico
 
             spi = 0
+            error_integral = 0
 
             if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
@@ -1035,7 +1052,9 @@ class SimpleThread(QtCore.QThread):
                         d_error = 0
 
                 # Calculo del controaldor difuso
-                spi = spi + error*h
+                spi = spi + (error + error_integral)*h/2
+                error_integral = error
+                
                 spd = fuzzy_c1.calcular_valor([error, d_error], [0] * 1)[0]
                 sc_t = spi*ki + spd
 
@@ -1084,6 +1103,7 @@ class SimpleThread(QtCore.QThread):
         if self.esquema == 7:  # Programador de ganancias
 
             spi = 0
+            error_integral = 0
 
             if not self.N == 0 and self.flag_filtro:
                 # Para la derivada del error
@@ -1108,7 +1128,7 @@ class SimpleThread(QtCore.QThread):
                 x_derivada = np.zeros_like(derivada.B)
                 h = 0.05
                 h_new = h
-
+            
             # Inicio de la simulacion
             while tiempo < tiempo_total:
 
@@ -1135,8 +1155,11 @@ class SimpleThread(QtCore.QThread):
                 # Calculo del controaldor difuso
                 kp, ki, kd = fuzzy_c1.calcular_valor([error, d_error], [0] * 3)
 
-                spi = spi + error*h
+                spi = spi + (error + error_integral)*h/2
+                error_integral = error
+                
                 sc_t = spi*ki + d_error*kd + error*kp
+                
 
                 # En caso de que se habilite el accionador
                 if self.accionador_flag:

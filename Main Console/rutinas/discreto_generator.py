@@ -54,7 +54,7 @@ def PID_discreto(error, ts, s_integral, error_anterior, kp, ki, kd):
     :type kd: [float]
     """
     s_proporcional = error
-    s_integral = s_integral + error*ts
+    s_integral = s_integral + (error + error_anterior[0])*ts/2
     s_derivativa = (error - error_anterior[0]) / ts
     s_control = s_proporcional*kp + s_integral*ki + s_derivativa*kd
     error_anterior[0] = error
