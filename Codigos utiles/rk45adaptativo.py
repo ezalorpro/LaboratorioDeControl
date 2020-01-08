@@ -1,7 +1,7 @@
 import numpy as np
 import control as ctrl
 from matplotlib import pyplot as plt
-from scipy.integrate import RK45
+from scipy.integrate import BDF
 # from my_module import dopri5
 # from numba.pycc import CC
 import time

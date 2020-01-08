@@ -276,7 +276,7 @@
             \item PID clásico + Difuso simple (P)
         \end{enumerate}
 
-        A la derivada de aquellos esquemas que requieran su calculo se les fue agregado una funcion de transferencia en serie con la misma para limitar la respuesta a las altas frecuencias, esto es debido a que las simulaciones se van a realizar con un método de Runge-Kutta que requeriría un tamaño de paso muy pequeño para poder aproximar de forma correcta incluso a una derivada aproximada dada por \cref{eq:Daproximacion}, y un incremento en el numero de pasos provocaría, a su vez, un incremento en los tiempos de simulación para los esquemas con controladores difusos, y en consecuencia, volviendo la herramienta impráctica.
+        A la derivada de aquellos esquemas que requieran su calculo se les fue agregado una función de transferencia en serie con la misma para limitar la respuesta a las altas frecuencias, esto es debido a que las simulaciones se van a realizar con un método de Runge-Kutta que requeriría un tamaño de paso muy pequeño para poder aproximar de forma correcta incluso a una derivada aproximada dada por \cref{eq:Daproximacion}, y un incremento en el numero de pasos provocaría, a su vez, un incremento en los tiempos de simulación para los esquemas con controladores difusos, y en consecuencia, volviendo la herramienta impráctica.
 
     \subsection{Solución por Runge-Kutta}
 
@@ -433,6 +433,8 @@
             Sistema &    1    &    2    &    3   &     1       &       2     \\ \cmidrule{2-2}\cmidrule{3-3}\cmidrule{4-4}\cmidrule{5-5}\cmidrule{6-6}
             & & & & & \\
             \endhead
+            \bottomrule
+            \endfoot
             Respuesta escalon      &  &  &  &  & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{9.271E-06} & \num{2.159E-05} & \num{6.380E-03} & \num{3.030E-12} & \num{4.457E-09}  \\
             Diferencia porcentual  & \num{5.865E-02} & \num{1.620E-03} & \num{1.738E+00} & \num{2.877E-10} & \num{1.867E-07}  \\
@@ -484,8 +486,7 @@
             Diferencia porcentual  & \num{1.414E+00} & \num{1.023E+00} & \num{1.068E+00} & \num{1.414E+00} & \num{1.023E+00}  \\
             RECM                   & \num{2.092E-01} & \num{1.641E-02} & \num{1.846E-02} & \num{2.092E-01} & \num{1.641E-02}  \\
             Diferencia de area     & \num{4.596E-01} & \num{1.418E+00} & \num{1.597E+02} & \num{4.596E-01} & \num{1.418E+00}  \\
-            Distancia de energia   & \num{2.369E-02} & \num{3.587E-03} & \num{3.421E-03} & \num{2.369E-02} & \num{3.587E-03}  \\ 
-            \bottomrule
+            Distancia de energia   & \num{2.369E-02} & \num{3.587E-03} & \num{3.421E-03} & \num{2.369E-02} & \num{3.587E-03}  \\
         \end{longtable}}
         
         {\setlength\LTleft{0pt}
@@ -506,6 +507,8 @@
             Sistema &   1     &    2     &    3  &   1      \\ \cmidrule{2-2}\cmidrule{3-3}\cmidrule{4-4}\cmidrule{5-5}
             & & & & \\
             \endhead
+            \bottomrule
+            \endfoot
             Respuesta escalon      & & & & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{8.438E-15} & \num{6.457E-13} & \num{5.895E-14} & \num{1.021E-14}  \\
             Diferencia porcentual  & \num{8.437E-13} & \num{2.592E-11} & \num{6.456E-12} & \num{1.008E-12}  \\
@@ -557,8 +560,7 @@
             Diferencia porcentual  & \num{1.302E-01} & \num{1.147E+00} & \num{2.610E-01} & \num{1.302E-01}  \\
             RECM                   & \num{1.643E-02} & \num{2.490E-02} & \num{1.891E-02} & \num{1.643E-02}  \\
             Diferencia de area     & \num{1.907E+00} & \num{1.093E+00} & \num{4.307E+00} & \num{1.907E+00}  \\
-            Distancia de energia   & \num{2.518E-03} & \num{3.993E-03} & \num{3.392E-03} & \num{2.518E-03}  \\  
-            \bottomrule
+            Distancia de energia   & \num{2.518E-03} & \num{3.993E-03} & \num{3.392E-03} & \num{2.518E-03}  \\
         \end{longtable}}
 
         Los datos y sistemas faltantes en las tablas mostradas se debe a limitaciones tecnicas de SciLab o la imposibilidad de realizar los calculos. Ante las limitaciones tecnicas de SciLab se opto por descartar la comparacion bajo la premisa que la facilidad de implementacion es un factor a tener en cuenta en estas comparativas, a continuacion se presenta una lista con las razones especificas:
@@ -643,6 +645,8 @@
         Entrada1  &        \multicolumn{3}{c}{Salida1}        \\ \cmidrule{1-1} \cmidrule{2-4}
                   &   Laboratorio Virtual  & MATLAB & SciLab  \\ \cmidrule{2-2} \cmidrule{3-3} \cmidrule{4-4}
         \endhead
+        \bottomrule
+        \endfoot
         \num{-10} & \num{0.00E+00}  & \num{0.00E+00}  & \num{-1.30E-06}  \\
         \num{-9}  & \num{4.20E-02}  & \num{4.20E-02}  & \num{4.20E-02}   \\
         \num{-8}  & \num{1.30E-01}  & \num{1.30E-01}  & \num{1.30E-01}   \\
@@ -664,7 +668,6 @@
         \num{8}   & \num{4.48E-01}  & \num{4.48E-01}  & \num{4.48E-01}   \\
         \num{9}   & \num{2.47E-01}  & \num{2.48E-01}  & \num{2.48E-01}   \\
         \num{10}  & \num{1.90E-01}  & \num{1.91E-01}  & \num{1.91E-01}   \\
-        \bottomrule
         \end{longtable}}
 
         {\setlength\LTleft{0pt}
@@ -679,6 +682,8 @@
         \multicolumn{2}{c}{Entradas}& \multicolumn{2}{c}{Laboratorio Virtual} & \multicolumn{2}{c}{MATLAB} & \multicolumn{2}{c}{SciLab} \\ \cmidrule{1-2}\cmidrule{3-4}\cmidrule{5-6}\cmidrule{7-8}
         Entrada1   & Entrada2  & Salida1    & Salida2    & Salida1   & Salida2    & Salida1    & Salida2     \\ \cmidrule{1-1}\cmidrule{2-2} \cmidrule{3-3}\cmidrule{4-4}\cmidrule{5-5}\cmidrule{6-6}\cmidrule{7-7}\cmidrule{8-8} 
         \endhead
+        \bottomrule
+        \endfoot
         \num{-1}   & \num{-10} & \num{-1}   & \num{-100} & \num{0}   & \num{0}    & \num{-1}   & \num{-100}  \\
         \num{-1}   & \num{-5}  & \num{0}    & \num{-100} & \num{0}   & \num{0}    & \num{0}    & \num{-100}  \\
         \num{-1}   & \num{0}   & \num{0}    & \num{-100} & \num{0}   & \num{0}    & \num{0}    & \num{-100}  \\
@@ -704,7 +709,6 @@
         \num{1}    & \num{0}   & \num{0}    & \num{-100} & \num{0}   & \num{0}    & \num{0}    & \num{-100}  \\
         \num{1}    & \num{5}   & \num{1}    & \num{0}    & \num{1}   & \num{0}    & \num{1}    & \num{0}     \\
         \num{1}    & \num{10}  & \num{1}    & \num{0}    & \num{1}   & \num{0}    & \num{1}    & \num{0}     \\
-        \bottomrule
         \end{longtable}}
 
         Para el controlador 1 la \cref{tab:C1Difuso} muestra que la diferencia entre respuestas es despreciable, la diferencia porcentual promedio entre el Laboratorio Virtual y MATLAB/SciLab fue en ambos casos de \num{1.10E-01}. Las graficas de respuesta del controlador 1 para las tres herramientas se pueden observar en la \cref{fig:respuestaC1}. En el caso del controlador 2, MATLAB presenta resultados dispares respecto al Laboratorio Virtual y Scilab, esto se debe a que MATLAB no aplica la definicion del metodo de defuzzificacion del primero a la izquierda como deberia ser y esto provoca que sus resultados sean erroneos e impredecibles, en concecuencia, no se realizo calculo de diferencia dado que carece de sentido con MATLAB por lo ya descrito, y con SciLab la diferencia es de cero. Las superficies de respuesta para el controlador 2 se pueden observar en las \cref{fig:respuestaC2LV,fig:respuestaC2MATLAB,fig:respuestaC2SciLab}.
@@ -797,3 +801,80 @@
         \clearpage
 
     \subsection{Simulacion de sistemas de control}
+        
+        Para la comparacion de simulacion de sistemas de control se selecciono el sistema numero uno (1) de la \cref{tab:AnalisisSistemas}, los controladores difusos utilizados en cada caso son inadecuados para el control de procesos, i.e., no fueron diseñados con la finalidad de obtener una buena respuesta, la premisa para esta desicion se basa es que la respuesta obtenida debe ser parecida a la obtenida con MATLAB o SciLab, si dicha respuesta es oscilatoria se espera que el Laboratorio Virtual tambien responda del mismo modo, por tanto, la calidad de los controladores se consideró irrelevante. Los archivos FIS para los controladores utilizados se pueden observar en el anexo tales.
+
+        Los parametros bajo los que se realizaron las simulaciones como el setpoint, activacion o no del filtro de la derivada y/o bloques adiciones, fueron seleccionados de forma arbitraria con la finalidad de probar distintas funciones y obtener respuestas variadas, a su vez, se alterno el uso de de distintos solvers para cada herramienta con el fin de observar como afectaban la presicion. A continuacion, se presentan las tablas con los parametros de cada simulacion para cada herramienta.
+
+        {\setlength\LTleft{0pt}
+        \setlength\LTright{0pt}
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{0.89}
+        \begin{longtable}{l @{\extracolsep{\fill}} cccc}
+        \caption[Parametros para el Laboratorio Virtual en tiempo continuo]{Parametros para el Laboratorio Virtual en tiempo continuo} 
+        \label{tab:parametrosLVc} \\
+        \toprule
+        Controlador  & solver & rtol & atol & Otros       \\ \midrule
+        \endfirsthead
+        \toprule
+        Controlador  & solver & rtol & atol & Otros       \\ \midrule
+        \endhead
+        \bottomrule
+        \endfoot
+         P                          & RK2       & \num{1E-05} & \num{1E-06} & $K_p=1$ \\
+         PI                         & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=1$, delay=2s \\
+         &&&& \\[-3pt]
+         \multirow{2}{*}{PID}       & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, con filtro \\
+                                    & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, sin filtro \\
+         &&&& \\[-3pt]
+         \multirow{3}{*}{PID difuso}& DOPRI5(4) & \num{1E-07} & \num{1E-07} & - \\
+                                    & DOPRI5(4) & \num{1E-07} & \num{1E-07} & - \\
+                                    & ralston4  & \num{1E-06} & \num{1E-06} & - \\
+         &&&& \\[-3pt]
+         PID difuso                 & RK2       & \num{1E-05} & \num{1E-06} & SetPoint Avanzado \\
+         &&&& \\[-3pt]
+         \multirow{2}{*}{PI difuso} & DOPRI5(4) & \num{1E-07} & \num{1E-07} & - \\
+                                    & RK2       & \num{1E-05} & \num{1E-06} & - \\
+        %  &&&& \\[-5pt]
+         PI difuso                  & RK2       & \num{1E-05} & \num{1E-06} & delay=0.5s \\
+         PI difuso + D              & RK2       & \num{1E-05} & \num{1E-06} & $K_d=0.8$, SetPoint Avanzado \\
+         PD difuso + I              & RK2       & \num{1E-05} & \num{1E-06} & $K_i=1$, SetPoint Avanzado \\
+         PDG difuso                 & SSPRK3    & \num{1E-06} & \num{1E-06} & - \\
+         PDG difuso                 & RK2       & \num{1E-05} & \num{1E-06} & Saturador [0, 20] \\
+         PID mas difuso             & RK2       & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$ \\
+        \end{longtable}}
+
+        {\setlength\LTleft{0pt}
+        \setlength\LTright{0pt}
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{0.89}
+        \begin{longtable}{l @{\extracolsep{\fill}} cccc}
+        \caption[Parametros para MATLAB en tiempo continuo]{Parametros para MATLAB en tiempo continuo} 
+        \label{tab:parametrosLVc} \\
+        \toprule
+        Controlador  & solver & rtol & atol & Otros       \\ \midrule
+        \endfirsthead
+        \toprule
+        Controlador  & solver & rtol & atol & Otros       \\ \midrule
+        \endhead
+        \bottomrule
+        \endfoot
+         P                          & Auto(ode45)   &     Auto      & Auto          & $K_p=1$                       \\
+         PI                         & Auto(ode45)   &     Auto      & Auto          & $K_p=K_i=1$, delay=2s         \\
+         PID                        & Auto(ode45)   &     Auto      & Auto          & $K_p=K_i=K_d=1$               \\
+         &&&& \\[-3pt]        
+         \multirow{2}{*}{PID difuso}& Auto(ode45)   &     Auto      & Auto          & -                             \\
+                                    & ode23tb       & \num{1E-06}   & \num{1E-06}   & -                             \\
+         &&&& \\[-3pt]  
+         PID difuso                 & Auto(ode45)   & Auto          & Auto          & SetPoint Avanzado             \\
+         PI difuso                  & ode23tb       & \num{1E-06}   & \num{1E-06}   & -                             \\
+         PI difuso                  & Auto(ode45)   & Auto          & Auto          & delay=0.5s                    \\
+         PI difuso + D              & Auto(ode45)   & Auto          & Auto          & $K_d=0.8$, SetPoint Avanzado  \\
+         PD difuso + I              & Auto(ode45)   & Auto          & Auto          & $K_i=1$, SetPoint Avanzado    \\
+         PDG difuso                 & Auto(ode45)   & Auto          & Auto          & -                             \\
+         PDG difuso                 & ode23tb       & \num{1E-06}   & \num{1E-06}   & Saturador [0, 20]             \\
+         PID mas difuso             & Auto(ode45)   & Auto          & Auto          & $K_p=0.2, K_i=K_d=1$          \\
+        \end{longtable}}
+
