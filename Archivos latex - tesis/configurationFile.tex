@@ -490,32 +490,44 @@
 	}
 }
 
-% \addtocontents{toc}{~\hfill\par}
-\addtocontents{toc}{~\hfill Pág.\par}
-\addtocontents{toc}{~\hfill\par}
-\addtocontents{toc}{\protect\afterpage{~\hfill Pág.\par\bigskip}}
-
-% \addtocontents{lof}{~\hfill\par}
-\addtocontents{lof}{\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
-\addtocontents{lof}{~\hfill\par}
-\addtocontents{lof}{\protect\afterpage{\hspace{-1.27cm}FIGURA~\hfill Pág.\par\bigskip}}
-
-% \addtocontents{lot}{~\hfill\par}
-\addtocontents{lot}{\hspace{-1.5cm}TABLA~\hfill Pág.\par}
-\addtocontents{lot}{~\hfill\par}
-%\addtocontents{lot}{\protect\afterpage{\hspace{-1.27cm}TABLA~\hfill Pág.\par\medskip}}
-
-% \addtocontents{lol}{~\hfill\par}
-\addtocontents{lol}{\hspace{-1.5cm}CÓDIGO~\hfill Pág.\par}
-\addtocontents{lol}{~\hfill\par}
-%\addtocontents{lol}{\protect\afterpage{\hspace{-1.27cm}CÓDIGO~\hfill Pág.\par\medskip}}
-
-
+% Para evitar espacios entre entradas por capitulos
 \newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
 \addtocontents{lof}{\protect\noaddvspace}
 \addtocontents{lot}{\protect\noaddvspace}
 \addtocontents{lol}{\protect\noaddvspace}
 
+\addtocontents{toc}{~\hfill Pág.\par}
+\addtocontents{toc}{~\hfill\par}
+
+% Habilitar para una segunda pagina de tabla de contenidos
+\addtocontents{toc}{\protect\afterpage{~\hfill\par\bigskip}}
+\addtocontents{toc}{\protect\afterpage{~\hfill Pág.\par}}
+\addtocontents{toc}{\protect\afterpage{~\hfill\par}}
+
+\addtocontents{lof}{\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
+\addtocontents{lof}{~\hfill\par}
+
+% Habilitar para una segunda pagina de lista de figuras
+\addtocontents{lof}{\protect\afterpage{~\hfill\par\bigskip}}
+\addtocontents{lof}{\protect\afterpage{\hspace{-1.27cm}FIGURA~\hfill Pág.\par}}
+\addtocontents{lof}{\protect\afterpage{~\hfill\par}}
+
+\addtocontents{lot}{\hspace{-1.5cm}TABLA~\hfill Pág.\par}
+\addtocontents{lot}{~\hfill\par}
+
+% Habilitar para una segunda pagina de lista de tablas
+% \addtocontents{lot}{\protect\afterpage{~\hfill\par\bigskip}}
+% \addtocontents{lot}{\protect\afterpage{\hspace{-1.27cm}TABLA~\hfill Pág.\par\medskip}}
+% \addtocontents{lot}{\protect\afterpage{~\hfill\par}}
+
+% \addtocontents{lol}{~\hfill\par}
+\addtocontents{lol}{\hspace{-1.5cm}CÓDIGO~\hfill Pág.\par}
+\addtocontents{lol}{~\hfill\par}
+
+% Habilitar para una segunda pagina de lista de codigos
+% \addtocontents{lol}{\protect\afterpage{~\hfill\par\bigskip}}
+% \addtocontents{lol}{\protect\afterpage{\hspace{-1.27cm}CÓDIGO~\hfill Pág.\par\medskip}}
+% \addtocontents{lol}{\protect\afterpage{~\hfill\par}}
 
 % Para arreglar el spacing en el ambiente quoting
 \makeatletter
