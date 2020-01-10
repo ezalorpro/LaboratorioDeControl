@@ -933,6 +933,60 @@
 
         En el caso del Laboratorio Virtual, es claro que ninguna de sus respuestas es la mas precisa, pero mantiene la forma de la respuesta para DOPRI5(4), por otro lado, tambien se observa los efectos del filtro para la derivada, su uso genera una mejor respuesta debido a la alta dependencia de las derivadas para este controlador, lo anterior es notable al comparar la salida del metodo explicito ralston4 sin filtro en la \cref{fig:PIDcf1} y la salida del metodo explicito RK2 con filtro de la \cref{fig:PIDcf2}. Los solvers de SciLab son los que presentan la mejor respuesta, de hecho, ambas respuestas se superponen a simple vista, esto es debido a que BDF-Newton es acto para problemas stiff y LSODAR posee una deteccion automatica entre problemas stiff y no stiff.
 
-        
+        Otras simulaciones que presentaron resultados interesantes fueros las asociadas al controlador PI difuso, las cuales se pueden ver en la \cref{fig:PIdifuso}, el Laboratorio Virtual presento grandes diferencias con respecto a MATLAB y SciLab, en este caso el origen o motivo exacto por el que se genera tal diferencia es desconocido. El resto de simulaciones presentaron diferencias entre las distintas herramientas dentro de lo razonable, por otro lado, los tiempos de ejecucion fueron notablemente altos para el caso del Laboratorio Virtual a la hora de utilizar controladores difusos. Los tiempos de ejecucion se pueden observar en la \cref{tab:timeC}.
+
+        \begin{figure}[htb]
+            \centering
+            \begin{subfigure}[t]{0.49\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{LV/PIcf1.pdf}
+                \caption{}
+                \label{fig:PIf1}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[t]{0.49\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{LV/PIcf2.pdf}
+                \caption{}
+                \label{fig:PIf2}
+            \end{subfigure}
+            \caption[Simulacion del controlador PI difuso en tiempo continuo]{\textbf{Simulacion del controlador PI difuso en tiempo continuo}. (a) PI difuso con setpoint basico, (b) PI difuso con 0.5s de delay en el proceso. Fuente: Elaboración propia. \label{fig:PIdifuso}}
+        \end{figure}
+
+        {\setlength\LTleft{0pt}
+        \setlength\LTright{0pt}
+        \centering
+        \renewcommand{\arraystretch}{0.80}
+        \begin{longtable}{c @{\extracolsep{\fill}} ccc}
+        \caption[Tiempos de ejecucion para la funcion de simulacion de sistemas de control en tiempo continuo]{Tiempos de ejecucion para la funcion de simulacion de sistemas de control en tiempo continuo} 
+        \label{tab:timeC} \\
+        \toprule
+        Controlador   &        \multicolumn{3}{c}{Tiempo}        \\ \cmidrule{1-1} \cmidrule{2-4}
+                      &   Laboratorio Virtual  & MATLAB & SciLab  \\ \cmidrule{2-2} \cmidrule{3-3} \cmidrule{4-4}
+        \endhead
+        \bottomrule
+        \endfoot
+        P                            & 0.590  &         0.197          &        2.259           \\
+        PI                           & 0.831  &         0.483          &        2.007           \\
+                                     &        &                        &                        \\[-3pt]
+        \multirow{2}{*}{PID}         & 0.702  & \multirow{2}{*}{0.381} & \multirow{2}{*}{1.907} \\
+                                     & 0.689  &                        &                        \\
+                                     &        &                        &                        \\[-3pt]
+        \multirow{3}{*}{PID difuso}  & 14.181 &         1.019          &        11.334          \\
+                                     & 15.210 &         1.055          &        5.972           \\
+                                     & 11.381 &           -            &          -             \\
+                                     &        &                        &                        \\[-3pt]
+        PID difuso                   & 21.421 &         1.124          &        11.018          \\
+                                     &        &                        &                        \\[-3pt]
+        \multirow{2}{*}{PI difuso}   & 6.684  & \multirow{2}{*}{0.688} & \multirow{2}{*}{6.177} \\
+                                     & 9.183  &                        &                        \\
+                                     &        &                        &                        \\[-3pt]
+        PI difuso                    & 15.573 &         0.809          &        10.825          \\
+        PI difuso + D                & 13.752 &         0.962          &        12.513          \\
+        PD difuso + I                & 18.755 &         0.687          &        9.556           \\
+        PDG difuso                   & 15.477 &         1.641          &        8.343           \\
+        PDG difuso                   & 21.050 &         1.327          &        7.486           \\
+        PID mas difuso               & 4.276  &         0.837          &        3.959           \\
+        \end{longtable}}
 
 
