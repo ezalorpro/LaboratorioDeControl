@@ -109,7 +109,7 @@ else:
 
 fig, ax = plt.subplots(figsize=(5.1, 4.2))
 ax.plot(t_comun, yout_mat, color="#001C7F", label='MATLAB/ode45', linewidth=2)
-ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/RK2', linewidth=3)
+ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/RK2 con filtro', linewidth=3)
 ax.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], label='SciLab/BDF-Newton', linewidth=2)
 ax.set_title('Controlador PID mas controlador difuso simple', fontsize=11)
 ax.legend(loc=5, bbox_to_anchor=(0.97, 0.65))
@@ -126,4 +126,5 @@ axins.set_ylim(YMIN[index_min] - 0.02,
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PIDmasfc.pdf')
 plt.show()

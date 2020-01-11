@@ -125,4 +125,5 @@ axins.set_ylim(YMIN[index_min] - 3,
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PId.pdf')
 plt.show()

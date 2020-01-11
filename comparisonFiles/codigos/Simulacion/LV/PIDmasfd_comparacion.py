@@ -85,4 +85,5 @@ ax.legend(loc=7)
 ax.grid()
 
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PIDmasfd.pdf')
 plt.show()

@@ -99,10 +99,11 @@ axins.plot(t_comun, yout_mat, color="#001C7F", linewidth=2)
 axins.plot(t_comun, yout_lv, 'r', dashes=[1, 2], linewidth=3)
 axins.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], linewidth=2)
 axins.grid()
-axins.set_xlim(t_comun[index_max] - 0.05, t_comun[index_min] + 0.05)
+axins.set_xlim(t_comun[index_max] - 0.2, t_comun[index_min] + 0.2)
 axins.set_ylim(YMIN[index_min] - 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2,
                YMAX[index_max] + 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2)
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PIDd.pdf')
 plt.show()

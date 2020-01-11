@@ -97,4 +97,5 @@ axins.set_ylim(YMIN[index_min] - 0.05,
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PDGd.pdf')
 plt.show()

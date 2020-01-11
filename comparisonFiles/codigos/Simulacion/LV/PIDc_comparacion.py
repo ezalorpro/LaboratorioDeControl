@@ -185,4 +185,5 @@ axins.set_ylim(YMIN[index_min] - 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2,
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PIDc.pdf')
 plt.show()

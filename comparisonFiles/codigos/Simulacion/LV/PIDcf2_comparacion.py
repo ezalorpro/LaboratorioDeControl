@@ -68,7 +68,7 @@ if len(t_mat) > len(t_sci) and len(t_mat) > len(t_lv):
 
     funcion2 = interp1d(t_sci, yout_sci)
     yout_sci = funcion2(t_mat)
-    
+
     funcion3 = interp1d(t_lv, set_point)
     set_point = funcion3(t_mat)
 
@@ -112,7 +112,7 @@ else:
 
 fig, ax = plt.subplots(figsize=(5.1, 4.2))
 ax.plot(t_comun, yout_mat, color="#001C7F", label='MATLAB/ode45', linewidth=2)
-ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/RK2 con filtro', linewidth=3)
+ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/DOPRI5(4) con filtro', linewidth=3)
 ax.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], label='SciLab/BDF-Newton', linewidth=2)
 ax.plot(t_comun, set_point, 'k', linestyle='-.', label='SetPoint', linewidth=2)
 ax.set_title('Controlador PID difuso con setpoint variable')
@@ -130,4 +130,5 @@ ax.grid()
 
 # ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PIDcf2.pdf')
 plt.show()

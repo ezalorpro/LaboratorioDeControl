@@ -99,4 +99,5 @@ ax.grid()
 
 # ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PIdf.pdf')
 plt.show()

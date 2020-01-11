@@ -38,7 +38,7 @@ if len(t_sci) > len(t_mat) and len(t_sci) > len(t_lv):
 
     funcion2 = interp1d(t_lv, yout_lv)
     yout_lv = funcion2(t_sci)
-    
+
     funcion3 = interp1d(t_lv, set_point)
     set_point = funcion3(t_sci)
 
@@ -57,7 +57,7 @@ if len(t_lv) > len(t_mat) and len(t_lv) > len(t_sci):
 
     funcion2 = interp1d(t_sci, yout_sci)
     yout_sci = funcion2(t_lv)
-    
+
     t_comun = t_lv
 
 if len(t_mat) > len(t_sci) and len(t_mat) > len(t_lv):
@@ -135,4 +135,5 @@ axins.set_ylim(YMIN[index_min] - 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2,
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PDmasIc.pdf')
 plt.show()

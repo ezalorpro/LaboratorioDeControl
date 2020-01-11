@@ -134,9 +134,9 @@ fig, ax = plt.subplots(figsize=(5.1, 4.2))
 ax.plot(t_comun, yout_mat1, color="#001C7F", label='MATLAB/ode45', linewidth=2)
 ax.plot(t_comun, yout_mat, color="#001C7F", alpha=0.4, label='MATLAB/ode23tb', linewidth=2)
 
-ax.plot(t_comun, yout_lvf, 'orange', dashes=[1, 2], alpha=0.4, label='LV/DOPRI5(4) con Filtro', linewidth=3)
-ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/DOPRI5(4) sin Filtro', linewidth=3)
-ax.plot(t_comun, yout_lvr, 'r', dashes=[1, 2], alpha=0.4, label='LV/ralston4 sin Filtro', linewidth=3)
+ax.plot(t_comun, yout_lvf, 'orange', dashes=[1, 2], alpha=0.4, label='LV/SSPRK3 con Filtro', linewidth=3)
+ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/SSPRK3 sin Filtro', linewidth=3)
+ax.plot(t_comun, yout_lvr, 'r', dashes=[1, 2], alpha=0.4, label='LV/DOPRI5(4) sin Filtro', linewidth=3)
 
 ax.plot(t_comun, yout_sci1, color="#12711C", dashes=[2, 2], label='SciLab/BDF-Newton', linewidth=2)
 ax.plot(t_comun, yout_sci, color="#12711C", alpha=0.4, dashes=[2, 2], label='SciLab/LSODAR', linewidth=2)
@@ -149,18 +149,18 @@ axins = ax.inset_axes([0.76, 0.73, 0.22, 0.25])
 axins.plot(t_comun, yout_mat1, color="#001C7F", label='MATLAB/ode45', linewidth=2)
 axins.plot(t_comun, yout_mat, color="#001C7F", alpha=0.4, label='MATLAB/ode23tb', linewidth=2)
 
-axins.plot(t_comun, yout_lvf, 'orange', dashes=[1, 2], alpha=0.4, label='LV/DOPRI5(4) con Filtro', linewidth=3)
-axins.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/DOPRI5(4) sin Filtro', linewidth=3)
-axins.plot(t_comun, yout_lvr, 'r', dashes=[1, 2], alpha=0.4, label='LV/ralston4 sin Filtro', linewidth=3)
+axins.plot(t_comun, yout_lvf, 'orange', dashes=[1, 2], alpha=0.4, label='LV/SSPRK3 con Filtro', linewidth=3)
+axins.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/SSPRK3 sin Filtro', linewidth=3)
+axins.plot(t_comun, yout_lvr, 'r', dashes=[1, 2], alpha=0.4, label='LV/DOPRI5(4) sin Filtro', linewidth=3)
 
 axins.plot(t_comun, yout_sci1, color="#12711C", dashes=[2, 2], label='SciLab/BDF-Newton', linewidth=2)
 axins.plot(t_comun, yout_sci, color="#12711C", alpha=0.4, dashes=[2, 2], label='SciLab/LSODAR', linewidth=2)
 
 axins.grid()
-axins.set_xlim(t_comun[index_max] - 0.4, t_comun[index_min] + 0.2)
-axins.set_ylim(YMIN[index_min] - 0.06,
-               YMAX[index_max] + 0.06)
+axins.set_xlim(5.8 - 0.4, 6.8)
+axins.set_ylim(1, 1.23)
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PIDcf1.pdf')
 plt.show()

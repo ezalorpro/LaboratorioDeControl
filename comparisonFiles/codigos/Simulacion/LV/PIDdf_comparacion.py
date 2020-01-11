@@ -68,7 +68,7 @@ if len(t_mat) > len(t_sci) and len(t_mat) > len(t_lv):
 
     funcion2 = interp1d(t_sci, yout_sci)
     yout_sci = funcion2(t_mat)
-    
+
     funcion3 = interp1d(t_lv, set_point)
     set_point = funcion3(t_mat)
 
@@ -121,4 +121,5 @@ ax.legend(loc=1)
 ax.grid()
 
 fig.tight_layout()
+plt.savefig('comparisonFiles/plots/Simulacion/PIDdf.pdf')
 plt.show()
