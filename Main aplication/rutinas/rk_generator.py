@@ -55,10 +55,10 @@ def dopri54(A, B, C, D, x, h, inputValue):
     k7 = h*(np.dot(A, x + k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84) +
             B*inputValue)
 
-    y5th = np.dot(C, x) + D*inputValue
     x5th = x + (k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84)
     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 +
                 k6*187/2100 + k7/40)
+    y5th = np.dot(C, x5th) + D*inputValue
 
     return y5th[0, 0], x5th, x4th
 
@@ -93,9 +93,9 @@ def cash_karp45(A, B, C, D, x, h, inputValue):
     k6 = h*(np.dot(A, x + k1*1631/55296 + k2*175/512 + k3*575/13824 + k4*44275/110592 +
                    k5*253/4096) + B*inputValue)
 
-    y4th = np.dot(C, x) + D*inputValue
     x5th = x + (k1*37/378 + k3*250/621 + k4*125/594 + k6*512/1771)
     x4th = x + (k1*2825/27648 + k3*18575/48384 + k4*13525/55296 + k5*277/14336 + k6/4)
+    y4th = np.dot(C, x4th) + D*inputValue
 
     return y4th[0, 0], x4th, x5th
 
@@ -130,9 +130,9 @@ def fehlberg45(A, B, C, D, x, h, inputValue):
     k6 = h*(np.dot(A, x - k1*8/27 + k2*2 - k3*3544/2565 + k4*1859/4104 - k5*11/40) +
             B*inputValue)
 
-    y4th = np.dot(C, x) + D*inputValue
     x5th = x + (k1*16/135 + k3*6656/12825 + k4*28561/56430 - k5*9/50 + k6*2/55)
     x4th = x + (k1*25/216 + k3*1408/2565 + k4*2197/4104 - k5/5)
+    y4th = np.dot(C, x4th) + D*inputValue
 
     return y4th[0, 0], x4th, x5th
 
@@ -164,9 +164,9 @@ def bogacki_shampine23(A, B, C, D, x, h, inputValue):
     k3 = h*(np.dot(A, x + k2*3/4) + B*inputValue)
     k4 = h*(np.dot(A, x + k1*2/9 + k2/3 + k3*4/9) + B*inputValue)
 
-    y2th = np.dot(C, x) + D*inputValue
     x3th = x + (k1*2/9 + k2/3 + k3*4/9)
     x2th = x + (k1*7/24 + k2/4 + k3/3 + k4/8)
+    y2th = np.dot(C, x3th) + D*inputValue
 
     return y2th[0, 0], x3th, x2th
 
@@ -180,8 +180,8 @@ def runge_kutta5(A, B, C, D, x, h, inputValue):
     k5 = h*(np.dot(A, x + k1*3/16 + k4*9/16) + B*inputValue)
     k6 = h*(np.dot(A, x - k1*3/7 + k2*2/7 + k3*12/7 - k4*12/7 + k5*8/7) + B*inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + (k1*7/90 + k3*32/90 + k4*12/90 + k5*32/90 + k6*7/90)
+    y = np.dot(C, x) + D*inputValue
 
     return y[0, 0], x
 
@@ -213,8 +213,8 @@ def ralston4(A, B, C, D, x, h, inputValue):
     k3 = h*(np.dot(A, x + k1*0.29697761 + k2*0.15875964) + B*inputValue)
     k4 = h*(np.dot(A, x + k1*0.21810040 - k2*3.05096516 + k3*3.83286476) + B*inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + (k1*0.17476028 - k2*0.55148066 + k3*1.20553560 + k4*0.17118478)
+    y = np.dot(C, x) + D*inputValue
 
     return y[0, 0], x
 
@@ -245,8 +245,8 @@ def tres_octavos4(A, B, C, D, x, h, inputValue):
     k3 = h*(np.dot(A, x - k1/3 + k2) + B*inputValue)
     k4 = h*(np.dot(A, x + k1 - k2 + k3) + B*inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + (k1/8 + k2*3/8 + k3*3/8 + k4/8)
+    y = np.dot(C, x) + D*inputValue
 
     return y[0, 0], x
 
@@ -277,9 +277,8 @@ def runge_kutta4(A, B, C, D, x, h, inputValue):
     k3 = h*(np.dot(A, x + k2/2) + B * inputValue)
     k4 = h*(np.dot(A, x + k3) + B * inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2/3 + k3/3 + k4/6)
-
+    y = np.dot(C, x) + D*inputValue
     return y[0, 0], x
 
 
@@ -309,9 +308,9 @@ def SSPRK3(A, B, C, D, x, h, inputValue):
     k2 = h*(np.dot(A, x + k1) + B * inputValue)
     k3 = h*(np.dot(A, x + k1/4 + k2/4) + B*inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2/6 + k3*2/3)
-    
+    y = np.dot(C, x) + D*inputValue
+
     return y[0, 0], x
 
 
@@ -340,9 +339,9 @@ def ralston3(A, B, C, D, x, h, inputValue):
     k2 = h*(np.dot(A, x + k1/2) + B * inputValue)
     k3 = h*(np.dot(A, x + k2*3/4) + B*inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + (k1*2/9 + k2/3 + k3*4/9)
-    
+    y = np.dot(C, x) + D*inputValue
+
     return y[0, 0], x
 
 
@@ -371,8 +370,8 @@ def heun3(A, B, C, D, x, h, inputValue):
     k2 = h*(np.dot(A, x + k1/3) + B * inputValue)
     k3 = h*(np.dot(A, x + k2*2/3) + B*inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + (k1/4 + k3*3/4)
+    y = np.dot(C, x) + D*inputValue
 
     return y[0, 0], x
 
@@ -402,8 +401,8 @@ def runge_kutta3(A, B, C, D, x, h, inputValue):
     k2 = h*(np.dot(A, x + k1/2) + B * inputValue)
     k3 = h*(np.dot(A, x - k1 + k2*2) + B*inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + (k1/6 + k2*2/3 + k3/6)
+    y = np.dot(C, x) + D*inputValue
 
     return y[0, 0], x
 
@@ -432,8 +431,8 @@ def runge_kutta2(A, B, C, D, x, h, inputValue):
     k1 = h*(np.dot(A, x) + B * inputValue)
     k2 = h*(np.dot(A, x + k1/2) + B * inputValue)
 
-    y = np.dot(C, x) + D*inputValue
     x = x + k2
+    y = np.dot(C, x) + D*inputValue
 
     return y[0, 0], x
 

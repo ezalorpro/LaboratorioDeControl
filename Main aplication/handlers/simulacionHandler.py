@@ -76,6 +76,8 @@ def SimulacionHandler(self):
     self.main.kiSimulacion.editingFinished.connect(lambda: ki_validator(self))
     self.main.kdSimulacion.editingFinished.connect(lambda: kd_validator(self))
     self.main.NSimulacion.editingFinished.connect(lambda: N_validator(self))
+    
+    restablecer_configuracion(self)
 
 
 def tfnum_validator(self):
@@ -743,8 +745,8 @@ def restablecer_configuracion(self):
 
     self.main.padeOrder.setText('10')
     self.main.filtroCheck.setChecked(False)
-    self.main.solverMethod.setCurrentIndex(0)
-    self.main.rtolLineEdit.setText('1e-5')
+    self.main.solverMethod.setCurrentIndex(12)
+    self.main.rtolLineEdit.setText('1e-4')
     self.main.atolLineEdit.setText('1e-6')
     self.main.maxStepIncr.setText('5')
     self.main.minStepDecr.setText('0.2')
