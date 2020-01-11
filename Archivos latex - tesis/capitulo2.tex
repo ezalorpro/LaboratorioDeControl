@@ -280,11 +280,11 @@
 
             \begin{equation}\label{eq:RKstate}
                 \begin{aligned}
-                    k_1 &= h(Ax_n^{(j)} + Bu_m^{(j)}(t))\\
-                    k_2 &= h(A(x_n^{(j)} +  a_{21}k_1) + Bu_m^{(j)}(t + c_2 h))\\
-                    k_3 &= h(A(x_n^{(j)} +  a_{31}k_1 + a_{32}k_2) + Bu_m^{(j)}(t  + c_3 h))\\
+                    k_1 &= h(Ax_n^{(j)} + Bu_m(t))\\
+                    k_2 &= h(A(x_n^{(j)} +  a_{21}k_1) + Bu_m(t + c_2 h))\\
+                    k_3 &= h(A(x_n^{(j)} +  a_{31}k_1 + a_{32}k_2) + Bu_m(t  + c_3 h))\\
                     &\mathrel{\makebox[\widthof{=}]{\vdots}}\\
-                    k_s &= h(A(x_n^{(j)} + a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1}) + Bu_m^{(j)}(t  + c_s h))\\
+                    k_s &= h(A(x_n^{(j)} + a_{s1}k1 + \cdots +  a_{s,s-1}k_{s-1}) + Bu_m(t  + c_s h))\\
                     x_n^{(j+1)} &= x_n^{(j)} + (b_1 k_1 + \cdots + b_s k_s)
                 \end{aligned}
             \end{equation}
@@ -302,10 +302,10 @@
                 $s$: como el numero de escenarios
             \end{spacing}
 
-            \noindent finalmente, el vector de estado obtenido con \cref{eq:RKstate} sera sustituido en la siguiente iteración. Para obtener la salida actual se debe sustituir $x_n^{(j)}$  en \cref{eq:SSrepresentationY}. 
+            \noindent finalmente, el vector de estado obtenido con \cref{eq:RKstate} será utilizado en la siguiente iteración para continuar el proceso. Para obtener la salida actual se debe sustituir $x_n^{(j)}$  en \cref{eq:SSrepresentationY}. 
             
             \begin{equation}
-				y^{(j)} = Cx_n^{(j)} + Du_m^{(j)}(t) \label{eq:rkrepresentationY}
+				y^{(j)} = Cx_n^{(j)} + Du_m(t) \label{eq:rkrepresentationY}
             \end{equation}
             
             Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el numero de iteraciones a realizar. Un tamaño de paso pequeño genera resultados mas precisos pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, por tanto, el tamaño de paso es un factor muy importante en los metodos de Runge-Kutta.

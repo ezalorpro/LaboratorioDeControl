@@ -27,7 +27,7 @@ def dopri5(A, B, C, D, x, h, inputValue):
 
     x5th = x + (k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84)
     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 + k6*187/2100 + k7/40)
-    y5th = np.dot(C, x5th) + D*inputValue
+    y5th = np.dot(C, x) + D*inputValue
 
     return y5th[0, 0], x5th, x4th
 
@@ -161,25 +161,27 @@ def ejecutar(orden=5):
     min_step_decrease = 0.2
     max_step_increase = 5
     h_ant = 0.000001
-    rtol = 1e-9
-    atol = 1e-9
+    rtol = 1e-4
+    atol = 1e-6
     tiempo = 0.0
     tbound = 30
     sp = 1
-    salida = [0]
-    tiempo_out = [0]
+    salida = []
+    tiempo_out = []
     yb = 0
     sf1 = 0.8
     counter = 0.0
-    sc_t = [0]
-    error_ac = [0]
-    error_norm_ant = 0
+    sc_t = []
+    ypidb = 0
     # dopri5
     # fehlberg45dot
     RK = dopri5
 
     start = time.time()
     while tiempo < tbound:
+        sc_t.append(ypidb)
+        yb, vstadosB, _ = RK(A1, B1, C1, D1, vstadosB, h_ant, ypidb)
+        salida.append(yb)
         error = sp - yb
         while True:
             counter += 1
@@ -188,31 +190,28 @@ def ejecutar(orden=5):
                 h_ant = tbound - tiempo
 
             ypidb, x_five, x_four = RK(A2, B2, C2, D2, x_pidB, h_ant, error)
-            
+
             scale = atol + np.maximum(np.abs(x_five), np.abs(x_pidB)) * rtol
             delta1 = np.abs(x_five - x_four)
             error_norm = norm(delta1/scale)
 
-            if not sum(np.logical_not(delta1 <= scale)):
+            if error_norm == 0:
+                h_est = h_ant * max_step_increase
+            elif error_norm < 1 :
                 h_est = h_ant * min(
                     max_step_increase, max(1, sf1 * error_norm**(-1 / (orden+1))))
             else:
                 h_ant = h_ant * min(
                     1, max(min_step_decrease, sf1 * error_norm**(-1 / (orden+1))))
                 continue
-
-            error_ac.append(error_norm)
-            sc_t.append(ypidb)
-            yb, vstadosB, _ = RK(A1, B1, C1, D1, vstadosB, h_ant, ypidb)
             break
 
+        sp = 1
         print(tiempo)
-        salida.append(yb)
         tiempo += h_ant
         tiempo_out.append(tiempo)
         h_ant = h_est
         x_pidB = x_five
-        error_norm_ant = error_norm
 
     print(counter)
     print(len(tiempo_out))
@@ -229,9 +228,9 @@ def ejecutar(orden=5):
     # plt.grid()
     # plt.show()
 
-    plt.plot(tiempo_out, sc_t)
-    plt.grid()
-    plt.show()
+    # plt.plot(tiempo_out, sc_t)
+    # plt.grid()
+    # plt.show()
 
     # plt.plot(tiempo_out, error_ac)
     # plt.grid()

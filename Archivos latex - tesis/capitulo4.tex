@@ -804,7 +804,7 @@
         
         Para la comparacion de simulacion de sistemas de control se selecciono el sistema numero uno (1) de la \cref{tab:AnalisisSistemas}, los controladores difusos utilizados en cada caso son inadecuados para el control de procesos, i.e., no fueron diseñados con la finalidad de obtener una buena respuesta, la premisa para esta desicion se basa es que la respuesta obtenida debe ser parecida a la obtenida con MATLAB o SciLab, si dicha respuesta es oscilatoria se espera que el Laboratorio Virtual tambien responda del mismo modo, por tanto, la calidad de los controladores se consideró irrelevante. Los archivos FIS para los controladores utilizados se pueden observar en el \ref{anexo:ComparacionFISim}.
 
-        Los parametros bajo los que se realizaron las simulaciones como el setpoint, activacion o no del filtro de la derivada y/o bloques adiciones, fueron seleccionados de forma arbitraria con la finalidad de probar distintas funciones y obtener respuestas variadas, a su vez, se alterno el uso de de distintos solvers para cada herramienta con el fin de observar como afectaban la presicion. A continuacion, se presentan las tablas con los parametros de cada simulacion para cada herramienta.
+        Los parametros bajo los que se realizaron las simulaciones como el setpoint, activacion o no del filtro de la derivada y/o bloques adicionales, fueron seleccionados de forma arbitraria con la finalidad de probar distintas funciones y obtener respuestas variadas, a su vez, se alterno el uso de de distintos solvers para cada herramienta con el fin de observar como afectaban la presicion. A continuacion, se presentan las tablas con los parametros de cada simulacion para cada herramienta.
 
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
@@ -822,27 +822,27 @@
         \endhead
         \bottomrule
         \endfoot
-         P                           & RK2       & \num{1E-05} & \num{1E-06} & $K_p=1$                                   \\
-         PI                          & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=1$, delay=2s                     \\
-                                     &           &             &             &                                           \\[-3pt] 
-         \multirow{2}{*}{PID}        & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, con filtro               \\
-                                     & RK2       & \num{1E-05} & \num{1E-06} & $K_p=K_i=K_d=1$, sin filtro               \\
-                                     &           &             &             &                                           \\[-3pt]  
-         \multirow{3}{*}{PID difuso} & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Con filtro                                \\
-                                     & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Sin filtro                                \\
-                                     & ralston4  & \num{1E-06} & \num{1E-06} & Sin filtro                                \\
-                                     &           &             &             &                                           \\[-3pt]  
-         PID difuso                  & RK2       & \num{1E-05} & \num{1E-06} & Setpoint variable, con filtro             \\
-                                     &           &             &             &                                           \\[-3pt]  
-         \multirow{2}{*}{PI difuso}  & DOPRI5(4) & \num{1E-07} & \num{1E-07} & Sin filtro                                \\
-                                     & RK2       & \num{1E-05} & \num{1E-06} & Sin filtro                                \\
-                                    %  &           &             &             &                                           \\[-3pt]    
-         PI difuso                   & RK2       & \num{1E-05} & \num{1E-06} & Delay=0.5s, con filtro                    \\
-         PI difuso + D               & RK2       & \num{1E-05} & \num{1E-06} & $K_d=0.8$, setpoint variable, sin filtro  \\
-         PD difuso + I               & RK2       & \num{1E-05} & \num{1E-06} & $K_i=1$, setpoint variable, sin filtro    \\
-         PDG difuso                  & SSPRK3    & \num{1E-06} & \num{1E-06} & Con filtro                                \\
-         PDG difuso                  & RK2       & \num{1E-05} & \num{1E-06} & Saturador [0, 20], sin filtro             \\
-         PID mas difuso              & RK2       & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$                      \\
+         P                           & DOPRI5(4)    & \num{1E-04} & \num{1E-06} & $K_p=1$                                   \\
+         PI                          & DOPRI5(4)    & \num{1E-04} & \num{1E-06} & $K_p=K_i=1$, delay=2s                     \\
+                                     &              &             &             &                                           \\[-3pt] 
+         \multirow{2}{*}{PID}        & RK2          & \num{1E-06} & \num{1E-06} & $K_p=K_i=K_d=1$, con filtro               \\
+                                     & RK2          & \num{1E-06} & \num{1E-06} & $K_p=K_i=K_d=1$, sin filtro               \\
+                                     &              &             &             &                                           \\[-3pt]  
+         \multirow{3}{*}{PID difuso} & SSPRK3       & \num{1E-06} & \num{1E-06} & Con filtro                                \\
+                                     & SSPRK3       & \num{1E-06} & \num{1E-06} & Sin filtro                                \\
+                                     & DOPRI5(4)    & \num{1E-06} & \num{1E-06} & Sin filtro                                \\
+                                     &              &             &             &                                           \\[-3pt]  
+         PID difuso                  & DOPRI5(4)    & \num{1E-04} & \num{1E-06} & Setpoint variable, con filtro             \\
+                                     &              &             &             &                                           \\[-3pt]  
+         \multirow{2}{*}{PI difuso}  & DOPRI5(4)    & \num{1E-04} & \num{1E-07} & Sin filtro                                \\
+                                     & RK2          & \num{1E-06} & \num{1E-06} & Sin filtro                                \\
+                                    %  &              &             &             &                                           \\[-3pt]    
+         PI difuso                   & DOPRI5(4)    & \num{1E-04} & \num{1E-06} & Delay=0.5s, con filtro                    \\
+         PI difuso + D               & RK4          & \num{1E-05} & \num{1E-06} & $K_d=0.8$, setpoint variable, sin filtro  \\
+         PD difuso + I               & RK2          & \num{1E-06} & \num{1E-06} & $K_i=1$, setpoint variable, sin filtro    \\
+         PDG difuso                  & Fehlberg4(5) & \num{1E-04} & \num{1E-06} & Con filtro                                \\
+         PDG difuso                  & Ralston3     & \num{1E-05} & \num{1E-06} & Saturador [0, 20], sin filtro             \\
+         PID mas difuso              & RK2          & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$                      \\
         \end{longtable}}
 
         {\setlength\LTleft{0pt}
@@ -966,27 +966,27 @@
         \endhead
         \bottomrule
         \endfoot
-        P                            & 0.590  &         0.197          &        2.259           \\
-        PI                           & 0.831  &         0.483          &        2.007           \\
+        P                            & 0.530  &         0.197          &        2.259           \\
+        PI                           & 0.666  &         0.483          &        2.007           \\
                                      &        &                        &                        \\[-3pt]
-        \multirow{2}{*}{PID}         & 0.702  & \multirow{2}{*}{0.381} & \multirow{2}{*}{1.907} \\
+        \multirow{2}{*}{PID}         & 0.672  & \multirow{2}{*}{0.381} & \multirow{2}{*}{1.907} \\
                                      & 0.689  &                        &                        \\
                                      &        &                        &                        \\[-3pt]
-        \multirow{3}{*}{PID difuso}  & 14.181 &         1.019          &        11.334          \\
-                                     & 15.210 &         1.055          &        5.972           \\
-                                     & 11.381 &           -            &          -             \\
+        \multirow{3}{*}{PID difuso}  & 14.430 &         1.019          &        11.334          \\
+                                     & 13.198 &         1.055          &        5.972           \\
+                                     & 9.892  &           -            &          -             \\
                                      &        &                        &                        \\[-3pt]
-        PID difuso                   & 21.421 &         1.124          &        11.018          \\
+        PID difuso                   & 10.007 &         1.124          &        11.018          \\
                                      &        &                        &                        \\[-3pt]
-        \multirow{2}{*}{PI difuso}   & 6.684  & \multirow{2}{*}{0.688} & \multirow{2}{*}{6.177} \\
-                                     & 9.183  &                        &                        \\
+        \multirow{2}{*}{PI difuso}   & 4.376  & \multirow{2}{*}{0.688} & \multirow{2}{*}{6.177} \\
+                                     & 8.880  &                        &                        \\
                                      &        &                        &                        \\[-3pt]
-        PI difuso                    & 15.573 &         0.809          &        10.825          \\
-        PI difuso + D                & 13.752 &         0.962          &        12.513          \\
-        PD difuso + I                & 18.755 &         0.687          &        9.556           \\
-        PDG difuso                   & 15.477 &         1.641          &        8.343           \\
-        PDG difuso                   & 21.050 &         1.327          &        7.486           \\
-        PID mas difuso               & 4.276  &         0.837          &        3.959           \\
+        PI difuso                    & 5.947  &         0.809          &        10.825          \\
+        PI difuso + D                & 7.995  &         0.962          &        12.513          \\
+        PD difuso + I                & 19.329 &         0.687          &        9.556           \\
+        PDG difuso                   & 11.079 &         1.641          &        8.343           \\
+        PDG difuso                   & 17.684 &         1.327          &        7.486           \\
+        PID mas difuso               & 4.515  &         0.837          &        3.959           \\
         \end{longtable}}
 
 
