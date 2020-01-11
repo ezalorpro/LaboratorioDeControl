@@ -1,7 +1,7 @@
 import numpy as np
 import control as ctrl
 from matplotlib import pyplot as plt
-from scipy.integrate import BDF
+from scipy.integrate import RK45
 # from my_module import dopri5
 # from numba.pycc import CC
 import time
@@ -27,7 +27,7 @@ def dopri5(A, B, C, D, x, h, inputValue):
 
     x5th = x + (k1*35/384 + k3*500/1113 + k4*125/192 - k5*2187/6784 + k6*11/84)
     x4th = x + (k1*5179/57600 + k3*7571/16695 + k4*393/640 - k5*92097/339200 + k6*187/2100 + k7/40)
-    y5th = np.dot(C, x) + D*inputValue
+    y5th = np.dot(C, x5th) + D*inputValue
 
     return y5th[0, 0], x5th, x4th
 
@@ -166,13 +166,13 @@ def ejecutar(orden=5):
     tiempo = 0.0
     tbound = 30
     sp = 1
-    salida = []
-    tiempo_out = []
+    salida = [0]
+    tiempo_out = [0]
     yb = 0
     sf1 = 0.8
     counter = 0.0
-    sc_t = []
-    error_ac = []
+    sc_t = [0]
+    error_ac = [0]
     error_norm_ant = 0
     # dopri5
     # fehlberg45dot
@@ -229,9 +229,9 @@ def ejecutar(orden=5):
     # plt.grid()
     # plt.show()
 
-    # plt.plot(tiempo_out, sc_t)
-    # plt.grid()
-    # plt.show()
+    plt.plot(tiempo_out, sc_t)
+    plt.grid()
+    plt.show()
 
     # plt.plot(tiempo_out, error_ac)
     # plt.grid()

@@ -27,8 +27,8 @@ def ss_discreta(A, B, C, D, x, _, inputValue):
     :param inputValue: [Valor de entrada al sistema]
     :type inputValue: [float]
     """
-    y = np.dot(C, x) + D*inputValue
     x = np.dot(A, x) + B*inputValue
+    y = np.dot(C, x) + D*inputValue
 
     return y[0, 0], x
 

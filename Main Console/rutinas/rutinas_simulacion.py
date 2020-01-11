@@ -306,7 +306,7 @@ class SimpleThread(QtCore.QThread):
             # Acumulacion de la salida
             salida.append(y)
 
-            # Actualizacion de la barra de progreso cada 20% de avance
+            # Actualizacion de la barra de progreso cada 30% de avance
             if int(tiempo) % porcentajeBar == 0:
                 self.update_progresBar.emit(self.window, int(tiempo) * 100 / tiempo_total)
 
