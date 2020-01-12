@@ -114,14 +114,14 @@ ax.set_title('Controlador PI mas delay de 2s en el proceso', fontsize=11)
 ax.legend(loc=2)
 ax.grid()
 
-axins = ax.inset_axes([0.15, 0.12, 0.4, 0.33])
+axins = ax.inset_axes([0.17, 0.13, 0.4, 0.33])
 axins.plot(t_comun, yout_mat, color="#001C7F", linewidth=2)
 axins.plot(t_comun, yout_lv, 'r', dashes=[1, 2], linewidth=3)
 axins.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], linewidth=2)
 axins.grid()
-axins.set_xlim(t_comun[index_min] - 0.4, t_comun[index_max])
-axins.set_ylim(YMIN[index_min] - 3,
-               YMAX[index_max] + 0.5)
+axins.set_xlim(t_comun[index_min] - 0.00005, t_comun[index_max])
+axins.set_ylim(YMIN[index_min] - 4 * abs(YMIN[index_min] - YMAX[index_min]) / 2,
+               YMAX[index_max] + 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2)
 
 ax.indicate_inset_zoom(axins)
 fig.tight_layout()

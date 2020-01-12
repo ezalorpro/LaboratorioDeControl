@@ -1,6 +1,6 @@
 tic
 for i=1:10
-sim('PIDdmasf.slx')
+sim('PIdf.slx')
 
 t = salida.Time;
 yout = salida.Data;
@@ -15,4 +15,4 @@ plot(t, yc)
 end
 
 toc/10
-save('PIDdmasf9', 't', 'yout', 'yc')
+save('PIdf5', 't', 'yout', 'yc')

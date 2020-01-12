@@ -117,9 +117,20 @@ ax.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], label='SciLab', linew
 ax.plot(t_comun, set_point, 'k', linestyle='-.', label='SetPoint', linewidth=2)
 ax.set_title('Controlador PID difuso con setpoint variable')
 ax.set_ylim([-0.1, 1.7])
-ax.legend(loc=1)
+ax.legend(loc=8)
 ax.grid()
 
+axins = ax.inset_axes([0.57, 0.62, 0.4, 0.33])
+axins.plot(t_comun, yout_mat, color="#001C7F", label='MATLAB', linewidth=2)
+axins.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
+axins.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], label='SciLab', linewidth=2)
+axins.plot(t_comun, set_point, 'k', linestyle='-.', label='SetPoint', linewidth=2)
+axins.grid()
+axins.set_xlim(t_comun[index_max] - 0.2, t_comun[index_min] + 0.2)
+axins.set_ylim(YMIN[index_min] - 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2,
+               YMAX[index_max] + 1 * abs(YMIN[index_min] - YMAX[index_min]) / 2)
+
+ax.indicate_inset_zoom(axins)
 fig.tight_layout()
 plt.savefig('comparisonFiles/plots/Simulacion/PIDdf.pdf')
 plt.show()

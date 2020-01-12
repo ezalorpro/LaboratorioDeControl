@@ -314,7 +314,7 @@ class SimpleThread(QtCore.QThread):
             setpoint.append(u)
 
             # Acumulacion del tiempo
-            tiempo +=h
+            tiempo += h
             Tiempo_list.append(tiempo)
             h = h_new
             i +=1
@@ -596,7 +596,7 @@ class SimpleThread(QtCore.QThread):
                 setpoint.append(u)
 
                 # Acumulacion del tiempo
-                tiempo +=h
+                tiempo += h
                 Tiempo_list.append(tiempo)
                 h = h_new
                 i +=1
@@ -693,7 +693,7 @@ class SimpleThread(QtCore.QThread):
                 setpoint.append(u)
 
                 # Acumulacion del tiempo
-                tiempo +=h
+                tiempo += h
                 Tiempo_list.append(tiempo)
                 h = h_new
                 i +=1
@@ -786,7 +786,7 @@ class SimpleThread(QtCore.QThread):
                 setpoint.append(u)
 
                 # Acumulacion del tiempo
-                tiempo +=h
+                tiempo += h
                 Tiempo_list.append(tiempo)
                 h = h_new
                 i +=1
@@ -887,7 +887,7 @@ class SimpleThread(QtCore.QThread):
                 setpoint.append(u)
 
                 # Acumulacion del tiempo
-                tiempo +=h
+                tiempo += h
                 Tiempo_list.append(tiempo)
                 h = h_new
                 i +=1
