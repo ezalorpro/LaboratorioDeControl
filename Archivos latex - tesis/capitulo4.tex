@@ -933,7 +933,9 @@
 
         En el caso del Laboratorio Virtual, es claro que ninguna de sus respuestas es la mas precisa, pero mantiene la forma de la respuesta para todos los metodos, por otro lado, tambien se observan los efectos del filtro para la derivada, su uso genera una mejor respuesta debido a la alta dependencia de las derivadas para este controlador, lo anterior es notable al comparar la respuesta del metodo SSPRK3 con filtro y sin filtro, no obstante, tambien se observa que para la simulacion presentada en la \cref{fig:PIDcf2} DOPRI5(4) con el filtro presenta una respuesta menos precisa que sin el filtro. 
         
-        Los solvers de SciLab son los que presentan la mejor respuesta, de hecho, ambas respuestas se superponen a simple vista, esto es debido a que BDF-Newton es acto para problemas stiff y LSODAR posee una deteccion automatica entre problemas stiff y no stiff que le permite cambiar en cada paso entre BDF para problemas stiff y Adam para problemas no stiff. Otras simulaciones que presentaron resultados interesantes fueron las asociadas al controlador PI difuso, las cuales se pueden ver en la \cref{fig:PIdifuso}, el Laboratorio Virtual presento diferencias menores con respecto a MATLAB y SciLab dependiendo del solver utilizado, pero por otro lado, tal como se observa en la \cref{fig:PIf2}, hacer uso del filtro provoca un atraso en la respuesta indeseado. 
+        Los solvers de SciLab son los que presentan la mejor respuesta, de hecho, ambas respuestas se superponen a simple vista, esto es debido a que BDF-Newton es acto para problemas stiff y LSODAR posee una deteccion automatica entre problemas stiff y no stiff que le permite cambiar en cada paso entre BDF para problemas stiff y Adam para problemas no stiff.
+        
+        Otras simulaciones que presentaron resultados interesantes fueron las asociadas al controlador PI difuso, las cuales se pueden ver en la \cref{fig:PIdifuso}, el Laboratorio Virtual presento diferencias menores con respecto a MATLAB y SciLab dependiendo del solver utilizado, pero por otro lado, tal como se observa en la \cref{fig:PIf2}, hacer uso del filtro provoca un atraso en la respuesta indeseado. 
 
         \begin{figure}[htb]
             \centering
@@ -953,7 +955,7 @@
             \caption[Simulacion del controlador PI difuso en tiempo continuo]{\textbf{Simulacion del controlador PI difuso en tiempo continuo}. (a) PI difuso con setpoint basico, (b) PI difuso con 0.5s de delay en el proceso. Fuente: Elaboración propia. \label{fig:PIdifuso}}
         \end{figure}
 
-        El resto de simulaciones presentaron diferencias entre las distintas herramientas dentro de lo razonable, por otro lado, los tiempos de ejecucion fueron notablemente altos para el caso del Laboratorio Virtual a la hora de utilizar controladores difusos. Los tiempos de ejecucion se pueden observar en la \cref{tab:timeC}.
+        Hay que resaltar que para la simulacion de la \cref{fig:PIDcf2} se realizaron otras pruebas sin filtro y con distintos solvers y no se consiguio obtener una respuesta parecida a la de MATLAB y SciLab, el motivo de esta diferencia es aun desconocido. El resto de simulaciones presentaron diferencias entre las distintas herramientas dentro de lo razonable, por otro lado, los tiempos de ejecucion fueron notablemente altos para el caso del Laboratorio Virtual a la hora de utilizar controladores difusos. Los tiempos de ejecucion se pueden observar en la \cref{tab:timeC}.
 
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
@@ -989,6 +991,35 @@
         PDG difuso                   & 11.079 &         1.641          &        8.343           \\
         PDG difuso                   & 17.684 &         1.327          &        7.486           \\
         PID mas difuso               & 4.515  &         0.837          &        3.959           \\
+        \end{longtable}}
+
+        Para la simulacion en en tiempo discreto se seleccionaron arbitrariamente metodos de discretizacion y periodos de muestreo, a su vez, se realizo una simulacion por cada tipo de controlador estableciendo los mismos parametros extras que para tiempo continuo en aquellos casos que se presentaran, i.g., setpoint avanzado, con lo cual se tendra a su vez, una comparacion directa con sus contrapartes en tiempo contiuo. Motivado a que en este caso no hay ningun tipo de solver involucrado los parametros mostrados en la \cref{tab:parametrosD} son generales para las tres herramientas.
+
+        {\setlength\LTleft{0pt}
+        \setlength\LTright{0pt}
+        \centering
+        \footnotesize
+        \renewcommand{\arraystretch}{0.89}
+        \begin{longtable}{l @{\extracolsep{\fill}} ccc}
+        \caption[Parametros de simulacion en tiempo discreto]{Parametros de simulacion en tiempo discreto} 
+        \label{tab:parametrosD} \\
+        \toprule
+        Controlador  & Metodo & Periodo de muestreo & Otros       \\ \midrule
+        \endfirsthead
+        \toprule
+        Controlador  & Metodo & Periodo de muestreo & Otros       \\ \midrule
+        \endhead
+        \bottomrule
+        \endfoot
+         P              & ZOH           & 0.1  & $K_p=1$                      \\
+         PI             & Tustin        & 0.1  & $K_p=K_i=1$, delay=2s        \\
+         PID            & Tustin        & 0.05 & $K_p=K_i=K_d=1$              \\
+         PID difuso     & Tustin        & 0.01 & Setpoint variable            \\
+         PI difuso      & backward diff & 0.05 & Delay=0.5s                   \\
+         PI difuso + D  & Euler         & 0.08 & $K_d=0.8$, setpoint variable \\
+         PD difuso + I  & Impulse       & 0.1  & $K_i=1$, setpoint variable   \\
+         PDG difuso     & ZOH           & 0.1  & Saturador [0, 20]            \\
+         PID mas difuso & ZOH           & 0.01 & $K_p=0.2, K_i=K_d=1$         \\
         \end{longtable}}
 
 

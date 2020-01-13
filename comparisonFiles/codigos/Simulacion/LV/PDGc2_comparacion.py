@@ -111,7 +111,7 @@ fig, ax = plt.subplots(figsize=(5.1, 4.2))
 ax.plot(t_comun, yout_mat, color="#001C7F", label='MATLAB/ode23tb', linewidth=2)
 ax.plot(t_comun, yout_lv, 'r', dashes=[1, 2], label='LV/Ralston3 sin filtro', linewidth=3)
 ax.plot(t_comun, yout_sci, color="#12711C", dashes=[2, 2], label='SciLab/LSODAR', linewidth=2)
-ax.set_title('Controlador PID con programador de ganancias\n difuso y satuador de salida [0, 20]',
+ax.set_title('Controlador PID con programador de ganancias\n difuso y saturador de salida [0, 20]',
              fontsize=11)
 ax.legend(loc=5, bbox_to_anchor=(0.97, 0.65))
 ax.grid()
