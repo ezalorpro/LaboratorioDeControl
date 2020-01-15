@@ -35,8 +35,6 @@
         \end{subfigure}
         \caption[Interfaz gráfica para el análisis de sistemas de control]{\textbf{Interfaz gráfica para el análisis de sistemas de control}. (a) Interfaz gráfica general representando al sistema con función de transferencia, (b) Cambios presentes si utiliza la representación con ecuaciones de espacio de estados. Fuente: Elaboración propia. \label{fig:interfazAnalisis}}
     \end{figure}
-    
-    \addtocontents{lof}{\vspace{-3pt}}
 
     \begin{multicols}{2}
         \begin{enumerate}[leftmargin=20pt]
@@ -2197,6 +2195,10 @@
 
 \AgregarAnexo{Comparacion de simulacion de sistemas de control}{anexo:ComparacionSimC}
     
+    \addtocontents{lof}{\protect\hfill\par\bigskip}
+    \addtocontents{lof}{\protect\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
+    \addtocontents{lof}{\protect~\hfill\par}
+
     \begin{figure}[!h]
         \centering
         \begin{subfigure}[t]{0.99\textwidth}
@@ -2212,10 +2214,6 @@
         \caption[Comparacion de simulacion de sistemas de control continuos - 1]{\textbf{Comparacion de simulacion de sistemas de control en tiempo continuo - 1}. Controladores: P, PI, PID, PI difuso + D, PD difuso mas I y PDG. Fuente: Elaboración propia. \label{fig:simC1f}}
     \end{figure}
 
-    \addtocontents{lof}{\protect\hfill\par\bigskip}
-    \addtocontents{lof}{\protect\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
-    \addtocontents{lof}{\protect~\hfill\par}
-
     \begin{figure}[htb]
         \centering
         \begin{subfigure}[t]{0.99\textwidth}
@@ -2225,4 +2223,29 @@
             \label{fig:simC2}
         \end{subfigure}
         \caption[Comparacion de simulacion de sistemas de control continuos - 2]{\textbf{Comparacion de simulacion de sistemas de control en tiempo continuo - 2}. Controladores:PDG con saturador y PID + difuso simple. Fuente: Elaboración propia. \label{fig:simC2f}}
+    \end{figure}
+
+    \begin{figure}[htb]
+        \centering
+        \begin{subfigure}[t]{0.99\textwidth}
+            \centering
+            \includegraphics[width=0.49\textwidth,valign=c]{LV/Pd.pdf}
+            \includegraphics[width=0.49\textwidth,valign=c]{LV/PId.pdf}
+            \includegraphics[width=0.49\textwidth,valign=c]{LV/PIDd.pdf}
+            \includegraphics[width=0.49\textwidth,valign=c]{LV/PIDdf.pdf}
+            \label{fig:simD1}
+        \end{subfigure}
+        \caption[Comparacion de simulacion de sistemas de control discretos - 1]{\textbf{Comparacion de simulacion de sistemas de control en tiempo discreto - 1}. Controladores: P, PI, PID y PID difuso. Fuente: Elaboración propia. \label{fig:simD1f}}
+    \end{figure}
+
+    \begin{figure}[htb]
+        \centering
+        \begin{subfigure}[t]{0.99\textwidth}
+            \centering
+            \includegraphics[width=0.49\textwidth,valign=c]{LV/PImasDd.pdf}
+            \includegraphics[width=0.49\textwidth,valign=c]{LV/PDmasId.pdf}
+            \includegraphics[width=0.49\textwidth,valign=c]{LV/PIDmasfd.pdf}
+            \label{fig:simD2}
+        \end{subfigure}
+        \caption[Comparacion de simulacion de sistemas de control discretos - 2]{\textbf{Comparacion de simulacion de sistemas de control en tiempo discreto - 2}. Controladores: PI difuso + D, PD difuso + I y PID + difuso simple. Fuente: Elaboración propia. \label{fig:simC2f}}
     \end{figure}
