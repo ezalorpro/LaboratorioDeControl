@@ -1,6 +1,6 @@
 \section{Estructura general}
 
-    El laboratorio virtual de sistemas de control clásicos y difusos fue pensado de modo que cada una de sus funcionalidades principales sean independientes la una de la otra, no obstante, ciertas rutinas son comunes entre ellas. Por otro lado, se organizo la aplicación de modo que cada funcionalidad principal posea un archivo \enquote{handler}, el cual hará de intermediario entre la interfaz gráfica y las rutinas de calculo que se encuentran en un archivo de rutinas. La \cref{fig:estructuraMain} sirve como referencia de la estructura general utilizada.
+    El laboratorio virtual de sistemas de control clásicos y difusos fue pensado de modo que cada una de sus funcionalidades principales sean independientes la una de la otra, no obstante, ciertas rutinas son comunes entre ellas. Por otro lado, se organizó la aplicación de modo que cada funcionalidad principal posea un archivo \enquote{handler}, el cual hará de intermediario entre la interfaz gráfica y las rutinas de calculo que se encuentran en un archivo de rutinas. La \cref{fig:estructuraMain} sirve como referencia de la estructura general utilizada.
 
     \begin{figure}[htb]
         \centering
@@ -11,7 +11,7 @@
 
 \section{Análisis de sistemas de control}
     
-    Con esta función se quiso dar la posibilidad de realizar los análisis en el tiempo y en frecuencia típicos para un proceso ingresado por el usuario, los análisis típicos son: respuesta al escalón, respuesta al impulso, diagrama de bode, diagrama de Nyquist, lugar de las raíces y diagrama de Nichols. El \cref{code:analisis} muestra un pseudo código de la funcionalidad de análisis de sistemas de control y la interfaz grafica correspondiente se puede observar en el \ref{anexo:interfazAnalisis}.
+    Con esta función se quiso dar la posibilidad de realizar los análisis en el tiempo y en frecuencia típicos para un proceso ingresado por el usuario, los análisis típicos son: respuesta al escalón, respuesta al impulso, diagrama de bode, diagrama de Nyquist, lugar de las raíces y diagrama de Nichols. El \cref{code:analisis} muestra un pseudo código de la funcionalidad de análisis de sistemas de control y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazAnalisis}.
 
     \begin{longlisting}
         \caption[Pseudo código - Análisis de sistemas de control]{Pseudo código para el análisis de sistemas de control}
@@ -46,15 +46,15 @@
 
     \subsection{Definición del proceso}
 
-        Un proceso deberá ser ingresado para poder realizar el análisis, la entonación o la simulación del mismo. El sistema puede ser definido con los coeficientes del numerador y el denominador de la función de transferencia o puede ser definido ingresando las matrices A, B, C y D de la ecuación de espacio de estados. En ambos casos se deben cumplir con los principios matemáticos que correspondan, i.g., las función de transferencia no puede ser impropia.
+        Un proceso deberá ser ingresado para poder realizar el análisis, la entonación o la simulación del mismo. El sistema puede ser definido con los coeficientes del numerador y el denominador de la función de transferencia o puede ser definido ingresando las matrices A, B, C y D de la ecuación de espacio de estados. En ambos casos se deben cumplir con los principios matemáticos que correspondan, i.g., la función de transferencia no puede ser impropia.
 
     \subsubsection{Tiempo discreto}
 
-        La opción de discretizacion permite llevar el proceso ingresado en tiempo continuo a una aproximación en tiempo discreto con solo ingresar el periodo de muestreo y seleccionar el método a utilizar. Se implementaron los siguientes métodos de discretizacion:
+        La opción de discretización permite llevar el proceso ingresado en tiempo continuo a una aproximación en tiempo discreto con solo ingresar el periodo de muestreo y seleccionar el método a utilizar. Se implementaron los siguientes métodos de discretización:
 
         \begin{enumerate}[leftmargin=\parindent]
-            \item Retensor de orden cero  (ZOH)
-            \item Retensor de primer orden (FOH)
+            \item Retenedor de orden cero (ZOH)
+            \item Retenedor de primer orden (FOH)
             \item Euler hacia atrás (backward\_diff)
             \item Euler hacia adelante (Euler)
             \item Transformación bilineal (Tustin)
@@ -66,7 +66,7 @@
         
         A los procesos ingresados se les puede agregar un atraso, este atraso es manejado de forma distinta dependiendo de la funcionalidad. Para el caso de la funcionalidad de análisis, el delay fue implementado para la respuesta escalón y la respuesta impulso como un desplazamiento en el tiempo equivalente al delay ingresado, para la respuesta en frecuencia se multiplico $e^{-j\omega \alpha}$ a cada una de las evaluaciones de frecuencia con $\alpha$ como el delay ingresado por el usuario. Para el caso del lugar de las raíces, el delay es implementado utilizando una aproximación por PADE.
 
-        Si el proceso es definido en tiempo discreto el mismo es multiplicado por $z^{-\alpha/T}$ con la idea de retrasar las muestras en un numero equivalente al delay deseado, de este modo, no hay casos especiales dependiendo del tipo de análisis.
+        Si el proceso es definido en tiempo discreto el mismo es multiplicado por $z^{-\alpha/T}$ con la idea de retrasar las muestras en un número equivalente al delay deseado, de este modo, no hay casos especiales dependiendo del tipo de análisis.
 
     \subsection{Respuesta al escalón}
         
@@ -78,7 +78,7 @@
 
     \subsection{Diagrama de Bode}
         
-        Se obtiene la respuesta en frecuencia del sistema, con los datos de la respuesta en frecuencia se realiza las gráficas de magnitud y fase. Adicional a las gráficas fue implementado el calculo de los margenes de ganancia y de fase, la implementación fue realizada desde cero debido a los resultados inaceptables obtenidos con la implementación de la librería de control. El código para el calculo de los margenes de ganancia y fase se puede observar en el \ref{anexo:margenes}.
+        Se obtiene la respuesta en frecuencia del sistema, con los datos de la respuesta en frecuencia se realiza las gráficas de magnitud y fase. Adicional a las gráficas fue implementado el cálculo de los márgenes de ganancia y de fase, la implementación fue realizada desde cero debido a los resultados inaceptables obtenidos con la implementación de la librería de control. El código para el cálculo de los márgenes de ganancia y fase se puede observar en el \ref{anexo:margenes}.
     
     \subsection{Diagrama de Nyquist}
         
@@ -90,15 +90,15 @@
     
     \subsection{Diagrama de Nichols}
         
-        A diferencia del diagrama de Nyquist aca se señala el punto $(0dB, -180^\circ)$, la librería de controla ya viene con la opción para superponer una rejilla que representa a la Carta de Nichols.
+        A diferencia del diagrama de Nyquist acá se señala el punto $(0dB, -180^\circ)$, la librería de controla ya viene con la opción para superponer una rejilla que representa a la Carta de Nichols.
 
     \subsection{Despliegue de datos}
         
-        Los datos obtenidos se muestran de forma escrita, los datos a desplegar son: el sistema ingresado, los datos de la respuesta al escalón, los margenes de ganancia y fase, los valores eigen y su respectivo damping.
+        Los datos obtenidos se muestran de forma escrita, los datos a desplegar son: el sistema ingresado, los datos de la respuesta al escalón, los márgenes de ganancia y fase, los valores eigen y su respectivo damping.
 
 \section{Entonación de controladores PID}
 
-    Esta función fue dividida en dos apartados, el primero, es la entonación de un proceso en lazo cerrado con un controlador PID,las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando el método de Ziegler-Nichols o Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID y la interfaz grafica correspondiente se puede observar en el \ref{anexo:interfazentonacion}.
+    Esta función fue dividida en dos apartados, el primero, es la entonación de un proceso en lazo cerrado con un controlador PID, las ganancias del controlador son ajustables por el usuario, adicionalmente, se puede realizar una entonación automática utilizando el método de Ziegler-Nichols o Cohen-Coon. La segunda opción permite cargar la data de respuesta ante un escalón desde un archivo CSV para realizar la entonación. El \cref{code:entonacion} muestra un pseudo código de la funcionalidad de entonación de controladores PID y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazentonacion}.    
     
     \begin{longlisting}
         \caption[Pseudo código - Entonación de controladores PID]{Pseudo código para la entonación de controladores PID}
@@ -132,17 +132,17 @@
         \end{minted}
     \end{longlisting}
 
-    El forma de definición de procesos presentado en la funcionalidad de análisis de sistemas de control es reutilizada para esta sección. Al igual que para el análisis de sistemas de control, inicialmente se valida cada una de las entradas del usuario y se chequea si el botón para realizar los cálculos fue presionado, una vez presionado el botón de calcular se procede a verificar que tipo de calculo se va a realizar entre: entonación manual, entonación automática o entonación con archivo CSV.
+    La forma de definición de procesos presentado en la funcionalidad de análisis de sistemas de control es reutilizada para esta sección. Al igual que para el análisis de sistemas de control, inicialmente se valida cada una de las entradas del usuario y se chequea si el botón para realizar los cálculos fue presionado, una vez presionado el botón de calcular se procede a verificar que tipo de cálculo se va a realizar entre: entonación manual, entonación automática o entonación con archivo CSV.
 
     \subsection{Entonación de sistema en lazo cerrado con PID}
         
-        Para el calculo de la respuesta al escalón se utiliza la librería de control, el esquema implementado es el presentado en la \cref{fig:esquemaPID}. El controlador PID fue definido utilizando \cref{eq:pidcompleja} y sustituyendo la componente derivativa por \cref{eq:Daproximacion}. Si el sistema es representado en tiempo discreto se utiliza \cref{eq:pidenZ} para definir al controlador PID.
+        Para el cálculo de la respuesta al escalón se utiliza la librería de control, el esquema implementado es el presentado en la \cref{fig:esquemaPID}. El controlador PID fue definido utilizando \cref{eq:pidcompleja} y sustituyendo la componente derivativa por \cref{eq:Daproximacion}. Si el sistema es representado en tiempo discreto se utiliza \cref{eq:pidenZ} para definir al controlador PID.
         
-        Asi mismo, para la entonación automática se realiza una prueba escalón en lazo abierto con el propósito de calcular \cref{eq:parametroK}, \cref{eq:parametroTau} y \cref{eq:parametroAlfa}, luego, se sustituyen los valores en la \cref{tab:ZiglerNichols,tab:CohenCoon} con el fin de realizar una entonación por el método Ziegler-Nichols y Cohen-Coon según la selección del usuario.
+        Así mismo, para la entonación automática se realiza una prueba escalón en lazo abierto con el propósito de calcular \cref{eq:parametroK}, \cref{eq:parametroTau} y \cref{eq:parametroAlfa}, luego, se sustituyen los valores en la \cref{tab:ZiglerNichols,tab:CohenCoon} con el fin de realizar una entonación por el método Ziegler-Nichols y Cohen-Coon según la selección del usuario.
 
     \subsection{Entonación utilizando un archivo CSV}
 
-        Como ya se menciono, con esta opción se permite cargar un archivo CSV que contenga la data de respuesta a un escalon con la finalidad de obtener su aproximacion de primer orden con tiempo muerto y poder realizar una entonacion utilizando el método de Zigler-Nichols o Cohen-Coon. El usuario debe ingresar el limite superior e inferior de la variable del proceso (Vp) y de la entrada al sistema, normalmente, la señal del elemento final de control (EFC), adiocionalmente, debe ingresar el separador del archivo CSV cuyo valor por defecto es una coma (,).
+        Como ya se mencionó, con esta opción se permite cargar un archivo CSV que contenga la data de respuesta a un escalón con la finalidad de obtener su aproximación de primer orden con tiempo muerto y poder realizar una entonación utilizando el método de Zigler-Nichols o Cohen-Coon. El usuario debe ingresar el límite superior e inferior de la variable del proceso (Vp) y de la entrada al sistema, normalmente, la señal del elemento final de control (EFC), adicionalmente, debe ingresar el separador del archivo CSV cuyo valor por defecto es una coma (,).
 
         El algoritmo aproximara los parámetros de un modelo de primer orden con tiempo muerto utilizando el punto de máxima pendiente para trazar una recta, este punto quedara como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automático no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.g., como la observada en la \cref{fig:ZNtest}.
 
@@ -150,7 +150,7 @@
 
 \section{Diseño de controladores difusos}
     
-    Para el diseño de controladores difusos se utiliza de fondo la librería Scikit-Fuzzy, la cual permite por medio de código Python diseñar controladores difusos tipo Mamdani, graficar las funciones de membresía y realizar el proceso de inferencia para el controlador diseñado. La mayoría de la funcionalidad consiste en ser un intermediario entre las entradas del usuario por medio de la interfaz gráfica y el código que requiere Scikit-Fuzzy para poder definir un controlador. Adicional a lo anterior, se implemento la posibilidad de cargar y exportar archivos FIS con ciertas limitaciones tanto en la importación como en la exportación. El \cref{code:fuzzylogic} muestra un pseudo código de la funcionalidad de diseño de controladores difusos y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazFuzzy}.
+    Para el diseño de controladores difusos se utiliza de fondo la librería Scikit-Fuzzy, la cual permite por medio de código Python diseñar controladores difusos tipo Mamdani, graficar las funciones de membresía y realizar el proceso de inferencia para el controlador diseñado. La mayoría de la funcionalidad consiste en ser un intermediario entre las entradas del usuario por medio de la interfaz gráfica y el código que requiere Scikit-Fuzzy para poder definir un controlador. Adicional a lo anterior, se implementó la posibilidad de cargar y exportar archivos FIS con ciertas limitaciones tanto en la importación como en la exportación. El \cref{code:fuzzylogic} muestra un pseudo código de la funcionalidad de diseño de controladores difusos y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazFuzzy}.    
 
     \begin{longlisting}
         \caption[Pseudo código - Diseño de controladores difusos]{Pseudo código para el diseño de controladores difusos}
@@ -186,13 +186,13 @@
 
         Los controladores difusos fueron divididos para su diseño en dos categorías, genéricos y basados en un esquema de control especifico.
         
-        \subsubsection{Controladores genericos}
+        \subsubsection{Controladores genéricos}
 
             Los controladores genéricos pueden tener un numero arbitrario de entradas y salidas con un máximo de diez entradas o salidas, al ser genéricos, no se garantiza que puedan ser utilizados en la funcionalidad de simulación de sistemas de control, por tanto, sirve para diseñar cualquier sistema de inferencia difuso con o sin el propósito de utilizarle como controlador.
 
-            \paragraph{Funciones de membresia}
+            \paragraph{Funciones de membresía}
 
-                Scikit-Fuzzy posee todas las funciones de membresías descritas por las ecuaciónes \cref{eq:trimf} a la \cref{eq:gbellmf} junto con las funciones compuestas: gauss2mf, dsigmf, psigmf y pimf. Para poder cambiar entre funciones de membresía se codificaron transformaciones aproximadamente equivalente entre las definiciones de las mismas, se llamo definición a los valores necesarios para poder definir la función de membresía. El código para realizar las transformaciones se puede observar en el \ref{anexo:mfequivalencia}.
+                Scikit-Fuzzy posee todas las funciones de membresías descritas por las ecuaciones \cref{eq:trimf} a la \cref{eq:gbellmf} junto con las funciones compuestas: gauss2mf, dsigmf, psigmf y pimf. Para poder cambiar entre funciones de membresía se codificaron transformaciones aproximadamente equivalentes entre las definiciones de las mismas, se llamó definición a los valores necesarios para poder definir la función de membresía. El código para realizar las transformaciones se puede observar en el \ref{anexo:mfequivalencia}.
 
             \paragraph{Defuzzificacion}
 
@@ -204,17 +204,17 @@
 
         \subsubsection{Controladores basados en esquemas}
 
-            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el numero de entradas, el numero de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control especifico que debe cumplir con un numero de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:esquemas}.
+            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el número de entradas, el número de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control especifico que debe cumplir con un número de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:esquemas}.    
 
     \subsection{Guardado de controladores difusos}
 
         \subsubsection{Archivos JSON}
         
-            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma especifica con el laboratorio virtual de sistemas de control, los archivos JSON guardan datos que luego pueden ser cargados de forma directa con la librería JSON de Python. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:json}.
+            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma específica con el laboratorio virtual de sistemas de control, los archivos JSON guardan datos que luego pueden ser cargados de forma directa con la librería JSON de Python. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:json}.
 
         \subsubsection{Archivos FIS}
 
-            Los archivos FIS son otra forma de cargar el controlador difuso o exportarlo, existen ciertas limitaciones en la carga y en el exportado de archivos FIS producto de las posibilidades que ofrece Scikit-Fuzzy.
+            Los archivos FIS son otra forma de cargar el controlador difuso o exportarlo, existen ciertas limitaciones en la carga y en el exportado de archivos FIS producto de las posibilidades que ofrece Scikit-Fuzzy.    
 
             \paragraph{Cargar controlador}
             
@@ -262,7 +262,7 @@
 
     \subsection{Esquemas de simulación}
 
-        Para la simulación de sistemas de control se implementaron los esquemas de control presentados en el \cref{sec:esquemasFuzzy} y otros esquemas que se encuentran compuestos de la combinación de los mismos. Como ya se menciono, los esquemas de control se pueden observar en el \ref{anexo:esquemas} y se listan a continuación:
+        Para la simulación de sistemas de control se implementaron los esquemas de control presentados en el \cref{sec:esquemasFuzzy} y otros esquemas que se encuentran compuestos de la combinación de los mismos. Como ya se mencionó, los esquemas de control se pueden observar en el \ref{anexo:esquemas} y se listan a continuación:
 
         \begin{enumerate}[leftmargin=\parindent]
             \item PID clásico
@@ -276,11 +276,11 @@
             \item PID clásico + Difuso simple (P)
         \end{enumerate}
 
-        A la derivada de aquellos esquemas que requieran su calculo se les fue agregado una función de transferencia en serie con la misma para limitar la respuesta a las altas frecuencias, esto es debido a que las simulaciones se van a realizar con un método de Runge-Kutta que requeriría un tamaño de paso muy pequeño para poder aproximar de forma correcta incluso a una derivada aproximada dada por \cref{eq:Daproximacion}, y un incremento en el numero de pasos provocaría, a su vez, un incremento en los tiempos de simulación para los esquemas con controladores difusos, y en consecuencia, volviendo la herramienta impráctica.
+        A la derivada de aquellos esquemas que requieran su cálculo se les fue agregado una función de transferencia en serie con la misma para limitar la respuesta a las altas frecuencias, esto es debido a que las simulaciones se van a realizar con un método de Runge-Kutta que requeriría un tamaño de paso muy pequeño para poder aproximar de forma correcta incluso a una derivada aproximada dada por \cref{eq:Daproximacion}, y un incremento en el número de pasos provocaría, a su vez, un incremento en los tiempos de simulación para los esquemas con controladores difusos, y en consecuencia, volviendo la herramienta impráctica.
 
     \subsection{Solución por Runge-Kutta}
 
-        Como ya se menciono, la simulación se llevara acabo utilizando un método de Runge-Kutta, para ello se implementaron múltiples métodos, el usuario puede seleccionar cualquiera de ellos para realizar la simulación. En total se implementaron nueve Runge-Kutta's explícitos y cuatro embebidos. Las tablas de Butcher para cada uno de los métodos implementados se pueden observar en el \ref{anexo:butcher}, a continuación, se presenta una lista de los métodos implementados:
+        Como ya se mencionó, la simulación se llevará a cabo utilizando un método de Runge-Kutta, para ello se implementaron múltiples métodos, el usuario puede seleccionar cualquiera de ellos para realizar la simulación. En total se implementaron nueve Runge-Kutta's explícitos y cuatro embebidos. Las tablas de Butcher para cada uno de los métodos implementados se pueden observar en el \ref{anexo:butcher}, a continuación, se presenta una lista de los métodos implementados:
 
         \begin{enumerate}[leftmargin=\parindent]
             \item Explícitos:
@@ -292,21 +292,21 @@
                     \item Strong Stability Preserving Runge-Kutta (SSPRK) de orden 3
                     \item Runge-Kutta de orden 4
                     \item Runge-Kutta 3/8 de orden 4
-                    \item Ralston con minimo error de truncamiento de orden 4
+                    \item Ralston con mínimo error de truncamiento de orden 4
                     \item Runge-Kutta de orden 5
                 \end{enumerate}
             \item Embebidos:
                 \begin{enumerate}
                     \item Bogacki-Shampine de orden 3(2)
-                    \item Fehlberg  de orden 4(5)
+                    \item Fehlberg de orden 4(5)
                     \item Cash-Karp de orden 4(5)
                     \item Dormand-Prince de orden 5(4)
                 \end{enumerate}
         \end{enumerate}
 
-        Con el fin mejorar la precision y mantener el numero de pasos al minimo se implemento un algoritmo de ajuste del tamaño de paso para los metodos de Runge-Kutta, para el caso de los Runge-Kutta explicitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo codigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los codigos en Python se pueden observar en el \ref{anexo:stepsize}.
+        Con el fin mejorar la precisión y mantener el número de pasos al mínimo se implementó un algoritmo de ajuste del tamaño de paso para los métodos de Runge-Kutta, para el caso de los Runge-Kutta explícitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo códigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los códigos en Python se pueden observar en el \ref{anexo:stepsize}.
 
-        El calculo del tamaño de paso se realiza con el bloque que presente mayores variaciones y requiera la mayor presicion, i.e., el menor tamaño de paso, en la mayoria de los casos este bloque es o incluye a la componente derivativa. Para el resto de bloques que requieran ser calculados, se utiliza un Runge-Kutta explicito con tamaño de paso igual al calculado, el Runge-Kutta utilizado varia segun el metodo utilizado.
+        El cálculo del tamaño de paso se realiza con el bloque que presente mayores variaciones y requiera la mayor precisión, i.e., el menor tamaño de paso, en la mayoría de los casos este bloque es o incluye a la componente derivativa. Para el resto de bloques que requieran ser calculados, se utiliza un Runge-Kutta explicito con tamaño de paso igual al calculado, el Runge-Kutta utilizado varia según el método utilizado.
 
         \pagebreak
 
@@ -376,11 +376,11 @@
             \end{minted}
         \end{longlisting}
 
-\section{Comparacion con MATLAB y SciLab}
+\section{Comparación con MATLAB y SciLab}
 
-    \subsection{Analisis de sistemas de control}
+    \subsection{Análisis de sistemas de control}
         
-        Para realizar la comparacion entre el Laboratorio Virtual, MATLAB y SciLab se seleccionaron tres sistemas distintos, los sistemas fueron seleccionados de modo que abarcaran la mayor parte de las funciones disponibles. En la \cref{tab:AnalisisSistemas} se puede observar los sistemas a utilizar, los sistemas discretos se obtuvieron a partir de los continuos utilizando un ZOH, transformacion Tustin y un FOH respectivamente, con periodos de muestreo de 0.1s, 0.2s y 0.05s en cada caso.
+        Para realizar la comparación entre el Laboratorio Virtual, MATLAB y SciLab se seleccionaron tres sistemas distintos, los sistemas fueron seleccionados de modo que abarcaran la mayor parte de las funciones disponibles. En la \cref{tab:AnalisisSistemas} se puede observar los sistemas a utilizar, los sistemas discretos se obtuvieron a partir de los continuos utilizando un ZOH, transformación Tustin y un FOH respectivamente, con periodos de muestreo de 0.1s, 0.2s y 0.05s en cada caso.    
 
         \begin{table}[htb]
             \centering 
@@ -389,7 +389,7 @@
                 \setlength{\arraycolsep}{1.5pt}
                 \footnotesize
                 \renewcommand{\arraystretch}{2}
-                \caption[Sistemas para la comparacion de analisis de sistemas de control]{Sistemas para la comparacion de analisis de sistemas de control}
+                \caption[Sistemas para la comparación de análisis de sistemas de control]{Sistemas para la comparación de análisis de sistemas de control}
                 \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}cc}
                     \toprule
                         Nº &   Continuo & Discreto \\ \midrule \renewcommand{\arraystretch}{4}
@@ -413,7 +413,7 @@
             \end{threeparttable}
         \end{table}
 
-        Para poder realizar los calculos numericos de diferencia absoluta y diferencia de area se realizo una interpolacion con el fin de ajustar el numero de muestras entre los vectores de tiempo/frecuencia y los valores correspondientes, i.g., que ambos vectores de salida tengan un valor de salida para t=0.5s. En el caso de MATLAB, la funciones de analisis de sistemas de control crean su propio vector de tiempo y frecuencia segun sea el caso, por otro lado, en SciLab se deben asignar los valores de forma explicita, por tanto, se utilizo el vector de tiempo del Laboratorio Virtual y el vector de frecuencia de MATLAB. Con las consideraciones anteriores se realizaron las comparaciones respectivas y se obtuvieron los resultados observados en las \cref{tab:AnalisisStepC,tab:AnalisisStepD}:
+        Para poder realizar los cálculos numéricos de diferencia absoluta y diferencia de área se realizó una interpolación con el fin de ajustar el número de muestras entre los vectores de tiempo/frecuencia y los valores correspondientes, i.g., que ambos vectores de salida tengan un valor de salida para t=0.5s. En el caso de MATLAB, las funciones de análisis de sistemas de control crean su propio vector de tiempo y frecuencia según sea el caso, por otro lado, en SciLab se deben asignar los valores de forma explícita, por tanto, se utilizó el vector de tiempo del Laboratorio Virtual y el vector de frecuencia de MATLAB. Con las consideraciones anteriores se realizaron las comparaciones respectivas y se obtuvieron los resultados observados en las \cref{tab:AnalisisStepC,tab:AnalisisStepD}:
         
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
@@ -421,7 +421,7 @@
         \centering
         \renewcommand{\arraystretch}{0.87}
         \begin{longtable}{l @{\extracolsep{\fill}} ccccc}
-            \caption[Comparacion de analisis - tiempo continuo]{Comparacion de analisis para los sistemas en tiempo continuo}
+            \caption[Comparación de análisis - tiempo continuo]{Comparación de análisis para los sistemas en tiempo continuo}
             \label{tab:AnalisisStepC} \\
             \toprule
                     & \multicolumn{3}{c}{MATLAB} & \multicolumn{2}{c}{SciLab}\\ \cmidrule{2-4}\cmidrule{5-6}
@@ -435,33 +435,33 @@
             \endhead
             \bottomrule
             \endfoot
-            Respuesta escalon      &  &  &  &  & \\ \cmidrule{1-1}
+            Respuesta escalón      &  &  &  &  & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{9.271E-06} & \num{2.159E-05} & \num{6.380E-03} & \num{3.030E-12} & \num{4.457E-09}  \\
             Diferencia porcentual  & \num{5.865E-02} & \num{1.620E-03} & \num{1.738E+00} & \num{2.877E-10} & \num{1.867E-07}  \\
             RECM                   & \num{1.409E-06} & \num{2.052E-06} & \num{1.278E-03} & \num{1.142E-12} & \num{1.364E-09}  \\
             Diferencia de area     & \num{4.224E-07} & \num{9.102E-06} & \num{3.154E-03} & \num{1.862E-12} & \num{8.108E-08}  \\
-            Distancia de energia   & \num{9.796E-05} & \num{4.379E-05} & \num{2.346E-03} & \num{2.892E-08} & \num{4.225E-07}  \\
+            Distancia de energía   & \num{9.796E-05} & \num{4.379E-05} & \num{2.346E-03} & \num{2.892E-08} & \num{4.225E-07}  \\
             & & & & & \\
             Respuesta impulso      &  &  &  &  & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{1.117E-05} & \num{4.449E-05} & \num{4.489E-05} & \num{4.473E-12} & \num{1.129E-10}  \\
             Diferencia porcentual  & \num{6.702E-03} & \num{3.385E-03} & \num{3.514E-03} & \num{8.514E-07} & \num{1.717E-05}  \\
             RECM                   & \num{2.026E-06} & \num{4.125E-06} & \num{7.657E-06} & \num{1.557E-12} & \num{5.246E-11}  \\
             Diferencia de area     & \num{8.168E-06} & \num{1.290E-05} & \num{1.600E-05} & \num{1.422E-12} & \num{2.720E-09}  \\
-            Distancia de energia   & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
+            Distancia de energía   & \num{1.120E-04} & \num{5.985E-05} & \num{1.712E-04} & \num{3.540E-08} & \num{9.027E-08}  \\
             & & & & & \\
             Bode - Magnitud        &  &  &  &  & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{3.072E-05} & \num{7.125E-04} & \num{4.807E-04} & \num{3.072E-05} & \num{7.125E-04}  \\
             Diferencia porcentual  &        --       & \num{7.032E-03} & \num{5.047E-03} &        --       & \num{7.032E-03}  \\
             RECM                   & \num{1.204E-05} & \num{1.339E-04} & \num{1.072E-04} & \num{1.204E-05} & \num{1.339E-04}  \\
             Diferencia de area     & \num{1.259E-03} & \num{2.379E-03} & \num{1.179E-03} & \num{1.259E-03} & \num{2.379E-03}  \\
-            Distancia de energia   & \num{5.439E-04} & \num{1.118E-03} & \num{1.224E-03} & \num{5.439E-04} & \num{1.118E-03}  \\
+            Distancia de energía   & \num{5.439E-04} & \num{1.118E-03} & \num{1.224E-03} & \num{5.439E-04} & \num{1.118E-03}  \\
             & & & & & \\
             Bode - Fase            &  &  &  &  & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{2.525E-04} & \num{9.020E-03} & \num{3.272E-03} & \num{2.525E-04} & \num{9.020E-03}  \\
             Diferencia porcentual  & \num{2.062E-04} & \num{1.161E-02} & \num{1.287E-03} & \num{2.062E-04} & \num{1.161E-02}  \\
             RECM                   & \num{6.375E-05} & \num{1.276E-03} & \num{7.010E-04} & \num{6.375E-05} & \num{1.276E-03}  \\
             Diferencia de area     & \num{5.777E-04} & \num{2.603E-05} & \num{1.509E-04} & \num{5.777E-04} & \num{2.603E-05}  \\
-            Distancia de energia   & \num{9.920E-04} & \num{2.885E-03} & \num{3.068E-03} & \num{9.920E-04} & \num{2.885E-03}  \\
+            Distancia de energía   & \num{9.920E-04} & \num{2.885E-03} & \num{3.068E-03} & \num{9.920E-04} & \num{2.885E-03}  \\
             & & & & & \\
             Margen de ganancia     &  &  &  &  & \\ \cmidrule{1-1}
             Diferencia absoluta    &        NaN      &       NaN       & \num{1.625E-02} &       NaN       &        NaN       \\
@@ -476,17 +476,17 @@
             Diferencia porcentual  & \num{1.662E+00} & \num{2.053E+00} & \num{2.687E+02} & \num{1.662E+00} & \num{2.053E+00}  \\
             RECM                   & \num{4.593E-04} & \num{2.131E-03} & \num{1.333E-02} & \num{4.593E-04} & \num{2.131E-03}  \\
             Diferencia de area     & \num{8.741E-04} & \num{1.253E-02} & \num{8.024E-02} & \num{8.741E-04} & \num{1.253E-02}  \\
-            Distancia de energia   & \num{4.725E-04} & \num{6.415E-03} & \num{8.350E-03} & \num{4.725E-04} & \num{6.415E-03}  \\
+            Distancia de energía   & \num{4.725E-04} & \num{6.415E-03} & \num{8.350E-03} & \num{4.725E-04} & \num{6.415E-03}  \\
             & & & & & \\
             Lugar de las raíces    &  &  &  &  & \\ \cmidrule{1-1}
-            Distancia de energia   & \num{4.268E-01} & \num{4.136E-01} & \num{1.379E-01} & -- & --  \\
+            Distancia de energía   & \num{4.268E-01} & \num{4.136E-01} & \num{1.379E-01} & -- & --  \\
             & & & & & \\
             Nichols                &  &  &  &  & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{1.037E+00} & \num{8.484E-02} & \num{7.789E-02} & \num{1.037E+00} & \num{8.484E-02}  \\
             Diferencia porcentual  & \num{1.414E+00} & \num{1.023E+00} & \num{1.068E+00} & \num{1.414E+00} & \num{1.023E+00}  \\
             RECM                   & \num{2.092E-01} & \num{1.641E-02} & \num{1.846E-02} & \num{2.092E-01} & \num{1.641E-02}  \\
             Diferencia de area     & \num{4.596E-01} & \num{1.418E+00} & \num{1.597E+02} & \num{4.596E-01} & \num{1.418E+00}  \\
-            Distancia de energia   & \num{2.369E-02} & \num{3.587E-03} & \num{3.421E-03} & \num{2.369E-02} & \num{3.587E-03}  \\
+            Distancia de energía   & \num{2.369E-02} & \num{3.587E-03} & \num{3.421E-03} & \num{2.369E-02} & \num{3.587E-03}  \\
         \end{longtable}}
         
         {\setlength\LTleft{0pt}
@@ -495,7 +495,7 @@
         \centering
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{l @{\extracolsep{\fill}} cccc}
-            \caption[Comparacion de analisis - tiempo discreto]{Comparacion de analisis para los sistemas en tiempo discreto}
+            \caption[Comparación de análisis - tiempo discreto]{Comparación de análisis para los sistemas en tiempo discreto}
             \label{tab:AnalisisStepD} \\
             \toprule
                     & \multicolumn{3}{c}{MATLAB} & SciLab   \\ \cmidrule{2-4}\cmidrule{5-5}
@@ -509,33 +509,33 @@
             \endhead
             \bottomrule
             \endfoot
-            Respuesta escalon      & & & & \\ \cmidrule{1-1}
+            Respuesta escalón      & & & & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{8.438E-15} & \num{6.457E-13} & \num{5.895E-14} & \num{1.021E-14}  \\
             Diferencia porcentual  & \num{8.437E-13} & \num{2.592E-11} & \num{6.456E-12} & \num{1.008E-12}  \\
             RECM                   & \num{3.472E-15} & \num{4.229E-13} & \num{2.053E-14} & \num{4.687E-15}  \\
             Diferencia de area     & \num{0.000E+00} & \num{3.939E-11} & \num{5.009E-13} & \num{3.553E-15}  \\
-            Distancia de energia   & \num{5.361E-09} & \num{3.983E-08} & \num{6.870E-09} & \num{6.034E-09}  \\
+            Distancia de energía   & \num{5.361E-09} & \num{3.983E-08} & \num{6.870E-09} & \num{6.034E-09}  \\
             & & & & \\
             Respuesta impulso      & & & & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{1.832E-15} & \num{3.916E-14} & \num{3.331E-14} & \num{1.832E-15}  \\
             Diferencia porcentual  & \num{5.258E-13} & \num{2.352E-11} & \num{2.784E-12} & \num{5.258E-13}  \\
             RECM                   & \num{5.464E-16} & \num{8.837E-15} & \num{9.464E-15} & \num{5.485E-16}  \\
             Diferencia de area     & \num{2.220E-16} & \num{5.289E-13} & \num{1.354E-14} & \num{2.220E-16}  \\
-            Distancia de energia   & \num{1.759E-09} & \num{4.588E-09} & \num{3.871E-09} & \num{1.769E-09}  \\
+            Distancia de energía   & \num{1.759E-09} & \num{4.588E-09} & \num{3.871E-09} & \num{1.769E-09}  \\
             & & & & \\
             Bode - Magnitud        & & & & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{3.893E-03} & \num{3.378E-01} & \num{2.067E-02} & \num{3.893E-03}  \\
             Diferencia porcentual  & \num{5.135E-03} & \num{5.775E-01} & \num{3.383E-02} & \num{5.135E-03}  \\
             RECM                   & \num{6.899E-04} & \num{3.636E-02} & \num{3.492E-03} & \num{6.899E-04}  \\
             Diferencia de area     & \num{7.633E-03} & \num{3.772E-02} & \num{3.476E-02} & \num{7.633E-03}  \\
-            Distancia de energia   & \num{2.480E-03} & \num{1.036E-02} & \num{4.893E-03} & \num{2.480E-03}  \\
+            Distancia de energía   & \num{2.480E-03} & \num{1.036E-02} & \num{4.893E-03} & \num{2.480E-03}  \\
             & & & & \\
             Bode - Fase            & & & & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{4.406E-01} & \num{9.114E-03} & \num{5.692E-01} & \num{4.406E-01}  \\
             Diferencia porcentual  & \num{1.958E-01} & \num{1.164E-02} & \num{1.039E-02} & \num{1.958E-01}  \\
             RECM                   & \num{5.350E-02} & \num{1.775E-03} & \num{7.215E-02} & \num{5.350E-02}  \\
             Diferencia de area     & \num{1.140E-01} & \num{8.149E-04} & \num{3.163E-01} & \num{1.140E-01}  \\
-            Distancia de energia   & \num{1.446E-02} & \num{3.770E-03} & \num{1.847E-02} & \num{1.446E-02}  \\
+            Distancia de energía   & \num{1.446E-02} & \num{3.770E-03} & \num{1.847E-02} & \num{1.446E-02}  \\
             & & & & \\
             Margen de ganancia     & & & & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{6.090E-02} &        NaN      & \num{1.624E-02} & \num{5.524E-02}  \\
@@ -550,31 +550,31 @@
             Diferencia porcentual  & \num{2.026E+00} & \num{2.128E+00} & \num{3.310E+02} & \num{2.026E+00}  \\
             RECM                   & \num{4.328E-04} & \num{2.066E-03} & \num{1.184E-02} & \num{4.328E-04}  \\
             Diferencia de area     & \num{9.357E-04} & \num{1.303E-02} & \num{6.475E-02} & \num{9.357E-04}  \\
-            Distancia de energia   & \num{4.358E-04} & \num{1.323E-03} & \num{8.612E-03} & \num{4.358E-04}  \\
+            Distancia de energía   & \num{4.358E-04} & \num{1.323E-03} & \num{8.612E-03} & \num{4.358E-04}  \\
             & & & & \\
             Lugar de las raíces    & & & & \\ \cmidrule{1-1}
-            Distancia de energia   & \num{2.601E-01} & \num{2.076E-02} & \num{6.991E-01} &        --        \\
+            Distancia de energía   & \num{2.601E-01} & \num{2.076E-02} & \num{6.991E-01} &        --        \\
             & & & & \\
             Nichols                & & & & \\ \cmidrule{1-1}
             Diferencia absoluta    & \num{9.413E-02} & \num{5.167E-01} & \num{1.346E-01} & \num{9.413E-02}  \\
             Diferencia porcentual  & \num{1.302E-01} & \num{1.147E+00} & \num{2.610E-01} & \num{1.302E-01}  \\
             RECM                   & \num{1.643E-02} & \num{2.490E-02} & \num{1.891E-02} & \num{1.643E-02}  \\
             Diferencia de area     & \num{1.907E+00} & \num{1.093E+00} & \num{4.307E+00} & \num{1.907E+00}  \\
-            Distancia de energia   & \num{2.518E-03} & \num{3.993E-03} & \num{3.392E-03} & \num{2.518E-03}  \\
+            Distancia de energía   & \num{2.518E-03} & \num{3.993E-03} & \num{3.392E-03} & \num{2.518E-03}  \\
         \end{longtable}}
 
-        Los datos y sistemas faltantes en las tablas mostradas se debe a limitaciones tecnicas de SciLab o la imposibilidad de realizar los calculos. Ante las limitaciones tecnicas de SciLab se opto por descartar la comparacion bajo la premisa que la facilidad de implementacion es un factor a tener en cuenta en estas comparativas, a continuacion se presenta una lista con las razones especificas:
+        Los datos y sistemas faltantes en las tablas mostradas se deben a limitaciones técnicas de SciLab o la imposibilidad de realizar los cálculos. Ante las limitaciones técnicas de SciLab se optó por descartar la comparación bajo la premisa que la facilidad de implementación es un factor a tener en cuenta en estas comparativas, a continuación, se presenta una lista con las razones específicas:
 
         \begin{itemize}[leftmargin=\parindent]
             \item SciLab no posee funciones directas para implementar sistemas con atrasos o aproximarlos con PADE.
-            \item La diferencia maxima se encontraba en un valor de cero (0), por lo que no se puede calcular la diferencia porcentual.
+            \item La diferencia máxima se encontraba en un valor de cero (0), por lo que no se puede calcular la diferencia porcentual.
             \item NaN indica que el margen de ganancia para ese sistema es infinito.
-            \item La funcion evans de SciLab, la cual se encarga de generar el lugar de las raíces no devuelve ningun tipo de data, por cual no se puede realizar una comparacion numerica o grafica.
-            \item Cuando se realizaron los calculos para el lugar de las raíces se observo que existia una pobre alineacion entre los valores de salida, por tanto, realizar un calculo de error arrojaba valores no confiables. El problema tambien fue dectado al realizar la graficacion del area entre una respuesta y la otra, en donde se observaban areas entre tramos separados del lugar de las raíces.
-            \item La funcion para discretizar sistemas continuos de SciLab no permite seleccionar un metodo en particular y utiliza, por defecto, ZOH.
+            \item La función evans de SciLab, la cual se encarga de generar el lugar de las raíces no devuelve ningun tipo de data, por cual no se puede realizar una comparación numérica o gráfica.
+            \item Cuando se realizaron los cálculos para el lugar de las raíces se observó que existía una pobre alineación entre los valores de salida, por tanto, realizar un cálculo de error arrojaba valores no confiables. El problema también fue detectado al realizar la graficacion del área entre una respuesta y la otra, en donde se observaban áreas entre tramos separados del lugar de las raíces.
+            \item La función para discretizar sistemas continuos de SciLab no permite seleccionar un método en particular y utiliza, por defecto, ZOH.
         \end{itemize}
 
-        De las \cref{tab:AnalisisStepC,tab:AnalisisStepD} se puede extraer que existentes diferencias minimas  entre el Laboratorio Virtual y MATLAB/SciLab en terminos de presicion, a su vez, se logra percibir la gran dependencia que existe del vector de tiempo y frecuencia. Las metricas de analisis de frecuencia dieron iguales o muy parecidas tanto para MATLAB como para SciLab, esto se debe a que se utilizo el mismo vector de frecuencia para ambos, de modo similar, para la respuesta escalon e impulso se obtuvieron diferencias minimas entre el Laboratorio Virtual y SciLab por el uso del mismo vector de tiempo, lo anterior tambien es observable para los sistemas discretos dado que los vectores de tiempo son gobernados por el periodo de muestreo. La comparacion grafica con MATLAB se puede observar a modo de ejemplo en la \cref{fig:Set1} para el sistema continuo uno (1), para observar la comparacion grafica de los demas sistemas ir al \ref{anexo:CAnalisis}.
+        De las \cref{tab:AnalisisStepC,tab:AnalisisStepD} se puede extraer que existentes diferencias mínimas  entre el Laboratorio Virtual y MATLAB/SciLab en términos de precisión, a su vez, se logra percibir la gran dependencia que existe del vector de tiempo y frecuencia. Las métricas de análisis de frecuencia dieron iguales o muy parecidas tanto para MATLAB como para SciLab, esto se debe a que se utilizó el mismo vector de frecuencia para ambos, de modo similar, para la respuesta escalón e impulso se obtuvieron diferencias mínimas entre el Laboratorio Virtual y SciLab por el uso del mismo vector de tiempo, lo anterior también es observable para los sistemas discretos dado que los vectores de tiempo son gobernados por el periodo de muestreo. La comparación grafica con MATLAB se puede observar a modo de ejemplo en la \cref{fig:Set1} para el sistema continuo uno (1), para observar la comparación grafica de los demás sistemas ir al \ref{anexo:CAnalisis}.
         
         \pagebreak
 
@@ -590,26 +590,26 @@
                 \includegraphics[width=0.49\textwidth,valign=c]{MATLAB/Set1Nichols.png}
                 \label{fig:Set1sub}
             \end{subfigure}
-            \caption[Comparacion de analisis/MATLAB - sistema continuo 1]{\textbf{Comparacion de analisis/MATLAB - sistema continuo 1}. Fuente: Elaboración propia. \label{fig:Set1}}
+            \caption[Comparación de análisis/MATLAB - sistema continuo 1]{\textbf{Comparación de análisis/MATLAB - sistema continuo 1}. Fuente: Elaboración propia. \label{fig:Set1}}
         \end{figure}
 
         \clearpage
 
-        La anterior comparativa es basada en presicion utilizando las funciones de MATLAB y SciLab a base de codigo, no obstante, el Laboratorio Virtual permite realizar los analisis con solo definir el sistema a analizar, este metodo de analisis tambien se puede realizar en MATLAB con la aplicacion (app) Linear System Analyzer, la cual permite realizar las mismas funciones, en el caso de SciLab no existe una aplicacion similar.
+        La anterior comparativa es basada en precisión utilizando las funciones de MATLAB y SciLab a base de código, no obstante, el Laboratorio Virtual permite realizar los análisis con solo definir el sistema a analizar, este método de análisis también se puede realizar en MATLAB con la aplicación (app) Linear System Analyzer, la cual permite realizar las mismas funciones, en el caso de SciLab no existe una aplicación similar.
 
     \subsection{Entonación de controladores PID}
         
-        Para la funcion de entonacion de controladores PID no se realizo una comparacion numerica dado que los resultados seran los ya vistos en la funcion de analisis, por tanto, la comparacion se enfocara en la funcion per se y su forma de uso.
+        Para la función de entonación de controladores PID no se realizó una comparación numérica dado que los resultados serán los ya vistos en la función de análisis, por tanto, la comparación se enfocará en la función per se y su forma de uso.
 
-        El Laboratorio Virtual permite ajustar las ganancias del controlador PID con solo deslizar los sliders correspondientes, permitiendo visualizar los efectos del aumento de cada una de los componentes del controlador PID, a su vez, permite habilitar y deshabilitar cada componente de forma sencilla permitiendo asi, una forma visual de entonacion rapida y sin complicaciones. En el caso de MATLAB, existen varias herramientas de entonacion, la que presenta mayor similitud es el PID Tuner, el cual permite entonar el controlador basado en el tiempo de respuesta y en el transitorio, no permite ajustar de forma individual cada ganancia, pero si contiene otras funciones no disponibles en el Laboratorio Virtual. En el caso de SciLab, no existe ninguna herramienta que cumpla con la funcion de entonar controladores PID.
+        El Laboratorio Virtual permite ajustar las ganancias del controlador PID con solo deslizar los sliders correspondientes, permitiendo visualizar los efectos del aumento de cada una de los componentes del controlador PID, a su vez, permite habilitar y deshabilitar cada componente de forma sencilla permitiendo así, una forma visual de entonación rápida y sin complicaciones. En el caso de MATLAB, existen varias herramientas de entonación, la que presenta mayor similitud es el PID Tuner, el cual permite entonar el controlador basado en el tiempo de respuesta y en el transitorio, no permite ajustar de forma individual cada ganancia, pero si contiene otras funciones no disponibles en el Laboratorio Virtual. En el caso de SciLab, no existe ninguna herramienta que cumpla con la función de entonar controladores PID.
 
-        En ambos casos, tanto el Laboratorio Virtual como el PID Tuner de MATLAB permite realizar una entonacion automatica y realizar ajustes finales de forma manual, el Laboratorio Virtual utiliza los metodos de Ziegler-Nichols y Cohen-Coon, en el caso de MATLAB no se conoce que metodo es utilizado. Para la identificacion y entonacion de sistemas a partir de data recolectada, MALTAB posee la aplicacion System Identification, la cual tiene una gran cantidad de opciones superiores al Laboratorio Virtual en lo que a identifiacion de sistemas respecta, no obstante, el Laboratorio Virtual tiene la ventaja de poseer una entonacion automatica al mismo tiempo que se realiza la identificacion. Nuevamente, SciLab no posee herramientas que puedan realizar identificacion de sistemas a partir de la data recolectada, si bien, las anteriores funciones pueden ser implementadas a codigo, el problema recae en el usuario.
+        En ambos casos, tanto el Laboratorio Virtual como el PID Tuner de MATLAB permite realizar una entonación automática y realizar ajustes finales de forma manual, el Laboratorio Virtual utiliza los métodos de Ziegler-Nichols y Cohen-Coon, en el caso de MATLAB no se conoce que método es utilizado. Para la identificación y entonación de sistemas a partir de data recolectada, MALTAB posee la aplicación System Identification, la cual tiene una gran cantidad de opciones superiores al Laboratorio Virtual en lo que a identificación de sistemas respecta, no obstante, el Laboratorio Virtual tiene la ventaja de poseer una entonación automática al mismo tiempo que se realiza la identificación. Nuevamente, SciLab no posee herramientas que puedan realizar identificación de sistemas a partir de la data recolectada, si bien, las anteriores funciones pueden ser implementadas a código, el problema recae en el usuario.
 
     \subsection{Diseño de controladores difusos}
 
-        La comparacion se realizo utilizando como base dos controladores difusos diseñados utilizando el Laboratorio virtual y exportando su diseño en un archivo FIS. Los controladores fueron diseñados bajo el principio de utilizar gran parte de las posibilidades en terminos de funciones de membresia y reglas, por tanto, no seran aptos para el control de procesos, pero si ideales para realizar la comparacion con MATLAB y SciLab.
+        La comparación se realizó utilizando como base dos controladores difusos diseñados utilizando el Laboratorio virtual y exportando su diseño en un archivo FIS. Los controladores fueron diseñados bajo el principio de utilizar gran parte de las posibilidades en términos de funciones de membresía y reglas, por tanto, no serán aptos para el control de procesos, pero si ideales para realizar la comparación con MATLAB y SciLab.
 
-        El primer controlador posee una entrada y una salida, la entrada a su vez contiene cinco etiquedas genericas con una funcion de membresia distinta cada una, por otro lado, la salida esta compuesta de tres etiquetas con funciones de membresia triangulares, el metodo de defuzzificacion seleccionado es el del centro de area (Centroid). En la \cref{fig:controladorDifuso} se pueden observar las funciones de membresia de la entrada y la salida junto con las areas de activacion de reglas para una determinada entrada. El segundo controlador diseñado posee dos entradas y dos salidas con tres etiquetas en todos los casos, el metodo de defuzzificacion seleccionado fue el de primero a la izquierda (SOM). La estructura de los archivos FIS se puede observar en el \ref{anexo:ComparacionDifuso}.
+        El primer controlador posee una entrada y una salida, la entrada a su vez contiene cinco etiquetas genéricas con una función de membresía distinta cada una, por otro lado, la salida está compuesta de tres etiquetas con funciones de membresía triangulares, el método de defuzzificacion seleccionado es el del centro de área (Centroid). En la \cref{fig:controladorDifuso} se pueden observar las funciones de membresía de la entrada y la salida junto con las áreas de activación de reglas para una determinada entrada. El segundo controlador diseñado posee dos entradas y dos salidas con tres etiquetas en todos los casos, el método de defuzzificacion seleccionado fue el de primero a la izquierda (SOM). La estructura de los archivos FIS se puede observar en el \ref{anexo:ComparacionDifuso}.
 
         \vspace{10pt}
 
@@ -629,17 +629,17 @@
                 \label{fig:outputGraph}
             \end{subfigure}
             
-            \caption[Controlador difuso 1 para la comparacion]{\textbf{Controlador difuso 1 para la comparacion}. a) Entrada del controlador, b) Salida del controlador. Fuente: Elaboración propia. \label{fig:controladorDifuso}}
+            \caption[Controlador difuso 1 para la comparación]{\textbf{Controlador difuso 1 para la comparación}. (a) Entrada del controlador, (b) Salida del controlador. Fuente: Elaboración propia. \label{fig:controladorDifuso}}
         \end{figure}
 
-        En las \cref{tab:C1Difuso,tab:C2Difuso} se presentan los set de entradas y salidas para los controladores 1 y 2 respectivamente. Las salidas de MATLAB se obtuvieron utilizando la funcion evalfis y evalfls para SciLab, en ambos casos se utilizo un parametro de valores de interpolacion de 5001. 
+        En las \cref{tab:C1Difuso,tab:C2Difuso} se presentan los set de entradas y salidas para los controladores 1 y 2 respectivamente. Las salidas de MATLAB se obtuvieron utilizando la función evalfis y evalfls para SciLab, en ambos casos se utilizó un parámetro de valores de interpolación de 5001.
 
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
         \centering
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{c @{\extracolsep{\fill}} ccc}
-            \caption[Comparacion de diseño de controladores difusos - controlador 1]{Comparacion para el controlador 1} 
+            \caption[Comparación de diseño de controladores difusos - controlador 1]{Comparación para el controlador 1} 
             \label{tab:C1Difuso} \\
             \toprule
             Entrada1  &        \multicolumn{3}{c}{Salida1}        \\ \cmidrule{1-1} \cmidrule{2-4}
@@ -676,7 +676,7 @@
         \scriptsize
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{c @{\extracolsep{\fill}} ccccccc}
-            \caption[Comparacion de diseño de controladores difusos - controlador 2]{Comparacion para el controlador 2} 
+            \caption[Comparación de diseño de controladores difusos - controlador 2]{Comparación para el controlador 2} 
             \label{tab:C2Difuso} \\
             \toprule
             \multicolumn{2}{c}{Entradas}& \multicolumn{2}{c}{Laboratorio Virtual} & \multicolumn{2}{c}{MATLAB} & \multicolumn{2}{c}{SciLab} \\ \cmidrule{1-2}\cmidrule{3-4}\cmidrule{5-6}\cmidrule{7-8}
@@ -711,9 +711,9 @@
             \num{1}    & \num{10}  & \num{1}    & \num{0}    & \num{1}   & \num{0}    & \num{1}    & \num{0}     \\
         \end{longtable}}
 
-        Para el controlador 1 la \cref{tab:C1Difuso} muestra que la diferencia entre respuestas es despreciable, la diferencia porcentual promedio entre el Laboratorio Virtual y MATLAB/SciLab fue en ambos casos de \num{1.10E-01}. Las graficas de respuesta del controlador 1 para las tres herramientas se pueden observar en la \cref{fig:respuestaC1}. En el caso del controlador 2, MATLAB presenta resultados dispares respecto al Laboratorio Virtual y Scilab, esto se debe a que MATLAB no aplica la definicion del metodo de defuzzificacion del primero a la izquierda como deberia ser y esto provoca que sus resultados sean erroneos e impredecibles, en concecuencia, no se realizo calculo de diferencia dado que carece de sentido con MATLAB por lo ya descrito, y con SciLab la diferencia es de cero. Las superficies de respuesta para el controlador 2 se pueden observar en las \cref{fig:respuestaC2LV,fig:respuestaC2MATLAB,fig:respuestaC2SciLab}.
+        Para el controlador 1 la \cref{tab:C1Difuso} muestra que la diferencia entre respuestas es despreciable, la diferencia porcentual promedio entre el Laboratorio Virtual y MATLAB/SciLab fue en ambos casos de \num{1.10E-01}. Las gráficas de respuesta del controlador 1 para las tres herramientas se pueden observar en la \cref{fig:respuestaC1}. En el caso del controlador 2, MATLAB presenta resultados dispares respecto al Laboratorio Virtual y Scilab, esto se debe a que MATLAB no aplica la definición del método de defuzzificacion del primero a la izquierda como debería ser y esto provoca que sus resultados sean erróneos e impredecibles, en consecuencia, no se realizó cálculo de diferencia dado que carece de sentido con MATLAB por lo ya descrito, y con SciLab la diferencia es de cero. Las superficies de respuesta para el controlador 2 se pueden observar en las \cref{fig:respuestaC2LV,fig:respuestaC2MATLAB,fig:respuestaC2SciLab}.
 
-        En terminos de la interfaz para el diseño de controladores difusos las tres herramientas presentan un enfoque similar con solo pequeñas variaciones sin mucho impacto, por el lado de funciones disponibles, las variaciones tampoco son grandes, aunque MATLAB y SciLab permiten diseñar controladores Larsen y Tagaki-Sugeno-Khan, estos se encuentran fuera del alcanze de este trabajo. Algo a resaltar es la posibilidad del Laboratorio Virtual de asignar metodos de defuzzificacion individuales a cada salida, ademas, permite asignar ponderaciones individuales a cada salida de cada regla, esta funcion es gracias a las capacidades de Scikit-Fuzzy.
+        En términos de la interfaz para el diseño de controladores difusos las tres herramientas presentan un enfoque similar con solo pequeñas variaciones sin mucho impacto, por el lado de funciones disponibles, las variaciones tampoco son grandes, aunque MATLAB y SciLab permiten diseñar controladores Larsen y Tagaki-Sugeno-Khan, estos se encuentran fuera del alcance de este trabajo. Algo a resaltar es la posibilidad del Laboratorio Virtual de asignar métodos de defuzzificacion individuales a cada salida, además, permite asignar ponderaciones individuales a cada salida de cada regla, esta función es gracias a las capacidades de Scikit-Fuzzy.
 
         \begin{figure}[htb]
             \centering
@@ -738,7 +738,7 @@
                 \label{fig:respuestaC13}
             \end{subfigure}
             
-            \caption[Comparacion - Respuesta del controlador difuso 1]{\textbf{Respuesta del controlador difuso 1}. a) Laboratorio Virtual, b) MATLAB, c) SciLab. Fuente: Elaboración propia. \label{fig:respuestaC1}}
+            \caption[Comparación - Respuesta del controlador difuso 1]{\textbf{Respuesta del controlador difuso 1}. (a) Laboratorio Virtual, (b) MATLAB, (c) SciLab. Fuente: Elaboración propia. \label{fig:respuestaC1}}
         \end{figure}
 
         \begin{figure}[htb]
@@ -757,7 +757,7 @@
                 \label{fig:respuestaC22LV}
             \end{subfigure}
             
-            \caption[Comparacion - Respuesta del controlador difuso 2 - Laboratorio Virtual]{\textbf{Respuesta del controlador difuso 2 - Laboratorio Virtual}. a) Salida 1, b) Salida 2. Fuente: Elaboración propia. \label{fig:respuestaC2LV}}
+            \caption[Comparación - Respuesta del controlador difuso 2 - Laboratorio Virtual]{\textbf{Respuesta del controlador difuso 2 - Laboratorio Virtual}. (a) Salida 1, (b) Salida 2. Fuente: Elaboración propia. \label{fig:respuestaC2LV}}
         \end{figure}
         
         \begin{figure}[htb]
@@ -776,7 +776,7 @@
                 \label{fig:respuestaC22MATLAB}
             \end{subfigure}
             
-            \caption[Comparacion - Respuesta del controlador difuso 2 - MATLAB]{\textbf{Respuesta del controlador difuso 2 - MATLAB}. a) Salida 1, b) Salida 2. Se aprecian los efectos de una implementacion erronea del SOM por parte de MATLAB. Fuente: Elaboración propia. \label{fig:respuestaC2MATLAB}}
+            \caption[Comparación - Respuesta del controlador difuso 2 - MATLAB]{\textbf{Respuesta del controlador difuso 2 - MATLAB}. (a) Salida 1, (b) Salida 2. Se aprecian los efectos de una implementación errónea del SOM por parte de MATLAB. Fuente: Elaboración propia. \label{fig:respuestaC2MATLAB}}
         \end{figure}
 
         \begin{figure}[htb]
@@ -795,16 +795,17 @@
                 \label{fig:respuestaC22SciLab}
             \end{subfigure}
             
-            \caption[Comparacion - Respuesta del controlador difuso 2 - SciLab]{\textbf{Respuesta del controlador difuso 2 - SciLab}. a) Salida 1, b) Salida 2. Fuente: Elaboración propia. \label{fig:respuestaC2SciLab}}
+            \caption[Comparación - Respuesta del controlador difuso 2 - SciLab]{\textbf{Respuesta del controlador difuso 2 - SciLab}. (a) Salida 1, (b) Salida 2. Fuente: Elaboración propia. \label{fig:respuestaC2SciLab}}
         \end{figure}
 
         \clearpage
 
-    \subsection{Simulacion de sistemas de control}
+    \subsection{Simulación de sistemas de control}
         
-        Para la comparacion de simulacion de sistemas de control se selecciono el sistema numero uno (1) de la \cref{tab:AnalisisSistemas}, los controladores difusos utilizados en cada caso son inadecuados para el control de procesos, i.e., no fueron diseñados con la finalidad de obtener una buena respuesta, la premisa para esta desicion se basa es que la respuesta obtenida debe ser parecida a la obtenida con MATLAB o SciLab, si dicha respuesta es oscilatoria se espera que el Laboratorio Virtual tambien responda del mismo modo, por tanto, la calidad de los controladores se consideró irrelevante. Los archivos FIS para los controladores utilizados se pueden observar en el \ref{anexo:ComparacionFISim}.
+        Para la comparación de simulación de sistemas de control se seleccionó el sistema número uno (1) de la \cref{tab:AnalisisSistemas}, los controladores difusos utilizados en cada caso son inadecuados para el control de procesos, i.e., no fueron diseñados con la finalidad de obtener una buena respuesta, la premisa para esta decisión se basa en que la respuesta obtenida debe ser parecida a la obtenida con MATLAB o SciLab, si dicha respuesta es oscilatoria se espera que el Laboratorio Virtual también responda del mismo modo, por tanto, la calidad de los controladores se consideró irrelevante. Los archivos FIS para los controladores utilizados se pueden observar en el \ref{anexo:ComparacionFISim}.
 
-        Los parametros bajo los que se realizaron las simulaciones como el setpoint, activacion o no del filtro de la derivada y/o bloques adicionales, fueron seleccionados de forma arbitraria con la finalidad de probar distintas funciones y obtener respuestas variadas, a su vez, se alterno el uso de de distintos solvers para cada herramienta con el fin de observar como afectaban la presicion. A continuacion, se presentan las tablas con los parametros de cada simulacion para cada herramienta.
+        Los parámetros bajo los que se realizaron las simulaciones como el setpoint, activación o no del filtro de la derivada y/o bloques adicionales, fueron seleccionados de forma arbitraria con la finalidad de probar distintas funciones y obtener respuestas variadas, a su vez, se alternó el uso de distintos solvers para cada herramienta con el fin de observar como afectaban la precisión. A continuación, se presentan las tablas con los parámetros de cada simulación para cada herramienta.
+
 
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
@@ -812,7 +813,7 @@
         \footnotesize
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{l @{\extracolsep{\fill}} cccc}
-            \caption[Parametros para el Laboratorio Virtual en tiempo continuo]{Parametros para el Laboratorio Virtual en tiempo continuo} 
+            \caption[Parámetros para el Laboratorio Virtual en tiempo continuo]{Parámetros para el Laboratorio Virtual en tiempo continuo} 
             \label{tab:parametrosLVc} \\
             \toprule
             Controlador  & solver & rtol & atol & Otros       \\ \midrule
@@ -842,7 +843,7 @@
             PD difuso + I               & RK2          & \num{1E-06} & \num{1E-06} & $K_i=1$, setpoint variable, sin filtro    \\
             PDG difuso                  & Fehlberg4(5) & \num{1E-04} & \num{1E-06} & Con filtro                                \\
             PDG difuso                  & Ralston3     & \num{1E-05} & \num{1E-06} & Saturador [0, 20], sin filtro             \\
-            PID mas difuso              & RK2          & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$                      \\
+            PID más difuso              & RK2          & \num{1E-05} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$                      \\
         \end{longtable}}
 
         {\setlength\LTleft{0pt}
@@ -851,7 +852,7 @@
         \footnotesize
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{l @{\extracolsep{\fill}} cccc}
-            \caption[Parametros para MATLAB en tiempo continuo]{Parametros para MATLAB en tiempo continuo} 
+            \caption[Parámetros para MATLAB en tiempo continuo]{Parámetros para MATLAB en tiempo continuo} 
             \label{tab:parametrosMATLABc} \\
             \toprule
             Controlador  & solver & rtol & atol & Otros       \\ \midrule
@@ -875,7 +876,7 @@
             PD difuso + I               & Auto(ode45) &     Auto    &    Auto     & $K_i=1$, setpoint variable    \\
             PDG difuso                  & Auto(ode45) &     Auto    &    Auto     & -                             \\
             PDG difuso                  & ode23tb     & \num{1E-06} & \num{1E-06} & Saturador [0, 20]             \\
-            PID mas difuso              & Auto(ode45) &     Auto    &    Auto     & $K_p=0.2, K_i=K_d=1$          \\
+            PID más difuso              & Auto(ode45) &     Auto    &    Auto     & $K_p=0.2, K_i=K_d=1$          \\
         \end{longtable}}
 
         {\setlength\LTleft{0pt}
@@ -884,7 +885,7 @@
         \footnotesize
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{l @{\extracolsep{\fill}} cccc}
-            \caption[Parametros para SciLab en tiempo continuo]{Parametros para SciLab en tiempo continuo} 
+            \caption[Parámetros para SciLab en tiempo continuo]{Parámetros para SciLab en tiempo continuo} 
             \label{tab:parametrosSciLabc} \\
             \toprule
             Controlador  & solver & rtol & atol & Otros       \\ \midrule
@@ -908,10 +909,10 @@
             PD difuso + I              & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_i=1$, setpoint variable    \\
             PDG difuso                 & BDF-Newton & \num{1E-06} & \num{1E-06} & -                             \\
             PDG difuso                 & LSODAR     & \num{1E-06} & \num{1E-06} & Saturador [0, 20]             \\
-            PID mas difuso             & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$          \\
+            PID más difuso             & BDF-Newton & \num{1E-06} & \num{1E-06} & $K_p=0.2, K_i=K_d=1$          \\
         \end{longtable}}
 
-        A continuacion se observan las respuestas de las simulaciones que presentaron resultados notables, el resto de figuras se pueden observar en el \ref{anexo:ComparacionSimC}. Las graficas de la simulacion para el controlador PID difuso se pueden observar en la \cref{fig:PIDcf}. La simulacion genero resultados interesantes dependiendo de los parametros y la herramienta empleada, en el caso de MATLAB, se obtuvo una respuesta con oscilaciones que difiere en gran medida del resto al utilizar parametros por defecto del solver, a su vez, al cambiar el solver a ode23tb para problemas stiff y fijar un valor para la tolerancia relativa y absoluta se corrigio la respuesta, obteniendo asi, una salida muy parecida al resto.
+        A continuación, se observan las respuestas de las simulaciones que presentaron resultados notables, el resto de figuras se pueden observar en el \ref{anexo:ComparacionSimC}. Las gráficas de la simulación para el controlador PID difuso se pueden observar en la \cref{fig:PIDcf}. La simulación genero resultados interesantes dependiendo de los parámetros y la herramienta empleada, en el caso de MATLAB, se obtuvo una respuesta con oscilaciones que difiere en gran medida del resto al utilizar parámetros por defecto del solver, a su vez, al cambiar el solver a ode23tb para problemas stiff y fijar un valor para la tolerancia relativa y absoluta se corrigió la respuesta, obteniendo así, una salida muy parecida al resto.
 
         \begin{figure}[htb]
             \centering
@@ -928,12 +929,12 @@
                 \caption{}
                 \label{fig:PIDcf2}
             \end{subfigure}
-            \caption[Simulacion del controlador PID difuso en tiempo continuo]{\textbf{Simulacion del controlador PID difuso en tiempo continuo}. (a) PID difuso con setpoint basico y multiples solvers, (b) PID difuso con setpoint variable. Fuente: Elaboración propia. \label{fig:PIDcf}}
+            \caption[Simulación del controlador PID difuso en tiempo continuo]{\textbf{Simulación del controlador PID difuso en tiempo continuo}. (a) PID difuso con setpoint básico y múltiples solvers, (b) PID difuso con setpoint variable. Fuente: Elaboración propia. \label{fig:PIDcf}}
         \end{figure}
 
-        En el caso del Laboratorio Virtual, es claro que ninguna de sus respuestas es la mas precisa, pero mantiene la forma de la respuesta para todos los metodos, por otro lado, tambien se observan los efectos del filtro para la derivada, su uso genera una mejor respuesta debido a la alta dependencia de las derivadas para este controlador, lo anterior es notable al comparar la respuesta del metodo SSPRK3 con filtro y sin filtro, no obstante, tambien se observa que para la simulacion presentada en la \cref{fig:PIDcf2} DOPRI5(4) con el filtro presenta una respuesta menos precisa que sin el filtro. 
+        En el caso del Laboratorio Virtual, es claro que ninguna de sus respuestas es la más precisa, pero mantiene la forma de la respuesta para todos los métodos, por otro lado, también se observan los efectos del filtro para la derivada, su uso genera una mejor respuesta debido a la alta dependencia de las derivadas para este controlador, lo anterior es notable al comparar la respuesta del método SSPRK3 con filtro y sin filtro, no obstante, también se observa que para la simulación presentada en la \cref{fig:PIDcf2} DOPRI5(4) con el filtro presenta una respuesta menos precisa que sin el filtro. 
         
-        Los solvers de SciLab son los que presentan la mejor respuesta, de hecho, ambas respuestas se superponen a simple vista, esto es debido a que BDF-Newton es acto para problemas stiff y LSODAR posee una deteccion automatica entre problemas stiff y no stiff que le permite cambiar en cada paso entre BDF para problemas stiff y Adam para problemas no stiff.
+        Los solvers de SciLab son los que presentan la mejor respuesta, de hecho, ambas respuestas se superponen a simple vista, esto es debido a que BDF-Newton es acto para problemas stiff y LSODAR posee una detección automática entre problemas stiff y no stiff que le permite cambiar en cada paso entre BDF para problemas stiff y Adam para problemas no stiff.
         
         Otras simulaciones que presentaron resultados interesantes fueron las asociadas al controlador PI difuso, las cuales se pueden ver en la \cref{fig:PIdifuso}, el Laboratorio Virtual presento diferencias menores con respecto a MATLAB y SciLab dependiendo del solver utilizado, pero por otro lado, tal como se observa en la \cref{fig:PIf2}, hacer uso del filtro provoca un atraso en la respuesta indeseado. 
 
@@ -952,17 +953,17 @@
                 \caption{}
                 \label{fig:PIf2}
             \end{subfigure}
-            \caption[Simulacion del controlador PI difuso en tiempo continuo]{\textbf{Simulacion del controlador PI difuso en tiempo continuo}. (a) PI difuso con setpoint basico, (b) PI difuso con 0.5s de delay en el proceso. Fuente: Elaboración propia. \label{fig:PIdifuso}}
+            \caption[Simulación del controlador PI difuso en tiempo continuo]{\textbf{Simulación del controlador PI difuso en tiempo continuo}. (a) PI difuso con setpoint básico, (b) PI difuso con 0.5s de delay en el proceso. Fuente: Elaboración propia. \label{fig:PIdifuso}}
         \end{figure}
 
-        Hay que resaltar que para la simulacion de la \cref{fig:PIDcf2} se realizaron otras pruebas sin filtro y con distintos solvers y no se consiguio obtener una respuesta parecida a la de MATLAB y SciLab, el motivo de esta diferencia es aun desconocido. El resto de simulaciones presentaron diferencias entre las distintas herramientas dentro de lo razonable, por otro lado, los tiempos de ejecucion fueron notablemente altos para el caso del Laboratorio Virtual a la hora de utilizar controladores difusos. Los tiempos de ejecucion para tiempo continuo se pueden observar en la \cref{tab:timeC}.
+        Hay que resaltar que para la simulación de la \cref{fig:PIDcf2} se realizaron otras pruebas sin filtro y con distintos solvers y no se consiguió obtener una respuesta parecida a la de MATLAB y SciLab, el motivo de esta diferencia es aún desconocido. El resto de simulaciones presentaron diferencias entre las distintas herramientas dentro de lo razonable, por otro lado, los tiempos de ejecución fueron notablemente altos para el caso del Laboratorio Virtual a la hora de utilizar controladores difusos. Los tiempos de ejecución para tiempo continuo se pueden observar en la \cref{tab:timeC}.
 
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
         \centering
         \renewcommand{\arraystretch}{0.80}
         \begin{longtable}{c @{\extracolsep{\fill}} ccc}
-            \caption[Tiempos de ejecucion para la funcion de simulacion de sistemas de control en tiempo continuo]{Tiempos de ejecucion para la funcion de simulacion de sistemas de control en tiempo continuo} 
+            \caption[Tiempos de ejecución para la función de simulación de sistemas de control en tiempo continuo]{Tiempos de ejecución para la función de simulación de sistemas de control en tiempo continuo}
             \label{tab:timeC} \\
             \toprule
             Controlador   &        \multicolumn{3}{c}{Tiempo}        \\ \cmidrule{1-1} \cmidrule{2-4}
@@ -990,10 +991,10 @@
             PD difuso + I                & 19.329 &         0.687          &        9.556           \\
             PDG difuso                   & 11.079 &         1.641          &        8.343           \\
             PDG difuso                   & 17.684 &         1.327          &        7.486           \\
-            PID mas difuso               & 4.515  &         0.837          &        3.959           \\
+            PID más difuso               & 4.515  &         0.837          &        3.959           \\
         \end{longtable}}
 
-        Para la simulacion en en tiempo discreto se seleccionaron arbitrariamente metodos de discretizacion y periodos de muestreo, a su vez, se realizo una simulacion por cada tipo de controlador estableciendo los mismos parametros extras que para tiempo continuo en aquellos casos que se presentaran, i.g., setpoint avanzado, con lo cual se tendra a su vez, una comparacion directa con sus contrapartes en tiempo contiuo. Motivado a que en este caso no hay ningun tipo de solver involucrado los parametros mostrados en la \cref{tab:parametrosD} son generales para las tres herramientas.
+        Para la simulación en tiempo discreto se seleccionaron arbitrariamente métodos de discretización y periodos de muestreo, a su vez, se realizó una simulación por cada tipo de controlador estableciendo los mismos parámetros extras que para tiempo continuo en aquellos casos que se presentaran, i.g., setpoint avanzado, con lo cual se tendrá a su vez, una comparación directa con sus contrapartes en tiempo continuo. Motivado a que en este caso no hay ningún tipo de solver involucrado los parámetros mostrados en la \cref{tab:parametrosD} son generales para las tres herramientas.
 
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
@@ -1001,13 +1002,13 @@
         \footnotesize
         \renewcommand{\arraystretch}{0.89}
         \begin{longtable}{l @{\extracolsep{\fill}} ccc}
-            \caption[Parametros de simulacion en tiempo discreto]{Parametros de simulacion en tiempo discreto} 
+            \caption[Parámetros de simulación en tiempo discreto]{Parámetros de simulación en tiempo discreto} 
             \label{tab:parametrosD} \\
             \toprule
-            Controlador  & Metodo & Periodo de muestreo & Otros       \\ \midrule
+            Controlador  & Método & Periodo de muestreo & Otros       \\ \midrule
             \endfirsthead
             \toprule
-            Controlador  & Metodo & Periodo de muestreo & Otros       \\ \midrule
+            Controlador  & Método & Periodo de muestreo & Otros       \\ \midrule
             \endhead
             \bottomrule
             \endfoot
@@ -1019,12 +1020,12 @@
             PI difuso + D  & Euler         & 0.08 & $K_d=0.8$, setpoint variable \\
             PD difuso + I  & Impulse       & 0.1  & $K_i=1$, setpoint variable   \\
             PDG difuso     & ZOH           & 0.1  & Saturador [0, 20]            \\
-            PID mas difuso & ZOH           & 0.01 & $K_p=0.2, K_i=K_d=1$         \\
+            PID más difuso & ZOH           & 0.01 & $K_p=0.2, K_i=K_d=1$         \\
         \end{longtable}}
 
-        Las simulaciones en tiempo discreto resultaron, como era de esperarce, mejor que en tiempo continuo, solo dos simulaciones generaron respuestas distintas las cuales fueron para PDG y PI difuso, ambas respuestas se pueden observar en las \cref{fig:PDGd,fig:PIdf} respectivamente. En el caso del programador de ganancias se observa que las tres herramientas generaron respuestas distintas, estando el Laboratorio Virtual entre ambas con un parecido mayor a la dada por MATLAB que a la de SciLab.
+        Las simulaciones en tiempo discreto resultaron, como era de esperarse, mejor que en tiempo continuo, solo dos simulaciones generaron respuestas distintas las cuales fueron para PDG y PI difuso, ambas respuestas se pueden observar en las \cref{fig:PDGd,fig:PIdf} respectivamente. En el caso del programador de ganancias se observa que las tres herramientas generaron respuestas distintas, estando el Laboratorio Virtual entre ambas con un parecido mayor a la dada por MATLAB que a la de SciLab.
 
-        Como ya se menciono antes, la simulacion de PI difuso con delay de 0.5s genera grandes diferencias con respecto a MATLAB y SciLab y cuyo motivo es aun desconocido, el tipo de tiempo (continuo o discreto) presentan las mismas discrepancias, por tanto, no proviene de alli el problema. 
+        Como ya se mencionó antes, la simulación de PI difuso con delay de 0.5s genera grandes diferencias con respecto a MATLAB y SciLab y cuyo motivo es aún desconocido, el tipo de tiempo (continuo o discreto) presentan las mismas discrepancias, por tanto, no proviene de allí el problema.
 
         \begin{figure}[htb]
             \centering
@@ -1046,14 +1047,14 @@
 
         \addtocontents{lof}{\vspace{-3pt}}
 
-        Continuando con la idea, en en una prueba independiente se graficó la superficie de respuesta del controlador PI difuso en las tres herramientas y en los tres casos la superficie fue la misma, adicionalmente, se utilizo un mayor numero de decimales para definir las matricez de estado sin ningun cambio. El metodo utilizado para integrar la señal de error y/o señal de salida del controlador tampoco ha presentado problemas en el resto de simulaciones con los distintos controladores, la implementacion de Delay funciona perfectamente tal como se observa en controlador PI de la \cref{fig:simD1f} en el \ref{anexo:ComparacionSimC}, es asi que se repite lo ya mencionado, el origen de la diferencia de respuestas para el controlador PI difuso con delay de 0.5s es desconocido. Los tiempos de ejecucion para tiempo discreto se pueden observar en la \cref{tab:timeD}.
+        Continuando con la idea, en una prueba independiente se graficó la superficie de respuesta del controlador PI difuso en las tres herramientas y en los tres casos la superficie fue la misma, adicionalmente, se utilizó un mayor número de decimales para definir las matrices de estado sin ningún cambio. El método utilizado para integrar la señal de error y/o señal de salida del controlador tampoco ha presentado problemas en el resto de simulaciones con los distintos controladores, la implementación de Delay funciona perfectamente tal como se observa en controlador PI de la \cref{fig:simD1f} en el \ref{anexo:ComparacionSimC}, es así que se repite lo ya mencionado, el origen de la diferencia de respuestas para el controlador PI difuso con delay de 0.5s es desconocido. Los tiempos de ejecución para tiempo discreto se pueden observar en la \cref{tab:timeD}.
 
         {\setlength\LTleft{0pt}
         \setlength\LTright{0pt}
         \centering
         \renewcommand{\arraystretch}{0.80}
         \begin{longtable}{c @{\extracolsep{\fill}} ccc}
-            \caption[Tiempos de ejecucion para la funcion de simulacion de sistemas de control en tiempo discreto]{Tiempos de ejecucion para la funcion de simulacion de sistemas de control en tiempo discreto} 
+            \caption[Tiempos de ejecución para la función de simulación de sistemas de control en tiempo discreto]{Tiempos de ejecución para la función de simulación de sistemas de control en tiempo discreto}
             \label{tab:timeD} \\
             \toprule
             Controlador   &        \multicolumn{3}{c}{Tiempo}        \\ \cmidrule{1-1} \cmidrule{2-4}
@@ -1073,7 +1074,7 @@
             PI difuso + D  & 2.085  & 0.541 & 3.030 \\
             PD difuso + I  & 1.828  & 0.561 & 2.997 \\
             PDG difuso     & 3.135  & 0.687 & 3.112 \\
-            PID mas difuso & 6.740  & 0.676 & 2.755 \\
+            PID más difuso & 6.740  & 0.676 & 2.755 \\
         \end{longtable}}
 
-        Los tiempos de ejecucion en tiempo discreto son en algunos casos menores para el Laboratorio Virtual al compararlos con SciLab, de forma general se puede afirmar que MALTAB es quien ejecuta las simulaciones en el menor tiempo.
+        Los tiempos de ejecución en tiempo discreto son en algunos casos menores para el Laboratorio Virtual al compararlos con SciLab, de forma general se puede afirmar que MALTAB es quien ejecuta las simulaciones en el menor tiempo.
