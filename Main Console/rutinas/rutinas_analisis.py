@@ -554,7 +554,7 @@ def rutina_system_info(self, system, T, mag, phase, omega):
 
 def margenes_ganancias(self, system, mag, phase, omega):
     """
-    [Funcion para obtener el margen de ganancia y el margen de fase]
+    [Función para obtener el margen de ganancia y el margen de fase]
     
     :param system: [Representación del sistema]
     :type system: [LTI]
@@ -573,12 +573,12 @@ def margenes_ganancias(self, system, mag, phase, omega):
     comp_phase = np.copy(degPhase)
     degPhase = degPhase - (degPhase/360).astype(int) * 360
 
-    # Para evitar la deteccion de cruces al llevar las fases al rango -360 < phase < 360
+    # Para evitar la detección de cruces al llevar las fases al rango -360 < phase < 360
     crossHack1 = np.diff(1 * (degPhase > -183) != 0)
     crossHack2 = np.diff(1 * (degPhase > -177) != 0)
     crossHack = ~crossHack1 * ~crossHack2
 
-    # Deteccion de cruce
+    # Detección de cruce
     indPhase = np.diff(1 * (gainDb > 0) != 0)
     indGain = np.diff(1 * (degPhase > -180) != 0)
     indGain = indGain * crossHack
@@ -652,3 +652,4 @@ def margenes_ganancias(self, system, mag, phase, omega):
         PhaseMargin = np.infty
 
     return GainMargin, PhaseMargin, omegaGain, omegaPhase
+

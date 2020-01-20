@@ -1,6 +1,6 @@
 """ 
-[Archivo para definir los algoritmos de ajusto del tamaño de paso para los Runge-kutta explicitos y
- embebidos, en el caso de los metodos explicitos se utiliza el metodo de doble paso] 
+[Archivo para definir los algoritmos de ajusto del tamaño de paso para los Runge-kutta explícitos y
+ embebidos, en el caso de los métodos explícitos se utiliza el método de doble paso] 
 """
 
 
@@ -22,17 +22,17 @@ def rk_doble_paso_adaptativo(systema,
                              min_step_decrease,
                              safety_factor):
     """
-    [Funcion para definir y manejar el ajuste del tamaño de paso por el metodo de doble paso para Runge-kutta's
-     explicitos, la funcion esta realizada de forma especifica para trabajar con sistemas de control 
+    [Función para definir y manejar el ajuste del tamaño de paso por el método de doble paso para Runge-kutta's
+     explícitos, la función está realizada de forma específica para trabajar con sistemas de control 
      representados con ecuaciones de espacio de estados]
     
-    :param systema: [Representacion del sistema de control]
+    :param systema: [Representación del sistema de control]
     :type systema: [LTI]
     :param h_ant: [Tamaño de paso actual]
     :type h_ant: [float]
     :param tiempo: [Tiempo actual]
     :type tiempo: [float]
-    :param tbound: [Tiempo maximo de simulacion]
+    :param tbound: [Tiempo máximo de simulación]
     :type tbound: [float]
     :param xVectB: [Vector de estado]
     :type xVectB: [numpyArray]
@@ -40,22 +40,22 @@ def rk_doble_paso_adaptativo(systema,
     :type entrada: [float]
     :param metodo: [Runge-Kutta a utilizar: RK2, Rk3, etc.]
     :type metodo: [function]
-    :param ordenq: [Orden del metodo]
+    :param ordenq: [Orden del método]
     :type ordenq: [int]
     :param rtol: [Tolerancia relativa]
     :type rtol: [float]
     :param atol: [Tolerancia absoluta]
     :type atol: [float]
-    :param max_step_increase: [Maximo incremento del tamaño de paso]
+    :param max_step_increase: [Máximo incremento del tamaño de paso]
     :type max_step_increase: [float]
-    :param min_step_decrease: [Minimo decremento del tamaño de paso]
+    :param min_step_decrease: [Mínimo decremento del tamaño de paso]
     :type min_step_decrease: [float]
     :param safety_factor: [Factor de seguridad]
     :type safety_factor: [float]
     """
 
     while True:
-        # Para asegurar el tiempo maximo
+        # Para asegurar el tiempo máximo
         if tiempo + h_ant >= tbound:
             h_ant = tbound - tiempo
             yS, xVectSn = metodo(*systema, xVectB, h_ant, entrada)
@@ -74,7 +74,7 @@ def rk_doble_paso_adaptativo(systema,
             error_norm = norm(delta1 / scale)
 
             if error_norm == 0:
-                # Incremento maximo dado el bajo error
+                # Incremento máximo dado el bajo error
                 h_est = h_ant * max_step_increase
             elif error_norm <= 1:
                 # Incremento normal
@@ -104,17 +104,17 @@ def rk_embebido_adaptativo(systema,
                            min_step_decrease,
                            safety_factor):
     """
-    [Funcion para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la funcion esta
-     realizada de forma especifica para trabajar con sistemas de control representados con ecuaciones de espacio 
+    [Función para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la función esta
+     realizada de forma específica para trabajar con sistemas de control representados con ecuaciones de espacio 
      de estados]
     
-    :param systema: [Representacion del sistema de control]
+    :param systema: [Representación del sistema de control]
     :type systema: [LTI]
     :param h_ant: [Tamaño de paso actual]
     :type h_ant: [float]
     :param tiempo: [Tiempo actual]
     :type tiempo: [float]
-    :param tbound: [Tiempo maximo de simulacion]
+    :param tbound: [Tiempo máximo de simulación]
     :type tbound: [float]
     :param xVectB: [Vector de estado]
     :type xVectB: [numpyArray]
@@ -122,28 +122,28 @@ def rk_embebido_adaptativo(systema,
     :type entrada: [float]
     :param metodo: [Runge-Kutta a utilizar: DOPRI54, RKF45, etc.]
     :type metodo: [function]
-    :param ordenq: [Valor del metodo de menor orden]
+    :param ordenq: [Valor del método de menor orden]
     :type ordenq: [int]
     :param rtol: [Tolerancia relativa]
     :type rtol: [float]
     :param atol: [Tolerancia absoluta]
     :type atol: [float]
-    :param max_step_increase: [Maximo incremento del tamaño de paso]
+    :param max_step_increase: [Máximo incremento del tamaño de paso]
     :type max_step_increase: [float]
-    :param min_step_decrease: [Minimo decremento del tamaño de paso]
+    :param min_step_decrease: [Mínimo decremento del tamaño de paso]
     :type min_step_decrease: [float]
     :param safety_factor: [Factor de seguridad]
     :type safety_factor: [float]
     """
 
     while True:
-        # Para asegurar el tiempo maximo
+        # Para asegurar el tiempo máximo
         if tiempo + h_ant >= tbound:
             h_ant = tbound - tiempo
             yr, xr, xtemp = metodo(*systema, xVectr, h_ant, entrada)
             h_est = h_ant
         else:
-            # Metodo embebido, la integracion se continua con yr y xr
+            # Método embebido, la integración se continua con yr y xr
             yr, xr, xtemp = metodo(*systema, xVectr, h_ant, entrada)
 
             # Ajuste del tamaño de paso
@@ -152,7 +152,7 @@ def rk_embebido_adaptativo(systema,
             error_norm = norm(delta1 / scale)
 
             if error_norm == 0:
-                # Incremento maximo dado el bajo error
+                # Incremento máximo dado el bajo error
                 h_est = h_ant * max_step_increase
             elif error_norm <= 1:
                 # Incremento normal
@@ -166,3 +166,4 @@ def rk_embebido_adaptativo(systema,
                 continue
         break
     return h_ant, h_est, yr, xr
+

@@ -15,7 +15,7 @@ cc = CC('metodos_RK')
 @cc.export('norm', 'f8(f8[:,::1])')
 def norm(x):
     """
-    [Funcion para calcular la norma RMS de un vector. Funcion tomada de NumPy]
+    [Función para calcular la norma RMS de un vector. Función tomada de SciPy]
     
     :param x: [Vector]
     :type x: [numpyArray]

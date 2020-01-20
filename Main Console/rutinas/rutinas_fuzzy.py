@@ -998,10 +998,10 @@ class FISParser:
      
      Yet Another Python Fuzzy Logic Module: https://github.com/sputnick1124/yapflm 
      
-     para obtener los datos necesarias del .fis, de alli, se aplica la funcion fis_to_json para completar el 
+     para obtener los datos necesarias del .fis, de allí, se aplica la función fis_to_json para completar el 
      parsin.
     
-     En el caso de la exportancion, se realiza utilizando la funcion json_to_fis]
+     En el caso de la exportación, se realiza utilizando la función json_to_fis]
     """
 
     def __init__(self, file, InputList=None, OutputList=None, RuleEtiquetas=None):
@@ -1009,13 +1009,13 @@ class FISParser:
         [Constructor de la clase, inicializa las variables a utilizar y selecciona entre cargar el fis o
          exportarlo dependiendo de las variables con las que se cree el objeto]
         
-        :param file: [Direccion del archivo a cargar o exportar]
+        :param file: [Dirección del archivo a cargar o exportar]
         :type file: [str]
         :param inputlist: [Lista de variables de entrada], defaults to None
         :type inputlist: [list], optional
         :param OutputList: [Lista de variables de entrada], defaults to None
         :type OutputList: [list], optional
-        :param RuleEtiquetas: [Lista con la informacion necesaria para crear las reglas], defaults to None
+        :param RuleEtiquetas: [Lista con la información necesaria para crear las reglas], defaults to None
         :type RuleEtiquetas: [list], optional
         """
 
@@ -1064,7 +1064,7 @@ class FISParser:
             self.OutputList.append(fisvar)
 
     def get_vars(self):
-        """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        """ [Función tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
 
         start_ruleblock = self.rawlines.index('[Rules]\n')
         var_lines = []
@@ -1085,7 +1085,7 @@ class FISParser:
                 self.get_var('output', var_types[i][1] - 1, l + 2, var_lines[i + 1])
 
     def get_rules(self):
-        """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        """ [Función tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
 
         start_ruleblock = self.rawlines.index('[Rules]\n')
         ruleblock = self.rawlines[start_ruleblock + 1:]
@@ -1124,7 +1124,7 @@ class FISParser:
                 self.RuleList.append(r)
 
     def fis_to_json(self):
-        """ [Funcion para completar la creacion del controlador a partir de un archivo .fis] """
+        """ [Función para completar la creación del controlador a partir de un archivo .fis] """
 
         # Datos del controlador
         ni = int(self.systemList['numinputs'])
@@ -1135,7 +1135,7 @@ class FISParser:
         OutputList = [0] * no
         RuleEtiquetas = []
 
-        # Creacion de las variables de entrada
+        # Creación de las variables de entrada
         for i in range(ni):
             InputList[i] = {
                 "nombre":
@@ -1158,7 +1158,7 @@ class FISParser:
                     "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                 }
 
-        # Creacion de las variables de salida
+        # Creación de las variables de salida
         for i in range(no):
             OutputList[i] = {
                 "nombre":
@@ -1183,7 +1183,7 @@ class FISParser:
                     "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                 }
 
-        # Creacion de las reglas
+        # Creación de las reglas
         for numeror, i in enumerate(self.RuleList):
             ril = []
             rol = []
@@ -1210,7 +1210,7 @@ class FISParser:
         return copy.deepcopy(InputList), copy.deepcopy(OutputList), copy.deepcopy(RuleEtiquetas)
 
     def json_to_fis(self):
-        """ [Funcion para exportar el controlador en formato .fis] """
+        """ [Función para exportar el controlador en formato .fis] """
 
         # Datos del controlador
         ni = len(self.InputList)
@@ -1219,7 +1219,7 @@ class FISParser:
 
         with open(self.file, 'w') as f:
 
-            # Informacion general del controlador
+            # Información general del controlador
             f.write(f"[System]\n")
             f.write(f"Name='{self.file.split('/')[-1].split('.')[0]}'\n")
             f.write(f"Type='mamdani'\n")
@@ -1344,3 +1344,4 @@ class FISParser:
                 rule_str += f": {str(rules_no_format[i][ni+no+1])}\n"
                 f.write(rule_str)
         return
+

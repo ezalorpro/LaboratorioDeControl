@@ -1,23 +1,23 @@
 """ 
-[Archivo para el cambio de definicion entre funciones de membresia, los cambios se realizan en dos pasos:
+[Archivo para el cambio de definición entre funciones de membresía, los cambios se realizan en dos pasos:
 
     old_mf  ->  trimf
     trimf   ->  new_mf
     
- De este modo se reduce el numero de casos a codificar. Por otro lado,  tambien contiene la funcion para realizar
- la validacion de las definiciones ingresadas por el usuario] 
+ De este modo se reduce el número de casos a codificar. Por otro lado, también contiene la función para realizar
+ la validación de las definiciones ingresadas por el usuario] 
 """
 
 
 def update_definicionmf(self, old_mf, definicion, new_mf):
     """
-    [Funcion para la transformacion equivalente entre funciones de membresia]
+    [Función para la transformación equivalente entre funciones de membresía]
     
-    :param old_mf: [Nombre de la antigua funcion de membresia]
+    :param old_mf: [Nombre de la antigua función de membresía]
     :type old_mf: [str]
-    :param definicion: [Lista con los valroes correspondiente a la definicion de la antigua funcion de membresia]
+    :param definicion: [Lista con los valores correspondiente a la definición de la antigua función de membresía]
     :type definicion: [list]
-    :param new_mf: [Nombre de la nueva funcion de membresia]
+    :param new_mf: [Nombre de la nueva función de membresía]
     :type new_mf: [str]
     """
     
@@ -80,7 +80,7 @@ def update_definicionmf(self, old_mf, definicion, new_mf):
             na = abs(c) - abs(a)
             nb = 1 / (a-b)
             nc = b
-            return [na, nb, nc], '[a, b, c] con:\na como el ancho de la camapana\nb pendiente de la campana, puede ser negativa\nc centro de la camapana'
+            return [na, nb, nc], '[a, b, c] con:\na como el ancho de la campana\nb pendiente de la campana, puede ser negativa\nc centro de la campana'
 
     if old_mf == 'trapmf':
         a, b, c, d = definicion
@@ -142,6 +142,7 @@ def update_definicionmf(self, old_mf, definicion, new_mf):
         nb = c
         nc = c + abs(a / c)
         return [na, nb, nc], '[a, b, c] con: a <= b <= c'
+
 
 def validacion_mf(self, _, mf):
     """
