@@ -1,22 +1,22 @@
 \section{Antecedentes}
 	
-	Para esta investigación se buscaron antecedentes de alcance nacional e internacional que ayuden a guiar, sustentar y validar esta investigación.
-	
-	\textcite{casallas2005desarrollo}, escribieron para la revista Acción Pedagógica de la Universidad de los Andes un artículo titulado \enquote{Desarrollo básico de un Laboratorio Virtual de Control de Procesos basado en Internet}, fue desarrollado conjuntamente entre la UNET y la ULA para ser usado a través de Internet y cuyo objetivo fue desarrollar un laboratorio virtual de control de procesos para la enseñanza a distancia, permitiendo ser utilizado solo por usuarios registrados y en determinados horarios. Aunque la finalidad de la investigación acá propuesta difiere del objetivo de \citeauthor{casallas2005desarrollo}, esta servirá como ayuda para determinar las funciones más utilizadas en el área de control, así como las necesidades típicas de un laboratorio de control virtual.
-	
-	Adicionalmente, \textcite{salazar2019diseno}, realizó en la Universidad Técnica del Norte, Ecuador, una tesis titulada \enquote{Diseño de un sistema de riego inteligente para cultivos de hortalizas basado en Fuzzy Logic en la granja la pradera de la Universidad Técnica del Norte.} para la implementación del controlador basado en la lógica difusa utilizó, entre otros equipos, un Rasberry PI para la ejecución de Python, específicamente, hizo uso de la biblioteca Scikit-Fuzzy, la cual le permitió definir las funciones de membresía, establecer las reglas difusas, realizar los procesos de fuzzificación y defuzzificación, todo lo mencionado sera para una arquitectura de controlador difuso tipo Mamdani. Esta tesis servirá como referencia para establecer el diseño de controladores difusos utilizando la biblioteca Scikit-Fuzzy.
+    Para esta investigación se buscaron antecedentes de alcance nacional e internacional que ayuden a guiar, sustentar y validar esta investigación.
+        
+    \textcite{casallas2005desarrollo}, escribieron para la revista Acción Pedagógica de la Universidad de los Andes un artículo titulado \enquote{Desarrollo básico de un Laboratorio Virtual de Control de Procesos basado en Internet}, fue desarrollado conjuntamente entre la UNET y la ULA para ser usado a través de Internet y cuyo objetivo fue desarrollar un laboratorio virtual de control de procesos para la enseñanza a distancia, permitiendo ser utilizado solo por usuarios registrados y en determinados horarios. Aunque la finalidad de la investigación acá propuesta difiere del objetivo de \citeauthor{casallas2005desarrollo}, esta sirve como ayuda para determinar las funciones más utilizadas en el área de control, así como las necesidades típicas de un laboratorio de control virtual.
 
-    Por otro lado, \textcite{congo2018aplicaciones} realizó en la Universidad Tecnológica Israel, Ecuador, una tesis titulada \enquote{Aplicaciones del software libre Python para prácticas de laboratorio aplicado a la asignatura de tratamiento digital de señales de la Universidad Tecnológica Israel} cuyo objetivo fue desarrollar por medio del software Python y sus diferentes librerías científicas, la realización de 3 Prácticas de Laboratorio para la asignatura Procesamiento Digital de Señales de la Universidad Tecnológica Israel, al igual que la intención de este trabajo, se realizó una interfaz gráfica con el objetivo de facilitar su uso, en este caso como herramienta para el procesamiento digital de señales. Este trabajo sustenta la viabilidad de realizar una interfaz gráfica con enfoque similar en el campo de la electrónica y se utilizará como guía parcial para establecer su uso en sistemas de control.
-	
-	Finalmente, \textcite{cadavid2009toolbox} redactó para la revista Educación en Ingeniería de Colombia, un artículo titulado \enquote{Toolbox didáctico para el diseño y análisis de sistemas de control lineal}, cuyo objetivo es describir un toolbox realizado en MATLAB para el análisis de sistemas de control lineales, este toolbox consiste de una interfaz gráfica que permite realizar pruebas a sistemas de control como respuesta escalón, respuesta en frecuencia, análisis de estabilidad, diseño de controladores, entre otras funciones. Este artículo será de utilidad para establecer la interfaz gráfica que se pretende realizar, además, sirvió como punto de partida para determinar las funciones que debería tener un laboratorio virtual de sistemas de control, como punto adicional se puede resaltar que reafirma la utilidad de esta investigación. 
-	
+    Adicionalmente, \textcite{salazar2019diseno}, realizó en la Universidad Técnica del Norte, Ecuador, una tesis titulada \enquote{Diseño de un sistema de riego inteligente para cultivos de hortalizas basado en Fuzzy Logic en la granja la pradera de la Universidad Técnica del Norte}, para la implementación del controlador basado en la lógica difusa utilizó, entre otros equipos, un Rasberry PI para la ejecución de Python, específicamente, hizo uso de la biblioteca Scikit-Fuzzy, la cual le permitió definir las funciones de membresía, establecer las reglas difusas, realizar los procesos de fuzzificación y defuzzificación, todo lo mencionado fue para una arquitectura de controlador difuso tipo Mamdani. Esta tesis se utilizó como referencia para establecer el diseño de controladores difusos utilizando la biblioteca Scikit-Fuzzy.
+
+    Por otro lado, \textcite{congo2018aplicaciones} realizó en la Universidad Tecnológica Israel, Ecuador, una tesis titulada \enquote{Aplicaciones del software libre Python para prácticas de laboratorio aplicado a la asignatura de tratamiento digital de señales de la Universidad Tecnológica Israel}, cuyo objetivo fue desarrollar por medio del software Python y sus diferentes librerías científicas, la realización de 3 Prácticas de Laboratorio para la asignatura Procesamiento Digital de Señales de la Universidad Tecnológica Israel, al igual que la intención de este trabajo, se realizó una interfaz gráfica con el objetivo de facilitar su uso, en este caso como herramienta para el procesamiento digital de señales. Este trabajo sustentó la viabilidad de realizar una interfaz gráfica con enfoque similar en el campo de la electrónica y se utilizó como guía parcial para establecer su uso en sistemas de control.
+
+    Finalmente, \textcite{cadavid2009toolbox} redactó para la revista Educación en Ingeniería de Colombia, un artículo titulado \enquote{Toolbox didáctico para el diseño y análisis de sistemas de control lineal}, cuyo objetivo es describir un toolbox realizado en MATLAB para el análisis de sistemas de control lineales, este toolbox consiste de una interfaz gráfica que permite realizar pruebas a sistemas de control como respuesta escalón, respuesta en frecuencia, análisis de estabilidad, diseño de controladores, entre otras funciones. Este artículo fue de utilidad para establecer la interfaz gráfica que se realizó, además, sirvió como punto de partida para determinar las funciones que conforman un laboratorio virtual de sistemas de control, como punto adicional se puede resaltar que reafirma la utilidad de esta investigación.
+
 \section{Bases teóricas}
 	
-    Para poder realizar el laboratorio virtual de sistemas de control clásicos y difusos será necesario abarcar conocimientos de análisis de sistemas de control, diseño de controladores PID y controladores difusos, a continuación, se presentan los conceptos necesarios para el desarrollo de esta investigación.
+    Para poder realizar el Laboratorio Virtual de sistemas de control clásicos y difusos fue necesario abarcar conocimientos de análisis de sistemas de control, diseño de controladores PID y controladores difusos, a continuación, se presentan los conceptos necesarios para el desarrollo de la investigación.
     
     \subsection{Procesos}
 		
-		Es importante partir de la base, es por ellos que empezaremos con los procesos, \textcite{sanchez2003control} define los procesos como \enquote{[...] un bloque que se identifica porque tiene una o más variables de salida de las cuales es importante conocer y mantener sus valores}(p.$\,$153). Así, un proceso se caracteriza por tener una entrada y una salida (para procesos SISO), dicha salida deberá mantenerse alrededor de un punto de referencia dado, es decir, se debe controlar su salida.
+        Es importante partir de la base, es por ello que empezaremos con los procesos, \textcite{sanchez2003control} define los procesos como \enquote{[...] un bloque que se identifica porque tiene una o más variables de salida de las cuales es importante conocer y mantener sus valores}(p.$\,$153). Así, un proceso se caracteriza por tener una entrada y una salida (para procesos SISO), dicha salida deberá mantenerse alrededor de un punto de referencia dado, es decir, se debe controlar su salida.
 	
 	\subsection{Modelado de procesos en tiempo continuo}
 	
@@ -44,9 +44,9 @@
 			 
 			 La demostración completa \Parencite[pp.$\,$21-22]{smith1985principles} no es de interés para este trabajo, pero si su resultado, la función de transferencia puede ser analizada para determinar las características del proceso, como su ganancia, constante de tiempo, tiempo muerto, entre otras.
 			 
-		 \subsubsection{Ecuaciones de espacio de estado}
+		 \subsubsection{Ecuaciones de espacio de estados}
 		 
-		 	Las ecuaciones de espacio de estado son un método más moderno para modelar todo tipo de sistemas, no solo físicos, sino también biológicos, económicos, sociales y otros. Así como una ecuación diferencial puede ser representada como una función de transferencia también se puede representar como una ecuación de espacio de estados, por tanto, una función de transferencia también puede ser representada en el espacio de estados y viceversa. Las ecuaciones linealizadas alrededor de un estado de operación \Parencite[p.$\,$31]{ogata2003ingenieria} son:
+		 	Las ecuaciones de espacio de estados son un método más moderno para modelar todo tipo de sistemas, no solo físicos, sino también biológicos, económicos, sociales y otros. Así como una ecuación diferencial puede ser representada como una función de transferencia también se puede representar como una ecuación de espacio de estados, por tanto, una función de transferencia también puede ser representada en el espacio de estados y viceversa. Las ecuaciones linealizadas alrededor de un estado de operación \Parencite[p.$\,$31]{ogata2003ingenieria} son:
 		 
 			\begin{align}
                 \dot{x}(t) &= Ax(t) + Bu(t) \label{eq:SSrepresentationX} \\
@@ -163,7 +163,7 @@
 
         \subsubsection{Transformada z}
 		
-			En tiempo discreto se puede modelar un proceso utilizando la transformada z sobre la ecuación en diferencias del proceso para obtener su representación en el dominio Z, la transformada Z es a las ecuaciones en diferencia lo que la transformada de Laplace es las ecuaciones en tiempo continuo, la ecuación general para la transformada z es:
+			En tiempo discreto se puede modelar un proceso utilizando la transformada z sobre la ecuación en diferencias del proceso para obtener su representación en el dominio Z, la transformada z es a las ecuaciones en diferencia lo que la transformada de Laplace es las ecuaciones en tiempo continuo, la ecuación general para la transformada z es:
 			
 			\begin{equation}\label{eq:Ztransform}
 				F(z)= \sum\limits_{k=0}^{\infty}f[k]z^{-k}
@@ -214,8 +214,7 @@
 
         \begin{equation}\label{eq:explicitoButcher}
             \renewcommand\arraystretch{1.2}
-            \begin{array}
-            {c|ccccc}
+            \begin{array}{c|ccccc}
             0\\
             c_2 & a_{21}\\
             c_3 & a_{31} & a_{32}\\
@@ -232,8 +231,7 @@
 
         \begin{equation}\label{eq:embebidoButcher}
             \renewcommand\arraystretch{1.2}
-            \begin{array}
-            {c|ccccc}
+            \begin{array}{c|ccccc}
             0\\
             c_2 & a_{21}\\
             c_3 & a_{31} & a_{32}\\
@@ -307,7 +305,7 @@
 				y^{(j)} = Cx_n^{(j)} + Du_m(t) \label{eq:rkrepresentationY}
             \end{equation}
             
-            Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el número de iteraciones a realizar. Un tamaño de paso pequeño genera resultados más precisos, pero incrementa el tiempo de computo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, por tanto, el tamaño de paso es un factor muy importante en los métodos de Runge-Kutta.
+            Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el número de iteraciones a realizar. Un tamaño de paso pequeño genera resultados más precisos, pero incrementa el tiempo de cómputo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, por tanto, el tamaño de paso es un factor muy importante en los métodos de Runge-Kutta.
 
         \subsubsection{Tamaño de paso variable}
 
@@ -323,11 +321,11 @@
             
             \paragraph{Cálculo del error para métodos embebidos} 
 
-                Los métodos embebidos están hechos para poder realizar este cálculo del error, por tanto, no hay que realizar ningún cálculo extra y el error puede ser calculado de forma directa como:
+                Los métodos embebidos están hechos para poder realizar este cálculo del error, por tanto, no hay que realizar ningún cálculo extra y el error puede ser calculado de forma directa como $\left\lvert x_n^{(j+1)} - \hat{x}_n^{(j+1)} \right\rvert $.
 
             \paragraph{Nuevo tamaño de paso}
 
-                Combinando las formulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las fórmulas para el manejo del error a fin de calcular un nuevo tamaño de paso. Lo primero es calcular una escala, este es el único paso que se diferencia entre el método de dos medios pasos y el de los métodos embebidos. Para dos medios pasos la escala es:
+                Combinando las fórmulas y algoritmos descritos por \textcite{roganprogramacion}, \textcite{hairer1991solving} y \textcite{ritschel2013numerical} se pueden obtener las fórmulas para el manejo del error a fin de calcular un nuevo tamaño de paso. Lo primero es calcular una escala, este es el único paso que se diferencia entre el método de dos medios pasos y el de los métodos embebidos. Para dos medios pasos la escala es:
 
                 \begin{equation}\label{eq:escalaDos}
                     escala = atol + rtol \cdot \frac{\left|x_{n,h}^{(j+1)}\right| + \left|x_{n,\frac{h}{2}}^{(j+1)}\right|}{2}
@@ -339,10 +337,10 @@
                     escala = atol + rtol \cdot max\left(\left| x_n^{(j+1)}\right|,\left| x_n^{(j)}\right|\right)
                 \end{equation}
         
-                A partir de acá las formulas son comunes para ambos métodos. Para continuar, se debe realizar el cálculo de un error normalizado, por lo cual se calcula la norma RMS del error dividido por la escala calculada:
+                A partir de acá las fórmulas son comunes para ambos métodos. Para continuar, se debe realizar el cálculo de un error normalizado, por lo cual se calcula la norma RMS del error dividido por la escala calculada:
 
                 \begin{equation}\label{eq:ErrorNormalizado}
-                    ||\Delta e|| = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(\frac{\Delta e_i}{escala_i}\right)^2}
+                    \left\lVert \Delta e\right\rVert  = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(\frac{\Delta e_i}{escala_i}\right)^2}
                 \end{equation}
 
                 \noindent donde n denota el número de elementos que componen la respuesta. Finalmente, el nuevo tamaño de paso viene dado por:
@@ -350,17 +348,17 @@
                 \begin{equation}\label{eq:casosStep}
                     \left\{
                     \begin{aligned}
-                        h_{t+1} &= h_{t}\cdot maxStepIncrease &\quad &Si \quad ||\Delta e|| = 0\\
-                        h_{t+1} &= h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  &\quad &Si \quad ||\Delta e|| \leq 1 \\
-                        h_{t} &= h_{t}\cdot sf_1 \cdot ||\Delta e||^{\frac{-1}{q+1}}  &\quad &Si \quad ||\Delta e|| > 1 \ ,\ \text{Se descarta la salida}
+                        h_{t+1} &= h_{t}\cdot maxStepIncrease &\quad &Si \quad \left\lVert \Delta e\right\rVert  = 0\\
+                        h_{t+1} &= h_{t}\cdot sf_1 \cdot \left\lVert \Delta e\right\rVert ^{\frac{-1}{q+1}}  &\quad &Si \quad \left\lVert \Delta e\right\rVert  \leq 1 \\
+                        h_{t} &= h_{t}\cdot sf_1 \cdot \left\lVert \Delta e\right\rVert ^{\frac{-1}{q+1}}  &\quad &Si \quad \left\lVert \Delta e\right\rVert  > 1 \ ,\ \text{Se descarta la salida}
                     \end{aligned}\right.
                 \end{equation}
                 
-                \noindent con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $||\Delta e||$ dado se repita indefinidamente, y $q$ como el orden del método utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el método de menor orden entre $x_n$ y $\hat{x}_n$, nótese que, si el error se encuentra por arriba de uno, la salida es descartada y se repite el cálculo con un nuevo tamaño de paso. El proceso se repite hasta que el error sea igual o menor que uno.
+                \noindent con $sf_1$ como un factor de seguridad que evita que el nuevo tamaño de paso para un $\left\lVert \Delta e\right\rVert $ dado se repita indefinidamente, y $q$ como el orden del método utilizado, en el caso de los Runge-Kutta embebidos, $q$ viene dado por el método de menor orden entre $x_n$ y $\hat{x}_n$, nótese que, si el error se encuentra por arriba de uno, la salida es descartada y se repite el cálculo con un nuevo tamaño de paso. El proceso se repite hasta que el error sea igual o menor que uno.
     
     \subsection{Respuesta en el tiempo del modelo en el espacio de estados discreto}
     
-        El cálculo de la respuesta en el tiempo para el modelo en el espacio de estados discreto es mucho más simple, no se requiere ningún método de integración aproximado, lo cual se debe a que el cálculo puede ser realizado se forma directa ya que la fórmula es el algoritmo a seguir \Parencite{haugen2005discrete}. Tomando en consideración la ecuación \cref{eq:SSdiscreto}, basta con sustituir el vector de estado para obtener a $x[k+1]$ y la salida $y[k]$
+        El cálculo de la respuesta en el tiempo para el modelo en el espacio de estados discreto es mucho más simple, no se requiere ningún método de integración aproximado, lo cual se debe a que el cálculo puede ser realizado de forma directa ya que la fórmula es el algoritmo a seguir \Parencite{haugen2005discrete}. Tomando en consideración la ecuación \cref{eq:SSdiscreto}, basta con sustituir el vector de estado para obtener a $x[k+1]$ y la salida $y[k]$
         
     
         \subsection{Sistemas de control}
@@ -412,7 +410,7 @@
 
             \paragraph{Análisis de estabilidad en el plano complejo}
             
-                La estabilidad de un sistema lineal viene dada por la ubicación de sus polos a lo largo del plano complejo s, i.e., se puede determinar si un sistema es estable si no posee ninguno polo en el semiplano derecho del plano complejo s incluyendo el eje coordenado $j\omega$ en tiempo continuo \Parencite{ogata2003ingenieria}, en el caso de sistemas discretos, los polos deben encontrarse dentro del circulo unitario, la estabilidad marginal es posible si existen uno o más polos justo en el círculo unitario, pero no múltiples, lo cual permite que el análisis de estabilidad se puede realizar de forma analítica y gráfica. En la \cref{fig:pzmap} se puede observar dos sistemas continuos en lazo abierto, $G_1(s)$ que es estable y $G_2(s)$ que es inestable.
+                La estabilidad de un sistema lineal viene dada por la ubicación de sus polos a lo largo del plano complejo s, i.e., se puede determinar si un sistema es estable si no posee ningún polo en el semiplano derecho del plano complejo s incluyendo el eje coordenado $j\omega$ en tiempo continuo \Parencite{ogata2003ingenieria}, en el caso de sistemas discretos, los polos deben encontrarse dentro del círculo unitario, la estabilidad marginal es posible si existen uno o más polos justo en el círculo unitario, pero no múltiples, lo cual permite que el análisis de estabilidad se puede realizar de forma analítica y gráfica. En la \cref{fig:pzmap} se puede observar dos sistemas continuos en lazo abierto, $G_1(s)$ que es estable y $G_2(s)$ que es inestable.
 
                 \begin{figure}[htb]
                     \centering
@@ -432,13 +430,13 @@
                     al de las agujas del reloj es igual al número de polos $G(s)H(s)$ en el semiplano derecho
                     del plano s\footref{fn:continuevsdiscreto}; de lo contrario, el sistema es inestable.
 
-                    \footnotetext[1]{En el caso de sistemas discretos se toma en cuenta son los polos fuera del circulo unitario para la evaluacion de los criterios. \label{fn:continuevsdiscreto}}
+                    \footnotetext[1]{En el caso de sistemas discretos se toma en cuenta son los polos fuera del círculo unitario para la evaluación de los criterios. \label{fn:continuevsdiscreto}}
 
                     \item El punto $-1 + j0$ queda rodeado una o varias veces en el sentido de las agujas del reloj.
                     En este caso el sistema es inestable en lazo cerrado.
                 \end{enumerate}
                 
-                En la \cref{fig:nyquistPlot} se puede observar los diagramas de Nyquist para los sistemas presentados en la \cref{fig:pzmap}, el sistema $G_1(s)$ debe ser evaluado por el criterio número 1, al no poseer ninguno polo en el semiplano derecho el sistema será estable en lazo cerrado asumiendo un $H(s) = 1$, por otro lado, $G_2(s)$ debe ser evaluado por el criterio número 2, debido a que el número de rodeos al punto $-1 + j0$ es igual al número de polos en el semiplano derecho el sistema será estable en lazo cerrado asumiendo un $H(s) = 1$ a pesar de que en lazo abierto sea inestable.
+                En la \cref{fig:nyquistPlot} se puede observar los diagramas de Nyquist para los sistemas presentados en la \cref{fig:pzmap}, el sistema $G_1(s)$ debe ser evaluado por el criterio número 1, al no poseer ningún polo en el semiplano derecho el sistema será estable en lazo cerrado asumiendo un $H(s) = 1$, por otro lado, $G_2(s)$ debe ser evaluado por el criterio número 2, debido a que el número de rodeos al punto $-1 + j0$ es igual al número de polos en el semiplano derecho, el sistema será estable en lazo cerrado asumiendo un $H(s) = 1$ a pesar de que en lazo abierto sea inestable.
 
                 \begin{figure}[htb]
                     \centering
@@ -453,9 +451,10 @@
 
             \paragraph{Análisis de estabilidad con las trazas de Bode}
 
-                Los diagramas de bode son una forma de representar la respuesta en frecuencia de un sistema tomando en cuenta los cambios de amplitud de $L(j\omega)$ y del ángulo de fase de $L(j\omega)$ respecto a la frecuencia \Parencite{nilsson1995circuitos}. Para analizar la estabilidad se utilizan el margen de ganancia y el margen de fase del sistema en un diagrama de Bode a modo de trazas, el punto de estabilidad critica en el diagrama de bode pasa a ser su equivalente en $dB$, el cual es $0dB$.
+                \looseness=-1000
+                Los diagramas de Bode son una forma de representar la respuesta en frecuencia de un sistema tomando en cuenta los cambios de amplitud de $L(j\omega)$ y del ángulo de fase de $L(j\omega)$ respecto a la frecuencia \Parencite{nilsson1995circuitos}. Para analizar la estabilidad se utilizan el margen de ganancia y el margen de fase del sistema en un diagrama de Bode a modo de trazas, el punto de estabilidad crítica en el diagrama de Bode pasa a ser su equivalente en $dB$, el cual es $0dB$.
 
-                Un margen de ganancia positivo y de fase positivos indican que el sistema es estable, si el sistema es de fase no mínima, la interpretación anterior deja de ser válida. Aplicando las definiciones dadas por \textcite{dorf2011modern} podemos obtener el margen de ganancia y de fase para los sistemas $G_1(s)$ y $G_2(s)$ y se presentan como ejemplo en la \cref{fig:bodeG1} y \cref{fig:bodeG2}.
+                Un margen de ganancia y de fase positivos indican que el sistema es estable, si el sistema es de fase no mínima, la interpretación anterior deja de ser válida. Aplicando las definiciones dadas por \textcite{dorf2011modern} podemos obtener el margen de ganancia y de fase para los sistemas $G_1(s)$ y $G_2(s)$ y se presentan como ejemplo en la \cref{fig:bodeG1} y \cref{fig:bodeG2}.
 
                 \begin{itemize}[leftmargin=\parindent]
                     \item $G_1(s)$: $GM \rightarrow \infty$ y $PM \rightarrow \infty$
@@ -472,13 +471,13 @@
                 \begin{figure}[htb]
                     \centering
                     \includegraphics[width=\textwidth]{bodeG2.pdf}
-                    \caption[Ejemplo 2 márgenes de ganancia y fase]{\textbf{Márgenes de ganancia y fase de $\pmb{G_2(s)}$}. El sistema $G_2(s)$ es de fase no mínima, por tanto, la interpretación del margen de ganancia y de fase no es tan simple. En la figura se observar que el margen de ganancia es negativo y aun así, sabemos por su análisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
+                    \caption[Ejemplo 2 márgenes de ganancia y fase]{\textbf{Márgenes de ganancia y fase de $\pmb{G_2(s)}$}. El sistema $G_2(s)$ es de fase no mínima, por tanto, la interpretación del margen de ganancia y de fase no es tan simple. En la figura se observa que el margen de ganancia es negativo y aun así, sabemos por su análisis con diagrama de Nyquist que es estable en lazo cerrado. Fuente: Elaboración propia.} 
                     \label{fig:bodeG2}
                 \end{figure}
 
             \paragraph{Diagrama de Nichols}
                 
-                El diagrama de Nichols es una gráfica del sistema en lazo abierto de tipo magnitud vs fase, en el diagrama se pueden ubicar los márgenes de ganancia y fase, para ayudar en el diseño de controladores se suele superponer una rejilla guía de valores de magnitud y ángulo constantes, esta rejilla lleva el nombre de carta de Nichols o ábaco de Nichols. En el diagrama de nichols el punto crítico $-1 + j0$ se convierte en $(0dB, -180^\circ)$
+                El diagrama de Nichols es una gráfica del sistema en lazo abierto de tipo magnitud vs fase, en el diagrama se pueden ubicar los márgenes de ganancia y fase, para ayudar en el diseño de controladores se suele superponer una rejilla guía de valores de magnitud y ángulo constantes, esta rejilla lleva el nombre de carta de Nichols o ábaco de Nichols. En el diagrama de Nichols el punto crítico $-1 + j0$ se convierte en $(0dB, -180^\circ)$
 
                 \clearpage
 
@@ -508,13 +507,13 @@
             El controlador PID también puede ser representado de forma discreta, la componente proporcional sigue siendo una constante, la componente integral puede ser aproximada con varios métodos numéricos para el cálculo de área como la integración trapezoidal \Parencite{kuo1996sistemas}. Por último, la derivada se puede aproximar como una diferencia finita regresiva:
 
             \begin{equation}\label{eq:pidcdiscreto}
-                sc[k] = K_{p}e[k]+  \dfrac{K_{i}T}{2}\sum_{i=1}^{k}\left(e[i] + e[i-1]\right) + K_{d} \frac{e[k]- e[k-1]}{T}
+                sc[k] = K_{p}e[k]+  \dfrac{K_{i}T}{2}\sum_{i=1}^{k}\left(e[i] + e[i-1]\right) + K_{d} \left(\frac{e[k]- e[k-1]}{T}\right)
             \end{equation}
 
             En el dominio Z, la componente proporcional se mantiene como constante, la componente integral se lleva al dominio Z utilizando la transformación de Tustin dada por \cref{eq:tustin} y obtener la representación en el dominio Z de la integración trapezoidal, para el caso de la derivada se utiliza \cref{eq:eulerB} para obtener la representación en el dominio Z de la diferencia finita regresiva.
 
             \begin{equation}\label{eq:pidenZ}
-                G_{c}(z) = K_{p} + \frac{K_{i}T}{2}\left(\frac{z+1}{z-1}\right) + K_{d} \frac{z-1}{Tz}
+                G_{c}(z) = K_{p} + \frac{K_{i}T}{2}\left(\frac{z+1}{z-1}\right) + K_{d} \left(\frac{z-1}{Tz}\right)
             \end{equation}
 
             \paragraph{Componente proporcional}
@@ -611,7 +610,7 @@
     
         La lógica difusa es una extensión matemática de la lógica convencional en donde se asigna un grado de pertenencia a un hecho entre un valor verdadero y uno falso, \enquote{consiste en que los valores verdaderos (en lógica difusa) o valores de pertenencia (en conjuntos difusos) se indican en un número entre [0.0, 1.0], donde 0.0 representa falsedad total y 1.0 significa verdad absoluta}\Parencite[p.$\,$4]{cruz2010inteligencia}.
         
-        La lógica difusa se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüística que determinen en conjunto el universo de discurso de cada una de ellas, es decir, se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinaran el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}. 
+        La lógica difusa se puede estructurar en tres etapas, la primera etapa consiste en establecer cada una de las variables con etiquetas lingüísticas que determinen en conjunto el universo de discurso de cada una de ellas, i.e., se crean los conjuntos difusos, en la segunda etapa se definen las reglas de inferencia difusa que determinarán el comportamiento del sistema difuso, y tercera, se obtienen los valores de salida utilizando las reglas de inferencia y realizando el proceso de defuzzificación que consiste en llevar los grados de pertenencia a un valor nítido o real \Parencite{cruz2010inteligencia}. 
         
         \subsubsection{Conjuntos difusos}
             
@@ -739,7 +738,7 @@
             
         \subsubsection{Operación de premisas}
             
-            Debido a que pueden existir N entradas, también pueden existir N premisas en una regla, las cuales, pueden relacionarse entre sí por medio de operaciones AND en cuyo caso se denomina conjunción de premisas. Por otro lado, también es posible relacionar las premisas utilizando las operaciones OR y se denomina disyunción de premisas. Para realizar estas operaciones se pueden utilizar las T-Normas y las T-Conormas en el caso conjunción y disyunción respectivamente.
+            Debido a que pueden existir N entradas, también pueden existir N premisas en una regla, las cuales, pueden relacionarse entre sí por medio de operaciones AND en cuyo caso se denomina conjunción de premisas. Por otro lado, también es posible relacionar las premisas utilizando las operaciones OR y se denomina disyunción de premisas. Para realizar estas operaciones se pueden utilizar las T-Normas y las T-Conormas en el caso de conjunción y disyunción respectivamente.
 
             \begin{align}
                 &\text{Conjuncion de premisas:} & \tau_{r} &= \bigcap_{i=1}^{N}\tau_{ir} \label{eq:conjP} \\
@@ -754,11 +753,11 @@
                 F_r(y) = W_r \tau_{r} \cap \gamma_{jr}
             \end{equation}
 
-            \noindent donde $\gamma_{jr}$ es la j-esima Función de membresía de salida asociada con la $r$-esima regla y $W_r$ es el peso asociado a la r-esima regla \Parencite{riid2003transparent}.
+            \noindent donde $\gamma_{jr}$ es la j-esima función de membresía de salida asociada con la $r$-esima regla y $W_r$ es el peso asociado a la r-esima regla \Parencite{riid2003transparent}.
 
         \subsubsection{Agregación}
 
-            El proceso de agregación se realiza luego de haber pasado por la fuzzificacion, pareo de proposiciones, conjunción/disyunción de premisas y la implicación. Todos los resultados obtenidos de cada una de las reglas son unificados aplicando un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso por cada salida del controlador. Todo el proceso hasta este punto puede ser descrito por las siguientes formulas:
+            El proceso de agregación se realiza luego de haber pasado por la fuzzificacion, pareo de proposiciones, conjunción/disyunción de premisas y la implicación. Todos los resultados obtenidos de cada una de las reglas son unificados aplicando un operador OR por medio de una T-Conorma, de este modo, se obtiene un conjunto difuso por cada salida del controlador. Todo el proceso hasta este punto puede ser descrito por las siguientes fórmulas:
 
             \vspace{10pt}
             \begin{align}
@@ -842,7 +841,7 @@
 
             \paragraph{Controlador PID difuso}
                 
-                Un controlador PD difuso puede ser realizado al tomar la señal de error, la derivada del error y la segunda derivada del error como entradas del controlador, la señal de salida es luego integrada de modo que $sc(t) = e(t) + \Delta e(t) + \Delta^2 e(t)$ se transforma en $sc(t) = \int_0^t e(\tau)d\tau + e(t) + \Delta e(t)$ la cual será tomada como la señal de control. El esquema de control para un PID difuso completo se puede observar en la \cref{fig:pidFuzzyTomo}.
+                Un controlador PID difuso puede ser realizado al tomar la señal de error, la derivada del error y la segunda derivada del error como entradas del controlador, la señal de salida es luego integrada de modo que $sc(t) = e(t) + \Delta e(t) + \Delta^2 e(t)$ se transforma en $sc(t) = \int_0^t e(\tau)d\tau + e(t) + \Delta e(t)$ la cual será tomada como la señal de control. El esquema de control para un PID difuso completo se puede observar en la \cref{fig:pidFuzzyTomo}.
 
                 \begin{figure}[htb]
                     \centering
@@ -898,16 +897,16 @@
 
         \subsubsection{Biblioteca de control}
 
-            La biblioteca control de python es un conjunto de clases y funciones que implementan las operaciones más comunes en sistemas de control, además, posee un módulo de compatibilidad para usuarios de MATLAB que emula las funciones y sintaxis de este lenguaje \Parencite{pythoncontrol}. Para crear el modelo de un sistema podemos usar ecuaciones de espacio de estado o funciones de transferencia.
+            La biblioteca control de python es un conjunto de clases y funciones que implementan las operaciones más comunes en sistemas de control, además, posee un módulo de compatibilidad para usuarios de MATLAB que emula las funciones y sintaxis de este lenguaje \Parencite{pythoncontrol}. Para crear el modelo de un sistema podemos usar ecuaciones de espacio de estados o funciones de transferencia.
 
         \subsubsection{Biblioteca Scikit-Fuzzy}
             
-            Scikit-Fuzzy es una colección de algoritmos de lógica difusa con la intención de pertenecer al paquete de herramientas científicas SciPy, esta biblioteca permite diseñar y simular controladores difusos con estructura tipo Mamdani \Parencite{warner2016fuzzy}, no posee un modo para realizar lazos de control o compatibilidad con la biblioteca de control de forma directa, de modo que se tendrían que codificar aparte las rutinas que conformen un lazo cerrado de control.
+            Scikit-Fuzzy es una colección de algoritmos de lógica difusa con la intención de pertenecer al paquete de herramientas científicas SciPy, esta biblioteca permite diseñar y simular controladores difusos con estructura tipo Mamdani \Parencite{warner2016fuzzy}, no posee un modo para realizar lazos de control o compatibilidad con la biblioteca de control de forma directa, de modo que se tienen que codificar aparte las rutinas que conforman el lazo cerrado de control.
 
         \subsubsection{Biblioteca PySide2}
 
-            PySide2 es una biblioteca que hace de union entre Qt y Python para la creación de interfaces de usuario. PySide2 es soportado por linux, Mac OS x, windows, entre otros.
+            PySide2 es una biblioteca que hace de union entre Qt y Python para la creación de interfaces de usuario. PySide2 es soportado por linux, Mac OS X, windows, entre otros.
             
         \subsubsection{Biblioteca PyQtGraph}
                 
-            PyQtGraph es una biblioteca de graficacion especializada en graficas dinámicas y en tiempo real, utiliza de fondo un núcleo Qt, por tanto, requiere el uso de PyQt4, PyQt5, PySide o PySide2.
+            PyQtGraph es una biblioteca de graficación especializada en graficas dinámicas y en tiempo real, utiliza de fondo un núcleo Qt, por tanto, requiere el uso de PyQt4, PyQt5, PySide o PySide2.

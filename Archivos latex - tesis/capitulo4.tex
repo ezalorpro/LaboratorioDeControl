@@ -1,6 +1,6 @@
 \section{Estructura general}
 
-    El laboratorio virtual de sistemas de control clásicos y difusos fue pensado de modo que cada una de sus funcionalidades principales sean independientes la una de la otra, no obstante, ciertas rutinas son comunes entre ellas. Por otro lado, se organizó la aplicación de modo que cada funcionalidad principal posea un archivo \enquote{handler}, el cual hará de intermediario entre la interfaz gráfica y las rutinas de calculo que se encuentran en un archivo de rutinas. La \cref{fig:estructuraMain} sirve como referencia de la estructura general utilizada.
+    El Laboratorio Virtual de sistemas de control clásicos y difusos fue pensado de modo que cada una de sus funcionalidades principales sean independientes la una de la otra, no obstante, ciertas rutinas son comunes entre ellas. Por otro lado, se organizó la aplicación de modo que cada funcionalidad principal posea un archivo \enquote{handler}, el cual hará de intermediario entre la interfaz gráfica y las rutinas de cálculo que se encuentran en un archivo de rutinas. La \cref{fig:estructuraMain} sirve como referencia de la estructura general utilizada.
 
     \begin{figure}[htb]
         \centering
@@ -11,7 +11,7 @@
 
 \section{Análisis de sistemas de control}
     
-    Con esta función se quiso dar la posibilidad de realizar los análisis en el tiempo y en frecuencia típicos para un proceso ingresado por el usuario, los análisis típicos son: respuesta al escalón, respuesta al impulso, diagrama de bode, diagrama de Nyquist, lugar de las raíces y diagrama de Nichols. El \cref{code:analisis} muestra un pseudo código de la funcionalidad de análisis de sistemas de control y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazAnalisis}.
+    Con esta función se quiso dar la posibilidad de realizar los análisis en el tiempo y en frecuencia típicos para un proceso ingresado por el usuario, los análisis típicos son: respuesta al escalón, respuesta al impulso, diagrama de Bode, diagrama de Nyquist, lugar de las raíces y diagrama de Nichols. El \cref{code:analisis} muestra un pseudo código de la funcionalidad de análisis de sistemas de control y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazAnalisis}.
 
     \begin{longlisting}
         \caption[Pseudo código - Análisis de sistemas de control]{Pseudo código para el análisis de sistemas de control}
@@ -33,7 +33,7 @@
                     creación_proceso()
                     escalón()
                     impulso()
-                    bode()
+                    Bode()
                     nyquist()
                     lugar_de_las_raíces()
                     nichols()
@@ -74,11 +74,11 @@
     
     \subsection{Respuesta al impulso}
         
-        Se obtiene la respuesta en el tiempo del sistema en lazo abierto ante un impulso como entrad al sistema, con los datos de la respuesta se realiza la gráfica correspondiente.
+        Se obtiene la respuesta en el tiempo del sistema en lazo abierto ante un impulso como entrada al sistema, con los datos de la respuesta se realiza la gráfica correspondiente.
 
     \subsection{Diagrama de Bode}
         
-        Se obtiene la respuesta en frecuencia del sistema, con los datos de la respuesta en frecuencia se realiza las gráficas de magnitud y fase. Adicional a las gráficas fue implementado el cálculo de los márgenes de ganancia y de fase, la implementación fue realizada desde cero debido a los resultados inaceptables obtenidos con la implementación de la librería de control. El código para el cálculo de los márgenes de ganancia y fase se puede observar en el \ref{anexo:margenes}.
+        Se obtiene la respuesta en frecuencia del sistema, con los datos de la respuesta en frecuencia se realizan las gráficas de magnitud y fase. Adicional a las gráficas fue implementado el cálculo de los márgenes de ganancia y de fase, la implementación fue realizada desde cero debido a los resultados inaceptables obtenidos con la implementación de la librería de control. El código para el cálculo de los márgenes de ganancia y fase se puede observar en el \ref{anexo:margenes}.
     
     \subsection{Diagrama de Nyquist}
         
@@ -90,7 +90,7 @@
     
     \subsection{Diagrama de Nichols}
         
-        A diferencia del diagrama de Nyquist acá se señala el punto $(0dB, -180^\circ)$, la librería de controla ya viene con la opción para superponer una rejilla que representa a la Carta de Nichols.
+        A diferencia del diagrama de Nyquist acá se señala el punto $(0dB, -180^\circ)$, la librería de control ya viene con la opción para superponer una rejilla que representa a la carta de Nichols.
 
     \subsection{Despliegue de datos}
         
@@ -138,15 +138,15 @@
         
         Para el cálculo de la respuesta al escalón se utiliza la librería de control, el esquema implementado es el presentado en la \cref{fig:esquemaPID}. El controlador PID fue definido utilizando \cref{eq:pidcompleja} y sustituyendo la componente derivativa por \cref{eq:Daproximacion}. Si el sistema es representado en tiempo discreto se utiliza \cref{eq:pidenZ} para definir al controlador PID.
         
-        Así mismo, para la entonación automática se realiza una prueba escalón en lazo abierto con el propósito de calcular \cref{eq:parametroK}, \cref{eq:parametroTau} y \cref{eq:parametroAlfa}, luego, se sustituyen los valores en la \cref{tab:ZiglerNichols,tab:CohenCoon} con el fin de realizar una entonación por el método Ziegler-Nichols y Cohen-Coon según la selección del usuario.
+        Así mismo, para la entonación automática se realiza una prueba escalón en lazo abierto con el propósito de calcular \cref{eq:parametroK}, \cref{eq:parametroTau} y \cref{eq:parametroAlfa}, luego, se sustituyen los valores en las \cref{tab:ZiglerNichols,tab:CohenCoon} con el fin de realizar una entonación por el método Ziegler-Nichols y Cohen-Coon según la selección del usuario.
 
     \subsection{Entonación utilizando un archivo CSV}
 
         Como ya se mencionó, con esta opción se permite cargar un archivo CSV que contenga la data de respuesta a un escalón con la finalidad de obtener su aproximación de primer orden con tiempo muerto y poder realizar una entonación utilizando el método de Zigler-Nichols o Cohen-Coon. El usuario debe ingresar el límite superior e inferior de la variable del proceso (Vp) y de la entrada al sistema, normalmente, la señal del elemento final de control (EFC), adicionalmente, debe ingresar el separador del archivo CSV cuyo valor por defecto es una coma (,).
 
-        El algoritmo aproximara los parámetros de un modelo de primer orden con tiempo muerto utilizando el punto de máxima pendiente para trazar una recta, este punto quedara como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automático no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.g., como la observada en la \cref{fig:ZNtest}.
+        El algoritmo aproxima los parámetros de un modelo de primer orden con tiempo muerto utilizando el punto de máxima pendiente para trazar una recta, este punto quedara como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automático no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.g., como la observada en la \cref{fig:ZNtest}.
 
-        El archivo CSV deberá contener un formato de encabezados especifico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentara buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV valido se puede observar en el \ref{anexo:csv}.
+        El archivo CSV deberá contener un formato de encabezados específico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentará buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV valido se puede observar en el \ref{anexo:csv}.
 
 \section{Diseño de controladores difusos}
     
@@ -184,7 +184,7 @@
     
     \subsection{Controladores difusos}
 
-        Los controladores difusos fueron divididos para su diseño en dos categorías, genéricos y basados en un esquema de control especifico.
+        Los controladores difusos fueron divididos para su diseño en dos categorías, genéricos y basados en un esquema de control específico.
         
         \subsubsection{Controladores genéricos}
 
@@ -204,13 +204,13 @@
 
         \subsubsection{Controladores basados en esquemas}
 
-            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el número de entradas, el número de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control especifico que debe cumplir con un número de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:esquemas}.    
+            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el número de entradas, el número de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control específico que debe cumplir con un número de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:esquemas}.    
 
     \subsection{Guardado de controladores difusos}
 
         \subsubsection{Archivos JSON}
         
-            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma específica con el laboratorio virtual de sistemas de control, los archivos JSON guardan datos que luego pueden ser cargados de forma directa con la librería JSON de Python. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:json}.
+            Para guardar el diseño del usuario se utiliza un archivo .JSON con una estructura interna particular y única para funcionar de forma específica con el Laboratorio Virtual de sistemas de control, los archivos JSON guardan datos que luego pueden ser cargados de forma directa con la librería JSON de Python. Un ejemplo del formato interno del archivo .JSON para un controlador con una entrada y una salida se puede observar en el \ref{anexo:json}.
 
         \subsubsection{Archivos FIS}
 
@@ -258,7 +258,7 @@
 
     Al igual que para la funcionalidad de análisis de sistemas de control y entonación de controladores PID se reutiliza la forma de ingresar el proceso, por lo que también se realiza la validación de entradas y se monitorea si el usuario presiona el botón de calcular, cuando el usuario presiona calcular, se procede a realizar la simulación del esquema de control seleccionado en un hilo distinto al de la aplicación principal debido a que los tiempos de simulación para los esquemas difusos pueden ser de varios segundos y presentaría un comportamiento de bloqueo para la ventana de la aplicación.
 
-    En caso de que la simulación sea realizada para tiempo discreto, se evaluá \cref{eq:SSdiscreto} en cada iteración para obtener la salida del sistema. Si es el esquema seleccionado es el del PID clásico el controlador implementado es el descrito por \cref{eq:pidcdiscreto}. Si el sistema es continuo, la respuesta del sistema y del controlador es calculada utilizando el método de Runge-Kutta seleccionado.
+    En caso de que la simulación sea realizada para tiempo discreto, se evaluá \cref{eq:SSdiscreto} en cada iteración para obtener la salida del sistema. Si el esquema seleccionado es el del PID clásico el controlador implementado es el descrito por \cref{eq:pidcdiscreto}. Si el sistema es continuo, la respuesta del sistema y del controlador es calculada utilizando el método de Runge-Kutta seleccionado.
 
     \subsection{Esquemas de simulación}
 
@@ -276,11 +276,11 @@
             \item PID clásico + Difuso simple (P)
         \end{enumerate}
 
-        A la derivada de aquellos esquemas que requieran su cálculo se les fue agregado una función de transferencia en serie con la misma para limitar la respuesta a las altas frecuencias, esto es debido a que las simulaciones se van a realizar con un método de Runge-Kutta que requeriría un tamaño de paso muy pequeño para poder aproximar de forma correcta incluso a una derivada aproximada dada por \cref{eq:Daproximacion}, y un incremento en el número de pasos provocaría, a su vez, un incremento en los tiempos de simulación para los esquemas con controladores difusos, y en consecuencia, volviendo la herramienta impráctica.
+        A la derivada de aquellos esquemas que requieran su cálculo se les fue agregado de forma opcional una función de transferencia en serie para limitar la respuesta a las altas frecuencias, esto es debido a que las simulaciones se van a realizar con un método de Runge-Kutta que requeriría un tamaño de paso muy pequeño para poder aproximar de forma correcta incluso a una derivada aproximada dada por \cref{eq:Daproximacion}, y un incremento en el número de pasos provocaría, a su vez, un incremento en los tiempos de simulación para los esquemas con controladores difusos, y en consecuencia, volviendo la herramienta impráctica en ciertos escenarios.
 
     \subsection{Solución por Runge-Kutta}
 
-        Como ya se mencionó, la simulación se llevará a cabo utilizando un método de Runge-Kutta, para ello se implementaron múltiples métodos, el usuario puede seleccionar cualquiera de ellos para realizar la simulación. En total se implementaron nueve Runge-Kutta's explícitos y cuatro embebidos. Las tablas de Butcher para cada uno de los métodos implementados se pueden observar en el \ref{anexo:butcher}, a continuación, se presenta una lista de los métodos implementados:
+        Como ya se mencionó, la simulación se lleva a cabo utilizando un método de Runge-Kutta, para ello se implementaron múltiples métodos, el usuario puede seleccionar cualquiera de ellos para realizar la simulación. En total se implementaron nueve Runge-Kutta's explícitos y cuatro embebidos. Las tablas de Butcher para cada uno de los métodos implementados se pueden observar en el \ref{anexo:butcher}. A continuación, se presenta una lista de los métodos implementados:
 
         \begin{enumerate}[leftmargin=\parindent]
             \item Explícitos:
@@ -304,9 +304,9 @@
                 \end{enumerate}
         \end{enumerate}
 
-        Con el fin mejorar la precisión y mantener el número de pasos al mínimo se implementó un algoritmo de ajuste del tamaño de paso para los métodos de Runge-Kutta, para el caso de los Runge-Kutta explícitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo códigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los códigos en Python se pueden observar en el \ref{anexo:stepsize}.
+        Con el fin de mejorar la precisión y mantener el número de pasos al mínimo se implementó un algoritmo de ajuste del tamaño de paso para los métodos de Runge-Kutta, para el caso de los Runge-Kutta explícitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo códigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los códigos en Python se pueden observar en el \ref{anexo:stepsize}.
 
-        El cálculo del tamaño de paso se realiza con el bloque que presente mayores variaciones y requiera la mayor precisión, i.e., el menor tamaño de paso, en la mayoría de los casos este bloque es o incluye a la componente derivativa. Para el resto de bloques que requieran ser calculados, se utiliza un Runge-Kutta explicito con tamaño de paso igual al calculado, el Runge-Kutta utilizado varia según el método utilizado.
+        El cálculo del tamaño de paso se realiza con el bloque que presente mayores variaciones y requiera la mayor precisión, i.e., el menor tamaño de paso, en la mayoría de los casos este bloque es o incluye a la componente derivativa. Para el resto de bloques que requieran ser calculados, se utiliza un Runge-Kutta explícito con tamaño de paso igual al calculado, el Runge-Kutta utilizado varia según el método utilizado.
 
         \pagebreak
 
@@ -380,7 +380,7 @@
 
     \subsection{Análisis de sistemas de control}
         
-        Para realizar la comparación entre el Laboratorio Virtual, MATLAB y SciLab se seleccionaron tres sistemas distintos, los sistemas fueron seleccionados de modo que abarcaran la mayor parte de las funciones disponibles. En la \cref{tab:AnalisisSistemas} se puede observar los sistemas a utilizar, los sistemas discretos se obtuvieron a partir de los continuos utilizando un ZOH, transformación Tustin y un FOH respectivamente, con periodos de muestreo de 0.1s, 0.2s y 0.05s en cada caso.    
+        Para realizar la comparación entre el Laboratorio Virtual, MATLAB y SciLab se seleccionaron tres sistemas distintos, los sistemas fueron seleccionados de modo que abarcaran la mayor parte de las funciones disponibles. En la \cref{tab:AnalisisSistemas} se puede observar los sistemas utilizados, los sistemas discretos se obtuvieron a partir de los continuos utilizando un ZOH, transformación Tustin y un FOH respectivamente, con periodos de muestreo de 0.1s, 0.2s y 0.05s en cada caso.    
 
         \begin{table}[htb]
             \centering 
@@ -569,12 +569,12 @@
             \item SciLab no posee funciones directas para implementar sistemas con atrasos o aproximarlos con PADE.
             \item La diferencia máxima se encontraba en un valor de cero (0), por lo que no se puede calcular la diferencia porcentual.
             \item NaN indica que el margen de ganancia para ese sistema es infinito.
-            \item La función evans de SciLab, la cual se encarga de generar el lugar de las raíces no devuelve ningun tipo de data, por cual no se puede realizar una comparación numérica o gráfica.
+            \item La función evans de SciLab, la cual se encarga de generar el lugar de las raíces no devuelve ningún tipo de data, por cual no se puede realizar una comparación numérica o gráfica.
             \item Cuando se realizaron los cálculos para el lugar de las raíces se observó que existía una pobre alineación entre los valores de salida, por tanto, realizar un cálculo de error arrojaba valores no confiables. El problema también fue detectado al realizar la graficacion del área entre una respuesta y la otra, en donde se observaban áreas entre tramos separados del lugar de las raíces.
             \item La función para discretizar sistemas continuos de SciLab no permite seleccionar un método en particular y utiliza, por defecto, ZOH.
         \end{itemize}
 
-        De las \cref{tab:AnalisisStepC,tab:AnalisisStepD} se puede extraer que existentes diferencias mínimas  entre el Laboratorio Virtual y MATLAB/SciLab en términos de precisión, a su vez, se logra percibir la gran dependencia que existe del vector de tiempo y frecuencia. Las métricas de análisis de frecuencia dieron iguales o muy parecidas tanto para MATLAB como para SciLab, esto se debe a que se utilizó el mismo vector de frecuencia para ambos, de modo similar, para la respuesta escalón e impulso se obtuvieron diferencias mínimas entre el Laboratorio Virtual y SciLab por el uso del mismo vector de tiempo, lo anterior también es observable para los sistemas discretos dado que los vectores de tiempo son gobernados por el periodo de muestreo. La comparación grafica con MATLAB se puede observar a modo de ejemplo en la \cref{fig:Set1} para el sistema continuo uno (1), para observar la comparación grafica de los demás sistemas ir al \ref{anexo:CAnalisis}.
+        De las \cref{tab:AnalisisStepC,tab:AnalisisStepD} se puede extraer que existen diferencias mínimas  entre el Laboratorio Virtual y MATLAB/SciLab en términos de precisión, a su vez, se logra percibir la gran dependencia que existe del vector de tiempo y frecuencia. Las métricas de análisis de frecuencia dieron iguales o muy parecidas tanto para MATLAB como para SciLab, esto se debe a que se utilizó el mismo vector de frecuencia para ambos, de modo similar, para la respuesta escalón e impulso se obtuvieron diferencias mínimas entre el Laboratorio Virtual y SciLab por el uso del mismo vector de tiempo, lo anterior también es observable para los sistemas discretos dado que los vectores de tiempo son gobernados por el periodo de muestreo. La comparación grafica con MATLAB se puede observar a modo de ejemplo en la \cref{fig:Set1} para el sistema continuo uno (1), para observar la comparación grafica de los demás sistemas ir al \ref{anexo:CAnalisis}.
         
         \pagebreak
 
@@ -603,11 +603,11 @@
 
         El Laboratorio Virtual permite ajustar las ganancias del controlador PID con solo deslizar los sliders correspondientes, permitiendo visualizar los efectos del aumento de cada una de los componentes del controlador PID, a su vez, permite habilitar y deshabilitar cada componente de forma sencilla permitiendo así, una forma visual de entonación rápida y sin complicaciones. En el caso de MATLAB, existen varias herramientas de entonación, la que presenta mayor similitud es el PID Tuner, el cual permite entonar el controlador basado en el tiempo de respuesta y en el transitorio, no permite ajustar de forma individual cada ganancia, pero si contiene otras funciones no disponibles en el Laboratorio Virtual. En el caso de SciLab, no existe ninguna herramienta que cumpla con la función de entonar controladores PID.
 
-        En ambos casos, tanto el Laboratorio Virtual como el PID Tuner de MATLAB permite realizar una entonación automática y realizar ajustes finales de forma manual, el Laboratorio Virtual utiliza los métodos de Ziegler-Nichols y Cohen-Coon, en el caso de MATLAB no se conoce que método es utilizado. Para la identificación y entonación de sistemas a partir de data recolectada, MALTAB posee la aplicación System Identification, la cual tiene una gran cantidad de opciones superiores al Laboratorio Virtual en lo que a identificación de sistemas respecta, no obstante, el Laboratorio Virtual tiene la ventaja de poseer una entonación automática al mismo tiempo que se realiza la identificación. Nuevamente, SciLab no posee herramientas que puedan realizar identificación de sistemas a partir de la data recolectada, si bien, las anteriores funciones pueden ser implementadas a código, el problema recae en el usuario.
+        En ambos casos, tanto el Laboratorio Virtual como el PID Tuner de MATLAB permite realizar una entonación automática y realizar ajustes finales de forma manual, el Laboratorio Virtual utiliza los métodos de Ziegler-Nichols y Cohen-Coon, en el caso de MATLAB no se conoce que método es utilizado. Para la identificación y entonación de sistemas a partir de data recolectada, MATLAB posee la aplicación System Identification, la cual tiene una gran cantidad de opciones superiores al Laboratorio Virtual en lo que a identificación de sistemas respecta, no obstante, el Laboratorio Virtual tiene la ventaja de poseer una entonación automática al mismo tiempo que se realiza la identificación. Nuevamente, SciLab no posee herramientas que puedan realizar identificación de sistemas a partir de la data recolectada, si bien, las anteriores funciones pueden ser implementadas a código, el problema recae en el usuario.
 
     \subsection{Diseño de controladores difusos}
 
-        La comparación se realizó utilizando como base dos controladores difusos diseñados utilizando el Laboratorio virtual y exportando su diseño en un archivo FIS. Los controladores fueron diseñados bajo el principio de utilizar gran parte de las posibilidades en términos de funciones de membresía y reglas, por tanto, no serán aptos para el control de procesos, pero si ideales para realizar la comparación con MATLAB y SciLab.
+        La comparación se realizó utilizando como base dos controladores difusos diseñados utilizando el Laboratorio Virtual y exportando su diseño en un archivo FIS. Los controladores fueron diseñados bajo el principio de utilizar gran parte de las posibilidades en términos de funciones de membresía y reglas, por tanto, no serán aptos para el control de procesos, pero si ideales para realizar la comparación con MATLAB y SciLab.
 
         El primer controlador posee una entrada y una salida, la entrada a su vez contiene cinco etiquetas genéricas con una función de membresía distinta cada una, por otro lado, la salida está compuesta de tres etiquetas con funciones de membresía triangulares, el método de defuzzificacion seleccionado es el del centro de área (Centroid). En la \cref{fig:controladorDifuso} se pueden observar las funciones de membresía de la entrada y la salida junto con las áreas de activación de reglas para una determinada entrada. El segundo controlador diseñado posee dos entradas y dos salidas con tres etiquetas en todos los casos, el método de defuzzificacion seleccionado fue el de primero a la izquierda (SOM). La estructura de los archivos FIS se puede observar en el \ref{anexo:ComparacionDifuso}.
 
@@ -1077,4 +1077,4 @@
             PID más difuso & 6.740  & 0.676 & 2.755 \\
         \end{longtable}}
 
-        Los tiempos de ejecución en tiempo discreto son en algunos casos menores para el Laboratorio Virtual al compararlos con SciLab, de forma general se puede afirmar que MALTAB es quien ejecuta las simulaciones en el menor tiempo.
+        Los tiempos de ejecución en tiempo discreto son en algunos casos menores para el Laboratorio Virtual al compararlos con SciLab, de forma general se puede afirmar que MATLAB es quien ejecuta las simulaciones en el menor tiempo.
