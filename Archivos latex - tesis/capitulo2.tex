@@ -154,7 +154,7 @@
             y[k+n] + a_{n-1}y[k+n-1] + \cdots + a_1 y[k+1] + a_0 y[k] = f[k] 
         \end{equation}
         
-        Así mismo la ecuación \cref{eq:SSrepresentationX} está compuesta de ecuaciones diferenciales, por lo cual, puede ser llevada a una ecuación en diferencias, por tanto, la representación del proceso en el espacio de estados queda como sigue:
+        Así mismo la ecuación \cref{eq:SSrepresentationX} está compuesta de ecuaciones diferenciales, por lo cual puede ser llevada a una ecuación en diferencias, y, por tanto, ser expresada en el espacio de estados de forma discreta como sigue:
 
         \begin{align}\label{eq:SSdiscreto}
             x[k+1] &= A_d x[k] + B_d u[k] \\
@@ -177,7 +177,7 @@
                 H(z) = (1 - z^{-1}) \mathcal{Z} \left[ \mathcal{L}^{-1}\left\lbrace \frac{G(s)}{s}\right\rbrace\Bigr|_{t=kh}\right]
             \end{equation}
 
-            Existen otros modos de llevar una función de transferencia continua al dominio Z como las aproximaciones de Tustin y Euler, estas consisten en sustituir la variable s por una aproximación en el dominio Z y se sustentan en ser aproximaciones numéricas a integrales en el tiempo, \textcite{haugen2005discrete} afirma que la aproximación de Tustin es la más precisa de las tres, no obstante, sugiere que no existe una diferencia notable entre este y Euler hacia atrás, además, la mayoría de los controladores comerciales vienen con Euler hacia atrás, por lo que puede considerarse una mejor opción a la hora de escoger un método. Las sustituciones correspondientes son:
+            Existen otros modos de llevar una función de transferencia continua al dominio Z como las aproximaciones de Tustin y Euler, estas consisten en sustituir la variable s por una aproximación en el dominio Z y se sustentan en ser aproximaciones numéricas a integrales en el tiempo, \textcite{haugen2005discrete} afirma que la aproximación de Tustin es la más precisa de las tres, no obstante, sugiere que no existe una diferencia notable entre Tustin y Euler hacia atrás, además, la mayoría de los controladores comerciales vienen con Euler hacia atrás, por lo que puede considerarse una mejor opción a la hora de escoger un método. Las sustituciones correspondientes son:
 
             \begin{align}
                 &\text{Euler hacia adelante:}& &s \leftarrow \frac{z - 1}{h} \label{eq:eulerF}\\
@@ -305,7 +305,7 @@
 				y^{(j)} = Cx_n^{(j)} + Du_m(t) \label{eq:rkrepresentationY}
             \end{equation}
             
-            Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinara el número de iteraciones a realizar. Un tamaño de paso pequeño genera resultados más precisos, pero incrementa el tiempo de cómputo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, por tanto, el tamaño de paso es un factor muy importante en los métodos de Runge-Kutta.
+            Los pasos mencionados se repiten una y otra vez de forma iterativa utilizando un tamaño de paso adecuado, el tamaño de paso determinará el número de iteraciones a realizar. Un tamaño de paso pequeño genera resultados más precisos, pero incrementa el tiempo de cómputo considerablemente, por otro lado, un tamaño de paso grande puede generar errores inaceptables con la ventaja de acelerar los cálculos, por tanto, el tamaño de paso es un factor muy importante en los métodos de Runge-Kutta.
 
         \subsubsection{Tamaño de paso variable}
 
@@ -317,11 +317,11 @@
             
             \paragraph{Cálculo del error con dos medios pasos}
 
-                Este es un método simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo método al realizar dos pasos de tamaño $\frac{h}{2}$, de este modo el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|x_{n,h}^{(j+1)} - x_{n,\frac{h}{2}}^{(j+1)}\right|$ donde $x_{n,\frac{h}{2}}^{(j+1)}$ es la salida luego de dos medios pasos.
+                Este es un método simple pero eficaz de calcular el error, consiste en realizar un paso simple de tamaño h y comparar su respuesta con la respuesta dada por el mismo método al realizar dos pasos de tamaño $\frac{h}{2}$, de modo que el error $\Delta e$ se puede calcular como la diferencia en valor absoluto de ambas respuestas, $\left|x_{n,h}^{(j+1)} - x_{n,\frac{h}{2}}^{(j+1)}\right|$ donde $x_{n,\frac{h}{2}}^{(j+1)}$ es la salida luego de dos medios pasos.
             
             \paragraph{Cálculo del error para métodos embebidos} 
 
-                Los métodos embebidos están hechos para poder realizar este cálculo del error, por tanto, no hay que realizar ningún cálculo extra y el error puede ser calculado de forma directa como $\left\lvert x_n^{(j+1)} - \hat{x}_n^{(j+1)} \right\rvert $.
+                Los métodos embebidos están hechos para poder realizar el cálculo del error, por tanto, no hay que realizar ningún cálculo extra y el error puede ser calculado de forma directa como $\left\lvert x_n^{(j+1)} - \hat{x}_n^{(j+1)} \right\rvert $.
 
             \paragraph{Nuevo tamaño de paso}
 
@@ -365,7 +365,7 @@
 		
 		\subsubsection{Sistema en lazo abierto}
 		
-            Un sistema en lazo abierto es aquel cuya salida no es medida en ningún momento en orden de ajustar la entrada, por lo cual provoca que \enquote{las perturbaciones que se presentan en el proceso ocasionen que sus efectos se sientan en la salida del proceso, es decir, en el valor de la variable controlada}\Parencite[p.$\,$350]{maloney2006electronica}. La mayoría de los sistemas en lazo abierto son estables, pero carecen de utilidad práctica al no poder mantenerlos en un punto de referencia debido a las perturbaciones.
+            Un sistema en lazo abierto es aquel cuya salida no es medida en ningún momento en orden de ajustar la entrada. \enquote{Las perturbaciones que se presentan en el proceso ocasionan que sus efectos se sientan en la salida del proceso, es decir, en el valor de la variable controlada}\Parencite[p.$\,$350]{maloney2006electronica}. La mayoría de los sistemas en lazo abierto son estables, pero carecen de utilidad práctica al no poder mantenerlos en un punto de referencia debido a las perturbaciones.
             
             Por otro lado, es importante analizar el comportamiento del sistema en lazo abierto para determinar su comportamiento en lazo cerrado, además, nos permite determinar sus características con el fin de realizar un modelo matemático aproximado del sistema, el cual es útil para realizar la entonación de los controladores sin tener que trabajar de forma directa con el proceso, el cual puede ser peligroso o inaccesible. La representación en diagrama de bloques de un sistema en lazo abierto se puede observar en la \cref{fig:esquemaLazoAbierto}.
             
@@ -378,7 +378,7 @@
         
         \subsubsection{Sistema en lazo cerrado}
 		
-			Los sistemas de lazo cerrado son aquellos cuya salida es realimentada a la entrada del sistema, esta realimentación suele ser negativa para que sea estable, no obstante, existen sistemas que se vuelven inestables con el simple hecho de cerrar el lazo, un ejemplo de sistema realimentado se puede observar en la \cref{fig:esquemaLazoCerrado}.
+			Los sistemas de lazo cerrado son aquellos cuya salida es realimentada a la entrada del sistema, esta realimentación suele ser negativa para que sea estable, no obstante, existen sistemas que se vuelven inestables con el simple hecho de cerrar el lazo. Un ejemplo de sistema realimentado se puede observar en la \cref{fig:esquemaLazoCerrado}.
 			
 			\begin{figure}[htb]
 				\centering
@@ -421,7 +421,7 @@
             
             \paragraph{Criterio de estabilidad de Nyquist}
                 
-                El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto. Este criterio \enquote{es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales, \textcite{ogata2003ingenieria} define tres criterios:
+                El criterio de estabilidad de Nyquist determina el estado de estabilidad utilizando los polos en lazo abierto y la respuesta en frecuencia del sistema en lazo abierto. Este criterio \enquote{[...] es útil en la ingeniería de control, debido a que permite determinar gráficamente la estabilidad absoluta del sistema en lazo cerrado a partir de las curvas de respuesta en frecuencia en lazo abierto, sin que sea necesario determinar los polos en lazo cerrado}\Parencite[p.$\,$446]{ogata2003ingenieria}. Este criterio tiene la ventaja de poder realizarse tanto con cálculos analíticos como con datos experimentales, \textcite{ogata2003ingenieria} define tres criterios:
 
                 \begin{enumerate}[leftmargin=\parindent]
                     \item El punto $-1 + j0$ no está rodeado. Esto implica que el sistema es estable en lazo cerrado si no hay polos de $G(s)H(s)$ en el semiplano derecho del plano s\footref{fn:continuevsdiscreto}; de lo contrario, el sistema es inestable.
@@ -477,13 +477,13 @@
 
             \paragraph{Diagrama de Nichols}
                 
-                El diagrama de Nichols es una gráfica del sistema en lazo abierto de tipo magnitud vs fase, en el diagrama se pueden ubicar los márgenes de ganancia y fase, para ayudar en el diseño de controladores se suele superponer una rejilla guía de valores de magnitud y ángulo constantes, esta rejilla lleva el nombre de carta de Nichols o ábaco de Nichols. En el diagrama de Nichols el punto crítico $-1 + j0$ se convierte en $(0dB, -180^\circ)$
+                El diagrama de Nichols es una gráfica del sistema en lazo abierto de tipo magnitud vs fase, en el diagrama se pueden ubicar los márgenes de ganancia y fase. Para ayudar en el diseño de controladores se suele superponer una rejilla guía de valores de magnitud y ángulo constantes, esta rejilla lleva el nombre de carta de Nichols o ábaco de Nichols. En el diagrama de Nichols el punto crítico $-1 + j0$ se convierte en $(0dB, -180^\circ)$
 
                 \clearpage
 
         \subsubsection{Controlador PID}
 
-            El controlador será el elemento dentro del sistema de control que se encargará de llevar al proceso a un valor de referencia deseado, existen varios esquemas de control para el control de procesos, cada uno con sus ventajas y desventajas, el más común es un sistema en lazo cerrado con controlador, este se puede observar en la \cref{fig:esquemaPID}.
+            El controlador será el elemento dentro del sistema de control que se encargará de llevar al proceso a un valor de referencia deseado, existen varios esquemas de control para el control de procesos cada uno con sus ventajas y desventajas, el más común es un sistema en lazo cerrado con controlador, el cual se puede observar en la \cref{fig:esquemaPID}.
 
             \begin{figure}[htb]
                 \centering
@@ -492,7 +492,7 @@
                 \label{fig:esquemaPID}
             \end{figure}
 
-            En este esquema se observa que el controlador recibe la señal de error producto de tomar la diferencia entre el setpoint y la variable del proceso, este error es utilizado por el controlador para generar una señal de control $sc(t)$. El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.$\,$671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
+            En el esquema se observa que el controlador recibe la señal de error producto de tomar la diferencia entre el setpoint y la variable del proceso, este error es utilizado por el controlador para generar una señal de control $sc(t)$. El controlador más usado en la industria es el controlador PID, así lo afirma \textcite{kuo1996sistemas}: \enquote{[...] uno de los controladores más ampliamente empleados es el controlador PID [...] donde las letras son las iniciales de proporcional, integral y derivativo}(p.$\,$671). La ecuación que define a un PID en el dominio del tiempo es la siguiente:
 
             \begin{equation}\label{eq:pidtiempo}
                 sc(t) = K_{p}e(t)+  K_{i}\int_{0}^{t} e(\tau) d\tau + K_{d} \frac{d}{dt}e(t)
@@ -522,13 +522,13 @@
 
 			\paragraph{Componente integral}
 
-				La componente integral viene dada por la sumatoria de la señal del error en el tiempo multiplicada por la ganancia integral, por tanto, se obtiene una acumulación en un periodo determinado, lo anterior implica que mientras exista error, la componente integral seguirá aumentando o disminuyendo dependiendo del signo de la señal de error hasta que el error sea cero, la componente integral se suma con la componente proporcional formando una única señal de control.
+				La componente integral viene dada por la sumatoria de la señal del error en el tiempo multiplicada por la ganancia integral, por tanto, se obtiene una acumulación en un periodo determinado, lo anterior implica que mientras exista error la componente integral seguirá aumentando o disminuyendo dependiendo del signo de la señal de error hasta que el error sea cero, la componente integral se suma con la componente proporcional formando una única señal de control.
 
 				Debido a que la componente integral depende del tiempo, es posible corregir desviaciones de la variable controlada generadas por perturbaciones externas. Por otro lado, debido a que eventualmente se conseguirá que el error sea igual a cero la componente proporcional no hará ningún aporte al sistema, y la señal de control pasará a ser totalmente generada por la componente integral hasta que exista un cambio en el setpoint o una alteración en la variable medida.
 
 			\paragraph{Componente derivativa}
 
-				La componente derivativa viene dada por el ritmo de cambio de la señal de error multiplicado por la ganancia derivativa, por tanto, cuando el error permanece constante la componente derivativa es igual a cero, la componente derivativa será tan grande como la velocidad con la que cambie el error, lo cual ayuda a evitar que se generen sobre pasos en la variable medida respecto a la variable de referencia.
+				La componente derivativa viene dada por el ritmo de cambio de la señal de error multiplicado por la ganancia derivativa, por tanto, cuando el error permanece constante la componente derivativa es igual a cero. La componente derivativa será tan grande como la velocidad con la que cambie el error, lo cual ayuda a evitar que se generen sobre pasos en la variable medida respecto a la variable de referencia.
 				
 				La componente derivativa es muy sensible al ruido, por tanto, se debe utilizar solo cuando se requiera un cierto grado de anticipación y no exista ruido \Parencite{smith1985principles}. Es recomendable utilizar filtros en orden de disminuir el posible ruido, a su vez, cuando el proceso a controlar es de respuesta rápida se recomienda no agregar componente derivativa o que su ganancia sea muy pequeña. Tomando en cuenta lo anterior, se debe mencionar que la componente derivativa tal como se observa en las ecuaciones \cref{eq:pidtiempo} y \cref{eq:pidcompleja} no es implementable al ser no causal, por tanto, la derivada debe ser implementada utilizando una aproximación. \blockquote[{\cite[p.220]{aastrom2002control}}]{La aproximación actúa como una derivada para las componentes de la señal de baja frecuencia. La ganancia, sin embargo, está limitada a $KN$. Esto significa que las medidas de ruido de alta frecuencia son amplificadas cuando mucho por un factor $KN$.} La función de transferencia de la componente derivativa aproximada es la siguiente:
 
@@ -544,7 +544,7 @@
                 G(s) = \frac{K}{\tau s + 1} e^{-\alpha s}
             \end{equation}
             
-            Los parámetros correspondientes pueden ser obtenidos realizando una prueba al escalón y extrayendo los datos correspondientes de la gráfica de la respuesta, un ejemplo se puede observar en la \cref{fig:ZNtest}. Acá se observa: (a) $t_{0}$ que corresponde al inicio del escalón, (b) $t_{1}$ inicio de la respuesta por parte del proceso al escalón, (c) $t_{2}$ cuando el proceso alcanza el 63\% del cambio total, (d) $\Delta y$ cambio total del proceso ante el escalón y (e) $\Delta u$ magnitud de cambio de la entrada. Los parámetros para aproximar el proceso a un modelo de primer orden con tiempo muerto se calculan como sigue:
+            Los parámetros correspondientes pueden ser obtenidos realizando una prueba al escalón y extrayendo los datos correspondientes de la gráfica de la respuesta. Un ejemplo se puede observar en la \cref{fig:ZNtest}, en la cual se logra apreciar: (a) $t_{0}$ que corresponde al inicio del escalón, (b) $t_{1}$ inicio de la respuesta por parte del proceso al escalón, (c) $t_{2}$ cuando el proceso alcanza el 63\% del cambio total, (d) $\Delta y$ cambio total del proceso ante el escalón y (e) $\Delta u$ magnitud de cambio de la entrada. Los parámetros para aproximar el proceso a un modelo de primer orden con tiempo muerto se calculan como sigue:
             
             \begin{align}
                 K &= \frac{\Delta y}{\Delta u}\label{eq:parametroK}\\
@@ -555,7 +555,7 @@
             \begin{figure}[htb]
                 \centering
                 \includegraphics[width=0.9\textwidth]{ZieglerN.pdf}
-                \caption[Modelado por curva de reacción]{\textbf{Modelado por curva de reacción.} Para realizar este modelado se estudia la respuesta del sistema ante la entrada de la función de heaviside u(t), también llamada función escalón unitario, el modelo obtenido a través de este método es una aproximación del sistema. Fuente: Elaboración propia.} 
+                \caption[Modelado por curva de reacción]{\textbf{Modelado por curva de reacción.} Para realizar el modelado se estudia la respuesta del sistema ante la entrada de la función de heaviside u(t), también llamada función escalón unitario, el modelo obtenido a través de este método es una aproximación del sistema. Fuente: Elaboración propia.} 
                 \label{fig:ZNtest}
             \end{figure}
             
@@ -718,7 +718,7 @@
         
         \subsubsection{Reglas de inferencia}
             
-            Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y la salida, la cual puede ser un conjunto difuso o una función matemática. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens. Modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente.
+            Las reglas de inferencia, al igual que en la lógica convencional, se encargan de realizar una conexión entre los antecedentes y los consecuentes con el fin de obtener una salida, en este caso, entre los conjuntos difusos de entrada y las salidas, las cuales pueden ser conjuntos difusos o funciones matemáticas. Como sugiere \textcite{cruz2010inteligencia}, las reglas pueden formularse de dos formas denominadas modus ponens y modus tollens. Modus ponens utiliza los antecedentes para obtener el consecuente, por otro lado, el modus tollens utiliza los consecuentes recíprocos para obtener el antecedente.
                         
             Para realizar el proceso de inferencia se necesitan las normas triangulares (T-Normas) para el caso de lógica AND o las conormas triangulares (T-Conormas) para lógica OR. Sus formas de aplicación más comunes suelen ser el mínimo de los valores de pertenencia para las T-Normas y el máximo de los valores de pertenencia para las T-Conormas, de este modo, se obtienen las operaciones de intersección y unión respectivamente. El proceso de inferencia consta de 6 pasos: fuzzificacion, pareo de proposiciones, conjunción/disyunción de premisas, implicación, agregación y defuzzificación.
 
@@ -828,7 +828,7 @@
             
             \paragraph{Controlador PI difuso}
                 
-                Un controlador PI difuso se puede obtener al agregar un integrador a la salida de un PD difuso, de este modo $sc(t) = e(t) + \Delta e(t)$ se transforma en $sc(t) = \int_0^t e(\tau)d\tau + e(t)$ la cual será tomada como la señal de control. El esquema de control se puede observar en la \cref{fig:piFuzzyTomo}.
+                Un controlador PI difuso se puede obtener al agregar un integrador a la salida de un PD difuso, por lo que $sc(t) = e(t) + \Delta e(t)$ se transforma en $sc(t) = \int_0^t e(\tau)d\tau + e(t)$ la cual será tomada como la señal de control. El esquema de control se puede observar en la \cref{fig:piFuzzyTomo}.
 
                 \begin{figure}[htb]
                     \centering
@@ -841,7 +841,7 @@
 
             \paragraph{Controlador PID difuso}
                 
-                Un controlador PID difuso puede ser realizado al tomar la señal de error, la derivada del error y la segunda derivada del error como entradas del controlador, la señal de salida es luego integrada de modo que $sc(t) = e(t) + \Delta e(t) + \Delta^2 e(t)$ se transforma en $sc(t) = \int_0^t e(\tau)d\tau + e(t) + \Delta e(t)$ la cual será tomada como la señal de control. El esquema de control para un PID difuso completo se puede observar en la \cref{fig:pidFuzzyTomo}.
+                Un controlador PID difuso puede ser realizado al tomar la señal de error, la derivada del error y la segunda derivada del error como entradas del controlador. La señal de salida es luego integrada de modo que $sc(t) = e(t) + \Delta e(t) + \Delta^2 e(t)$ se transforma en $sc(t) = \int_0^t e(\tau)d\tau + e(t) + \Delta e(t)$ la cual será tomada como la señal de control. El esquema de control para un PID difuso completo se puede observar en la \cref{fig:pidFuzzyTomo}.
 
                 \begin{figure}[htb]
                     \centering
@@ -865,7 +865,7 @@
             
             \paragraph{Controlador combinado}
                 
-                Consiste en sumar las salidas de un controlador PID clásico y un controlador difuso, de este modo el controlador PID será quien gobierne al proceso la mayor parte del tiempo. En el caso de utilizar un controlador P difuso y de generarse un cambio en el setpoint o la carga, el controlador difuso procederá a emitir una salida proporcional y adaptada al cambio. El esquema de control se puede observar en la \cref{fig:pidplusFuzzyTomo}.
+                Consiste en sumar las salidas de un controlador PID clásico y un controlador difuso, por lo cual el controlador PID será quien gobierne al proceso la mayor parte del tiempo. En el caso de utilizar un controlador P difuso y de generarse un cambio en el setpoint o la carga, el controlador difuso procederá a emitir una salida proporcional y adaptada al cambio. El esquema de control se puede observar en la \cref{fig:pidplusFuzzyTomo}.
             
                 \begin{figure}[htb]
                     \centering
@@ -885,11 +885,11 @@
         
         \subsubsection{Biblioteca NumPy}
 
-            NumPy es una biblioteca para realizar cálculos computacionales científicos y matemáticos, algunas de sus funciones son: cálculo de vectores n-dimensionales, transformada de Fourier, álgebra lineal, entre otras \Parencite{numpy}
+            NumPy es una biblioteca para realizar cálculos computacionales científicos y matemáticos, algunas de sus funciones son: cálculo de vectores n-dimensionales, transformada de Fourier, álgebra lineal, entre otras \Parencite{numpy}.
 
         \subsubsection{Biblioteca SciPy}	
 
-            El paquete SciPy es un conjunto de bibliotecas matemáticas, científicas y de ingeniería compuestas por: NumPy, SciPy (biblioteca), SymPy, Matplotlib, IPython y Pandas, la biblioteca SciPy es uno de los núcleos del paquete SciPy. Provee varias rutinas eficientes de uso amigable para el usuario de tipo numérica para realizar integración, interpolación, optimización, álgebra lineal, estadísticas, entre otras \Parencite{scipy}, toda la documentación puede ser conseguida en la página oficial de SciPy.
+            El paquete SciPy es un conjunto de bibliotecas matemáticas, científicas y de ingeniería compuestas por: NumPy, SciPy (biblioteca), SymPy, Matplotlib, IPython y Pandas, la biblioteca SciPy es uno de los núcleos del paquete SciPy. Provee varias rutinas eficientes de uso amigable para el usuario de tipo numérica para realizar integración, interpolación, optimización, álgebra lineal, estadísticas, entre otras \Parencite{scipy}. Toda la documentación puede ser conseguida en la página oficial de SciPy.
             
         \subsubsection{Biblioteca Matplotlib}
 
@@ -905,7 +905,7 @@
 
         \subsubsection{Biblioteca PySide2}
 
-            PySide2 es una biblioteca que hace de union entre Qt y Python para la creación de interfaces de usuario. PySide2 es soportado por linux, Mac OS X, windows, entre otros.
+            PySide2 es una biblioteca que hace de union entre Qt y Python para la creación de interfaces de usuario. PySide2 es soportado por Linux, Mac OS X, Windows, entre otros.
             
         \subsubsection{Biblioteca PyQtGraph}
                 

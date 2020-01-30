@@ -5,7 +5,7 @@
     \begin{figure}[htb]
         \centering
         \includegraphics[width=0.8\textwidth]{estructuraMain.pdf}
-        \caption[Diagrama general de la aplicación]{\textbf{Diagrama general de la aplicación}. La estructura general de la aplicación, la segunda columna de izquierda a derecha representa a los archivos handler mientras que la tercera son los archivos de rutinas. Fuente: Elaboración propia.} 
+        \caption[Diagrama general de la aplicación]{\textbf{Diagrama general de la aplicación}. La estructura general de la aplicación, en la cual la segunda columna de izquierda a derecha representa a los archivos handler mientras que la tercera son los archivos de rutinas. Fuente: Elaboración propia.} 
         \label{fig:estructuraMain}
     \end{figure}
 
@@ -64,7 +64,7 @@
 
     \subsubsection{Proceso con atraso o delay}
         
-        A los procesos ingresados se les puede agregar un atraso, este atraso es manejado de forma distinta dependiendo de la funcionalidad. Para el caso de la funcionalidad de análisis, el delay fue implementado para la respuesta escalón y la respuesta impulso como un desplazamiento en el tiempo equivalente al delay ingresado, para la respuesta en frecuencia se multiplico $e^{-j\omega \alpha}$ a cada una de las evaluaciones de frecuencia con $\alpha$ como el delay ingresado por el usuario. Para el caso del lugar de las raíces, el delay es implementado utilizando una aproximación por PADE.
+        A los procesos ingresados se les puede agregar un atraso, este atraso es manejado de forma distinta dependiendo de la funcionalidad. Para el caso de la funcionalidad de análisis, el delay fue implementado para la respuesta escalón y la respuesta impulso como un desplazamiento en el tiempo equivalente al delay ingresado. Para la respuesta en frecuencia se multiplico $e^{-j\omega \alpha}$ a cada una de las evaluaciones de frecuencia con $\alpha$ como el delay ingresado por el usuario. Para el caso del lugar de las raíces, el delay es implementado utilizando una aproximación por PADE.
 
         Si el proceso es definido en tiempo discreto el mismo es multiplicado por $z^{-\alpha/T}$ con la idea de retrasar las muestras en un número equivalente al delay deseado, de este modo, no hay casos especiales dependiendo del tipo de análisis.
 
@@ -86,7 +86,7 @@
     
     \subsection{Gráfica del lugar de las raíces}
         
-        La gráfica es realizada utilizando la librería de control, una de las funciones que posee es poder seleccionar cualquier punto en la gráfica y obtener la ganancia y el damping que le corresponden. Para el caso de sistemas discretos se grafica el circulo unitario.
+        La gráfica es realizada utilizando la librería de control, una de las funciones que posee es poder seleccionar cualquier punto en la gráfica y obtener la ganancia y el damping que le corresponden. Para el caso de sistemas discretos se graficá el círculo unitario.
     
     \subsection{Diagrama de Nichols}
         
@@ -132,21 +132,21 @@
         \end{minted}
     \end{longlisting}
 
-    La forma de definición de procesos presentado en la funcionalidad de análisis de sistemas de control es reutilizada para esta sección. Al igual que para el análisis de sistemas de control, inicialmente se valida cada una de las entradas del usuario y se chequea si el botón para realizar los cálculos fue presionado, una vez presionado el botón de calcular se procede a verificar que tipo de cálculo se va a realizar entre: entonación manual, entonación automática o entonación con archivo CSV.
+    La forma de definición de procesos presentada en la funcionalidad de análisis de sistemas de control es reutilizada para esta sección. Al igual que para el análisis de sistemas de control, inicialmente se valida cada una de las entradas del usuario y se chequea si el botón para realizar los cálculos fue presionado, una vez presionado el botón de calcular se procede a verificar que tipo de cálculo se va a realizar entre: entonación manual, entonación automática o entonación con archivo CSV.
 
     \subsection{Entonación de sistema en lazo cerrado con PID}
         
         Para el cálculo de la respuesta al escalón se utiliza la librería de control, el esquema implementado es el presentado en la \cref{fig:esquemaPID}. El controlador PID fue definido utilizando \cref{eq:pidcompleja} y sustituyendo la componente derivativa por \cref{eq:Daproximacion}. Si el sistema es representado en tiempo discreto se utiliza \cref{eq:pidenZ} para definir al controlador PID.
         
-        Así mismo, para la entonación automática se realiza una prueba escalón en lazo abierto con el propósito de calcular \cref{eq:parametroK}, \cref{eq:parametroTau} y \cref{eq:parametroAlfa}, luego, se sustituyen los valores en las \cref{tab:ZiglerNichols,tab:CohenCoon} con el fin de realizar una entonación por el método Ziegler-Nichols y Cohen-Coon según la selección del usuario.
+        Así mismo, para la entonación automática se realiza una prueba escalón en lazo abierto con el propósito de calcular \cref{eq:parametroK}, \cref{eq:parametroTau} y \cref{eq:parametroAlfa}, luego, se sustituyen los valores en las \cref{tab:ZiglerNichols,tab:CohenCoon} con el fin de realizar una entonación por el método Ziegler-Nichols o Cohen-Coon según la selección del usuario.
 
     \subsection{Entonación utilizando un archivo CSV}
 
         Como ya se mencionó, con esta opción se permite cargar un archivo CSV que contenga la data de respuesta a un escalón con la finalidad de obtener su aproximación de primer orden con tiempo muerto y poder realizar una entonación utilizando el método de Zigler-Nichols o Cohen-Coon. El usuario debe ingresar el límite superior e inferior de la variable del proceso (Vp) y de la entrada al sistema, normalmente, la señal del elemento final de control (EFC), adicionalmente, debe ingresar el separador del archivo CSV cuyo valor por defecto es una coma (,).
 
-        El algoritmo aproxima los parámetros de un modelo de primer orden con tiempo muerto utilizando el punto de máxima pendiente para trazar una recta, este punto quedara como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automático no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.g., como la observada en la \cref{fig:ZNtest}.
+        El algoritmo aproxima los parámetros de un modelo de primer orden con tiempo muerto utilizando el punto de máxima pendiente para trazar una recta, este punto quedará como ancla permitiendo al usuario ajustar el tiempo $t_1$ en caso de que el ajuste automático no genere buenos resultados. El algoritmo solo funciona para respuestas ascendentes, i.g., como la observada en la \cref{fig:ZNtest}.
 
-        El archivo CSV deberá contener un formato de encabezados específico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentará buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV valido se puede observar en el \ref{anexo:csv}.
+        El archivo CSV deberá contener un formato de encabezados específico, los encabezados deben contener las palabras clave VP, EFC o TIME para identificar las columnas. El algoritmo intentará buscar las palabras clave dentro del encabezado de cada columna, i.g., datavpsimulacion identificaría a los datos de Vp debido a que incluye la palabra clave Vp, no se hace distinción entre minúsculas y mayúsculas. La columna que contiene los datos de tiempo puede expresar el tiempo en los formatos hh:mm:ss, mm:ss o directamente en segundos. Un ejemplo del formato de un CSV válido se puede observar en el \ref{anexo:csv}.
 
 \section{Diseño de controladores difusos}
     
@@ -188,7 +188,7 @@
         
         \subsubsection{Controladores genéricos}
 
-            Los controladores genéricos pueden tener un numero arbitrario de entradas y salidas con un máximo de diez entradas o salidas, al ser genéricos, no se garantiza que puedan ser utilizados en la funcionalidad de simulación de sistemas de control, por tanto, sirve para diseñar cualquier sistema de inferencia difuso con o sin el propósito de utilizarle como controlador.
+            Los controladores genéricos pueden tener un numero arbitrario de entradas y salidas con un máximo de diez entradas o salidas, al ser genéricos, no se garantiza que puedan ser utilizados en la funcionalidad de simulación de sistemas de control, no obstante, sirve para diseñar cualquier sistema de inferencia difuso con o sin el propósito de utilizarle como controlador.
 
             \paragraph{Funciones de membresía}
 
@@ -196,7 +196,7 @@
 
             \paragraph{Defuzzificacion}
 
-                Todos los métodos de defuzzificacion descritos en \cref{secc:defuzzificacion} son utilizables con Scikit-Fuzzy y pueden ser asignados de forma individual a cada salida del controlador difuso, i.e., cada salida puede utilizar un método de defuzzificacion distinto.
+                Todos los métodos de defuzzificacion previamente descritos en el \cref{secc:defuzzificacion} son utilizables con Scikit-Fuzzy y pueden ser asignados de forma individual a cada salida del controlador difuso, i.e., cada salida puede utilizar un método de defuzzificacion distinto.
 
             \paragraph{Reglas de inferencia}
 
@@ -204,7 +204,7 @@
 
         \subsubsection{Controladores basados en esquemas}
 
-            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el número de entradas, el número de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control específico que debe cumplir con un número de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallaran, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:esquemas}.    
+            Los controladores basados en esquemas poseen todas las características de los controladores difusos a excepción de la posibilidad de seleccionar el número de entradas, el número de salidas y los nombres de las variables de entrada y salida, el motivo es que estos controladores están asociados a un esquema de control específico que debe cumplir con un número de entradas y salidas ya establecido. Los esquemas de control difuso que se pueden diseñar son los presentados en las \cref{fig:pdFuzzyTomo,fig:piFuzzyTomo,fig:pidFuzzyTomo,fig:GainschedulerTomo,fig:pidplusFuzzyTomo} con ciertos cambios que se detallarán, junto con algunos esquemas extras, en la sección correspondiente a la funcionalidad de simulación. Todos los esquemas de control difuso se pueden observar en el \ref{anexo:esquemas}.
 
     \subsection{Guardado de controladores difusos}
 
@@ -222,11 +222,11 @@
             
             \paragraph{Exportar controlador}
 
-                Para realizar el exportado del controlador difuso se realiza un parsin entre la estructura presentado en los archivos .JSON y la de un archivo FIS. En caso de que alguna regla posea pesos diferentes para cada salida solo se tomara en cuenta el peso asociado a la primera salida, esto es debido a que los archivos FIS no permiten pesos individuales por cada salida, lo mismo aplica al método de defuzzificacion, se toma el asignado a la primera salida. El código para realizar la carga y el exportado de archivos FIS se puede observar en el \ref{anexo:codefis}.
+                Para realizar el exportado del controlador difuso se realiza un parsin entre la estructura presentada en los archivos .JSON y la de un archivo FIS. En caso de que alguna regla posea pesos diferentes para cada salida solo se tomara en cuenta el peso asociado a la primera salida, esto es debido a que los archivos FIS no permiten pesos individuales por cada salida, lo mismo aplica al método de defuzzificacion, se toma el asignado a la primera salida. El código para realizar la carga y el exportado de archivos FIS se puede observar en el \ref{anexo:codefis}.
 
 \section{Simulación de sistemas de control}
 
-    Esta funcionalidad permite simular sistemas de control en lazo cerrado con un controlador PID clásico, difuso o ambos, adicional al controlador se permite agregar bloques adicionales como accionador, saturador del accionador y/o sensor. Para la simulación se utilizan un método de Runge-Kutta como solucionador y obtener la respuesta en el tiempo del sistema, los esquemas simulables están predefinidos. El \cref{code:simulacion} muestra un pseudo código de la funcionalidad de simulación de sistemas de control y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazSimulacion}.
+    Esta funcionalidad permite simular sistemas de control en lazo cerrado con un controlador PID clásico, difuso o ambos, adicional al controlador se permite agregar bloques adicionales como accionador, saturador del accionador y/o sensor. Para la simulación se utiliza un método de Runge-Kutta como solucionador y obtener la respuesta en el tiempo del sistema, los esquemas simulables están predefinidos. El \cref{code:simulacion} muestra un pseudo código de la funcionalidad de simulación de sistemas de control y la interfaz gráfica correspondiente se puede observar en el \ref{anexo:interfazSimulacion}.
 
     \begin{longlisting}
         \caption[Pseudo código - Simulación de sistemas de control]{Pseudo código para la simulación de sistemas de control}
@@ -258,7 +258,7 @@
 
     Al igual que para la funcionalidad de análisis de sistemas de control y entonación de controladores PID se reutiliza la forma de ingresar el proceso, por lo que también se realiza la validación de entradas y se monitorea si el usuario presiona el botón de calcular, cuando el usuario presiona calcular, se procede a realizar la simulación del esquema de control seleccionado en un hilo distinto al de la aplicación principal debido a que los tiempos de simulación para los esquemas difusos pueden ser de varios segundos y presentaría un comportamiento de bloqueo para la ventana de la aplicación.
 
-    En caso de que la simulación sea realizada para tiempo discreto, se evaluá \cref{eq:SSdiscreto} en cada iteración para obtener la salida del sistema. Si el esquema seleccionado es el del PID clásico el controlador implementado es el descrito por \cref{eq:pidcdiscreto}. Si el sistema es continuo, la respuesta del sistema y del controlador es calculada utilizando el método de Runge-Kutta seleccionado.
+    En caso de que la simulación sea realizada para tiempo discreto, se evalúa \cref{eq:SSdiscreto} en cada iteración para obtener la salida del sistema. Si el esquema seleccionado es el del PID clásico el controlador implementado es el descrito por \cref{eq:pidcdiscreto}. Si el sistema es continuo, la respuesta del sistema y del controlador es calculada utilizando el método de Runge-Kutta seleccionado.
 
     \subsection{Esquemas de simulación}
 
@@ -306,7 +306,7 @@
 
         Con el fin de mejorar la precisión y mantener el número de pasos al mínimo se implementó un algoritmo de ajuste del tamaño de paso para los métodos de Runge-Kutta, para el caso de los Runge-Kutta explícitos se implementaron las ecuaciones \cref{eq:escalaDos,eq:ErrorNormalizado,eq:casosStep} y para los embebidos las ecuaciones \cref{eq:escalaEmbebidos,eq:ErrorNormalizado,eq:casosStep}. Los pseudo códigos para los tamaños de paso variable se pueden observar en los \cref{code:stepexplicito,code:stepembebido}, y los códigos en Python se pueden observar en el \ref{anexo:stepsize}.
 
-        El cálculo del tamaño de paso se realiza con el bloque que presente mayores variaciones y requiera la mayor precisión, i.e., el menor tamaño de paso, en la mayoría de los casos este bloque es o incluye a la componente derivativa. Para el resto de bloques que requieran ser calculados, se utiliza un Runge-Kutta explícito con tamaño de paso igual al calculado, el Runge-Kutta utilizado varia según el método utilizado.
+        El cálculo del tamaño de paso se realiza con el bloque que presente mayores variaciones y requiera la mayor precisión, i.e., el menor tamaño de paso, en la mayoría de los casos este bloque es o incluye a la componente derivativa. Para el resto de bloques que requieran ser calculados, se utiliza un Runge-Kutta explícito con tamaño de paso igual al calculado, el Runge-Kutta utilizado varía según el método utilizado.
 
         \pagebreak
 

@@ -28,7 +28,7 @@ ax.plot([T2[indice]]*2, [Y1[indice], Y2[indice]], color='k', linewidth=3, label=
 ax.step(T2, Y1, 'r', where='mid', dashes=[1, 2], label='Laboratorio Virtual', linewidth=3)
 ax.fill_between(T2, Y1, Y2, step="mid", alpha=0.4, color="#12711C", label='Area de diferencia')
 ax.set_xlabel('tiempo')
-ax.set_title('Respuesta escalon para el Sistema 1')
+ax.set_title('Respuesta escalón para el Sistema 1')
 ax.legend(loc=7, bbox_to_anchor=(0.97, 0.65))
 ax.grid()
 
