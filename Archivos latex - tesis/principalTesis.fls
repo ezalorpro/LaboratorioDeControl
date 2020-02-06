@@ -623,8 +623,25 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\titlesec\block.tss
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\titlesec\block.tss
 INPUT FrontContent\cartaAprobacion.tex
 INPUT FrontContent\cartaAprobacion.tex
-INPUT imagenes\unet.jpg
-INPUT .\imagenes\unet.jpg
+INPUT FrontContent\cartaAprobacion.pdf
+INPUT FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
+INPUT FrontContent\cartaAprobacion.pdf
+INPUT .\FrontContent\cartaAprobacion.pdf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Bold-tlf-t1.tfm
 INPUT FrontContent\Agradecimiento.tex
 INPUT FrontContent\Agradecimiento.tex
