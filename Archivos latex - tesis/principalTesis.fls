@@ -628,6 +628,7 @@ INPUT .\imagenes\unet.jpg
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Bold-tlf-t1.tfm
 INPUT FrontContent\Agradecimiento.tex
 INPUT FrontContent\Agradecimiento.tex
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Italic-tlf-t1.tfm
 INPUT FrontContent\Resumen.tex
 INPUT FrontContent\Resumen.tex
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Regular-tlf-t1.tfm
@@ -1697,10 +1698,10 @@ INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\klei
 INPUT tobedeleted\\principalTesis.pyg
 INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.run.xml
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Archivos latex - tesis\tobedeleted\principalTesis.run.xml
-INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\newtx\ntx-ec-tlf.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\tex-gyre\q-ts1.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\newtx\ntx-ot1-tlf.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\base\8r.enc
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\newtx\ntx-ec-tlf.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmmi10.pfb
