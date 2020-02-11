@@ -569,14 +569,15 @@
                     \caption[Regla de entonación de Zigler-Nichols]{Regla de entonación de Zigler-Nichols}
                     \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}ccc}
                         \toprule
-                        Tipo de controlador & $K_{p}$                               &              $T_{i}$              &         $T_{d}$          \\ \midrule
-                                    P          & $\displaystyle\frac{\tau}{\alpha}$    &       $\displaystyle\infty$       &            0             \\[20pt]
-                                PI          & $0.9\displaystyle\frac{\tau}{\alpha}$ & $\displaystyle\frac{\alpha}{0.3}$ &            0             \\[20pt]
-                                PID         & $1.2\displaystyle\frac{\tau}{\alpha}$ &      $2\displaystyle\alpha$       & $0.5\displaystyle\alpha$ \\ \bottomrule
+                        Tipo de controlador & $K_{p}$ & $T_{i}$ & $T_{d}$         \\ \midrule
+                                P           & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)$   &
+                                $\displaystyle\infty$  & 0                        \\[20pt]
+                                PI          & $\displaystyle\frac{0.9}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)$ & $3.33\displaystyle\alpha$         & 0                        \\[20pt]
+                                PID         & $\displaystyle\frac{1.2}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)$ &      $2\displaystyle\alpha$ & $0.5\displaystyle\alpha$ \\[3pt] \bottomrule
                     \end{tabular*}
                     \label{tab:ZiglerNichols}
                     \begin{tablenotes}[flushleft]
-                        \item {\footnotesize \textbf{Nota.} Los valores de $K_{i}$ y $K_{d}$ se pueden obtener de la siguiente forma: $K_{i} = K_{p}/T_{i}$ ; $K_{d} = K_{p}T_{d}$. Fuente: \textcite{ogata2003ingenieria}.}
+                        \item {\footnotesize \textbf{Nota.} Los valores de $K_{i}$ y $K_{d}$ se pueden obtener de la siguiente forma: $K_{i} = K_{p}/T_{i}$ ; $K_{d} = K_{p}T_{d}$. Fuente: \textcite{apcoCC}.}
                     \end{tablenotes}
                 \end{threeparttable}
             \end{table}
@@ -597,7 +598,8 @@
                                     P          & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[1 + \displaystyle\frac{1}{3}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$    &       $\displaystyle\infty$       &            0             \\[25pt]
                                 PI          & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[0.9 + \displaystyle\frac{1}{12}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$ & $\alpha\left[ \displaystyle\frac{30 + 3\left(\displaystyle\frac{\alpha}{\tau} \right) }{9 + 20\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$ &            0             \\[25pt]
                                 PD & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[\displaystyle\frac{5}{4} + \displaystyle\frac{1}{6}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$ & $\displaystyle\infty$ & $\alpha\left[ \displaystyle\frac{6 - 2\left(\displaystyle\frac{\alpha}{\tau} \right) }{22 + 3\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$ \\[25pt]
-                                PID         & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[\displaystyle\frac{4}{3} + \displaystyle\frac{1}{4}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$ &      $\alpha\left[ \displaystyle\frac{33 + 6\left(\displaystyle\frac{\alpha}{\tau} \right) }{13 + 8\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$       & $\alpha\left[ \displaystyle\frac{4}{11 + 2\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$ \\ \bottomrule
+                                PID         & $\displaystyle\frac{1}{K}\left(\displaystyle\frac{\tau}{\alpha}\right)\left[\displaystyle\frac{4}{3} + \displaystyle\frac{1}{4}\left(\displaystyle\frac{\alpha}{\tau} \right) \right]$ &      $\alpha\left[ \displaystyle\frac{33 + 6\left(\displaystyle\frac{\alpha}{\tau} \right) }{13 + 8\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$       & $\alpha\left[ \displaystyle\frac{4}{11 + 2\left(\displaystyle\frac{\alpha}{\tau} \right) } \right]$ \\[17pt] 
+                                \bottomrule
                     \end{tabular*}
                     \label{tab:CohenCoon}
                     \begin{tablenotes}[flushleft]
