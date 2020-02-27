@@ -1,0 +1,75 @@
+\documentclass[usenames,dvipsnames]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usetheme{uniud}
+\usepackage{xparse}
+\ExplSyntaxOn
+\NewDocumentCommand{\convertto}{mm}
+% #1 = em or ex (or any other unit)
+% #2 = dimen to convert
+{
+	\texttt{#2~=~\fp_to_decimal:n { (#2)/(1#1) }#1}
+}
+\ExplSyntaxOff
+
+%%% Some useful commands
+% pdf-friendly newline in links
+\newcommand{\pdfnewline}{\texorpdfstring{\newline}{ }} 
+% Fill the vertical space in a slide (to put text at the bottom)
+\newcommand{\framefill}{\vskip0pt plus 1filll}
+
+
+\title[Universidad Nacional Experimental del Tachira]{Laboratorio virtual de sistemas de control clasicos y difusos utilizando software libre}
+\date[Marzo 2020]{Marzo 05, 2020}
+\author[Proyecto Especial de Grado]{
+  \textbf{Autor}: \hfill \\ Kleiver J. Carrasco M. \\ \vspace{10pt} \textbf{Tutor}: \\ Juan R. Vizcaya R.
+}
+
+\institute{
+	Universidad Nacional Experimental del Tachira
+
+	Vicerrectorado Academico
+	
+	Decanato de Docencia
+	
+Departamento de Electronica
+}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{INTRODUCCION}
+	
+	\begin{block}{Planteamiento del problema}
+		Shoot in the Death Star's exhaust port and destroy it before the it can fire on the Rebel base.
+		Shoot in the Death Star's exhaust port and destroy it before the it can fire on the Rebel base.
+	\end{block}
+ 
+	\begin{block}{Planteamiento del problema}
+		Shoot in the Death Star's exhaust port and destroy it before the it can fire on the Rebel base.
+	\end{block} 
+\end{frame}
+
+\begin{frame}
+	
+	\begin{block}{Objetivo General}
+		Desarrollar un laboratorio virtual de sistemas de control clásicos y difusos utilizando software libre
+	\end{block}
+	
+	\begin{block}{Objetivos específicos}
+		\begin{enumerate} 
+			\item Go to the Death Star.
+			\item Find the exhaust port.
+			\item Make the perfect shot.
+			\item Become a hero.
+		\end{enumerate}
+	\end{block}
+	
+	\convertto{cm}{\the\paperheight}
+\end{frame}
+
+\end{document}
