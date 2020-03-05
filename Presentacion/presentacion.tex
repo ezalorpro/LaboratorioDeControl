@@ -3,6 +3,7 @@
 \usepackage{verbatim}
 \usetheme{uniud}
 \usepackage{xparse}
+\usepackage{subcaption}
 \ExplSyntaxOn
 \NewDocumentCommand{\convertto}{mm}
 % #1 = em or ex (or any other unit)
@@ -22,7 +23,7 @@
 \title[Universidad Nacional Experimental del Tachira]{Laboratorio virtual de sistemas de control clasicos y difusos utilizando software libre}
 \date[Marzo 2020]{Marzo 05, 2020}
 \author[Proyecto Especial de Grado]{
-  \textbf{Autor}: \hfill \\ Kleiver J. Carrasco M. \\ \vspace{10pt} \textbf{Tutor}: \\ Juan R. Vizcaya R.
+  \textbf{Autor}: \hfill \\ Br. Kleiver J. Carrasco M. \\ \vspace{10pt} \textbf{Tutor}: \\ MSc. Ing. Juan R. Vizcaya R.
 }
 
 \institute{
@@ -42,34 +43,54 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{INTRODUCCION}
+	\frametitle{INTRODUCCIÓN}
+	\vspace{30pt}
+	\begin{itemize}
+		\Large
+		\setlength\itemsep{1em} 
+		\item Planteamiento del problema
+		\begin{itemize}
+			\large
+			\vspace{10pt} 
+			\item[--] ¿Es posible realizar un laboratorio para el análisis de sistemas de control con software libre?
+			\item[--] ¿Cumpliría con los requisitos para analizar, diseñar y simular sistemas de control?
+			\item[--] ¿Cómo se desempeñaría en comparación con otras herramientas?
+		\end{itemize}
+		\item ¿Por qué ``Laboratorio Virtual''?
+		%\item Importancia
+	\end{itemize}
 	
-	\begin{block}{Planteamiento del problema}
-		Shoot in the Death Star's exhaust port and destroy it before the it can fire on the Rebel base.
-		Shoot in the Death Star's exhaust port and destroy it before the it can fire on the Rebel base.
-	\end{block}
- 
-	\begin{block}{Planteamiento del problema}
-		Shoot in the Death Star's exhaust port and destroy it before the it can fire on the Rebel base.
-	\end{block} 
+	
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.12\linewidth}
+		\includegraphics[width=\linewidth]{imagenes/logoMATLAB}
+	\end{subfigure}
+	\hspace{0.8cm}
+	\begin{subfigure}[b]{0.17\linewidth}
+		\includegraphics[width=\linewidth]{imagenes/logoSciLab}
+	\end{subfigure}
+	
+\end{figure}
 \end{frame}
 
 \begin{frame}
-	
+	\frametitle{OBJETIVOS}
+	\vspace{20pt}
 	\begin{block}{Objetivo General}
-		Desarrollar un laboratorio virtual de sistemas de control clásicos y difusos utilizando software libre
+		Desarrollar un laboratorio virtual de sistemas de control clásicos y difusos utilizando software libre.
 	\end{block}
 	
 	\begin{block}{Objetivos específicos}
 		\begin{enumerate} 
-			\item Go to the Death Star.
-			\item Find the exhaust port.
-			\item Make the perfect shot.
-			\item Become a hero.
+			\item Estudiar los sistemas de control clásicos.
+			\item Estudiar el diseño de controladores difusos tipo Mamdani.
+			\item Codificar las rutinas de análisis, diseño y simulación de sistemas de control necesarias.
+			\item Realizar la interfaz gráfica de un laboratorio de sistemas de control virtual.
+			\item Comparar los resultados obtenidos con dos herramientas de corte similar.
 		\end{enumerate}
 	\end{block}
 	
-	\convertto{cm}{\the\paperheight}
 \end{frame}
 
 \end{document}
