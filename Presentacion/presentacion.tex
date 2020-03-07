@@ -1,5 +1,6 @@
 \documentclass[usenames,dvipsnames]{beamer}
 \usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage{verbatim}
 \usetheme{uniud}
 \usepackage{xparse}
@@ -44,34 +45,30 @@ Departamento de Electronica
 
 \begin{frame}
 	\frametitle{INTRODUCCIÓN}
-	\vspace{30pt}
-	\begin{itemize}
-		\Large
-		\setlength\itemsep{1em} 
-		\item Planteamiento del problema
+	\vspace{20pt}
+
+	\begin{block}{Planteamiento del problema}
 		\begin{itemize}
-			\large
-			\vspace{10pt} 
-			\item[--] ¿Es posible realizar un laboratorio para el análisis de sistemas de control con software libre?
-			\item[--] ¿Cumpliría con los requisitos para analizar, diseñar y simular sistemas de control?
-			\item[--] ¿Cómo se desempeñaría en comparación con otras herramientas?
+			\large 
+			\item ¿Es posible realizar un laboratorio para el análisis de sistemas de control con software libre?
+			\item ¿Cumpliría con los requisitos para analizar, diseñar y simular sistemas de control?
+			\item ¿Cómo se desempeñaría en comparación con otras herramientas?
 		\end{itemize}
-		\item ¿Por qué ``Laboratorio Virtual''?
-		%\item Importancia
-	\end{itemize}
-	
-	
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{0.12\linewidth}
-		\includegraphics[width=\linewidth]{imagenes/logoMATLAB}
-	\end{subfigure}
-	\hspace{0.8cm}
-	\begin{subfigure}[b]{0.17\linewidth}
-		\includegraphics[width=\linewidth]{imagenes/logoSciLab}
-	\end{subfigure}
-	
-\end{figure}
+	\end{block}
+
+	\begin{block}{¿Por qué ``Laboratorio Virtual''?}
+		\begin{figure}
+				\centering
+				\begin{subfigure}[b]{0.2\linewidth}
+					\includegraphics[width=\linewidth]{imagenes/logoMATLAB}
+				\end{subfigure}
+				\hspace{0.8cm}
+				\begin{subfigure}[b]{0.25\linewidth}
+					\includegraphics[width=\linewidth]{imagenes/logoSciLab}
+				\end{subfigure}
+				
+			\end{figure}
+	\end{block}
 \end{frame}
 
 \begin{frame}
@@ -93,4 +90,89 @@ Departamento de Electronica
 	
 \end{frame}
 
+\begin{frame}
+	\frametitle{METODOLOGIA}
+
+	\vspace{20pt}
+	
+	\begin{block}{Tipo de investigación}
+		Investigación proyectiva
+	\end{block}
+
+	\begin{block}{Modalidad}
+		Proyecto factible
+	\end{block}
+
+	\begin{block}{Fases de la investigacion}
+		\begin{itemize}
+			\item Fase 1: Estudio de los sistemas de control clásicos y difusos
+			\item Fase 2: Codificación de rutinas
+			\item Fase 3: Interfaz gráfica y enlace con rutinas
+			\item Fase 4: Comparación de resultados
+		\end{itemize}
+	\end{block}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{CONCEPTOS BASICOS}
+	\vspace{20pt}
+
+	\begin{itemize}
+		\Large
+		\setlength\itemsep{1em}
+		\item Control de procesos
+		\begin{itemize}
+			\large
+			\item[--] Control continuo
+			\item[--] Control discreto
+			\item[--] Control en lazo cerrado
+			\item[--] Controlador PID
+			\begin{block}{Ecuacion general en tiempo continuo de un controlador PID}
+				\begin{equation}
+					sc(t) = K_{p}e(t)+  K_{i}\int_{0}^{t} e(\tau) d\tau + K_{d} \frac{d}{dt}e(t)
+				\end{equation}
+			\end{block}
+		\end{itemize}
+		\item Métodos de Runge-Kutta
+		\begin{itemize}
+			\large
+			\item[--] Métodos explícitos
+			\item[--] Métodos embebidos
+		\end{itemize} 
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{CONCEPTOS BASICOS}
+	\vspace{25pt}
+
+	\begin{itemize}
+		\Large
+		\setlength\itemsep{1em}
+		\item Lógica Difusa
+		\begin{itemize}
+			\large
+			\setlength\itemsep{1em}
+			\vspace{1em}
+			\item[--] Controlador difuso
+			\item[--] Controlador Mamdani 
+		\end{itemize}
+	\end{itemize}
+
+	\begin{figure}
+		\includegraphics[width=0.5\linewidth]{imagenes/FuzzySet.pdf}
+	\end{figure}
+	\vspace{-20pt}
+	\begin{itemize}
+		\Large
+		\item Python
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{ESTRUCTURA DEL CODIGO}
+
+\end{frame}
 \end{document}

@@ -1,0 +1,19 @@
+Bienvenido a la documentacion del Laboratorio Virtual de sistemas de control clasicos y difusos utilizando software libre
+===================================================================================================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contenido:
+   
+   codigos/requerimientos
+   codigos/inicio
+   codigos/estructura
+   codigos/codes
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

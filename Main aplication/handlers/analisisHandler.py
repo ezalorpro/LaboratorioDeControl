@@ -181,7 +181,7 @@ def ssperiodo_validator(self):
 def calcular_analisis(self):
     """
     [Funcion para realizar el los calculos necesarios para la funcionalidad de analisis de sistemas de control, 
-    el llamado a esta funcion se realizar por medio del boton calcular]
+    el llamado a esta funcion se realiza por medio del boton calcular]
     """
     
     system_ss = 0
