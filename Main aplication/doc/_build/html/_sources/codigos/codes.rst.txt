@@ -1,9 +1,6 @@
 Documentación automática
 =========================
 
-Módulos generales
------------------
-
 Principal
 -----------------
 .. automodule:: main

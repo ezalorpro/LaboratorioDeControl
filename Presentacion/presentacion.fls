@@ -68,6 +68,10 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\colortbl\colortbl.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\colortbl\colortbl.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\array.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\array.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\dvipsnam.def
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\dvipsnam.def
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\pgf\basiclayer\pgfcore.code.tex
@@ -331,12 +335,31 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\unicode-data\Uni
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\unicode-data\UnicodeData.txt
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\l3kernel\l3pdfmode.def
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\l3kernel\l3pdfmode.def
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\babel.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\babel.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\switch.def
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\babel-spanish\spanish.ldf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\babel-spanish\spanish.ldf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\babel.def
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\generic\babel\txtbabel.def
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\subcaption.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\subcaption.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\caption.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\caption.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\caption3.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\caption\caption3.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\multirow\multirow.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\multirow\multirow.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\multicol.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\multicol.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\threeparttable\threeparttable.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\threeparttable\threeparttable.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ncctools\nccmath.sty
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ncctools\nccmath.sty
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\t1ntxtlf.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\tex\latex\newtx\t1ntxtlf.fd
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Regular-tlf-t1.tfm
@@ -580,8 +603,75 @@ INPUT .\imagenes\FuzzySet.pdf
 INPUT .\imagenes\FuzzySet.pdf
 INPUT graphics\logo.png
 INPUT .\graphics\logo.png
+INPUT imagenes\UMLsinHandlers.pdf
+INPUT .\imagenes\UMLsinHandlers.pdf
+INPUT .\imagenes\UMLsinHandlers.pdf
+INPUT .\imagenes\UMLsinHandlers.pdf
 INPUT graphics\logo.png
 INPUT .\graphics\logo.png
+INPUT imagenes\estructuraMain.pdf
+INPUT .\imagenes\estructuraMain.pdf
+INPUT .\imagenes\estructuraMain.pdf
+INPUT .\imagenes\estructuraMain.pdf
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\tex-gyre\rm-qhvr.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\tex-gyre\rm-qhvr.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxmi5.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxmi5.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsy5.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsy5.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexx.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexx.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam7.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam5.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxmia.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxmia.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsym.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsym.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsyc.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsyc.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\tex-gyre\ec-qhvr.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\tex-gyre\ec-qhvr.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\tex-gyre\ec-qhvri.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\tex-gyre\ec-qhvri.tfm
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxmia.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\txmia.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxsyralt.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\zxlr-8r.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\txsyc.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\txr.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexb.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rtxmio.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\txsyb.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\boondox\zxxrl7z.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\txfonts\txr.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxptmr.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxr.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxmi7.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rtxmi7.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rntxmi7.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxsy7.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txsys.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txex-bar.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxexx.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txexs.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxsy5.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txsys.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txex-bar.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxsy5.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txsys.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\txex-bar.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxmi5.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rtxmi5.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rntxmi5.tfm
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.nav
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.toc
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.snm
@@ -590,6 +680,8 @@ INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\klei
 INPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.out
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\tex-gyre\q-ec.enc
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\newtx\ntx-ec-tlf.enc
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr10.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\tex-gyre\qhvr.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\tex-gyre\qhvr.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\tex-gyre\qhvri.pfb
@@ -600,6 +692,10 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\tex-gyre\
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\tex-gyre\qtmr.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\txfonts\rtxmi.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\txfonts\rtxmi.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\newtx\rtxmi5.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\newtx\rtxmi5.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\newtx\rtxmi7.pfb
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\newtx\rtxmi7.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\txfonts\rtxr.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\txfonts\rtxr.pfb
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\newtx\txexs.pfb
