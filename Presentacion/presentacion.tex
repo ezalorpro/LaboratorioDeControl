@@ -17,6 +17,7 @@
 \usepackage{amsmath}
 \usepackage{nccmath}
 \usepackage{etoolbox}
+\usepackage{siunitx}
 
 \makeatletter
 \pretocmd\env@cases{\def\@rowc@lors{}}{}{}
@@ -224,8 +225,10 @@ Departamento de Electronica
 	\framesubtitle{ANALISIS}
 	% \vspace{20pt}
 	\rowcolors{1}{UniBlue!33}{UniBlue!7}
-	\begin{table}[htb]
+	{\centering
+	\begin{table}[t]
 		\centering 
+		\hspace*{-0.6cm}
 		\begin{threeparttable}
 			% \setlength{\tabcolsep}{6pt}			% Separacion de columnas
 			\setlength{\arraycolsep}{1pt}
@@ -252,6 +255,48 @@ Departamento de Electronica
 			\end{tabular*}
 			\label{tab:AnalisisSistemas}
 		\end{threeparttable}
+	\end{table}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{COMPARACION}
+	\framesubtitle{ANALISIS}
+	\vspace{20pt}
+	\small
+	\begin{block}{Funciones de analisis}
+		\footnotesize
+		\begin{multicols}{2}
+		\begin{itemize}
+			\item Respuesta al escalón
+			\item Respuesta al impulso
+			\item Bode
+			\item Nyquist
+			\item Lugar de las raíces 
+			\item Diagrama de Nichols
+		\end{itemize}
+	\end{multicols}
+	\end{block}
+
+	\begin{block}{Metricas empleadas}
+		\footnotesize
+		\begin{multicols}{2}
+		\begin{itemize}
+			\item Diferencia absoluta
+			\item Diferencia porcentual
+			\item Diferencia de área
+			\item Raíz del error cuadrático medio (RECM)
+			\item Distancia de energía
+		\end{itemize}
+	\end{multicols}
+	\end{block}
+
+	\rowcolors{1}{UniBlue!33}{UniBlue!7}
+	\begin{table}
+		\begin{tabular}{rcc}
+										& Continuo 			& Discreto 			\\
+		Diferencia absoluta promedio	& \num{8.980E-02}	& \num{1.057E-01}	\\
+		RECM promedio					& \num{1.644E-02}	& \num{1.307E-02} 	\\
+		\end{tabular}
 	\end{table}
 \end{frame}
 \end{document}
