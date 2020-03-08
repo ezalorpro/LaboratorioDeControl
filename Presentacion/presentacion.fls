@@ -762,6 +762,27 @@ INPUT .\imagenes\ScSet1DNichols.png
 INPUT .\imagenes\ScSet1DNichols.png
 INPUT graphics\logo.png
 INPUT .\graphics\logo.png
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\ntx-Regular-tlf-t1.tfm
+INPUT imagenes\LVTomoC1.pdf
+INPUT .\imagenes\LVTomoC1.pdf
+INPUT .\imagenes\LVTomoC1.pdf
+INPUT .\imagenes\LVTomoC1.pdf
+INPUT imagenes\MATLABTomoC1.pdf
+INPUT .\imagenes\MATLABTomoC1.pdf
+INPUT .\imagenes\MATLABTomoC1.pdf
+INPUT .\imagenes\MATLABTomoC1.pdf
+INPUT imagenes\SciLabTomoC1.pdf
+INPUT .\imagenes\SciLabTomoC1.pdf
+INPUT .\imagenes\SciLabTomoC1.pdf
+INPUT .\imagenes\SciLabTomoC1.pdf
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\newtx\ntxmi.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\txmi.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rntxmi.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\txfonts\txmi.vf
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxmi.tfm
+INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxptmri.tfm
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.nav
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.toc
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.snm

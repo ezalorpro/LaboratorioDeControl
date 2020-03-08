@@ -186,15 +186,15 @@ Departamento de Electronica
 		\item Lógica Difusa
 		\begin{itemize}
 			\large
-			\setlength\itemsep{1em}
-			\vspace{1em}
+			% \setlength\itemsep{1em}
+			\vspace{0.2em}
 			\item[--] Controlador difuso
 			\item[--] Controlador Mamdani 
 		\end{itemize}
 	\end{itemize}
 
 	\begin{figure}
-		\includegraphics[width=0.5\linewidth]{imagenes/FuzzySet.pdf}
+		\includegraphics[width=0.6\linewidth]{imagenes/FuzzySet.pdf}
 	\end{figure}
 	\vspace{-20pt}
 	\begin{itemize}
@@ -295,7 +295,7 @@ Departamento de Electronica
 	\begin{table}
 		\begin{tabular}{rcc}
 										& Continuo 			& Discreto 			\\
-		Diferencia absoluta promedio	& \num{8.980E-02}	& \num{1.057E-01}	\\
+		Diferencia porcentual promedio	& \num{5.065E-01}	& \num{3.333E-01}	\\
 		RECM promedio					& \num{1.644E-02}	& \num{1.307E-02} 	\\
 		\end{tabular}
 	\end{table}
@@ -316,6 +316,43 @@ Departamento de Electronica
 			\caption{}
 		\end{subfigure}
 		\caption{Gráficas de comparación para la función de análisis. a) Respuesta impulso para el sistema 3 en tiempo continuo, b) Diagrama de Nichols para el sistema 1 en tiempo discreto.}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{COMPARACION}
+	\framesubtitle{CONTROLADORES DIFUSOS}
+	\vspace{25pt}
+	\rowcolors{1}{UniBlue!33}{UniBlue!7}
+	\begin{table}
+		\begin{tabular}{rcc}
+						& MATLAB 			& SciLab 			\\
+		Controlador 1	& \num{1.10E-01}	& \num{1.10E-01}	\\
+		Controlador 2	& -					& \num{0.00E-00} 	\\
+		\end{tabular}
+	\end{table}
+
+	\begin{figure}[htb]
+		\centering
+		\begin{subfigure}[t]{0.32\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{imagenes/LVTomoC1.pdf}
+			\caption{}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.32\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{imagenes/MATLABTomoC1.pdf}
+			\caption{}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.32\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{imagenes/SciLabTomoC1.pdf}
+			\caption{}
+		\end{subfigure}
+		\caption{Respuesta del controlador difuso 1. (a) Laboratorio Virtual, (b) MATLAB, (c) SciLab.}
 	\end{figure}
 
 \end{frame}
