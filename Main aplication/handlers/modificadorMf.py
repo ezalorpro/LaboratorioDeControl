@@ -1,24 +1,23 @@
 """ 
-[Archivo para el cambio de definición entre funciones de membresía, los cambios se realizan en dos pasos:
+Archivo para el cambio de definición entre funciones de membresía, los cambios se realizan en dos pasos:
 
     old_mf  ->  trimf
     trimf   ->  new_mf
     
- De este modo se reduce el número de casos a codificar. Por otro lado, también contiene la función para realizar
- la validación de las definiciones ingresadas por el usuario] 
+De este modo se reduce el número de casos a codificar. Por otro lado, también contiene la función para realizar la validación de las definiciones ingresadas por el usuario 
 """
 
 
 def update_definicionmf(self, old_mf, definicion, new_mf):
     """
-    [Función para la transformación equivalente entre funciones de membresía]
+    Función para la transformación equivalente entre funciones de membresía
     
-    :param old_mf: [Nombre de la antigua función de membresía]
-    :type old_mf: [str]
-    :param definicion: [Lista con los valores correspondiente a la definición de la antigua función de membresía]
-    :type definicion: [list]
-    :param new_mf: [Nombre de la nueva función de membresía]
-    :type new_mf: [str]
+    :param old_mf: Nombre de la antigua función de membresía
+    :type old_mf: str
+    :param definicion: Lista con los valores correspondiente a la definición de la antigua función de membresía
+    :type definicion: list
+    :param new_mf: Nombre de la nueva función de membresía
+    :type new_mf: str
     """
     
     if old_mf == 'trimf':
@@ -146,12 +145,12 @@ def update_definicionmf(self, old_mf, definicion, new_mf):
 
 def validacion_mf(self, _, mf):
     """
-    [Funcion para validar las definiciones ingresadas por el usuario]
+    Funcion para validar las definiciones ingresadas por el usuario
     
-    :param _: [Definicion]
-    :type _: [list]
-    :param mf: [Nombre de la funcion de membresia a validar]
-    :type mf: [str]
+    :param _: Definicion
+    :type _: list
+    :param mf: Nombre de la funcion de membresia a validar
+    :type mf: str
     """
     
     if mf == 'trimf':

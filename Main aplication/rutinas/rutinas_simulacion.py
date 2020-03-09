@@ -1,8 +1,5 @@
 """ 
-[Archivo que contiene la clase SimpleThread la cual ejecuta la simulacion de sistemas de control en hilo
- diferente al principal, esto se realiza de esta forma debido a que la simulacion puede tardar en algunos
- casos varios segundos, de ejecutarse en el hilo principal presentaria un comportamiento de bloqueo en la
- ventana principal] 
+Archivo que contiene la clase SimpleThread la cual ejecuta la simulacion de sistemas de control en hilo diferente al principal, esto se realiza de esta forma debido a que la simulacion puede tardar en algunos casos varios segundos, de ejecutarse en el hilo principal presentaria un comportamiento de bloqueo en la ventana principal 
 """
 
 
@@ -21,10 +18,10 @@ import json
 
 class SimpleThread(QtCore.QThread):
     """
-    [Clase para realizar la simulacion de sistemas de control en un hilo diferente al principal]
+    Clase para realizar la simulacion de sistemas de control en un hilo diferente al principal
     
-    :param QThread: [Clase para crear un hilo paralelo al principal]
-    :type QThread: [ObjectType]
+    :param QThread: Clase para crear un hilo paralelo al principal
+    :type QThread: ObjectType
     """
 
     finished = QtCore.Signal(object, list)
@@ -33,20 +30,20 @@ class SimpleThread(QtCore.QThread):
 
     def __init__(self, window, regresar, update_bar, error_gui, list_info, parent=None):
         """
-        [Constructor para recibir las variables y funciones del hilo principal]
+        Constructor para recibir las variables y funciones del hilo principal
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param regresar: [Funcion a la que regresa una vez terminada la simulacion, plot_final_results de simulacionHandler.py]
-        :type regresar: [function]
-        :param update_bar: [Funcion para actualizar la barra de progreso, update_progresBar_function de simulacionHandler.py]
-        :type update_bar: [function]
-        :param error_gui: [Funcion para mostrar los errores ocurridos durante la simulacion, error_gui de simulacionHandler.py]
-        :type error_gui: [function]
-        :param list_info: [Lista con toda la informacion necesaria]
-        :type list_info: [list]
-        :param parent: [Sin efecto], defaults to None
-        :type parent: [NoneType], optional
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param regresar: Funcion a la que regresa una vez terminada la simulacion, plot_final_results de simulacionHandler.py
+        :type regresar: function
+        :param update_bar: Funcion para actualizar la barra de progreso, update_progresBar_function de simulacionHandler.py
+        :type update_bar: function
+        :param error_gui: Funcion para mostrar los errores ocurridos durante la simulacion, error_gui de simulacionHandler.py
+        :type error_gui: function
+        :param list_info: Lista con toda la informacion necesaria
+        :type list_info: list
+        :param parent: Sin efecto, defaults to None
+        :type parent: NoneType, optional
         """
 
         QtCore.QThread.__init__(self, parent)
@@ -75,11 +72,11 @@ class SimpleThread(QtCore.QThread):
         self.flag_filtro = self.list_info[13]
 
     def stop(self):
-        """ [Funcion para detener el hilo] """
+        """ Funcion para detener el hilo """
         self._isRunning = False
 
     def run(self):
-        """ [Funcion a ejecutar cuando se hace el llamado a self.start()] """
+        """ Funcion a ejecutar cuando se hace el llamado a self.start() """
 
         # PID Clasico
         if self.esquema in [0]:
@@ -111,7 +108,7 @@ class SimpleThread(QtCore.QThread):
                 self.stop()
 
     def run_pid(self):
-        """ [Funcion para realizar la simulacion de sistemas de control con controlador PID clasico] """
+        """ Funcion para realizar la simulacion de sistemas de control con controlador PID clasico """
 
         # Captura de las ganancias
         if self.window.main.kpCheck.isChecked():
@@ -326,7 +323,7 @@ class SimpleThread(QtCore.QThread):
         return copy.deepcopy(Tiempo_list), copy.deepcopy(salida), copy.deepcopy(sc_f), copy.deepcopy(setpoint)
 
     def run_fuzzy(self):
-        """ [Funcion para realizar la simulacion de sistemas de control de esquemas difusos] """
+        """ Funcion para realizar la simulacion de sistemas de control de esquemas difusos """
 
         # Captura de las ganancias
         if self.window.main.kpCheck.isChecked():
@@ -1309,12 +1306,12 @@ class SimpleThread(QtCore.QThread):
 
 def system_creator_tf(self, numerador, denominador):
     """
-    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia]
+    Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia
     
-    :param numerador: [Coeficientes del numerador]
-    :type numerador: [list]
-    :param denominador: [Coeficientes del denominador]
-    :type denominador: [list]
+    :param numerador: Coeficientes del numerador
+    :type numerador: list
+    :param denominador: Coeficientes del denominador
+    :type denominador: list
     """
 
     if self.main.tfdelaycheckBox4.isChecked():
@@ -1345,17 +1342,16 @@ def system_creator_tf(self, numerador, denominador):
 
 def system_creator_ss(self, A, B, C, D):
     """
-    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida
-	 y la matriz de transmision directa la ecuacion de espacio de estados]
+    Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados
     
-    :param A: [Matriz de estados]
+    :param A: Matriz de estados
     :type A: list
-    :param B: [Matriz de entrada]
-    :type B: [list]
-    :param C: [Matriz de salida]
-    :type C: [list]
-    :param D: [Matriz de transmision directa]
-    :type D: [list]
+    :param B: Matriz de entrada
+    :type B: list
+    :param C: Matriz de salida
+    :type C: list
+    :param D: Matriz de transmision directa
+    :type D: list
     """
 
     if self.main.ssdelaycheckBox4.isChecked():
@@ -1386,16 +1382,16 @@ def system_creator_ss(self, A, B, C, D):
 
 def controlador_validator(self, esquema, InputList, OutputList, RuleEtiquetas):
     """
-    [Funcion para validar los controladores difusos con respecto al esquema de control seleccionado]
+    Funcion para validar los controladores difusos con respecto al esquema de control seleccionado
     
-    :param esquema: [Esquema de control seleccionado representado por un valor]
-    :type esquema: [int]
-    :param InputList: [Lista de entradas]
-    :type InputList: [list]
-    :param OutputList: [Lista de salidas]
-    :type OutputList: [list]
-    :param RuleEtiquetas: [Lista con set de reglas]
-    :type RuleEtiquetas: [list]
+    :param esquema: Esquema de control seleccionado representado por un valor
+    :type esquema: int
+    :param InputList: Lista de entradas
+    :type InputList: list
+    :param OutputList: Lista de salidas
+    :type OutputList: list
+    :param RuleEtiquetas: Lista con set de reglas
+    :type RuleEtiquetas: list
     """
 
     if esquema == 1: # PID difuso

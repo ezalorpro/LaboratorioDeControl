@@ -1,6 +1,5 @@
 """ 
-[Archivo que contiene todas las rutinas necesarias para la funcionalidad de identificacion de modelo y
- tunning con csv] 
+Archivo que contiene todas las rutinas necesarias para la funcionalidad de identificacion de modelo y tunning con csv
 """
 
 
@@ -11,16 +10,14 @@ import numpy as np
 
 def procesar_csv(self, csv_data):
     """
-    [Funcion para procesar la data del archivo csv, se crea una nueva data en un diccionario, se normalizan las
-     escalas con el span y se transforma el tiempo a segundos. Para la transformacion de tiempo a segundos los 
-     formatos aceptados son:
+    Funcion para procesar la data del archivo csv, se crea una nueva data en un diccionario, se normalizan las escalas con el span y se transforma el tiempo a segundos. Para la transformacion de tiempo a segundos los formatos aceptados son:
         hh:mm:ss
            mm:ss
               ss
-    En cualquiera de los casos se llevara a segundos y se restara el tiempo inicial para que empiece en cero ]
+    En cualquiera de los casos se llevara a segundos y se restara el tiempo inicial para que empiece en cero
     
-    :param csv_data: [Data del csv]
-    :type csv_data: [numpyArray]
+    :param csv_data: Data del csv
+    :type csv_data: numpyArray
     """
 
     # Identificacion de columnas
@@ -84,24 +81,24 @@ def calcular_modelo(self,
                     MinEFC,
                     MaxEFC):
     """
-    [Fucion para calcular los parametros del modelo de primer orden]
+    Fucion para calcular los parametros del modelo de primer orden
     
-    :param dict_data: [Diccionario con la data procesada del csv]
-    :type dict_data: [dict]
-    :param indexTime: [Indice que identifica al tiempo]
-    :type indexTime: [int]
-    :param indexVp: [Indice que identifica a Vp]
-    :type indexVp: [int]
-    :param indexEFC: [Indice que identifica al EFC]
-    :type indexEFC: [int]
-    :param MinVP: [Limite inferior de Vp]
-    :type MinVP: [float]
-    :param MaxVP: [Limite superior de Vp]
-    :type MaxVP: [float]
-    :param MinEFC: [Limite inferior de EFC]
-    :type MinEFC: [float]
-    :param MaxEFC: [Limite superior de EFC]
-    :type MaxEFC: [float]
+    :param dict_data: Diccionario con la data procesada del csv
+    :type dict_data: dict
+    :param indexTime: Indice que identifica al tiempo
+    :type indexTime: int
+    :param indexVp: Indice que identifica a Vp
+    :type indexVp: int
+    :param indexEFC: Indice que identifica al EFC
+    :type indexEFC: int
+    :param MinVP: Limite inferior de Vp
+    :type MinVP: float
+    :param MaxVP: Limite superior de Vp
+    :type MaxVP: float
+    :param MinEFC: Limite inferior de EFC
+    :type MinEFC: float
+    :param MaxEFC: Limite superior de EFC
+    :type MaxEFC: float
     """
 
     y = dict_data['vp']
@@ -137,26 +134,24 @@ def calcular_modelo(self,
 
 def entonar_y_graficar(self, dict_data, Kc, tau, y1, y2, t0, t1, t2):
     """
-    [Funcion para calcular el controlador PID a partir de los datos del modelo de primer orden, ademas, se
-     grafica la data del csv junto con algunos parametros de la identificacion del modelo]
+    Funcion para calcular el controlador PID a partir de los datos del modelo de primer orden, ademas, se grafica la data del csv junto con algunos parametros de la identificacion del modelo
     
-    :param dict_data: [Diccionario con la data procesada del csv]
-    :type dict_data: [dict]
-    :param Kc: [Ganancia del proceso]
-    :type Kc: [float]
-    :param tau: [Constante de tiempo del proceso]
-    :type tau: [float]
-    :param y1: [Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al
-     tiempo]
-    :type y1: [float]
-    :param y2: [Punto y2 de la recta de identificacion]
-    :type y2: [float]
-    :param t0: [Tiempo del inicio del escalon]
-    :type t0: [float]
-    :param t1: [Tiempo del inicio de la respuesta del proceso ante el escalon]
-    :type t1: [float]
-    :param t2: [Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio]
-    :type t2: [float]
+    :param dict_data: Diccionario con la data procesada del csv
+    :type dict_data: dict
+    :param Kc: Ganancia del proceso
+    :type Kc: float
+    :param tau: Constante de tiempo del proceso
+    :type tau: float
+    :param y1: Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al tiempo
+    :type y1: float
+    :param y2: Punto y2 de la recta de identificacion
+    :type y2: float
+    :param t0: Tiempo del inicio del escalon
+    :type t0: float
+    :param t1: Tiempo del inicio de la respuesta del proceso ante el escalon
+    :type t1: float
+    :param t2: Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio
+    :type t2: float
     """
 
     kp, ki, kd = auto_tuning_method_csv(self, Kc, tau, t1-t0, self.main.csvMetodo.currentText())
@@ -228,25 +223,22 @@ def entonar_y_graficar(self, dict_data, Kc, tau, y1, y2, t0, t1, t2):
 
 def calculos_manual(self, GraphObjets, Kc, t0, t1, t2, slop, y1):
     """
-    [Funcion para recalcular el controlador PID a partir de los datos del modelo de primer orden con el nueto
-     tiempo t1, ademas, se grafica la data del csv junto con algunos parametros de la identificacion del modelo y 
-     la nueva recta]
+    Funcion para recalcular el controlador PID a partir de los datos del modelo de primer orden con el nueto tiempo t1, ademas, se grafica la data del csv junto con algunos parametros de la identificacion del modelo y la nueva recta
     
-    :param GraphObjets: [Lista de objetos de graficacion]
-    :type GraphObjets: [list]
-    :param Kc: [Ganancia del proceso]
-    :type Kc: [float]
-    :param t0: [Tiempo del inicio del escalon]
-    :type t0: [float]
-    :param t1: [Tiempo del inicio de la respuesta del proceso ante el escalon]
-    :type t1: [float]
-    :param t2: [Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio]
-    :type t2: [float]
-    :param slop: [Pendiente de la recta de identificacion]
-    :type slop: [float]
-    :param y1: [Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al
-     tiempo]
-    :type y1: [float]
+    :param GraphObjets: Lista de objetos de graficacion
+    :type GraphObjets: list
+    :param Kc: Ganancia del proceso
+    :type Kc: float
+    :param t0: Tiempo del inicio del escalon
+    :type t0: float
+    :param t1: Tiempo del inicio de la respuesta del proceso ante el escalon
+    :type t1: float
+    :param t2: Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio
+    :type t2: float
+    :param slop: Pendiente de la recta de identificacion
+    :type slop: float
+    :param y1: Punto y1 de la recta de identifiacion, en este punto se encuentra el mayor cambio respecto al tiempo
+    :type y1: float
     """
     kp, ki, kd = auto_tuning_method_csv(self, Kc, t2-t1, t1-t0, self.main.csvMetodo.currentText())
 
@@ -260,24 +252,22 @@ def calculos_manual(self, GraphObjets, Kc, t0, t1, t2, slop, y1):
 
 def actualizar_Datos(self, Kc, t0, t1, t2, kp, ki, kd):
     """
-    [Funcion para mostrar los resultados obtenidos del modelo en un TextEdit]
+    Funcion para mostrar los resultados obtenidos del modelo en un TextEdit
     
-    [extended_summary]
-    
-    :param Kc: [Ganancia del proceso]
-    :type Kc: [float]
-    :param t0: [Tiempo del inicio del escalon]
-    :type t0: [float]
-    :param t1: [Tiempo del inicio de la respuesta del proceso ante el escalon]
-    :type t1: [float]
-    :param t2: [Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio]
-    :type t2: [float]
-    :param kp: [Ganancia proporcional]
-    :type kp: [float]
-    :param ki: [Ganancia integral]
-    :type ki: [float]
-    :param kd: [Ganancia derivativa]
-    :type kd: [float]
+    :param Kc: Ganancia del proceso
+    :type Kc: float
+    :param t0: Tiempo del inicio del escalon
+    :type t0: float
+    :param t1: Tiempo del inicio de la respuesta del proceso ante el escalon
+    :type t1: float
+    :param t2: Tiempo en el que el proceso alcanza el 63% de su valor final respecto al cambio
+    :type t2: float
+    :param kp: Ganancia proporcional
+    :type kp: float
+    :param ki: Ganancia integral
+    :type ki: float
+    :param kd: Ganancia derivativa
+    :type kd: float
     """
     
     Datos = "Modelo:\n"
@@ -294,18 +284,16 @@ def actualizar_Datos(self, Kc, t0, t1, t2, kp, ki, kd):
 
 def auto_tuning_method_csv(self, k_proceso, tau, alpha, metodo):
     """
-    [Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden
-     obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una 
-     respuesta escalon en lazo abierto]
+    Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una respuesta escalon en lazo abierto
     
-    :param k_proceso: [Ganancia del proceso]
-    :type k_proceso: [float]
-    :param tau: [Constante de tiempo del proceso]
-    :type tau: [float]
-    :param alpha: [Tiempo muerto o delay del proceso]
-    :type alpha: [float]
-    :param metodo: [Metodo a utilizar]
-    :type metodo: [str]
+    :param k_proceso: Ganancia del proceso
+    :type k_proceso: float
+    :param tau: Constante de tiempo del proceso
+    :type tau: float
+    :param alpha: Tiempo muerto o delay del proceso
+    :type alpha: float
+    :param metodo: Metodo a utilizar
+    :type metodo: str
     """
     
     if alpha <= 0.05:

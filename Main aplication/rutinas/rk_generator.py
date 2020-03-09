@@ -1,7 +1,5 @@
 """ 
-[Archivo para compilar los Runge-kutta explicitos y embebidos utilizando numba, los metodos quedan
- guardados en el archivo: metodos_RK.cp37-win32.pyd y pueden ser importados desde el archivo como 
- una funcion de un modulo] 
+Archivo para compilar los Runge-kutta explicitos y embebidos utilizando numba, los metodos quedan guardados en el archivo: metodos_RK.cp37-win32.pyd y pueden ser importados desde el archivo como una funcion de un modulo 
 """
 
 
@@ -15,10 +13,10 @@ cc = CC('metodos_RK')
 @cc.export('norm', 'f8(f8[:,::1])')
 def norm(x):
     """
-    [Función para calcular la norma RMS de un vector. Función tomada de SciPy]
+    Función para calcular la norma RMS de un vector. Función tomada de SciPy
     
-    :param x: [Vector]
-    :type x: [numpyArray]
+    :param x: Vector
+    :type x: numpyArray
     """
     return np.linalg.norm(x) / x.size**0.5
 
@@ -26,23 +24,22 @@ def norm(x):
 @cc.export('dopri54', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def dopri54(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Dormand-Prince 5(4), la integracion se continua con la salida de orden 5, en el
-     metodo se asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta embebido de Dormand-Prince 5(4), la integracion se continua con la salida de orden 5, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
     k1 = h*(np.dot(A, x) + B*inputValue)
     k2 = h*(np.dot(A, x + k1/5) + B*inputValue)
@@ -66,23 +63,22 @@ def dopri54(A, B, C, D, x, h, inputValue):
 @cc.export('cash_karp45', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def cash_karp45(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Cash-Karp 4(5), la integracion se continua con la salida de orden 4, en el metodo se
-     asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta embebido de Cash-Karp 4(5), la integracion se continua con la salida de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B*inputValue)
@@ -103,23 +99,22 @@ def cash_karp45(A, B, C, D, x, h, inputValue):
 @cc.export('fehlberg45', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def fehlberg45(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Fehlberg 4(5), la integracion se continua con la salida de orden 4, en el metodo se
-     asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta embebido de Fehlberg 4(5), la integracion se continua con la salida de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B*inputValue)
@@ -140,23 +135,22 @@ def fehlberg45(A, B, C, D, x, h, inputValue):
 @cc.export('bogacki_shampine23', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def bogacki_shampine23(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta embebido de Bogacki-Shampine 3(2), la integracion se continua con la salida de orden 3, en el
-     metodo se asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta embebido de Bogacki-Shampine 3(2), la integracion se continua con la salida de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B*inputValue)
@@ -173,6 +167,25 @@ def bogacki_shampine23(A, B, C, D, x, h, inputValue):
 
 @cc.export('runge_kutta5', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def runge_kutta5(A, B, C, D, x, h, inputValue):
+    """
+    Runge-Kutta de orden 5, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
+    
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
+    """
+    
     k1 = h*(np.dot(A, x) + B*inputValue)
     k2 = h*(np.dot(A, x + k1/4) + B*inputValue)
     k3 = h*(np.dot(A, x + k1/8 + k2/8) + B*inputValue)
@@ -189,23 +202,22 @@ def runge_kutta5(A, B, C, D, x, h, inputValue):
 @cc.export('ralston4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def ralston4(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta Ralston con minimo error de truncamiento de orden 4, en el metodo se asumio entrada constante,
-     por lo que se descarta t + h*cs]
+    Runge-Kutta Ralston con minimo error de truncamiento de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B*inputValue)
@@ -222,22 +234,22 @@ def ralston4(A, B, C, D, x, h, inputValue):
 @cc.export('tres_octavos4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def tres_octavos4(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta 3/8 de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta 3/8 de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B*inputValue)
@@ -254,22 +266,22 @@ def tres_octavos4(A, B, C, D, x, h, inputValue):
 @cc.export('runge_kutta4', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def runge_kutta4(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta de orden 4, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B * inputValue)
@@ -286,23 +298,22 @@ def runge_kutta4(A, B, C, D, x, h, inputValue):
 @cc.export('SSPRK3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def SSPRK3(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta con preservado de estabilidad fuerte de orden 3, en el metodo se asumio entrada constante, por
-     lo que se descarta t + h*cs]
+    Runge-Kutta con preservado de estabilidad fuerte de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B * inputValue)
@@ -318,22 +329,22 @@ def SSPRK3(A, B, C, D, x, h, inputValue):
 @cc.export('ralston3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def ralston3(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta Ralston de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta Ralston de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B * inputValue)
@@ -349,22 +360,22 @@ def ralston3(A, B, C, D, x, h, inputValue):
 @cc.export('heun3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def heun3(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta Heun de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta Heun de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B * inputValue)
@@ -380,22 +391,22 @@ def heun3(A, B, C, D, x, h, inputValue):
 @cc.export('runge_kutta3', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def runge_kutta3(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta de orden 3, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B * inputValue)
@@ -411,22 +422,22 @@ def runge_kutta3(A, B, C, D, x, h, inputValue):
 @cc.export('runge_kutta2', '(f8[::1,:], f8[:,::1], f8[:,::1], f8[:,::1], f8[:,::1], f8, f8)')
 def runge_kutta2(A, B, C, D, x, h, inputValue):
     """
-    [Runge-Kutta de orden 2, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs]
+    Runge-Kutta de orden 2, en el metodo se asumio entrada constante, por lo que se descarta t + h*cs
     
-    :param A: [Matriz de estados]
-    :type A: [float64, 2d, F]
-    :param B: [Matriz de entrada]
-    :type B: [float64, 2d, C]
-    :param C: [Matriz de salida]
-    :type C: [float64, 2d, C]
-    :param D: [Matriz de transmision directa]
-    :type D: [float64, 2d, C]
-    :param x: [Vector de estado]
-    :type x: [float64, 2d, C]
-    :param h: [Tamaño de paso]
-    :type h: [float64]
-    :param inputValue: [Valor de entrada al sistema]
-    :type inputValue: [float64]
+    :param A: Matriz de estados
+    :type A: float64, 2d, F
+    :param B: Matriz de entrada
+    :type B: float64, 2d, C
+    :param C: Matriz de salida
+    :type C: float64, 2d, C
+    :param D: [Matriz de transmision directa
+    :type D: float64, 2d, C
+    :param x: Vector de estado
+    :type x: float64, 2d, C
+    :param h: Tamaño de paso
+    :type h: float64
+    :param inputValue: Valor de entrada al sistema
+    :type inputValue: float64
     """
 
     k1 = h*(np.dot(A, x) + B * inputValue)

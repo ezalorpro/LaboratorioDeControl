@@ -1,4 +1,4 @@
-""" [Archivo principal, en orden de ejecutar la aplicacion, este es el archivo a ejecutar] """
+""" Archivo principal, en orden de ejecutar la aplicacion, este es el archivo a ejecutar """
 
 
 from handlers.simulacionHandler import SimulacionHandler
@@ -23,11 +23,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def __init__(self, parent=None):
         """
-        [Constructor de la clase, aca se inicializan los objetos de las clases heredadas y 
-        se hacen los llamados a los Handlers]
+        Constructor de la clase, aca se inicializan los objetos de las clases heredadas y se hacen los llamados a los Handlers
         
-        :param parent: [Sin efecto], defaults to None
-        :type parent: [NoneType], optional
+        :param parent: Sin efecto, defaults to None
+        :type parent: NoneType, optional
         """
 
         super(MainWindow, self).__init__(parent)
@@ -57,17 +56,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def resource_path(self, relative_path):
         """
-        [Funcion para generar direcciones absolutas a partir de direcciones relativas]
+        Funcion para generar direcciones absolutas a partir de direcciones relativas
         
-        :param relative_path: [direccion relativa]
-        :type relative_path: [str]
+        :param relative_path: direccion relativa
+        :type relative_path: str
         """
 
         base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
         return os.path.join(base_path, relative_path)
 
     def closeEvent(self, event):
-        """ [Evento de cerrado de la ventana] """
+        """ Evento pera el cerrado de la ventana """
 
         error_dialog = QtWidgets.QMessageBox.question(
             self,

@@ -1,6 +1,5 @@
 """ 
-[Archivo que contiene las clases FuzzyController y FISParser, para administrar el controlador difuso y cargar y
- exportar archivos .fis respectivamente] 
+Archivo que contiene las clases FuzzyController y FISParser, para administrar el controlador difuso y cargar y exportar archivos .fis respectivamente
 """
 
 
@@ -22,23 +21,19 @@ import re
 
 class FuzzyController:
     """
-    [Clase para administrar el controlador difuso, a partir de la misma se puede crear el controlador difuso e
-     ir creandolo de forma programatica por medio de la interfaz grafica definida en Ui_VentanaPrincipal.py y 
-     manejada en FuzzyHandler.py]
+    Clase para administrar el controlador difuso, a partir de la misma se puede crear el controlador difuso e ir creandolo de forma programatica por medio de la interfaz grafica definida en Ui_VentanaPrincipal.py y manejada en FuzzyHandler.py
     """
 
     def __init__(self, inputlist, outputlist, rulelist=[]):
         """
-        [Se utiliza para inicializar el controlador con las entradas y salidas del mismo, en caso de que se
-         envie el parametro opcional, rulelist, se crea el controlador a partir de las reglas suministradas y 
-         queda listo para usar]
+        Se utiliza para inicializar el controlador con las entradas y salidas del mismo, en caso de que se envie el parametro opcional, rulelist, se crea el controlador a partir de las reglas suministradas y queda listo para usar
         
-        :param inputlist: [Lista de variables de entrada]
-        :type inputlist: [list]
-        :param outputlist: [Lista de variables de salida]
-        :type outputlist: [list]
-        :param rulelist: [Lista de reglas], defaults to []
-        :type rulelist: [list], optional
+        :param inputlist: Lista de variables de entrada
+        :type inputlist: list
+        :param outputlist: Lista de variables de salida
+        :type outputlist: list
+        :param rulelist: Lista de reglas, defaults to []
+        :type rulelist: list, optional
         """
 
         self.fuzz_inputs = self.crear_input(inputlist)
@@ -78,10 +73,10 @@ class FuzzyController:
 
     def crear_input(self, inputlist):
         """
-        [Funcion para crear las variables de entrada a partir de la lista de variables de entrada]
+        Funcion para crear las variables de entrada a partir de la lista de variables de entrada
         
-        :param inputlist: [Lista de variables de entrada]
-        :type inputlist: [list]
+        :param inputlist: Lista de variables de entrada
+        :type inputlist: list
         """
 
         vector = []
@@ -92,10 +87,10 @@ class FuzzyController:
 
     def crear_output(self, outputlist):
         """
-        [Funcion para crear las variables de salida a partir de la lista de variables de salida]
+        Funcion para crear las variables de salida a partir de la lista de variables de salida
         
-        :param outputlist: [Lista de variables de salida]
-        :type outputlist: [list]
+        :param outputlist: Lista de variables de salida
+        :type outputlist: list
         """
 
         vector = []
@@ -108,10 +103,10 @@ class FuzzyController:
 
     def crear_etiquetas_input(self, inputlist):
         """
-        [Funcion para crear las etiquetas de una entrada a partir de la lista de variables de entrada]
+        Funcion para crear las etiquetas de una entrada a partir de la lista de variables de entrada
         
-        :param inputlist: [Lista de variables de entrada]
-        :type inputlist: [list]
+        :param inputlist: Lista de variables de entrada
+        :type inputlist: list
         """
 
         for n, i in enumerate(inputlist):
@@ -121,10 +116,10 @@ class FuzzyController:
 
     def crear_etiquetas_output(self, outputlist):
         """
-        [Funcion para crear las etiquetas de una salida a partir de la lista de variables de salida]
+        Funcion para crear las etiquetas de una salida a partir de la lista de variables de salida
         
-        :param outputlist: [Lista de variables de salida]
-        :type outputlist: [list]
+        :param outputlist: Lista de variables de salida
+        :type outputlist: list
         """
 
         for n, i in enumerate(outputlist):
@@ -134,12 +129,12 @@ class FuzzyController:
 
     def graficar_mf_in(self, window, i):
         """
-        [Funcion para graficar las funciones de membresia de una entrada]
+        Funcion para graficar las funciones de membresia de una entrada
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param i: [Numero de entrada]
-        :type i: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param i: Numero de entrada
+        :type i: int
         """
 
         window.main.inputgraphicsView.canvas.axes.clear()
@@ -152,12 +147,12 @@ class FuzzyController:
 
     def graficar_mf_out(self, window, o):
         """
-        [Funcion para graficar las funciones de membresia de una salida]
+        Funcion para graficar las funciones de membresia de una salida
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param o: [Numero de salida]
-        :type o: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param o: Numero de salida
+        :type o: int
         """
 
         window.main.outputgraphicsView.canvas.axes.clear()
@@ -170,14 +165,14 @@ class FuzzyController:
 
     def cambiar_nombre_input(self, window, i, nombre):
         """
-        [Funcio para cambiar el nombre de una entrada]
+        Funcio para cambiar el nombre de una entrada
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param i: [Numero de entrada]
-        :type i: [int]
-        :param nombre: [Nuevo nombre de la entrada]
-        :type nombre: [str]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param i: Numero de entrada
+        :type i: int
+        :param nombre: Nuevo nombre de la entrada
+        :type nombre: str
         """
 
         self.fuzz_inputs[i].label = nombre
@@ -185,14 +180,14 @@ class FuzzyController:
 
     def cambiar_nombre_output(self, window, o, nombre):
         """
-         [Funcio para cambiar el nombre de una salida]
+         Funcio para cambiar el nombre de una salida
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param o: [Numero de salida]
-        :type o: [int]
-        :param nombre: [Nuevo nombre de la salida]
-        :type nombre: [str]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param o: Numero de salida
+        :type o: int
+        :param nombre: Nuevo nombre de la salida
+        :type nombre: str
         """
 
         self.fuzz_outputs[o].label = nombre
@@ -200,14 +195,14 @@ class FuzzyController:
 
     def cambio_etiquetas_input(self, window, inputlist, i):
         """
-        [Funcion para actualizar las etiquetas de entrada del controlador]
+        Funcion para actualizar las etiquetas de entrada del controlador
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param inputlist: [Lista de variables de entrada]
-        :type inputlist: [list]
-        :param i: [Numero de entrada]
-        :type i: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param inputlist: Lista de variables de entrada
+        :type inputlist: list
+        :param i: Numero de entrada
+        :type i: int
         """
 
         self.fuzz_inputs[i].terms = OrderedDict()
@@ -216,14 +211,14 @@ class FuzzyController:
 
     def cambio_etiquetas_output(self, window, outputlist, o):
         """
-        [Funcion para actualizar las etiquetas de salida del controlador]
+        Funcion para actualizar las etiquetas de salida del controlador
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param outputlist: [Lista de variables de salida]
-        :type outputlist: [list]
-        :param o: [Numero de salida]
-        :type o: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param outputlist: Lista de variables de salida
+        :type outputlist: list
+        :param o: Numero de salida
+        :type o: int
         """
 
         self.fuzz_outputs[o].terms = OrderedDict()
@@ -232,14 +227,14 @@ class FuzzyController:
 
     def update_rango_input(self, window, inputlist, i):
         """
-        [Funcion para actualizar el universo de discurso de una entrada]
+        Funcion para actualizar el universo de discurso de una entrada
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param inputlist: [Lista de variables de entrada]
-        :type inputlist: [list]
-        :param i: [Numero de entrada]
-        :type i: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param inputlist: Lista de variables de entrada
+        :type inputlist: list
+        :param i: Numero de entrada
+        :type i: int
         """
 
         self.fuzz_inputs[i].universe = np.asarray(np.linspace(*inputlist[i]['rango'],
@@ -248,14 +243,14 @@ class FuzzyController:
 
     def update_rango_output(self, window, outputlist, o):
         """
-        [Funcion para actualizar el universo de discurso de una salida]
+        Funcion para actualizar el universo de discurso de una salida
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param outputlist: [Lista de variables de salida]
-        :type outputlist: [list]
-        :param o: [Numero de salida]
-        :type o: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param outputlist: Lista de variables de salida
+        :type outputlist: list
+        :param o: Numero de salida
+        :type o: int
         """
 
         self.fuzz_outputs[o].universe = np.asarray(
@@ -264,31 +259,31 @@ class FuzzyController:
 
     def cambiar_metodo(self, window, o, metodo):
         """ 
-        [Funcion para cambiar el metodo de defuzzificacion de una salida]
+        Funcion para cambiar el metodo de defuzzificacion de una salida
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param o: [Numero de salida]
-        :type o: [int]
-        :param metodo: [Nombre del nuevo metodo de defuzzificacion]
-        :type o: [str]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param o: Numero de salida
+        :type o: int
+        :param metodo: Nombre del nuevo metodo de defuzzificacion
+        :type o: str
         """
         self.fuzz_inputs[o].defuzzify_method = metodo
 
     def cambio_etinombre_input(self, window, inputlist, i, n, old_name):
         """
-        [Funcio para cambiar el nombre de una etiqueta en la entrada seleccionada]
+        Funcio para cambiar el nombre de una etiqueta en la entrada seleccionada
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param inputlist: [Lista de variables de entrada]
-        :type inputlist: [list]
-        :param i: [Numero de entrada]
-        :type i: [int]
-        :param n: [Numero de etiqueta]
-        :type n: [int]
-        :param old_name: [Nombre anterior]
-        :type old_name: [str]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param inputlist: Lista de variables de entrada
+        :type inputlist: list
+        :param i: Numero de entrada
+        :type i: int
+        :param n: Numero de etiqueta
+        :type n: int
+        :param old_name: Nombre anterior
+        :type old_name: str
         """
 
         eti = inputlist[i]['etiquetas'][n]
@@ -299,18 +294,18 @@ class FuzzyController:
 
     def cambio_etinombre_output(self, window, outputlist, o, n, old_name):
         """
-        [Funcio para cambiar el nombre de una etiqueta en la salida seleccionada]
+        Funcio para cambiar el nombre de una etiqueta en la salida seleccionada
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param outputlist: [Lista de variables de salida]
-        :type outputlist: [list]
-        :param o: [Numero de salida]
-        :type o: [int]
-        :param n: [Numero de etiqueta]
-        :type n: [int]
-        :param old_name: [Nombre anterior]
-        :type old_name: [str]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param outputlist: Lista de variables de salida
+        :type outputlist: list
+        :param o: Numero de salida
+        :type o: int
+        :param n: Numero de etiqueta
+        :type n: int
+        :param old_name: Nombre anterior
+        :type old_name: str
         """
 
         eti = outputlist[o]['etiquetas'][n]
@@ -321,16 +316,16 @@ class FuzzyController:
 
     def update_definicion_input(self, window, inputlist, i, n):
         """
-        [Funcion para actualizar la definicion de una funcion de membresia en la entrada seleccionada]
+        Funcion para actualizar la definicion de una funcion de membresia en la entrada seleccionada
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param inputlist: [Lista de variables de entrada]
-        :type inputlist: [list]
-        :param i: [Numero de entrada]
-        :type i: [int]
-        :param n: [Numero de etiqueta]
-        :type n: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param inputlist: Lista de variables de entrada
+        :type inputlist: list
+        :param i: Numero de entrada
+        :type i: int
+        :param n: Numero de etiqueta
+        :type n: int
         """
 
         eti = inputlist[i]['etiquetas'][n]
@@ -340,16 +335,16 @@ class FuzzyController:
 
     def update_definicion_output(self, window, outputlist, o, n):
         """
-        [Funcion para actualizar la definicion de una funcion de membresia en la salida seleccionada]
+        Funcion para actualizar la definicion de una funcion de membresia en la salida seleccionada
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param outputlist: [Lista de variables de salida]
-        :type outputlist: [list]
-        :param o: [Numero de salida]
-        :type o: [int]
-        :param n: [Numero de etiqueta]
-        :type n: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param outputlist: Lista de variables de salida
+        :type outputlist: list
+        :param o: Numero de salida
+        :type o: int
+        :param n: Numero de etiqueta
+        :type n: int
         """
 
         eti = outputlist[o]['etiquetas'][n]
@@ -359,16 +354,12 @@ class FuzzyController:
 
     def crear_reglas(self, rulelistC):
         """
-        [Funcion para crear las reglas a partir de una lista que contiene toda la informacion necesaria, esta
-         lista es creada en FuzzyHandler.py:
+        Funcion para crear las reglas a partir de una lista que contiene toda la informacion necesaria, esta lista es creada en FuzzyHandler.py:
         
-         Cada posicion en la lista contiene un set de entradas, salidas y la logica a utilizar (AND o OR), a su
-         vez, cada set es una lista que posee en cada posicion otra lista con la etiqueta, el numero de 
-         entrada/salida y si esta o no negada para el caso de las entradas, en caso de ser salida contiene el 
-         peso asignado]
+        Cada posicion en la lista contiene un set de entradas, salidas y la logica a utilizar (AND o OR), a su vez, cada set es una lista que posee en cada posicion otra lista con la etiqueta, el numero de entrada/salida y si esta o no negada para el caso de las entradas, en caso de ser salida contiene el peso asignado
         
-        :param rulelistC: [Lista con la informacion necesaria para crear las reglas]
-        :type rulelistC: [list]
+        :param rulelistC: Lista con la informacion necesaria para crear las reglas
+        :type rulelistC: list
         """
 
         # Un set por cada regla
@@ -417,16 +408,16 @@ class FuzzyController:
 
     def agregar_regla(self, window, Etiquetasin, Etiquetasout, logica):
         """
-        [Funcion para crear una regla a partir de un set]
+        Funcion para crear una regla a partir de un set
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param Etiquetasin: [set de entrada]
-        :type Etiquetasin: [list]
-        :param Etiquetasout: [set de salida]
-        :type Etiquetasout: [list]
-        :param logica: [Logica a utilizar]
-        :type logica: [bool]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param Etiquetasin: set de entrada
+        :type Etiquetasin: list
+        :param Etiquetasout: set de salida
+        :type Etiquetasout: list
+        :param logica: Logica a utilizar
+        :type logica: bool
         """
 
         # Creacion del objeto de regla de Scikit-Fuzzy
@@ -471,27 +462,27 @@ class FuzzyController:
 
     def eliminar_regla(self, index_rule):
         """
-        [Funcion para eliminar una regla]
+        Funcion para eliminar una regla
         
-        :param index_rule: [Indice indicando la regla a eliminar]
-        :type index_rule: [int]
+        :param index_rule: Indice indicando la regla a eliminar
+        :type index_rule: int
         """
         del self.rulelist[index_rule]
 
     def cambiar_regla(self, window, Etiquetasin, Etiquetasout, index_rule, logica):
         """
-        [Funcion para cambiar una regla a partir de un nuevo set]
+        Funcion para cambiar una regla a partir de un nuevo set
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param Etiquetasin: [set de entrada]
-        :type Etiquetasin: [list]
-        :param Etiquetasout: [set de salida]
-        :type Etiquetasout: [list]
-        :param index_rule: [Indice indicando la regla a cambiar]
-        :type index_rule: [int]
-        :param logica: [Logica a utilizar]
-        :type logica: [bool]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param Etiquetasin: set de entrada
+        :type Etiquetasin: list
+        :param Etiquetasout: set de salida
+        :type Etiquetasout: list
+        :param index_rule: Indice indicando la regla a cambiar
+        :type index_rule: int
+        :param logica: Logica a utilizar
+        :type logica: bool
         """
 
         del self.rulelist[index_rule]
@@ -540,22 +531,23 @@ class FuzzyController:
         return self.rulelist[index_rule]
 
     def crear_controlador(self):
-        """ [Funcion para crear el controlador difuso a partir de todas las reglas creadas] """
+        """ Funcion para crear el controlador difuso a partir de todas las reglas creadas """
+        
         temp = fuzz.ControlSystem(self.rulelist)
         self.Controlador = fuzz.ControlSystemSimulation(temp, flush_after_run=20000)
 
     def prueba_de_controlador(self, window, values, ni, no):
         """
-        [Funcion para realizar la prueba del controlador]
+        Funcion para realizar la prueba del controlador
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param values: [Valores de entradas dados por el usuario con los sliders]
-        :type values: [list]
-        :param ni: [Numero de entradas]
-        :type ni: [int]
-        :param no: [Numero de salidas]
-        :type no: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param values: Valores de entradas dados por el usuario con los sliders
+        :type values: list
+        :param ni: Numero de entradas
+        :type ni: int
+        :param no: Numero de salidas
+        :type no: int
         """
 
         for i in range(ni):
@@ -576,14 +568,12 @@ class FuzzyController:
 
     def crear_plots_in(self, window, ni):
         """
-        [Funcion para crear los objetos de graficacion de PyQtGraph de la entrada, el codigo para la obtencion
-         de los valores de salida y el graficado es una version altamente modificada de la funcion .view() de 
-         Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph]
+        Funcion para crear los objetos de graficacion de PyQtGraph de la entrada, el codigo para la obtencion de los valores de salida y el graficado es una version altamente modificada de la funcion .view() de Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param ni: [Numero de entradas]
-        :type ni: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param ni: Numero de entradas
+        :type ni: int
         """
 
         for i in range(ni):
@@ -659,14 +649,12 @@ class FuzzyController:
 
     def crear_plots_out(self, window, no):
         """
-        [Funcion para crear los objetos de graficacion de PyQtGraph de la salida, el codigo para la obtencion de
-         los valores de salida y el graficado es una version altamente modificada de la funcion .view() de 
-         Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph]
+        Funcion para crear los objetos de graficacion de PyQtGraph de la salida, el codigo para la obtencion de los valores de salida y el graficado es una version altamente modificada de la funcion .view() de Scikit-Fuzzy. Las modificaciones realizadas fueron necesarias para cambiar matplotlib por PyQtGraph
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param no: [Numero de salidas]
-        :type no: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param no: Numero de salidas
+        :type no: int
         """
 
         for i in range(no):
@@ -762,15 +750,14 @@ class FuzzyController:
 
     def graficar_prueba_pyqtgraph(self, window, ni, no):
         """
-        [Funcion para actualizar la grafica en funcion de las nuevas entradas, codigo tomado y modificado de la
-         funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph]
+        Funcion para actualizar la grafica en funcion de las nuevas entradas, codigo tomado y modificado de la funcion .view() de Scikit-Fuzzy y adaptado para su uso con PyQtGraph
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param ni: [Numero de entradas]
-        :type ni: [int]
-        :param no: [Numero de salidas]
-        :type no: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param ni: Numero de entradas
+        :type ni: int
+        :param no: Numero de salidas
+        :type no: int
         """
 
         for i in range(ni):
@@ -872,14 +859,14 @@ class FuzzyController:
 
     def graficar_respuesta_2d(self, window, inrange, no):
         """
-        [Funcion para graficar la respuesta del controlador en caso de poseer una entrada]
+        Funcion para graficar la respuesta del controlador en caso de poseer una entrada
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param inrange: [Rango de la variable de entrada]
-        :type inrange: [list]
-        :param no: [Numero de salidas]
-        :type no: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param inrange: Rango de la variable de entrada
+        :type inrange: list
+        :param no: Numero de salidas
+        :type no: int
         """
         entrada = np.linspace(*inrange, 500)
 
@@ -908,16 +895,16 @@ class FuzzyController:
 
     def graficar_respuesta_3d(self, window, inrange1, inrange2, no):
         """
-        [Funcion para graficar la superficie de respuesta del controlador en caso de poseer 2 entradas]
+        Funcion para graficar la superficie de respuesta del controlador en caso de poseer 2 entradas
         
-        :param window: [Objeto que contiene a la ventana principal]
-        :type window: [object]
-        :param inrange1: [Rango de la variable de entrada uno]
-        :type inrange1: [list]
-        :param inrange2: [Rango de la variable de entrada dos]
-        :type inrange2: [list]
-        :param no: [Numero de salidas]
-        :type no: [int]
+        :param window: Objeto que contiene a la ventana principal
+        :type window: object
+        :param inrange1: Rango de la variable de entrada uno
+        :type inrange1: list
+        :param inrange2: Rango de la variable de entrada dos
+        :type inrange2: list
+        :param no: Numero de salidas
+        :type no: int
         """
 
         n_puntos = 25
@@ -966,13 +953,12 @@ class FuzzyController:
 
     def calcular_valor(self, inputs, outputs):
         """
-        [Funcion para calcular las salidas del controlador dado sus entradas, esta funcion se utiliza en la
-         funcionalidad de simulacion de sistemas de control]
+        Funcion para calcular las salidas del controlador dado sus entradas, esta funcion se utiliza en la funcionalidad de simulacion de sistemas de control
         
-        :param inputs: [Lista con los valores de entrada]
-        :type inputs: [list]
-        :param outputs: [Lista vacia del tamaño del numero de salidas]
-        :type outputs: [list]
+        :param inputs: Lista con los valores de entrada
+        :type inputs: list
+        :param outputs: Lista vacia del tamaño del numero de salidas
+        :type outputs: list
         """
 
         for i, value in enumerate(inputs):
@@ -993,30 +979,25 @@ class FuzzyController:
 
 class FISParser:
     """
-    [Clase para cargar y exportar archivos .fis, para cargar los archivos FIS las funciones get_system, get_vars,
-     get_var y get_rules fueron tomadas de yapflm: 
+    Clase para cargar y exportar archivos .fis, para cargar los archivos FIS las funciones get_system, get_vars,get_var y get_rules fueron tomadas de yapflm: 
      
-     Yet Another Python Fuzzy Logic Module: https://github.com/sputnick1124/yapflm 
+    Yet Another Python Fuzzy Logic Module: https://github.com/sputnick1124/yapflm 
      
-     para obtener los datos necesarias del .fis, de allí, se aplica la función fis_to_json para completar el 
-     parsin.
-    
-     En el caso de la exportación, se realiza utilizando la función json_to_fis]
+    Para obtener los datos necesarias del .fis, de allí, se aplica la función fis_to_json para completar el parsin. En el caso de la exportación, se realiza utilizando la función json_to_fis
     """
 
     def __init__(self, file, InputList=None, OutputList=None, RuleEtiquetas=None):
         """
-        [Constructor de la clase, inicializa las variables a utilizar y selecciona entre cargar el fis o
-         exportarlo dependiendo de las variables con las que se cree el objeto]
+        Constructor de la clase, inicializa las variables a utilizar y selecciona entre cargar el fis o exportarlo dependiendo de las variables con las que se cree el objeto
         
-        :param file: [Dirección del archivo a cargar o exportar]
-        :type file: [str]
-        :param inputlist: [Lista de variables de entrada], defaults to None
-        :type inputlist: [list], optional
-        :param OutputList: [Lista de variables de entrada], defaults to None
-        :type OutputList: [list], optional
-        :param RuleEtiquetas: [Lista con la información necesaria para crear las reglas], defaults to None
-        :type RuleEtiquetas: [list], optional
+        :param file: Dirección del archivo a cargar o exportar
+        :type file: str
+        :param inputlist: Lista de variables de entrada, defaults to None
+        :type inputlist: list, optional
+        :param OutputList: Lista de variables de entrada, defaults to None
+        :type OutputList: list, optional
+        :param RuleEtiquetas: Lista con la información necesaria para crear las reglas, defaults to None
+        :type RuleEtiquetas: list, optional
         """
 
         # Cargar archivo .fis
@@ -1039,7 +1020,7 @@ class FISParser:
             self.json_to_fis()
 
     def get_system(self):
-        """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        """ Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module) """
 
         end_sysblock = self.rawlines.index('\n')
         systemblock = self.rawlines[1:end_sysblock]
@@ -1052,7 +1033,7 @@ class FISParser:
         self.systemList = fissys
 
     def get_var(self, vartype, varnum, start_line, end_line):
-        """ [Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        """ Funcion tomada de yapflm (Yet Another Python Fuzzy Logic Module) """
 
         varblock = self.rawlines[start_line:end_line]
         fisargs = map(lambda x: parse('{arg}={val}', x), varblock)
@@ -1064,7 +1045,7 @@ class FISParser:
             self.OutputList.append(fisvar)
 
     def get_vars(self):
-        """ [Función tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        """ Función tomada de yapflm (Yet Another Python Fuzzy Logic Module) """
 
         start_ruleblock = self.rawlines.index('[Rules]\n')
         var_lines = []
@@ -1085,7 +1066,7 @@ class FISParser:
                 self.get_var('output', var_types[i][1] - 1, l + 2, var_lines[i + 1])
 
     def get_rules(self):
-        """ [Función tomada de yapflm (Yet Another Python Fuzzy Logic Module)] """
+        """ Función tomada de yapflm (Yet Another Python Fuzzy Logic Module) """
 
         start_ruleblock = self.rawlines.index('[Rules]\n')
         ruleblock = self.rawlines[start_ruleblock + 1:]
@@ -1124,7 +1105,7 @@ class FISParser:
                 self.RuleList.append(r)
 
     def fis_to_json(self):
-        """ [Función para completar la creación del controlador a partir de un archivo .fis] """
+        """ Función para completar la creación del controlador a partir de un archivo .fis """
 
         # Datos del controlador
         ni = int(self.systemList['numinputs'])
@@ -1210,7 +1191,7 @@ class FISParser:
         return copy.deepcopy(InputList), copy.deepcopy(OutputList), copy.deepcopy(RuleEtiquetas)
 
     def json_to_fis(self):
-        """ [Función para exportar el controlador en formato .fis] """
+        """ Función para exportar el controlador en formato .fis """
 
         # Datos del controlador
         ni = len(self.InputList)

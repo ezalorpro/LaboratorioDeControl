@@ -1,6 +1,5 @@
 """ 
-[Archivo para definir los algoritmos de ajusto del tamaño de paso para los Runge-kutta explícitos y
- embebidos, en el caso de los métodos explícitos se utiliza el método de doble paso] 
+Archivo para definir los algoritmos de ajusto del tamaño de paso para los Runge-kutta explícitos y embebidos, en el caso de los métodos explícitos se utiliza el método de doble paso
 """
 
 
@@ -22,36 +21,34 @@ def rk_doble_paso_adaptativo(systema,
                              min_step_decrease,
                              safety_factor):
     """
-    [Función para definir y manejar el ajuste del tamaño de paso por el método de doble paso para Runge-kutta's
-     explícitos, la función está realizada de forma específica para trabajar con sistemas de control 
-     representados con ecuaciones de espacio de estados]
+    Función para definir y manejar el ajuste del tamaño de paso por el método de doble paso para Runge-kutta's explícitos, la función está realizada de forma específica para trabajar con sistemas de control representados con ecuaciones de espacio de estados
     
-    :param systema: [Representación del sistema de control]
-    :type systema: [LTI]
-    :param h_ant: [Tamaño de paso actual]
-    :type h_ant: [float]
-    :param tiempo: [Tiempo actual]
-    :type tiempo: [float]
-    :param tbound: [Tiempo máximo de simulación]
-    :type tbound: [float]
-    :param xVectB: [Vector de estado]
-    :type xVectB: [numpyArray]
-    :param entrada: [Valor de entrada al sistema]
-    :type entrada: [float]
-    :param metodo: [Runge-Kutta a utilizar: RK2, Rk3, etc.]
-    :type metodo: [function]
-    :param ordenq: [Orden del método]
-    :type ordenq: [int]
-    :param rtol: [Tolerancia relativa]
-    :type rtol: [float]
-    :param atol: [Tolerancia absoluta]
-    :type atol: [float]
-    :param max_step_increase: [Máximo incremento del tamaño de paso]
-    :type max_step_increase: [float]
-    :param min_step_decrease: [Mínimo decremento del tamaño de paso]
-    :type min_step_decrease: [float]
-    :param safety_factor: [Factor de seguridad]
-    :type safety_factor: [float]
+    :param systema: Representación del sistema de control
+    :type systema: LTI
+    :param h_ant: Tamaño de paso actual
+    :type h_ant: float
+    :param tiempo: Tiempo actual
+    :type tiempo: float
+    :param tbound: Tiempo máximo de simulación
+    :type tbound: float
+    :param xVectB: Vector de estado
+    :type xVectB: numpyArray
+    :param entrada: Valor de entrada al sistema
+    :type entrada: float
+    :param metodo: Runge-Kutta a utilizar: RK2, Rk3, etc.
+    :type metodo: function
+    :param ordenq: Orden del método
+    :type ordenq: int
+    :param rtol: Tolerancia relativa
+    :type rtol: float
+    :param atol: Tolerancia absoluta
+    :type atol: float
+    :param max_step_increase: Máximo incremento del tamaño de paso
+    :type max_step_increase: float
+    :param min_step_decrease: Mínimo decremento del tamaño de paso
+    :type min_step_decrease: float
+    :param safety_factor: Factor de seguridad
+    :type safety_factor: float
     """
 
     while True:
@@ -104,36 +101,34 @@ def rk_embebido_adaptativo(systema,
                            min_step_decrease,
                            safety_factor):
     """
-    [Función para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la función esta
-     realizada de forma específica para trabajar con sistemas de control representados con ecuaciones de espacio 
-     de estados]
+    Función para definir y manejar el ajuste del tamaño de paso para Runge-kutta's embebidos, la función esta realizada de forma específica para trabajar con sistemas de control representados con ecuaciones de espacio de estados
     
-    :param systema: [Representación del sistema de control]
-    :type systema: [LTI]
-    :param h_ant: [Tamaño de paso actual]
-    :type h_ant: [float]
-    :param tiempo: [Tiempo actual]
-    :type tiempo: [float]
-    :param tbound: [Tiempo máximo de simulación]
-    :type tbound: [float]
-    :param xVectB: [Vector de estado]
-    :type xVectB: [numpyArray]
-    :param entrada: [Valor de entrada al sistema]
-    :type entrada: [float]
-    :param metodo: [Runge-Kutta a utilizar: DOPRI54, RKF45, etc.]
-    :type metodo: [function]
-    :param ordenq: [Valor del método de menor orden]
-    :type ordenq: [int]
-    :param rtol: [Tolerancia relativa]
-    :type rtol: [float]
-    :param atol: [Tolerancia absoluta]
-    :type atol: [float]
-    :param max_step_increase: [Máximo incremento del tamaño de paso]
-    :type max_step_increase: [float]
-    :param min_step_decrease: [Mínimo decremento del tamaño de paso]
-    :type min_step_decrease: [float]
-    :param safety_factor: [Factor de seguridad]
-    :type safety_factor: [float]
+    :param systema: Representación del sistema de control
+    :type systema: LTI
+    :param h_ant: Tamaño de paso actual
+    :type h_ant: float
+    :param tiempo: Tiempo actual
+    :type tiempo: float
+    :param tbound: Tiempo máximo de simulación
+    :type tbound: float
+    :param xVectB: Vector de estado
+    :type xVectB: numpyArray
+    :param entrada: Valor de entrada al sistema
+    :type entrada: float
+    :param metodo: Runge-Kutta a utilizar: DOPRI54, RKF45, etc.
+    :type metodo: function
+    :param ordenq: Valor del método de menor orden
+    :type ordenq: int
+    :param rtol: Tolerancia relativa
+    :type rtol: float
+    :param atol: Tolerancia absoluta
+    :type atol: float
+    :param max_step_increase: Máximo incremento del tamaño de paso
+    :type max_step_increase: float
+    :param min_step_decrease: Mínimo decremento del tamaño de paso
+    :type min_step_decrease: float
+    :param safety_factor: Factor de seguridad
+    :type safety_factor: float
     """
 
     while True:

@@ -1,7 +1,5 @@
 """ 
-[Archivo para el manejo de la funcion de simulacion de sistemas de control, sirve de intermediario entre la 
- interfaz grafica y la clase creada para manejar la simulacion en una hilo distinto, esto es debido al tiempo 
- que puede llegar a tomar cada simulacion] 
+Archivo para el manejo de la funcion de simulacion de sistemas de control, sirve de intermediario entre la interfaz grafica y la clase creada para manejar la simulacion en una hilo distinto, esto es debido al tiempo que puede llegar a tomar cada simulacion
 """
 
 from rutinas.metodos_RK import (runge_kutta2, runge_kutta3, runge_kutta4, runge_kutta5,
@@ -20,8 +18,7 @@ import json
 
 def SimulacionHandler(self):
     """
-    [Funcion principal para el manejo de la funcionalida de simulacion de sistemas de control, se crean las
-     señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas]
+    Funcion principal para el manejo de la funcionalida de simulacion de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas
     """
 
     self.main.progressBar.hide()
@@ -81,7 +78,7 @@ def SimulacionHandler(self):
 
 
 def tfnum_validator(self):
-    """ [Validacion del numerador de la funcion de transferencia] """
+    """ Validacion del numerador de la funcion de transferencia """
 
     try:
         _ = json.loads(self.main.tfnumEdit4.text())
@@ -95,7 +92,7 @@ def tfnum_validator(self):
 
 
 def tfdem_validator(self):
-    """ [Validacion del denominador de la funcion de transferencia] """
+    """ Validacion del denominador de la funcion de transferencia """
 
     try:
         _ = json.loads(self.main.tfdemEdit4.text())
@@ -109,7 +106,7 @@ def tfdem_validator(self):
 
 
 def tfdelay_validator(self):
-    """ [Validacion del delay de la funcion de transferencia] """
+    """ Validacion del delay de la funcion de transferencia """
 
     try:
         _ = float(self.main.tfdelayEdit4.text())
@@ -124,7 +121,7 @@ def tfdelay_validator(self):
 
 
 def tfperiodo_validator(self):
-    """ [Validacion del periodo de muestreo de la funcion de transferencia] """
+    """ Validacion del periodo de muestreo de la funcion de transferencia """
 
     try:
         _ = float(self.main.tfperiodoEdit4.text())
@@ -139,7 +136,7 @@ def tfperiodo_validator(self):
 
 
 def ssA_validator(self):
-    """ [Validacion de la matriz de estados de la ecuacion de espacio de estados] """
+    """ Validacion de la matriz de estados de la ecuacion de espacio de estados """
 
     try:
         _ = json.loads(self.main.ssAEdit4.text())
@@ -153,7 +150,7 @@ def ssA_validator(self):
 
 
 def ssB_validator(self):
-    """ [Validacion de la matriz de entrada de la ecuacion de espacio de estados] """
+    """ Validacion de la matriz de entrada de la ecuacion de espacio de estados """
 
     try:
         _ = json.loads(self.main.ssBEdit4.text())
@@ -167,7 +164,7 @@ def ssB_validator(self):
 
 
 def ssC_validator(self):
-    """ [Validacion de la matriz de salida de la ecuacion de espacio de estados] """
+    """ Validacion de la matriz de salida de la ecuacion de espacio de estados """
 
     try:
         _ = json.loads(self.main.ssCEdit4.text())
@@ -181,7 +178,7 @@ def ssC_validator(self):
 
 
 def ssD_validator(self):
-    """ [Validacion de la matriz de transmision directa de la ecuacion de espacio de estados] """
+    """ Validacion de la matriz de transmision directa de la ecuacion de espacio de estados """
 
     try:
         _ = json.loads(self.main.ssDEdit4.text())
@@ -195,7 +192,7 @@ def ssD_validator(self):
 
 
 def ssdelay_validator(self):
-    """ [Validacion del delay de la ecuacion de espacio de estados] """
+    """ Validacion del delay de la ecuacion de espacio de estados """
 
     try:
         _ = float(self.main.ssdelayEdit4.text())
@@ -210,7 +207,7 @@ def ssdelay_validator(self):
 
 
 def ssperiodo_validator(self):
-    """ [Validacion del periodo de muestreo de la ecuacion de espacio de estados] """
+    """ Validacion del periodo de muestreo de la ecuacion de espacio de estados """
 
     try:
         _ = float(self.main.ssperiodoEdit4.text())
@@ -225,7 +222,7 @@ def ssperiodo_validator(self):
 
 
 def tiempo_validator(self):
-    """ [Validacion del tiempo de simulacion] """
+    """ Validacion del tiempo de simulacion """
 
     try:
         _ = float(self.main.tiempoSimulacion.text())
@@ -240,7 +237,7 @@ def tiempo_validator(self):
 
 
 def escalon_validator(self):
-    """ [Validacion del escalon simple] """
+    """ Validacion del escalon simple """
 
     try:
         _ = float(self.main.escalonSimulacion.text())
@@ -253,7 +250,7 @@ def escalon_validator(self):
 
 
 def escalonAvanzado_validator(self):
-    """ [Validacion del escalon avanzado] """
+    """ Validacion del escalon avanzado """
 
     try:
         _ = json.loads(self.main.escalonAvanzado.text())
@@ -283,7 +280,7 @@ def escalonAvanzado_validator(self):
 
 
 def pade_validator(self):
-    """ [Validacion del orden del pade] """
+    """ Validacion del orden del pade """
 
     try:
         _ = int(self.main.padeOrder.text())
@@ -298,7 +295,7 @@ def pade_validator(self):
 
 
 def rtol_validator(self):
-    """ [Validacion de la tolerancia relativa] """
+    """ Validacion de la tolerancia relativa """
 
     try:
         _ = float(self.main.rtolLineEdit.text())
@@ -313,7 +310,7 @@ def rtol_validator(self):
 
 
 def atol_validator(self):
-    """ [Validacion de la tolerancia absoluta] """
+    """ Validacion de la tolerancia absoluta """
 
     try:
         _ = float(self.main.atolLineEdit.text())
@@ -328,7 +325,7 @@ def atol_validator(self):
 
 
 def maxstep_validator(self):
-    """ [Validacion del incremento maximo de paso] """
+    """ Validacion del incremento maximo de paso """
 
     try:
         _ = float(self.main.maxStepIncr.text())
@@ -344,7 +341,7 @@ def maxstep_validator(self):
 
 
 def minstep_validator(self):
-    """ [Validacion del decremento minimo de paso] """
+    """ Validacion del decremento minimo de paso """
 
     try:
         _ = float(self.main.minStepDecr.text())
@@ -359,7 +356,7 @@ def minstep_validator(self):
 
 
 def safetyFactor_validator(self):
-    """ [Validacion del factor de seguridad] """
+    """ Validacion del factor de seguridad """
 
     try:
         _ = float(self.main.safetyFactor.text())
@@ -375,7 +372,7 @@ def safetyFactor_validator(self):
 
 
 def sensornum_validator(self):
-    """ [Validacion del numerador de la funcion de transferencia correspondiente al sensor] """
+    """ Validacion del numerador de la funcion de transferencia correspondiente al sensor """
 
     try:
         _ = json.loads(self.main.numSensor.text())
@@ -389,7 +386,7 @@ def sensornum_validator(self):
 
 
 def sensordem_validator(self):
-    """ [Validacion del denominador de la funcion de transferencia correspondiente al sensor] """
+    """ Validacion del denominador de la funcion de transferencia correspondiente al sensor """
 
     try:
         _ = json.loads(self.main.demSensor.text())
@@ -403,7 +400,7 @@ def sensordem_validator(self):
 
 
 def accionadornum_validator(self):
-    """ [Validacion del numerador de la funcion de transferencia correspondiente al accionador] """
+    """ Validacion del numerador de la funcion de transferencia correspondiente al accionador """
 
     try:
         _ = json.loads(self.main.numAccionador.text())
@@ -417,7 +414,7 @@ def accionadornum_validator(self):
 
 
 def accionadordem_validator(self):
-    """ [Validacion del denominador de la funcion de transferencia correspondiente al accionador] """
+    """ Validacion del denominador de la funcion de transferencia correspondiente al accionador """
 
     try:
         _ = json.loads(self.main.demAccionador.text())
@@ -431,7 +428,7 @@ def accionadordem_validator(self):
 
 
 def inferiorSaturador_validator(self):
-    """ [Validacion del limite inferior del saturador] """
+    """ Validacion del limite inferior del saturador """
 
     try:
         _ = float(self.main.inferiorSaturador.text())
@@ -444,7 +441,7 @@ def inferiorSaturador_validator(self):
 
 
 def superiorSaturador_validator(self):
-    """ [Validacion del limite superior del saturador] """
+    """ Validacion del limite superior del saturador """
 
     try:
         _ = float(self.main.superiorSaturador.text())
@@ -457,7 +454,7 @@ def superiorSaturador_validator(self):
 
 
 def kp_validator(self):
-    """ [Validacion de la ganancia proporcional] """
+    """ Validacion de la ganancia proporcional """
 
     try:
         _ = float(self.main.kpSimulacion.text())
@@ -472,7 +469,7 @@ def kp_validator(self):
 
 
 def ki_validator(self):
-    """ [Validacion de la ganancia integral] """
+    """ Validacion de la ganancia integral """
 
     try:
         _ = float(self.main.kiSimulacion.text())
@@ -487,7 +484,7 @@ def ki_validator(self):
 
 
 def kd_validator(self):
-    """ [Validacion de la ganancia derivativa] """
+    """ Validacion de la ganancia derivativa """
 
     try:
         _ = float(self.main.kdSimulacion.text())
@@ -502,7 +499,7 @@ def kd_validator(self):
 
 
 def N_validator(self):
-    """ [Validacion del valor N] """
+    """ Validacion del valor N """
 
     try:
         _ = float(self.main.NSimulacion.text())
@@ -517,7 +514,8 @@ def N_validator(self):
 
 
 def calcular_simulacion(self):
-
+    """ Funcion para inicializar el QThread y realizar los calculos de la simulacion """
+    
     num = json.loads(self.main.numSensor.text())
     dem = json.loads(self.main.demSensor.text())
 
@@ -645,31 +643,31 @@ def calcular_simulacion(self):
 
 
 def simulacion_stacked_to_tf(self):
-    """ [Funcion para cambiar de ecuacion de espacio de estados a funcion de transferencia] """
+    """ Funcion para cambiar de ecuacion de espacio de estados a funcion de transferencia """
     self.main.SimulacionstackedWidget.setCurrentIndex(0)
 
 
 def simulacion_stacked_to_ss(self):
-    """ [Funcion para cambiar de funcion de transferencia a ecuacion de espacio de estados] """
+    """ Funcion para cambiar de funcion de transferencia a ecuacion de espacio de estados """
     self.main.SimulacionstackedWidget.setCurrentIndex(1)
 
 
 def get_pathcontroller1(self):
-    """ [Funcion para obtener la direccion al archivo del controlador difuso] """
+    """ Funcion para obtener la direccion al archivo del controlador difuso """
 
     path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON/FIS (*.json *.fis)")
     self.main.pathController1.setText(path_cargar[0])
 
 
 def get_pathcontroller2(self):
-    """ [Funcion para obtener la direccion al archivo del controlador difuso 2 (PD)] """
+    """ Funcion para obtener la direccion al archivo del controlador difuso 2 (PD) """
 
     path_cargar = QtWidgets.QFileDialog.getOpenFileName(filter="JSON/FIS (*.json *.fis)")
     self.main.pathController2.setText(path_cargar[0])
 
 
 def configuration_data(self):
-    """ [Funcion para cambiar la configuracion del solver a utilizar] """
+    """ Funcion para cambiar la configuracion del solver a utilizar """
 
     rtol = float(self.main.rtolLineEdit.text())
     atol = float(self.main.atolLineEdit.text())
@@ -741,7 +739,7 @@ def configuration_data(self):
 
 
 def restablecer_configuracion(self):
-    """ [Funcion para restablecer la configuracion avanzada por defecto] """
+    """ Funcion para restablecer la configuracion avanzada por defecto """
 
     self.main.padeOrder.setText('10')
     self.main.filtroCheck.setChecked(False)
@@ -754,7 +752,7 @@ def restablecer_configuracion(self):
 
 
 def accion_esquema_selector(self):
-    """ [Funcion para mostrar los widgets indicados en funcion del esquema seleccionado] """
+    """ Funcion para mostrar los widgets indicados en funcion del esquema seleccionado """
 
     self.main.controller1Frame.hide()
     self.main.controller2Frame.hide()
@@ -872,21 +870,20 @@ def accion_esquema_selector(self):
 
 def update_progresBar_function(self, value):
     """
-    [Funcion para actualizar la barra de progreso de la simulacion, esta funcion es utilizada por el QThread]
+    Funcion para actualizar la barra de progreso de la simulacion, esta funcion es utilizada por el QThread
     
-    :param value: [Valor en porcentaje del progreso]
-    :type value: [float]
+    :param value: Valor en porcentaje del progreso
+    :type value: float
     """
     self.main.progressBar.setValue(value)
 
 
 def error_gui(self, error):
     """
-    [Funcion para mostrar los errores que pudiesen ocurrir durante la simulacion, esta funcion es utilizada
-     por el QThread]
+    Funcion para mostrar los errores que pudiesen ocurrir durante la simulacion, esta funcion es utilizada por el QThread
     
-    :param error: [Indicador del error]
-    :type error: [int]
+    :param error: Indicador del error
+    :type error: int
     """
 
     self.main.progressBar.setValue(0)
@@ -910,10 +907,10 @@ def error_gui(self, error):
 
 def plot_final_results(self, result):
     """
-    [Funcion para graficar los resultados finales de la simulacion]
+    Funcion para graficar los resultados finales de la simulacion
     
-    :param result: [Lista con los resultados obtenidos]
-    :type result: [list]
+    :param result: Lista con los resultados obtenidos
+    :type result: list
     """
 
     self.main.simulacionGraph.canvas.axes1.clear()
