@@ -54,21 +54,22 @@
 \newcommand{\framefill}{\vskip0pt plus 1filll}
 
 
-\title[Universidad Nacional Experimental del Tachira]{Laboratorio virtual de sistemas de control clasicos y difusos utilizando software libre}
-\date[Marzo 2020]{Marzo 05, 2020}
+\title[Universidad Nacional Experimental del Táchira]{Laboratorio virtual de sistemas de control clásicos y difusos utilizando software libre}
+\date[Marzo 2020]{Marzo 11, 2020}
 \author[Proyecto Especial de Grado]{
   \textbf{Autor}: \hfill \\ Br. Kleiver J. Carrasco M. \\ \vspace{10pt} \textbf{Tutor}: \\ MSc. Ing. Juan R. Vizcaya R.
 }
 
 \institute{
-	Universidad Nacional Experimental del Tachira
+	Universidad Nacional Experimental del Táchira
 
-	Vicerrectorado Academico
+	Vicerrectorado Académico
 	
 	Decanato de Docencia
 	
-Departamento de Electronica
+Departamento de Electrónica
 }
+
 
 \begin{document}
 
@@ -124,7 +125,7 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{METODOLOGIA}
+	\frametitle{METODOLOGÍA}
 
 	\vspace{20pt}
 	
@@ -136,7 +137,7 @@ Departamento de Electronica
 		Proyecto factible
 	\end{block}
 
-	\begin{block}{Fases de la investigacion}
+	\begin{block}{Fases de la investigación}
 		\begin{itemize}
 			\item Fase 1: Estudio de los sistemas de control clásicos y difusos
 			\item Fase 2: Codificación de rutinas
@@ -147,7 +148,7 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{CONCEPTOS BASICOS}
+	\frametitle{CONCEPTOS BÁSICOS}
 	\vspace{20pt}
 
 	\begin{itemize}
@@ -160,7 +161,7 @@ Departamento de Electronica
 			\item[--] Control discreto
 			\item[--] Control en lazo cerrado
 			\item[--] Controlador PID
-			\begin{block}{Ecuacion general en tiempo continuo de un controlador PID}
+			\begin{block}{Ecuación general en tiempo continuo de un controlador PID}
 				\begin{equation}
 					sc(t) = K_{p}e(t)+  K_{i}\int_{0}^{t} e(\tau) d\tau + K_{d} \frac{d}{dt}e(t)
 				\end{equation}
@@ -177,7 +178,7 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{CONCEPTOS BASICOS}
+	\frametitle{CONCEPTOS BÁSICOS}
 	\vspace{25pt}
 
 	\begin{itemize}
@@ -205,7 +206,7 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{ESTRUCTURA DEL CODIGO: UML}
+	\frametitle{ESTRUCTURA DEL CÓDIGO: UML}
 	\vspace{20pt}
 	\begin{figure}
 		\includegraphics[width=\linewidth]{imagenes/UMLsinHandlers.pdf}
@@ -213,7 +214,7 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{ESTRUCTURA DEL CODIGO: ESQUEMA}
+	\frametitle{ESTRUCTURA DEL CÓDIGO: ESQUEMA}
 	\vspace{20pt}
 	\begin{figure}
 		\includegraphics[width=0.9\linewidth]{imagenes/estructuraMain.pdf}
@@ -221,8 +222,8 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{COMPARACION}
-	\framesubtitle{ANALISIS}
+	\frametitle{COMPARACIÓN}
+	\framesubtitle{ANÁLISIS}
 	% \vspace{20pt}
 	\rowcolors{1}{UniBlue!33}{UniBlue!7}
 	{\centering
@@ -259,11 +260,11 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{COMPARACION}
-	\framesubtitle{ANALISIS}
+	\frametitle{COMPARACIÓN}
+	\framesubtitle{ANÁLISIS}
 	\vspace{21pt}
 	\small
-	\begin{block}{Funciones de analisis}
+	\begin{block}{Funciones de análisis}
 		\footnotesize
 		\begin{multicols}{2}
 		\begin{itemize}
@@ -302,8 +303,8 @@ Departamento de Electronica
 \end{frame}
 
 \begin{frame}
-	\frametitle{COMPARACION}
-	\framesubtitle{ANALISIS}
+	\frametitle{COMPARACIÓN}
+	\framesubtitle{ANÁLISIS}
 	\vspace{25pt}
 	\begin{figure}
 		\begin{subfigure}[t]{0.49\linewidth}
@@ -315,21 +316,21 @@ Departamento de Electronica
 			\includegraphics[width=\linewidth]{imagenes/ScSet1DNichols.png}
 			\caption{}
 		\end{subfigure}
-		\caption{Gráficas de comparación para la función de análisis. a) Respuesta impulso para el sistema 3 en tiempo continuo, b) Diagrama de Nichols para el sistema 1 en tiempo discreto.}
+		\caption{Gráficas de comparación para la función de análisis. (a) Respuesta impulso para el sistema 3 en tiempo continuo, (b) Diagrama de Nichols para el sistema 1 en tiempo discreto.}
 	\end{figure}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{COMPARACION}
+	\frametitle{COMPARACIÓN}
 	\framesubtitle{CONTROLADORES DIFUSOS}
 	\vspace{25pt}
 	\rowcolors{1}{UniBlue!33}{UniBlue!7}
 	\begin{table}
 		\begin{tabular}{rcc}
 						& MATLAB 			& SciLab 			\\
-		Controlador 1	& \num{1.10E-01}	& \num{1.10E-01}	\\
-		Controlador 2	& -					& \num{0.00E-00} 	\\
+		Controlador 1	& \num{1.10E-01}\%	& \num{1.10E-01}\%	\\
+		Controlador 2	& -					& \num{0.00E-00}\%	\\
 		\end{tabular}
 	\end{table}
 
@@ -354,6 +355,135 @@ Departamento de Electronica
 		\end{subfigure}
 		\caption{Respuesta del controlador difuso 1. (a) Laboratorio Virtual, (b) MATLAB, (c) SciLab.}
 	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{COMPARACIÓN}
+	\framesubtitle{SIMULACIÓN}
+	\vspace{20pt}
+	\begin{block}{Condiciones}
+		\begin{itemize}
+			\item Tiempo continuo
+			\begin{itemize}
+				\item[--] Distintos solvers
+				\item[--] Tolerancia absoluta y relativa distinta según el solver
+				\item[--] Con y sin filtro derivativo (para el Laboratorio Virtual)
+			\end{itemize}
+			\item Tiempo discreto
+			\begin{itemize}
+				\item[--] Condiciones iguales para las tres (3) herramientas
+				\item[--] Periodos de muestreo y métodos de discretización variados
+				\item[--] Una sola prueba por tipo de controlador
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+
+	\begin{alertblock}{Nota!}
+		Todos los controladores diseñados son inadecuados para el control de procesos.
+	\end{alertblock}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{COMPARACIÓN}
+	\framesubtitle{SIMULACIÓN}
+	\vspace{21pt}
+	\begin{figure}[htb]
+		\centering
+		\begin{subfigure}[t]{0.49\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{imagenes/PIDcf1.pdf}
+			\caption{}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.49\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{imagenes/PIDcf2.pdf}
+			\caption{}
+		\end{subfigure}
+		\caption{Simulación de esquemas difusos. (a) PID difuso con setpoint constante, (b) PID difuso con setpoint variable. Ambos en tiempo continuo}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{COMPARACIÓN}
+	\framesubtitle{SIMULACIÓN}
+	\vspace{23pt}
+	\begin{figure}[htb]
+		\centering
+		\begin{subfigure}[t]{0.49\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{imagenes/PIcf1.pdf}
+			\caption{}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[t]{0.49\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{imagenes/PDmasId.pdf}
+			\caption{}
+		\end{subfigure}
+		\caption{Simulación de esquemas difusos. (a) PI difuso con setpoint constante en tiempo continuo, (b) PD difuso más Integral con setpoint variable en tiempo discreto.}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{CONCLUSIONES}
+	\small
+	\vspace{20pt}
+	\begin{enumerate}
+        \item Todas las funciones implementadas presentaron, en su mayoría, resultados cercanos dentro de una tolerancia a las herramientas alternas que se consideraron, logrando así demostrar que es posible realizar un Laboratorio Virtual de sistemas de control utilizando software libre.
+        
+        \item El Laboratorio Virtual, aunque potente, se encuentra aún limitado en funciones respecto a otras herramientas como MATLAB y SciLab, esto es esperable ante el alcance planteado en este trabajo y se considera que herramientas como Simulink y Xcos para la simulación de sistemas de control son aún superiores.
+		
+		\item La librería Scikit-Fuzzy carece de la optimización necesaria para poder realizar simulaciones en lotes, i.e., posee tiempos de ejecución altos para procesar una simulación con múltiples muestras de un tiempo total dado. Lo anterior se entiende dado que Scikit-Fuzzy está pensada para diseñar controladores difusos que serán implementados en microcontroladores, no obstante, el Laboratorio Virtual logra mejorar los tiempos de ejecución de SciLab en algunas situaciones.
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{CONCLUSIONES}
+	\small
+	\vspace{15pt}
+	\begin{enumerate}
+		\setcounter{enumi}{3}
+		\setlength\itemsep{1em}      
+        \item El Laboratorio Virtual logra ofrecer las herramientas necesarias para realizar análisis, diseño y simulación de controladores clásicos y difusos de forma simple y rápida sin tener que escribir una línea de código gracias a la interfaz de usuario implementada.
+        
+        \item El Laboratorio Virtual posee un gran potencial como herramienta para ingenieros en el área de los sistemas de control y posee un diseño tal que permite seguir siendo desarrollada en esta área, adicionalmente, Python ofrece una gran variedad de librerías externas que pueden emplearse para expandir el Laboratorio Virtual en otros ámbitos sin la necesidad de tocar las funciones ya implementadas.
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{RECOMENDACIONES}
+	\small
+	\vspace{20pt}
+	\begin{enumerate}   
+		\item Re implementar el sistema de inferencia difuso de Scikit-Fuzzy asegurándose de no modificar los sistemas de diseño de controladores, lo anterior permitiría poder procesar de forma más rápida grandes cantidades de datos con la finalidad de acortar los tiempos de simulación en la función de simulación de sistemas de control sin que, a su vez, se tenga que volver a codificar el archivo ``Handler'' correspondiente.
+		
+		\item Implementar la posibilidad de diseñar y simular los sistemas de inferencia Takagi-Sugeno-Khan y Tsukamoto, los cuales son más acordes y utilizados en el área de los sistemas de control, adicionalmente, se puede incluir el controlador Larsen.
+		
+		\item Añadir una nueva función que incorpore un sistema SCADA con la finalidad de poner a prueba los controladores diseñados de forma experimental, para ello se puede utilizar las distintas librerías existentes que incorporan múltiples protocolos de comunicación, i.g., modBuss.
+		
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{RECOMENDACIONES}
+	\vspace{15pt}
+	\small
+	\begin{enumerate}
+		\setcounter{enumi}{3}
+		\setlength\itemsep{1em} 
+		\item Implementar algoritmos de resolución de sistema de ecuaciones diferenciales para problemas stiff como BDF y LSODAR que ofrecen mejores precisiones que las obtenidas con los métodos explícitos y embebidos.
+		
+		\item Implementar una consola que permita codificar Python dentro del Laboratorio Virtual y que se pueda distribuir utilizando un único archivo ejecutable, de este modo se obtendría una herramienta más completa y potente que permitiría realizar cálculo numérico y simbólico, graficacion y codificación general.
+	\end{enumerate}
+	
 
 \end{frame}
 \end{document}

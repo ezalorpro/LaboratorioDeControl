@@ -783,6 +783,36 @@ INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\newtx\rntxm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\public\txfonts\txmi.vf
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxmi.tfm
 INPUT C:\Users\PC\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\txfonts\rtxptmri.tfm
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT imagenes\PIDcf1.pdf
+INPUT .\imagenes\PIDcf1.pdf
+INPUT .\imagenes\PIDcf1.pdf
+INPUT .\imagenes\PIDcf1.pdf
+INPUT imagenes\PIDcf2.pdf
+INPUT .\imagenes\PIDcf2.pdf
+INPUT .\imagenes\PIDcf2.pdf
+INPUT .\imagenes\PIDcf2.pdf
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT imagenes\PIcf1.pdf
+INPUT .\imagenes\PIcf1.pdf
+INPUT .\imagenes\PIcf1.pdf
+INPUT .\imagenes\PIcf1.pdf
+INPUT imagenes\PDmasId.pdf
+INPUT .\imagenes\PDmasId.pdf
+INPUT .\imagenes\PDmasId.pdf
+INPUT .\imagenes\PDmasId.pdf
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
+INPUT graphics\logo.png
+INPUT .\graphics\logo.png
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.nav
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.toc
 OUTPUT c:\Users\PC\Documents\Descargas chrome\NO TOCAR MALDITO IDIOTA!! ZZZZ\kleiver\Tesis\Nueva tesis\LaboratorioDeControl\Presentacion\tobedeleted\presentacion.snm
