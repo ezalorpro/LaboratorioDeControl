@@ -1,4 +1,4 @@
-""" [Archivo que contiene todas las rutinas necesarias para la funcionalidad de tunning de PID] """
+""" Archivo que contiene todas las rutinas necesarias para la funcionalidad de tunning de PID """
 
 
 from collections import deque
@@ -12,13 +12,12 @@ import json
 
 def system_creator_tf(self, numerador, denominador):
     """
-    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la
-     funcion de transferencia]
+    Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia
     
-    :param numerador: [Coeficientes del numerador]
-    :type numerador: [list]
-    :param denominador: [Coeficientes del denominador]
-    :type denominador: [list]
+    :param numerador: Coeficientes del numerador
+    :type numerador: list
+    :param denominador: Coeficientes del denominador
+    :type denominador: list
     """
 
     if not self.main.tfdiscretocheckBox2.isChecked(
@@ -81,17 +80,17 @@ def system_creator_tf(self, numerador, denominador):
 
 def system_creator_ss(self, A, B, C, D):
     """
-    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y
-     la matriz de transmision directa la ecuacion de espacio de estados]
+    Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y
+     la matriz de transmision directa la ecuacion de espacio de estados
     
-    :param A: [Matriz de estados]
+    :param A: Matriz de estados
     :type A: list
-    :param B: [Matriz de entrada]
-    :type B: [list]
-    :param C: [Matriz de salida]
-    :type C: [list]
-    :param D: [Matriz de transmision directa]
-    :type D: [list]
+    :param B: Matriz de entrada
+    :type B: list
+    :param C: Matriz de salida
+    :type C: list
+    :param D: Matriz de transmision directa
+    :type D: list
     """
 
     if not self.main.ssdiscretocheckBox2.isChecked(
@@ -159,18 +158,16 @@ def system_creator_ss(self, A, B, C, D):
 
 def system_creator_tf_tuning(self, numerador, denominador):
     """
-    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la
-     funcion de transferencia, adicionalmente se realiza el auto tuning utilizando el metodo escojido por le 
-     usuario]
+    Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia, adicionalmente se realiza el auto tuning utilizando el metodo escojido por le usuario
     
-    :param A: [Matriz de estados]
+    :param A: Matriz de estados
     :type A: list
-    :param B: [Matriz de entrada]
-    :type B: [list]
-    :param C: [Matriz de salida]
-    :type C: [list]
-    :param D: [Matriz de transmision directa]
-    :type D: [list]
+    :param B: Matriz de entrada
+    :type B: list
+    :param C: Matriz de salida
+    :type C: list
+    :param D: Matriz de transmision directa
+    :type D: list
     """
 
     if not self.main.tfdiscretocheckBox2.isChecked(
@@ -234,18 +231,16 @@ def system_creator_tf_tuning(self, numerador, denominador):
 
 def system_creator_ss_tuning(self, A, B, C, D):
     """
-    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y
-     la matriz de transmision directa la ecuacion de espacio de estados, adicionalmente se realiza el auto tuning 
-     utilizando el metodo escojido por le usuario]
+    Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados, adicionalmente se realiza el auto tuning utilizando el metodo escojido por le usuario
     
-    :param A: [Matriz de estados]
+    :param A: Matriz de estados
     :type A: list
-    :param B: [Matriz de entrada]
-    :type B: [list]
-    :param C: [Matriz de salida]
-    :type C: [list]
-    :param D: [Matriz de transmision directa]
-    :type D: [list]
+    :param B: Matriz de entrada
+    :type B: list
+    :param C: Matriz de salida
+    :type C: list
+    :param D: Matriz de transmision directa
+    :type D: list
     """
 
     if not self.main.ssdiscretocheckBox2.isChecked(
@@ -311,15 +306,14 @@ def system_creator_ss_tuning(self, A, B, C, D):
 
 def model_method(self, t, y, dc_gain):
     """
-    [Funcion para obtener los parametros del modelo de primer orden de un sistema a partir de su respuesta
-     escalon]
+    Funcion para obtener los parametros del modelo de primer orden de un sistema a partir de su respuesta escalon
     
-    :param t: [Vector de tiempo]
-    :type t: [numpyArray]
-    :param y: [Vector de respuesta]
-    :type y: [numpyArray]
-    :param dc_gain: [Ganancia DC del sistema]
-    :type dc_gain: [float]
+    :param t: Vector de tiempo
+    :type t: numpyArray
+    :param y: Vector de respuesta
+    :type y: numpyArray
+    :param dc_gain: Ganancia DC del sistema
+    :type dc_gain: float
     """
 
     i_max = np.argmax(np.abs(np.gradient(y)))
@@ -348,18 +342,16 @@ def model_method(self, t, y, dc_gain):
 
 def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
     """
-    [Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden
-     obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una 
-     respuesta escalon en lazo abierto]
+    Funcion para obtener las ganancias del controlador PID a partir de los parametros del modelo de primer orden obtenidos de una respuesta escalon, las formulas son las dadas por Ziegler-Nichols y Cohen-Coon para una respuesta escalon en lazo abierto
     
-    :param k_proceso: [Ganancia del proceso]
-    :type k_proceso: [float]
-    :param tau: [Constante de tiempo del proceso]
-    :type tau: [float]
-    :param alpha: [Tiempo muerto o delay del proceso]
-    :type alpha: [float]
-    :param metodo: [Metodo a utilizar]
-    :type metodo: [str]
+    :param k_proceso: Ganancia del proceso
+    :type k_proceso: float
+    :param tau: Constante de tiempo del proceso
+    :type tau: float
+    :param alpha: Tiempo muerto o delay del proceso
+    :type alpha: float
+    :param metodo: Metodo a utilizar
+    :type metodo: str
     """
 
     if alpha <= 0.05:
@@ -444,19 +436,18 @@ def auto_tuning_method(self, k_proceso, tau, alpha, metodo):
 
 def rutina_step_plot(self, system, T, kp, ki, kd):
     """
-    [Funcion para obtener la respuesta escalon del sistema en lazo cerrado en combinacion con un controlador PID
-     y su respectiva graficacion]
+    Funcion para obtener la respuesta escalon del sistema en lazo cerrado en combinacion con un controlador PID y su respectiva graficacion
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
-    :param T: [Vector de tiempo]
-    :type T: [numpyArray]
-    :param kp: [Ganancia proporcional]
-    :type kp: [float]
-    :param ki: [Ganancia integral]
-    :type ki: [float]
-    :param kd: [Ganancia derivativa]
-    :type kd: [float]
+    :param system: Representacion del sistema
+    :type system: LTI
+    :param T: Vector de tiempo
+    :type T: numpyArray
+    :param kp: Ganancia proporcional
+    :type kp: float
+    :param ki: Ganancia integral
+    :type ki: float
+    :param kd: Ganancia derivativa
+    :type kd: float
     """
 
     U = np.ones_like(T)
@@ -505,22 +496,22 @@ def rutina_step_plot(self, system, T, kp, ki, kd):
 
 def rutina_system_info(self, system, T, y, kp=0, ki=0, kd=0, autotuning=False):
     """
-    [Funcion para mostrar los resultados obtenidos de los calculos en un TextEdit]
+    Funcion para mostrar los resultados obtenidos de los calculos en un TextEdit
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
-    :param T: [Vector de tiempo]
-    :type T: [numpyArray]
-    :param y: [Vector de respuesta]
-    :type y: [numpyArray]
-    :param kp: [Ganancia proporcional], defaults to 0
-    :type kp: [float], optional
-    :param ki: [Ganancia integral], defaults to 0
-    :type ki: [float], optional
-    :param kd: [Ganancia derivativa], defaults to 0
-    :type kd: [float], optional
-    :param autotuning: [Bandera para señar si es o no una operacion con auto tunning], defaults to False
-    :type autotuning: [bool], optional
+    :param system: Representacion del sistema
+    :type system: LTI
+    :param T: Vector de tiempo
+    :type T: numpyArray
+    :param y: Vector de respuesta
+    :type y: numpyArray
+    :param kp: Ganancia proporcional, defaults to 0
+    :type kp: float, optional
+    :param ki: Ganancia integral, defaults to 0
+    :type ki: float, optional
+    :param kd: Ganancia derivativa, defaults to 0
+    :type kd: float, optional
+    :param autotuning: Bandera para señar si es o no una operacion con auto tunning, defaults to False
+    :type autotuning: bool, optional
     """
 
     # Informacion del step

@@ -1,4 +1,4 @@
-""" [Archivo que contiene todas las rutinas necesarias para la funcionalidad de analisis de sistemas de control] """
+""" Archivo que contiene todas las rutinas necesarias para la funcionalidad de analisis de sistemas de control """
 
 
 from matplotlib import pyplot as plt
@@ -14,13 +14,12 @@ import json
 
 def system_creator_tf(self, numerador, denominador):
     """
-    [Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la
-     funcion de transferencia]
+    Funcion para la creacion del sistema a partir de los coeficientes del numerador y del denominador de la funcion de transferencia
     
-    :param numerador: [Coeficientes del numerador]
-    :type numerador: [list]
-    :param denominador: [Coeficientes del denominador]
-    :type denominador: [list]
+    :param numerador: Coeficientes del numerador
+    :type numerador: list
+    :param denominador: Coeficientes del denominador
+    :type denominador: list
     """
 
     if not self.main.tfdiscretocheckBox1.isChecked(
@@ -60,17 +59,16 @@ def system_creator_tf(self, numerador, denominador):
 
 def system_creator_ss(self, A, B, C, D):
     """
-    [Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida
-     y la matriz de transmision directa la ecuacion de espacio de estados]
+    Funcion para la creacion del sistema a partir de la matriz de estado, matriz de entrada, matriz de salida y la matriz de transmision directa la ecuacion de espacio de estados
     
-    :param A: [Matriz de estados]
+    :param A: Matriz de estados
     :type A: list
-    :param B: [Matriz de entrada]
-    :type B: [list]
-    :param C: [Matriz de salida]
-    :type C: [list]
-    :param D: [Matriz de transmision directa]
-    :type D: [list]
+    :param B: Matriz de entrada
+    :type B: list
+    :param C: Matriz de salida
+    :type C: list
+    :param D: Matriz de transmision directa
+    :type D: list
     """
 
     if not self.main.ssdiscretocheckBox1.isChecked(
@@ -115,13 +113,13 @@ def system_creator_ss(self, A, B, C, D):
 
 def rutina_step_plot(self, system, T):
     """
-    [Funcion para obtener la respuesta escalon del sistema y su respectiva graficacion]
+    Funcion para obtener la respuesta escalon del sistema y su respectiva graficacion
     
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
-    :param T: [Vector de tiempo]
-    :type T: [numpyArray]
+    :param system: Representacion del sistema
+    :type system: LTI
+    :param T: Vector de tiempo
+    :type T: numpyArray
     """
 
     U = np.ones_like(T)
@@ -157,13 +155,13 @@ def rutina_step_plot(self, system, T):
 
 def rutina_impulse_plot(self, system, T):
     """
-    [Funcion para obtener la respuesta impulso del sistema y su respectiva graficacion]
+    Funcion para obtener la respuesta impulso del sistema y su respectiva graficacion
     
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
-    :param T: [Vector de tiempo]
-    :type T: [numpyArray]
+    :param system: Representacion del sistema
+    :type system: LTI
+    :param T: Vector de tiempo
+    :type T: numpyArray
     """
 
     U = np.zeros_like(T)
@@ -213,10 +211,10 @@ def rutina_impulse_plot(self, system, T):
 
 def rutina_bode_plot(self, system):
     """
-    [Funcion para obtener la respuesta en frecuencia del sistema y su respectiva graficacion en diagrama de bode]
+    Funcion para obtener la respuesta en frecuencia del sistema y su respectiva graficacion en diagrama de bode
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
+    :param system: Representacion del sistema
+    :type system: LTI
     """
 
     if ctrl.isdtime(system, strict=True):
@@ -289,11 +287,10 @@ def rutina_bode_plot(self, system):
 
 def rutina_nyquist_plot(self, system):
     """
-    [Funcion para obtener la respuesta en frecuencia del sistema y su respectiva graficacion en diagrama de
-     Nyquist]
+    Funcion para obtener la respuesta en frecuencia del sistema y su respectiva graficacion en diagrama de Nyquist
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
+    :param system: Representacion del sistema
+    :type system: LTI
     """
 
     if ctrl.isdtime(system, strict=True):
@@ -352,12 +349,10 @@ def rutina_nyquist_plot(self, system):
 
 def rutina_root_locus_plot(self, system):
     """
-    [Funcion para obtener el lugar de la raices del sistema y su respectiva graficacion, la graficacion se
-     realizo de forma interna en la libreria de control, para esto se moodifico la funcion root_locus para poder 
-     enviar el axis y la figura]
+    Funcion para obtener el lugar de la raices del sistema y su respectiva graficacion, la graficacion se realizo de forma interna en la libreria de control, para esto se moodifico la funcion root_locus para poder enviar el axis y la figura
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
+    :param system: Representacion del sistema
+    :type system: LTI
     """
 
     self.main.rlocusGraphicsView1.canvas.axes.cla()
@@ -397,13 +392,10 @@ def rutina_root_locus_plot(self, system):
 
 def rutina_nichols_plot(self, system):
     """
-    [Funcion para obtener el diagram de nichols del sistema y su respectiva graficacion, la graficacion se
-     realizo de forma interna en la libreria de control, para esto se moodifico la funcion nichols_plot para 
-     poder enviar el axis y la figura, adicionalmente se realizaron algunas modificaciones para una mejor 
-     presentacion de la grafica]
+    Funcion para obtener el diagram de nichols del sistema y su respectiva graficacion, la graficacion se realizo de forma interna en la libreria de control, para esto se moodifico la funcion nichols_plot para poder enviar el axis y la figura, adicionalmente se realizaron algunas modificaciones para una mejor presentacion de la grafica
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
+    :param system: Representacion del sistema
+    :type system: LTI
     """
 
     self.main.nicholsGraphicsView1.canvas.axes.cla()
@@ -459,18 +451,18 @@ def rutina_nichols_plot(self, system):
 
 def rutina_system_info(self, system, T, mag, phase, omega):
     """
-    [Funcion para mostrar los resultados obtenidos de los calculos en un TextEdit]
+    Funcion para mostrar los resultados obtenidos de los calculos en un TextEdit
     
-    :param system: [Representacion del sistema]
-    :type system: [LTI]
-    :param T: [Vector de tiempo]
-    :type T: [numpyArray]
-    :param mag: [Magnitud de la respuesta en frecuencia]
-    :type mag: [numpyArray]
-    :param phase: [Fase de la respuesta en frecuencia]
-    :type phase: [numpyArray]
-    :param omega: [Frecuencias utilizadas para la respuesta en frecuencia]
-    :type omega: [numpyArray]
+    :param system: Representacion del sistema
+    :type system: LTI
+    :param T: Vector de tiempo
+    :type T: numpyArray
+    :param mag: Magnitud de la respuesta en frecuencia
+    :type mag: numpyArray
+    :param phase: Fase de la respuesta en frecuencia
+    :type phase: numpyArray
+    :param omega: Frecuencias utilizadas para la respuesta en frecuencia
+    :type omega: numpyArray
     """
 
     # Informacion del step
@@ -554,16 +546,16 @@ def rutina_system_info(self, system, T, mag, phase, omega):
 
 def margenes_ganancias(self, system, mag, phase, omega):
     """
-    [Función para obtener el margen de ganancia y el margen de fase]
+    Función para obtener el margen de ganancia y el margen de fase
     
-    :param system: [Representación del sistema]
-    :type system: [LTI]
-    :param mag: [Magnitud de la respuesta en frecuencia]
-    :type mag: [numpyArray]
-    :param phase: [Fase de la respuesta en frecuencia]
-    :type phase: [numpyArray]
-    :param omega: [Frecuencias utilizadas para la respuesta en frecuencia]
-    :type omega: [numpyArray]
+    :param system: Representación del sistema
+    :type system: LTI
+    :param mag: Magnitud de la respuesta en frecuencia
+    :type mag: numpyArray
+    :param phase: Fase de la respuesta en frecuencia
+    :type phase: numpyArray
+    :param omega: Frecuencias utilizadas para la respuesta en frecuencia
+    :type omega: numpyArray
     """
 
     gainDb = 20 * np.log10(mag)

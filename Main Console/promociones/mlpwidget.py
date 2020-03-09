@@ -1,7 +1,5 @@
 """ 
-[Archivo para definir las clases MlpWidget, MlpWidgetNoToolbar, MlpWidgetSubplot y MlpWidget3D, estas clases son
- utilizadas por qtdesigner para promocionar un QGraphicsView a las clases aca definidas en orden de mostrar las 
- graficas en un QGraphicsView]
+Archivo para definir las clases MlpWidget, MlpWidgetNoToolbar, MlpWidgetSubplot y MlpWidget3D, estas clases son utilizadas por qtdesigner para promocionar un QGraphicsView a las clases aca definidas en orden de mostrar las graficas en un QGraphicsView
 """
 
 
@@ -15,10 +13,10 @@ from matplotlib.figure import Figure
 
 class MlpWidget(QGraphicsView):
     """
-    [Clase basica para mostrar graficas utilizando Matplotlib]
+    Clase basica para mostrar graficas utilizando Matplotlib
     
-    :param QGraphicsView: [Clase base del QGraphicsView]
-    :type QGraphicsView: [objectType]
+    :param QGraphicsView: Clase base del QGraphicsView
+    :type QGraphicsView: objectType
     """
 
     def __init__(self, parent=None):
@@ -44,10 +42,10 @@ class MlpWidget(QGraphicsView):
 
 class MlpWidgetNoToolbar(QGraphicsView):
     """
-    [Clase para mostrar graficas utilizando Matplotlib sin el toolbar]
+    Clase para mostrar graficas utilizando Matplotlib sin el toolbar
     
-    :param QGraphicsView: [Clase base del QGraphicsView]
-    :type QGraphicsView: [objectType]
+    :param QGraphicsView: Clase base del QGraphicsView
+    :type QGraphicsView: objectType
     """
 
     def __init__(self, parent=None):
@@ -65,10 +63,10 @@ class MlpWidgetNoToolbar(QGraphicsView):
 
 class MlpWidgetSubplot(QGraphicsView):
     """
-    [Clase para mostrar graficas en subplots utilizando Matplotlib]
+    Clase para mostrar graficas en subplots utilizando Matplotlib
     
-    :param QGraphicsView: [Clase base del QGraphicsView]
-    :type QGraphicsView: [objectType]
+    :param QGraphicsView: Clase base del QGraphicsView
+    :type QGraphicsView: objectType
     """
 
     def __init__(self, parent=None):
@@ -90,10 +88,10 @@ class MlpWidgetSubplot(QGraphicsView):
 
 class MlpWidget3D(QGraphicsView):
     """
-    [Clase basica para mostrar graficas en 3D utilizando Matplotlib]
+    Clase basica para mostrar graficas en 3D utilizando Matplotlib
     
-    :param QGraphicsView: [Clase base del QGraphicsView]
-    :type QGraphicsView: [objectType]
+    :param QGraphicsView: Clase base del QGraphicsView
+    :type QGraphicsView: objectType
     """
     
     def __init__(self, parent=None):

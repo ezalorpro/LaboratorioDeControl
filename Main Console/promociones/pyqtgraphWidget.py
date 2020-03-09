@@ -1,6 +1,5 @@
 """ 
-[Archivo para definir las clases PgraphWidget y PgraphWidgetpid, estas clases son utilizadas por qtdesigner para
- promocionar un QGraphicsView a las clases aca definidas en orden de mostrar las graficas en un QGraphicsView]
+Archivo para definir las clases PgraphWidget y PgraphWidgetpid, estas clases son utilizadas por qtdesigner para promocionar un QGraphicsView a las clases aca definidas en orden de mostrar las graficas en un QGraphicsView
 """
 
 
@@ -13,11 +12,10 @@ import pyqtgraphmdf as pg
 
 class PgraphWidget(QGraphicsView):
     """
-    [Clase para las graficas utilizadas en la prueba de los controladores difusos, PyQtGraph es acto para
-     realizar graficas en tiempo real]
+    Clase para las graficas utilizadas en la prueba de los controladores difusos, PyQtGraph es acto para realizar graficas en tiempo real
     
-    :param QGraphicsView: [Clase base del QGraphicsView]
-    :type QGraphicsView: [objectType]
+    :param QGraphicsView: Clase base del QGraphicsView
+    :type QGraphicsView: objectType
     """
     
     def __init__(self, parent=None):
@@ -37,11 +35,10 @@ class PgraphWidget(QGraphicsView):
 
 class PgraphWidgetpid(QGraphicsView):
     """
-    [Clase para las graficas utilizadas en el tunning de controladores PID, PyQtGraph es acto para realizar
-     graficas en tiempo real]
+    Clase para las graficas utilizadas en el tunning de controladores PID, PyQtGraph es acto para realizar graficas en tiempo real
     
-    :param QGraphicsView: [Clase base del QGraphicsView]
-    :type QGraphicsView: [objectType]
+    :param QGraphicsView: Clase base del QGraphicsView
+    :type QGraphicsView: objectType
     """
 
     def __init__(self, parent=None):
