@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{verbatim}
+\usepackage[final]{microtype}
 \usetheme{uniud}
 \usepackage{xparse}
 \usepackage[spanish,es-tabla,es-nodecimaldot, es-nosectiondot, es-lcroman, es-noquoting]{babel}
@@ -18,6 +19,7 @@
 \usepackage{nccmath}
 \usepackage{etoolbox}
 \usepackage{siunitx}
+\usepackage{ragged2e}
 
 \makeatletter
 \pretocmd\env@cases{\def\@rowc@lors{}}{}{}
@@ -434,6 +436,7 @@ Departamento de Electrónica
 	\small
 	\vspace{20pt}
 	\begin{enumerate}
+		\justifying
         \item Todas las funciones implementadas presentaron, en su mayoría, resultados cercanos dentro de una tolerancia a las herramientas alternas que se consideraron, logrando así demostrar que es posible realizar un Laboratorio Virtual de sistemas de control utilizando software libre.
         
         \item El Laboratorio Virtual, aunque potente, se encuentra aún limitado en funciones respecto a otras herramientas como MATLAB y SciLab, esto es esperable ante el alcance planteado en este trabajo y se considera que herramientas como Simulink y Xcos para la simulación de sistemas de control son aún superiores.
@@ -449,7 +452,8 @@ Departamento de Electrónica
 	\vspace{15pt}
 	\begin{enumerate}
 		\setcounter{enumi}{3}
-		\setlength\itemsep{1em}      
+		\setlength\itemsep{1em}
+		\justifying      
         \item El Laboratorio Virtual logra ofrecer las herramientas necesarias para realizar análisis, diseño y simulación de controladores clásicos y difusos de forma simple y rápida sin tener que escribir una línea de código gracias a la interfaz de usuario implementada.
         
         \item El Laboratorio Virtual posee un gran potencial como herramienta para ingenieros en el área de los sistemas de control y posee un diseño tal que permite seguir siendo desarrollada en esta área, adicionalmente, Python ofrece una gran variedad de librerías externas que pueden emplearse para expandir el Laboratorio Virtual en otros ámbitos sin la necesidad de tocar las funciones ya implementadas.
@@ -461,7 +465,8 @@ Departamento de Electrónica
 	\frametitle{RECOMENDACIONES}
 	\small
 	\vspace{20pt}
-	\begin{enumerate}   
+	\begin{enumerate}
+		\justifying   
 		\item Re implementar el sistema de inferencia difuso de Scikit-Fuzzy asegurándose de no modificar los sistemas de diseño de controladores, lo anterior permitiría poder procesar de forma más rápida grandes cantidades de datos con la finalidad de acortar los tiempos de simulación en la función de simulación de sistemas de control sin que, a su vez, se tenga que volver a codificar el archivo ``Handler'' correspondiente.
 		
 		\item Implementar la posibilidad de diseñar y simular los sistemas de inferencia Takagi-Sugeno-Khan y Tsukamoto, los cuales son más acordes y utilizados en el área de los sistemas de control, adicionalmente, se puede incluir el controlador Larsen.
@@ -478,7 +483,8 @@ Departamento de Electrónica
 	\small
 	\begin{enumerate}
 		\setcounter{enumi}{3}
-		\setlength\itemsep{1em} 
+		\setlength\itemsep{1em}
+		\justifying 
 		\item Implementar algoritmos de resolución de sistema de ecuaciones diferenciales para problemas stiff como BDF y LSODAR que ofrecen mejores precisiones que las obtenidas con los métodos explícitos y embebidos.
 		
 		\item Implementar una consola que permita codificar Python dentro del Laboratorio Virtual y que se pueda distribuir utilizando un único archivo ejecutable, de este modo se obtendría una herramienta más completa y potente que permitiría realizar cálculo numérico y simbólico, graficacion y codificación general.
