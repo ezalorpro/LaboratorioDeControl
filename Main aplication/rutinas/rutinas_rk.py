@@ -1,5 +1,5 @@
 """ 
-Archivo para definir los algoritmos de ajusto del tamaño de paso para los Runge-kutta explícitos y embebidos, en el caso de los métodos explícitos se utiliza el método de doble paso
+Archivo para definir los algoritmos de ajuste del tamaño de paso para los Runge-kutta explícitos y embebidos, en el caso de los métodos explícitos se utiliza el método de doble paso
 """
 
 

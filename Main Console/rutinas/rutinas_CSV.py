@@ -10,10 +10,14 @@ import numpy as np
 
 def procesar_csv(self, csv_data):
     """
-    Funcion para procesar la data del archivo csv, se crea una nueva data en un diccionario, se normalizan las escalas con el span y se transforma el tiempo a segundos. Para la transformacion de tiempo a segundos los formatos aceptados son:
-        hh:mm:ss
-           mm:ss
-              ss
+    Funcion para procesar la data del archivo csv, se crea una nueva data en un diccionario, se normalizan las escalas con el span y se transforma el tiempo a segundos. Para la transformacion de tiempo a segundos los formatos aceptados son
+    
+    hh:mm:ss
+    
+    mm:ss
+    
+    ss
+    
     En cualquiera de los casos se llevara a segundos y se restara el tiempo inicial para que empiece en cero
     
     :param csv_data: Data del csv

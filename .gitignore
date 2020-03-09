@@ -28,5 +28,7 @@ vtkmodules
 !*.pyd
 !*.ico
 !*.zcos
+!Main aplication/doc/**
+!Main aplication/Documentacion/**
 readMeta.m
 esquemas tikz/*.fls
