@@ -2,6 +2,7 @@
 Archivo que contiene todas las rutinas necesarias para la funcionalidad de identificacion de modelo y tunning con csv
 """
 
+from scipy.ndimage import gaussian_filter
 
 import matplotlib.ticker as mticker
 import controlmdf as ctrl
@@ -65,12 +66,9 @@ def procesar_csv(self, csv_data):
     dict_data['vp'] = (dict_data['vp']-MinVP)*FactorVP
     dict_data['efc'] = (dict_data['efc']-MinEFC)*FactorEFC
 
-    _, indices = np.unique(dict_data['vp'], return_index=True)
-    indices = np.sort(indices)
-
-    dict_data['time'] = dict_data['time'][indices]
-    dict_data['vp'] = dict_data['vp'][indices]
-    dict_data['efc'] = dict_data['efc'][indices]
+    dict_data['time'] = dict_data['time']
+    dict_data['vp'] = gaussian_filter(dict_data['vp'], 5)
+    dict_data['efc'] = gaussian_filter(dict_data['efc'], 2)
 
     return dict_data, [indexTime, indexVp, indexEFC, MinVP, MaxVP, MinEFC, MaxEFC]
 
@@ -123,9 +121,12 @@ def calcular_modelo(self,
 
     Kc = (vpmax - vpmin)/(efcmax - efcmin)
 
+    slop_efc = (dict_data['efc'][efc_max] - dict_data['efc'][efc_max - 1]) / (t[efc_max] - t[efc_max - 1])
+    t0 = ((efcmin - dict_data['efc'][efc_max]) / (slop_efc) + t[efc_max])
+    
     slop = (y[i_max] - y[i_max - 1]) / (t[i_max] - t[i_max - 1])
-    t0 = t[efc_max]
     t1 = ((vpmin - y[i_max]) / (slop) + t[i_max])
+    
     t2 = t[indexv]
     y1 = vpmin
     y2 = slop * (t2 - t[i_max]) + y[i_max]

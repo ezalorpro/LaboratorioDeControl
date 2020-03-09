@@ -1,4 +1,4 @@
-Bienvenido a la documentacion del Laboratorio Virtual de sistemas de control clasicos y difusos utilizando software libre
+Bienvenido a la documentación del Laboratorio Virtual de sistemas de control clásicos y difusos utilizando software libre
 ===================================================================================================================
 
 .. toctree::
