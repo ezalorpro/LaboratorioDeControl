@@ -1128,7 +1128,7 @@ class FISParser:
                     ast.literal_eval(
                         re.sub("\s+", ",", self.InputList[i]['range'].strip()))
             }
-            print(self.InputList)
+            
             for ne in range(int(self.InputList[i]['nummfs'])):
                 temp_etiqueta = self.InputList[i]['mf' + str(ne + 1)].replace(
                     "'", '').split(':')
@@ -1138,7 +1138,7 @@ class FISParser:
                     "mf": temp2[0],
                     "definicion": ast.literal_eval(re.sub("\s+", ",", temp2[1].strip()))
                 }
-        print(InputList)
+        
         # Creación de las variables de salida
         for i in range(no):
             OutputList[i] = {
