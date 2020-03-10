@@ -32,7 +32,7 @@ def dopri54(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -71,7 +71,7 @@ def cash_karp45(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -107,7 +107,7 @@ def fehlberg45(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -143,7 +143,7 @@ def bogacki_shampine23(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -176,7 +176,7 @@ def runge_kutta5(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -210,7 +210,7 @@ def ralston4(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -242,7 +242,7 @@ def tres_octavos4(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -274,7 +274,7 @@ def runge_kutta4(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -306,7 +306,7 @@ def SSPRK3(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -337,7 +337,7 @@ def ralston3(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -368,7 +368,7 @@ def heun3(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -399,7 +399,7 @@ def runge_kutta3(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
@@ -430,7 +430,7 @@ def runge_kutta2(A, B, C, D, x, h, inputValue):
     :type B: float64, 2d, C
     :param C: Matriz de salida
     :type C: float64, 2d, C
-    :param D: [Matriz de transmision directa
+    :param D: Matriz de transmision directa
     :type D: float64, 2d, C
     :param x: Vector de estado
     :type x: float64, 2d, C
