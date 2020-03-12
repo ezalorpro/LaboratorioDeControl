@@ -233,7 +233,7 @@ def crear_tabs(self):
 
     if not self.main.fuzzyEsquemasCheck.isChecked():
         self.setWindowTitle(
-            "Laboratorio de sistemas de control - Nuevo controlador sin guardar*"
+            "Laboratorio Virtual - Nuevo controlador sin guardar*"
         )
 
         self.main.inputNumber.blockSignals(True)
@@ -423,7 +423,7 @@ def cargar_esquema(self):
     self.fuzzController.graficar_mf_out(self, 0)
 
     self.setWindowTitle(
-        "Laboratorio de sistemas de control - Nuevo controlador sin guardar*"
+        "Laboratorio Virtual - Nuevo controlador sin guardar*"
     )
 
 
@@ -446,7 +446,7 @@ def guardarcomo_controlador(self):
         with open(path_guardar[0], "w") as f:
             json.dump([self.InputList, self.OutputList, self.RuleEtiquetas], f, indent=4)
             self.setWindowTitle(
-                "Laboratorio de sistemas de control - " + path_guardar[0].split("/")[-1]
+                "Laboratorio Virtual - " + path_guardar[0].split("/")[-1]
             )
 
 
@@ -458,7 +458,7 @@ def exportar_fis(self):
         self.current_file = path_guardar[0]
         temp_parser = self.parser(self.current_file, self.InputList, self.OutputList, self.RuleEtiquetas)
         temp_parser.json_to_fis()
-        self.setWindowTitle("Laboratorio de sistemas de control - " +
+        self.setWindowTitle("Laboratorio Virtual - " +
                             path_guardar[0].split("/")[-1])
 
 
@@ -528,7 +528,7 @@ def cargar_controlador(self):
         self.fuzzController.graficar_mf_out(self, 0)
 
         self.setWindowTitle(
-            "Laboratorio de sistemas de control - " + self.path_cargar[0].split("/")[-1]
+            "Laboratorio Virtual - " + self.path_cargar[0].split("/")[-1]
         )
 
 

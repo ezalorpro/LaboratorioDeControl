@@ -165,7 +165,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Laboratorio de sistemas de control</string>
+   <string>Laboratorio Virtual</string>
   </property>
   <property name="accessibleName">
    <string comment="asdads" extracomment="adsadsds"/>
@@ -4536,7 +4536,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>2034</width>
-                   <height>304</height>
+                   <height>160</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47">
@@ -5893,7 +5893,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>505</width>
+                   <width>111</width>
                    <height>2944</height>
                   </rect>
                  </property>
@@ -6645,7 +6645,7 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>504</width>
+                   <width>109</width>
                    <height>2612</height>
                   </rect>
                  </property>
@@ -7165,7 +7165,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>614</height>
+                       <height>109</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_89">
@@ -7475,7 +7475,7 @@
                        <x>0</x>
                        <y>0</y>
                        <width>5254</width>
-                       <height>614</height>
+                       <height>109</height>
                       </rect>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_91">
@@ -8540,8 +8540,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>291</width>
-               <height>180</height>
+               <width>253</width>
+               <height>106</height>
               </rect>
              </property>
              <attribute name="icon">
