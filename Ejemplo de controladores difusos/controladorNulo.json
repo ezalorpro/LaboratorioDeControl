@@ -1,0 +1,164 @@
+[
+    [
+        {
+            "nombre": "entrada1",
+            "numeroE": 3,
+            "etiquetas": [
+                {
+                    "nombre": "etiqueta1",
+                    "mf": "trimf",
+                    "definicion": [
+                        -20.0,
+                        -10.0,
+                        0.0
+                    ]
+                },
+                {
+                    "nombre": "etiqueta2",
+                    "mf": "trimf",
+                    "definicion": [
+                        -10.0,
+                        0.0,
+                        10.0
+                    ]
+                },
+                {
+                    "nombre": "etiqueta3",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.0,
+                        10.0,
+                        20.0
+                    ]
+                }
+            ],
+            "rango": [
+                -10,
+                10
+            ]
+        },
+        {
+            "nombre": "entrada2",
+            "numeroE": 3,
+            "etiquetas": [
+                {
+                    "nombre": "etiqueta1",
+                    "mf": "trimf",
+                    "definicion": [
+                        -20.0,
+                        -10.0,
+                        0.0
+                    ]
+                },
+                {
+                    "nombre": "etiqueta2",
+                    "mf": "trimf",
+                    "definicion": [
+                        -10.0,
+                        0.0,
+                        10.0
+                    ]
+                },
+                {
+                    "nombre": "etiqueta3",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.0,
+                        10.0,
+                        20.0
+                    ]
+                }
+            ],
+            "rango": [
+                -10,
+                10
+            ]
+        }
+    ],
+    [
+        {
+            "nombre": "salida1",
+            "numeroE": 3,
+            "etiquetas": [
+                {
+                    "nombre": "etiqueta1",
+                    "mf": "trimf",
+                    "definicion": [
+                        -20.0,
+                        -10.0,
+                        0.0
+                    ]
+                },
+                {
+                    "nombre": "etiqueta2",
+                    "mf": "trimf",
+                    "definicion": [
+                        -10.0,
+                        0.0,
+                        10.0
+                    ]
+                },
+                {
+                    "nombre": "etiqueta3",
+                    "mf": "trimf",
+                    "definicion": [
+                        0.0,
+                        10.0,
+                        20.0
+                    ]
+                }
+            ],
+            "rango": [
+                -10,
+                10
+            ],
+            "metodo": "centroid"
+        }
+    ],
+    [
+        [
+            [
+                [
+                    "etiqueta1",
+                    0,
+                    false
+                ],
+                [
+                    "etiqueta1",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "etiqueta1",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "etiqueta1",
+                    0,
+                    false
+                ],
+                [
+                    "etiqueta3",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "etiqueta3",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ]
+    ]
+]

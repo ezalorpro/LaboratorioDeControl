@@ -30,7 +30,7 @@
 \crefname{equation}{}{}
 \crefname{listing}{Código}{Códigos}
 \SetupFloatingEnvironment{listing}{name=Código}
-\crefname{table}{\spanishtablename}{\spanishtablename}
+\crefname{table}{Tabla}{Tablas}
 \newcommand{\addperiod}[1]{#1.$\enspace$}
 % ------------------------------------------------------------------------
 
@@ -104,16 +104,18 @@
 
 	% Comando para agregar anexos en formato UNET
 	\newcounter{LAnexos} % contador
-	\setcounter{LAnexos}{1} % contador en 1
-	\def\thecontaAnexos{\Alph{LAnexos}}%
+	\newcounter{contaAnexos} % contador
+	\renewcommand{\theLAnexos}{\Alph{LAnexos}}
+	\renewcommand{\thecontaAnexos}{[Anexo~\Alph{contaAnexos}]}
 
-	\newcommand{\AgregarAnexo}[1]{%
+	\newcommand{\AgregarAnexo}[2]{%
 		\clearpage%
 		\newpage%
 		\begin{center}%
-		[Anexo~\thecontaAnexos]\par%
+		\stepcounter{LAnexos}%
+		\refstepcounter{contaAnexos}%
+		\thecontaAnexos\label{##2}\par%
 		[##1]%
-		\stepcounter{LAnexos}
 		\vspace{10pt}%
 		\leavevmode
 		\end{center}
@@ -257,16 +259,18 @@
 
 	% Comando para agregar anexos en formato UNET
 	\newcounter{LAnexos} % contador
-	\setcounter{LAnexos}{1} % contador en 1
-	\def\thecontaAnexos{\Alph{LAnexos}}%
-
-	\newcommand{\AgregarAnexo}[1]{%
+	\newcounter{contaAnexos} % contador
+	\renewcommand{\theLAnexos}{\Alph{LAnexos}}
+	\renewcommand{\thecontaAnexos}{[Anexo~\Alph{contaAnexos}]}
+	
+	\newcommand{\AgregarAnexo}[2]{%
 		\clearpage%
 		\newpage%
 		\begin{center}%
-		[Anexo~\thecontaAnexos]\par%
+		\stepcounter{LAnexos}%
+		\refstepcounter{contaAnexos}%
+		\thecontaAnexos\label{##2}\par%
 		[##1]%
-		\stepcounter{LAnexos}
 		\vspace{10pt}%
 		\leavevmode
 		\end{center}
@@ -318,7 +322,6 @@
 			{\bfseries\normalsize\uppercase}% <numberless-entry-format>
 			{\titlerule*[8pt]{.}\contentspage}[\addvspace{0pt}]
 	}
-
 }
 
 % FORMATO NUMERADO FIN -----------------------
@@ -487,32 +490,44 @@
 	}
 }
 
-% \addtocontents{toc}{~\hfill\par}
-\addtocontents{toc}{~\hfill Pág.\par}
-\addtocontents{toc}{~\hfill\par}
-%\addtocontents{toc}{\protect\afterpage{~\hfill Pág.\par\medskip}}
-
-% \addtocontents{lof}{~\hfill\par}
-\addtocontents{lof}{\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
-\addtocontents{lof}{~\hfill\par}
-%\addtocontents{lof}{\protect\afterpage{~\hfill Pag.\par\medskip}}
-
-% \addtocontents{lot}{~\hfill\par}
-\addtocontents{lot}{\hspace{-1.5cm}TABLA~\hfill Pág.\par}
-\addtocontents{lot}{~\hfill\par}
-%\addtocontents{lot}{\protect\afterpage{~\hfill Pag.\par\medskip}}
-
-% \addtocontents{lol}{~\hfill\par}
-\addtocontents{lol}{\hspace{-1.5cm}CÓDIGO~\hfill Pág.\par}
-\addtocontents{lol}{~\hfill\par}
-%\addtocontents{lol}{\protect\afterpage{~\hfill Pag.\par\medskip}}
-
-
+% Para evitar espacios entre entradas por capitulos
 \newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
 \addtocontents{lof}{\protect\noaddvspace}
 \addtocontents{lot}{\protect\noaddvspace}
 \addtocontents{lol}{\protect\noaddvspace}
 
+\addtocontents{toc}{~\hfill Pág.\par}
+\addtocontents{toc}{~\hfill\par}
+
+% Habilitar para una segunda pagina de tabla de contenidos
+\addtocontents{toc}{\protect\afterpage{~\hfill\par\bigskip}}
+\addtocontents{toc}{\protect\afterpage{~\hfill Pág.\par}}
+\addtocontents{toc}{\protect\afterpage{~\hfill\par}}
+
+\addtocontents{lof}{\hspace{-1.5cm}FIGURA~\hfill Pág.\par}
+\addtocontents{lof}{~\hfill\par}
+
+% Habilitar para una segunda pagina de lista de figuras
+\addtocontents{lof}{\protect\afterpage{~\hfill\par\bigskip}}
+\addtocontents{lof}{\protect\afterpage{\hspace{-1.27cm}FIGURA~\hfill Pág.\par}}
+\addtocontents{lof}{\protect\afterpage{~\hfill\par}}
+
+\addtocontents{lot}{\hspace{-1.5cm}TABLA~\hfill Pág.\par}
+\addtocontents{lot}{~\hfill\par}
+
+% Habilitar para una segunda pagina de lista de tablas
+% \addtocontents{lot}{\protect\afterpage{~\hfill\par\bigskip}}
+% \addtocontents{lot}{\protect\afterpage{\hspace{-1.27cm}TABLA~\hfill Pág.\par\medskip}}
+% \addtocontents{lot}{\protect\afterpage{~\hfill\par}}
+
+% \addtocontents{lol}{~\hfill\par}
+\addtocontents{lol}{\hspace{-1.5cm}CÓDIGO~\hfill Pág.\par}
+\addtocontents{lol}{~\hfill\par}
+
+% Habilitar para una segunda pagina de lista de codigos
+% \addtocontents{lol}{\protect\afterpage{~\hfill\par\bigskip}}
+% \addtocontents{lol}{\protect\afterpage{\hspace{-1.27cm}CÓDIGO~\hfill Pág.\par\medskip}}
+% \addtocontents{lol}{\protect\afterpage{~\hfill\par}}
 
 % Para arreglar el spacing en el ambiente quoting
 \makeatletter
@@ -571,7 +586,7 @@
         \begin{center}%
           {\bfseries {\large RESUMEN}\vspace{10pt}}%
         \end{center}%
-		\begin{spacing}{1}
+		\begin{spacing}{1.1}
 			\parskip=0pt plus 1pt
       \fi}
 		{\if@twocolumn\else\end{spacing}\fi}

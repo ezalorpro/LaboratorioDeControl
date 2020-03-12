@@ -6,29 +6,28 @@
             "etiquetas": [
                 {
                     "nombre": "negativo",
-                    "mf": "trimf",
+                    "mf": "sigmf",
                     "definicion": [
-                        -2.0,
-                        -1.0,
-                        0.0
+                        -12.0,
+                        -0.5
                     ]
                 },
                 {
                     "nombre": "cero",
-                    "mf": "trimf",
+                    "mf": "dsigmf",
                     "definicion": [
-                        -1.0,
-                        0.0,
-                        1.0
+                        12.0,
+                        -0.5,
+                        12.0,
+                        0.5
                     ]
                 },
                 {
                     "nombre": "positivo",
-                    "mf": "trimf",
+                    "mf": "sigmf",
                     "definicion": [
-                        0.0,
-                        1.0,
-                        2.0
+                        12.0,
+                        0.5
                     ]
                 }
             ],
@@ -43,35 +42,34 @@
             "etiquetas": [
                 {
                     "nombre": "negativo",
-                    "mf": "trimf",
+                    "mf": "sigmf",
                     "definicion": [
-                        -2.0,
-                        -1.0,
-                        0.0
+                        -12.0,
+                        -0.5
                     ]
                 },
                 {
                     "nombre": "cero",
-                    "mf": "trimf",
+                    "mf": "dsigmf",
                     "definicion": [
-                        -1.0,
-                        0.0,
-                        1.0
+                        12.0,
+                        -0.5,
+                        12.0,
+                        0.5
                     ]
                 },
                 {
                     "nombre": "positivo",
-                    "mf": "trimf",
+                    "mf": "sigmf",
                     "definicion": [
-                        0.0,
-                        1.0,
-                        2.0
+                        12.0,
+                        0.5
                     ]
                 }
             ],
             "rango": [
-                -1,
-                1
+                -2,
+                2
             ]
         }
     ],
@@ -82,29 +80,28 @@
             "etiquetas": [
                 {
                     "nombre": "negativa",
-                    "mf": "trimf",
+                    "mf": "zmf",
                     "definicion": [
-                        -2.0,
-                        -1.0,
-                        0.0
+                        -1,
+                        0
                     ]
                 },
                 {
                     "nombre": "cero",
-                    "mf": "trimf",
+                    "mf": "pimf",
                     "definicion": [
-                        -1.0,
-                        0.0,
-                        1.0
+                        -1,
+                        0,
+                        0,
+                        1
                     ]
                 },
                 {
                     "nombre": "positiva",
-                    "mf": "trimf",
+                    "mf": "smf",
                     "definicion": [
-                        0.0,
-                        1.0,
-                        2.0
+                        0,
+                        1
                     ]
                 }
             ],
@@ -119,116 +116,6 @@
         [
             [
                 [
-                    "cero",
-                    0,
-                    false
-                ],
-                [
-                    "negativo",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "cero",
-                    0,
-                    0.5
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "cero",
-                    0,
-                    false
-                ],
-                [
-                    "cero",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "cero",
-                    0,
-                    0.5
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "cero",
-                    0,
-                    false
-                ],
-                [
-                    "positivo",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "cero",
-                    0,
-                    0.5
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "positivo",
-                    0,
-                    false
-                ],
-                [
-                    "positivo",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "positiva",
-                    0,
-                    1.0
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "positivo",
-                    0,
-                    false
-                ],
-                [
-                    "cero",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "positiva",
-                    0,
-                    1.0
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
                     "positivo",
                     0,
                     false
@@ -256,7 +143,7 @@
                     false
                 ],
                 [
-                    "negativo",
+                    "positivo",
                     1,
                     false
                 ]
@@ -266,6 +153,28 @@
                     "negativa",
                     0,
                     1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "positivo",
+                    0,
+                    false
+                ],
+                [
+                    "cero",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "positiva",
+                    0,
+                    0.49999999999999956
                 ]
             ],
             true
@@ -287,6 +196,94 @@
                 [
                     "negativa",
                     0,
+                    0.5
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "cero",
+                    0,
+                    false
+                ],
+                [
+                    "negativo",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "cero",
+                    0,
+                    0.2
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "cero",
+                    0,
+                    false
+                ],
+                [
+                    "cero",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "cero",
+                    0,
+                    0.2
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "cero",
+                    0,
+                    false
+                ],
+                [
+                    "positivo",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "cero",
+                    0,
+                    0.2
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "positivo",
+                    0,
+                    false
+                ],
+                [
+                    "positivo",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "negativa",
+                    0,
                     1.0
                 ]
             ],
@@ -300,14 +297,14 @@
                     false
                 ],
                 [
-                    "positivo",
+                    "negativo",
                     1,
                     false
                 ]
             ],
             [
                 [
-                    "negativa",
+                    "positiva",
                     0,
                     1.0
                 ]

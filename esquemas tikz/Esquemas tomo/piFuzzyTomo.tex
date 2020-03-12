@@ -118,7 +118,7 @@
     \coordinate[node distance=0.2cm, right = of derivada] (empty3) {};
 
     \node [fuzzyBlock, minimum height=2em, minimum width=3em, node distance=1cm, draw, right = of empty1] (controlador) {};
-    \node [block1, minimum height=2em, minimum width=1.5em, right = of controlador] (integrador) {$\frac{1}{s}$};
+    \node [block1, minimum height=2em, minimum width=1.5em, right = of controlador] (integrador) {$\int$};
     \node [block1, right = of integrador] (proceso) {$Proceso$};
     \node [branch, right = of proceso] (yjoint) {};
     \node [output, right = of yjoint] (output) {};

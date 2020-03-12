@@ -1,7 +1,33 @@
-\section{Conclusiones}
+A continuación, se presentan las conclusiones derivadas del trabajo realizado así como las recomendaciones que se consideraron pueden mejorar al Laboratorio Virtual por medio de trabajos futuros alrededor del mismo.
 
-    \Blindtext
+\section{Conclusiones}
+\addtocontents{toc}{\vspace{-7pt}}
+
+    \begin{enumerate}[leftmargin=15pt]
+        \setlength\itemsep{10pt}    
+        \item Todas las funciones implementadas presentaron, en su mayoría, resultados cercanos dentro de una tolerancia a las herramientas alternas que se consideraron, logrando así demostrar que es posible realizar un Laboratorio Virtual de sistemas de control utilizando software libre, particularmente haciendo uso del lenguaje de programación Python en conjunto con un set de librerías de terceros.
+        
+        \item El Laboratorio Virtual, aunque potente, se encuentra aún limitado en funciones respecto a otras herramientas como MATLAB y SciLab, esto es esperable ante el alcance planteado en este trabajo y se considera que herramientas como Simulink y Xcos para la simulación de sistemas de control son aún superiores, por otro lado, el Laboratorio Virtual posee funciones no disponibles en SciLab para el análisis de sistema de control como los distintos métodos de discretización y la implementación de atrasos en el proceso (Delay) y entonación automática de controladores PID.
+        
+        \item La librería Scikit-Fuzzy cumplió con las expectativas para poder implementar el diseño y simulación de sistemas de control, no obstante, carece de la optimización necesaria para poder realizar simulaciones en lotes, i.e., posee tiempos de ejecución altos para procesar una simulación con múltiples muestras de un tiempo total dado. Lo anterior se entiende dado que Scikit-Fuzzy está pensada para diseñar controladores difusos que serán implementados en microcontroladores, no obstante, el Laboratorio Virtual logra mejorar los tiempos de ejecución de SciLab en algunas situaciones.
+        
+        \item El Laboratorio Virtual logra ofrecer las herramientas necesarias para realizar análisis, diseño y simulación de controladores clásicos y difusos de forma simple y rápida sin tener que escribir una línea de código gracias a la interfaz de usuario implementada, la cual a su vez, puede ser expandida de forma sencilla de modo que se agreguen más opciones a las funciones ya existentes en el Laboratorio Virtual.
+        
+        \item El Laboratorio Virtual posee un gran potencial como herramienta para ingenieros en el área de los sistemas de control y posee un diseño tal que permite seguir siendo desarrollada en esta área, adicionalmente, Python ofrece una gran variedad de librerías externas que pueden emplearse para expandir el Laboratorio Virtual en otros ámbitos sin la necesidad de tocar las funciones ya implementadas.
+    \end{enumerate}
 
 \section{Recomendaciones}
 
-    \Blindtext
+\begin{enumerate}[leftmargin=15pt]
+    \setlength\itemsep{10pt}    
+    \item Re implementar el sistema de inferencia difuso de Scikit-Fuzzy asegurándose de no modificar los sistemas de diseño de controladores, lo anterior permitiría poder procesar de forma más rápida grandes cantidades de datos con la finalidad de acortar los tiempos de simulación en la función de simulación de sistemas de control sin que, a su vez, se tenga que volver a codificar el archivo \enquote{Handler} correspondiente.
+    
+    \item Implementar la posibilidad de diseñar y simular los sistemas de inferencia Takagi-Sugeno-Khan y Tsukamoto, los cuales son más acordes y utilizados en el área de los sistemas de control, adicionalmente, se puede incluir el controlador Larsen.
+    
+    \item Añadir una nueva función que incorpore un sistema SCADA con la finalidad de poner a prueba los controladores diseñados de forma experimental, para ello se puede utilizar las distintas librerías existentes que incorporan múltiples protocolos de comunicación, i.g., modBuss.
+    
+    \item Implementar algoritmos de resolución de sistema de ecuaciones diferenciales para problemas stiff como BDF y LSODAR que ofrecen mejores precisiones que las obtenidas con los métodos explícitos y embebidos.
+    
+    \item Implementar una consola que permita codificar Python dentro del Laboratorio Virtual y que se pueda distribuir utilizando un único archivo ejecutable, de este modo se obtendría una herramienta más completa y potente que permitiría realizar cálculo numérico y simbólico, graficacion y codificación general.  
+
+\end{enumerate}

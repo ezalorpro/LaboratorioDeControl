@@ -6,29 +6,26 @@
             "etiquetas": [
                 {
                     "nombre": "negativo",
-                    "mf": "trimf",
+                    "mf": "gaussmf",
                     "definicion": [
-                        -2.0,
-                        -1.0,
-                        0.0
+                        0.5,
+                        -1.0
                     ]
                 },
                 {
                     "nombre": "cero",
-                    "mf": "trimf",
+                    "mf": "gaussmf",
                     "definicion": [
-                        -1.0,
-                        0.0,
-                        1.0
+                        0.3,
+                        0.0
                     ]
                 },
                 {
                     "nombre": "positivo",
-                    "mf": "trimf",
+                    "mf": "gaussmf",
                     "definicion": [
-                        0.0,
-                        1.0,
-                        2.0
+                        0.5,
+                        1.0
                     ]
                 }
             ],
@@ -43,35 +40,32 @@
             "etiquetas": [
                 {
                     "nombre": "negativo",
-                    "mf": "trimf",
+                    "mf": "gaussmf",
                     "definicion": [
-                        -3.0,
-                        -2.0,
-                        0.0
+                        0.5,
+                        -1.0
                     ]
                 },
                 {
                     "nombre": "cero",
-                    "mf": "trimf",
+                    "mf": "gaussmf",
                     "definicion": [
-                        -2.0,
-                        0.0,
-                        2.0
+                        0.3,
+                        0.0
                     ]
                 },
                 {
                     "nombre": "positivo",
-                    "mf": "trimf",
+                    "mf": "gaussmf",
                     "definicion": [
-                        0.0,
-                        2.0,
-                        3.0
+                        0.5,
+                        1.0
                     ]
                 }
             ],
             "rango": [
-                -2,
-                2
+                -1,
+                1
             ]
         }
     ],
@@ -82,28 +76,31 @@
             "etiquetas": [
                 {
                     "nombre": "negativa",
-                    "mf": "trimf",
+                    "mf": "trapmf",
                     "definicion": [
                         -2.0,
-                        -1.0,
+                        -1.5,
+                        -0.85,
                         0.0
                     ]
                 },
                 {
                     "nombre": "cero",
-                    "mf": "trimf",
+                    "mf": "trapmf",
                     "definicion": [
                         -1.0,
-                        0.0,
+                        -0.1,
+                        0.1,
                         1.0
                     ]
                 },
                 {
                     "nombre": "positiva",
-                    "mf": "trimf",
+                    "mf": "trapmf",
                     "definicion": [
                         0.0,
-                        1.0,
+                        0.85,
+                        1.5,
                         2.0
                     ]
                 }
@@ -119,7 +116,7 @@
         [
             [
                 [
-                    "positivo",
+                    "cero",
                     0,
                     false
                 ],
@@ -131,9 +128,9 @@
             ],
             [
                 [
-                    "positiva",
+                    "cero",
                     0,
-                    1.0
+                    0.5
                 ]
             ],
             true
@@ -141,73 +138,7 @@
         [
             [
                 [
-                    "negativo",
-                    0,
-                    false
-                ],
-                [
-                    "positivo",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "negativa",
-                    0,
-                    1.0
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "positivo",
-                    0,
-                    false
-                ],
-                [
-                    "positivo",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "positiva",
-                    0,
-                    1.0
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "negativo",
-                    0,
-                    false
-                ],
-                [
-                    "negativo",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "negativa",
-                    0,
-                    1.0
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "positivo",
+                    "cero",
                     0,
                     false
                 ],
@@ -219,9 +150,9 @@
             ],
             [
                 [
-                    "positiva",
+                    "cero",
                     0,
-                    0.49999999999999956
+                    1.0
                 ]
             ],
             true
@@ -229,19 +160,19 @@
         [
             [
                 [
-                    "negativo",
+                    "cero",
                     0,
                     false
                 ],
                 [
-                    "cero",
+                    "positivo",
                     1,
                     false
                 ]
             ],
             [
                 [
-                    "negativa",
+                    "cero",
                     0,
                     0.5
                 ]
@@ -254,6 +185,11 @@
                     "positivo",
                     0,
                     false
+                ],
+                [
+                    "positivo",
+                    1,
+                    false
                 ]
             ],
             [
@@ -268,8 +204,57 @@
         [
             [
                 [
+                    "positivo",
+                    0,
+                    false
+                ],
+                [
+                    "cero",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "positiva",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
+                    "positivo",
+                    0,
+                    false
+                ],
+                [
+                    "negativo",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "cero",
+                    0,
+                    0.25
+                ]
+            ],
+            true
+        ],
+        [
+            [
+                [
                     "negativo",
                     0,
+                    false
+                ],
+                [
+                    "negativo",
+                    1,
                     false
                 ]
             ],
@@ -285,51 +270,29 @@
         [
             [
                 [
-                    "cero",
+                    "negativo",
                     0,
                     false
                 ],
+                [
+                    "cero",
+                    1,
+                    false
+                ]
+            ],
+            [
+                [
+                    "negativa",
+                    0,
+                    1.0
+                ]
+            ],
+            true
+        ],
+        [
+            [
                 [
                     "negativo",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "cero",
-                    0,
-                    0.2
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "cero",
-                    0,
-                    false
-                ],
-                [
-                    "cero",
-                    1,
-                    false
-                ]
-            ],
-            [
-                [
-                    "cero",
-                    0,
-                    0.2
-                ]
-            ],
-            true
-        ],
-        [
-            [
-                [
-                    "cero",
                     0,
                     false
                 ],
@@ -343,7 +306,7 @@
                 [
                     "cero",
                     0,
-                    0.2
+                    0.25
                 ]
             ],
             true

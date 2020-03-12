@@ -12,13 +12,32 @@
 \usepackage[final]{microtype}
 \usepackage{blindtext}
 
+\newcommand\Monthname[1][EMPTY]{%
+  \ifnum1=#1Enero\else
+  \ifnum2=#1Febrero\else
+  \ifnum3=#1Marzo\else
+  \ifnum4=#1Abril\else
+  \ifnum5=#1Mayo\else
+  \ifnum6=#1junio\else
+  \ifnum7=#1julio\else
+  \ifnum8=#1Agosto\else
+  \ifnum9=#1Septiembre\else
+  \ifnum10=#1Octubre\else
+  \ifnum11=#1Noviembre\else
+  \ifnum12=#1Diciembre\else
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+}
+ 
 \usepackage{datetime}
+	
 	\newdateformat{monthyeardate}{%
 		\monthname[\THEMONTH] de \THEYEAR}
-
-\usepackage{datetime}
+	
 	\newdateformat{daymonthyeardate}{%
 		\THEDAY de \monthname[\THEMONTH] de \THEYEAR}
+	
+	\newdateformat{monthyearFecha}{%
+		\Monthname[\THEMONTH], \THEYEAR}
 
 \usepackage[right=3cm, left=4cm, top=3cm, bottom=3cm, nohead=true, foot=20pt,
 includefoot, heightrounded]{geometry}
@@ -52,6 +71,7 @@ includefoot, heightrounded]{geometry}
 \usepackage{tcolorbox}
 \usepackage{array}
 \usepackage{multirow}
+\usepackage{multicol}
 \usepackage{booktabs}
 	\setlength\heavyrulewidth{0.9pt}
 
@@ -99,6 +119,7 @@ includefoot, heightrounded]{geometry}
 \usepackage{dblfloatfix}
 \usepackage{calc}
 \usepackage{pdflscape}
+\usepackage{siunitx}
 
 \usepackage{pgfgantt}
 \usetikzlibrary{backgrounds}

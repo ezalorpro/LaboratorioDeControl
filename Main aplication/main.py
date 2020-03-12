@@ -1,4 +1,4 @@
-""" [Archivo principal, en orden de ejecutar la aplicacion, este es el archivo a ejecutar] """
+""" Archivo principal, en orden de ejecutar la aplicacion, este es el archivo a ejecutar """
 
 
 from handlers.simulacionHandler import SimulacionHandler
@@ -13,21 +13,20 @@ import os
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     """
-    [Clase principal del programa, esta clase hereda de QMainWindow y Ui_MainWindow, la primera es la clase base de ventanas que ofrece Qt mientras que la segunda es la clase que se crea a partir de qtdesigner y quien posee toda la definicion de toda la interfaz grafica. Desde aca se ejecutan los archivos Handler, quienes son los manejadores de cada una de las funcionalidades del laboratorio virtual, estos Handlers se tratan como si fueran una extension de esta clase, por tanto, se les envia self y se recibe self y se sigue tratando como si fueran parte de la clase]
+    Clase principal del programa, esta clase hereda de QMainWindow y Ui_MainWindow, la primera es la clase base de ventanas que ofrece Qt mientras que la segunda es la clase que se crea a partir de qtdesigner y quien posee toda la definicion de toda la interfaz grafica. Desde aca se ejecutan los archivos Handler, quienes representan los enlaces entre las rutinas y la interfaz grafica de cada una de las funciones del laboratorio virtual, estos Handlers se tratan como si fueran una extension de esta clase, por tanto, se les envia self y se recibe self y se sigue tratando como si fuera parte de la clase.
     
-    :param QtWidgets: [Clase base de ventana ofrecida por Qt]
-    :type QtWidgets: [ObjectType]
-    :param Ui_MainWindow: [Clase con la interfaz grafica autogenerada con qtdesigner]
-    :type Ui_MainWindow: [ObjectType]
+    :param QtWidgets: Clase base de ventana ofrecida por Qt
+    :type QtWidgets: ObjectType
+    :param Ui_MainWindow: Clase con la interfaz grafica autogenerada con qtdesigner
+    :type Ui_MainWindow: ObjectType
     """
 
     def __init__(self, parent=None):
         """
-        [Constructor de la clase, aca se inicializan los objetos de las clases heredadas y 
-        se hacen los llamados a los Handlers]
+        Constructor de la clase, aca se inicializan los objetos de las clases heredadas y se hacen los llamados a los Handlers
         
-        :param parent: [Sin efecto], defaults to None
-        :type parent: [NoneType], optional
+        :param parent: Sin efecto, defaults to None
+        :type parent: NoneType, optional
         """
 
         super(MainWindow, self).__init__(parent)
@@ -37,7 +36,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.main.setupUi(self)
         self.showMaximized()
 
-        # Establcimiento del icono de la aplicacion
+        # Estableciendo del icono de la aplicacion
         icon = QtGui.QIcon()
         image_path = self.resource_path("icono.ico")
         icon.addPixmap(QtGui.QPixmap(image_path), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -57,22 +56,22 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def resource_path(self, relative_path):
         """
-        [Funcion para generar direcciones absolutas a partir de direcciones relativas]
+        Funcion para generar direcciones absolutas a partir de direcciones relativas
         
-        :param relative_path: [direccion relativa]
-        :type relative_path: [str]
+        :param relative_path: direccion relativa
+        :type relative_path: str
         """
 
         base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
         return os.path.join(base_path, relative_path)
 
     def closeEvent(self, event):
-        """ [Evento de cerrado de la ventana] """
+        """ Evento pera el cerrado de la ventana """
 
         error_dialog = QtWidgets.QMessageBox.question(
             self,
             "Laboratorio Virtual",
-            '¿Cerrar el programa? Los cambios no guardados se perderan',
+            '¿Cerrar el programa? Los cambios no guardados se perderán',
             QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel
         )
 

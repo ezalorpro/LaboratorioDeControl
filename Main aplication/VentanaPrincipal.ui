@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1426</width>
-    <height>695</height>
+    <width>1345</width>
+    <height>784</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -165,7 +165,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Laboratorio de sistemas de control</string>
+   <string>Laboratorio Virtual</string>
   </property>
   <property name="accessibleName">
    <string comment="asdads" extracomment="adsadsds"/>
@@ -423,15 +423,21 @@
       </property>
       <widget class="QWidget" name="analisisTab">
        <attribute name="title">
-        <string>Analisis</string>
+        <string>Análisis</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_7">
-            <item>
+            <item alignment="Qt::AlignHCenter">
              <widget class="QGroupBox" name="groupBox1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="title">
                <string/>
               </property>
@@ -449,12 +455,25 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
+               <item row="0" column="2">
                 <widget class="QRadioButton" name="ssradioButton1">
                  <property name="text">
                   <string>SS</string>
                  </property>
                 </widget>
+               </item>
+               <item row="0" column="1">
+                <spacer name="horizontalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </widget>
@@ -496,7 +515,7 @@
                    <string/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>0.1</string>
                   </property>
                   <property name="placeholderText">
                    <string>Periodo de muestreo</string>
@@ -539,7 +558,7 @@
                 <item row="6" column="0">
                  <widget class="QLabel" name="tfMetodoLabel1">
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -628,7 +647,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Coeficientes de la funcion de transferencia</string>
+                   <string>Coeficientes de la función de transferencia</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -648,10 +667,16 @@
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="6" column="1" alignment="Qt::AlignLeft">
                  <widget class="QComboBox" name="tfcomboBox1">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
                   <property name="editable">
                    <bool>false</bool>
@@ -723,6 +748,9 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
                   <property name="placeholderText">
                    <string>Delay en segundos</string>
                   </property>
@@ -755,10 +783,16 @@
                 <item row="9" column="0" colspan="2">
                  <widget class="QPlainTextEdit" name="ssdatosTextEdit1">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>214</width>
+                    <height>16777215</height>
+                   </size>
                   </property>
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
@@ -822,10 +856,16 @@
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
+                <item row="7" column="1" alignment="Qt::AlignLeft">
                  <widget class="QComboBox" name="sscomboBox1">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
                   <property name="currentText">
                    <string notr="true">zoh</string>
@@ -874,7 +914,7 @@
                 <item row="7" column="0">
                  <widget class="QLabel" name="ssMetodoLabel1">
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -916,7 +956,7 @@
                    <string/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>0.1</string>
                   </property>
                   <property name="placeholderText">
                    <string>Periodo de muestreo</string>
@@ -1005,6 +1045,15 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
                   <property name="placeholderText">
                    <string>Delay en segundos</string>
                   </property>
@@ -1042,7 +1091,7 @@
             </property>
             <widget class="QWidget" name="stepTab">
              <attribute name="title">
-              <string>Step</string>
+              <string>Escalón</string>
              </attribute>
              <layout class="QGridLayout" name="gridLayout_2">
               <item row="0" column="0">
@@ -1138,13 +1187,19 @@
       </widget>
       <widget class="QWidget" name="PIDTab">
        <attribute name="title">
-        <string>PID Tuning</string>
+        <string>Entonación</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_5">
-          <item>
+          <item alignment="Qt::AlignHCenter">
            <widget class="QGroupBox" name="groupBox2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="title">
              <string/>
             </property>
@@ -1155,7 +1210,14 @@
              <bool>true</bool>
             </property>
             <layout class="QGridLayout" name="gridLayout_14">
-             <item row="0" column="1">
+             <item row="0" column="4">
+              <widget class="QRadioButton" name="csvradioButton2">
+               <property name="text">
+                <string>CSV</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
               <widget class="QRadioButton" name="ssradioButton2">
                <property name="text">
                 <string>SS</string>
@@ -1172,12 +1234,37 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
-              <widget class="QRadioButton" name="csvradioButton2">
-               <property name="text">
-                <string>CSV</string>
+             <item row="0" column="1">
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
                </property>
-              </widget>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>10</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="3">
+              <spacer name="horizontalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>10</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -1281,6 +1368,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="text">
+                 <string>1</string>
+                </property>
                 <property name="placeholderText">
                  <string>Delay en segundos</string>
                 </property>
@@ -1310,6 +1400,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="text">
+                 <string>0.1</string>
+                </property>
                 <property name="placeholderText">
                  <string>Periodo de muestreo</string>
                 </property>
@@ -1321,14 +1414,20 @@
                  <bool>true</bool>
                 </property>
                 <property name="text">
-                 <string>Metodo</string>
+                 <string>Método</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
+              <item row="5" column="1" alignment="Qt::AlignLeft">
                <widget class="QComboBox" name="tfcomboBox2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <property name="currentText">
                  <string notr="true">zoh</string>
@@ -1384,14 +1483,20 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>Auto-Tuning</string>
+                 <string>Autotuning</string>
                 </property>
                </widget>
               </item>
-              <item row="6" column="1">
+              <item row="6" column="1" alignment="Qt::AlignLeft">
                <widget class="QComboBox" name="tfAutoTuningcomboBox2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <item>
                  <property name="text">
@@ -1433,7 +1538,7 @@
               <item row="8" column="0" colspan="2">
                <widget class="QPlainTextEdit" name="tfdatosTextEdit2">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -1484,7 +1589,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>slider - resolucion</string>
+                   <string>slider - resolución</string>
                   </property>
                  </widget>
                 </item>
@@ -1673,6 +1778,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="text">
+                 <string>1</string>
+                </property>
                 <property name="placeholderText">
                  <string>Delay en segundos</string>
                 </property>
@@ -1700,7 +1808,7 @@
                  <string/>
                 </property>
                 <property name="text">
-                 <string/>
+                 <string>0.1</string>
                 </property>
                 <property name="placeholderText">
                  <string>Periodo de muestreo</string>
@@ -1710,14 +1818,20 @@
               <item row="7" column="0">
                <widget class="QLabel" name="ssMetodoLabel2">
                 <property name="text">
-                 <string>Metodo</string>
+                 <string>Método</string>
                 </property>
                </widget>
               </item>
-              <item row="7" column="1">
+              <item row="7" column="1" alignment="Qt::AlignLeft">
                <widget class="QComboBox" name="sscomboBox2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <property name="currentText">
                  <string notr="true">zoh</string>
@@ -1768,14 +1882,20 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>Auto-Tuning</string>
+                 <string>Autotuning</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="1">
+              <item row="8" column="1" alignment="Qt::AlignLeft">
                <widget class="QComboBox" name="ssAutoTuningcomboBox2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <item>
                  <property name="text">
@@ -1817,7 +1937,7 @@
               <item row="10" column="0" colspan="2">
                <widget class="QPlainTextEdit" name="ssdatosTextEdit2">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -1916,7 +2036,7 @@
               <item row="0" column="0">
                <widget class="QLabel" name="direccionCSVLabel">
                 <property name="text">
-                 <string>Direccion del archivo CSV</string>
+                 <string>Dirección del archivo CSV</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -2002,7 +2122,7 @@
                      </size>
                     </property>
                     <property name="text">
-                     <string>Limite inferior de VP</string>
+                     <string>Límite inferior de VP</string>
                     </property>
                    </widget>
                   </item>
@@ -2027,7 +2147,7 @@
                      <enum>QFrame::Plain</enum>
                     </property>
                     <property name="text">
-                     <string>Limite superior de VP</string>
+                     <string>Límite superior de VP</string>
                     </property>
                    </widget>
                   </item>
@@ -2046,7 +2166,7 @@
                      </size>
                     </property>
                     <property name="text">
-                     <string>Limite inferior de EFC</string>
+                     <string>Límite inferior de EFC</string>
                     </property>
                    </widget>
                   </item>
@@ -2065,7 +2185,7 @@
                      </size>
                     </property>
                     <property name="text">
-                     <string>Limite superior de EFC</string>
+                     <string>Límite superior de EFC</string>
                     </property>
                    </widget>
                   </item>
@@ -2195,7 +2315,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -2205,7 +2325,7 @@
                    <bool>true</bool>
                   </property>
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -2781,7 +2901,7 @@
       </widget>
       <widget class="QWidget" name="fuzzyTab">
        <attribute name="title">
-        <string>Logica difusa</string>
+        <string>Lógica difusa</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_16">
         <item row="0" column="0">
@@ -2810,6 +2930,12 @@
             </item>
             <item row="1" column="1">
              <widget class="QComboBox" name="estrucNumberOutputs">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <item>
                <property name="text">
                 <string>1</string>
@@ -2963,6 +3089,17 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>8</pointsize>
+               </font>
+              </property>
               <item>
                <property name="text">
                 <string>PID difuso</string>
@@ -3005,6 +3142,12 @@
             </item>
             <item row="0" column="1">
              <widget class="QComboBox" name="estrucNumberInputs">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="currentIndex">
                <number>1</number>
               </property>
@@ -3122,28 +3265,28 @@
                    <item row="2" column="0">
                     <widget class="QLabel" name="label_36">
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Los diseños pueden ser cargados en formato .json y .fis, los diseños realizados en formato .fis no podran poseer salidas negadas debido a su incompatibilidad con Scikit-Fuzzy&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Los diseños pueden ser cargados en formato .json y .fis, los diseños realizados en formato .fis no podrán poseer salidas negadas debido a su incompatibilidad con Scikit-Fuzzy &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_34">
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- El boton generar inicializa la creacion de los controladores difusos, se pueden diseñar a partir del numero de entradas y salidas o de un esquema especifico, utilizar&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; un esquema garantiza que sera simulable.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- El botón generar inicializa la creación de los controladores difusos, se pueden diseñar a partir del número de entradas y salidas o de un esquema especifico, utilizar&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;un esquema garantiza que será simulable.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_35">
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;- Para realizar las pruebas y observar la superficie de respuesta ( uno y dos entradas ), se debe utilizar el boton &amp;quot;crear&amp;quot; en la pestaña de reglas, el controlador debera estar minimamente definido.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Para realizar las pruebas y observar la superficie de respuesta (uno y dos entradas), se debe utilizar el botón &amp;quot;crear&amp;quot; en la pestaña de reglas, el controlador deberá &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;estar mínimamente definido. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="0">
                     <widget class="QLabel" name="label_37">
                      <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Los diseños pueden guardarse en .json o ser exportados a .fis, en caso de ser exportados, todos los pesos de las salidas de una misma regla deberan ser iguales, esto es&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; debido a las limitaciones de los .fis que no permiten pesos individuales.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;- Los diseños pueden guardarse en .json o ser exportados a .fis, en caso de ser exportados, todos los pesos de las salidas de una misma regla deberán ser iguales, esto es &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;debido a las limitaciones de los .fis que no permiten pesos individuales. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -3414,7 +3557,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Titulo de la entrada</string>
+                     <string>Título de la entrada</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3479,7 +3622,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="inputNombre">
+                   <widget class="FocusLineEdit" name="inputNombre">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3525,7 +3668,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="inputEtiquetasNum">
+                   <widget class="FocusLineEdit" name="inputEtiquetasNum">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3544,7 +3687,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="inputRange">
+                   <widget class="FocusLineEdit" name="inputRange">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3595,7 +3738,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Nombre de eitqueta</string>
+                     <string>Nombre de etiqueta</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3611,7 +3754,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Funcion de membresia</string>
+                     <string>Función de membresía</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3627,7 +3770,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Definicion</string>
+                     <string>Definición</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3666,7 +3809,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="etiquetaNombreIn">
+                   <widget class="FocusLineEdit" name="etiquetaNombreIn">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3759,7 +3902,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="etiquetaDefinicionIn">
+                   <widget class="FocusLineEdit" name="etiquetaDefinicionIn">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -3849,7 +3992,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Nombre de eitqueta</string>
+                     <string>Nombre de etiqueta</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3865,7 +4008,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Funcion de membresia</string>
+                     <string>Función de membresía</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3881,7 +4024,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Definicion</string>
+                     <string>Definición</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3920,7 +4063,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="etiquetaNombreOut">
+                   <widget class="FocusLineEdit" name="etiquetaNombreOut">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4013,7 +4156,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="etiquetaDefinicionOut">
+                   <widget class="FocusLineEdit" name="etiquetaDefinicionOut">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4070,7 +4213,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Titulo de la salida</string>
+                     <string>Título de la salida</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4151,7 +4294,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="outputNombre">
+                   <widget class="FocusLineEdit" name="outputNombre">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4170,7 +4313,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="outputEtiquetasNum">
+                   <widget class="FocusLineEdit" name="outputEtiquetasNum">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4189,7 +4332,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="outputRange">
+                   <widget class="FocusLineEdit" name="outputRange">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -4207,8 +4350,14 @@
                     </property>
                    </widget>
                   </item>
-                  <item>
+                  <item alignment="Qt::AlignRight">
                    <widget class="QComboBox" name="defuzzMethodOut">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
                     <item>
                      <property name="text">
                       <string>centroid</string>
@@ -5081,9 +5230,6 @@
                            <property name="singleStep">
                             <double>0.010000000000000</double>
                            </property>
-                           <property name="stepType">
-                            <enum>QAbstractSpinBox::DefaultStepType</enum>
-                           </property>
                            <property name="value">
                             <double>1.000000000000000</double>
                            </property>
@@ -5748,7 +5894,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>111</width>
-                   <height>2962</height>
+                   <height>2944</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_55">
@@ -5761,7 +5907,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -5834,7 +5980,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -5907,7 +6053,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -5980,7 +6126,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6053,7 +6199,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6126,7 +6272,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6199,7 +6345,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6272,7 +6418,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6418,7 +6564,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6499,8 +6645,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>111</width>
-                   <height>2632</height>
+                   <width>109</width>
+                   <height>2612</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_54">
@@ -6513,7 +6659,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6561,7 +6707,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6609,7 +6755,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6657,7 +6803,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6705,7 +6851,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6753,7 +6899,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6801,7 +6947,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6849,7 +6995,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6897,7 +7043,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -6945,7 +7091,7 @@
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                     <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Raised</enum>
@@ -7001,7 +7147,7 @@
                  <enum>QFrame::NoFrame</enum>
                 </property>
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="page">
                  <layout class="QGridLayout" name="gridLayout_92">
@@ -7635,7 +7781,7 @@
       </widget>
       <widget class="QWidget" name="controlSimulacion">
        <attribute name="title">
-        <string>Simulacion</string>
+        <string>Simulación</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_109">
         <item row="0" column="1">
@@ -7672,7 +7818,7 @@
                   </sizepolicy>
                  </property>
                  <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;-- Bloques adicionales, solo formaran parte del sistema si son explicitamente habilitados&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;-- Bloques adicionales, solo formaran parte del sistema si son explícitamente habilitados&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                 </widget>
                </item>
@@ -7711,7 +7857,7 @@
           </widget>
           <widget class="QWidget" name="tab">
            <attribute name="title">
-            <string>Simulacion</string>
+            <string>Simulación</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_98">
             <item row="0" column="0">
@@ -7749,10 +7895,10 @@
             </property>
            </widget>
           </item>
-          <item>
+          <item alignment="Qt::AlignHCenter">
            <widget class="QGroupBox" name="groupBox1_2">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -7773,7 +7919,7 @@
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item row="1" column="0">
+             <item row="1" column="0" alignment="Qt::AlignHCenter">
               <widget class="QRadioButton" name="tfradioButton4">
                <property name="text">
                 <string>TF</string>
@@ -7783,17 +7929,30 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
+             <item row="1" column="2" alignment="Qt::AlignHCenter">
               <widget class="QRadioButton" name="ssradioButton4">
                <property name="text">
                 <string>SS</string>
                </property>
               </widget>
              </item>
+             <item row="1" column="1">
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </widget>
           </item>
-          <item>
+          <item alignment="Qt::AlignHCenter">
            <widget class="QStackedWidget" name="SimulacionstackedWidget">
             <property name="enabled">
              <bool>true</bool>
@@ -7887,7 +8046,7 @@
                    <string/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>0.1</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -7919,6 +8078,9 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
@@ -7934,7 +8096,7 @@
                 <item>
                  <widget class="QLabel" name="tfMetodoLabel4">
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -8042,7 +8204,7 @@
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>Coeficientes de la funcion de transferencia</string>
+                 <string>Coeficientes de la función de transferencia</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -8070,7 +8232,7 @@
                 <item>
                  <widget class="QLabel" name="ssMetodoLabel4">
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -8258,7 +8420,7 @@
                    <string/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>0.1</string>
                   </property>
                   <property name="placeholderText">
                    <string>Periodo de muestreo</string>
@@ -8320,6 +8482,9 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
                   <property name="placeholderText">
                    <string>Delay en segundos</string>
                   </property>
@@ -8354,7 +8519,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>262</width>
+              <width>291</width>
               <height>300</height>
              </size>
             </property>
@@ -8375,8 +8540,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>262</width>
-               <height>180</height>
+               <width>253</width>
+               <height>106</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8384,7 +8549,7 @@
                <normaloff>:/iconos/arrow.ico</normaloff>:/iconos/arrow.ico</iconset>
              </attribute>
              <attribute name="label">
-              <string>Configuracion general</string>
+              <string>Configuración general</string>
              </attribute>
              <layout class="QGridLayout" name="gridLayout_99">
               <property name="leftMargin">
@@ -8554,7 +8719,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>setpoint avazado</string>
+                   <string>setpoint avanzado</string>
                   </property>
                  </widget>
                 </item>
@@ -8592,8 +8757,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>245</width>
-               <height>239</height>
+               <width>223</width>
+               <height>268</height>
               </rect>
              </property>
              <attribute name="icon">
@@ -8601,13 +8766,13 @@
                <normaloff>:/iconos/arrow.ico</normaloff>:/iconos/arrow.ico</iconset>
              </attribute>
              <attribute name="label">
-              <string>Configuracion avanzada (continuo)</string>
+              <string>Configuración avanzada (continuo)</string>
              </attribute>
-             <layout class="QGridLayout" name="gridLayout_115">
-              <item row="5" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_55">
+             <layout class="QGridLayout" name="gridLayout_111">
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_51">
                 <item>
-                 <widget class="QLabel" name="label_31">
+                 <widget class="QLabel" name="label_30">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -8615,12 +8780,12 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Max. incre. de paso</string>
+                   <string>Orden del pade</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="maxStepIncr">
+                 <widget class="QLineEdit" name="padeOrder">
                   <property name="maximumSize">
                    <size>
                     <width>86</width>
@@ -8628,7 +8793,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>5</string>
+                   <string>10</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8638,6 +8803,42 @@
                </layout>
               </item>
               <item row="1" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_23">
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="labelFiltroCheck">
+                  <property name="text">
+                   <string>Filtro para limitar la derivada</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="filtroCheck">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="checked">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
                <layout class="QHBoxLayout" name="horizontalLayout_52">
                 <item>
                  <widget class="QLabel" name="label_27">
@@ -8648,7 +8849,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Metodo</string>
+                   <string>Método</string>
                   </property>
                  </widget>
                 </item>
@@ -8661,7 +8862,7 @@
                    </sizepolicy>
                   </property>
                   <property name="currentIndex">
-                   <number>8</number>
+                   <number>0</number>
                   </property>
                   <property name="maxVisibleItems">
                    <number>20</number>
@@ -8713,7 +8914,7 @@
                   </item>
                   <item>
                    <property name="text">
-                    <string>Bogacki-Shampine 2(3)</string>
+                    <string>Bogacki-Shampine 3(2)</string>
                    </property>
                   </item>
                   <item>
@@ -8731,39 +8932,6 @@
                     <string>Dormand-Prince 5(4)</string>
                    </property>
                   </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item row="7" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_57">
-                <item>
-                 <widget class="QLabel" name="label_33">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Factor de seguridad</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="safetyFactor">
-                  <property name="maximumSize">
-                   <size>
-                    <width>86</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>0.9</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
                  </widget>
                 </item>
                </layout>
@@ -8792,7 +8960,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>1e-3</string>
+                   <string>1e-5</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8801,10 +8969,10 @@
                 </item>
                </layout>
               </item>
-              <item row="0" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_51">
+              <item row="4" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_54">
                 <item>
-                 <widget class="QLabel" name="label_30">
+                 <widget class="QLabel" name="label_29">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -8812,12 +8980,12 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Orden del pade</string>
+                   <string>Tolerancia absoluta</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="padeOrder">
+                 <widget class="QLineEdit" name="atolLineEdit">
                   <property name="maximumSize">
                    <size>
                     <width>86</width>
@@ -8825,7 +8993,40 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>10</string>
+                   <string>1e-6</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="5" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_55">
+                <item>
+                 <widget class="QLabel" name="label_31">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Max. incre. de paso</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="maxStepIncr">
+                  <property name="maximumSize">
+                   <size>
+                    <width>86</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>5</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8873,10 +9074,10 @@
                 </item>
                </layout>
               </item>
-              <item row="4" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_54">
+              <item row="7" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_57">
                 <item>
-                 <widget class="QLabel" name="label_29">
+                 <widget class="QLabel" name="label_33">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -8884,12 +9085,12 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Tolerancia Absoluta</string>
+                   <string>Factor de seguridad</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="atolLineEdit">
+                 <widget class="QLineEdit" name="safetyFactor">
                   <property name="maximumSize">
                    <size>
                     <width>86</width>
@@ -8897,7 +9098,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>3e-6</string>
+                   <string>0.9</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -8930,7 +9131,7 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Restablecer configuracion por defecto</string>
+                   <string>Restablecer configuración por defecto</string>
                   </property>
                  </widget>
                 </item>
@@ -9660,7 +9861,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1426</width>
+     <width>1345</width>
      <height>21</height>
     </rect>
    </property>
@@ -9684,29 +9885,34 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MlpWidget</class>
-   <extends>QGraphicsView</extends>
-   <header>mlpwidget</header>
-  </customwidget>
-  <customwidget>
-   <class>MlpWidgetSubplot</class>
-   <extends>QGraphicsView</extends>
-   <header>mlpwidget</header>
-  </customwidget>
-  <customwidget>
-   <class>PgraphWidget</class>
-   <extends>QGraphicsView</extends>
-   <header>pyqtgraphWidget</header>
+   <class>FocusLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>promociones.focusLineEdit</header>
   </customwidget>
   <customwidget>
    <class>PgraphWidgetpid</class>
    <extends>QGraphicsView</extends>
-   <header>pyqtgraphWidget</header>
+   <header>promociones.pyqtgraphWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>PgraphWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>promociones.pyqtgraphWidget</header>
   </customwidget>
   <customwidget>
    <class>MlpWidget3D</class>
    <extends>QGraphicsView</extends>
-   <header>mlpwidget</header>
+   <header>promociones.mlpwidget</header>
+  </customwidget>
+  <customwidget>
+   <class>MlpWidgetSubplot</class>
+   <extends>QGraphicsView</extends>
+   <header>promociones.mlpwidget</header>
+  </customwidget>
+  <customwidget>
+   <class>MlpWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>promociones.mlpwidget</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -1,0 +1,35 @@
+\documentclass[tikz, border=0mm]{standalone}
+\usepackage[edges]{forest}
+\usetikzlibrary{shapes,arrows,positioning, calc, fit}
+
+\begin{document}
+\begin{forest}
+    for tree={
+        grow'=east,
+        parent anchor=east, child anchor=west,
+        draw,
+        anchor=west,
+        text height=1.4ex, text depth=0.2ex
+    },
+    forked edges,
+    [Main
+        [Análisis
+            [rutinas análisis, tier=this]
+        ]
+        
+        [Entonación
+            [rutinas PID, tier=this]
+            [rutinas CSV, tier=this]
+        ]
+        [Lógica difusa
+            [rutinas fuzzy, tier=this]
+            [modificador de mf, tier=this]
+        ]
+        [Simulación
+            [rutinas simulación, tier=this]
+            [rutinas rk, tier=this]
+            [rutinas fuzzy, tier=this]
+        ]
+    ]
+\end{forest}
+\end{document}

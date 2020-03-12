@@ -1,4 +1,13 @@
 import cProfile
-from rk4adaptativo import ejecutar
+from fuzzRuleProfile import ejecutar
+import time
+Controlador, error, derror = ejecutar()
 
-cProfile.runctx('''ejecutar()''', globals(), locals(), 'myProfilingFile.pstats')
+cProfile.runctx(
+    '''start = time.time()
+for valores in zip(error, derror):
+    Controlador.calcular_valor(valores)
+print(f"Total time: {time.time() - start}")''',
+    globals(),
+    locals(),
+    'myProfilingFile.pstats')

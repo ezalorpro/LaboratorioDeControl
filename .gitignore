@@ -1,6 +1,7 @@
 *.*
 build
 virtualenv
+virtualenvqt
 dist
 vtkmodules
 !main.spec
@@ -18,4 +19,16 @@ vtkmodules
 !*.fls
 !imagenes
 !*.jpg
+!*.m
+!*.mat
+!*.pkl
+!*.xlsx
+!*.slx
+!*.fis
+!*.pyd
+!*.ico
+!*.zcos
+!Main aplication/doc/**
+!Main aplication/Documentacion/**
+readMeta.m
 esquemas tikz/*.fls
