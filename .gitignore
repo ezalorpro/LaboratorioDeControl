@@ -28,6 +28,7 @@ vtkmodules
 !*.pyd
 !*.ico
 !*.zcos
+!*.qrc
 !Main aplication/doc/**
 !Main aplication/Documentacion/**
 readMeta.m
