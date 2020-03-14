@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Archivo Handler para la función de análisis &mdash; documentación de Laboratorio Virtual de sistemas de control clasicos y difusos utilizando software libre - 1.0</title>
+  <title>3.2.1. Archivo Handler para la función de análisis &mdash; documentación de Laboratorio Virtual - 1.0</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
-    <link rel="next" title="Archivo de rutinas para la función de análisis" href="rutinas_analisis.html" />
-    <link rel="prev" title="Archivo principal (main)" href="Principal.html" /> 
+    <link rel="next" title="3.2.1.1. Archivo de rutinas para la función de análisis" href="rutinas_analisis.html" />
+    <link rel="prev" title="3.2. Archivo principal (main)" href="Principal.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Laboratorio Virtual de sistemas de control clasicos y difusos utilizando software libre
+            <a href="../index.html" class="icon icon-home"> Laboratorio Virtual
           
 
           
@@ -83,15 +83,20 @@
             
               <p class="caption"><span class="caption-text">Contenido:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Promociones.html">Promociones de Widgets</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="Principal.html">Archivo principal (main)</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Archivo Handler para la función de análisis</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="rutinas_analisis.html">Archivo de rutinas para la función de análisis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="HowToUse.html">1. Como usar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Estructura.html">2. La aplicación</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Documentacion.html">3. Documentación automática</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Promociones.html">3.1. Promociones de Widgets</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Principal.html">3.2. Archivo principal (main)</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3.2.1. Archivo Handler para la función de análisis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="rutinas_analisis.html">3.2.1.1. Archivo de rutinas para la función de análisis</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="TuningHandler.html">Archivo Handler para la función de entonación de controladores PID</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FuzzyHandler.html">Archivo Handler para la función de lógica difusa</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simulacionHandler.html">Archivo Handler para la función de simulación de sistemas de control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TuningHandler.html">3.2.2. Archivo Handler para la función de entonación de controladores PID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FuzzyHandler.html">3.2.3. Archivo Handler para la función de lógica difusa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simulacionHandler.html">3.2.4. Archivo Handler para la función de simulación de sistemas de control</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -108,7 +113,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Laboratorio Virtual de sistemas de control clasicos y difusos utilizando software libre</a>
+          <a href="../index.html">Laboratorio Virtual</a>
         
       </nav>
 
@@ -139,9 +144,11 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="Principal.html">Archivo principal (main)</a> &raquo;</li>
+          <li><a href="Documentacion.html"><span class="section-number">3. </span>Documentación automática</a> &raquo;</li>
         
-      <li>Archivo Handler para la función de análisis</li>
+          <li><a href="Principal.html"><span class="section-number">3.2. </span>Archivo principal (main)</a> &raquo;</li>
+        
+      <li><span class="section-number">3.2.1. </span>Archivo Handler para la función de análisis</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,102 +168,102 @@
            <div itemprop="articleBody">
             
   <div class="section" id="archivo-handler-para-la-funcion-de-analisis">
-<h1>Archivo Handler para la función de análisis<a class="headerlink" href="#archivo-handler-para-la-funcion-de-analisis" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1><span class="section-number">3.2.1. </span>Archivo Handler para la función de análisis<a class="headerlink" href="#archivo-handler-para-la-funcion-de-analisis" title="Enlazar permanentemente con este título">¶</a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Rutinas asociadas:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="rutinas_analisis.html">Archivo de rutinas para la función de análisis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rutinas_analisis.html">3.2.1.1. Archivo de rutinas para la función de análisis</a></li>
 </ul>
 </div>
-<span class="target" id="module-analisisHandler"></span><p>Archivo para el manejo de la funcion de analisis de sistemas de control, sirve de intermediario entre la interfaz grafica y las rutinas de analisis</p>
+<span class="target" id="module-analisisHandler"></span><p>Archivo para el manejo de la función de analisis de sistemas de control, sirve de intermediario entre la interfaz gráfica y las rutinas de analisis</p>
 <dl class="function">
 <dt id="analisisHandler.AnalisisHandler">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">AnalisisHandler</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#AnalisisHandler"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.AnalisisHandler" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Funcion principal para el manejo de la funcionalida de analisis de sistemas de control, se crean las señales a ejecutar cuando se interactua con los widgets incluyendo las validaciones de entradas</p>
+<dd><p>Función principal para el manejo de la funcionalida de analisis de sistemas de control, se crean las señales a ejecutar cuando se interactuá con los widgets incluyendo las validaciones de entradas</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.analisis_bool_discreto">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">analisis_bool_discreto</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#analisis_bool_discreto"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.analisis_bool_discreto" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Funcion para habilitar y deshabilitar el periodo de muestreo</p>
+<dd><p>Función para habilitar y deshabilitar el periodo de muestreo</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.analisis_stacked_to_ss">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">analisis_stacked_to_ss</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#analisis_stacked_to_ss"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.analisis_stacked_to_ss" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Funcion para cambiar de funcion de transferencia a ecuacion de espacio de estados</p>
+<dd><p>Función para cambiar de función de transferencia a ecuación de espacio de estados</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.analisis_stacked_to_tf">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">analisis_stacked_to_tf</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#analisis_stacked_to_tf"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.analisis_stacked_to_tf" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Funcion para cambiar de ecuacion de espacio de estados a funcion de transferencia</p>
+<dd><p>Función para cambiar de ecuación de espacio de estados a función de transferencia</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.calcular_analisis">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">calcular_analisis</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#calcular_analisis"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.calcular_analisis" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Funcion para realizar el los calculos necesarios para la funcionalidad de analisis de sistemas de control, el llamado a esta funcion se realiza por medio del boton calcular</p>
+<dd><p>Función para realizar el los calculos necesarios para la funcionalidad de analisis de sistemas de control, el llamado a esta función se realiza por medio del botón calcular</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.ssA_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">ssA_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#ssA_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.ssA_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion de la matriz de estados de la ecuacion de espacio de estados</p>
+<dd><p>Validación de la matriz de estados de la ecuación de espacio de estados</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.ssB_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">ssB_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#ssB_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.ssB_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion de la matriz de entrada de la ecuacion de espacio de estados</p>
+<dd><p>Validación de la matriz de entrada de la ecuación de espacio de estados</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.ssC_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">ssC_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#ssC_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.ssC_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion de la matriz de salida de la ecuacion de espacio de estados</p>
+<dd><p>Validación de la matriz de salida de la ecuación de espacio de estados</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.ssD_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">ssD_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#ssD_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.ssD_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion de la matriz de transmision directa de la ecuacion de espacio de estados</p>
+<dd><p>Validación de la matriz de transmisión directa de la ecuación de espacio de estados</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.ssdelay_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">ssdelay_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#ssdelay_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.ssdelay_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion del delay de la ecuacion de espacio de estados</p>
+<dd><p>Validación del delay de la ecuación de espacio de estados</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.ssperiodo_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">ssperiodo_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#ssperiodo_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.ssperiodo_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion del periodo de muestreo de la ecuacion de espacio de estados</p>
+<dd><p>Validación del periodo de muestreo de la ecuación de espacio de estados</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.tfdelay_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">tfdelay_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#tfdelay_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.tfdelay_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion del delay de la funcion de transferencia</p>
+<dd><p>Validación del delay de la función de transferencia</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.tfdem_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">tfdem_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#tfdem_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.tfdem_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion del denominador de la funcion de transferencia</p>
+<dd><p>Validación del denominador de la función de transferencia</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.tfnum_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">tfnum_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#tfnum_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.tfnum_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion del numerador de la funcion de transferencia</p>
+<dd><p>Validación del numerador de la función de transferencia</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="analisisHandler.tfperiodo_validator">
 <code class="sig-prename descclassname">analisisHandler.</code><code class="sig-name descname">tfperiodo_validator</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/analisisHandler.html#tfperiodo_validator"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#analisisHandler.tfperiodo_validator" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Validacion del periodo de muestreo de la funcion de transferencia</p>
+<dd><p>Validación del periodo de muestreo de la función de transferencia</p>
 </dd></dl>
 
 </div>
@@ -269,10 +276,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="rutinas_analisis.html" class="btn btn-neutral float-right" title="Archivo de rutinas para la función de análisis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="rutinas_analisis.html" class="btn btn-neutral float-right" title="3.2.1.1. Archivo de rutinas para la función de análisis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Principal.html" class="btn btn-neutral float-left" title="Archivo principal (main)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Principal.html" class="btn btn-neutral float-left" title="3.2. Archivo principal (main)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
