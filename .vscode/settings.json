@@ -19,7 +19,7 @@
         "**/*.synctex.gz": true,
         "**/tobedeleted": true,
     },
-    "python.pythonPath": "virtualenv\\Scripts\\python.exe",
+    "python.pythonPath": "C:\\Users\\PC\\Documents\\Descargas chrome\\NO TOCAR MALDITO IDIOTA!! ZZZZ\\kleiver\\Tesis\\Nueva tesis\\LaboratorioDeControl\\virtualenv\\Scripts\\python.exe",
     "latex-workshop.view.pdf.external.viewer.command": "C://Program Files//SumatraPDF//SumatraPDF.exe",
     "latex-workshop.view.pdf.external.viewer.args": [
         "%PDF%"
